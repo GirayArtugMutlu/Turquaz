@@ -172,7 +172,7 @@ public class InvBLCardAdd {
             invGroup
                     .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 
-            cardAdd.saveOrUpdateInventoryGroup(invGroup);
+            cardAdd.saveOrUpdateObject(invGroup);
 
         } catch (Exception ex) {
             throw ex;

@@ -81,6 +81,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CLabel lblCurrentCard;
 	private CLabel lblTransactionGroup;
 	private Table tableCurrentTransactions;
+	private TableColumn tableColumnCurrentName;
 	private Text txtDefinition;
 	private CLabel lblDefinition;
 	private TableColumn tableColumn;
@@ -111,7 +112,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		try {
 			preInitGUI();
 
-			this.setSize(638, 381);
+			this.setSize(771, 402);
 
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -246,6 +247,13 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnCurrentCode.setText(Messages.getString("CurUITransactionSearch.5")); //$NON-NLS-1$
 					tableColumnCurrentCode.setWidth(82);
 				}
+				//START >>  tableColumnCurrentName
+				tableColumnCurrentName = new TableColumn(
+					tableCurrentTransactions,
+					SWT.NONE);
+				tableColumnCurrentName.setText("Cari Ad\u0131");
+				tableColumnCurrentName.setWidth(122);
+				//END <<  tableColumnCurrentName
 				{
 					tableColumnTransGroup = new TableColumn(
 						tableCurrentTransactions,
@@ -265,14 +273,14 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 						tableCurrentTransactions,
 						SWT.RIGHT);
 					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
-					tableColumnDebit.setWidth(106);
+					tableColumnDebit.setWidth(62);
 				}
 				{
 					tableColumnCredit = new TableColumn(
 						tableCurrentTransactions,
 						SWT.RIGHT);
 					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
-					tableColumnCredit.setWidth(101);
+					tableColumnCredit.setWidth(68);
 				}
 
 			}
@@ -354,6 +362,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 								DatePicker.formatter.format(transaction.getTransactionsDate()),
 								transaction.getTransactionsDocumentNo().toString(),
 								transaction.getTurqCurrentCard().getCardsCurrentCode(),
+								transaction.getTurqCurrentCard().getCardsName(),
 							  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
 							  transaction.getTransactionsDefinition(),
 							  cf.format(transaction.getTransactionsTotalDept()),

@@ -179,7 +179,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	
 	public void postInitGUI()
 	{
-	    if(cashTrans.getTurqEngineSequence().getEngineSequencesId().intValue()!= EngBLCommon.MODULE_CASH)
+	    if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()!= EngBLCommon.MODULE_CASH)
 	    {	    
 	     toolUpdate.setEnabled(false);
 	     tooldelete.setEnabled(false);
