@@ -42,6 +42,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
     TurqCurrentTransaction curTrans;
+    private boolean updated=false;
 
 
 	public CurUIVoucherUpdate(Shell parent, int style, TurqCurrentTransaction curTrans){
@@ -49,7 +50,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 		this.curTrans = curTrans;
 	}
 
-	public void open() {
+	public boolean open() {
 		try {
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -140,8 +141,10 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -167,6 +170,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	public void update(){
 	if(compVoucher.verifyFields())
 	{
+		updated=true;
 	    curTrans.setTurqCurrentCard((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
 	    curTrans.setTransactionsDate(compVoucher.getDateTransDate().getDate());
 	    curTrans.setTransactionsDefinition(compVoucher.getTxtDefinition().getText().trim());
@@ -188,6 +192,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	        
 	        if(EngUICommon.okToDelete(getParent()))
 	        {
+	        	updated=true;
 	            CurBLTransactionUpdate.delete(curTrans);
 	        }
 	    }

@@ -57,6 +57,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.current.ui.comp.CurrentPicker;
 /**
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -78,7 +79,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CLabel lblCurrentCard;
 	private CLabel lblTransactionGroup;
 	private Table tableCurrentTransactions;
-	private Text txtCurCard;
+	private CurrentPicker txtCurCard;
 	private TableColumn tableColumnDocNo;
 	private TableColumn tableColumnTransDate;
 	private TableColumn tableColumnCredit;
@@ -130,7 +131,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurCard = new Text(composite1, SWT.NONE);
+					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
 					txtCurCardLData.widthHint = 174;
 					txtCurCardLData.heightHint = 20;
@@ -356,8 +357,9 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		TurqCurrentTransaction trans = (TurqCurrentTransaction)items[0].getData();
 			//nakit hareketi ise izin ver
 		if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==EngBLCommon.CURRENT_TRANS_OTHERS){
-		new CurUIVoucherUpdate(this.getShell(),SWT.NULL,trans).open();
-		search();
+			boolean updated=new CurUIVoucherUpdate(this.getShell(),SWT.NULL,trans).open();
+			if (updated)
+				search();
 	
 		}
 		else{
