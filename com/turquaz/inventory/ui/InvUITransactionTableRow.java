@@ -31,9 +31,11 @@ public class InvUITransactionTableRow implements ITableRow {
     String units [];
     TurqInventoryCardUnit cardUnits[];
     TurqInventoryUnit base_unit;
+    int base_unit_index = -1;
     InvBLCardSearch blCardSearch= new InvBLCardSearch();
     TableViewer tableViewer ;
     int transAmount = 0;
+    int transAmountinBaseUnit=0;
     /*
      * type 0 = Buy 
      * type 1 = Sell
@@ -145,7 +147,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Specail VAT Total 
-			    result = invTrans.getTransactionsVatAmount().toString();
+			    result = invTrans.getTransactionsVatSpecialAmount().toString();
 				break;
 				
 			case 12 : //Cumulative Price
@@ -163,7 +165,19 @@ public class InvUITransactionTableRow implements ITableRow {
 
     
     
-    public void fillUnits(TurqInventoryCard invCard){
+    public void fillDefaults(TurqInventoryCard invCard){
+        
+        //KDV Yuzdesi 
+        
+        invTrans.setTransactionsVat(invCard.getCardVat());
+        
+        
+        //ÖTV Yuzdesi
+        
+        invTrans.setTransactionsVatSpecial(new BigDecimal(invCard.getCardSpecialVat()));
+        
+        
+        //Birimleri doldur
         List unit_list = new ArrayList();            
         Set set = invCard.getTurqInventoryCardUnits();
         Iterator it = set.iterator();
@@ -175,8 +189,7 @@ public class InvUITransactionTableRow implements ITableRow {
             }
         }
         
-        unit_index=new Integer(0);
-        unit_text = base_unit.getUnitsName();
+       
         
         cardUnits = new TurqInventoryCardUnit[unit_list.size()];
         units = new String[unit_list.size()];
@@ -184,9 +197,14 @@ public class InvUITransactionTableRow implements ITableRow {
         unit_list.toArray(cardUnits);
         
         for(int i=0;i<unit_list.size();i++){
+            
             units[i] = cardUnits[i].getTurqInventoryUnit().getUnitsName();
+            if(base_unit == cardUnits[i].getTurqInventoryUnit()){
+                base_unit_index = i;
+            }
         }
-        
+        unit_index=new Integer(base_unit_index);
+        unit_text = base_unit.getUnitsName();
     }
        
     
@@ -261,7 +279,7 @@ public class InvUITransactionTableRow implements ITableRow {
 				break;
 				
 			case 11 : // Specail VAT Total 
-			    result = invTrans.getTransactionsVatAmount().toString();
+			    result = invTrans.getTransactionsVatSpecialAmount().toString();
 				break;
 				
 			case 12 : //Cumulative Price
@@ -288,7 +306,7 @@ public class InvUITransactionTableRow implements ITableRow {
 					 if(invCard!=null){
 					    invTrans.setTurqInventoryCard(invCard);
 					    blCardSearch.initializeInventoryCard(invCard);
-					    fillUnits(invCard);
+					    fillDefaults(invCard);
 					    updateComboBoxEditor();
 					 }	
 					}
@@ -307,13 +325,10 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	    formatted="0";
 			 	}
 			 	transAmount = Integer.parseInt(formatted);
-			 				 	
-			 	if(transType==0){
-				    invTrans.setTransactionsAmountIn(transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor());
-				}
-				else{
-				    invTrans.setTransactionsTotalAmountOut(transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor());
-				 }
+			 	
+			 	
+			 
+			 	
 				break;
 			    
 			case 3 :  //Unit
@@ -339,6 +354,7 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	    formatted="0";
 			 	}
 			 	invTrans.setTransactionsUnitPrice(new BigDecimal(formatted));
+			 	
 				break;
 				
 			case 7 : // total Price 
@@ -378,9 +394,32 @@ public class InvUITransactionTableRow implements ITableRow {
 			default :
 				
 		}
-       
+       calculateFields();
         
         
+    }
+    
+    
+    public void calculateFields(){
+        
+        transAmountinBaseUnit = transAmount*cardUnits[unit_index.intValue()].getCardUnitsFactor();
+        
+        invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit)));
+    	
+        BigDecimal total_price = invTrans.getTransactionsUnitPrice().multiply(new BigDecimal(transAmountinBaseUnit));
+	 	
+        invTrans.setTransactionsTotalPrice(total_price); 
+	 	
+        if(transType==0){
+		    invTrans.setTransactionsAmountIn(transAmountinBaseUnit);
+        }
+		else{
+		    invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
+		 }
+        
+        invTrans.setTransactionsVatAmount(invTrans.getTransactionsTotalPrice().multiply(new BigDecimal(invTrans.getTransactionsVat())).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        invTrans.setTransactionsVatSpecialAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsVatSpecial()).divide(new BigDecimal(100),2,BigDecimal.ROUND_HALF_DOWN));
+        invTrans.setTransactionsCumilativePrice(invTrans.getTransactionsTotalPrice().add(invTrans.getTransactionsVatSpecialAmount()).add(invTrans.getTransactionsVatAmount()));
     }
     
     public String[] getUnits(){
