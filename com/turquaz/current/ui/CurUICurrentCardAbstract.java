@@ -70,6 +70,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private TableColumn tableColumnTransDate;
 	private Composite compResult;
 	private CurBLSearchTransaction BLsearch=new CurBLSearchTransaction();
+	private TurqCurrentCard currentCard=null;
 
 	/**
 	* Auto-generated main method to display this 
@@ -279,7 +280,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				msg.open();
 				return;			
 			}
-			TurqCurrentCard currentCard=(TurqCurrentCard)txtCurrentCard.getData();
+			currentCard=(TurqCurrentCard)txtCurrentCard.getData();
 			tableCurrentTransactions.removeAll();
 			Date startDate=datePickerStartDate.getDate();
 			Date endDate=datePickerEndDate.getDate();
@@ -318,7 +319,11 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCurrentTransactions,""); //$NON-NLS-1$
+		if (currentCard!=null)
+		{
+			String title="Cari Kart Extresi: \n"+"Cari Kart Kod:"+currentCard.getCardsCurrentCode();
+			EngBLUtils.printTable(tableCurrentTransactions,title);
+		}
 	}
 
 }
