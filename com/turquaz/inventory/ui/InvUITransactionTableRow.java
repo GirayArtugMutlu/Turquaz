@@ -519,12 +519,11 @@ public class InvUITransactionTableRow implements ITableRow {
 			 	}
 			    BigDecimal bdValue = new BigDecimal(formatted);
 			    BigDecimal discAmount = new BigDecimal(0);
-			    if(invTrans.getTransactionsTotalPrice().compareTo(bdValue)==1)
-			    {
+			  
 			        discAmount = invTrans.getTransactionsTotalPrice().subtract(bdValue);
 			        invTrans.setTransactionsDiscountAmount(discAmount);
 			        invTrans.setTransactionsDiscount(discAmount.divide(invTrans.getTransactionsTotalPrice(),6,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100))); 
-			    }
+			    
 			    break;	
 			
 			case 10 : // VAT percent		
