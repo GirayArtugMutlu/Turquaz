@@ -20,6 +20,7 @@ package com.turquaz.cash.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -30,10 +31,11 @@ import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -241,10 +243,19 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 		{
 			if (verifyFields())
 			{
-				CashBLCashTransactionAdd.saveTransferBetweenAccounts((TurqCashCard) txtCashCardWithDept.getData(),
-						txtCashCardWithCredit.getTurqCashCard(), EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS, null, curTextTotalAmount
-								.getBigDecimalValue(), datePicker.getDate(), txtDefinition.getText(), txtDocumentNo.getText()
-								.trim(), exchangeRate);
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD_WITH_DEPT,txtCashCardWithDept.getData());
+				argMap.put(CashKeys.CASH_CARD_WITH_CREDIT,txtCashCardWithCredit.getTurqCashCard());
+				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS));
+				argMap.put(EngKeys.ENG_SEQ,null);
+				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,curTextTotalAmount.getBigDecimalValue());
+				argMap.put(EngKeys.DATE,datePicker.getDate());
+				argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
+				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE, exchangeRate);
+				
+				EngTXCommon.doTransactionTX(CashBLCashTransactionAdd.class.getName(),"saveTransferBetweenAccounts",argMap);
+			
 				msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.1")); //$NON-NLS-1$
 				msg.open();
 				newForm();

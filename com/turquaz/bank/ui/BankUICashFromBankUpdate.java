@@ -1,11 +1,13 @@
 package com.turquaz.bank.ui;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,6 +16,7 @@ import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -154,7 +157,10 @@ public class BankUICashFromBankUpdate extends org.eclipse.swt.widgets.Dialog
 				try
 				{
 					TurqCashTransaction curTrans = (TurqCashTransaction) it2.next();
-					CashBLCashTransactionSearch.initializeCashTransaction(curTrans);
+					HashMap argMap = new HashMap();
+					argMap.put(CashKeys.CASH_TRANSACTION,curTrans);
+					
+					EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
 					Iterator it3 = curTrans.getTurqCashTransactionRows().iterator();
 					TurqCashCard curCard = null;
 					;

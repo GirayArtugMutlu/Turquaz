@@ -20,15 +20,18 @@ package com.turquaz.cash.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
@@ -176,7 +179,10 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 		compTransAdd.getTxtDefinition().setText(cashTrans.getTransactionDefinition());
 		try
 		{
-			TurqCurrentCard curCard = CashBLCashTransactionUpdate.getCurrentCard(cashTrans.getTurqEngineSequence());
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.ENG_SEQ,cashTrans.getTurqEngineSequence());
+			
+			TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CashBLCashTransactionUpdate.class.getName(),"getCurrentCard",argMap);
 			if (curCard != null)
 			{
 				compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}");

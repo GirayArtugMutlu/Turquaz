@@ -15,19 +15,22 @@ package com.turquaz.cash.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
@@ -193,7 +196,10 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		try
 		{
 			tableViewer.removeAll();
-			List ls = CashBLCashCardSearch.searchCashCard((TurqAccountingAccount) accountPicker.getData(), txtCardCode.getText().trim());
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT, accountPicker.getData());
+			argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
+			List ls =(List)EngTXCommon.doSingleTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
 			TurqCashCard card;
 			for (int i = 0; i < ls.size(); i++)
 			{

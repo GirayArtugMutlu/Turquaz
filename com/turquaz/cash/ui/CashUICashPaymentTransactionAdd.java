@@ -20,6 +20,7 @@ package com.turquaz.cash.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
@@ -31,13 +32,13 @@ import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -256,10 +257,21 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 		{
 			if (verifyFields())
 			{
-				CashBLCashTransactionAdd.saveCurrentTransaction((TurqCashCard) txtCashCard.getData(),
-						(TurqCurrentCard) txtCurrentAccount.getData(), EngBLCommon.CASH_CURRENT_PAYMENT, null, curTextTotalAmount
-								.getBigDecimalValue(), datePicker.getDate(), txtDefinition.getText(), txtDocumentNo.getText()
-								.trim(), exchangeRate);
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD,txtCashCard.getData());
+				argMap.put(EngKeys.CURRENT_CARD,txtCurrentAccount.getData());
+				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CASH_CURRENT_PAYMENT));
+				argMap.put(EngKeys.ENG_SEQ,null);
+				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,curTextTotalAmount.getBigDecimalValue());
+				argMap.put(EngKeys.DATE,datePicker.getDate());
+				argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
+				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
+				argMap.put(EngKeys.EXCHANGE_RATE, exchangeRate);
+				
+				
+				EngTXCommon.doTransactionTX(CashBLCashTransactionAdd.class.getName(),"saveCurrentTransaction",argMap);
+								
 				msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.1")); //$NON-NLS-1$
 				msg.open();
 				newForm();

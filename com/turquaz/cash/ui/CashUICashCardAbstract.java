@@ -32,13 +32,16 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -330,16 +333,26 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				BigDecimal total_credit = new BigDecimal(0);
 				BigDecimal deferred_dept = new BigDecimal(0);
 				BigDecimal deferred_credit = new BigDecimal(0);
-				List deferred = CashBLCashTransactionSearch.getDeferredTotal((TurqCashCard) cashCardPicker.getData(), datePicker
-						.getDate());
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD,cashCardPicker.getData());
+				argMap.put(EngKeys.DATE_END,datePicker.getDate());
+				List deferred =(List)EngTXCommon.doSingleTX( CashBLCashTransactionSearch.class.getName(),"getDeferredTotal",argMap);
 				if (deferred.size() != 0)
 				{
 					Object[] amounts = (Object[]) deferred.get(0);
 					deferred_dept = deferred_dept.add((BigDecimal) amounts[0]);
 					deferred_credit = deferred_credit.add((BigDecimal) amounts[1]);
 				}
-				List ls = CashBLCashTransactionSearch.getTransactions((TurqCashCard) cashCardPicker.getData(), datePicker.getDate(),
-						datePickerEndDate.getDate());
+				
+				 argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD, cashCardPicker.getData());
+				argMap.put(EngKeys.DATE_START,datePicker.getDate());
+				argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
+				
+				
+				List ls =(List)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"getTransactions",argMap);
+				
 				BigDecimal credit;
 				BigDecimal dept;
 				for (int i = 0; i < ls.size(); i++)
@@ -404,7 +417,11 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				{
 					return;
 				}
-				TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(id);
+				HashMap argMap = new HashMap();
+				argMap.put(EngKeys.TRANS_ID,id);
+				
+				TurqCashTransaction cashTrans =(TurqCashTransaction)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeCashTransaction",argMap);
+				
 				if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 				{
 					EngUICommon.showMessageBox(this.getShell(), Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$

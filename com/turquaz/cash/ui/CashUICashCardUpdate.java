@@ -15,11 +15,15 @@ package com.turquaz.cash.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.HashMap;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardUpdate;
-import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -173,7 +177,12 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 		MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 		try
 		{
-			CashBLCashCardUpdate.delete(cashCard);
+			HashMap argMap = new HashMap();
+			
+			argMap.put(CashKeys.CASH_CARD,cashCard);
+			
+			EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"delete",argMap);
+		
 			msg.setMessage(Messages.getString("CashUICashCardUpdate.1")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();
@@ -200,8 +209,15 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (compCashCard.verifyFields())
 			{
-				CashBLCashCardUpdate.updateCashCard(cashCard, compCashCard.getTxtCardCode().getText().trim(), compCashCard
-						.getTxtDefinition().getText().trim(), (TurqAccountingAccount) compCashCard.getAccountPicker().getData());
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD,cashCard);
+				argMap.put(CashKeys.CASH_CARD_NAME,compCashCard.getTxtCardCode().getText().trim());
+				argMap.put(EngKeys.DEFINITION,compCashCard.getTxtDefinition().getText().trim());
+				argMap.put(AccKeys.ACC_ACCOUNT,compCashCard.getAccountPicker().getData());
+				
+				
+				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"updateCashCard",argMap);
 				msg.setMessage(Messages.getString("CashUICashCardUpdate.3")); //$NON-NLS-1$
 				msg.open();
 				dialogShell.close();

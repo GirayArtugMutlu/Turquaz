@@ -20,7 +20,11 @@
 package com.turquaz.cash.bl;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -29,15 +33,17 @@ public class CashBLCashCardUpdate
 {
 	CashDALCashCard dalCash = new CashDALCashCard();
 
-	public CashBLCashCardUpdate()
-	{
-	}
 
-	public static void updateCashCard(TurqCashCard cashCard, String name, String definition, TurqAccountingAccount cashAccount)
+	public static void updateCashCard(HashMap argMap )
 			throws Exception
 	{
-		try
-		{
+		
+		TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		String name = (String)argMap.get(CashKeys.CASH_CARD_NAME);
+		String definition = (String)argMap.get(EngKeys.DEFINITION);
+		TurqAccountingAccount cashAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		
+		
 			Calendar cal = Calendar.getInstance();
 			cashCard.setCashCardName(name);
 			cashCard.setCashCardDefinition(definition);
@@ -45,22 +51,14 @@ public class CashBLCashCardUpdate
 			cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			EngDALCommon.updateObject(cashCard);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
-	public static void delete(TurqCashCard card) throws Exception
+	public static void deleteCashCard(HashMap argMap) throws Exception
 	{
-		try
-		{
-			EngDALCommon.deleteObject(card);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
+		
+			EngDALCommon.deleteObject(argMap.get(CashKeys.CASH_CARD));
+		
 	}
 }

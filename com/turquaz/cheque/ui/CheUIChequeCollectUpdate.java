@@ -20,6 +20,7 @@ package com.turquaz.cheque.ui;
  * @version $Id$
  */
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -30,6 +31,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
@@ -38,6 +40,7 @@ import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -173,7 +176,10 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 			if (it.hasNext())
 			{
 				TurqCashTransaction cashTrans = (TurqCashTransaction) it.next();
-				CashBLCashTransactionSearch.initializeCashTransaction(cashTrans);
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
+				
+				EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
 				Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
 				while (it2.hasNext())
 				{

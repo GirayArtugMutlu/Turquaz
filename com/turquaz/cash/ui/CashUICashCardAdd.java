@@ -19,19 +19,24 @@ package com.turquaz.cash.ui;
  * @author  Onsel
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.SWT;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardAdd;
 import org.eclipse.swt.widgets.MessageBox;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -121,8 +126,13 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 		{
 			if (verifyFields())
 			{
-				CashBLCashCardAdd.saveCashCard(txtCardCode.getText().trim(), txtDefinition.getText().trim(),
-						(TurqAccountingAccount) accountPicker.getData());
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
+				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
+				argMap.put(AccKeys.ACC_ACCOUNT,(TurqAccountingAccount) accountPicker.getData());
+				EngTXCommon.doTransactionTX(CashBLCashCardAdd.class.getName(),"saveCashCard",argMap);
+				
 				msg.setMessage(Messages.getString("CashUICashCardAdd.3")); //$NON-NLS-1$
 				msg.open();
 				EngBLCashCards.RefreshContentAsistantMap();

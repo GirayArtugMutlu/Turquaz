@@ -26,9 +26,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -50,16 +53,13 @@ import com.turquaz.engine.dal.TurqModule;
  */
 public class CashBLCashTransactionAdd
 {
-	public CashBLCashTransactionAdd()
-	{
-	}
+	
 
-	//TODO DONE
+	
 	public static void saveCashTransaction(TurqCashCard cashCard, TurqEngineSequence seq, int type, Date transDate, String definition,
 			String documentNo, List totals, TurqAccountingAccount account, TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
-		try
-		{
+		
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
 			{
@@ -130,11 +130,7 @@ public class CashBLCashTransactionAdd
 				cashTransRow.setTurqCashTransaction(cashTrans);
 				EngDALCommon.saveObject(cashTransRow);
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	/**
@@ -149,12 +145,18 @@ public class CashBLCashTransactionAdd
 	 * @throws Exception
 	 */
 	//TODO DONE
-	public static void saveCurrentTransaction(TurqCashCard cashCard, TurqCurrentCard current, int type, TurqEngineSequence seq,
-			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
-			throws Exception
+	public static void saveCurrentTransaction(HashMap argMap )	throws Exception
 	{
-		try
-		{
+		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		 Integer type = (Integer)argMap.get(EngKeys.TYPE);
+		 Date transDate = (Date)argMap.get(EngKeys.DATE);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
+		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
 			{
@@ -172,7 +174,7 @@ public class CashBLCashTransactionAdd
 				}
 			}
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
@@ -203,7 +205,7 @@ public class CashBLCashTransactionAdd
 			boolean currentTransType = false; // Credit or Debit
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
-			if (type == EngBLCommon.CASH_CURRENT_COLLECT)
+			if (type.intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
 			{
 				CashBLCashTransactionUpdate.prepareAccountingMaps(currentAccount.getId(), cashAccount.getId(), totalAmount,
 						creditAccounts, deptAccounts);
@@ -223,7 +225,7 @@ public class CashBLCashTransactionAdd
 					currentTransDefinition = definition;
 				}
 			}
-			else if (type == EngBLCommon.CASH_CURRENT_PAYMENT)
+			else if (type.intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
 			{
 				CashBLCashTransactionUpdate.prepareAccountingMaps(cashAccount.getId(), currentAccount.getId(), totalAmount,
 						creditAccounts, deptAccounts);
@@ -263,20 +265,26 @@ public class CashBLCashTransactionAdd
 			 */
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, seq.getTurqModule().getId().intValue(), seq
 					.getId(), definition, exchangeRate, creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+	
 	}
 
 	//TODO DONE
-	public static void saveOtherTransaction(TurqCashCard cashCard, TurqAccountingAccount account, int type, TurqEngineSequence seq,
-			BigDecimal totalAmount, Date transDate, String definition, String document_no, TurqCurrencyExchangeRate exchangeRate)
+	public static void saveOtherTransaction(HashMap argMap)
 			throws Exception
 	{
-		try
-		{
+		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		 Integer type = (Integer)argMap.get(EngKeys.TYPE);
+		 Date transDate = (Date)argMap.get(EngKeys.DATE);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
+		 
+		 TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		
+		
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
 			{
@@ -294,7 +302,7 @@ public class CashBLCashTransactionAdd
 				}
 			}
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
@@ -322,7 +330,7 @@ public class CashBLCashTransactionAdd
 			boolean currentTransType = false; // Credit or Debit
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
-			if (type == EngBLCommon.CASH_OTHER_COLLECT)
+			if (type.intValue() == EngBLCommon.CASH_OTHER_COLLECT)
 			{
 				CashBLCashTransactionUpdate.prepareAccountingMaps(account.getId(), cashAccount.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -334,7 +342,7 @@ public class CashBLCashTransactionAdd
 				cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
 				accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
 			}
-			else if (type == EngBLCommon.CASH_OTHER_PAYMENT)
+			else if (type.intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
 			{
 				CashBLCashTransactionUpdate.prepareAccountingMaps(cashAccount.getId(), account.getId(), totalAmount, creditAccounts,
 						deptAccounts);
@@ -360,20 +368,28 @@ public class CashBLCashTransactionAdd
 			 */
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, seq.getTurqModule().getId().intValue(), seq
 					.getId(), definition, exchangeRate, creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
+		
 	}
 
 	//TODO DONE
-	public static void saveTransferBetweenAccounts(TurqCashCard cashCardWithDebt, TurqCashCard cashCardWithCredit, int type,
-			TurqEngineSequence seq, BigDecimal totalAmount, Date transDate, String definition, String document_no,
-			TurqCurrencyExchangeRate exchangeRate) throws Exception
+	public static void saveTransferBetweenAccounts(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqCashCard cashCardWithDebt= (TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);
+		TurqCashCard cashCardWithCredit =(TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_CREDIT);
+		 
+		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+		 Integer type = (Integer)argMap.get(EngKeys.TYPE);
+		 Date transDate = (Date)argMap.get(EngKeys.DATE);
+		 String definition = (String)argMap.get(EngKeys.DEFINITION);
+		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
+		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
+		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.ENG_SEQ);
+		
+		
+		
+		
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
 			{
@@ -391,7 +407,7 @@ public class CashBLCashTransactionAdd
 				}
 			}
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setId(new Integer(type));
+			transType.setId(type);
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 			cashTrans.setTurqCashTransactionType(transType);
 			cashTrans.setTurqEngineSequence(seq);
@@ -457,10 +473,6 @@ public class CashBLCashTransactionAdd
 					.getTurqAccountingAccount().getId(), totalAmount, creditAccounts, deptAccounts);
 			AccBLTransactionAdd.saveAccTransaction(transDate, document_no, accTransType, seq.getTurqModule().getId().intValue(), seq
 					.getId(), definition, exchangeRate, creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 }

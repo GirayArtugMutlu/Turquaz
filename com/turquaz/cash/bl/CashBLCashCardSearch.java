@@ -19,25 +19,23 @@
  */
 package com.turquaz.cash.bl;
 
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 public class CashBLCashCardSearch
 {
-	public CashBLCashCardSearch()
-	{
-	}
+	
 
-	public static List searchCashCard(TurqAccountingAccount account, String cardName) throws Exception
+	public static List searchCashCard(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		String cardName = (String)argMap.get(CashKeys.CASH_CARD_NAME);
+		
 			return CashDALCashCard.searchCashCard(account, cardName);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 }

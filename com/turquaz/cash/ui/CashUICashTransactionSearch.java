@@ -22,17 +22,21 @@ package com.turquaz.cash.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -232,8 +236,17 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		try
 		{
 			tableViewer.removeAll();
-			List list = CashBLCashTransactionSearch.searchCashTransactions(txtCashCard.getTurqCashCard(), datePickerStart.getDate(),
-					datePickerEnd.getDate(), txtDefinition.getText());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(CashKeys.CASH_CARD,txtCashCard.getTurqCashCard());
+			argMap.put(EngKeys.DATE_START,datePickerStart.getDate());
+			argMap.put(EngKeys.DATE_END,datePickerEnd.getDate());
+			argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
+			
+			
+			List list =(List)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"searchCashTransactions",argMap);
+			
+			
 			Object[] row;
 			BigDecimal deptAmount = new BigDecimal(0);
 			BigDecimal creditAmount = new BigDecimal(0);
@@ -277,7 +290,10 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	public static boolean updateCashTransaction(Integer transId, Shell shell) throws Exception
 	{
-		TurqCashTransaction cashTrans = CashBLCashTransactionSearch.initializeCashTransaction(transId);
+		HashMap argMap = new HashMap();
+		argMap.put(EngKeys.TRANS_ID,transId);
+		
+		TurqCashTransaction cashTrans =(TurqCashTransaction)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeCashTransaction",argMap);
 		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 		{
 			EngUICommon.showMessageBox(shell, Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$

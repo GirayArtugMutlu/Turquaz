@@ -20,75 +20,63 @@ package com.turquaz.cash.bl;
  * @version $Id$
  */
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 
 public class CashBLCashTransactionSearch
 {
-	public CashBLCashTransactionSearch()
+	
+
+	public static List searchCashTransactions(HashMap argMap) throws Exception
 	{
+		
+		TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
+		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
+		String definition = (String)argMap.get(EngKeys.DEFINITION);
+		
+		return CashDALCashCard.searchCashTransaction(cashCard, startDate, endDate, definition);
+		
 	}
 
-	public static List searchCashTransactions(TurqCashCard cashCard, Date startDate, Date endDate, String definition) throws Exception
+	public static TurqCashTransaction initializeCashTransaction(HashMap argMap) throws Exception
 	{
-		try
-		{
-			return CashDALCashCard.searchCashTransaction(cashCard, startDate, endDate, definition);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqCashTransaction initializeCashTransaction(Integer id) throws Exception
-	{
-		try
-		{
+		
+		Integer id = (Integer) argMap.get(EngKeys.TRANS_ID);
 			return CashDALCashCard.initiliazeCashTrans(id);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
-	public static void initializeCashTransaction(TurqCashTransaction cashTrans) throws Exception
+	public static void initializeTransaction(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqCashTransaction cashTrans = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
 			CashDALCashCard.initiliazeCashTrans(cashTrans);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
-	public static List getTransactions(TurqCashCard cashCard, Date startDate, Date endDate) throws Exception
+	public static List getTransactions(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 Date startDate = (Date)argMap.get(EngKeys.DATE_START);
+		 Date endDate = (Date)argMap.get(EngKeys.DATE_END);
+		
 			return CashDALCashCard.getTransactions(cashCard, startDate, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 
 	// Devreden
-	public static List getDeferredTotal(TurqCashCard cashCard, Date endDate) throws Exception
+	public static List getDeferredTotal(HashMap argMap) throws Exception
 	{
-		try
-		{
+		TurqCashCard cashCard =(TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+	    Date endDate = (Date)argMap.get(EngKeys.DATE_END);
+			
 			return CashDALCashCard.getDeferredTotal(cashCard, endDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 }

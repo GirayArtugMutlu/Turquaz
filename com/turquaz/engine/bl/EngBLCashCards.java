@@ -2,8 +2,11 @@ package com.turquaz.engine.bl;
 
 import java.util.HashMap;
 import java.util.List;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class EngBLCashCards
 {
@@ -28,7 +31,12 @@ public class EngBLCashCards
 	{
 		try
 		{
-			currentList = CashBLCashCardSearch.searchCashCard(null, "");
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT, null);
+			argMap.put(CashKeys.CASH_CARD_NAME,"");
+			currentList  =(List)EngTXCommon.doSingleTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
+			
+			
 			cardMap.clear();
 			TurqCashCard cashCard;
 			for (int i = 0; i < currentList.size(); i++)

@@ -31,6 +31,7 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -47,16 +48,12 @@ public class CashBLCashTransactionUpdate
 	{
 	}
 
-	public static TurqCurrentCard getCurrentCard(TurqEngineSequence seq) throws Exception
+	public static TurqCurrentCard getCurrentCard(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
+		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 			return CashDALCashCard.getCurrentCard(seq);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static void deleteOnlyCashTransaction(TurqCashTransaction cashTrans) throws Exception

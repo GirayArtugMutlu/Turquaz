@@ -23,9 +23,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
@@ -47,6 +49,7 @@ import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeRollAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class CheBLUpdateChequeRoll
 {
@@ -284,7 +287,10 @@ public class CheBLUpdateChequeRoll
 			while (it.hasNext())
 			{
 				TurqCashTransaction cashTrans = (TurqCashTransaction) it.next();
-				CashBLCashTransactionSearch.initializeCashTransaction(cashTrans);
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
+				
+				EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
 				CashBLCashTransactionUpdate.deleteChequeCashTrans(cashTrans);
 			}
 			//Delete Accounting Transactions..
