@@ -708,7 +708,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                         {
                             toolPrint = new ToolItem(toolbarMainTop, SWT.NONE);
                             toolPrint.setText(Messages.getString("EngUIMainFrame.19")); //$NON-NLS-1$
-                            toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif"));
+                            toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
                             toolPrint
                                 .addSelectionListener(new SelectionAdapter() {
                                 public void widgetSelected(SelectionEvent evt) {
@@ -936,7 +936,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                 {
                     mitExit = new MenuItem(menuFile, SWT.PUSH);
                     mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
-                    mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif"));
+                    mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif")); //$NON-NLS-1$
                     mitExit.addSelectionListener(new SelectionAdapter() {
                         public void widgetSelected(SelectionEvent evt) {
                         System.exit(-1);   
@@ -1112,6 +1112,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.35")); //$NON-NLS-1$
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
 		comboModuleSelection.add(Messages.getString("EngUIMainFrame.4"));	 //$NON-NLS-1$
+	    comboModuleSelection.setText(Messages.getString("EngUIMainFrame.39")); //$NON-NLS-1$
 		tabfldMain.setTabHeight(20);
 		tabfldMain.setSelectionBackground(new Color[]{Display.getDefault().getSystemColor(SWT.COLOR_WHITE)},
 														   new int[]{});
