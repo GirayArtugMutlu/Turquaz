@@ -2,9 +2,9 @@
 <!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="InventoryCardAbstract" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+<jasperReport name="InventoryTransactionReportByGroup" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="sqlparam" class="java.lang.String">
@@ -13,7 +13,7 @@
 	</parameter>
 	<parameter name="endDate" class="java.lang.String">
 	</parameter>
-	<parameter name="curCardCode" class="java.lang.String">
+	<parameter name="curCardStart" class="java.lang.String">
 	</parameter>
 	<parameter name="currentDate" class="java.lang.String">
 	</parameter>
@@ -25,7 +25,13 @@
 	</parameter>
 	<parameter name="formatter" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
 	</parameter>
-	<parameter name="curCardName" class="java.lang.String">
+	<parameter name="curCardEnd" class="java.lang.String">
+	</parameter>
+	<parameter name="type" class="java.lang.String">
+	</parameter>
+	<parameter name="invMainGroup" class="java.lang.String">
+	</parameter>
+	<parameter name="invSubGroup" class="java.lang.String">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="inventory_cards_id" class="java.lang.Integer">
@@ -48,23 +54,27 @@
 	</field>
 	<field name="cards_name" class="java.lang.String">
 	</field>
-	<variable name="totalAmountIn" class="java.math.BigDecimal" resetType="Group" resetGroup="invCard" calculation="Sum">
+	<field name="inventory_groups_id" class="java.lang.Integer">
+	</field>
+	<field name="groups_name" class="java.lang.String">
+	</field>
+	<variable name="totalAmountIn" class="java.math.BigDecimal" resetType="Group" resetGroup="invGroup" calculation="Sum">
 		<variableExpression><![CDATA[$F{transactions_amount_in}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
-	<variable name="totalAmountOut" class="java.math.BigDecimal" resetType="Group" resetGroup="invCard" calculation="Sum">
+	<variable name="totalAmountOut" class="java.math.BigDecimal" resetType="Group" resetGroup="invGroup" calculation="Sum">
 		<variableExpression><![CDATA[$F{transactions_total_amount_out}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
-	<variable name="totalPriceIn" class="java.math.BigDecimal" resetType="Group" resetGroup="invCard" calculation="Sum">
+	<variable name="totalPriceIn" class="java.math.BigDecimal" resetType="Group" resetGroup="invGroup" calculation="Sum">
 		<variableExpression><![CDATA[($F{transactions_amount_in}.doubleValue() > 0) ? $F{transactions_total_price} : new BigDecimal(0)]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
-	<variable name="totalPriceOut" class="java.math.BigDecimal" resetType="Group" resetGroup="invCard" calculation="Sum">
+	<variable name="totalPriceOut" class="java.math.BigDecimal" resetType="Group" resetGroup="invGroup" calculation="Sum">
 		<variableExpression><![CDATA[($F{transactions_total_amount_out}.doubleValue() > 0) ? $F{transactions_total_price}: new BigDecimal(0)]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
-	<variable name="totalRemainValue" class="java.math.BigDecimal" resetType="Group" resetGroup="invCard">
+	<variable name="totalRemainValue" class="java.math.BigDecimal" resetType="Group" resetGroup="invGroup">
 		<variableExpression><![CDATA[$V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,BigDecimal.ROUND_HALF_DOWN)) : new BigDecimal(0)))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
@@ -78,37 +88,23 @@
 		</band>
 		</groupHeader>
 	</group>
-	<group name="invCard">
-		<groupExpression><![CDATA[$F{inventory_cards_id}]]></groupExpression>
+	<group name="invGroup">
+		<groupExpression><![CDATA[$F{inventory_groups_id}]]></groupExpression>
 		<groupHeader>
 		<band height="39">
 			<staticText>
-				<reportElement positionType="Float" x="4" y="3" width="56" height="16"/>
+				<reportElement positionType="Float" x="4" y="3" width="48" height="16"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Stok Kodu :]]></text>
+				<text><![CDATA[Alt Grup :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="59" y="3" width="146" height="16"/>
+				<reportElement positionType="Float" x="52" y="3" width="146" height="16"/>
 				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_inventory_code}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement positionType="Float" x="212" y="3" width="52" height="16"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Stok Cinsi :]]></text>
-			</staticText>
-			<textField>
-				<reportElement positionType="Float" x="264" y="3" width="284" height="16"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{card_name}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{groups_name}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement positionType="Float" x="1" y="20" width="556" height="18"/>
@@ -324,6 +320,13 @@
 	</group>
 	<title>
 		<band height="77">
+			<textField>
+				<reportElement positionType="Float" x="72" y="22" width="342" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[(($P{invCardStart}.equals("")) ? " Hepsi  " : $P{invCardStart})+(($P{invCardEnd}.equals("")  ? "" : (" - "+$P{invCardEnd})))]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="4" y="6" width="127" height="14"/>
 				<textElement verticalAlignment="Middle">
@@ -374,46 +377,67 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{endDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="2" y="22" width="76" height="12"/>
+				<reportElement positionType="Float" x="5" y="22" width="67" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Stok Kartları :]]></text>
 			</staticText>
-			<textField>
-				<reportElement positionType="Float" x="78" y="22" width="336" height="12"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[(($P{invCardStart}.equals("")) ? " Hepsi  " : $P{invCardStart})+(($P{invCardEnd}.equals("")  ? "" : (" - "+$P{invCardEnd})))]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="2" y="35" width="76" height="12"/>
+				<reportElement positionType="Float" x="5" y="35" width="67" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cari Kart Kodu :]]></text>
+				<text><![CDATA[Cari Kartlar :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="78" y="35" width="336" height="12"/>
+				<reportElement positionType="Float" x="72" y="35" width="342" height="12"/>
 				<textElement>
 					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{curCardCode}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[(($P{curCardStart}.equals("")) ? " Hepsi  " : $P{curCardStart})+(($P{curCardEnd}.equals("")  ? "" : (" - "+$P{curCardEnd})))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="2" y="48" width="76" height="12"/>
+				<reportElement positionType="Float" x="5" y="62" width="67" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cari Kart Ünvanı:]]></text>
+				<text><![CDATA[Tipi :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="78" y="48" width="336" height="12"/>
+				<reportElement positionType="Float" x="72" y="62" width="60" height="12"/>
 				<textElement>
 					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{curCardName}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="5" y="48" width="67" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ana Grup :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="72" y="48" width="135" height="12"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{invMainGroup}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="209" y="48" width="67" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alt Grup :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="276" y="48" width="140" height="12"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{invSubGroup}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -2,9 +2,9 @@
 <!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="AccountingSubsidiaryLedger" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+<jasperReport name="AccountingSubsidiaryLedger" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.VGuides.Title" value="20"/>
@@ -20,6 +20,8 @@
 	<parameter name="account2" class="java.lang.String">
 	</parameter>
 	<parameter name="currentDate" class="java.lang.String">
+	</parameter>
+	<parameter name="formatter" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="accName" class="java.lang.String">
@@ -135,7 +137,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[   Açıklama]]></text>
+				<text><![CDATA[Açıklama]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="241" y="42" width="75" height="14"/>
@@ -202,7 +204,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOPLAM   ]]></text>
+				<text><![CDATA[TOPLAM]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="241" y="1" width="75" height="14"/>
@@ -254,7 +256,7 @@
 	<group name="transCol">
 		<groupExpression><![CDATA[$F{columnId}]]></groupExpression>
 		<groupHeader>
-		<band height="16">
+		<band height="17">
 			<textField>
 				<reportElement positionType="Float" x="2" y="1" width="66" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -281,14 +283,14 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_dept_in_base_currency})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{formatter}.format($F{rows_dept_in_base_currency})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="318" y="1" width="75" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_credit_in_base_currency})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{formatter}.format($F{rows_credit_in_base_currency})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="395" y="1" width="75" height="14">
@@ -309,35 +311,35 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_credit_in_base_currency})]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="68" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="68" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="122" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="122" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="238" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="238" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="316" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="316" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="394" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="394" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="472" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="472" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="2" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="2" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="553" y="0" width="1" height="16"/>
+				<reportElement positionType="Float" x="553" y="0" width="1" height="17"/>
 				<graphicElement/>
 			</line>
 		</band>

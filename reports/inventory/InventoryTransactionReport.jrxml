@@ -2,9 +2,9 @@
 <!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="InventoryTransactionReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+<jasperReport name="InventoryTransactionReport" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="sqlparam" class="java.lang.String">
@@ -29,7 +29,9 @@
 	</parameter>
 	<parameter name="type" class="java.lang.String">
 	</parameter>
-	<parameter name="invGroup" class="java.lang.String">
+	<parameter name="invMainGroup" class="java.lang.String">
+	</parameter>
+	<parameter name="invSubGroup" class="java.lang.String">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="inventory_cards_id" class="java.lang.Integer">
@@ -424,14 +426,28 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Stok Grubu :]]></text>
+				<text><![CDATA[Ana Grup :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="72" y="48" width="209" height="12"/>
+				<reportElement positionType="Float" x="72" y="48" width="135" height="12"/>
 				<textElement>
 					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{invGroup}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{invMainGroup}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="209" y="48" width="67" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alt Grup :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="276" y="48" width="140" height="12"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{invSubGroup}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

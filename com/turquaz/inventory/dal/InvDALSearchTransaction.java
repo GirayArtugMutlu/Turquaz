@@ -171,7 +171,8 @@ public class InvDALSearchTransaction {
 	public List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
 			String invCardNameStart,String invCardNameEnd, 
 			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
-			Date startDate,Date endDate, int type, TurqInventoryGroup invGroup)throws Exception{
+			Date startDate,Date endDate, int type, TurqInventoryGroup invMainGroup,
+			TurqInventoryGroup invSubGroup)throws Exception{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
@@ -231,11 +232,22 @@ public class InvDALSearchTransaction {
 				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCardEnd";
 			}
 			
-			if (invGroup != null)
+			if (invMainGroup != null)
 			{
-				query+=" and :invGroup in (Select gr.turqInventoryGroup from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
+				if (invSubGroup != null)
+				{
+					query+=" and "+invSubGroup.getInventoryGroupsId()+" in (Select gr.turqInventoryGroup.inventoryGroupsId from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
 				
-			}	
+				}	
+				else
+				{
+					query+=" and exists (((Select tgr.turqInventoryGroup.inventoryGroupsId" +
+							" from transaction.turqInventoryCard.turqInventoryCardGroups as tgr) " +
+							" intersect " +
+							" (Select invGr.inventoryGroupsId from TurqInventoryGroup as invGr " +
+							" where invGr.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getInventoryGroupsId()+")))";
+				}
+			}
 
 			query += " order by transaction.turqInventoryCard.inventoryCardsId,transaction.transactionsDate";
 			
@@ -252,8 +264,10 @@ public class InvDALSearchTransaction {
 			else if (curCardEnd != null)
 				q.setParameter("curCardEnd",curCardEnd);
 			
-			if (invGroup != null)
-				q.setParameter("invGroup", invGroup);
+			if (invMainGroup != null)
+			{
+				
+			}
 	
 			List list=q.list();
 			return list;

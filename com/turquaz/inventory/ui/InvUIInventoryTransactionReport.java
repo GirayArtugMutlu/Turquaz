@@ -26,11 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -76,6 +78,8 @@ import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import com.jasperassistant.designer.viewer.ViewerComposite;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import com.turquaz.inventory.dal.InvDALCardAdd;
@@ -290,9 +294,13 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					comboInvMainGroup = new CCombo(
 						compInvTransactionSearch,
 						SWT.NONE);
-					comboInvMainGroup.setText(Messages
-						.getString("InvUIInventoryTransactionReport.9")); //$NON-NLS-1$
 					GridData comboInvGroupLData = new GridData();
+					comboInvMainGroup
+						.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							comboInvMainGroupWidgetSelected(evt);
+						}
+						});
 					comboInvGroupLData.widthHint = 127;
 					comboInvGroupLData.heightHint = 18;
 					comboInvMainGroup.setLayoutData(comboInvGroupLData);
@@ -440,7 +448,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," + //$NON-NLS-1$
 					"trans.transactions_total_amount_out, trans.transactions_total_price," + //$NON-NLS-1$
 					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," + //$NON-NLS-1$
-					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no" + //$NON-NLS-1$
+					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no," + //$NON-NLS-1$
+					" invGroup.inventory_groups_id, invGroup.groups_name"+
 					" from turq_inventory_transactions trans," + //$NON-NLS-1$
 					"turq_consignments cons, turq_bill_consignment_commons billcons," + //$NON-NLS-1$
 					"turq_current_cards curCard, turq_inventory_cards invCard," + //$NON-NLS-1$
@@ -470,17 +479,39 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			
 			
 			
-			TurqInventoryGroup invGroup=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
-			if (invGroup != null)
+			TurqInventoryGroup invMainGroup=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
+			TurqInventoryGroup invSubGroup=(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText());
+			if (invMainGroup != null)
 			{
-				sqlparam += " and "+invGroup.getInventoryGroupsId()+ //$NON-NLS-1$
-				" in (Select cardgr.inventory_groups_id from turq_inventory_card_groups cardgr" + //$NON-NLS-1$
-				" where cardgr.inventory_cards_id=invCard.inventory_cards_id)"; //$NON-NLS-1$
-				parameters.put("invGroup", invGroup.getGroupsName()); //$NON-NLS-1$
+				parameters.put("invMainGroup", invMainGroup.getGroupsName()); //$NON-NLS-1$
+				if (invSubGroup != null)
+				{
+					
+					sqlparam += " and "+invSubGroup.getInventoryGroupsId()+ //$NON-NLS-1$
+					" in (Select cardgr.inventory_groups_id from turq_inventory_card_groups cardgr" + //$NON-NLS-1$
+					" where cardgr.inventory_cards_id=invCard.inventory_cards_id)"; //$NON-NLS-1$
+					parameters.put("invSubGroup", invSubGroup.getGroupsName()); //$NON-NLS-1$
+				}
+				else
+				{
+					sqlparam += " and exists" +
+							" ((Select invCardGroup.inventory_groups_id from turq_inventory_transactions trans," + //$NON-NLS-1$
+					" turq_inventory_cards invCard," + //$NON-NLS-1$
+					" turq_inventory_card_groups invCardGroup, turq_inventory_groups invGroup"+ 
+					" where trans.inventory_cards_id=invCard.inventory_cards_id" +
+					" and invCardGroup.inventory_cards_id=invCard.inventory_cards_id"+ 
+					" and invCardGroup.inventory_groups_id=invGroup.inventory_groups_id"+ 
+					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" + 
+					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"')"+
+					" intersect (Select invGr.inventory_groups_id from turq_inventory_groups invGr" +
+					" where invGr.parent_group="+invMainGroup.getInventoryGroupsId()+"))";
+					parameters.put("invSubGroup", " Hepsi"); 
+				}
 			}
 			else
 			{
-				parameters.put("invGroup",Messages.getString("InvUIInventoryTransactionReport.38")); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invMainGroup"," Hepsi"); 
+				parameters.put("invSubGroup", " Hepsi"); 
 			}
 			
 			
@@ -555,10 +586,12 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 
 			EngDALConnection db=new EngDALConnection();
 			db.connect();
-	
-			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper");   //$NON-NLS-1$
+			JasperReport jasperReport;
+			if (invMainGroup!=null)				
+				jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReportByGroup.jasper");   //$NON-NLS-1$
+			else
+				jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper");   //$NON-NLS-1$
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());	
-		
 			viewer.getReportViewer().setDocument(jasperPrint);	
 		}
 		catch(Exception ex)
@@ -617,14 +650,15 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			cal.set(cal.get(Calendar.YEAR),0,1);
 			dateStartDate.setDate(cal.getTime());
 		
-			List groupList=InvBLCardAdd.getInventoryGroups();
+			List groupList=InvBLCardAdd.getParentInventoryGroups();
+			comboInvMainGroup.add("");
 			for(int k=0; k<groupList.size(); k++)
 			{
 				TurqInventoryGroup gr=(TurqInventoryGroup)groupList.get(k);
 				comboInvMainGroup.add(gr.getGroupsName());
 				comboInvMainGroup.setData(gr.getGroupsName(),gr);
 			}
-			comboInvMainGroup.setText(Messages.getString("InvUIInventoryTransactionReport.15")); //$NON-NLS-1$
+			
 		}
 		catch (Exception ex)
 		{
@@ -684,7 +718,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					txtInvNameEnd.getText().trim(),(TurqCurrentCard)txtCurCardStart.getData(),
 					(TurqCurrentCard)txtCurCardEnd.getData(),dateStartDate.getDate(),
 					dateEndDate.getDate(),type,
-					(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText()));
+					(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText()),
+					(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText()));
 			TurqInventoryTransaction transactions;
 			TableItem item;
 			BigDecimal totalAmountIn=new BigDecimal(0);
@@ -740,7 +775,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			
 			item=new TableItem(tableTransactions,SWT.NULL);
 			item=new TableItem(tableTransactions,SWT.NULL);
-			item.setText(new String[]{"","",Messages.getString("InvUIInventoryTransactionReport.24"),cf.format(totalAmountIn), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			item.setText(new String[]{"","","TOPLAM",cf.format(totalAmountIn),
 					cf.format(totalPriceIn),cf.format(totalAmountOut),
 					cf.format(totalPriceOut)});
 			if (list.size() > 0)
@@ -768,6 +803,23 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 	public void printTable(){
 	    EngBLUtils.printTable(tableTransactions,""); //$NON-NLS-1$
 	    
+	}
+	
+	private void comboInvMainGroupWidgetSelected(SelectionEvent evt) {
+		
+		comboInvSubGroup.removeAll();
+		TurqInventoryGroup invMainGr=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
+		if (invMainGr != null)
+		{
+			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
+			comboInvSubGroup.add("");
+			while(it.hasNext())
+			{
+				TurqInventoryGroup invGr=(TurqInventoryGroup)it.next();
+				comboInvSubGroup.add(invGr.getGroupsName());
+				comboInvSubGroup.setData(invGr.getGroupsName(),invGr);
+			}
+		}
 	}
 
 }
