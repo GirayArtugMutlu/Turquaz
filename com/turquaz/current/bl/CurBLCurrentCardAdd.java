@@ -8,11 +8,16 @@ package com.turquaz.current.bl;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryCardGroup;
+import com.turquaz.engine.dal.TurqInventoryGroup;
 
 /**
  * @author Ceday
@@ -65,5 +70,93 @@ public class CurBLCurrentCardAdd {
 			throw ex;
 		}
 	}
+	
+public void registerGroup(Integer cardId, Object grp) throws Exception {
+		try {
+
+			TurqInventoryCardGroup cardGroup = new TurqInventoryCardGroup();
+			TurqInventoryGroup group = (TurqInventoryGroup) grp;
+			TurqInventoryCard card = new TurqInventoryCard();
+			card.setInventoryCardsId(cardId);
+			cardGroup.setTurqInventoryCard(card);
+			cardGroup.setTurqInventoryGroup(group);
+
+			cardGroup.setCreatedBy(System.getProperty("user"));
+			cardGroup.setUpdatedBy(System.getProperty("user"));
+			cardGroup
+					.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			cardGroup
+					.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+
+			currentAdd.saveObject(cardGroup);
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+
+	}	
+public List getCurrentGroups() throws Exception {
+
+	try {
+
+		return currentAdd.getCurrentGroups();
+
+	} catch (Exception ex) {
+		throw ex;
+	}
+
+}
+
+public void deleteObject(Object obj)throws Exception{
+	try{
+		
+	currentAdd.deleteObject(obj);	
+		
+		
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+}
+
+public void saveCurGroup(String groupName, String groupDescription)
+throws Exception {
+try {
+	
+TurqCurrentGroup curGroup = new TurqCurrentGroup();
+TurqCompany company = new TurqCompany();	
+company.setCompaniesId(Integer.valueOf(System.getProperty("company")));
+curGroup.setTurqCompany(company);
+curGroup.setGroupsName(groupName);
+curGroup.setGroupsDescription(groupDescription);
+
+curGroup.setCreatedBy(System.getProperty("user"));
+curGroup.setUpdatedBy(System.getProperty("user"));
+curGroup.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+curGroup.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+
+currentAdd.saveObject(curGroup);
+
+
+
+
+
+} catch (Exception ex) {
+throw ex;
+}
+
+}
+public void updateObject(Object obj)throws Exception{
+	try{
+		
+	currentAdd.updateObject(obj);	
+		
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+	
+}	
+	
 
 }

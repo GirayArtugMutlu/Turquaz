@@ -54,7 +54,7 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 			tableRegisteredGroups = new Table(composite1,SWT.FULL_SELECTION| SWT.BORDER);
 			tableColumn4 = new TableColumn(tableRegisteredGroups,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(508,185));
+			this.setSize(new org.eclipse.swt.graphics.Point(478,187));
 	
 			GridData composite1LData = new GridData();
 			composite1LData.verticalAlignment = GridData.FILL;
@@ -67,7 +67,7 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 			composite1LData.grabExcessHorizontalSpace = true;
 			composite1LData.grabExcessVerticalSpace = true;
 			composite1.setLayoutData(composite1LData);
-			composite1.setSize(new org.eclipse.swt.graphics.Point(498,175));
+			composite1.setSize(new org.eclipse.swt.graphics.Point(468,177));
 	
 			GridData tableAllGroupsLData = new GridData();
 			tableAllGroupsLData.verticalAlignment = GridData.CENTER;
@@ -229,6 +229,7 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite {
 	public void fillTableAllGroups(HashMap elementMap){
 	
 	tableAllGroups.removeAll();	
+	tableRegisteredGroups.removeAll();
 	Iterator it = elementMap.keySet().iterator();
 	TableItem item;
 	while(it.hasNext()){

@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[508, 185]"/>
+				<Dimension value="[478, 187]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 508, 185]"/>
+				<Rectangle value="[0, 0, 478, 187]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -58,10 +58,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[498, 175]"/>
+						<Dimension value="[468, 177]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 498, 175]"/>
+						<Rectangle value="[5, 5, 468, 177]"/>
 					</Property>
 					<Property name="visible" type="boolean" value="true"/>
 				</Properties>

@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[530, 468]"/>
+				<Dimension value="[592, 468]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 530, 468]"/>
+				<Rectangle value="[0, 0, 592, 468]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -50,10 +50,10 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[520, 458]"/>
+						<Dimension value="[582, 458]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 5, 520, 458]"/>
+						<Rectangle value="[5, 5, 582, 458]"/>
 					</Property>
 				</Properties>
 				<SubComponents>
@@ -83,7 +83,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[619, 433]"/>
+										<Dimension value="[578, 436]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -188,10 +188,10 @@
 										<Properties>
 											<Property name="textLimit" type="int" value="250"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[486, 17]"/>
+												<Dimension value="[445, 17]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[128, 30, 486, 17]"/>
+												<Rectangle value="[128, 30, 445, 17]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -1041,7 +1041,7 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[619, 433]"/>
+										<Dimension value="[578, 436]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
@@ -1426,17 +1426,18 @@
 								</Events>
 								<Properties>
 									<Property name="size" type="Dimension">
-										<Dimension value="[516, 436]"/>
+										<Dimension value="[578, 436]"/>
 									</Property>
 								</Properties>
 								<SubComponents>
 									<Component class="com.turquaz.engine.ui.component.RegisterGroupComposite" name="compRegisterGroup" style="0">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="1"/>
 												<Property name="horizontalAlignment" type="int" value="4"/>
 												<Property name="widthHint" type="int" value="-1"/>
-												<Property name="heightHint" type="int" value="181"/>
+												<Property name="heightHint" type="int" value="182"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -1448,22 +1449,23 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[506, 181]"/>
+												<Dimension value="[568, 182]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[5, 5, 506, 181]"/>
+												<Rectangle value="[5, 5, 568, 182]"/>
 											</Property>
 											<Property name="visible" type="boolean" value="true"/>
 										</Properties>
 									</Component>
-									<Component class="org.eclipse.swt.widgets.Button" name="button1" style="16777224">
+									<Component class="org.eclipse.swt.widgets.Button" name="btnUpdateGroups" style="16777224">
 										<Constraints>
+											<Constraint class="org.eclipse.swt.layout.GridData"/>
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
-												<Property name="horizontalAlignment" type="int" value="2"/>
-												<Property name="widthHint" type="int" value="102"/>
-												<Property name="heightHint" type="int" value="32"/>
-												<Property name="horizontalIndent" type="int" value="0"/>
+												<Property name="horizontalAlignment" type="int" value="1"/>
+												<Property name="widthHint" type="int" value="106"/>
+												<Property name="heightHint" type="int" value="37"/>
+												<Property name="horizontalIndent" type="int" value="10"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
 												<Property name="grabExcessHorizontalSpace" type="boolean" value="false"/>
@@ -1471,14 +1473,15 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="btnUpdateGroupsMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update Groups"/>
 											<Property name="size" type="Dimension">
-												<Dimension value="[102, 32]"/>
+												<Dimension value="[106, 37]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[207, 191, 102, 32]"/>
+												<Rectangle value="[15, 192, 106, 37]"/>
 											</Property>
 										</Properties>
 									</Component>

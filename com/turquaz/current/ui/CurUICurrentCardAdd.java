@@ -1,22 +1,27 @@
 package com.turquaz.current.ui;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.current.bl.CurBLCurrentCardAdd;
+import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.ui.component.DecimalText;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
+import com.turquaz.inventory.ui.InvUIGroupAddDialog;
+
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 
 
@@ -29,7 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 */
 public class CurUICurrentCardAdd extends org.eclipse.swt.widgets.Composite {
 
-	private Button button1;
+	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
 	private Text txtContactWebSite;
 	private CLabel cLabel2;
@@ -56,8 +61,7 @@ public class CurUICurrentCardAdd extends org.eclipse.swt.widgets.Composite {
 	private Composite composite1;
 	private Label lblTelephone1;
 	private CLabel lblSuplierAccCode;
-private AccountPicker accPickerSupplierAccCode;
-	
+	private AccountPicker accPickerSupplierAccCode;
 	private AccountPicker accPickerCustomer;
 	private CLabel lblAccountingCodeCustomer;
 	private DecimalText decTxtDiscountAmount;
@@ -87,6 +91,7 @@ private AccountPicker accPickerSupplierAccCode;
 	private CTabItem tabItemContactInfo;
 	private CTabItem tabItemGeneralInfo;
 	private CTabFolder tbfCurrentCardAdd;
+	private CurBLCurrentCardAdd currentAdd= new CurBLCurrentCardAdd();
 	public CurUICurrentCardAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -156,9 +161,9 @@ private AccountPicker accPickerSupplierAccCode;
 			tabItemCurrentGroups = new CTabItem(tbfCurrentCardAdd,SWT.NULL);
 			compCurrentGroups = new Composite(tbfCurrentCardAdd,SWT.NULL);
 			compRegisterGroup = new RegisterGroupComposite(compCurrentGroups,SWT.NULL);
-			button1 = new Button(compCurrentGroups,SWT.PUSH| SWT.CENTER);
+			btnUpdateGroups = new Button(compCurrentGroups,SWT.PUSH| SWT.CENTER);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(530,468));
+			this.setSize(new org.eclipse.swt.graphics.Point(592,468));
 	
 			GridData tbfCurrentCardAddLData = new GridData();
 			tbfCurrentCardAddLData.verticalAlignment = GridData.FILL;
@@ -171,12 +176,12 @@ private AccountPicker accPickerSupplierAccCode;
 			tbfCurrentCardAddLData.grabExcessHorizontalSpace = true;
 			tbfCurrentCardAddLData.grabExcessVerticalSpace = true;
 			tbfCurrentCardAdd.setLayoutData(tbfCurrentCardAddLData);
-			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(516,436));
+			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(578,453));
 	
 			tabItemGeneralInfo.setControl(compCurrentGeneralInfo);
 			tabItemGeneralInfo.setText("General Info");
 	
-			compCurrentGeneralInfo.setSize(new org.eclipse.swt.graphics.Point(619,433));
+			compCurrentGeneralInfo.setSize(new org.eclipse.swt.graphics.Point(578,436));
 	
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
@@ -232,7 +237,7 @@ private AccountPicker accPickerSupplierAccCode;
 			txtCurrentNameLData.grabExcessVerticalSpace = false;
 			txtCurrentName.setLayoutData(txtCurrentNameLData);
 			txtCurrentName.setTextLimit(250);
-			txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(480,17));
+			txtCurrentName.setSize(new org.eclipse.swt.graphics.Point(439,17));
 	
 			GridData lblCardDefinitionLData = new GridData();
 			lblCardDefinitionLData.verticalAlignment = GridData.BEGINNING;
@@ -675,7 +680,7 @@ private AccountPicker accPickerSupplierAccCode;
 			tabItemContactInfo.setControl(compCurrentContactInfo);
 			tabItemContactInfo.setText("Contact Info");
 	
-			compCurrentContactInfo.setSize(new org.eclipse.swt.graphics.Point(619,433));
+			compCurrentContactInfo.setSize(new org.eclipse.swt.graphics.Point(578,436));
 	
 			GridData NameLData = new GridData();
 			NameLData.verticalAlignment = GridData.CENTER;
@@ -871,35 +876,40 @@ private AccountPicker accPickerSupplierAccCode;
 			tabItemCurrentGroups.setControl(compCurrentGroups);
 			tabItemCurrentGroups.setText("Current Groups");
 	
-			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(516,436));
+			compCurrentGroups.setSize(new org.eclipse.swt.graphics.Point(578,436));
 	
 			GridData compRegisterGroupLData = new GridData();
 			compRegisterGroupLData.verticalAlignment = GridData.BEGINNING;
 			compRegisterGroupLData.horizontalAlignment = GridData.FILL;
 			compRegisterGroupLData.widthHint = -1;
-			compRegisterGroupLData.heightHint = 181;
+			compRegisterGroupLData.heightHint = 182;
 			compRegisterGroupLData.horizontalIndent = 0;
 			compRegisterGroupLData.horizontalSpan = 1;
 			compRegisterGroupLData.verticalSpan = 1;
 			compRegisterGroupLData.grabExcessHorizontalSpace = true;
 			compRegisterGroupLData.grabExcessVerticalSpace = false;
 			compRegisterGroup.setLayoutData(compRegisterGroupLData);
-			compRegisterGroup.setSize(new org.eclipse.swt.graphics.Point(506,181));
+			compRegisterGroup.setSize(new org.eclipse.swt.graphics.Point(568,182));
 			compRegisterGroup.layout();
 	
-			GridData button1LData = new GridData();
-			button1LData.verticalAlignment = GridData.CENTER;
-			button1LData.horizontalAlignment = GridData.CENTER;
-			button1LData.widthHint = 102;
-			button1LData.heightHint = 32;
-			button1LData.horizontalIndent = 0;
-			button1LData.horizontalSpan = 1;
-			button1LData.verticalSpan = 1;
-			button1LData.grabExcessHorizontalSpace = false;
-			button1LData.grabExcessVerticalSpace = false;
-			button1.setLayoutData(button1LData);
-			button1.setText("Update Groups");
-			button1.setSize(new org.eclipse.swt.graphics.Point(102,32));
+			GridData btnUpdateGroupsLData = new GridData();
+			btnUpdateGroupsLData.verticalAlignment = GridData.CENTER;
+			btnUpdateGroupsLData.horizontalAlignment = GridData.BEGINNING;
+			btnUpdateGroupsLData.widthHint = 106;
+			btnUpdateGroupsLData.heightHint = 37;
+			btnUpdateGroupsLData.horizontalIndent = 10;
+			btnUpdateGroupsLData.horizontalSpan = 1;
+			btnUpdateGroupsLData.verticalSpan = 1;
+			btnUpdateGroupsLData.grabExcessHorizontalSpace = false;
+			btnUpdateGroupsLData.grabExcessVerticalSpace = false;
+			btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
+			btnUpdateGroups.setText("Update Groups");
+			btnUpdateGroups.setSize(new org.eclipse.swt.graphics.Point(106,37));
+			btnUpdateGroups.addMouseListener( new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					btnUpdateGroupsMouseUp(evt);
+				}
+			});
 			GridLayout compCurrentGroupsLayout = new GridLayout(1, true);
 			compCurrentGroups.setLayout(compCurrentGroupsLayout);
 			compCurrentGroupsLayout.marginWidth = 5;
@@ -931,5 +941,36 @@ private AccountPicker accPickerSupplierAccCode;
 
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
+	fillGroups();
+	
+	
+	}
+	public void fillGroups(){
+	try{
+	HashMap groupMap = new HashMap(); 
+	
+	List list = currentAdd.getCurrentGroups();
+	TurqCurrentGroup curGroup;
+	
+	for(int i=0; i<list.size();i++){
+	curGroup = (TurqCurrentGroup)list.get(i);
+	groupMap.put(curGroup.getGroupsName(),curGroup);
+	}
+	
+	compRegisterGroup.fillTableAllGroups(groupMap);
+	
+	
+	
+	}
+	catch(Exception ex){
+	ex.printStackTrace();
+	}
+	
+	}
+	
+	/** Auto-generated event handler method */
+	protected void btnUpdateGroupsMouseUp(MouseEvent evt){
+		new CurUIGroupAddDialog(this.getShell(),SWT.NULL).open();
+		fillGroups();
 	}
 }
