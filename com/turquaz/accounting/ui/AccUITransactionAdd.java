@@ -701,4 +701,17 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 	public void setTxtTransDefinition(Text txtTransDefinition) {
 		this.txtTransDefinition = txtTransDefinition;
 	}
+	
+	/**
+	 * @return Returns the comboCurrencyType.
+	 */
+	public CCombo getComboCurrencyType() {
+		return comboCurrencyType;
+	}
+	/**
+	 * @param comboCurrencyType The comboCurrencyType to set.
+	 */
+	public void setComboCurrencyType(CCombo comboCurrencyType) {
+		this.comboCurrencyType = comboCurrencyType;
+	}
 }
