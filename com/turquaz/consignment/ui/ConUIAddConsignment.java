@@ -316,7 +316,6 @@ implements SecureComposite{
 	private CLabel lblCurrentCard;
 	ConBLAddGroups blAddGroup = new ConBLAddGroups();
 	ConBLAddConsignment blAddCondignmetn = new ConBLAddConsignment();
-	private EngBLCommon blCommon = new EngBLCommon();
 	public TableViewer tableViewer;
 	
 	/**
@@ -1082,7 +1081,7 @@ implements SecureComposite{
 	public void fillComboWarehouses(){
 		try{
 			comboWareHouse.removeAll();
-			List list = blCommon.getInventoryWarehouses();
+			List list = EngBLCommon.getInventoryWarehouses();
 			
 			TurqInventoryWarehous warehouse;	
 			for(int i=0;i<list.size();i++){

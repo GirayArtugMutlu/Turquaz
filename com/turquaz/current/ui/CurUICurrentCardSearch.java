@@ -101,7 +101,6 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 	private CurrentCodePicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentCardSearch;
-	private EngBLCommon engBLCom=new EngBLCommon();
 	private CurBLCurrentCardUpdate blUpdate = new CurBLCurrentCardUpdate();
 	private CurBLCurrentCardSearch currentSearch=new CurBLCurrentCardSearch();
 
@@ -269,7 +268,7 @@ public class CurUICurrentCardSearch extends  Composite implements SearchComposit
 
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups=engBLCom.getTurqCurrentGroups();
+			List groups=EngBLCommon.getTurqCurrentGroups();
 			for(int k=0; k<groups.size(); k++){
 				TurqCurrentGroup group=(TurqCurrentGroup)groups.get(k);
 				comboTurqGroupName.add(group.getGroupsName());

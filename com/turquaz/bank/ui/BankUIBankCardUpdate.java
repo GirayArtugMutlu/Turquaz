@@ -75,8 +75,6 @@ import org.eclipse.swt.SWT;
 public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private TurqBanksCard bankCard;
-	private BankBLBankCardUpdate bankBLBankCardUpdate=new BankBLBankCardUpdate();
-	private EngBLCommon engBLCommon= new EngBLCommon();
 	private ToolItem toolCancel;
 	private BankUIBankCardAdd compBankCard;
 	private ToolItem toolDelete;
@@ -281,7 +279,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		try{
 			CCombo comboCurrency=compBankCard.getComboCurrency();
 			comboCurrency.removeAll();
-			List currencies=engBLCommon.getCurrencies();
+			List currencies=EngBLCommon.getCurrencies();
 			for(int k=0; k<currencies.size(); k++){
 				TurqCurrency currency=(TurqCurrency)currencies.get(k);
 				comboCurrency.add(currency.getCurrenciesAbbreviation());
@@ -338,10 +336,10 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 		    if(EngUICommon.okToDelete(getParent()))
 		    {
 		   
-		    	if(!bankBLBankCardUpdate.hasTransaction(bankCard))
+		    	if(!BankBLBankCardUpdate.hasTransaction(bankCard))
 		    	{
 		    		updated=true;
-		    		bankBLBankCardUpdate.deleteBankCard(bankCard);
+		    		BankBLBankCardUpdate.deleteBankCard(bankCard);
 		    		this.dialogShell.close();
 		    	}
 		    	else{

@@ -88,8 +88,6 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 		initGUI();
 	}
 	
-	private BankBLBankCardSearch bankBLBankCardSearch= new BankBLBankCardSearch();
-	private EngBLCommon engBLCom=new EngBLCommon();
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -327,7 +325,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 		try{
 			comboCurrency.removeAll();
 			comboCurrency.setText(""); //$NON-NLS-1$
-			List currencies=engBLCom.getCurrencies();
+			List currencies=EngBLCommon.getCurrencies();
 			for(int k=0; k<currencies.size(); k++){
 				TurqCurrency currency=(TurqCurrency)currencies.get(k);
 				comboCurrency.add(currency.getCurrenciesAbbreviation());
@@ -354,7 +352,7 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 		try
 		{
 			tableBankCards.removeAll();
-			List listBankCards=bankBLBankCardSearch.searchBankCards(txtBankName.getText().trim(),
+			List listBankCards=BankBLBankCardSearch.searchBankCards(txtBankName.getText().trim(),
 																txtBankBranchName.getText().trim(),
 																txtBankAccountNo.getText().trim(),
 																(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())));

@@ -995,11 +995,11 @@ public class BillUIAddBuyBill extends Composite
 
 	}
 	
-	private EngBLCommon blCommon = new EngBLCommon();
+
 	public void fillComboWarehouses(){
 		try{
 			comboWareHouse.removeAll();
-			List list = blCommon.getInventoryWarehouses();
+			List list = EngBLCommon.getInventoryWarehouses();
 			
 			TurqInventoryWarehous warehouse;	
 			for(int i=0;i<list.size();i++){

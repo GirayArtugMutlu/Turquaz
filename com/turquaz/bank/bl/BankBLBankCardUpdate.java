@@ -42,8 +42,6 @@ public class BankBLBankCardUpdate {
 		
 	}
 	
-	private BankDALBankCardUpdate bankDALBankCardUpdate=new BankDALBankCardUpdate();
-	
 	
 	public static void updateBankCard(TurqBanksCard bankCard,String bankName,
 			String bankBranchName, String bankAccountNo,TurqCurrency currency,
@@ -119,9 +117,9 @@ public class BankBLBankCardUpdate {
 	}
 	
 	
-	public boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
+	public static boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
 		
-		return bankDALBankCardUpdate.hasTransaction(bankCard);
+		return BankDALBankCardUpdate.hasTransaction(bankCard);
 		
 	}
 	
@@ -131,7 +129,7 @@ public class BankBLBankCardUpdate {
 	 * @param obj Serializable object
 	 */
 	
-	public void deleteObject(Object obj)throws Exception{
+	public  static void deleteObject(Object obj)throws Exception{
  		try{
  			
  			
@@ -149,7 +147,7 @@ public class BankBLBankCardUpdate {
 	 * @param obj Serializable object
 	 */
 	
-	public void deleteBankCard(TurqBanksCard bankCard)throws Exception{
+	public  static void deleteBankCard(TurqBanksCard bankCard)throws Exception{
  		try{
  			
  			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
@@ -159,7 +157,7 @@ public class BankBLBankCardUpdate {
  				
  			}
  			
- 			bankDALBankCardUpdate.deleteInitialTransaction(bankCard);
+ 			BankDALBankCardUpdate.deleteInitialTransaction(bankCard);
  			
  			EngDALCommon.deleteObject(bankCard);
  			

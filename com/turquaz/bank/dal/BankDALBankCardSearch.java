@@ -44,7 +44,7 @@ public class BankDALBankCardSearch {
 	
 	}
 	
-	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
+	public static List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
 	throws Exception
 	{
 		try

@@ -702,12 +702,4 @@ public class BankBLTransactionAdd {
 
     }
 
-    private static void saveTransactionRow() throws Exception {
-        try {
-
-        } catch (Exception ex) {
-            throw ex;
-        }
-    }
-
 }

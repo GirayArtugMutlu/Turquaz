@@ -389,7 +389,7 @@ public class EngBLCommon {
 
 
 
-	public List getCurrencies() throws Exception {
+	public static List getCurrencies() throws Exception {
 		try {
 
 			return EngDALCommon.getCurrencies();
@@ -400,7 +400,7 @@ public class EngBLCommon {
 
 	}
 
-	public List getTurqCurrentGroups() throws Exception {
+	public static List getTurqCurrentGroups() throws Exception {
 		try {
 			return EngDALCommon.getTurqCurrentGroups();
 		} catch (Exception ex) {
@@ -408,7 +408,7 @@ public class EngBLCommon {
 		}
 	}
 
-	public boolean checkUserPass(String user, String pass) throws Exception {
+	public static boolean checkUserPass(String user, String pass) throws Exception {
 		try {
 
 			return EngDALCommon.checkUserPass(user, pass);
@@ -417,8 +417,9 @@ public class EngBLCommon {
 			throw ex;
 		}
 	}
-
-	public List getInventoryWarehouses() throws Exception {
+	//TODO what is inventory method doing here? should be removed
+	
+	public static List getInventoryWarehouses() throws Exception {
 		try {
 
 			return EngDALCommon.getInventoryWarehouses();

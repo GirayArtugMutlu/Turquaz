@@ -96,7 +96,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	private Text txtPassword;
 	private CLabel lblPassword;
 	private Label lblSeperator;
-	private EngBLCommon blCommon = new EngBLCommon();
 	boolean guiReady = false;
 
 	/**
@@ -441,7 +440,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	    
 		MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 		try{
-		if(blCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
+		if(EngBLCommon.checkUserPass(txtUserName.getText(),txtPassword.getText())){
 		
 			showMainFrame();
 			

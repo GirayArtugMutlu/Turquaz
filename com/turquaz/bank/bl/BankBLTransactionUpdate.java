@@ -54,6 +54,7 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class BankBLTransactionUpdate {
+	//TODO remove me
     static CashBLCashTransactionUpdate blCashUpdate = new CashBLCashTransactionUpdate();
 
     public static TurqBanksTransactionBill initializeTransaction(Integer transId)

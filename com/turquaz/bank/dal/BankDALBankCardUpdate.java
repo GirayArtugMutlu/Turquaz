@@ -35,7 +35,7 @@ import com.turquaz.engine.dal.TurqBanksTransactionBill;
 public class BankDALBankCardUpdate {
 	public BankDALBankCardUpdate(){
 	}
-	public boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
+	public static boolean hasTransaction(TurqBanksCard bankCard)throws Exception {
 		try{
 			if(bankCard ==null)
 			{
@@ -78,7 +78,7 @@ public class BankDALBankCardUpdate {
 		
 		
 	}
-	public void deleteInitialTransaction(TurqBanksCard bankCard)throws Exception {
+	public static  void deleteInitialTransaction(TurqBanksCard bankCard)throws Exception {
 		try{
 	        
 	        Session session = EngDALSessionFactory.openSession();

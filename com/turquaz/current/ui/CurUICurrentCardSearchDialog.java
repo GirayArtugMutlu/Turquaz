@@ -80,7 +80,6 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private CLabel lblCurrentCode;
 	private CurBLCurrentCardSearch curBLCurrentCardSearch=new CurBLCurrentCardSearch();
 	private Button btnSearch;
-	private EngBLCommon engBLCom=new EngBLCommon();
 
 	 Object returnData=null;
 	/**
@@ -305,7 +304,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups=engBLCom.getTurqCurrentGroups();
+			List groups=EngBLCommon.getTurqCurrentGroups();
 			for(int k=0; k<groups.size(); k++){
 				TurqCurrentGroup group=(TurqCurrentGroup)groups.get(k);
 				comboTurqGroupName.add(group.getGroupsName());

@@ -125,7 +125,7 @@ public class BankUIBankCardAdd extends  Composite implements SecureComposite {
 	private Text txtBankName;
 	private Text txtBankCode;
 	private CLabel lblBankCode;
-	private EngBLCommon engBLCom= new EngBLCommon();
+	
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -372,7 +372,7 @@ private boolean verifyfields()
 		try{
 			comboCurrency.removeAll();
 			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.16")); //$NON-NLS-1$
-			List currencies=engBLCom.getCurrencies();
+			List currencies=EngBLCommon.getCurrencies();
 			for(int k=0; k<currencies.size(); k++){
 				TurqCurrency currency=(TurqCurrency)currencies.get(k);
 				comboCurrency.add(currency.getCurrenciesAbbreviation());

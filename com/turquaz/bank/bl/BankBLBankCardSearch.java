@@ -32,7 +32,6 @@ import com.turquaz.engine.dal.TurqCurrency;
 
 public class BankBLBankCardSearch {
 	
-	private BankDALBankCardSearch bankDALBankCardSearch=new BankDALBankCardSearch();
 	
 	public BankBLBankCardSearch()
 	{
@@ -41,12 +40,12 @@ public class BankBLBankCardSearch {
 	
 	
 	
-	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
+	public static List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
 	throws Exception
 	{
 		try
 		{
-			return bankDALBankCardSearch.searchBankCards(bankName,bankBranchName,bankAccountNo,currency);
+			return BankDALBankCardSearch.searchBankCards(bankName,bankBranchName,bankAccountNo,currency);
 		}
 		catch(Exception ex)
 		{
