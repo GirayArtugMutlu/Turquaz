@@ -28,37 +28,53 @@ import com.turquaz.engine.dal.EngDALCommon;
 
 public class EngBLCommon {
     
-    final static int CASH_CURRENT_COLLECT = 0; //Kasa Cari Tahsilat
+    public final static int CASH_CURRENT_COLLECT = 0; //Kasa Cari Tahsilat
     
-    final static int CASH_CURRENT_PAYMENT = 1; // Kasa Cari Ödeme
-    
-    
-    final static int CURRENT_TRANS_BILL = 1; //Cari Fatura Hareketi
-    
-    final static int CURRENT_TRANS_CHEQUE = 2; // CAri Cek hareketi
-    
-    final static int CURRENT_TRANS_TRADEBILL = 3; //Cari senet hareketi
-    
-    final static int CURRENT_TRANS_CASH = 4; //Cari Nakit Hareketi
-    
-    final static int CURRENT_TRANS_BANK = 5; //Cari Banka Hareketi
+    public final static int CASH_CURRENT_PAYMENT = 1; // Kasa Cari Ödeme
     
     
-    final static int MODULE_INVENTORY = 0;  //Stok Modulu
     
-    final static int MODULE_ACCOUNTING = 1; // muhasebe module
+    public final static int ACCOUNTING_TRANS_COLLECT = 0; //Tahsil Fisi
     
-    final static int MODULE_BANKS = 3;   // Banka Modulu
+    public final static int ACCOUNTING_TRANS_PAYMENT = 1; //Tediye F?S?
     
-    final static int MODULE_CURRENT = 4;  // Cari Modulu
+    public final static int ACCOUNTING_TRANS_GENERAL = 2; //MAhsup Fisi
+   
+    public final static int ACCOUNTING_TRANS_OPENING = 3; // Acilis Fisi
     
-    final static int MODULE_ADMIN = 5; //ayarlar modulu
     
-    final static int MODULE_CONSIGNMENT = 6; //irsaliye Modulu
     
-    final static int MODULE_BILL = 7; //fatura modulu
+    public final static int CURRENT_TRANS_BILL = 1; //Cari Fatura Hareketi
     
-    final static int MODULE_CASH = 8; //kasa modulu
+    public final static int CURRENT_TRANS_CHEQUE = 2; // CAri Cek hareketi
+    
+    public final static int CURRENT_TRANS_TRADEBILL = 3; //Cari senet hareketi
+    
+    public final static int CURRENT_TRANS_CASH = 4; //Cari Nakit Hareketi
+    
+    public final static int CURRENT_TRANS_BANK = 5; //Cari Banka Hareketi
+    
+    public final static boolean CURRENT_TRANS_CREDIT = true; // cari alacak hareketi
+    
+    public final static boolean CURRENT_TRANS_DEBIT = false; // cari borc hareketi
+    
+    
+    public final static int MODULE_INVENTORY = 0;  //Stok Modulu
+    
+    public final static int MODULE_ACCOUNTING = 1; // muhasebe module
+    
+    public final static int MODULE_BANKS = 3;   // Banka Modulu
+    
+    public final static int MODULE_CURRENT = 4;  // Cari Modulu
+    
+    public final static int MODULE_ADMIN = 5; //ayarlar modulu
+    
+    public final static int MODULE_CONSIGNMENT = 6; //irsaliye Modulu
+    
+    public final static int MODULE_BILL = 7; //fatura modulu
+    
+    public final static int MODULE_CASH = 8; //kasa modulu
+    
     
     
     

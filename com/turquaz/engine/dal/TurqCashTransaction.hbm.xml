@@ -39,6 +39,25 @@
         length="65535"
     />
     <property
+        name="transactionDate"
+        type="java.sql.Date"
+        column="transaction_date"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="transactionDefinition"
+        type="java.lang.String"
+        column="transaction_definition"
+        length="250"
+    />
+    <property
+        name="documentNo"
+        type="java.lang.String"
+        column="document_no"
+        length="100"
+    />
+    <property
         name="createdBy"
         type="java.lang.String"
         column="created_by"
@@ -76,14 +95,6 @@
         not-null="true"
     >
         <column name="cash_cards_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqModule -->
-    <many-to-one
-        name="turqModule"
-        class="com.turquaz.engine.dal.TurqModule"
-        not-null="true"
-    >
-        <column name="modules_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqCashTransactionType -->
     <many-to-one

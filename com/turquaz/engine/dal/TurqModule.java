@@ -37,9 +37,6 @@ public class TurqModule implements Serializable {
     private Set turqAccountingTransactions;
 
     /** persistent field */
-    private Set turqCashTransactions;
-
-    /** persistent field */
     private Set turqEngineSequences;
 
     /** persistent field */
@@ -49,7 +46,7 @@ public class TurqModule implements Serializable {
     private Set turqGroupPermissions;
 
     /** full constructor */
-    public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqCashTransactions, Set turqEngineSequences, Set turqModuleComponents, Set turqGroupPermissions) {
+    public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqEngineSequences, Set turqModuleComponents, Set turqGroupPermissions) {
         this.modulesName = modulesName;
         this.moduleDescription = moduleDescription;
         this.createdBy = createdBy;
@@ -58,7 +55,6 @@ public class TurqModule implements Serializable {
         this.updateDate = updateDate;
         this.turqUserPermissions = turqUserPermissions;
         this.turqAccountingTransactions = turqAccountingTransactions;
-        this.turqCashTransactions = turqCashTransactions;
         this.turqEngineSequences = turqEngineSequences;
         this.turqModuleComponents = turqModuleComponents;
         this.turqGroupPermissions = turqGroupPermissions;
@@ -138,14 +134,6 @@ public class TurqModule implements Serializable {
 
     public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions) {
         this.turqAccountingTransactions = turqAccountingTransactions;
-    }
-
-    public java.util.Set getTurqCashTransactions() {
-        return this.turqCashTransactions;
-    }
-
-    public void setTurqCashTransactions(java.util.Set turqCashTransactions) {
-        this.turqCashTransactions = turqCashTransactions;
     }
 
     public java.util.Set getTurqEngineSequences() {

@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -63,8 +64,9 @@ public class AccBLTransactionAdd {
 		throw ex;
 	}
 	}
+   
 	
-	public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,Integer docSeqId, String definition) throws Exception
+   public Integer saveAccTransaction(Date date, String documentNo,int type,int moduleId,Integer docSeqId, String definition) throws Exception
 	{
 		try{
 			
@@ -73,7 +75,7 @@ public class AccBLTransactionAdd {
 		if(docSeqId==null){
 			
 			TurqModule module = new TurqModule();
-			module.setModulesId(new Integer(1));
+			module.setModulesId(new Integer(EngBLCommon.MODULE_ACCOUNTING));
 			docSeq.setTurqModule(module);
 			dalTransAdd.save(docSeq);
 		}
