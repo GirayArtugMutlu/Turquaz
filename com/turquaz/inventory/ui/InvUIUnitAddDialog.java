@@ -202,7 +202,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				}
 			});
 	
-			tableColumnName.setText("Name");
+			tableColumnName.setText("Unit Name");
 			tableColumnName.setWidth(200);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);

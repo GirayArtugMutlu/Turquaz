@@ -238,7 +238,7 @@
 						<Events>
 						</Events>
 						<Properties>
-							<Property name="text" type="String" value="Name"/>
+							<Property name="text" type="String" value="Unit Name"/>
 							<Property name="width" type="int" value="200"/>
 						</Properties>
 					</Component>
