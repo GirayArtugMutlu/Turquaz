@@ -235,8 +235,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					comboBillType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
 					comboBillType.setSize(128, 16);
-					comboBillType.setText(com.turquaz.bill.Messages
-						.getString("BillUIBillSearch.4")); //$NON-NLS-1$
+					comboBillType.setText("Hepsi"); //$NON-NLS-1$
 					comboConsignmentTypeLData.widthHint = 128;
 					comboConsignmentTypeLData.heightHint = 16;
 					comboBillType.setLayoutData(comboConsignmentTypeLData);
@@ -332,6 +331,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	public void postInitGui(){
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.10"));  //$NON-NLS-1$
 		comboBillType.add(com.turquaz.bill.Messages.getString("BillUIBillSearch.11"));  //$NON-NLS-1$
+		comboBillType.add(Messages.getString("BillUIBillReport.8")); //$NON-NLS-1$
+		comboBillType.setText(Messages.getString("BillUIBillReport.9")); //$NON-NLS-1$
 		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
@@ -374,10 +375,14 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		try{
 			
 		tableBills.removeAll();	
-		int type=0;
+		int type=2;
 		if(comboBillType.getText().equals(com.turquaz.bill.Messages.getString("BillUIBillSearch.13")))  //$NON-NLS-1$
 		{
 			type =1;
+		}
+		else if (comboBillType.getText().equals(Messages.getString("BillUIBillReport.10"))) //$NON-NLS-1$
+		{
+			type=0;
 		}
 			
 		List list = blSearch.searchBill((TurqCurrentCard)txtCurCardStart.getData(),
