@@ -232,10 +232,9 @@ implements SecureComposite,SearchComposite{
 					comboPermissionLevel.setBackground(SWTResourceManager
 							.getColor(255, 255, 255));
 					comboPermissionLevel.setEditable(false);
-					comboPermissionLevelLData.widthHint = 25;
+					comboPermissionLevelLData.widthHint = 85;
 					comboPermissionLevelLData.heightHint = 17;
-					comboPermissionLevel
-							.setLayoutData(comboPermissionLevelLData);
+					comboPermissionLevel.setLayoutData(comboPermissionLevelLData);
 				}
 			}
 			{
@@ -270,7 +269,7 @@ implements SecureComposite,SearchComposite{
 					tableColumnPermissionLevel = new TableColumn(
 							tableGroupPermissions, SWT.NONE);
 					tableColumnPermissionLevel.setText(Messages.getString("AdmUIGroupPermissions.7")); //$NON-NLS-1$
-					tableColumnPermissionLevel.setWidth(104);
+					tableColumnPermissionLevel.setWidth(120);
 				}
 			}
 			this.layout();
@@ -299,10 +298,19 @@ implements SecureComposite,SearchComposite{
 				comboModules.add(module.getModulesName());
 
 			}
-			comboPermissionLevel.add("0"); //$NON-NLS-1$
-			comboPermissionLevel.add("1"); //$NON-NLS-1$
-			comboPermissionLevel.add("2"); //$NON-NLS-1$
-			comboPermissionLevel.add("3"); //$NON-NLS-1$
+			comboPermissionLevel.add("None"); //$NON-NLS-1$
+			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.8"), new Integer(0)); //$NON-NLS-1$
+			
+			comboPermissionLevel.add("Read"); //$NON-NLS-1$
+			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.9"), new Integer(1)); //$NON-NLS-1$
+			
+			comboPermissionLevel.add("Read/Write"); //$NON-NLS-1$
+			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.10"), new Integer(2)); //$NON-NLS-1$
+			
+			comboPermissionLevel.add("Read/Write/Delete"); //$NON-NLS-1$
+			comboPermissionLevel.setData(Messages.getString("AdmUIGroupPermissions.11"), new Integer(3)); //$NON-NLS-1$
+			
+			comboPermissionLevel.setText(Messages.getString("AdmUIGroupPermissions.12")); //$NON-NLS-1$
 
 			fillTableUserPermissions();
 
@@ -377,7 +385,25 @@ implements SecureComposite,SearchComposite{
 					moduleComp = groupPerm.getTurqModuleComponent()
 							.getComponentsDescription();
 				}
-				permLevel = groupPerm.getGroupPermissionsLevel() + ""; //$NON-NLS-1$
+				// print error if it does not take the permissons
+				permLevel = Messages.getString("AdmUIGroupPermissions.13"); //$NON-NLS-1$
+				if (groupPerm.getGroupPermissionsLevel()==0 )
+				{
+					permLevel = Messages.getString("AdmUIGroupPermissions.14"); //$NON-NLS-1$
+				}
+				else if (groupPerm.getGroupPermissionsLevel()==1 )
+				{
+					permLevel = Messages.getString("AdmUIGroupPermissions.15"); //$NON-NLS-1$
+				}
+				else if (groupPerm.getGroupPermissionsLevel()==2 )
+				{
+					permLevel = Messages.getString("AdmUIGroupPermissions.16"); //$NON-NLS-1$
+				}
+				else if (groupPerm.getGroupPermissionsLevel()==3 )
+				{
+					permLevel = Messages.getString("AdmUIGroupPermissions.17"); //$NON-NLS-1$
+				}
+
 
 				item = new TableItem(tableGroupPermissions, SWT.NULL);
 				item.setData(groupPerm);
@@ -426,7 +452,7 @@ implements SecureComposite,SearchComposite{
 			blGroupPerms.saveGroupPermission(comboGroups.getData(comboGroups.getText()),
 										comboModules.getData(comboModules.getText()),
 										comboModuleComponents.getData(comboModuleComponents.getText()),
-										Integer.parseInt(comboPermissionLevel.getText()));	
+										((Integer)comboPermissionLevel.getData(comboPermissionLevel.getText())).intValue());	
 			
 			newForm();
 			fillTableUserPermissions();
