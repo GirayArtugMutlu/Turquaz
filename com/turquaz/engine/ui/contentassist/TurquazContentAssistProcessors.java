@@ -83,7 +83,7 @@ public class TurquazContentAssistProcessors implements
                 List list = EngBLCurrentCards.getCurrentCards();
 
                 for (int i = 0; i < list.size(); i++) {
-                    TurqCurrentCard card = (TurqCurrentCard) list.get(i);
+                    TurqCurrentCard card = (TurqCurrentCard)((Object[]) list.get(i))[1];
                     proposed.add(card.getCardsCurrentCode());
                 }
 

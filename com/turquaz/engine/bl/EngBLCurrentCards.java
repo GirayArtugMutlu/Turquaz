@@ -52,7 +52,7 @@ public class EngBLCurrentCards {
 
 			TurqCurrentCard currentCard;
 			for (int i = 0; i < currentList.size(); i++) {
-				currentCard = (TurqCurrentCard) currentList.get(i);
+				currentCard = (TurqCurrentCard)((Object[]) currentList.get(i))[1];
 				cardMap.put(currentCard.getCardsCurrentCode(), currentCard);
 
 			}
