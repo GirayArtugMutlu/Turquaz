@@ -107,11 +107,9 @@ public class CurrencyText extends Composite {
     String textcontrol = control.getText();
     e.doit = false;
     String newText = textcontrol.substring(0, e.start) + e.text + textcontrol.substring(e.end);
-    System.out.println(newText);
     //newText=newText.replaceAll(",","");
     newText=newText.replaceAll("\\.","");
     newText=newText.replaceAll(",",".");
-    System.out.println(newText);
    /* if (e.keyCode == SWT.BS || e.keyCode == SWT.DEL){
     	e.doit=true;
     
@@ -134,15 +132,12 @@ public class CurrencyText extends Composite {
      e.doit=true;
      return;
     }
-    System.out.println("beforevalid");
-    System.out.println(newText);
     Pattern realNumberPattern = Pattern.compile("-?[0-9]+[0-9]*(([" +decimalSymbol + "][0-9]?[0-9]?)|(["+decimalSymbol+"]))?");
     Matcher matcher = realNumberPattern.matcher(newText);
     boolean valid = matcher.matches();
     
 
     if (valid){
-    	System.out.println("valid");
     	text.removeVerifyListener(listener);
     	boolean isLastSeperator=(newText.toCharArray()[newText.length()-1]==decimalSymbol) ? true : false;
     	BigDecimal bd=new BigDecimal(newText);
