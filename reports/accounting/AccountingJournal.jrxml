@@ -11,11 +11,13 @@
 	</parameter>
 	<parameter name="sqlparam" class="java.lang.String">
 	</parameter>
-	<parameter name="MainTitle" class="java.lang.String">
-	</parameter>
 	<parameter name="column1header" class="java.lang.String">
 	</parameter>
 	<parameter name="column2header" class="java.lang.String">
+	</parameter>
+	<parameter name="beginDate" class="java.lang.String">
+	</parameter>
+	<parameter name="endDate" class="java.lang.String">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="accounting_transactions_id" class="java.lang.Integer">
@@ -59,25 +61,25 @@
 	<group name="Transaction">
 		<groupExpression><![CDATA[$F{accounting_transactions_id}]]></groupExpression>
 		<groupHeader>
-		<band height="21">
+		<band height="19">
 			<textField pattern="">
-				<reportElement key="textField" mode="Opaque" x="1" y="3" width="18" height="18"/>
-				<textElement>
+				<reportElement key="textField" mode="Opaque" x="1" y="3" width="18" height="15"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[String.valueOf($V{Transaction_COUNT})]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="19" y="3" width="122" height="18"/>
-				<textElement>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="19" y="3" width="122" height="15"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[new SimpleDateFormat("MM/dd/yyyy").format($F{transactions_date})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{transactions_date})]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupHeader>
 		<groupFooter>
-		<band height="15">
+		<band height="5">
 			<line>
 				<reportElement positionType="Float" x="0" y="3" width="555" height="1"/>
 				<graphicElement/>
@@ -91,46 +93,32 @@
 		<band height="21">
 			<printWhenExpression><![CDATA[$V{Transaction_COUNT}.intValue() % 2 == 0 ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="138" y="3" width="137" height="15"/>
-				<textElement>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="199" y="3" width="183" height="15"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_code})+" - "+String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="13" y="3" width="126" height="15"/>
-				<textElement>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="13" y="3" width="186" height="15"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_code})+" - "+String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="275" y="3" width="148" height="15"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="382" y="3" width="87" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{dept_amount}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="422" y="3" width="132" height="15"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="468" y="3" width="88" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{credit_amount}) : ""]]></textFieldExpression>
-			</textField>
-			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="19" y="3" width="126" height="15"/>
-				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
-			</textField>
-			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="144" y="3" width="137" height="15"/>
-				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupHeader>
@@ -141,30 +129,30 @@
 		<band height="21">
 			<printWhenExpression><![CDATA[$V{Transaction_COUNT}.intValue() % 2 == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="13" y="3" width="127" height="15"/>
-				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="13" y="3" width="186" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{account_code})+" - "+String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="140" y="3" width="135" height="15"/>
-				<textElement>
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="200" y="3" width="182" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_name}) : ""]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{account_code})+" - "+String.valueOf($F{account_name}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="275" y="3" width="149" height="15"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="382" y="3" width="87" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{dept_amount}.intValue() > 0 ? String.valueOf($F{dept_amount}) : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="424" y="3" width="132" height="15"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="468" y="3" width="88" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{credit_amount}.intValue() > 0 ? String.valueOf($F{credit_amount}) : ""]]></textFieldExpression>
 			</textField>
@@ -172,60 +160,63 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="50">
+		<band height="45">
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="17" y="13" width="441" height="22"/>
-				<textElement>
-					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="52" y="12" width="305" height="25"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{MainTitle}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}+"     "+$P{beginDate}+" / "+$P{endDate}]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="47">
 			<image>
-				<reportElement key="image" positionType="Float" mode="Opaque" x="23" y="10" width="48" height="26"/>
+				<reportElement key="image" positionType="Float" mode="Opaque" x="8" y="11" width="39" height="26"/>
 				<graphicElement/>
 				<imageExpression class="java.lang.String"><![CDATA[$P{imageUrl}]]></imageExpression>
 			</image>
-			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="80" y="11" width="323" height="25"/>
-				<textElement>
-					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{ReportTitle}]]></textFieldExpression>
-			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5">
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="25">
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="281" y="6" width="137" height="15"/>
-				<textElement textAlignment="Center">
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="391" y="5" width="67" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{column1header}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="423" y="6" width="133" height="15"/>
-				<textElement textAlignment="Center">
+				<reportElement key="textField" positionType="Float" mode="Opaque" x="470" y="6" width="86" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{column2header}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="281" y="22" width="136" height="1"/>
+				<reportElement positionType="Float" x="390" y="23" width="73" height="1"/>
 				<graphicElement/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="422" y="22" width="132" height="1"/>
+				<reportElement positionType="Float" x="470" y="23" width="85" height="1"/>
 				<graphicElement/>
 			</line>
 		</band>
 	</columnHeader>
 	<pageFooter>
-		<band>
+		<band height="70">
+			<textField>
+				<reportElement positionType="Float" x="252" y="4" width="47" height="17"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page " + String.valueOf($V{PAGE_NUMBER}) + " of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement positionType="Float" x="298" y="4" width="90" height="17"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + String.valueOf($V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>

@@ -135,12 +135,13 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 					"trans.accounting_transactions_id=transcolumns.accounting_transactions_id" +
 					" and transcolumns.accounting_accounts_id=accounts.accounting_accounts_id";
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
-			String sqlparam2 =" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
+			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
 					+" and trans.transactions_date <= '"+dformat.format(datePickerEndDate.getDate())+"'"
 					+" ORDER BY trans.transactions_date";
-			parameters.put("sqlparam2",sqlparam2);
-			System.out.println(sqlparam);
-			parameters.put("sqlparam",sqlparam);			
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd-MM-yyyy");
+			parameters.put("sqlparam",sqlparam);		
+			parameters.put("beginDate",dformat2.format(datePickerBeginDate.getDate()));
+			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate()));
 			parameters.put("imageUrl", "C:\\eclipse3\\workspace\\Turquaz\\icons\\sample.gif");
 
 			parameters.put("column1header","Borç");
