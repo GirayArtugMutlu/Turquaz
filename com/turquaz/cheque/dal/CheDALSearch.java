@@ -213,7 +213,7 @@ public class CheDALSearch {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List searchCheques(String portfoyNo, TurqCurrentCard curCard,
+	public static List searchCheque(String portfoyNo, TurqCurrentCard curCard,
 			Integer status, Date startEnterDate, Date endEnterDate,
 			Date startDueDate, Date endDueDate) throws Exception {
 		try {
@@ -242,7 +242,7 @@ public class CheDALSearch {
 				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
 			}
 			if (status != null) {
-				query += " and status.chequeTransactionTypesId = "
+				query += " and status.transactionTypesParent = "
 						+ status.intValue();
 			}
 
