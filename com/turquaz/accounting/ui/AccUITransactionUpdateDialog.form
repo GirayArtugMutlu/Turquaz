@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form style="SWT" ide="eclipse" builder="jigloo" version="2.7.2">
 <NonVisualComponents>
-		<Component class="java.lang.Object" name="Non-visual components" style="0">
+		<Component class="java.lang.Object" name="object1" style="0">
 			<Constraints>
 				<LayoutConstraint/>
 			</Constraints>
+			<Properties>
+			</Properties>
 		</Component></NonVisualComponents>
 	<Component class="org.eclipse.swt.widgets.Dialog" name="AccUITransactionUpdateDialog" style="0">
 		<Constraints>
@@ -26,6 +28,7 @@
 		<SubComponents>
 			<Component class="org.eclipse.swt.widgets.CoolBar" name="coolBar1" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>
@@ -41,6 +44,9 @@
 				<Events>
 				</Events>
 				<Properties>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[5, 5, 567, 38]"/>
+					</Property>
 				</Properties>
 				<SubComponents>
 					<Component class="org.eclipse.swt.widgets.CoolItem" name="coolItem1" style="0">
@@ -82,6 +88,9 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
+											<Property name="image" type="Image">
+												<Image name="\icons\save_edit.gif"/>
+											</Property>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.ToolItem" name="tooDelete" style="0">
@@ -89,6 +98,7 @@
 											<LayoutConstraint/>
 										</Constraints>
 										<Events>
+											<EventHandler event="widgetSelected" listener="org.eclipse.swt.events.SelectionListener" handler="tooDeleteWidgetSelected"/>
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Delete"/>
@@ -105,6 +115,7 @@
 			</Component>
 			<Component class="com.turquaz.accounting.ui.AccUITransactionAdd" name="compTransactionAdd" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
 						<Property name="horizontalAlignment" type="int" value="4"/>

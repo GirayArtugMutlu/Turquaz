@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
@@ -89,6 +90,8 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 	
 			toolUpdate.setText("Update");
+			final org.eclipse.swt.graphics.Image toolUpdateimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setImage(toolUpdateimage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
@@ -98,6 +101,11 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			tooDelete.setText("Delete");
 			final org.eclipse.swt.graphics.Image tooDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
 			tooDelete.setImage(tooDeleteimage);
+			tooDelete.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					tooDeleteWidgetSelected(evt);
+				}
+			});
 	
 			GridData compTransactionAddLData = new GridData();
 			compTransactionAddLData.verticalAlignment = GridData.FILL;
@@ -123,6 +131,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
+					toolUpdateimage.dispose();
 					tooDeleteimage.dispose();
 				}
 			});
@@ -184,40 +193,87 @@ public void showDialog(TurqAccountingTransaction accTrans){
 
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		
 		try{
 		 
 		 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
 										compTransactionAdd.getDateTransactionDate().getData());
 		 updateTransactionRows();
+		 msg.setMessage("Succesfully Updated");
+		 msg.open();
 			
 		}
 		catch(Exception ex){
 		ex.printStackTrace();
+		msg.setMessage("An error occured!");
+		 msg.open();
 		}
 		
 		
 		
 	}
-  public void updateTransactionRows(){
+  public void updateTransactionRows()throws Exception {
    try{
-   Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
-   Iterator it = transactionRows.iterator();
-   TurqAccountingTransactionColumn transRow;
+  
    if(compTransactionAdd.verifyFields()){
-   while(it.hasNext()){
-
-	blTransUpdate.delete(it.next());
-	
-	
-    }
+    deleteTransactionRows();
     
     compTransactionAdd.saveTransactionRows(accTrans.getAccountingTransactionsId());
     }
     }
     catch(Exception ex){
-        ex.printStackTrace();
+       throw ex;
     }
   
   }	
 	
+    public void deleteTransactionRows()throws Exception{
+    try{
+     Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
+     Iterator it = transactionRows.iterator();
+     TurqAccountingTransactionColumn transRow;
+     while(it.hasNext()){
+
+     	blTransUpdate.delete(it.next());
+	
+	}
+    
+     
+    
+    
+    }
+    catch(Exception ex){
+    throw ex;
+    
+    }
+    
+    
+    }
+    
+    
+	/** Auto-generated event handler method */
+	protected void tooDeleteWidgetSelected(SelectionEvent evt){
+		MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+		MessageBox msg2 = new MessageBox(this.getParent(),SWT.YES|SWT.NO);
+		msg2.setMessage("Really delete?");
+		int answer = msg2.open();
+		if(answer ==SWT.YES){
+		try{
+		
+		deleteTransactionRows();
+		blTransUpdate.delete(accTrans);
+		msg.setMessage("Succesfully Deleted!");
+		msg.open();	
+		this.dialogShell.dispose();	
+		
+		}
+		catch(Exception ex){
+		ex.printStackTrace();
+		msg.setMessage("An error occured!");
+		msg.open();	
+		
+		}
+		}
+	}
 }

@@ -371,7 +371,7 @@ public class AccUITransactionSearch extends SecureComposite {
     int type =accTrans.getTurqAccountingTransactionType().getAccountingTransactionTypesId().intValue();
     if(type==2){
     new AccUITransactionUpdateDialog(this.getShell(),SWT.NULL,accTrans).open();
-    
+    search();
     
     }
     else if(type==1){

@@ -18,8 +18,6 @@
 package com.turquaz.engine.ui.component;
 
 import de.kupzog.ktable.KTableCellEditor;
-import org.eclipse.swt.*;
-import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.*;
 

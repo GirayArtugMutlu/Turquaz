@@ -2,7 +2,7 @@ package com.turquaz.current.ui;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.SWT;
+
 
 /**
 * This code was generated using CloudGarden's Jigloo
