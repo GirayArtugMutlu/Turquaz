@@ -545,26 +545,45 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	
 	
 	TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
-	item = new TableItem(tableSearcResults,SWT.NULL);
+	boolean add=false;
+	if (invView.getTotalAmountIn()!=null)
+		add=true;
+	else if (invView.getTotalAmountOut()!=null)
+		add=true;
+	else if (invView.getTotalPriceIn()!=null)
+		add=true;
+	else if (invView.getTotalPriceOut()!=null)
+		add=true;
+	else if (invView.getTotalTransoverPriceIn()!=null)
+		add=true;
+	else if (invView.getTotalTransoverAmountIn()!=null)
+		add=true;
+	else if (invView.getTotalTransoverPriceOut()!=null)
+		add=true;
+	else if (invView.getTotalTransoverAmountOut()!=null)
+		add=true;
+	if (add)
+	{
+		BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
+		BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
+		BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
+		BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();	
 	
-	item.setData(cardId);
+		BigDecimal totaltransOverPriceIn=(invView.getTotalTransoverPriceIn()==null) ? new BigDecimal(0) :invView.getTotalTransoverPriceIn();
+		BigDecimal totaltransOverAmountIn=(invView.getTotalTransoverAmountIn()==null)? new BigDecimal(0) :invView.getTotalTransoverAmountIn();
+		BigDecimal totaltransOverPriceOut=(invView.getTotalTransoverPriceOut()==null)?new BigDecimal(0) :invView.getTotalTransoverPriceOut();
+		BigDecimal totaltransOverAmountOut=(invView.getTotalTransoverAmountOut()==null)?new BigDecimal(0) :invView.getTotalTransoverAmountOut();
 	
-	BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
-	BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
-	BigDecimal totalPriceIn = (invView.getTotalPriceIn()==null) ? new BigDecimal(0) : invView.getTotalPriceIn();
-	BigDecimal totalPriceOut = (invView.getTotalPriceOut()==null)?new BigDecimal(0) : invView.getTotalPriceOut();	
+
+		BigDecimal balanceAmount=totaltransOverAmountIn.add(totalAmountIn).subtract(totaltransOverAmountOut).subtract(totalAmountOut);
+		BigDecimal balancePrice=(totalAmountIn.doubleValue()==0) ? new BigDecimal(0) : balanceAmount.multiply(totalPriceIn.divide(totalAmountIn,2,BigDecimal.ROUND_HALF_DOWN));
 	
-	BigDecimal totaltransOverPriceIn=(invView.getTotalTransoverPriceIn()==null) ? new BigDecimal(0) :invView.getTotalTransoverPriceIn();
-	BigDecimal totaltransOverAmountIn=(invView.getTotalTransoverAmountIn()==null)? new BigDecimal(0) :invView.getTotalTransoverAmountIn();
-	BigDecimal totaltransOverPriceOut=(invView.getTotalTransoverPriceOut()==null)?new BigDecimal(0) :invView.getTotalTransoverPriceOut();
-	BigDecimal totaltransOverAmountOut=(invView.getTotalTransoverAmountOut()==null)?new BigDecimal(0) :invView.getTotalTransoverAmountOut();
+		TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+
+		item = new TableItem(tableSearcResults,SWT.NULL);
 	
-	BigDecimal balanceAmount=totaltransOverAmountIn.add(totalAmountIn).subtract(totaltransOverAmountOut).subtract(totalAmountOut);
-	BigDecimal balancePrice=(totalAmountIn.doubleValue()==0) ? new BigDecimal(0) : balanceAmount.multiply(totalPriceIn.divide(totalAmountIn,2,BigDecimal.ROUND_HALF_DOWN));
-	
-	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-	
-	item.setText(new String[]{invCode,
+		item.setData(cardId);
+		item.setText(new String[]{invCode,
 							  invName,
 							  cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
 							  cf.format(totaltransOverPriceIn.subtract(totaltransOverPriceOut)),
@@ -576,6 +595,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 							  cf.format(balancePrice)
 							  
 							  });
+	}
 	
 	}
 	
