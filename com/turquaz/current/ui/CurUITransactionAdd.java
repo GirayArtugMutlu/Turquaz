@@ -12,6 +12,7 @@ import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -22,6 +23,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Group;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.ui.InvUICardAdd;
 
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -71,7 +73,7 @@ public class CurUITransactionAdd extends SecureComposite {
 			lblCashAccount = new CLabel(this,SWT.NULL);
 			accPickerCashAccount = new AccountPicker(this,SWT.NULL);
 	
-			this.setSize(new org.eclipse.swt.graphics.Point(462,230));
+			this.setSize(new org.eclipse.swt.graphics.Point(473,221));
 	
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCodeLData.verticalAlignment = GridData.CENTER;
@@ -201,19 +203,26 @@ public class CurUITransactionAdd extends SecureComposite {
 			dateTransDateLData.verticalAlignment = GridData.CENTER;
 			dateTransDateLData.horizontalAlignment = GridData.BEGINNING;
 			dateTransDateLData.widthHint = 152;
-			dateTransDateLData.heightHint = 25;
+			dateTransDateLData.heightHint = 24;
 			dateTransDateLData.horizontalIndent = 0;
 			dateTransDateLData.horizontalSpan = 1;
 			dateTransDateLData.verticalSpan = 1;
 			dateTransDateLData.grabExcessHorizontalSpace = false;
 			dateTransDateLData.grabExcessVerticalSpace = false;
 			dateTransDate.setLayoutData(dateTransDateLData);
-			dateTransDate.setSize(new org.eclipse.swt.graphics.Point(152,25));
+			dateTransDate.setSize(new org.eclipse.swt.graphics.Point(152,24));
 			dateTransDate.layout();
 	
 			GridData lblCashAccountLData = new GridData();
+			lblCashAccountLData.verticalAlignment = GridData.CENTER;
+			lblCashAccountLData.horizontalAlignment = GridData.BEGINNING;
 			lblCashAccountLData.widthHint = 72;
 			lblCashAccountLData.heightHint = 19;
+			lblCashAccountLData.horizontalIndent = 0;
+			lblCashAccountLData.horizontalSpan = 1;
+			lblCashAccountLData.verticalSpan = 1;
+			lblCashAccountLData.grabExcessHorizontalSpace = false;
+			lblCashAccountLData.grabExcessVerticalSpace = false;
 			lblCashAccount.setLayoutData(lblCashAccountLData);
 			lblCashAccount.setText("Cash Account");
 			lblCashAccount.setSize(new org.eclipse.swt.graphics.Point(72,19));
@@ -289,9 +298,37 @@ public class CurUITransactionAdd extends SecureComposite {
 	
 	}
 	
+	 public boolean verifyFields(){
+	 
+	 MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
+	if(comboCurrentCode.getSelectionIndex()==-1){
 	
-	public boolean verifyFields(){
-	 return true;
+	msg.setMessage("Please Choose Current Code!");
+    msg.open();	
+	
+	return false;
+	}
+	else if(dateTransDate.getData()==null){
+	msg.setMessage("Please Enter Transaction Date!");
+    msg.open();	
+	return false;
+	}
+	else if(decTxtAmount.getText().equals("")){
+	msg.setMessage("Please Enter Transaction Amount!");
+    msg.open();	
+	return false;
+	}
+	else if (accPickerCashAccount.getData()==null){
+	msg.setMessage("Please choose cash account !");
+    msg.open();	
+	return false;
+	}
+	
+	return true;
+	
+	
+	
+	
 
 	}
 	public void save(){
@@ -312,6 +349,8 @@ public class CurUITransactionAdd extends SecureComposite {
 	blTransAdd.saveCurrentTransaction((TurqCurrentCard)comboCurrentCode.getData(comboCurrentCode.getText()),
 									  dateTransDate.getDate(),txtDocumentNo.getText().trim(),isCredit,
 									  decTxtAmount.getBigDecimalValue(),new BigDecimal(0),4,(TurqAccountingAccount)accPickerCashAccount.getData());
+	
+	newForm();
 	}
 	
 	
@@ -333,10 +372,19 @@ public class CurUITransactionAdd extends SecureComposite {
 	public void delete(){
 	
 	}
+	
 	public void search(){
 	
 	}
+	
 	public void newForm(){
+		 CurUITransactionAdd cardAdd = new CurUITransactionAdd(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(cardAdd);	 
+		 this.dispose();
+		
+		
+		
 	
 	}
 	

@@ -24,10 +24,10 @@
 		</Events>
 		<Properties>
 			<Property name="size" type="Dimension">
-				<Dimension value="[462, 230]"/>
+				<Dimension value="[473, 221]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 462, 230]"/>
+				<Rectangle value="[0, 0, 473, 221]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -279,7 +279,7 @@
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
 						<Property name="widthHint" type="int" value="152"/>
-						<Property name="heightHint" type="int" value="25"/>
+						<Property name="heightHint" type="int" value="24"/>
 						<Property name="horizontalIndent" type="int" value="0"/>
 						<Property name="horizontalSpan" type="int" value="1"/>
 						<Property name="verticalSpan" type="int" value="1"/>
@@ -291,15 +291,16 @@
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
-						<Dimension value="[152, 25]"/>
+						<Dimension value="[152, 24]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[148, 105, 152, 25]"/>
+						<Rectangle value="[148, 105, 152, 24]"/>
 					</Property>
 				</Properties>
 			</Component>
 			<Component class="org.eclipse.swt.custom.CLabel" name="lblCashAccount" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -320,12 +321,13 @@
 						<Dimension value="[72, 19]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[5, 136, 72, 19]"/>
+						<Rectangle value="[5, 135, 72, 19]"/>
 					</Property>
 				</Properties>
 			</Component>
 			<Component class="com.turquaz.accounting.ui.comp.AccountPicker" name="accPickerCashAccount" style="0">
 				<Constraints>
+					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="2"/>
 						<Property name="horizontalAlignment" type="int" value="1"/>
@@ -345,7 +347,7 @@
 						<Dimension value="[241, 20]"/>
 					</Property>
 					<Property name="bounds" type="Rectangle">
-						<Rectangle value="[148, 135, 241, 20]"/>
+						<Rectangle value="[148, 134, 241, 20]"/>
 					</Property>
 				</Properties>
 			</Component>
