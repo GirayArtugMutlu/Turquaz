@@ -138,11 +138,11 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 
 	private void initGUI() {
 		try {
-			  preInitGui();
+			 
 		    DatabaseThread dbThread = new DatabaseThread();
 		    dbThread.start();
 		    
-		  
+		    preInitGui();
 			GridLayout thisLayout = new GridLayout();
 			this.addKeyListener(new KeyAdapter() {
 				public void keyReleased(KeyEvent evt) {

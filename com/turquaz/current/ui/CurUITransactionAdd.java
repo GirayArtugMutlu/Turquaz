@@ -51,7 +51,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
-import com.turquaz.accounting.ui.comp.DynamicAccountPicker;
 
 
 /**

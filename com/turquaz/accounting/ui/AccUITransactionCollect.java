@@ -55,8 +55,6 @@ import org.eclipse.swt.SWT;
 /**
 *		Tahsil Fisi 
 */
-import org.eclipse.swt.events.TraverseListener;
-import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 /**
@@ -453,6 +451,7 @@ public class AccUITransactionCollect extends  Composite implements SecureComposi
     transRow.setCreditAmount(new BigDecimal(0));
     transRow.setDeptAmount(totalDept);
     transRow.setTurqAccountingAccount((TurqAccountingAccount)comboDeptor.getData(comboDeptor.getText()));
+    transRow.setTransactionDefinition("Kasa - Borç");
     blTransAdd.saveAccTransactionRow(transRow,transId);   
      
     //Save the table rows    

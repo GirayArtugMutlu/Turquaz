@@ -150,9 +150,7 @@ public class EngDALConnection {
     while (in.available() !=0){
    
     	sql = in.readLine();
-    	if(sql.trim().startsWith("SELECT"));{
-    	    stmt.execute(sql);
-    	}
+    	sql +=";";
      
     }
     in.close();

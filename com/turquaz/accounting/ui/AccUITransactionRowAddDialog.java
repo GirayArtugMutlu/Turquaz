@@ -321,7 +321,6 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 	
 	if(verifyFields()){
 	transactionRow = new TurqAccountingTransactionColumn();
-	
 	transactionRow.setTurqAccountingAccount((TurqAccountingAccount)accountPicker.getData());	
 	transactionRow.setTransactionDefinition(txtTransactionDefinition.getText().trim());
 	if(comboDeptOrCredit.getText().equals(Messages.getString("AccUITransactionRowAddDialog.6"))){ //$NON-NLS-1$

@@ -24,7 +24,6 @@ package com.turquaz.accounting.ui;
 
 
 
-import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -53,7 +52,6 @@ import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.component.SecureComposite;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistProcessors;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 
