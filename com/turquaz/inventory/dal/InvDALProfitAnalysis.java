@@ -18,12 +18,13 @@ public class InvDALProfitAnalysis {
         try{
            
             Session session = EngDALSessionFactory.openSession();
-            String query = "select avg(invTrans.) ";
+            String query = "select avg(invTrans.transactionsUnitPrice) from TurqInventoryTransaction as invTrans" +
+            		" where invTrans.transactionsAmountIn <> 0";
             
             
             Query q = session.createQuery(query);
-            q.setParameter("startDate",startDate);
-            q.setParameter("endDate",endDate);
+          //  q.setParameter("startDate",startDate);
+          //  q.setParameter("endDate",endDate);
            
             List list=q.list(); 
             return list;
