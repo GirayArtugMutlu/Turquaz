@@ -398,4 +398,5 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
 	public void setCashCardPcker(CashCardPicker cashCardPcker) {
 		this.cashCardPcker = cashCardPcker;
 	}
+	
 }

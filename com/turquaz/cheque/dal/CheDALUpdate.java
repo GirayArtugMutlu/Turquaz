@@ -53,6 +53,7 @@ public class CheDALUpdate {
             Hibernate.initialize(chequeRoll.getTurqChequeChequeInRolls());
             Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions());
             Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqBanksTransactionBills());
+            Hibernate.initialize(chequeRoll.getTurqEngineSequence().getTurqCashTransactions());
             
             session.close();
             

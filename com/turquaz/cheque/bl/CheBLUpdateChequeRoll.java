@@ -22,16 +22,24 @@ package com.turquaz.cheque.bl;
 */
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import com.turquaz.cash.bl.CashBLCashTransactionAdd;
+import com.turquaz.cash.bl.CashBLCashTransactionSearch;
+import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
@@ -61,6 +69,50 @@ public class CheBLUpdateChequeRoll {
         catch(Exception ex){
             throw ex;
         }
+    }
+    
+    public static void updateChequeCollectRoll(TurqChequeRoll chequeRoll,
+    										TurqCashCard cashCard, String rollNo,Date rollDate,List chequeList
+											)throws Exception{
+    	try{
+    		emptyCheckRollIn(chequeRoll);
+    		
+    		
+            chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+            chequeRoll.setLastModified(Calendar.getInstance().getTime());
+            chequeRoll.setChequeRollNo(rollNo);
+            chequeRoll.setChequeRollsDate(rollDate);
+            CheDALSave.update(chequeRoll);
+            BigDecimal chequeTotals = new BigDecimal(0);
+            
+            for(int i = 0; i<chequeList.size();i++){
+            	TurqChequeCheque cheque=(TurqChequeCheque)chequeList.get(i);
+              
+              chequeTotals = chequeTotals.add(cheque.getChequesAmount()); 
+              
+             
+              
+            }
+            
+            List totals =new ArrayList();
+            
+            totals.add(chequeTotals);
+            
+            /**
+             * TODO accounting entegration da duzeltilecek
+             */
+            TurqAccountingAccount account = new TurqAccountingAccount();
+            
+            account.setAccountingAccountsId(new Integer(-1));
+            new CashBLCashTransactionAdd().saveCashTransaction(cashCard,chequeRoll.getTurqEngineSequence(),EngBLCommon.CASH_CHEQUE_COLLECT,rollDate,Messages.getString("CheBLSaveChequeTransaction.5"),rollNo,totals,account); //$NON-NLS-1$
+            
+    		
+    		
+    		
+    	}
+    	catch(Exception ex){
+    		throw ex;
+    	}
     }
     
     public static void updateChequeRollIn(TurqChequeRoll chequeRoll, TurqCurrentCard curCard,TurqBanksCard bankCard, String rollNo,Date rollDate,List chequeList, int rollType,boolean sumTransTotal)throws Exception{
@@ -173,6 +225,17 @@ public class CheBLUpdateChequeRoll {
 	        while(it.hasNext()){
 	            
 	           CheDALSave.delete(it.next());
+	            
+	        }
+	      
+	        //Delete Cash Transactions..
+	        it = chequeRoll.getTurqEngineSequence().getTurqCashTransactions().iterator();
+	        while(it.hasNext()){
+	        
+	        	TurqCashTransaction cashTrans = (TurqCashTransaction)it.next();
+	        	new CashBLCashTransactionSearch().initializeCashTransaction(cashTrans);
+	            
+	           new CashBLCashTransactionUpdate().deleteCashTrans(cashTrans);
 	            
 	        }
 	      
