@@ -37,13 +37,16 @@ public class TurqModule implements Serializable {
     private Set turqAccountingTransactions;
 
     /** persistent field */
+    private Set turqEngineSequences;
+
+    /** persistent field */
     private Set turqModuleComponents;
 
     /** persistent field */
     private Set turqGroupPermissions;
 
     /** full constructor */
-    public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqModuleComponents, Set turqGroupPermissions) {
+    public TurqModule(java.lang.String modulesName, java.lang.String moduleDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, Set turqUserPermissions, Set turqAccountingTransactions, Set turqEngineSequences, Set turqModuleComponents, Set turqGroupPermissions) {
         this.modulesName = modulesName;
         this.moduleDescription = moduleDescription;
         this.createdBy = createdBy;
@@ -52,6 +55,7 @@ public class TurqModule implements Serializable {
         this.updateDate = updateDate;
         this.turqUserPermissions = turqUserPermissions;
         this.turqAccountingTransactions = turqAccountingTransactions;
+        this.turqEngineSequences = turqEngineSequences;
         this.turqModuleComponents = turqModuleComponents;
         this.turqGroupPermissions = turqGroupPermissions;
     }
@@ -130,6 +134,14 @@ public class TurqModule implements Serializable {
 
     public void setTurqAccountingTransactions(java.util.Set turqAccountingTransactions) {
         this.turqAccountingTransactions = turqAccountingTransactions;
+    }
+
+    public java.util.Set getTurqEngineSequences() {
+        return this.turqEngineSequences;
+    }
+
+    public void setTurqEngineSequences(java.util.Set turqEngineSequences) {
+        this.turqEngineSequences = turqEngineSequences;
     }
 
     public java.util.Set getTurqModuleComponents() {

@@ -29,6 +29,14 @@
 
     <!-- Associations -->
   
+    <!-- bi-directional many-to-one association to TurqModule -->
+    <many-to-one
+        name="turqModule"
+        class="com.turquaz.engine.dal.TurqModule"
+        not-null="true"
+    >
+        <column name="modules_id" />
+    </many-to-one>
     <!-- bi-directional one-to-many association to TurqAccountingTransaction -->
     <set
         name="turqAccountingTransactions"

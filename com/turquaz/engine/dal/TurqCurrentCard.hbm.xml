@@ -172,20 +172,6 @@
             class="com.turquaz.engine.dal.TurqCurrentContact"
         />
     </set>
-    <!-- bi-directional one-to-many association to TurqConsignment -->
-    <set
-        name="turqConsignments"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="current_cards_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqConsignment"
-        />
-    </set>
     <!-- bi-directional one-to-many association to TurqOrder -->
     <set
         name="turqOrders"
@@ -268,20 +254,6 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqBanksTransaction"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqBill -->
-    <set
-        name="turqBills"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="current_cards_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqBill"
         />
     </set>
 

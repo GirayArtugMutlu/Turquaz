@@ -80,9 +80,10 @@ public class AccBLTransactionAdd {
 	{
 		try{
 			
-		TurqEngineSequence docSeq =new TurqEngineSequence();;	
+		TurqEngineSequence docSeq =new TurqEngineSequence();	
 		
 		if(docSeqId==null){
+			
 			dalTransAdd.save(docSeq);
 		}
 		else

@@ -27,13 +27,6 @@
     </id>
 
     <property
-        name="consignmentsBillDocumentNo"
-        type="java.lang.String"
-        column="consignments_bill_document_no"
-        not-null="true"
-        length="50"
-    />
-    <property
         name="consignmentsDate"
         type="java.sql.Date"
         column="consignments_date"
@@ -46,41 +39,6 @@
         column="consignments_definition"
         not-null="true"
         length="250"
-    />
-    <property
-        name="condignmentsDiscountRate"
-        type="int"
-        column="condignments_discount_rate"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="consignmentsDiscountAmount"
-        type="java.math.BigDecimal"
-        column="consignments_discount_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
-        name="consignmentsCharges"
-        type="java.math.BigDecimal"
-        column="consignments_charges"
-        not-null="true"
-        length="65535"
-    />
-    <property
-        name="consignmentsVatAmount"
-        type="java.math.BigDecimal"
-        column="consignments_vat_amount"
-        not-null="true"
-        length="65535"
-    />
-    <property
-        name="consignmentsTotalAmount"
-        type="java.math.BigDecimal"
-        column="consignments_total_amount"
-        not-null="true"
-        length="65535"
     />
     <property
         name="creationDate"
@@ -131,16 +89,17 @@
         not-null="true"
         length="50"
     />
-    <property
-        name="consignmentsSpecialVatAmount"
-        type="java.math.BigDecimal"
-        column="consignments_special_vat_amount"
-        not-null="true"
-        length="65535"
-    />
 
     <!-- Associations -->
   
+    <!-- bi-directional many-to-one association to TurqBillConsignmentCommon -->
+    <many-to-one
+        name="turqBillConsignmentCommon"
+        class="com.turquaz.engine.dal.TurqBillConsignmentCommon"
+        not-null="true"
+    >
+        <column name="bill_consignment_common_id" />
+    </many-to-one>
     <!-- bi-directional many-to-one association to TurqCompany -->
     <many-to-one
         name="turqCompany"
@@ -148,14 +107,6 @@
         not-null="true"
     >
         <column name="companies_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqBill -->
-    <many-to-one
-        name="turqBill"
-        class="com.turquaz.engine.dal.TurqBill"
-        not-null="true"
-    >
-        <column name="bills_id" />
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
     <set
@@ -185,28 +136,6 @@
             class="com.turquaz.engine.dal.TurqConsignmentsInGroup"
         />
     </set>
-    <!-- bi-directional one-to-many association to TurqBill -->
-    <set
-        name="turqBills"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="consignments_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqBill"
-        />
-    </set>
-    <!-- bi-directional many-to-one association to TurqCurrentCard -->
-    <many-to-one
-        name="turqCurrentCard"
-        class="com.turquaz.engine.dal.TurqCurrentCard"
-        not-null="true"
-    >
-        <column name="current_cards_id" />
-    </many-to-one>
 
 </class>
 </hibernate-mapping>
