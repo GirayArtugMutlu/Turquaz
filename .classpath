@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/boot.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/cglib2.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/commons-beanutils-1.5.jar"/>
@@ -38,6 +39,5 @@
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/swtcalendar.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse3/workspace/Turquaz/lib/windows/swt.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
