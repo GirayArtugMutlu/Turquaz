@@ -582,10 +582,10 @@ implements SecureComposite{
                                 lblWareHouse = new CLabel(
                                     compInfoPanel,
                                     SWT.NONE);
-                                lblWareHouse.setText(Messages.getString("ConUIAddConsignment.34")); //$NON-NLS-1$
+                                lblWareHouse.setText("Depo"); 
                                 GridData lblWareHouseLData = new GridData();
-                                lblWareHouseLData.widthHint = 36;
-                                lblWareHouseLData.heightHint = 19;
+                                lblWareHouseLData.widthHint = 87;
+                                lblWareHouseLData.heightHint = 18;
                                 lblWareHouse.setLayoutData(lblWareHouseLData);
                             }
                             {
@@ -1220,14 +1220,42 @@ implements SecureComposite{
 		try{
 			TableItem items[] = tableConsignmentRows.getItems();
 		     int type =0;
+		    
 				if(comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.34"))){ //$NON-NLS-1$
 					type =1;
+					System.out.println("Type is Buy");
 				}
 			for(int i=0;i<items.length;i++){
 			     
 			    InvUITransactionTableRow row = (InvUITransactionTableRow)items[i].getData();
 			   if(row.okToSave()){
-			    TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+			   	
+			   	
+			   	
+			   	TurqInventoryTransaction invTrans = (TurqInventoryTransaction)row.getDBObject();
+			  
+			   	//if consignment type changed during the save process and update
+			   	// people can add transaction rows while the type is 0. 
+			   	//then can change type to 1 and continue to add rows. This causes a serious bug.
+			   	//So before saving to database we have to synchronize all rows according to final 
+			   	//decision of type.. 
+			   	if(row.getTransType()!=type){
+			   	if(type == 0){
+			   		
+			   		invTrans.setTransactionsAmountIn(invTrans.getTransactionsTotalAmountOut());
+			   		invTrans.setTransactionsTotalAmountOut(0);		   		
+			   		System.out.println("Changed to Buy");
+			   	}
+			   	else{
+     		   		invTrans.setTransactionsTotalAmountOut(invTrans.getTransactionsAmountIn());
+			   		invTrans.setTransactionsAmountIn(0);
+			   		System.out.println("Changed to Sell");
+			   		
+			   		
+			   	}			   	
+			   	
+			   }
+			    
 
 			    invTrans.setTurqInventoryWarehous((TurqInventoryWarehous)comboWareHouse.getData(comboWareHouse.getText()));
 				blAddCondignmetn.saveConsignmentRow(invTrans,consignmentID,type,txtDiscountRate.getIntValue());

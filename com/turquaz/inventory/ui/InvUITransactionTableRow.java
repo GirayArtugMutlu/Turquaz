@@ -26,6 +26,18 @@ public class InvUITransactionTableRow implements ITableRow {
     TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
     TableRowList rowList;
     int row_index=0;
+	/**
+	 * @return Returns the transType.
+	 */
+	public int getTransType() {
+		return transType;
+	}
+	/**
+	 * @param transType The transType to set.
+	 */
+	public void setTransType(int transType) {
+		this.transType = transType;
+	}
     int transType = 0;
     Integer unit_index = new Integer(-1);
     String unit_text = "";

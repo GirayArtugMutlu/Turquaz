@@ -21,7 +21,8 @@ package com.turquaz.inventory.ui;
 * @version  $Id$
 */
 
-import java.util.Iterator;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,6 +46,8 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -82,9 +85,8 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 	private Table tableTransactions;
 
-	private TableColumn tableColumnCurrentName;
-
-	private TableColumn tableColumnVatAmount;
+	private TableColumn tableColumnTotalAmountOut;
+	private TableColumn tableColumnTotalPriceIn;
 
 	private TableColumn tableColumnInventoryCode;
 	private Text txtInvCard;
@@ -105,9 +107,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 	private CLabel lblCurrentCard;
 
-	private TableColumn tableColumnSpecialVatAmount;
+	private TableColumn tableColumnTotalAmountIn;
 
-	private TableColumn tableColumnCumulativePrice;
+	private TableColumn tableColumnTotalPriceOut;
 
 	private TableColumn tableColumnTransactionDate;
 
@@ -276,43 +278,44 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					tableColumnTransactionDate = new TableColumn(
 							tableTransactions, SWT.NONE);
 					tableColumnTransactionDate.setText(Messages.getString("InvUITransactionSearch.6")); //$NON-NLS-1$
-					tableColumnTransactionDate.setWidth(104);
-				}
-				{
-					tableColumnCurrentName = new TableColumn(tableTransactions,
-							SWT.NONE);
-					tableColumnCurrentName.setText(Messages.getString("InvUITransactionSearch.7")); //$NON-NLS-1$
-					tableColumnCurrentName.setWidth(150);
+					tableColumnTransactionDate.setWidth(88);
 				}
 				{
 					tableColumnInventoryCode = new TableColumn(
 						tableTransactions,
 						SWT.NONE);
 					tableColumnInventoryCode.setText(Messages.getString("InvUITransactionSearch.8")); //$NON-NLS-1$
-					tableColumnInventoryCode.setWidth(140);
+					tableColumnInventoryCode.setWidth(108);
 				}
 				{
-					tableColumnCumulativePrice = new TableColumn(
-							tableTransactions, SWT.NONE);
-					tableColumnCumulativePrice.setText(Messages.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
-					tableColumnCumulativePrice.setWidth(100);
+					tableColumnTotalAmountIn = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnTotalAmountIn.setText(Messages.getString("InvUITransactionSearch.7"));  //$NON-NLS-1$
+					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
-					tableColumnVatAmount = new TableColumn(tableTransactions,
-							SWT.NONE);
-					tableColumnVatAmount.setText(Messages.getString("InvUITransactionSearch.10")); //$NON-NLS-1$
-					tableColumnVatAmount.setWidth(100);
+					tableColumnTotalAmountOut = new TableColumn(
+						tableTransactions,
+						SWT.NONE);
+					tableColumnTotalAmountOut.setText(Messages.getString("InvUITransactionSearch.10"));  //$NON-NLS-1$
+					tableColumnTotalAmountOut.setWidth(100);
 				}
 				{
-					tableColumnSpecialVatAmount = new TableColumn(
-							tableTransactions, SWT.NONE);
-					tableColumnSpecialVatAmount.setText(Messages.getString("InvUITransactionSearch.11")); //$NON-NLS-1$
-					tableColumnSpecialVatAmount.setWidth(100);
+					tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
+					tableColumnTotalPriceIn.setText(Messages.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
+					tableColumnTotalPriceIn.setWidth(100);
+				}
+				{
+					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
+					tableColumnTotalPriceOut.setText(Messages.getString("InvUITransactionSearch.11")); //$NON-NLS-1$
+					tableColumnTotalPriceOut.setWidth(100);
 				}
 			}
 			postInitGui();
 			this.layout();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -427,6 +430,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 		try {
 
+			TurquazDecimalFormat df = new TurquazDecimalFormat();
 			tableTransactions.removeAll();
 			int type = 0;
 			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.16"))) { //$NON-NLS-1$
@@ -440,10 +444,11 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			TableItem item;
 			for (int i = 0; i < list.size(); i++) {
 
-				transactions = (TurqInventoryTransaction) list.get(i);
+				Object result[] = (Object[])list.get(i);
+				transactions = (TurqInventoryTransaction) result[0];
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(transactions);
-			
+			/*
 				Iterator it = transactions.getTurqEngineSequence().getTurqConsignments().iterator();
 			
 				TurqConsignment cons = null;
@@ -456,23 +461,39 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					throw new Exception(Messages.getString("InvUITransactionSearch.17")); //$NON-NLS-1$
 				}
 				
+		    */		
+				BigDecimal priceIn = new BigDecimal(0);
+				BigDecimal priceOut = new BigDecimal(0);
 				
+				if(transactions.getTransactionsAmountIn()==0){
+					priceOut = transactions.getTransactionsTotalPrice();
+					
+					
+				}
+				else
+				{
+					priceIn = transactions.getTransactionsTotalPrice();
+				}
+				
+				
+				
+				Date transDate = (Date)result[1];
 				item.setText(new String[] {
-								DatePicker.formatter.format(cons.getConsignmentsDate()),
-							    cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
+								DatePicker.formatter.format(transDate),
 								transactions.getTurqInventoryCard().getCardName(),
-								cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
-								cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
-								cons.getTurqBillConsignmentCommon().getSpecialVatAmount()
-										.toString() });
+								transactions.getTransactionsAmountIn()+"", //$NON-NLS-1$
+								transactions.getTransactionsTotalAmountOut()+"", //$NON-NLS-1$
+								df.format(priceIn),
+								df.format(priceOut)});
 
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+}
 
-	}
+	
 
 	public void newForm() {
 
@@ -488,7 +509,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 	}
 	public void printTable(){
-	    EngBLUtils.printTable(tableTransactions,"Stok Hareketleri");
+	    EngBLUtils.printTable(tableTransactions,Messages.getString("InvUITransactionSearch.15")); //$NON-NLS-1$
 	    
 	}
 

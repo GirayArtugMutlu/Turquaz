@@ -658,8 +658,8 @@ public class BillUIAddBill extends Composite
                                     SWT.NONE);
                                 lblWareHouse.setText(Messages.getString("BillUIAddBill.33")); //$NON-NLS-1$
                                 GridData lblWareHouseLData = new GridData();
-                                lblWareHouseLData.widthHint = 52;
-                                lblWareHouseLData.heightHint = 19;
+                                lblWareHouseLData.widthHint = 80;
+                                lblWareHouseLData.heightHint = 16;
                                 lblWareHouse.setLayoutData(lblWareHouseLData);
                             }
                             {
