@@ -32,6 +32,7 @@ import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
+
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -44,6 +45,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 
@@ -137,7 +139,7 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
                 }
                 {
                     lblCurrentCode = new CLabel(compInfoPanel, SWT.NONE);
-                    lblCurrentCode.setText("Kasa Kart\u0131"); //$NON-NLS-1$
+                    lblCurrentCode.setText(Messages.getString("CheUIChequeCollect.0")); //$NON-NLS-1$
                 }
 				//START >>  cashCardPcker
 				cashCardPcker = new CashCardPicker(compInfoPanel, SWT.NONE);
@@ -266,7 +268,7 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
         	 * TODO new save function
         	 */
             
-             // CheBLSaveChequeTransaction.saveChequeRoll(null,null,bankCardPicker.getTurqBank(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques,EngBLCommon.CHEQUE_TRANS_OUT_BANK,btnSumTotals.getSelection());
+             CheBLSaveChequeTransaction.saveChequeCollect(cashCardPcker.getTurqCashCard(),txtRollNo.getText().trim(),datePicker1.getDate(),cheques);
               EngUICommon.showMessageBox(getShell(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
               newForm();
         }

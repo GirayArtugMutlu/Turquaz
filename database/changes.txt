@@ -363,7 +363,15 @@ ALTER TABLE turq_cash_transactions DROP COLUMN cash_cards_id;
    
 *******************************************************************   
 
+************************22-02-2005******************************
+------------New Default Values ----------------------
+INSERT INTO turq_cash_transaction_types VALUES (5, 'Cek Tahsilat', 'admin', '2004-12-12', 'admin', '2004-12-12');
+INSERT INTO turq_cheque_transaction_types VALUES (4, 'Cariden Tahsil', 4, 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
 
+INSERT INTO turq_module_components VALUES (80, 9, 'com.turquaz.cheque.ui.CheUIChequeCollect', 'Cariden Cek Tahsilati', 'admin', '2004-10-18', 'admin', '2004-10-18');
+
+
+**********************************************************************
 
 
 

@@ -63,6 +63,8 @@ public class EngBLCommon {
     
     public final static int CASH_TRANSFER_BETWEEN_CARDS = 4; // Virman
     
+    public final static int CASH_CHEQUE_COLLECT = 5; // Çek Tahsilat?
+    
     
     
     

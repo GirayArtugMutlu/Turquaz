@@ -113,7 +113,7 @@ public class CashBLCashTransactionAdd {
 				cashTransRow.setTransactionDefinition(definition);
 				cashTransRow.setTurqAccountingAccount(account);
 
-				if (type == EngBLCommon.CASH_CURRENT_COLLECT) {
+				if (type == EngBLCommon.CASH_CURRENT_COLLECT||type==EngBLCommon.CASH_CHEQUE_COLLECT) {
 					cashTransRow.setDeptAmount((BigDecimal) totals.get(i));
 					cashTransRow.setCreditAmount(new BigDecimal(0));
 
@@ -123,6 +123,7 @@ public class CashBLCashTransactionAdd {
 					cashTransRow.setCreditAmount((BigDecimal) totals.get(i));
 
 				}
+			
 
 				totalAmount = totalAmount.add((BigDecimal) totals.get(i));
 				/**
