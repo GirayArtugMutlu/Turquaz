@@ -17,12 +17,15 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Rectangle;
 
+import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
 
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
 /**
@@ -40,6 +43,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
 	private Shell dialogShell;
+	private AccBLTransactionUpdate blTransUpdate = new AccBLTransactionUpdate();
 
     private TurqAccountingTransaction accTrans;
 	public AccUITransactionUpdateDialog(Shell parent, int style,TurqAccountingTransaction trans) {
@@ -86,6 +90,11 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 	
 			toolUpdate.setText("Update");
+			toolUpdate.addSelectionListener( new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					toolUpdateWidgetSelected(evt);
+				}
+			});
 	
 			tooDelete.setText("Delete");
 			final org.eclipse.swt.graphics.Image tooDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
@@ -131,7 +140,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			e.printStackTrace();
 		}
 	}
-	public void showDialog(TurqAccountingTransaction accTrans){
+public void showDialog(TurqAccountingTransaction accTrans){
 	
 	
 	
@@ -149,6 +158,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	Date date = new Date(accTrans.getTransactionsDate().getTime());
 	compTransactionAdd.getDateTransactionDate().setDate(date);
 	fillTable();
+	compTransactionAdd.calculateTotalDeptAndCredit();
 		
 	
 	}
@@ -171,5 +181,44 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	
 	}
 	}
+	
+
+	/** Auto-generated event handler method */
+	protected void toolUpdateWidgetSelected(SelectionEvent evt){
+		try{
+		 
+		 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
+										compTransactionAdd.getDateTransactionDate().getData());
+		 updateTransactionRows();
+			
+		}
+		catch(Exception ex){
+		ex.printStackTrace();
+		}
+		
+		
+		
+	}
+  public void updateTransactionRows(){
+   try{
+   Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
+   Iterator it = transactionRows.iterator();
+   TurqAccountingTransactionColumn transRow;
+   if(compTransactionAdd.verifyFields()){
+   while(it.hasNext()){
+
+	blTransUpdate.delete(it.next());
+	
+	
+    }
+    
+    compTransactionAdd.saveTransactionRows(accTrans.getAccountingTransactionsId());
+    }
+    }
+    catch(Exception ex){
+        ex.printStackTrace();
+    }
+  
+  }	
 	
 }
