@@ -30,6 +30,7 @@ import java.util.Set;
 
 
 import com.turquaz.accounting.dal.AccDALTransactionUpdate;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
 
@@ -57,7 +58,7 @@ public class AccBLTransactionUpdate {
 		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 	   	try{
 		
-	   		dalTransUpdate.updateObject(transaction);
+	   		EngDALCommon.updateObject(transaction);
 	   		deleteTransactionRows(transaction);
 	   		new AccBLTransactionAdd().saveAccTransactionRows(deptAccounts,creditAccounts,transaction.getId(),isSumRows,definition,exchangeRate);
 	   		
@@ -77,7 +78,7 @@ public class AccBLTransactionUpdate {
 	     
 	     while(it.hasNext()){
 
-	     	dalTransUpdate.deleteObject(it.next());
+	     	EngDALCommon.deleteObject(it.next());
 		
 		}
 	}
@@ -106,7 +107,7 @@ public class AccBLTransactionUpdate {
 		transaction.setUpdatedBy(System.getProperty("user"));
 		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
 	   	try{
-		dalTransUpdate.updateObject(transaction);
+	   		EngDALCommon.updateObject(transaction);
 		
 	   	}
 	   	catch(Exception ex){
@@ -120,7 +121,7 @@ public class AccBLTransactionUpdate {
 	public void delete(Object obj)throws Exception{
 		try{
 			
-			dalTransUpdate.deleteObject(obj);
+			EngDALCommon.deleteObject(obj);
 			
 			
 		}

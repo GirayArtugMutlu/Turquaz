@@ -30,6 +30,7 @@ import java.util.Map;
 
 import com.turquaz.accounting.dal.AccDALTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -156,7 +157,7 @@ public class AccBLTransactionAdd {
 			Calendar cal=Calendar.getInstance();
 			transRow.setLastModified(cal.getTime());
 			transRow.setCreationDate(cal.getTime());
-			dalTransAdd.save(transRow);
+			EngDALCommon.saveObject(transRow);
 		}
 		catch(Exception ex)
 		{
@@ -177,7 +178,7 @@ public class AccBLTransactionAdd {
 			TurqModule module = new TurqModule();
 			module.setId(new Integer(EngBLCommon.MODULE_ACCOUNTING));
 			docSeq.setTurqModule(module);
-			dalTransAdd.save(docSeq);
+			EngDALCommon.saveObject(docSeq);
 		}
 		else
 		{
@@ -223,7 +224,7 @@ public class AccBLTransactionAdd {
 		trans.setTransactionDescription(definition);
 		
 	
-		dalTransAdd.save(trans);
+		EngDALCommon.saveObject(trans);
 			
 		
 			
@@ -253,7 +254,7 @@ public class AccBLTransactionAdd {
 				TurqModule module = new TurqModule();
 				module.setId(new Integer(EngBLCommon.MODULE_ACCOUNTING));
 				docSeq.setTurqModule(module);
-				dalTransAdd.save(docSeq);
+				EngDALCommon.saveObject(docSeq);
 			}
 			else
 			{
@@ -295,7 +296,7 @@ public class AccBLTransactionAdd {
 			trans.setCreationDate(cal.getTime());
 			trans.setTransactionDescription(definition);
 			
-			dalTransAdd.save(trans); 
+			EngDALCommon.saveObject(trans); 
 			//TODO Should return boolean
 			saveAccTransactionRows(deptAccounts,creditAccounts,trans.getId(),isSumRows,definition,exchangeRate);
 			return true;

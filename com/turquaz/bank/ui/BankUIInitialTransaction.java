@@ -15,7 +15,7 @@ import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
-import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
@@ -217,7 +217,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite 
 	       
 	           try{
 	           
-	          BankDALCommon.updateObject(row.getDBObject());
+	           	EngDALCommon.updateObject(row.getDBObject());
 	           
 	           }
 	           catch(Exception ex){

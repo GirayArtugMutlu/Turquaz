@@ -35,11 +35,11 @@ import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cheque.Messages;
-import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -75,7 +75,7 @@ public class CheBLSaveChequeTransaction {
           
           TurqEngineSequence seq = new TurqEngineSequence();
           seq.setTurqModule(module);
-          CheDALSave.save(seq);
+          EngDALCommon.saveObject(seq);
           
           
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
@@ -111,7 +111,7 @@ public class CheBLSaveChequeTransaction {
           
           chequeRoll.setTurqEngineSequence(seq);
              
-          CheDALSave.save(chequeRoll);
+          EngDALCommon.saveObject(chequeRoll);
           
           if(rollAccount!=null){
           
@@ -119,7 +119,7 @@ public class CheBLSaveChequeTransaction {
           	rollAccountingAccount.setId(chequeRoll.getId());
           	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
           	rollAccountingAccount.setTurqAccountingAccount(rollAccount);
-          	CheDALSave.save(rollAccountingAccount);          
+          	EngDALCommon.saveObject(rollAccountingAccount);          
           
           }
           
@@ -134,7 +134,7 @@ public class CheBLSaveChequeTransaction {
               
               cheque = (TurqChequeCheque)chequeList.get(i);
                
-              CheDALSave.saveOrUpdate(cheque);
+              EngDALCommon.saveObject(cheque);
               
               chequeInRoll.setTurqChequeCheque(cheque);
               chequeInRoll.setTurqChequeRoll(chequeRoll);
@@ -145,7 +145,7 @@ public class CheBLSaveChequeTransaction {
               chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
               
               
-              CheDALSave.save(chequeInRoll);
+              EngDALCommon.saveObject(chequeInRoll);
               
               totalAmount = totalAmount.add(cheque.getChequesAmount());
               //save current transaction...
@@ -235,7 +235,7 @@ public class CheBLSaveChequeTransaction {
           
           TurqEngineSequence seq = new TurqEngineSequence();
           seq.setTurqModule(module);
-          CheDALSave.save(seq);
+          EngDALCommon.saveObject(seq);
           
 
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
@@ -258,7 +258,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqBanksCard(bankCardEmpty);
           
           chequeRoll.setTurqEngineSequence(seq);
-          CheDALSave.save(chequeRoll);
+          EngDALCommon.saveObject(chequeRoll);
           
           TurqChequeChequeInRoll chequeInRoll;
           TurqChequeCheque cheque;
@@ -280,7 +280,7 @@ public class CheBLSaveChequeTransaction {
             chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
             
             
-            CheDALSave.save(chequeInRoll);
+            EngDALCommon.saveObject(chequeInRoll);
             
             BankBLTransactionAdd.saveChequeTransaction(CheDALSearch.getBankOfCustomerCheque(cheque),seq,cheque.getChequesAmount(),rollDate,Messages.getString("CheBLSaveChequeTransaction.4")+rollNo,rollNo,cheque.getTurqCurrencyExchangeRate()); //$NON-NLS-1$
             
@@ -306,7 +306,7 @@ public class CheBLSaveChequeTransaction {
           
           TurqEngineSequence seq = new TurqEngineSequence();
           seq.setTurqModule(module);
-          CheDALSave.save(seq);
+          EngDALCommon.saveObject(seq);
           
 
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
@@ -329,7 +329,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqBanksCard(bankCardEmpty);
           
           chequeRoll.setTurqEngineSequence(seq);
-          CheDALSave.save(chequeRoll);
+          EngDALCommon.saveObject(chequeRoll);
           
           if(rollAccount!=null){
             
@@ -337,7 +337,7 @@ public class CheBLSaveChequeTransaction {
             	rollAccountingAccount.setId(chequeRoll.getId());
             	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
             	rollAccountingAccount.setTurqAccountingAccount(rollAccount);
-            	CheDALSave.save(rollAccountingAccount);          
+            	EngDALCommon.saveObject(rollAccountingAccount);          
             
             }
           
@@ -363,10 +363,9 @@ public class CheBLSaveChequeTransaction {
             chequeInRoll.setLastModified(Calendar.getInstance().getTime());
             chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
             
-            amount = amount.add(cheque.getChequesAmount());
+            amount = amount.add(cheque.getChequesAmount()); 
             
-            
-            CheDALSave.save(chequeInRoll);
+            EngDALCommon.saveObject(chequeInRoll);
            
             
           }
@@ -387,7 +386,7 @@ public class CheBLSaveChequeTransaction {
           
           TurqEngineSequence seq = new TurqEngineSequence();
           seq.setTurqModule(module);
-          CheDALSave.save(seq);
+          EngDALCommon.saveObject(seq);
           
 
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
@@ -410,7 +409,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqBanksCard(bankCardEmpty);
           
           chequeRoll.setTurqEngineSequence(seq);
-          CheDALSave.save(chequeRoll);
+          EngDALCommon.saveObject(chequeRoll);
           
           if(rollAccount!=null){
             
@@ -418,7 +417,7 @@ public class CheBLSaveChequeTransaction {
             	rollAccountingAccount.setId(chequeRoll.getId());
             	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
             	rollAccountingAccount.setTurqAccountingAccount(rollAccount);
-            	CheDALSave.save(rollAccountingAccount);          
+            	EngDALCommon.saveObject(rollAccountingAccount);          
             
             }
           
@@ -445,7 +444,7 @@ public class CheBLSaveChequeTransaction {
             chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
             
             amount = amount.add(cheque.getChequesAmount());
-            CheDALSave.save(chequeInRoll);
+            EngDALCommon.saveObject(chequeInRoll);
             TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
             
             new CurBLCurrentTransactionAdd().saveCurrentTransaction(curCard,chequeRoll.getChequeRollsDate(),chequeRoll.getChequeRollNo(),false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLSaveChequeTransaction.12")+cheque.getChequesPortfolioNo(),EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
@@ -469,7 +468,7 @@ public class CheBLSaveChequeTransaction {
           
           TurqEngineSequence seq = new TurqEngineSequence();
           seq.setTurqModule(module);
-          CheDALSave.save(seq);
+          EngDALCommon.saveObject(seq);
           
 
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
@@ -492,7 +491,7 @@ public class CheBLSaveChequeTransaction {
           chequeRoll.setTurqBanksCard(bankCardEmpty);
           
           chequeRoll.setTurqEngineSequence(seq);
-          CheDALSave.save(chequeRoll);
+          EngDALCommon.saveObject(chequeRoll);
               
           
           TurqChequeChequeInRoll chequeInRoll;
@@ -517,7 +516,7 @@ public class CheBLSaveChequeTransaction {
             chequeInRoll.setCreationDate(Calendar.getInstance().getTime()); 
             
             amount = amount.add(cheque.getChequesAmount());
-            CheDALSave.save(chequeInRoll);
+            EngDALCommon.saveObject(chequeInRoll);
             TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque);
             
             new CurBLCurrentTransactionAdd().saveCurrentTransaction(curCard,chequeRoll.getChequeRollsDate(),chequeRoll.getChequeRollNo(),false,cheque.getChequesAmount(),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CHEQUE,chequeRoll.getTurqEngineSequence().getId(),Messages.getString("CheBLSaveChequeTransaction.12")+cheque.getChequesPortfolioNo(),EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
@@ -543,7 +542,7 @@ public class CheBLSaveChequeTransaction {
           
           TurqEngineSequence seq = new TurqEngineSequence();
           seq.setTurqModule(module);
-          CheDALSave.save(seq);
+          EngDALCommon.saveObject(seq);
           
 
           TurqChequeRoll chequeRoll = new TurqChequeRoll();
@@ -567,7 +566,7 @@ public class CheBLSaveChequeTransaction {
           
           chequeRoll.setTurqEngineSequence(seq);
           
-          CheDALSave.save(chequeRoll);
+          EngDALCommon.saveObject(chequeRoll);
           
           if(cashCard.getTurqAccountingAccount()!=null){
             
@@ -575,7 +574,7 @@ public class CheBLSaveChequeTransaction {
             	rollAccountingAccount.setId(chequeRoll.getId());
             	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
             	rollAccountingAccount.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
-            	CheDALSave.save(rollAccountingAccount);          
+            	EngDALCommon.saveObject(rollAccountingAccount);          
             
            }
           
@@ -603,7 +602,7 @@ public class CheBLSaveChequeTransaction {
             
             chequeTotals = chequeTotals.add(cheque.getChequesAmount()); 
             
-            CheDALSave.save(chequeInRoll);
+            EngDALCommon.saveObject(chequeInRoll);
             
             
             

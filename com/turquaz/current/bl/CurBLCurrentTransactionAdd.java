@@ -38,6 +38,7 @@ import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -75,7 +76,7 @@ public class CurBLCurrentTransactionAdd {
 				TurqModule module = new TurqModule();
 				module.setId(new Integer(4));
 				docSeq.setTurqModule(module);
-				dalCurrentTrans.saveObject(docSeq);
+				EngDALCommon.saveObject(docSeq);
 				
 			}
 			else
@@ -128,7 +129,7 @@ public class CurBLCurrentTransactionAdd {
 	 		curTrans.setLastModified(cal.getTime());
 	 		curTrans.setCreationDate(cal.getTime());
 			
-	        dalCurrentTrans.saveObject(curTrans);
+	 		EngDALCommon.saveObject(curTrans);
 			return curTrans;
 			
 		}
@@ -228,7 +229,7 @@ public class CurBLCurrentTransactionAdd {
 				module.setId(new Integer(4));
 				seq.setTurqModule(module);
          
-				dalCurrentTrans.saveObject(seq);
+				EngDALCommon.saveObject(seq);
 				String transDefinition="Cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
 				Map creditAccounts=new HashMap();
 				Map deptAccounts=new HashMap();
@@ -264,7 +265,7 @@ public class CurBLCurrentTransactionAdd {
          		curTrans.setLastModified(cal.getTime());
          		curTrans.setCreationDate(cal.getTime());		
  		
-         		dalCurrentTrans.saveObject(curTrans);                 
+         		EngDALCommon.saveObject(curTrans);                 
 			}            
 		}
 		catch(Exception ex){

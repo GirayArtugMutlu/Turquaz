@@ -32,12 +32,12 @@ import java.util.Map;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
-import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksCard;
@@ -65,7 +65,7 @@ public class BankBLTransactionAdd {
                     module.setId(new Integer(EngBLCommon.MODULE_BANKS));
                     seq = new TurqEngineSequence();
                     seq.setTurqModule(module);
-                    BankDALCommon.saveObject(seq);
+                    EngDALCommon.saveObject(seq);
                 } catch (Exception ex) {
                     throw ex;
                 }
@@ -120,7 +120,7 @@ public class BankBLTransactionAdd {
             /**
              * Save transaction bill
              */
-            BankDALCommon.saveObject(bankTransBill);
+            EngDALCommon.saveObject(bankTransBill);
 
             /**
              * Save transaction row
@@ -131,8 +131,8 @@ public class BankBLTransactionAdd {
             transRowDebit.setTurqBanksTransactionBill(bankTransBill);
             transRowDebit.setTurqCurrencyExchangeRate(exchangeRate);
             
-            BankDALCommon.saveObject(transRowCredit);
-            BankDALCommon.saveObject(transRowDebit);
+            EngDALCommon.saveObject(transRowCredit);
+            EngDALCommon.saveObject(transRowDebit);
             
             /**
              * 
@@ -191,7 +191,7 @@ public class BankBLTransactionAdd {
             module.setId(new Integer(EngBLCommon.MODULE_BANKS));
             seq = new TurqEngineSequence();
             seq.setTurqModule(module);
-            BankDALCommon.saveObject(seq);
+            EngDALCommon.saveObject(seq);
             TurqBanksTransactionType transType = new TurqBanksTransactionType();
             transType.setId(new Integer(
                     EngBLCommon.BANK_TRANS_INITIAL));
@@ -236,13 +236,13 @@ public class BankBLTransactionAdd {
             /**
              * Save transaction bill
              */
-            BankDALCommon.saveObject(bankTransBill);
+            EngDALCommon.saveObject(bankTransBill);
 
             /**
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
-            BankDALCommon.saveObject(transRow);
+            EngDALCommon.saveObject(transRow);
 
         } catch (Exception ex) {
             throw ex;
@@ -263,7 +263,7 @@ public class BankBLTransactionAdd {
                     module.setId(new Integer(EngBLCommon.MODULE_BANKS));
                     seq = new TurqEngineSequence();
                     seq.setTurqModule(module);
-                    BankDALCommon.saveObject(seq);
+                    EngDALCommon.saveObject(seq);
                 } catch (Exception ex) {
                     throw ex;
                 }
@@ -343,14 +343,14 @@ public class BankBLTransactionAdd {
             /**
              * Save transaction bill
              */
-            BankDALCommon.saveObject(bankTransBill);
+            EngDALCommon.saveObject(bankTransBill);
 
             /**
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
-            BankDALCommon.saveObject(transRow);
+            EngDALCommon.saveObject(transRow);
 
             /**
              * 
@@ -397,7 +397,7 @@ public class BankBLTransactionAdd {
                     module.setId(new Integer(EngBLCommon.MODULE_BANKS));
                     seq = new TurqEngineSequence();
                     seq.setTurqModule(module);
-                    BankDALCommon.saveObject(seq);
+                    EngDALCommon.saveObject(seq);
                 } catch (Exception ex) {
                     throw ex;
                 }
@@ -477,14 +477,14 @@ public class BankBLTransactionAdd {
             /**
              * Save transaction bill
              */
-            BankDALCommon.saveObject(bankTransBill);
+            EngDALCommon.saveObject(bankTransBill);
 
             /**
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
-            BankDALCommon.saveObject(transRow);
+            EngDALCommon.saveObject(transRow);
 
             /**
              * 
@@ -531,7 +531,7 @@ public class BankBLTransactionAdd {
                     module.setId(new Integer(EngBLCommon.MODULE_BANKS));
                     seq = new TurqEngineSequence();
                     seq.setTurqModule(module);
-                    BankDALCommon.saveObject(seq);
+                    EngDALCommon.saveObject(seq);
                 } catch (Exception ex) {
                     throw ex;
                 }
@@ -606,14 +606,14 @@ public class BankBLTransactionAdd {
             /**
              * Save transaction bill
              */
-            BankDALCommon.saveObject(bankTransBill);
+            EngDALCommon.saveObject(bankTransBill);
 
             /**
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
             transRow.setTurqCurrencyExchangeRate(exchangeRate);
-            BankDALCommon.saveObject(transRow);
+            EngDALCommon.saveObject(transRow);
 
             /**
              * 
@@ -650,7 +650,7 @@ public class BankBLTransactionAdd {
                     module.setId(new Integer(EngBLCommon.MODULE_BANKS));
                     seq = new TurqEngineSequence();
                     seq.setTurqModule(module);
-                    BankDALCommon.saveObject(seq);
+                    EngDALCommon.saveObject(seq);
                 } catch (Exception ex) {
                     throw ex;
                 }
@@ -697,13 +697,13 @@ public class BankBLTransactionAdd {
             /**
              * Save transaction bill
              */
-            BankDALCommon.saveObject(bankTransBill);
+            EngDALCommon.saveObject(bankTransBill);
 
             /**
              * Save transaction row
              */
             transRow.setTurqBanksTransactionBill(bankTransBill);
-            BankDALCommon.saveObject(transRow);
+            EngDALCommon.saveObject(transRow);
 
           
         } catch (Exception ex) {

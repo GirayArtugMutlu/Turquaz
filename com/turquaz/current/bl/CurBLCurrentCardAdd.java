@@ -30,6 +30,7 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
@@ -122,7 +123,7 @@ public class CurBLCurrentCardAdd {
 			currentCard.setLastModified(cal.getTime());
 			currentCard.setCreationDate(cal.getTime());
 		
-			CurDALCurrentCardAdd.saveObject(session,currentCard);	
+			EngDALCommon.saveObject(session,currentCard);	
 			return currentCard;
 
 		}
@@ -184,7 +185,7 @@ public class CurBLCurrentCardAdd {
 			phone.setLastModified(cal.getTime());
 			phone.setCreationDate(cal.getTime());
 		
-			CurDALCurrentCardAdd.saveObject(session, phone);	
+			EngDALCommon.saveObject(session, phone);	
 		}
 		catch(Exception ex)
 		{
@@ -220,7 +221,7 @@ public class CurBLCurrentCardAdd {
 				accType.setId(type);
 			
 				curAccount.setTurqCurrentAccountingType(accType);			
-				CurDALCurrentCardAdd.saveObject(session,curAccount);			
+				EngDALCommon.saveObject(session,curAccount);			
 			}			
 		}		
 	}
@@ -247,7 +248,7 @@ public class CurBLCurrentCardAdd {
 		Calendar cal=Calendar.getInstance();
 		contact.setLastModified(cal.getTime());
 		contact.setCreationDate(cal.getTime());
-		CurDALCurrentCardAdd.saveObject(session, contact);
+		EngDALCommon.saveObject(session, contact);
 		
 	}
 	
@@ -279,7 +280,7 @@ public class CurBLCurrentCardAdd {
 			cardGroup.setLastModified(cal.getTime());
 			cardGroup.setCreationDate(cal.getTime());
 
-			CurDALCurrentCardAdd.saveObject(session,cardGroup);
+			EngDALCommon.saveObject(session,cardGroup);
 
 		} 
 		catch (Exception ex)
@@ -303,7 +304,7 @@ public class CurBLCurrentCardAdd {
 	public void deleteObject(Object obj)throws Exception{
 		try{
 			
-		currentAdd.deleteObject(obj);	
+			EngDALCommon.deleteObject(obj);	
 			
 			
 		}
@@ -332,7 +333,7 @@ public class CurBLCurrentCardAdd {
 			curGroup.setLastModified(cal.getTime());
 			curGroup.setCreationDate(cal.getTime());
 			
-			CurDALCurrentCardAdd.saveObject(session,curGroup);	
+			EngDALCommon.saveObject(session,curGroup);	
 			
 			session.flush();
 			tx.commit();
@@ -353,7 +354,7 @@ public class CurBLCurrentCardAdd {
 	{
 		try
 		{			
-			currentAdd.updateObject(obj);				
+			EngDALCommon.updateObject(obj);				
 		}
 		catch(Exception ex)
 		{

@@ -37,41 +37,7 @@ public class CurDALCurrentCardUpdate {
 	public CurDALCurrentCardUpdate(){
 		
 	}
-	
-	public static void updateObject(Session session, Object obj)throws Exception{
-		try
-		{
-			//TODO All methods should send a session here
-			if (session==null)
-				session=EngDALSessionFactory.openSession();
-			session.update(obj);
-		}
-		catch(Exception ex)
-		{
-				throw ex;
-		}		
-	}
-	
-	//TODO USE SESSION
-	public void saveObject(Object obj)throws Exception {
-		try{
-				
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			
-			session.save(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-				
-				
-		}
-		catch(Exception ex){
-		
-			throw ex; 
-		
-		}
-	}
+
 	public List getCurrentGroups() throws Exception {
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -136,6 +102,7 @@ public class CurDALCurrentCardUpdate {
 		}
 		
 	}
+	
 	public void initCurrentTrans(TurqCurrentTransaction curTrans)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

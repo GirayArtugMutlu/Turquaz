@@ -32,6 +32,7 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -108,7 +109,7 @@ public class CurBLCurrentCardUpdate {
 			
 			Calendar cal=Calendar.getInstance();
 			currentCard.setLastModified(cal.getTime());			
-			CurDALCurrentCardUpdate.updateObject(session,currentCard);			
+			EngDALCommon.updateObject(session,currentCard);			
 	
 		}
 		catch(Exception ex){
@@ -135,7 +136,7 @@ public class CurBLCurrentCardUpdate {
 		while(it.hasNext())
 		{
 			TurqCurrentAccountingAccount curAcc = (TurqCurrentAccountingAccount)it.next();
-			CurDALCurrentCardUpdate.deleteObject(session,curAcc);
+			EngDALCommon.deleteObject(session,curAcc);
 		}
 	}
 	
@@ -156,7 +157,7 @@ public class CurBLCurrentCardUpdate {
 		while(it.hasNext())
 		{
 			TurqCurrentCardsPhone curPhone = (TurqCurrentCardsPhone)it.next();
-			CurDALCurrentCardUpdate.deleteObject(session,curPhone);
+			EngDALCommon.deleteObject(session,curPhone);
 		}
 	}
 	
@@ -177,7 +178,7 @@ public class CurBLCurrentCardUpdate {
 		while(it.hasNext())
 		{
 			TurqCurrentContact curContact = (TurqCurrentContact)it.next();
-			CurDALCurrentCardUpdate.deleteObject(session,curContact);
+			EngDALCommon.deleteObject(session,curContact);
 		}
 	}
 	
@@ -198,7 +199,7 @@ public class CurBLCurrentCardUpdate {
 		while(it.hasNext())
 		{
 			TurqCurrentCardsGroup curGroup = (TurqCurrentCardsGroup)it.next();
-			CurDALCurrentCardUpdate.deleteObject(session,curGroup);
+			EngDALCommon.deleteObject(session,curGroup);
 		}
 	}	
 	
@@ -213,7 +214,7 @@ public class CurBLCurrentCardUpdate {
 			deleteCurrentCardGroups(session,currentCard);
 			deleteCurrentCardPhones(session,currentCard);
 			CurDALSearchTransaction.deleteInitialTransactions(session,currentCard);
-			CurDALCurrentCardUpdate.deleteObject(session,currentCard);
+			EngDALCommon.deleteObject(session,currentCard);
 			
 			session.flush();
 			tx.commit();
@@ -259,8 +260,7 @@ public class CurBLCurrentCardUpdate {
 	
 	public void deleteObject(Object obj) throws Exception{
  		try{
-			//TODO Should not send null
- 			CurDALCurrentCardUpdate.deleteObject(null,obj); 			
+ 			EngDALCommon.deleteObject(obj); 			
 		}
 		catch(Exception ex){
 			throw ex;

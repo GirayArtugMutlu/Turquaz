@@ -27,31 +27,13 @@ import java.util.List;
 
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
-
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
 public class AccDALAccountAdd {
 	
-	public void saveOrUpdateAccount(TurqAccountingAccount account)throws Exception{
-		Transaction tx=null;
-		try{
-		Session session = EngDALSessionFactory.openSession();
-		tx = session.beginTransaction();
-		session.saveOrUpdate(account);
-		session.flush();
-		tx.commit();
-		session.close();
-		
-		}
-		catch(Exception ex){
-			if (tx != null)
-				tx.rollback();
-			throw ex;
-		}
-	}
+
 	public List getAccounts(int parentid, String codeCriteria)throws Exception{
 		
 		try{

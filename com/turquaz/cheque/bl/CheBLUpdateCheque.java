@@ -13,12 +13,12 @@ import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.cheque.Messages;
-import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
@@ -49,7 +49,7 @@ public class CheBLUpdateCheque {
 			 * 4-)  
 			 */
 		
-		CheDALSave.update(cheque);
+		EngDALCommon.updateObject(cheque);
 		
 		CheDALUpdate.initChequeRolls(cheque);
 		
@@ -99,14 +99,14 @@ public class CheBLUpdateCheque {
 			
 			TurqChequeRoll chequeRoll = chequeInRoll.getTurqChequeRoll();
 			
-			CheDALSave.delete(chequeInRoll);
+			EngDALCommon.deleteObject(chequeInRoll);
 			
 			
 			updateChequeRollTransactions(chequeRoll,exchangeRate);
 			
 		}
 		
-		CheDALSave.delete(cheque);
+		EngDALCommon.deleteObject(cheque);
 		
 		
 			
@@ -154,7 +154,7 @@ public class CheBLUpdateCheque {
 			
 			while (it.hasNext())
 			{
-				CheDALSave.delete(it.next());		
+				EngDALCommon.deleteObject(it.next());		
 			}
 			
 			

@@ -35,6 +35,7 @@ import com.turquaz.current.dal.CurDALTransactionUpdate;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -130,7 +131,7 @@ public class CurBLSearchTransaction {
 		
 		}
 
- 		dalUpdate.updateObject(curTrans);
+		EngDALCommon.updateObject(curTrans);
  	
  /*		
     	accDalUpdate.updateTransaction(bankTrans.getTurqAccountingTransaction(),documentNo,transDate,accTransType);		

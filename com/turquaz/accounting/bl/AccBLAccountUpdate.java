@@ -28,6 +28,7 @@ import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 
@@ -60,7 +61,7 @@ public class AccBLAccountUpdate {
 			else {
 			account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());			
 			}
-			dalAccountUpdate.updateObject(account);		
+			EngDALCommon.updateObject(account);		
 			
 			dalAccountUpdate.updateAccountCodeOfSubAccs(account,accCode);
 			EngBLAccountingAccounts.RefreshContentAsistantMap();
@@ -120,14 +121,11 @@ public class AccBLAccountUpdate {
 	public void deleteAccount(Object obj)throws Exception{
 		try{
 			
-			dalAccountUpdate.deleteObject(obj);
-			
-			
+			EngDALCommon.deleteObject(obj);			
 		}
 		catch(Exception ex){
 			throw ex;
-		}
-		
+		}		
 	}
 	
 	public List getTotalDeptAndCredit(Object obj)throws Exception{

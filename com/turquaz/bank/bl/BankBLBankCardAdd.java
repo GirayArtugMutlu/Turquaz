@@ -22,6 +22,7 @@ package com.turquaz.bank.bl;
 */
 
 import com.turquaz.bank.dal.BankDALCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
@@ -89,7 +90,7 @@ public class BankBLBankCardAdd {
 		Calendar cal=Calendar.getInstance();
 		bankCard.setLastModified(cal.getTime());
 		bankCard.setCreationDate(cal.getTime());		
-		BankDALCommon.saveObject(session,bankCard);	
+		EngDALCommon.saveObject(session,bankCard);	
 		return bankCard;		
 		
 	}
@@ -120,7 +121,7 @@ public class BankBLBankCardAdd {
 				accType.setId(type);
 			
 				bankAccount.setTurqBankAccountingType(accType);				
-				BankDALCommon.saveObject(session,bankAccount);			
+				EngDALCommon.saveObject(session,bankAccount);			
 			}			
 		}		
 	}

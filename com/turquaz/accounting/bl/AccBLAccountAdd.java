@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALAccountAdd;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
 public class AccBLAccountAdd {
@@ -163,7 +164,7 @@ public class AccBLAccountAdd {
 		account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 		}
 	
-		dalAccountAdd.saveOrUpdateAccount(account);
+		EngDALCommon.saveObject(account);
 		}
 		
 		catch(Exception ex){

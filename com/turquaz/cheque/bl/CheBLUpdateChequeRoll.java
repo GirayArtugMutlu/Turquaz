@@ -32,12 +32,12 @@ import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.cheque.Messages;
-import com.turquaz.cheque.dal.CheDALSave;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBanksCard;
@@ -90,7 +90,7 @@ public class CheBLUpdateChequeRoll {
             chequeRoll.setChequeRollNo(rollNo);
             chequeRoll.setChequeRollsDate(rollDate);
           
-            CheDALSave.update(chequeRoll);
+            EngDALCommon.updateObject(chequeRoll);
                       
           
             if(cashCard.getTurqAccountingAccount()!=null){
@@ -99,7 +99,7 @@ public class CheBLUpdateChequeRoll {
                 	rollAccountingAccount.setId(chequeRoll.getId());
                 	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
                 	rollAccountingAccount.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
-                	CheDALSave.save(rollAccountingAccount);
+                	EngDALCommon.saveObject(rollAccountingAccount);
                 	
               }
             
@@ -180,11 +180,11 @@ public class CheBLUpdateChequeRoll {
             	rollAccountingAccount.setId(chequeRoll.getId());
             	rollAccountingAccount.setTurqChequeRoll(chequeRoll);
             	rollAccountingAccount.setTurqAccountingAccount(rollAccount);
-            	CheDALSave.save(rollAccountingAccount);          
+            	EngDALCommon.saveObject(rollAccountingAccount);          
             
             }
            
-          CheDALSave.update(chequeRoll);
+           EngDALCommon.updateObject(chequeRoll);
                 
            TurqChequeCheque cheque;
          
@@ -332,7 +332,7 @@ public class CheBLUpdateChequeRoll {
 	       Iterator it = chequeRoll.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
 	        while(it.hasNext()){
 	            
-	           CheDALSave.delete(it.next());
+	        	EngDALCommon.deleteObject(it.next());
 	            
 	        }
 	      
@@ -361,7 +361,7 @@ public class CheBLUpdateChequeRoll {
 	        
 	        if(chequeRoll.getTurqChequeRollAccountingAccount()!=null)
 	        {
-	        	CheDALSave.delete(chequeRoll.getTurqChequeRollAccountingAccount());
+	        	EngDALCommon.deleteObject(chequeRoll.getTurqChequeRollAccountingAccount());
 	        }
 	        
             
@@ -378,7 +378,7 @@ public class CheBLUpdateChequeRoll {
             
 	        //Delete Roll Now
 	        
-	        CheDALSave.delete(chequeRoll);
+        	EngDALCommon.deleteObject(chequeRoll);
 	        
 	        
             

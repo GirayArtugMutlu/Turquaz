@@ -31,8 +31,6 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
-
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBanksCard;
@@ -44,67 +42,6 @@ public class BankDALCommon {
 
 	public BankDALCommon() {
 	}
-
-	public static void saveObject(Session session,Object obj) throws Exception {
-		try 
-		{
-			session.save(obj);
-		} 
-		catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
-	//TODO This method should be removed!!!
-	public static void saveObject(Object obj) throws Exception {
-		try 
-		{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			session.save(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-		} 
-		catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
-	public static void updateObject(Object obj) throws Exception {
-		try {
-
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-
-			session.update(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-
-		} catch (Exception ex) {
-
-			throw ex;
-
-		}
-	}
-	public static void deleteObject(Object obj) throws Exception {
-		try {
-
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-
-			session.delete(obj);
-			session.flush();
-			tx.commit();
-			session.close();
-
-		} catch (Exception ex) {
-
-			throw ex;
-
-		}
-	}
 	
 	public static void initializeBankCard(TurqBanksCard bankCard)throws Exception{
 		try{
@@ -112,10 +49,7 @@ public class BankDALCommon {
 			  session.refresh(bankCard);
 			  Hibernate.initialize(bankCard.getTurqBankAccountingAccounts());
 			  
-			  session.close();
-			
-			
-			
+			  session.close();			
 		}
 		catch(Exception ex){
 		
