@@ -173,10 +173,10 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
         
         InvBLCardAdd blCardAdd =new InvBLCardAdd();
         try{
-            if(verifyFields()){
+            if(verifyFields()){ /*
                 blCardAdd.updateInvGroup(txtGroupName.getText(),txtDefinition.getText(),group);
                 EngUICommon.showSavedSuccesfullyMessage(getShell());
-                EngBLInventoryGroups.RefreshContentAsistantMap();
+                EngBLInventoryGroups.RefreshContentAsistantMap();*/
                   
             }
              

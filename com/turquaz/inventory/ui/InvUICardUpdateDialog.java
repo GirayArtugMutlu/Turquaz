@@ -299,375 +299,186 @@ public class InvUICardUpdateDialog extends Dialog{
 		}
 	}
 	
-	public void fillPrices(){
-	try {
-	
-	Iterator it = invCard.getTurqInventoryPrices().iterator();
-	TurqInventoryPrice invPrice;
-	InvUIPriceList priceList = compInvUICard.getPriceList();
-	while(it.hasNext()){
+	public void fillPrices()
+	{
+		try 
+		{
+		
+			Iterator it = invCard.getTurqInventoryPrices().iterator();
+			TurqInventoryPrice invPrice;
+			InvUIPriceList priceList = compInvUICard.getPriceList();
+			while(it.hasNext())
+			{
      
-     invPrice = (TurqInventoryPrice)it.next();
-     InvUIPrice price = new InvUIPrice();
-     price.priceType=Messages.getString("InvUICardUpdateDialog.3"); //$NON-NLS-1$
-     if(invPrice.isPricesType()){
-     price.priceType =Messages.getString("InvUICardUpdateDialog.4"); //$NON-NLS-1$
-     }
-     price.amount =invPrice.getPricesAmount().toString();
-     price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
-     priceList.addPrice(price);
+				invPrice = (TurqInventoryPrice)it.next();
+				InvUIPrice price = new InvUIPrice();
+				price.priceType=Messages.getString("InvUICardUpdateDialog.3"); //$NON-NLS-1$
+				if(invPrice.isPricesType())
+				{
+					price.priceType =Messages.getString("InvUICardUpdateDialog.4"); //$NON-NLS-1$
+				}
+				price.amount =invPrice.getPricesAmount().toString();
+				price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
+				priceList.addPrice(price);
               
-     }
-	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
-	
-	
+			}	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}	
 	}
 	
-	public void fillGroups(){
-	try {
+	public void fillGroups()
+	{
+		try
+		{
 	
-	Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-    Map registeredGroups = compInvUICard.getCompInvCardGroups().getRegisteredGroups();
-   TurqInventoryCardGroup cardGroup;
-    while(it.hasNext()){
-     
-     cardGroup = (TurqInventoryCardGroup)it.next();
-     registeredGroups.put(cardGroup.getTurqInventoryGroup().getTurqInventoryGroup().getId(),cardGroup.getTurqInventoryGroup());
-      
-     
-     }
-	
-	
-	
-	
-	
-	}
-	catch(Exception ex){
-	ex.printStackTrace();
-	}
+			Iterator it = invCard.getTurqInventoryCardGroups().iterator();
+			Map registeredGroups = compInvUICard.getCompInvCardGroups().getRegisteredGroups();
+			TurqInventoryCardGroup cardGroup;
+			while(it.hasNext())
+			{     
+				cardGroup = (TurqInventoryCardGroup)it.next();
+				registeredGroups.put(cardGroup.getTurqInventoryGroup().getTurqInventoryGroup().getId(),cardGroup.getTurqInventoryGroup());
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
-    public void fillUnits(){
-    try{
-    
-    	
-    Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-    TurqInventoryCardUnit cardUnit; 
-    TurqInventoryUnit unit;
-    Table tableRegisteredUnits = compInvUICard.getTableInvCardAddRegisteredUnits();
-    while(it.hasNext()){   
-    
-     cardUnit = (TurqInventoryCardUnit)it.next();
-     if(cardUnit.getCardUnitsFactor().compareTo(new BigDecimal(1))==0){
-         
-     compInvUICard.getComboInvCardUnits().setText( cardUnit.getTurqInventoryUnit().getUnitsName());
-     
-     }
-     else {
-     String unitName= cardUnit.getTurqInventoryUnit().getUnitsName();
-      TableItem registeredItem = new TableItem(
-							tableRegisteredUnits, SWT.NULL);
+    public void fillUnits()
+    {
+    	try
+		{    	
+    		Iterator it = invCard.getTurqInventoryCardUnits().iterator();
+    		TurqInventoryCardUnit cardUnit; 
+    		TurqInventoryUnit unit;
+    		Table tableRegisteredUnits = compInvUICard.getTableInvCardAddRegisteredUnits();
+    		while(it.hasNext())
+    		{    
+    			cardUnit = (TurqInventoryCardUnit)it.next();
+    			if(cardUnit.getCardUnitsFactor().compareTo(new BigDecimal(1))==0)
+    			{         
+    				compInvUICard.getComboInvCardUnits().setText( cardUnit.getTurqInventoryUnit().getUnitsName());
+    			}
+    			else
+    			{
+    				String unitName= cardUnit.getTurqInventoryUnit().getUnitsName();
+    				TableItem registeredItem = new TableItem(tableRegisteredUnits, SWT.NULL);
 					registeredItem.setText(unitName);
 					registeredItem.setData(cardUnit.getTurqInventoryUnit());
-					TableEditor editor = new TableEditor(
-							tableRegisteredUnits);
+					TableEditor editor = new TableEditor(tableRegisteredUnits);
 					editor.grabHorizontal = true;
-					CurrencyText nText = new CurrencyText(
-							tableRegisteredUnits, SWT.NONE);
+					CurrencyText nText = new CurrencyText(tableRegisteredUnits, SWT.NONE);
 					nText.setText(cardUnit.getCardUnitsFactor());
 					editor.setEditor(nText, registeredItem, 1);
 					compInvUICard.mapEditorsTableInvCardAddRegisteredUnits.put(unitName,
 							editor); 
-			removeRegisteredUnit(unitName);				
+					removeRegisteredUnit(unitName);				
      	
-     }
+    			}
      
-    }
-    }
-     catch(Exception ex){
-     ex.printStackTrace();
-     }
+    		}
+    	}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+		}
         
     }
    
-     public void removeRegisteredUnit(String unitName){
-     TableItem items[] = compInvUICard.getTableInvCardAddAllUnits().getItems();
-     for(int i=0;i<items.length;i++){
-     if(items[i].getText().equals(unitName)){
-      compInvUICard.getTableInvCardAddAllUnits().remove(i);
-      break;
-     }
-     }
+     public void removeRegisteredUnit(String unitName)
+     {
+     	TableItem items[] = compInvUICard.getTableInvCardAddAllUnits().getItems();
+     	for(int i=0;i<items.length;i++)
+     	{
+     		if(items[i].getText().equals(unitName))
+     		{
+     			compInvUICard.getTableInvCardAddAllUnits().remove(i);
+     			break;
+     		}
+     	}     
+    }   
+    
      
-     
-     
-    } 
-    
-    public void updateInvUnits(){
-    try{
-    
-   
-    //First remove groups then re-add them..
-	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-    TurqInventoryCardUnit cardUnit; 
- 
-    while(it.hasNext()){   
-    
-     cardUnit = (TurqInventoryCardUnit)it.next();
-     cardUpdate.deleteObject(cardUnit);				
-	}
-   compInvUICard.saveInvUnits(invCard);
-   
-    }
-    
-    catch(Exception ex){
-    ex.printStackTrace();
-    }
-   }
- public void deleteInvUnits(){
-    try{
-    
-   
-    //First remove groups then re-add them..
-	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-    TurqInventoryCardUnit cardUnit; 
- 
-    while(it.hasNext()){   
-    
-     cardUnit = (TurqInventoryCardUnit)it.next();
-     cardUpdate.deleteObject(cardUnit);				
-	} 
-   
-    }
-    
-    catch(Exception ex){
-    ex.printStackTrace();
-    }
-   }
- 
- public void deleteInvAccounts()
- {
- 		try
+    public void update()
+    {
+    	try 
 		{
- 			Iterator it=invCard.getTurqInventoryAccountingAccounts().iterator();
- 			TurqInventoryAccountingAccount invAccount;
- 			while (it.hasNext())
- 			{
- 				invAccount=(TurqInventoryAccountingAccount)it.next();
- 				cardUpdate.deleteObject(invAccount);
- 			}
-		}
- 		catch(Exception ex)
-		{
- 			ex.printStackTrace();
-		}
- 	
- }
-   
-   
-   public void updateInvGroups()
-   {
-   		try
-		{
-   			Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-   			TurqInventoryCardGroup cardGroup; 
-      
-   			while(it.hasNext())
-   			{
-     
-   				cardGroup = (TurqInventoryCardGroup)it.next();
-   				cardUpdate.deleteObject(cardGroup);
-   			}
-   
-   			compInvUICard.saveInvGroups(invCard);   
-		} 
-   		catch(Exception ex){
-   			ex.printStackTrace();   
-   		}
-   }
-   
-   public void updateInvAccounts()
-   {
-   		try
-		{
-   			Iterator it=invCard.getTurqInventoryAccountingAccounts().iterator();
-   			TurqInventoryAccountingAccount invAccount;
-   			while (it.hasNext())
-   			{
-   				invAccount=(TurqInventoryAccountingAccount)it.next();
-   				cardUpdate.deleteObject(invAccount);
-   			}
-   			
-   			compInvUICard.saveInvAccounts(invCard);
-		}
-   		catch(Exception ex)
-		{
-   			ex.printStackTrace();
-		}
-   	
-   }
-   
-   
-   public void updatePrices(){
-   try{
-   Iterator it = invCard.getTurqInventoryPrices().iterator();
-   TurqInventoryPrice invPrice;
-	
-	while(it.hasNext()){
-     
-     invPrice = (TurqInventoryPrice)it.next();
-    
-     cardUpdate.deleteObject(invPrice);
-    
-              
-     }
-     compInvUICard.saveInvPrices(invCard);
-	
-   
-   
-   
-   
-   
-   
-   }
-   catch(Exception ex){
-   ex.printStackTrace();
-   }
-   
-   
-   
-   }
-   public void deletePrices(){
-   try{
-   Iterator it = invCard.getTurqInventoryPrices().iterator();
-   TurqInventoryPrice invPrice;
-	
-	while(it.hasNext()){
-     
-     invPrice = (TurqInventoryPrice)it.next();
-    
-     cardUpdate.deleteObject(invPrice);
-    
-              
-     }
-    }
-   catch(Exception ex){
-   	MessageBox msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);
-   	msg.setMessage(ex.getMessage());
-    ex.printStackTrace();
-   }
-     
-   
-   }
-    
-    public void update(){
-    try {
-    if(compInvUICard.verifyFields(false)){
-    updated=true;
-    // Update Inventory Card Fields
-    cardUpdate.updateInvCard(compInvUICard.getTxtInvCardCode().getText()
-						.trim(), compInvUICard.getTxtInvCardName().getText().trim(), compInvUICard.getTxtInvCardDefinition().getText().trim(),
-						 compInvUICard.getTxtnumInvCardMin().getIntValue(),compInvUICard.getTxtnumInvCardMax().getIntValue(),
-						compInvUICard.getTxtInvCardVat().getIntValue(), compInvUICard.getTxtInvCardDiscount().getIntValue(),
+    		if(compInvUICard.verifyFields(false))
+    		{
+    			updated=true;
+    			// Update Inventory Card Fields
+    			InvBLCardUpdate.updateInventoryCard(
+    					compInvUICard.getTxtInvCardCode().getText().trim(),
+						compInvUICard.getTxtInvCardName().getText().trim(), 
+						compInvUICard.getTxtInvCardDefinition().getText().trim(),
+						compInvUICard.getTxtnumInvCardMin().getIntValue(),
+						compInvUICard.getTxtnumInvCardMax().getIntValue(),
+						compInvUICard.getTxtInvCardVat().getIntValue(),
+						compInvUICard.getTxtInvCardDiscount().getIntValue(),
 						compInvUICard.getNumTextSpecailVATPercent().getIntValue(),
-						compInvUICard.getDecTextSpecialVatAmount().getBigDecimalValue(),invCard
+						compInvUICard.getDecTextSpecialVatAmount().getBigDecimalValue(),
+						invCard,
+						compInvUICard.getCompInvCardGroups().getRegisteredGroups(),
+						compInvUICard.getInvUnits(),
+						compInvUICard.getInvPrices(),
+						compInvUICard.getInvAccounts()
+			
 						);	
 	
-	 //Update Inventory Groups			
-	updateInvUnits();
-	updateInvGroups();
-	updatePrices();
-	updateInvAccounts();
-	  EngBLInventoryCards.RefreshContentAsistantMap();
+
+    			EngBLInventoryCards.RefreshContentAsistantMap();
   	
-	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
-	msg.setMessage(Messages.getString("InvUICardUpdateDialog.5"));	 //$NON-NLS-1$
-	msg.open();	
-	this.dialogShell.close();
-	}
-	}
-		catch(Exception ex){
-		ex.printStackTrace();
-		
+    			MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+    			msg.setMessage(Messages.getString("InvUICardUpdateDialog.5"));	 //$NON-NLS-1$
+    			msg.open();	
+    			this.dialogShell.close();
+    		}
 		}
-		
-     
+		catch(Exception ex)
+		{
+			ex.printStackTrace();		
+		}    
     }
     
-    public void delete(){
+    public void delete()
+    {
     	MessageBox msg=new MessageBox(this.getParent(),SWT.YES|SWT.NO);
-      try{
-      
-      msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
-      if (msg.open()==SWT.NO)
-       return;
+    	try
+		{      
+    		msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
+    		if (msg.open()==SWT.NO)
+    			return;
      
-     // if the inventory card contains transactions 
-     if(cardUpdate.hasTransactions(invCard))
-     {
-     	MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_WARNING);
-    	msg2.setMessage(Messages.getString("InvUICardUpdateDialog.8")); //$NON-NLS-1$
-		msg2.open();
-		return;
-     }
-     updated=true;
-    //First Delete Groups
-    deleteInvGroups();
-    //delete Units
-    deleteInvUnits();
-    // delete Prices
-    deletePrices();
-    // delete invCard
-    deleteInvAccounts();
-    //delete invAccounts
-    
-    
-    cardUpdate.deleteObject(invCard);
-    msg = new MessageBox(this.getParent(),SWT.NULL);
-	msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
-	msg.open();	 
-	this.dialogShell.dispose(); 
-       
+    		// if the inventory card contains transactions 
+    		if(cardUpdate.hasTransactions(invCard))
+    		{
+     			MessageBox msg2 = new MessageBox(this.getParent(),SWT.ICON_WARNING);
+     			msg2.setMessage(Messages.getString("InvUICardUpdateDialog.8")); //$NON-NLS-1$
+     			msg2.open();
+     			return;
+    		}
+    		updated=true;
+    		InvBLCardUpdate.deleteInventoryCard(invCard);
+    		msg = new MessageBox(this.getParent(),SWT.NULL);
+    		msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
+    		msg.open();	 
+    		this.dialogShell.dispose();        
            
+		}
+    	catch(Exception ex)
+		{    	
+    		ex.printStackTrace();	
+    		msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);	
+    		msg.setMessage(ex.getMessage());
+    		msg.open();
+    		dialogShell.close();    
+		}   
     }
-    catch(Exception ex){
-    	
-    ex.printStackTrace();	
-    msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);	
-    msg.setMessage(ex.getMessage());
-    msg.open();
-    dialogShell.close();
- 
-    
-    }
-    
-    
-    }
-      
-   public void deleteInvGroups(){
-   try{
-   Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-    TurqInventoryCardGroup cardGroup; 
-      
-    while(it.hasNext()){
-     
-     cardGroup = (TurqInventoryCardGroup)it.next();
-     cardUpdate.deleteObject(cardGroup);
-     }
-   
-   
-   
-   }
-   catch(Exception ex){
-   ex.printStackTrace();
-   }
-   
-   }
-	
 
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){

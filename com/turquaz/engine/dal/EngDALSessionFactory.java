@@ -40,7 +40,6 @@ import net.sf.hibernate.cfg.Configuration;
 public class EngDALSessionFactory {
 	static EngDALSessionFactory _instance;
 	public SessionFactory factory;
-	public Session session;
 	Configuration cfg ;
 	
 	/**
@@ -97,7 +96,6 @@ public class EngDALSessionFactory {
 		cfg.addProperties(props);
 		
 		factory = cfg.buildSessionFactory();
-		session = factory.openSession();
 		
 		}
 		catch(Exception ex){
@@ -145,11 +143,7 @@ public class EngDALSessionFactory {
 			_instance = new EngDALSessionFactory();
 
 		}
-        if(!_instance.session.isOpen())
-        {
-		_instance.session = _instance.factory.openSession();
-        }
-        return _instance.session;
+        return _instance.factory.openSession();
 		}
 		catch(Exception ex){
 			throw ex;

@@ -32,12 +32,7 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
 import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryCardGroup;
-import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
-import com.turquaz.engine.dal.TurqInventoryPrice;
 
 
 
@@ -50,50 +45,6 @@ public class InvDALCardAdd {
 			
 	}
 
-	public static void saveOrUpdateInvCard(TurqInventoryCard invCard)throws Exception{
-		try{
-		Session session = EngDALSessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(invCard);
-		session.flush();
-		tx.commit();
-		session.close();
-		
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	
-	public void saveOrUpdateCardGroup(TurqInventoryCardGroup cardGroup)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			session.saveOrUpdate(cardGroup);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}	
-	}
-	public void saveOrUpdateInventoryGroup(TurqInventoryGroup invGroup)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			session.saveOrUpdate(invGroup);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
 	public void saveOrUpdateObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -101,6 +52,7 @@ public class InvDALCardAdd {
 			session.saveOrUpdate(obj);
 			session.flush();
 			tx.commit();
+			
 			session.close();
 			
 			}
@@ -109,65 +61,20 @@ public class InvDALCardAdd {
 			}	
 		
 	}
-	public void saveOrUpdateCardUnit(TurqInventoryCardUnit cardUnit)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-			session.saveOrUpdate(cardUnit);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}	
-	}
 	
-	public void saveInvPrice(TurqInventoryPrice price)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-						
-			session.saveOrUpdate(price);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}	
-	}
 	
-	public static void saveInvAccount(TurqInventoryAccountingAccount invAcc)throws Exception{
-		try{
-			Session session = EngDALSessionFactory.openSession();
-			Transaction tx = session.beginTransaction();
-						
-			session.saveOrUpdate(invAcc);
-			session.flush();
-			tx.commit();
-			session.close();
-			
-			}
-			catch(Exception ex){
-				throw ex;
-			}	
-	}
-	
-	public void registerGroup()throws Exception{
-		try{
-			
-			
-			
+	public static void saveObject(Session session, Object obj)throws Exception
+	{
+		try
+		{
+			session.save(obj);
 		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
 			throw ex;
 		}
-			
-		}
-	
+	}
+		
 	public void deleteObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -183,7 +90,7 @@ public class InvDALCardAdd {
 			}	
 	}
 	
-	public TurqCurrency getCurrency(String abbrev)throws Exception{
+	public static TurqCurrency getCurrency(String abbrev)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		

@@ -22,7 +22,6 @@ package com.turquaz.inventory.ui;
 */
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.widgets.MessageBox;
@@ -35,10 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryCardGroup;
-import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
-import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -389,70 +385,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	
 	public void save(){
 		
-	}
-	public void deleteInvUnits(TurqInventoryCard invCard)
-	{
-	    try
-		{	    
-	
-	    	//First remove groups then re-add them..
-	    	Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-	    	TurqInventoryCardUnit cardUnit; 
-	 
-	    	while(it.hasNext())
-	    	{   
-	    
-	    		cardUnit = (TurqInventoryCardUnit)it.next();
-	    		cardUpdate.deleteObject(cardUnit);				
-	    	} 
-	   
-	    }
-	    
-	    catch(Exception ex)
-		{
-	    	ex.printStackTrace();
-	    }
-	 }
-	 public void deleteInvGroups(TurqInventoryCard invCard)
-	 {
-	     try
-		 {
-	     	Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-	     	TurqInventoryCardGroup cardGroup; 
-	        
-	     	while(it.hasNext())
-	     	{
-	       
-	     		cardGroup = (TurqInventoryCardGroup)it.next();
-	      	 cardUpdate.deleteObject(cardGroup);
-	     	} 
-	     
-	     }
-	     catch(Exception ex){
-	     ex.printStackTrace();
-	     }
-	     
-	     }
-	 public void deletePrices(TurqInventoryCard invCard){
-	     try{
-	     Iterator it = invCard.getTurqInventoryPrices().iterator();
-	     TurqInventoryPrice invPrice;
-	  	
-	  	while(it.hasNext()){
-	       
-	       invPrice = (TurqInventoryPrice)it.next();
-	      
-	       cardUpdate.deleteObject(invPrice);    
-	                
-	       }
-	      }
-	     catch(Exception ex){
-	     	MessageBox msg = new MessageBox(this.getShell(),SWT.ICON_ERROR);
-	     	msg.setMessage(ex.getMessage());
-	      ex.printStackTrace();
-	     }       
-	     
-	     }      
+	}  
 	  	
 	public void delete(){
 	    TableItem items[]=tableSearcResults.getSelection();
@@ -483,15 +416,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 			
 			
 	     }
-	    //First Delete Groups
-	    deleteInvGroups(invCard);
-	    //delete Units
-	    deleteInvUnits(invCard);
-	    // delete Prices
-	    deletePrices(invCard);
-	    // delete invCard
-	    
-	    cardUpdate.deleteObject(invCard);
+	    InvBLCardUpdate.deleteInventoryCard(invCard);
 	    msg = new MessageBox(this.getShell(),SWT.NULL);
 		msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
 		msg.open();	 

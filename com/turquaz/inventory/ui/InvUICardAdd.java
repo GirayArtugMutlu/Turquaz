@@ -55,8 +55,6 @@ import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryAccountingType;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -66,7 +64,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
@@ -1494,27 +1491,22 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 				// Save inventory card
 
-				TurqInventoryCard card = blCardAdd.saveInvCard(txtInvCardCode.getText()
-						.trim(), txtInvCardName.getText().trim(),
-						txtInvCardDefinition.getText().trim(), txtnumInvCardMin
-								.getIntValue(), txtnumInvCardMax.getIntValue(),
-						txtInvCardVat.getIntValue(), txtInvCardDiscount
-								.getIntValue(),
+				InvBLCardAdd.saveInventoryCard(
+						txtInvCardCode.getText().trim(),
+						txtInvCardName.getText().trim(),
+						txtInvCardDefinition.getText().trim(),
+						txtnumInvCardMin.getIntValue(),
+						txtnumInvCardMax.getIntValue(),
+						txtInvCardVat.getIntValue(),
+						txtInvCardDiscount.getIntValue(),
 						numTextSpecailVATPercent.getIntValue(),
 						decTextSpecialVatAmount.getBigDecimalValue(),
-						radioSpecialVatAmount
-								.getSelection());
+						radioSpecialVatAmount.getSelection(),
+						compInvCardGroups.getRegisteredGroups(),//invGroups
+						getInvUnits(), //invUnits
+						getInvPrices(),
+						getInvAccounts());
 
-				// Register its Groups
-				saveInvGroups(card);
-
-				//Register its Units
-				saveInvUnits(card);
-
-				// Save the price list now.
-
-		        saveInvPrices(card);
-		        saveInvAccounts(card);
 		        txtInvCardCode.asistant.refreshContentAssistant(1);
 		        EngBLInventoryCards.RefreshContentAsistantMap();
 		    	MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
@@ -1524,7 +1516,8 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 				clearFields();
 
-			} catch (Exception ex) {
+			} catch (Exception ex) 
+			{
 				ex.printStackTrace();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(ex.getMessage());
@@ -1536,8 +1529,9 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 
 	}
 	
-	public void saveInvAccounts(TurqInventoryCard card)
+	public List getInvAccounts()
 	{
+		List invAccounts=new ArrayList();
 		try
 		{
 			TableItem[] items=tableInvAccounts.getItems();
@@ -1547,44 +1541,27 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				TurqInventoryAccountingAccount invAcc=(TurqInventoryAccountingAccount)row.getDBObject();
 				if (invAcc.getTurqAccountingAccount()!=null)
 				{
-					InvBLCardAdd.saveInvAccount(invAcc, card);
+					//InvBLCardAdd.saveInvAccount(invAcc, card);
+					invAccounts.add(invAcc);
 				}
 			}
+			return invAccounts;
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return null;
 		}
 	}
 
-	public void saveInvGroups(TurqInventoryCard card) {
 
+	public List  getInvUnits()
+	{	
+		List invUnits=new ArrayList();
 		try {
-			
-		   Map groupMap = compInvCardGroups.getRegisteredGroups();
-		 
-			Iterator it = groupMap.values().iterator(); 
-		   while(it.hasNext())
-		   {
-		
-		     TurqInventoryGroup group = (TurqInventoryGroup)it.next();
-		     if(group!=null){
-		         blCardAdd.registerGroup(card, group);
-		     }
-		   }
-		
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-
-	public void saveInvUnits(TurqInventoryCard card) {
-		try {
-			Object invUnit = comboInvCardUnits.getData(comboInvCardUnits
-					.getText());
-			
-			blCardAdd.registerUnits(card, invUnit, new BigDecimal(1));
+			Object invUnit =comboInvCardUnits.getData(comboInvCardUnits.getText());
+			invUnits.add(new Object[]{invUnit,new BigDecimal(1)});
+			//blCardAdd.registerUnits(card, invUnit, new BigDecimal(1));
 			
 			TableItem item;
 			//Register Secondary Units
@@ -1595,20 +1572,28 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits
 						.get(item.getText(0));
 				BigDecimal factor = ((CurrencyText) editor.getEditor()).getBigDecimalValue();
-				blCardAdd.registerUnits(card, item.getData(), factor);
+				//blCardAdd.registerUnits(card, item.getData(), factor);
+				invUnits.add(new Object[]{item.getData(),factor});
 
 			}
-		} catch (Exception ex) {
+			return invUnits;
+		} 
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
+			return null;
 		}
 
 	}
 
-	public void saveInvPrices(TurqInventoryCard card) {
+	public List getInvPrices() {
+		List invPrices=new ArrayList();
 		try {
 			int itemCount = tableInvCardAddPrices.getItemCount();
 			TableItem item;
-			for (int i = 0; i < itemCount; i++) {
+			
+			for (int i = 0; i < itemCount; i++)
+			{
 				item = tableInvCardAddPrices.getItem(i);
 				String type = item.getText(0);
 				String amount = item.getText(1);
@@ -1616,10 +1601,10 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 				
 				 String formatted = amount.toString(); 	
 				 formatted = formatted.replaceAll("\\.",""); //$NON-NLS-1$ //$NON-NLS-2$
-				 	formatted = formatted.replaceAll(",","."); //$NON-NLS-1$ //$NON-NLS-2$
-				 	if(formatted.equals("")){ //$NON-NLS-1$
-				 	    formatted="0"; //$NON-NLS-1$
-				 	}
+				 formatted = formatted.replaceAll(",","."); //$NON-NLS-1$ //$NON-NLS-2$
+				 if(formatted.equals("")){ //$NON-NLS-1$
+				 	formatted="0"; //$NON-NLS-1$
+				 }
 
 				if (!type.equals("") && !abbrev.equals("") && !amount.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
@@ -1627,14 +1612,18 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 					if (type.equals(Messages.getString("InvUICardAdd.31"))) { //$NON-NLS-1$
 						priceType = true;
 					}
-
-					blCardAdd.saveInvPrices(card, priceType, abbrev, formatted);
+					Object[] values=new Object[]{new Boolean(priceType),abbrev,formatted};
+					invPrices.add(values);
+					//blCardAdd.saveInvPrices(card, priceType, abbrev, formatted);
 
 				}
 			}
+			return invPrices;
 
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) {
 			ex.printStackTrace();
+			return null;
 		}
 
 	}
