@@ -96,7 +96,8 @@ public class AccDALTransactionSearch {
     try{
     	Session session = EngDALSessionFactory.openSession();
 		
-    	String query ="select accTrans from TurqAccountingTransaction as accTrans "+
+    	String query ="select accTrans from TurqAccountingTransaction as accTrans " +
+    			      " left join fetch accTrans.turqAccountingTransactionColumns "+
     				  "where accTrans.transactionDocumentNo like '"+docNo+"%' ";
     	
 		if(startDate!=null){
@@ -133,13 +134,7 @@ public class AccDALTransactionSearch {
 		}
 			
 		List list = q.list();
-		for (int i =0;i<list.size();i++){
-			
-		TurqAccountingTransaction accTrans = (TurqAccountingTransaction)list.get(i);
-		Hibernate.initialize(accTrans.getTurqAccountingTransactionColumns());
-			
-		}
-		
+	
 		session.close();
 		
 		return list;
