@@ -348,7 +348,7 @@ public class InvUICardAdd extends SecureComposite {
 			tabInvCardGeneral.setControl(compInvCardGeneral);
 			tabInvCardGeneral.setText("General Information");
 	
-			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(625,404));
+			compInvCardGeneral.setSize(new org.eclipse.swt.graphics.Point(641,404));
 	
 			GridData lblInvCardNameLData = new GridData();
 			lblInvCardNameLData.verticalAlignment = GridData.CENTER;
