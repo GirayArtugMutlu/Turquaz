@@ -162,10 +162,14 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite {
 	}
 	
 	public Date getDate(){
-		if(this.getData()!=null){
-			return (Date)this.getData();
-		}
-		else return null;
+	    try{
+	    Date d = DatePicker.formatter.parse(text1.getText());
+	    return d;
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        return null;
+	    }
 		
 	}
 	
