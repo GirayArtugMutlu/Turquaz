@@ -1429,6 +1429,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			
 			saveFavoritesTree();
 			saveProperties();
+			System.exit(0);
 			
 			}
 			else{
