@@ -55,16 +55,23 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SecureComposite;
 
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import org.eclipse.swt.custom.CCombo;
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite
 implements SecureComposite{
+
+	{
+		//Register as a resource user - SWTResourceManager will
+		//handle the obtaining and disposing of resources
+		SWTResourceManager.registerResourceUser(this);
+	}
+
 	private CLabel lvlCurrentCard;
 	private CurrentPicker txtCurrentCard;
 	private CLabel lvlDate;
@@ -73,7 +80,7 @@ implements SecureComposite{
 	private Text txtDefinition;
 	private AccountPicker accountPicker;
 	private CLabel lblAcccountingAccount;
-	private CurrencyText txtDept;
+	private CCombo comboType;
 	private CLabel lblDept;
 	private CurrencyText txtCredit;
 	private CLabel lblCredit;
@@ -121,22 +128,7 @@ implements SecureComposite{
 	}
 
 	
-	ModifyListener listenerCredit = new ModifyListener(){
-	    public void modifyText(ModifyEvent arg0) {
-			txtDept.removeModifyListener(listenerDept);
-			txtDept.setText(new BigDecimal(0)); //$NON-NLS-1$
-			txtDept.addModifyListener(listenerDept);
-		}
-	    
-	};
-	ModifyListener listenerDept = new ModifyListener(){
-	    public void modifyText(ModifyEvent arg0) {
-			txtCredit.removeModifyListener(listenerCredit);
-			txtCredit.setText(new BigDecimal(0)); //$NON-NLS-1$
-            txtCredit.addModifyListener(listenerCredit); 
-		}
-	    
-	};
+	
 	private void initGUI() {
 		try {
 			GridLayout thisLayout = new GridLayout();
@@ -184,20 +176,21 @@ implements SecureComposite{
 			}
 			{
 				lblDept = new CLabel(this, SWT.NONE);
-				lblDept.setText(Messages.getString("CurUICurrentCardVoucher.3")); //$NON-NLS-1$
+				lblDept.setText("Borç / Alacak"); //$NON-NLS-1$
 			}
 			{
-				txtDept = new CurrencyText(this, SWT.NONE);
+				comboType = new CCombo(this, SWT.NONE);
+				
 				GridData txtDeptLData = new GridData();
-				txtDept.addModifyListener(listenerDept);
-				txtDeptLData.widthHint = 203;
-				txtDeptLData.heightHint = 19;
-				txtDept.setLayoutData(txtDeptLData);
+				comboType.setBackground(SWTResourceManager.getColor(255, 255, 255));
+				txtDeptLData.widthHint = 71;
+				txtDeptLData.heightHint = 16;
+				comboType.setLayoutData(txtDeptLData);
 			}
 			{
 				lblCredit = new CLabel(this, SWT.NONE);
 				GridData lblCreditLData = new GridData();
-				lblCredit.setText(Messages.getString("CurUICurrentCardVoucher.6")); //$NON-NLS-1$
+				lblCredit.setText("Tutar\u0131:"); //$NON-NLS-1$
 				lblCreditLData.widthHint = 81;
 				lblCreditLData.heightHint = 18;
 				lblCredit.setLayoutData(lblCreditLData);
@@ -205,14 +198,13 @@ implements SecureComposite{
 			{
 				txtCredit = new CurrencyText(this, SWT.NONE);
 				GridData txtCreditLData = new GridData();
-				txtCredit.addModifyListener(listenerCredit);
 				txtCreditLData.widthHint = 203;
 				txtCreditLData.heightHint = 18;
 				txtCredit.setLayoutData(txtCreditLData);
 			}
 			//START >>  lblAcccountingAccount
 			lblAcccountingAccount = new CLabel(this, SWT.NONE);
-			lblAcccountingAccount.setText("Muhasebe Hesab\u0131");
+			lblAcccountingAccount.setText("Muhasebe Hesab\u0131:");
 			//END <<  lblAcccountingAccount
 			//START >>  accountPicker
 			accountPicker = new AccountPicker(this, SWT.NONE);
@@ -221,6 +213,11 @@ implements SecureComposite{
 			accountPickerLData.heightHint = 18;
 			accountPicker.setLayoutData(accountPickerLData);
 			//END <<  accountPicker
+			comboType.add(EngBLCommon.COMMON_DEPT_STRING);
+			comboType.add(EngBLCommon.COMMON_CREDIT_STRING);
+			comboType.setText(EngBLCommon.COMMON_DEPT_STRING);
+			comboType.setEditable(false);
+			
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,17 +240,17 @@ implements SecureComposite{
 			if (verifyFields())
 			{
 				BigDecimal credit=txtCredit.getBigDecimalValue();
-				BigDecimal dept=txtDept.getBigDecimalValue();
+				
 			
 				boolean isCredit = false;
-				if(dept.compareTo(new BigDecimal(0))<1){
+				if(comboType.getText().equals(EngBLCommon.COMMON_CREDIT_STRING)){
 				    isCredit=true;
 				}
 				
 				TurqCurrentTransaction curtrans = curBLTransAdd.saveOtherCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
-					accountPicker.getTurqAccountingAccount(),dateTransDate.getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
+					accountPicker.getTurqAccountingAccount(),dateTransDate.getDate(),"",isCredit,credit, //$NON-NLS-1$
 							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
-							new Integer(-1),txtDefinition.getText());
+							null,txtDefinition.getText());
 				
 				if(EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
 				{
@@ -280,11 +277,11 @@ implements SecureComposite{
 			txtCurrentCard.setFocus();
 			return false;
 		}
-		else if (txtCredit.getText().equals("") && txtDept.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
+		else if (txtCredit.getText().equals("") && comboType.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
 		{
 			msg.setMessage(Messages.getString("CurUICurrentCardVoucher.13")); //$NON-NLS-1$
 			msg.open();
-			txtDept.setFocus();
+			comboType.setFocus();
 			return false;
 		}
 		return true;
@@ -314,12 +311,10 @@ implements SecureComposite{
     public void setTxtDefinition(Text txtDefinition) {
         this.txtDefinition = txtDefinition;
     }
-    public CurrencyText getTxtDept() {
-        return txtDept;
+    public CCombo getComboType() {
+        return comboType;
     }
-    public void setTxtDept(CurrencyText txtDept) {
-        this.txtDept = txtDept;
-    }
+  
     
 	/**
 	 * @return Returns the accountPicker.

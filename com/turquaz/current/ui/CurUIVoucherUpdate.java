@@ -164,11 +164,13 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	  
 	    
 	    if(curTrans.getTransactionsTotalDept().doubleValue()>0){
-	        compVoucher.getTxtDept().setText(curTrans.getTransactionsTotalDept());
+	        compVoucher.getComboType().setText(EngBLCommon.COMMON_DEPT_STRING);
+	        compVoucher.getTxtCredit().setText(curTrans.getTransactionsTotalDept());
 	        
 	    }
 	    else
 	    {
+	    	compVoucher.getComboType().setText(EngBLCommon.COMMON_CREDIT_STRING);
 	        compVoucher.getTxtCredit().setText(curTrans.getTransactionsTotalCredit());
 	    }
 	    
@@ -219,19 +221,20 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog {
 	    	
 	    	}
 	    	CurBLTransactionUpdate.delete(curTrans);
+	    	
 	    	BigDecimal credit=compVoucher.getTxtCredit().getBigDecimalValue();
-			BigDecimal dept=compVoucher.getTxtDept().getBigDecimalValue();
+			
 		
-			boolean isCredit = false;
-			if(dept.compareTo(new BigDecimal(0))<1){
+	    	boolean isCredit = false;
+			if(compVoucher.getComboType().getText().equals(EngBLCommon.COMMON_CREDIT_STRING)){
 			    isCredit=true;
 			}
 			
 			
 			TurqCurrentTransaction curtrans =new CurBLCurrentTransactionAdd().saveOtherCurrentTransaction((TurqCurrentCard)compVoucher.getTxtCurrentCard().getData(),
-				compVoucher.getAccountPicker().getTurqAccountingAccount(),compVoucher.getDateTransDate().getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
+				compVoucher.getAccountPicker().getTurqAccountingAccount(),compVoucher.getDateTransDate().getDate(),"",isCredit, credit , //$NON-NLS-1$
 						new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
-						new Integer(-1),compVoucher.getTxtDefinition().getText());
+						null,compVoucher.getTxtDefinition().getText());
 			
 	       EngUICommon.showMessageBox(getParent(),Messages.getString("CurUIVoucherUpdate.1")); //$NON-NLS-1$
 	    }

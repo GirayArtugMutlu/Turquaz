@@ -91,6 +91,7 @@ public class CurrencyText extends Composite {
  public void removeModifyListener(ModifyListener listener){
      text.removeModifyListener(listener);
  }
+
  
  public CurrencyText(Composite arg0, int arg1) {
  	  super(arg0, SWT.NONE);
@@ -290,6 +291,7 @@ public class CurrencyText extends Composite {
  
  public void setText(BigDecimal bd){
      TurkishCurrencyFormat cf = new TurkishCurrencyFormat(numberOfDecimal);
+     cf.setMinimumFractionDigits(0);
      text.setText(cf.format(bd));
      
  }
