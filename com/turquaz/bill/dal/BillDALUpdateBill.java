@@ -2,6 +2,8 @@
 package com.turquaz.bill.dal;
 
 
+import java.util.Iterator;
+
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
@@ -48,6 +50,9 @@ public class BillDALUpdateBill {
 			throw ex;
 		}
 	}
+	
+	
+	
 	public void updateBill(TurqBill obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -64,6 +69,48 @@ public class BillDALUpdateBill {
 			}
 		
 	}
+	
+	public void deleteAccountingTransactions(int seq_id)throws Exception{
+		try{
+		    Session session = EngDALSessionFactory.openSession();
+			Iterator iter = session.iterate("from TurqAccountingTransaction as trans where " +
+					" trans.turqEngineSequence.engineSequencesId ="+seq_id);
+		    
+			while(iter.hasNext()){
+			    session.delete(iter.next());
+			}
+			
+			session.close();
+		    
+		    
+		}
+		catch(Exception ex){
+		    throw ex;
+		}
+	}
+		    
+	
+	public void deleteCurrentTransactions(int seq_id)throws Exception{
+	try{
+	    Session session = EngDALSessionFactory.openSession();
+		Iterator iter = session.iterate("from TurqCurrentTransaction as trans where " +
+				" trans.turqEngineSequence.engineSequencesId ="+seq_id);
+	    
+		while(iter.hasNext()){
+		    session.delete(iter.next());
+		}
+		
+		session.close();
+	    
+	    
+	}
+	catch(Exception ex){
+	    throw ex;
+	}
+	    
+	    
+	    
+	}	
 	public void deleteObject(Object obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();

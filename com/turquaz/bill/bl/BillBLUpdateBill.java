@@ -19,19 +19,40 @@ public class BillBLUpdateBill {
 	private Calendar cal = Calendar.getInstance();
 
 	private BillDALUpdateBill dalBill = new BillDALUpdateBill();
+	private BillBLAddBill blAddBill = new BillBLAddBill();
 
 	public BillBLUpdateBill() {
 
 	}
 
+	public void deleteCurrentTransactions(TurqBill bill)throws Exception{
+	    try{
+	        
+	    dalBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getEngineSequencesId().intValue());    
+	    
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	public void deleteAccountingTransactions(TurqBill bill)throws Exception{
+	    try{
+	        
+	       dalBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getEngineSequencesId().intValue()); 
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
+	
 	public void updateBill(TurqBill bill,String docNo, String definition, boolean isPrinted,
 			Date billDate, TurqCurrentCard curCard, int discountRate,
 			BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
 			BigDecimal totalAmount, int type) throws Exception {
-		try {
-			
-		
+		try {		
 			bill.setBillsDate(billDate);
 			bill.setBillsDefinition(definition);
 		
@@ -57,10 +78,22 @@ public class BillBLUpdateBill {
 	    	common.setUpdatedBy(System.getProperty("user"));
 		    common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			
+		    
 		   
 			dalBill.updateObject(common);
 
 			dalBill.updateBill(bill);
+			
+			//Update Transactions
+			
+			deleteAccountingTransactions(bill);
+			deleteCurrentTransactions(bill);
+			blAddBill.saveCurrentTransaction(bill);
+			blAddBill.saveAccountingTransaction(bill);
+			
+			
+			
+			
 
 		} catch (Exception ex) {
 			throw ex;

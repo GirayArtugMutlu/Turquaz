@@ -4,17 +4,21 @@ package com.turquaz.bill.ui;
 import java.util.Iterator;
 
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.Messages;
+import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import net.sf.hibernate.Hibernate;
 
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -49,6 +53,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
 	private TurqBill bill;
+	ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
+	BillBLUpdateBill blUpdateBill = new BillBLUpdateBill();
 
 	/**
 	* Auto-generated main method to display this 
@@ -187,7 +193,8 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 	    Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 		
 		while(it2.hasNext()){
-			invTrans = (TurqInventoryTransaction)it2.next();
+			
+		    invTrans = (TurqInventoryTransaction)it2.next();
 			
 			item = new TableItem(compAddBill.getTableConsignmentRows(),SWT.NULL);
 			
@@ -224,5 +231,64 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			
 		
 		}
+	
+	public void update(){
+	MessageBox msg;
+	try{
+	   if(compAddBill.verifyFields()){
+	       int type=0;
+			if(compAddBill.getComboConsignmentType().getText().equals("Sat??"))  //$NON-NLS-1$
+			{
+				type =1;
+			}
+	       
+	       Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+			
+	       //update the consignment
+	       
+			if(it.hasNext()){
+		    TurqConsignment cons = (TurqConsignment)it.next();
+	        blUpdateCons.updateConsignment(cons,
+	                					compAddBill.getTxtConsignmentDocumentNo().getText(),
+	                					compAddBill.getTxtDefinition().getText(),
+	                					compAddBill.getDateConsignmentDate().getDate(),
+	                					(TurqCurrentCard)compAddBill.getTxtCurrentCard().getData(),
+	                					compAddBill.getTxtDiscountRate().getIntValue(),
+	                					compAddBill.getTxtDiscountAmount().getBigDecimalValue(),
+	                					compAddBill.getTxtDocumentNo().getText(),
+	                					compAddBill.getTxtTotalVat().getBigDecimalValue(),
+	                					compAddBill.getDecSpecialVat().getBigDecimalValue(),
+	                					compAddBill.getTxtTotalAmount().getBigDecimalValue(),type);
+			
+   //	      Update Inventory Transactions
+			 Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			while(it2.hasNext()){
+				blUpdateCons.deleteObject(it2.next());
+									
+			}
+			compAddBill.saveConsignmentRows(cons.getConsignmentsId());
+			
+			}
+			//update bill now...        
+	       
+	       
+	        
+	    
+	    msg = new MessageBox(this.getParent(),SWT.ICON_INFORMATION);
+	    msg.setMessage("Ba?ar?yla Güncellendi!");
+	    msg.open();
+	    this.dialogShell.close();
+	    
+	    }
+	}
+	catch(Exception ex){
+	    msg = new MessageBox(this.getParent(),SWT.ICON_ERROR);
+	    
+		ex.printStackTrace();
+	    msg.setMessage(ex.getMessage());
+	    msg.open();
+	    this.dialogShell.close();
+	}
+ }
 	
 }
