@@ -226,11 +226,13 @@ public class InvUIWarehouseSearch extends SecureComposite {
 	TableItem item;
 	TurqInventoryWarehous warehouse;
 	List result = whBLsearch.searchWarehouse(txtWarehouseName.getText().trim(),txtCity.getText().trim());
+	
 	for(int i= 0; i< result.size();i++){
 	item = new TableItem(tableInvUIWarehouses, SWT.NULL);
 	
 	warehouse = (TurqInventoryWarehous)result.get(i);
 	item.setData(warehouse);
+	
 	item.setText(new String[]{warehouse.getWarehousesName(),
 							  warehouse.getWarehousesCity(),
 							  warehouse.getWarehousesTelephone(),
@@ -257,7 +259,7 @@ public class InvUIWarehouseSearch extends SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void tableInvUIWarehousesMouseDoubleClick(MouseEvent evt){
-		TableItem items[] = tableInvUIWarehouses.getItems();
+		TableItem items[] = tableInvUIWarehouses.getSelection();
 		if(items.length>0){
 		new InvUIWarehouseUpdate(this.getShell(),SWT.NULL,(TurqInventoryWarehous)items[0].getData()).open();
 		search();

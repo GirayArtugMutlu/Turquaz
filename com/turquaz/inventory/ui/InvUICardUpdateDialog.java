@@ -497,7 +497,7 @@ public class InvUICardUpdateDialog extends Dialog{
     deletePrices();
     // delete invCard
  
-     cardUpdate.deleteObject(invCard);
+    cardUpdate.deleteObject(invCard);
     MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
 	msg.setMessage("Deleted Succesfully");	
 	msg.open();	 

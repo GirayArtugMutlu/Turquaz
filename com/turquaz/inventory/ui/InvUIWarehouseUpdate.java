@@ -6,7 +6,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.inventory.bl.InvBLCardUpdate;
+import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
+
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
@@ -34,11 +38,11 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	private InvUIWarehouseAdd compInvUIWarehouse;
 	private Shell dialogShell;
 	private TurqInventoryWarehous warehouse;
+	private InvBLWarehouseUpdate whUpdate = new InvBLWarehouseUpdate();
 
 	public InvUIWarehouseUpdate(Shell parent, int style, TurqInventoryWarehous wh) {
 		super(parent, style);
-		warehouse = wh;
-		
+		warehouse = wh;		
 		
 	}
 
@@ -58,7 +62,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			toolBar1 = new ToolBar(coolBarInvUIWarehouse,SWT.NULL);
 			toolUpdate = new ToolItem(toolBar1,SWT.NULL);
 			toolDelete = new ToolItem(toolBar1,SWT.NULL);
-			compInvUIWarehouse = new InvUIWarehouseAdd(dialogShell,SWT.NULL);
+			compInvUIWarehouse = new InvUIWarehouseAdd(dialogShell,SWT.BORDER);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(518,428));
 	
@@ -156,8 +160,22 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetSelected(SelectionEvent evt){
-		
-		
+	MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+	
+	try{
+	
+	whUpdate.updateWarehouse(warehouse,compInvUIWarehouse.getTxtWarehouseAdres().getText().trim(),
+	compInvUIWarehouse.getTxtTelephone().getText().trim(),compInvUIWarehouse.getTxtWarehouseCity().getText().trim(),
+	compInvUIWarehouse.getTxtWarehouseDescription().getText().trim(),compInvUIWarehouse.getTxtWarehouseName().getText().trim() );
+	msg.setMessage("Succesfully Updated!!");
+	}
+	catch(Exception ex){
+	
+	ex.printStackTrace();
+	msg.setMessage("An error occured");
+	
+	}
+	msg.open();	
 		
 	}
 	
@@ -165,6 +183,31 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
+	MessageBox msg2 = new MessageBox(this.getParent(),SWT.OK|SWT.CANCEL);
+	MessageBox msg = new MessageBox(this.getParent());
+	 try{
+	  msg2.setMessage("Really delete inventory group?");
+	    int result = msg2.open();
+	    if(result==SWT.OK){
+	 
+	 	whUpdate.deleteObject(warehouse);
+	 	msg.setMessage("Succesfully Deleted!!");
+	 	msg.open();
+	    }
+	
+	 
+	 
+	
+	 }
+	 catch(Exception ex){
+	 ex.printStackTrace();
+	 msg.setMessage("An error occured");
+	  msg.open();
+	 }
+	
+	 
+	 this.dialogShell.dispose();
+	
 	
 	}
 }

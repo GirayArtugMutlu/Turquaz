@@ -26,11 +26,37 @@ public class InvBLWarehouseUpdate {
 	
 	public void updateWarehouse(TurqInventoryWarehous wh, String whAddres,
 			String whTelephone, String whCity, String whDescription,String whName
-			)throws Exception{
-
+			)
+	    throws Exception{
 		
+        try{
+		wh.setWarehousesAddress(whAddres);
+		wh.setWarehousesCity(whCity);
+		wh.setWarehousesDescription(whDescription);
+		wh.setWarehousesName(whName);
+		wh.setWarehousesTelephone(whTelephone);
+		
+		wh.setUpdatedBy(System.getProperty("user"));
+		wh.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+          
+		whDALUpdate.updateObject(wh);
+        }
+        catch(Exception ex){
+        	throw ex;
+        }
 
-
+	}
+	public void deleteObject(Object obj)throws Exception{
+		try{
+			whDALUpdate.deleteObject(obj);
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
 	}
 
 	

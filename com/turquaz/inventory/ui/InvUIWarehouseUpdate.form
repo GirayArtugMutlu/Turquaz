@@ -107,7 +107,7 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="com.turquaz.inventory.ui.InvUIWarehouseAdd" name="compInvUIWarehouse" style="0">
+			<Component class="com.turquaz.inventory.ui.InvUIWarehouseAdd" name="compInvUIWarehouse" style="2048">
 				<Constraints>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 						<Property name="verticalAlignment" type="int" value="4"/>
