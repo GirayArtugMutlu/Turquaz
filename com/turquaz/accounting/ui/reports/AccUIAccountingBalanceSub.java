@@ -1,0 +1,47 @@
+/*
+ * Created on 25.Kas.2004
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+package com.turquaz.accounting.ui.reports;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.eclipse.swt.widgets.MessageBox;
+
+import com.turquaz.accounting.dal.AccDALAccountingBalanceSub;
+import com.turquaz.engine.dal.TurqAccountingAccount;
+
+/**
+ * @author Ceday
+ *
+ * TODO To change the template for this generated type comment go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+public class AccUIAccountingBalanceSub {
+	
+	public AccUIAccountingBalanceSub()
+	{
+		
+	}
+	
+	public static void PrepareHashMap() throws Exception
+	{
+		AccDALAccountingBalanceSub balance=new AccDALAccountingBalanceSub();
+		//List transList=balance.getTransactionColumns();
+		List accList=balance.getAccounts();
+		HashMap accounts=new HashMap();
+		for(int k=0; k<accList.size(); k++)
+		{
+			/*TurqAccountingAccount acc=(TurqAccountingAccount)accList.get(k);
+			acc.get
+			accounts.put();*/
+		}
+		
+		
+		
+	}
+
+}

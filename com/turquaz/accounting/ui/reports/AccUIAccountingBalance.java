@@ -112,6 +112,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 					" turq_accounting_transaction_columns transcolumns, " +
 					" turq_accounting_transactions trans" +
 					" where transcolumns.accounting_accounts_id=accounts.accounting_accounts_id" +
+					" and transcolumns.accounting_transactions_id=trans.accounting_transactions_id" +
 					" and accounts.companies_id="+company.getCompaniesId().toString();
 			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");
 			 sqlparam +=" and trans.transactions_date >= '"+ dformat.format(datePickerBeginDate.getDate())+"'"
