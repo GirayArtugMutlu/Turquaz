@@ -1,6 +1,7 @@
 package com.turquaz.consignment.ui;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
@@ -23,8 +24,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
+
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 
 import org.eclipse.swt.widgets.Button;
 
@@ -111,7 +115,6 @@ implements SecureComposite{
 			this.setSize(617, 549);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
-				cTabFolder1.setSelection(null);
 				cTabFolder1.setSize(56, 25);
 				GridData cTabFolder1LData = new GridData();
 				cTabFolder1LData.grabExcessHorizontalSpace = true;
@@ -173,11 +176,11 @@ implements SecureComposite{
 								GridData button1LData = new GridData();
 								btnChooseCurrentCard
 									.addMouseListener(new MouseAdapter() {
-										public void mouseUp(MouseEvent evt) {
+									public void mouseUp(MouseEvent evt) {
 
-											btnChooseMouseUp();
+										btnChooseMouseUp();
 
-										}
+									}
 									});
 								button1LData.widthHint = 56;
 								button1LData.heightHint = 23;
@@ -282,6 +285,12 @@ implements SecureComposite{
 								btnAddConsignmentRow
 									.setImage(SWTResourceManager
 										.getImage("icons/plus.gif"));
+								btnAddConsignmentRow
+									.addMouseListener(new MouseAdapter() {
+									public void mouseUp(MouseEvent evt) {
+										btnAddConsignmentRowMouseUp();
+									}
+									});
 							}
 							{
 								buttonConsignmentRemove = new Button(
@@ -507,22 +516,56 @@ implements SecureComposite{
 								| SWT.CENTER);
 							btnUpdateGroups.setText("Update Groups");
 							GridData btnUpdateGroupsLData = new GridData();
-							btnUpdateGroupsLData.widthHint = 99;
-							btnUpdateGroupsLData.heightHint = 21;
+							btnUpdateGroups
+								.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
+                                    btnUpdateGroupsClick();
+								}
+								});
+							btnUpdateGroupsLData.widthHint = 112;
+							btnUpdateGroupsLData.heightHint = 22;
 							btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
 						}
 					}
 				}
 			}
 			this.layout();
+			postInitGui();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public void postInitGui(){
+	
+	
+	public void btnUpdateGroupsClick(){
+		
+		new ConUIConsignmentsGroupDialog(this.getShell(),SWT.NULL).open();
+		
+		fillGroupsTable();
+		
+		
+		
+		
+		
+	}
+	public void fillGroupsTable(){
+	
 		try{
 			
-		List ls = blAddGroup.getConsignmentGroups();
+		//Fill Group Table	
+		List list = blAddGroup.getConsignmentGroups();
+		HashMap groupMap = new HashMap(); 
+		
+		
+		TurqConsignmentGroup curGroup;
+		
+		for(int i=0; i<list.size();i++){
+		curGroup = (TurqConsignmentGroup)list.get(i);
+		groupMap.put(curGroup.getGroupsName(),curGroup);
+		}
+		
+		compRegisterGroup.fillTableAllGroups(groupMap);	
+		
 		
 		
 		
@@ -531,6 +574,19 @@ implements SecureComposite{
 		
 			ex.printStackTrace();
 		}
+		
+	}
+	public void postInitGui(){
+		cTabFolder1.setSelection(tabItemGeneral);
+		
+		fillGroupsTable();
+		
+		//fill combo type
+		
+		comboConsignmentType.add("Buy");
+		comboConsignmentType.add("Sell");
+		
+		
 	}
 	
 	
@@ -546,6 +602,14 @@ implements SecureComposite{
 		txtDiscountRate.setText(curCard.getCardsDiscountRate().intValue());
 	    }
 	}
+	public void btnAddConsignmentRowMouseUp(){
+		
+		new InvUITransactionAddDialog(this.getShell(),SWT.NULL).open();
+		
+		
+	}
+	
+	
 	
 	public void save(){
 		

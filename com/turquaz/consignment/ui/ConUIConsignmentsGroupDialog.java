@@ -307,7 +307,7 @@ public class ConUIConsignmentsGroupDialog extends  org.eclipse.swt.widgets.Dialo
 			 btnDelete.setEnabled(false);
 			    btnUpdate.setEnabled(false);
 			    btnGroupAdd.setEnabled(true);
-			    txtGroupName.setText(Messages.getString("CurUIGroupAddDialog.9")); //$NON-NLS-1$
+			    txtGroupName.setText(""); 
 			    txtDescription.setText("");	 //$NON-NLS-1$
 		msg2.setMessage(Messages.getString("CurUIGroupAddDialog.13"));	 //$NON-NLS-1$
 		msg2.open();
