@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.jasperassistant.designer.viewer.ViewerApp;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -304,10 +305,12 @@ public class EngBLUtils
 		pr.open();
 	}
 
-	public static void printBill(TurqBill bill, boolean balance)
+	public static void printBill(HashMap argMap)
 	{
 		try
 		{
+			TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+			Boolean balance=(Boolean)argMap.get(BillKeys.BILL_BALANCE);
 			if (EngConfiguration.getString("invoice_template") == null) { //$NON-NLS-1$
 				EngUICommon.showMessageBox(Display.getCurrent().getActiveShell(), Messages.getString("EngBLUtils.1"), SWT.ICON_WARNING); //$NON-NLS-1$
 				return;
@@ -355,7 +358,7 @@ public class EngBLUtils
 			BigDecimal allTotal = currentView.getTransactionsBalanceNow();
 			allTotal =allTotal.multiply(new BigDecimal(-1)); 
 			BigDecimal oldAllTotal = allTotal.subtract(grandTotal);
-			parameters.put("showBalance",new Boolean(balance));
+			parameters.put("showBalance",balance);
 			parameters.put("currentBalance", oldAllTotal); 
 			parameters.put("currentNewBalance", allTotal); 
 			parameters.put("definition", bill.getBillsDefinition());

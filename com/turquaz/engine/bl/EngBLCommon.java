@@ -465,8 +465,7 @@ public class EngBLCommon
 			for (int i = 0; i < bills.size(); i++)
 			{
 				Object[] result = (Object[]) bills.get(i);
-				TurqBill bill = BillDALSearchBill.getBillByBillId((Integer) result[0]);
-				BillDALSearchBill.initializeBill(bill);
+				TurqBill bill = BillDALSearchBill.initializeBillById((Integer) result[0]);
 				BillBLUpdateBill.deleteAccountingTransactions(bill);
 				//XXX this method should be checked..
 				//BillBLAddBill.saveAccountingTransaction(bill, null);
