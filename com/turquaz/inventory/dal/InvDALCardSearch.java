@@ -106,11 +106,12 @@ public class InvDALCardSearch {
 	        
 	        Session session = EngDALSessionFactory.openSession();
 	        String query = "Select invCard from TurqInventoryCard as invCard " +
-	        		" where invCard.cardInventoryCode = '"+cardCode+"'";
+	        		" where invCard.cardInventoryCode = :cardCode";
 	        
 	        
 	        Query q = session.createQuery(query);
-	       
+	       q.setParameter("cardCode",cardCode);
+	        
 	        List list = q.list();
 	        
 	        session.close();

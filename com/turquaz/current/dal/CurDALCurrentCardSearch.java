@@ -161,10 +161,11 @@ public class CurDALCurrentCardSearch {
 	        
 	        Session session = EngDALSessionFactory.openSession();
 	        String query = "Select curCard from TurqCurrentCard as curCard " +
-	        		" where curCard.cardsCurrentCode='"+cardCode.trim()+"'";
+	        		" where curCard.cardsCurrentCode=:cardCode";
 	        
 		 
 	        Query q = session.createQuery(query);
+	        q.setParameter("cardCode",cardCode.trim());
 	        List list = q.list();
 	        
 	        session.close();

@@ -123,8 +123,9 @@ public class CurDALCurrentCardAdd {
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			String query = "from TurqCurrentCard as curCard " +
-					"where curCard.cardsCurrentCode ='"+code+"'" ;		   
+					"where curCard.cardsCurrentCode =:code" ;		   
 			Query q = session.createQuery(query); 
+			q.setParameter("code",code);
 			List list = q.list();
 			tx.commit();
 			session.close();

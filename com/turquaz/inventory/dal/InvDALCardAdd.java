@@ -170,10 +170,11 @@ public class InvDALCardAdd {
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			String query = "from TurqCurrency as currency " +
-			"where currency.currenciesAbbreviation ='"+abbrev+"'";		   
+			"where currency.currenciesAbbreviation =:abbrev";		   
 	   
 
 	Query q = session.createQuery(query); 
+	q.setParameter("abbrev",abbrev);
 	List list = q.list();
 	tx.commit();
 	session.close();
