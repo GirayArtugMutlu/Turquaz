@@ -1,6 +1,8 @@
 package com.turquaz.cheque.ui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
@@ -10,10 +12,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -81,6 +86,12 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
                     toolUpdate = new ToolItem(toolBar1, SWT.NONE);
                     toolUpdate.setText(Messages.getString("CheUIChequeInPayrollUpdate.0")); //$NON-NLS-1$
                     toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+                    toolUpdate.addSelectionListener(new SelectionAdapter() {
+                        public void widgetSelected(SelectionEvent evt) {
+                         update();
+                            
+                        }
+                    });
                 }
                 {
                     toolDelete = new ToolItem(toolBar1, SWT.NONE);
@@ -129,6 +140,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	}
 	
 	public void postInitGUI(){
+	    toolUpdate.setEnabled(false);
 	    try{
 	        EngUICommon.centreWindow(dialogShell);
 	        TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
@@ -194,5 +206,31 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog {
 	        EngUICommon.showMessageBox(getParent(),ex.getMessage().toString(),SWT.ICON_ERROR);
 	    }
 	}
-	
+	public void update(){
+	    try{
+	        if(compChequeRoll.verifyFields()){ 
+	            List chequeList = new ArrayList();
+	            int count = compChequeRoll.getTableCheques().getItemCount();
+	            for(int i=0;i<count;i++)
+	            {
+	                chequeList.add(compChequeRoll.getTableCheques().getItem(i).getData());
+	                
+	            }
+	            
+	           
+	           
+	            
+	           CheBLUpdateChequeRoll.updateChequeRollIn(chequeRoll,(TurqCurrentCard)compChequeRoll.getCurrentPicker().getData(),null,compChequeRoll.getTxtRollNo().getText().trim(),compChequeRoll.getDatePicker1().getDate(),chequeList,EngBLCommon.CHEQUE_TRANS_IN);
+	           EngUICommon.showMessageBox(getParent(),Messages.getString("CheUIChequeInPayroll.13"),SWT.ICON_INFORMATION); //$NON-NLS-1$
+	           isUpdated=true;
+	           dialogShell.close();
+	        }
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	        EngUICommon.showMessageBox(getParent(),ex.getMessage(),SWT.ICON_ERROR);
+	    }
+	}
 }

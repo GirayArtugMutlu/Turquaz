@@ -16,10 +16,7 @@ public class CheDALSave {
             
             tx.commit();
             session.flush();
-            session.close();
-            
-            
-            
+            session.close();    
             
         }
         catch(Exception ex){
@@ -27,6 +24,7 @@ public class CheDALSave {
         }
         
     }
+    
     public static void saveOrUpdate(Object obj)throws Exception {
         try{
             Session session = EngDALSessionFactory.openSession();
