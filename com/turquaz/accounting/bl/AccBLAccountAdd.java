@@ -8,6 +8,7 @@ package com.turquaz.accounting.bl;
 
 
 import java.util.Calendar;
+import java.util.List;
 
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -25,6 +26,18 @@ public class AccBLAccountAdd {
 	public AccBLAccountAdd(){
 	
 		dalAccountAdd = new AccDALAccountAdd();
+		
+	}
+	
+	public List getAccount(int parentid, String codeCrit)throws Exception{
+		try{
+			
+			return dalAccountAdd.getAccounts(parentid,codeCrit);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
 		
 	}
 	

@@ -37,5 +37,30 @@ public class AccDALAccountAdd {
 			throw ex;
 		}
 	}
+	public List getAccounts(int parentid, String codeCriteria)throws Exception{
+		
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			String query = "from TurqAccountingAccount as accounts " +
+					"where accounts.turqCompany.companiesId ="+System.getProperty("company")+" and" +
+							" accounts.turqAccountingAccount.accountingAccountsId ="+parentid+"" +
+							" and accounts.accountCode like '"+codeCriteria+"%'";		   
+			   
+
+			Query q = session.createQuery(query); 
+			List list = q.list();
+			tx.commit();
+			session.close();
+			return list;
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
 
 }

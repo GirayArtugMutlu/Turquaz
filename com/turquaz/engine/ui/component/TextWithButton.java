@@ -115,6 +115,10 @@ public class TextWithButton extends org.eclipse.swt.widgets.Composite {
 	public String getText(){
 		return text1.getText();
 	}
+	public void setText(String arg){
+		text1.setText(arg);
+		
+	}
 	
 	public void setData(Object obj){
 		data =obj;

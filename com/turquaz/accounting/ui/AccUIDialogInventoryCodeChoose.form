@@ -24,11 +24,12 @@
 			</Property>
 		</Properties>
 		<SubComponents>
-			<Component class="org.eclipse.swt.widgets.Tree" name="AccUIAccCodeTree" style="0">
+			<Component class="com.turquaz.accounting.ui.comp.AccUIAccountsTree" name="accountTree" style="0">
 				<Constraints>
 					<LayoutConstraint/>
 				</Constraints>
 				<Events>
+					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="accountTreeMouseDoubleClick"/>
 				</Events>
 				<Properties>
 					<Property name="size" type="Dimension">
@@ -38,58 +39,6 @@
 						<Rectangle value="[0, 0, 304, 208]"/>
 					</Property>
 				</Properties>
-				<SubComponents>
-					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim150" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="150 -ilk madde ve malzeme"/>
-						</Properties>
-					</Component>
-					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim151" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="151- yarı mamüller"/>
-						</Properties>
-					</Component>
-					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim152" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="152 -Mamüller"/>
-						</Properties>
-					</Component>
-					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim153" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="153 -Tacari Mallar"/>
-						</Properties>
-					</Component>
-					<Component class="org.eclipse.swt.widgets.TreeItem" name="tim157" style="0">
-						<Constraints>
-							<LayoutConstraint/>
-						</Constraints>
-						<Events>
-						</Events>
-						<Properties>
-							<Property name="text" type="String" value="157 -Diğer Stoklar"/>
-						</Properties>
-					</Component>
-				</SubComponents>
 			</Component>
 		</SubComponents>
 	</Component>

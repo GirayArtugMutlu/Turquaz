@@ -447,7 +447,7 @@
 												<Dimension value="[101, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[250, 5, 101, 19]"/>
+												<Rectangle value="[272, 5, 101, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -473,7 +473,7 @@
 												<Dimension value="[110, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[356, 5, 110, 18]"/>
+												<Rectangle value="[378, 5, 110, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -510,7 +510,7 @@
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="117"/>
+												<Property name="widthHint" type="int" value="139"/>
 												<Property name="heightHint" type="int" value="16"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
@@ -524,10 +524,10 @@
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[117, 16]"/>
+												<Dimension value="[139, 16]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[125, 30, 117, 16]"/>
+												<Rectangle value="[125, 30, 139, 16]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -554,7 +554,7 @@
 												<Dimension value="[104, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[247, 29, 104, 19]"/>
+												<Rectangle value="[269, 29, 104, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -564,8 +564,8 @@
 											<LayoutConstraint class="org.eclipse.swt.layout.GridData">
 												<Property name="verticalAlignment" type="int" value="2"/>
 												<Property name="horizontalAlignment" type="int" value="1"/>
-												<Property name="widthHint" type="int" value="104"/>
-												<Property name="heightHint" type="int" value="18"/>
+												<Property name="widthHint" type="int" value="163"/>
+												<Property name="heightHint" type="int" value="17"/>
 												<Property name="horizontalIndent" type="int" value="0"/>
 												<Property name="horizontalSpan" type="int" value="1"/>
 												<Property name="verticalSpan" type="int" value="1"/>
@@ -574,13 +574,15 @@
 											</LayoutConstraint>
 										</Constraints>
 										<Events>
+											<EventHandler event="mouseUp" listener="org.eclipse.swt.events.MouseListener" handler="txtInvCardOutAccMouseUp"/>
 										</Events>
 										<Properties>
 											<Property name="size" type="Dimension">
-												<Dimension value="[104, 18]"/>
+												<Dimension value="[163, 17]"/>
 											</Property>
+											<Property name="enabled" type="boolean" value="true"/>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[356, 29, 104, 18]"/>
+												<Rectangle value="[378, 30, 163, 17]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -660,7 +662,7 @@
 												<Dimension value="[47, 19]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[304, 53, 47, 19]"/>
+												<Rectangle value="[326, 53, 47, 19]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -686,7 +688,7 @@
 												<Dimension value="[110, 18]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[356, 53, 110, 18]"/>
+												<Rectangle value="[378, 53, 110, 18]"/>
 											</Property>
 										</Properties>
 									</Component>
@@ -742,7 +744,7 @@
 												<Dimension value="[61, 25]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[405, 87, 61, 25]"/>
+												<Rectangle value="[480, 87, 61, 25]"/>
 											</Property>
 										</Properties>
 									</Component>

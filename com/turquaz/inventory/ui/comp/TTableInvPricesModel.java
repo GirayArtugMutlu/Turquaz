@@ -42,17 +42,19 @@ public class TTableInvPricesModel extends TTableModel {
 		{	
 			TTableCellEditorCombo e = new TTableCellEditorCombo();
 			e.setItems(items);
+			
 			return e;
 		}
 		else if (col==1)
 		{	
 			TTableCellEditorDecimalText e = new TTableCellEditorDecimalText();
-
+			this.setContentAt(col,row,0+"");
 			return e;
 		}	
 		else if(col==0){
 			TTableCellEditorCombo e = new TTableCellEditorCombo();
 			e.setItems(new String[]{"Buy","Sell"});
+			
 			return e;
 		}
 		

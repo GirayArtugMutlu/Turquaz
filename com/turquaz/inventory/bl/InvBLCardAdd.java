@@ -32,7 +32,20 @@ public class InvBLCardAdd {
 		
 	}
 	
-	public int saveInvCard(String invCode, String invSpecialCode,
+	
+	public void registerGroup()throws Exception{
+	try{
+		
+		
+		
+	}
+	catch(Exception ex){
+		throw ex;
+	}
+		
+	}
+	
+	public Integer saveInvCard(String invCode, String invSpecialCode,
 							String cardName, String cardDefinition,
 							int minAmount, int maxAmount, int cardVat,
 							int discount,int accountIdBuy,int accountIdSell 
@@ -66,8 +79,7 @@ public class InvBLCardAdd {
 	       	
 	        cardAdd.saveOrUpdateInvCard(card);
 	      	
-	        return card.getInventoryCardsId().intValue();
-		 	
+	        return card.getInventoryCardsId();
 		 
 		 }
 		 catch(Exception ex){

@@ -57,6 +57,17 @@ public class InvDALCardAdd {
 		}
 	}
 	
+	public void registerGroup()throws Exception{
+		try{
+			
+			
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+			
+		}
 	
 	public List getInventoryGroups()throws Exception{
 	try{

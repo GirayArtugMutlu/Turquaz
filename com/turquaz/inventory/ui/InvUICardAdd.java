@@ -40,6 +40,8 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 
+import com.turquaz.accounting.ui.AccUIDialogInventoryCodeChoose;
+import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -47,6 +49,8 @@ import com.turquaz.engine.ui.component.TTableModel;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.security.auth.login.AccountExpiredException;
 
 import com.turquaz.engine.ui.component.NumericText;
 
@@ -461,7 +465,7 @@ public class InvUICardAdd extends SecureComposite {
 			GridData txtInvCardInAccLData = new GridData();
 			txtInvCardInAccLData.verticalAlignment = GridData.CENTER;
 			txtInvCardInAccLData.horizontalAlignment = GridData.BEGINNING;
-			txtInvCardInAccLData.widthHint = 117;
+			txtInvCardInAccLData.widthHint = 139;
 			txtInvCardInAccLData.heightHint = 16;
 			txtInvCardInAccLData.horizontalIndent = 0;
 			txtInvCardInAccLData.horizontalSpan = 1;
@@ -469,7 +473,7 @@ public class InvUICardAdd extends SecureComposite {
 			txtInvCardInAccLData.grabExcessHorizontalSpace = false;
 			txtInvCardInAccLData.grabExcessVerticalSpace = false;
 			txtInvCardInAcc.setLayoutData(txtInvCardInAccLData);
-			txtInvCardInAcc.setSize(new org.eclipse.swt.graphics.Point(117,16));
+			txtInvCardInAcc.setSize(new org.eclipse.swt.graphics.Point(139,16));
 			txtInvCardInAcc.addMouseListener( new MouseAdapter() {
 				public void mouseUp(MouseEvent evt) {
 					txtInvCardInAccMouseUp(evt);
@@ -494,15 +498,21 @@ public class InvUICardAdd extends SecureComposite {
 			GridData txtInvCardOutAccLData = new GridData();
 			txtInvCardOutAccLData.verticalAlignment = GridData.CENTER;
 			txtInvCardOutAccLData.horizontalAlignment = GridData.BEGINNING;
-			txtInvCardOutAccLData.widthHint = 104;
-			txtInvCardOutAccLData.heightHint = 18;
+			txtInvCardOutAccLData.widthHint = 163;
+			txtInvCardOutAccLData.heightHint = 17;
 			txtInvCardOutAccLData.horizontalIndent = 0;
 			txtInvCardOutAccLData.horizontalSpan = 1;
 			txtInvCardOutAccLData.verticalSpan = 1;
 			txtInvCardOutAccLData.grabExcessHorizontalSpace = false;
 			txtInvCardOutAccLData.grabExcessVerticalSpace = false;
 			txtInvCardOutAcc.setLayoutData(txtInvCardOutAccLData);
-			txtInvCardOutAcc.setSize(new org.eclipse.swt.graphics.Point(104,18));
+			txtInvCardOutAcc.setSize(new org.eclipse.swt.graphics.Point(163,17));
+			txtInvCardOutAcc.setEnabled(true);
+			txtInvCardOutAcc.addMouseListener( new MouseAdapter() {
+				public void mouseUp(MouseEvent evt) {
+					txtInvCardOutAccMouseUp(evt);
+				}
+			});
 			txtInvCardOutAcc.layout();
 	
 			GridData lblInvCardVatLData = new GridData();
@@ -1242,16 +1252,22 @@ public class InvUICardAdd extends SecureComposite {
 		if(verifyFields()){
 		
 		InvBLCardAdd blCardAdd = new InvBLCardAdd();
-		int accountIdSell =Integer.parseInt(txtInvCardOutAcc.getData().toString());
-		int accountIdBuy=Integer.parseInt(txtInvCardInAcc.getData().toString());
+		int accountIdSell =((Integer)txtInvCardOutAcc.getData()).intValue();
+		int accountIdBuy=((Integer)txtInvCardInAcc.getData()).intValue();
 		try{
-		blCardAdd.saveInvCard(txtInvCardCode.getText().trim(),txtInvCardSpecialCode.getText().trim(),
+		Integer cardId = blCardAdd.saveInvCard(txtInvCardCode.getText().trim(),txtInvCardSpecialCode.getText().trim(),
 				txtInvCardName.getText().trim(),txtInvCardDefinition.getText().trim(),
 				txtnumInvCardMin.getIntValue(),txtnumInvCardMax.getIntValue(),
 				txtInvCardVat.getIntValue(),txtInvCardDiscount.getIntValue(),
 				accountIdBuy,accountIdSell
 				
-				);
+		);
+		
+		
+		
+		
+		
+		
 		
 		
 		}
@@ -1452,7 +1468,14 @@ public class InvUICardAdd extends SecureComposite {
 
 	/** Auto-generated event handler method */
 	protected void txtInvCardInAccMouseUp(MouseEvent evt){
-		System.out.println("Accounting Code Pressed");
+	AccUIDialogInventoryCodeChoose dialogchoose = new AccUIDialogInventoryCodeChoose(getShell(),SWT.NULL);
+	Object[] obj =dialogchoose.showDialog();
+	if(obj[0]!=null){
+    txtInvCardInAcc.setData(obj[1]);
+    txtInvCardInAcc.setText(obj[0].toString());   
+	}
+	
+	
 	}
 
 	/** Auto-generated event handler method */
@@ -1479,5 +1502,16 @@ public class InvUICardAdd extends SecureComposite {
 	/** Auto-generated event handler method */
 	protected void btnInvCardGroupsPreMouseUp(MouseEvent evt){
 		//TODO add your handler code here
+	}
+
+	/** Auto-generated event handler method */
+	protected void txtInvCardOutAccMouseUp(MouseEvent evt){
+	AccUIDialogInventoryCodeChoose dialogchoose = new AccUIDialogInventoryCodeChoose(getShell(),SWT.NULL);
+	Object[] obj =dialogchoose.showDialog();
+    if(obj[0]!=null){
+    txtInvCardOutAcc.setData(obj[1]);
+    txtInvCardOutAcc.setText(obj[0].toString());   
+    }
+	
 	}
 }

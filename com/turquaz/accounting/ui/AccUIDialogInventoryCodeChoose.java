@@ -1,5 +1,7 @@
 package com.turquaz.accounting.ui;
 
+import javax.security.auth.login.AccountExpiredException;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -7,6 +9,11 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import com.turquaz.accounting.bl.AccBLAccountAdd;
 
 /**
 * This code was generated using CloudGarden's Jigloo
@@ -16,14 +23,11 @@ import org.eclipse.swt.SWT;
 * a license - please visit www.cloudgarden.com for details.
 */
 public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dialog {
-	private TreeItem tim157;
-	private TreeItem tim153;
-	private TreeItem tim152;
-	private TreeItem tim151;
-	private TreeItem tim150;
 	private Shell dialogShell;
-	private Tree AccUIAccCodeTree;
-
+	private AccUIAccountsTree accountTree;
+	private AccBLAccountAdd blAccount;
+	Object returnObj[] = new Object[2];
+			
 	public AccUIDialogInventoryCodeChoose(Shell parent, int style) {
 		super(parent, style);
 	}
@@ -39,26 +43,16 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setText(getText());
-			AccUIAccCodeTree = new Tree(dialogShell,SWT.NULL);
-			tim150 = new TreeItem(AccUIAccCodeTree,SWT.NULL);
-			tim151 = new TreeItem(AccUIAccCodeTree,SWT.NULL);
-			tim152 = new TreeItem(AccUIAccCodeTree,SWT.NULL);
-			tim153 = new TreeItem(AccUIAccCodeTree,SWT.NULL);
-			tim157 = new TreeItem(AccUIAccCodeTree,SWT.NULL);
+			accountTree = new AccUIAccountsTree(dialogShell,SWT.NULL);
 	
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
 	
-			AccUIAccCodeTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
-	
-			tim150.setText("150 -ilk madde ve malzeme");
-	
-			tim151.setText("151- yar? mamüller");
-	
-			tim152.setText("152 -Mamüller");
-	
-			tim153.setText("153 -Tacari Mallar");
-	
-			tim157.setText("157 -Di?er Stoklar");
+			accountTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
+			accountTree.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					accountTreeMouseDoubleClick(evt);
+				}
+			});
 			FillLayout dialogShellLayout = new FillLayout(256);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.type = SWT.HORIZONTAL;
@@ -79,14 +73,67 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 			e.printStackTrace();
 		}
 	}
+	/**
+	* Opens the Dialog Shell.
+	* Auto-generated code - any changes you make will disappear.
+	*/	
+	public Object[] showDialog(){
+		try {
+			preInitGUI();
+	
+			Shell parent = getParent();
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell.setText(getText());
+			accountTree = new AccUIAccountsTree(dialogShell,SWT.NULL);
+	
+			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304,208));
+	
+			accountTree.setSize(new org.eclipse.swt.graphics.Point(288,192));
+			accountTree.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					accountTreeMouseDoubleClick(evt);
+				}
+			});
+			FillLayout dialogShellLayout = new FillLayout(256);
+			dialogShell.setLayout(dialogShellLayout);
+			dialogShellLayout.type = SWT.HORIZONTAL;
+			dialogShellLayout.marginWidth = 0;
+			dialogShellLayout.marginHeight = 0;
+			dialogShellLayout.spacing = 0;
+			dialogShell.layout();
+			Rectangle bounds = dialogShell.computeTrim(0, 0, 304,208);
+			dialogShell.setSize(bounds.width, bounds.height);
+			postInitGUI();
+			dialogShell.open();
+			
+			
+			
+			Display display = dialogShell.getDisplay();
+			while (!dialogShell.isDisposed()) {
+				if (!display.readAndDispatch())
+					display.sleep();
+			}
+			return returnObj;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	/** Add your pre-init code in here 	*/
 	public void preInitGUI(){
+	
+	blAccount = new AccBLAccountAdd();
+	
 	}
 
-	/** Add your post-init code in here 	*/
+	/** Add your post-init code in here */
 	public void postInitGUI(){
+		accountTree.fillTree(-1,"15");
+		
 	}
 
+  
 	/**
 	* This static method creates a new instance of this class and shows
 	* it inside a new Shell.
@@ -105,5 +152,11 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	/** Auto-generated event handler method */
+	protected void accountTreeMouseDoubleClick(MouseEvent evt){
+	 returnObj[0]=accountTree.getSelection()[0].getText();
+			returnObj[1]=accountTree.getSelection()[0].getData();
+		dialogShell.close();
 	}
 }

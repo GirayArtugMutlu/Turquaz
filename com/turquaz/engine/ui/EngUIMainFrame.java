@@ -443,9 +443,9 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			coolbarRightTop.setSize(new org.eclipse.swt.graphics.Point(232,24));
 	
 			coolRightMain.setControl(toolbarMainTop);
-			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(44,22));
-			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(44,22));
-			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(44,22));
+			coolRightMain.setSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setPreferredSize(new org.eclipse.swt.graphics.Point(92,22));
+			coolRightMain.setMinimumSize(new org.eclipse.swt.graphics.Point(92,22));
 			coolRightMain.setText("coolItem3");
 	
 			toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20,0));

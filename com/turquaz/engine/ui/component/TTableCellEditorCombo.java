@@ -27,6 +27,7 @@ public class TTableCellEditorCombo 	extends TTableCellEditor
 
 		public void open(TTable table, int row, int col, Rectangle rect) {
 			super.open(table, row, col, rect);
+			
 			m_Combo.setText((String)m_Model.getContentAt(m_Col, m_Row));
 		}
 
@@ -55,6 +56,10 @@ public class TTableCellEditorCombo 	extends TTableCellEditor
 					onTraverse(arg0);
 				}
 			});
+			if(m_Items.length>0){
+				m_Combo.setText(m_Items[0]);
+			}
+			m_Model.setContentAt(m_Col, m_Row,m_Combo.getText());
 			return m_Combo;
 		}
 		
@@ -66,7 +71,10 @@ public class TTableCellEditorCombo 	extends TTableCellEditor
 
 		public void setItems(String items[]) {
 			m_Items = items;
+			
+		
 		}
+		
 		
 
 }
