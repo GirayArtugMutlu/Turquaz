@@ -367,7 +367,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
 				Iterator it = transactionRows.iterator();

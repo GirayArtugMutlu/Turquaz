@@ -420,7 +420,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				int type = accTrans.getTurqAccountingTransactionType().getId().intValue();
 				boolean updated;
