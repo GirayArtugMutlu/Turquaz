@@ -36,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
 import com.turquaz.engine.dal.TurqConsignment;
@@ -45,9 +46,10 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.current.ui.comp.CurrentPicker;
-import com.turquaz.engine.ui.component.TurquazDecimalFormat;
+
 
 
 import org.eclipse.swt.custom.CLabel;
@@ -138,7 +140,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
                 compInvTransactionSearch.setLayout(composite1Layout);
                 {
                     lblInvCard = new Label(compInvTransactionSearch, SWT.NONE);
-                    lblInvCard.setText("Stok Kart? - Ba?lang?ç");
+                    lblInvCard.setText(Messages.getString("InvUIInventoryCardAbstract.0")); //$NON-NLS-1$
                         GridData lblInvCardLData = new GridData();
                         lblInvCardLData.widthHint = 126;
                         lblInvCardLData.heightHint = 15;
@@ -157,7 +159,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 					lblInvCardEnd = new CLabel(
 						compInvTransactionSearch,
 						SWT.NONE);
-					lblInvCardEnd.setText("Stok Kart? - Biti?");
+					lblInvCardEnd.setText(Messages.getString("InvUIInventoryCardAbstract.1")); //$NON-NLS-1$
 				}
 				{
 					txtInvCardEnd = new InventoryPicker(
@@ -198,8 +200,6 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 						compInvTransactionSearch,
 						SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboTransactionsType.setText(Messages
-						.getString("InvUITransactionSearch.5")); //$NON-NLS-1$
 					comboConsignmentTypeLData.widthHint = 116;
 					comboConsignmentTypeLData.heightHint = 17;
 					comboTransactionsType.setLayoutData(comboConsignmentTypeLData);
@@ -328,10 +328,10 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 	}
 	public void postInitGui() {
-		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.14")); //$NON-NLS-1$
-		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.12")); //$NON-NLS-1$
-		comboTransactionsType.add(Messages.getString("InvUITransactionSearch.13")); //$NON-NLS-1$
-		comboTransactionsType.setText(Messages.getString("InvUITransactionSearch.18")); //$NON-NLS-1$
+		comboTransactionsType.add(EngBLCommon.COMMON_BUY_STRING);
+		comboTransactionsType.add(EngBLCommon.COMMON_SELL_STRING);
+		comboTransactionsType.add(EngBLCommon.COMMON_ALL_STRING);
+		comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
 
 		cal.set(cal.get(Calendar.YEAR),0,1);
 		dateStartDate.setDate(cal.getTime());
@@ -346,17 +346,17 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 
 		try {
 
-			TurquazDecimalFormat df = new TurquazDecimalFormat();
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableTransactions.removeAll();
-			int type = 0;
-			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.17"))) //$NON-NLS-1$
-				type=2;
-			else if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.16"))) { //$NON-NLS-1$
-				type = 1;
-			}
+			int type = EngBLCommon.COMMON_ALL_INT;
+			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+				type=EngBLCommon.COMMON_BUY_INT;
+			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+				type = EngBLCommon.COMMON_SELL_INT;
 
-			List list = blSearch.searchTransactions((TurqCurrentCard) txtCurCard
-					.getData(),(TurqInventoryCard) txtInvCardStart.getData(), dateStartDate.getDate(), dateEndDate.getDate(),
+			List list = blSearch.searchTransactionsRange((TurqInventoryCard) txtInvCardStart.getData(),
+					(TurqInventoryCard) txtInvCardEnd.getData(),
+					(TurqCurrentCard) txtCurCard.getData(),dateStartDate.getDate(), dateEndDate.getDate(),
 					type);
 			TurqInventoryTransaction transactions;
 			TableItem item;
@@ -385,10 +385,10 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				item.setText(new String[] {
 								DatePicker.formatter.format(transDate),
 								transactions.getTurqInventoryCard().getCardName(),
-								transactions.getTransactionsAmountIn()+"", //$NON-NLS-1$
-								transactions.getTransactionsTotalAmountOut()+"", //$NON-NLS-1$
-								df.format(priceIn),
-								df.format(priceOut)});
+								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$
+								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$
+								cf.format(priceIn),
+								cf.format(priceOut)});
 
 			}
 

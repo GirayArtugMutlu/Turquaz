@@ -52,6 +52,20 @@ public class InvBLSearchTransaction {
 		
 	}
 	
+	public List searchTransactionsRange(TurqInventoryCard invCardStart,
+			TurqInventoryCard invCardEnd, TurqCurrentCard curCard,
+			Date startDate,Date endDate, int type)throws Exception{
+		try{
+			
+			return dalSearch.searchTransactionsRange(invCardStart,invCardEnd,curCard,startDate,endDate,type);
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+		
+	}
+	
 	public List searchTransactionsAdvanced(String invCardCode, String invCardName, 
 			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
 			Date startDate,Date endDate, int type, TurqInventoryGroup invGroup)throws Exception{
