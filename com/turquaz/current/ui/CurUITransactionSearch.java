@@ -39,6 +39,8 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -78,6 +80,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CCombo comboTransactionGroup;
 	private Composite composite1;
 	private Calendar cal = Calendar.getInstance();
+	private SearchTableViewer tableViewer=null;
 
 	public CurUITransactionSearch(Composite parent, int style)
 	{
@@ -269,6 +272,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
 		fillComboTypes();
+		createTableViewer();
 	}
 	
 
@@ -305,19 +309,17 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			tableCurrentTransactions.removeAll();
+			tableViewer.removeAll();
 			BigDecimal totalDept = new BigDecimal(0);
 			BigDecimal totalCredit = new BigDecimal(0);
 			List results = CurBLSearchTransaction.searchCurrentTransaction(txtCurCard.getData(), comboTransactionGroup
 					.getData(comboTransactionGroup.getText()),
 					"", txtDefinition.getText().trim(), dateStartDate.getDate(), dateEndDate.getDate()); //$NON-NLS-1$
 			Object[] transaction;
-			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < results.size(); i++)
 			{
 				transaction = (Object[]) results.get(i);
-				item = new TableItem(tableCurrentTransactions, SWT.NULL);
 				Integer transId = (Integer) transaction[0];
 				Date transDate = (Date) transaction[1];
 				String transDocNo = (String) transaction[2];
@@ -327,24 +329,37 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				String transDefinition = (String) transaction[6];
 				BigDecimal transTotalDept = (BigDecimal) transaction[7];
 				BigDecimal transTotalCredit = (BigDecimal) transaction[8];
-				item.setData(transId);
-				item.setText(new String[]{DatePicker.formatter.format(transDate), transDocNo, curCardCode, curCardName, transTypeName,
-						transDefinition, cf.format(transTotalDept), cf.format(transTotalCredit)});
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDocNo, curCardCode, curCardName, transTypeName,
+						transDefinition, cf.format(transTotalDept), cf.format(transTotalCredit)},transId);
 				totalDept = totalDept.add(transTotalDept);
 				totalCredit = totalCredit.add(transTotalCredit);
 			}
-			item = new TableItem(tableCurrentTransactions, SWT.NULL);
-			item = new TableItem(tableCurrentTransactions, SWT.NULL);
-			item.setText(new String[]{"", "", "", "", "", "---TOPLAM---", cf.format(totalDept), cf.format(totalCredit)});
+			tableViewer.addRow(new String[]{"","","","","","","",""},null);
+			tableViewer.addRow(new String[]{"", "", "", "", "", "---TOPLAM---", cf.format(totalDept), cf.format(totalCredit)},null);
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[8];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[5] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[6] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[7] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableCurrentTransactions, columnTypes);
+	}
 
 	public void delete()
 	{
+		//should be implemented..
 	}
 
 	public void newForm()

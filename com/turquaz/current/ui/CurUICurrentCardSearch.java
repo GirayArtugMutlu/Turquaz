@@ -52,6 +52,8 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
@@ -84,6 +86,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 	private CurrentCodePicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private Composite compCurrentCardSearch;
+	private SearchTableViewer tableViewer=null;
 
 	public CurUICurrentCardSearch(Composite parent, int style)
 	{
@@ -247,6 +250,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 				comboTurqGroupName.add(group.getGroupsName());
 				comboTurqGroupName.setData(group.getGroupsName(), group);
 			}
+			createTableViewer();
 		}
 		catch (Exception ex)
 		{
@@ -255,6 +259,17 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			msg.open();
 			ex.printStackTrace();
 		}
+	}
+	
+	public void createTableViewer()
+	{
+		int columnTypes[] = new int[5];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableCurrentCardSearch, columnTypes);
 	}
 
 	public void delete()
@@ -329,11 +344,10 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			tableCurrentCardSearch.removeAll();
+			tableViewer.removeAll();
 			List listCurrentCards = CurBLCurrentCardSearch.searchCurrentCard(txtCurrentCode.getText().trim(), txtCurrentName.getText()
 					.trim(), (TurqCurrentGroup) comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat(2);
-			TableItem item;
 			BigDecimal generalCredit = new BigDecimal(0);
 			BigDecimal generalDept = new BigDecimal(0);
 			for (int k = 0; k < listCurrentCards.size(); k++)
@@ -350,14 +364,12 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 						.getTransactionsBalanceNow();
 				generalCredit = generalCredit.add(totalCredit);
 				generalDept = generalDept.add(totalDept);
-				item = new TableItem(tableCurrentCardSearch, SWT.NULL);
-				item.setData(result[3]);
-				item.setText(new String[]{curCode, curName, cf.format(totalDept), cf.format(totalCredit), cf.format(balance)});
+				Integer cardId=(Integer)result[3];
+				tableViewer.addRow(new String[]{curCode, curName, cf.format(totalDept), cf.format(totalCredit), cf.format(balance)},cardId);
 			}
-			item = new TableItem(tableCurrentCardSearch, SWT.NULL);
-			item = new TableItem(tableCurrentCardSearch, SWT.RIGHT);
-			item.setText(new String[]{"", "TOPLAM", cf.format(generalDept), cf.format(generalCredit),
-					cf.format(generalCredit.subtract(generalDept))});
+			tableViewer.addRow(new String[]{"","","","",""},null);
+			tableViewer.addRow(new String[]{"", "TOPLAM", cf.format(generalDept), cf.format(generalCredit),
+					cf.format(generalCredit.subtract(generalDept))},null);
 		}
 		catch (Exception ex)
 		{
