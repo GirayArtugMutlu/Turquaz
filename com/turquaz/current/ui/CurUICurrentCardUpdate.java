@@ -247,7 +247,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			compCurCardAdd.getTxtCurrentName().setText(currentCard.getCardsName());
 			compCurCardAdd.getTxtCardDefinition().setText(currentCard.getCardsDefinition());
 			compCurCardAdd.getTxtTaxDepartmant().setText(currentCard.getCardsTaxDepartment());
-			compCurCardAdd.getNumTextDiscountRate().setText((currentCard.getCardsDiscountRate().intValue()));
+			compCurCardAdd.getNumTextDiscountRate().setBigDecimalValue(currentCard.getCardsDiscountRate());
 			compCurCardAdd.getDecTxtRiskLimit().setText(currentCard.getCardsRiskLimit());
 			compCurCardAdd.getTxtTaxNumber().setText(currentCard.getCardsTaxNumber());
 			compCurCardAdd.getDecTxtCreditLimit().setText(currentCard.getCardsCreditLimit());
@@ -445,8 +445,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				CurBLCurrentCardUpdate.updateCurrentCard(currentCard, compCurCardAdd.getTxtCurrentCode().getText().trim(),
 						compCurCardAdd.getTxtCurrentName().getText().trim(), compCurCardAdd.getTxtCardDefinition().getText().trim(),
 						compCurCardAdd.getTxtCardAddress().getText().trim(),
-						//TODO numeric->currencyText
-						new BigDecimal(compCurCardAdd.getNumTextDiscountRate().getIntValue()), compCurCardAdd
+						compCurCardAdd.getNumTextDiscountRate().getBigDecimalValue(), compCurCardAdd
 								.getDecTxtDiscountAmount().getBigDecimalValue(), compCurCardAdd.getDecTxtCreditLimit()
 								.getBigDecimalValue(), compCurCardAdd.getDecTxtRiskLimit().getBigDecimalValue(), compCurCardAdd
 								.getTxtTaxDepartmant().getText().trim(), compCurCardAdd.getTxtTaxNumber().getText().trim(),

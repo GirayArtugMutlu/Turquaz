@@ -19,7 +19,6 @@ package com.turquaz.current.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -45,6 +44,7 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Label;
+import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -134,7 +134,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	/**
 	 * @return Returns the numTextDiscountRate.
 	 */
-	public NumericText getNumTextDiscountRate()
+	public CurrencyTextAdvanced getNumTextDiscountRate()
 	{
 		return numTextDiscountRate;
 	}
@@ -336,7 +336,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	private Label lblTelephone1;
 	private CurrencyText decTxtDiscountAmount;
 	private CLabel lblDiscountAMount;
-	private NumericText numTextDiscountRate;
+	private CurrencyTextAdvanced numTextDiscountRate;
 	private CLabel lblDiscountRate;
 	private CurrencyText decTxtCreditLimit;
 	private CLabel lblCreditLimit;
@@ -899,10 +899,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblDiscountRate.setText(Messages.getString("CurUICurrentCardAdd.11")); //$NON-NLS-1$
 				}
 				{
-					numTextDiscountRate = new NumericText(compCurrentGeneralInfo, SWT.NONE);
+					numTextDiscountRate = new CurrencyTextAdvanced(compCurrentGeneralInfo, SWT.NONE);
 					GridData numTextDiscountRateLData = new GridData();
-					numTextDiscountRateLData.widthHint = 70;
-					numTextDiscountRateLData.heightHint = 25;
+					numTextDiscountRateLData.widthHint = 65;
+					numTextDiscountRateLData.heightHint = 16;
 					numTextDiscountRate.setLayoutData(numTextDiscountRateLData);
 					numTextDiscountRate.setTextLimit(2);
 				}
@@ -1159,8 +1159,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			{
 				CurBLCurrentCardAdd.saveCurrentCard(txtCurrentCode.getText().trim(), txtCurrentName.getText().trim(), txtCardDefinition
 						.getText().trim(), txtCardAddress.getText().trim(),
-				//TODO DiscountRate: numText->CurrencyText
-						new BigDecimal(numTextDiscountRate.getIntValue()), decTxtDiscountAmount.getBigDecimalValue(),
+						numTextDiscountRate.getBigDecimalValue(), decTxtDiscountAmount.getBigDecimalValue(),
 						decTxtCreditLimit.getBigDecimalValue(), decTxtRiskLimit.getBigDecimalValue(), txtTaxDepartmant.getText()
 								.trim(), txtTaxNumber.getText().trim(), numDueDays.getIntValue(), createAccountingMap(),
 						getPhoneList(), getContactInfo(), getGroupList());
