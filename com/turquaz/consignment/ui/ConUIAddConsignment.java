@@ -284,6 +284,7 @@ implements SecureComposite{
 	private TableColumn tableColumn1;
 	private Text txtBillDocumentNo;
 	private CLabel lblInventoryPrice;
+	private CLabel lblShippingDate;
 	private TableColumn tableColumnDiscountRate;
 	private CCombo comboWareHouse;
 	private CLabel lblWareHouse;
@@ -543,6 +544,12 @@ implements SecureComposite{
                                 comboWareHouseLData.widthHint = 85;
                                 comboWareHouseLData.heightHint = 14;
                                 comboWareHouse.setLayoutData(comboWareHouseLData);
+                            }
+                            {
+                                lblShippingDate = new CLabel(
+                                    compInfoPanel,
+                                    SWT.NONE);
+                                lblShippingDate.setText("Sevk Tarihi");
                             }
 						}
                         {

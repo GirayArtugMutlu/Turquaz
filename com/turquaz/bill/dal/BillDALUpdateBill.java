@@ -59,7 +59,9 @@ public class BillDALUpdateBill {
 	public void updateBill(TurqBill obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
+			
 			Transaction tx = session.beginTransaction();
+			
 			session.update(obj);
 		
 			session.flush();

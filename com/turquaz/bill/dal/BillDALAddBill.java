@@ -45,6 +45,7 @@ public class BillDALAddBill {
 			throw ex;
 		}
 	}
+	
 	public Set getInvTransactions(TurqBill bill)throws Exception{
 		try{
 		

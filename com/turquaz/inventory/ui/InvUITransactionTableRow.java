@@ -211,7 +211,59 @@ public class InvUITransactionTableRow implements ITableRow {
         
     }
 
-    
+    public void fillAfterSetDB(){
+        try{
+            
+            TurqInventoryCard invCard = invTrans.getTurqInventoryCard();
+           
+            blCardSearch.initializeInventoryCard(invCard);
+            
+            
+            
+            //Birimleri doldur
+            List unit_list = new ArrayList();            
+            Set set = invCard.getTurqInventoryCardUnits();
+            Iterator it = set.iterator();
+            
+            while(it.hasNext()){
+                TurqInventoryCardUnit cardUnit = (TurqInventoryCardUnit)it.next();
+                unit_list.add(cardUnit);
+                if(cardUnit.getCardUnitsFactor()==1){
+                    base_unit = cardUnit.getTurqInventoryUnit(); 
+                }
+            }
+            
+          
+            
+            cardUnits = new TurqInventoryCardUnit[unit_list.size()];
+            units = new String[unit_list.size()];
+                
+            unit_list.toArray(cardUnits);
+            
+            for(int i=0;i<unit_list.size();i++){
+                
+                units[i] = cardUnits[i].getTurqInventoryUnit().getUnitsName();
+                if(base_unit.equals(cardUnits[i].getTurqInventoryUnit())){
+                    base_unit_index = i;         
+                
+                }
+                if(invTrans.getTurqInventoryUnit().equals(cardUnits[i].getTurqInventoryUnit())){
+                    unit_index = new Integer(i);
+                    
+                }
+            }
+            
+            unit_text =invTrans.getTurqInventoryUnit().getUnitsName();
+        
+        
+        }
+        catch(Exception ex){
+            
+            ex.printStackTrace();
+        
+        }
+        
+    }
     
     public void fillDefaults(TurqInventoryCard invCard){
         try{
@@ -467,7 +519,6 @@ public class InvUITransactionTableRow implements ITableRow {
 			    	else
 			    		invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
 			    }	
-			    calculateFields();
 				break;
 				
 			case 12 : // Specail VAT Total 
@@ -598,7 +649,8 @@ public class InvUITransactionTableRow implements ITableRow {
       if(obj instanceof TurqInventoryTransaction)
       {
           invTrans = (TurqInventoryTransaction)obj;
-          fillDefaults(invTrans.getTurqInventoryCard());
+         
+       
           if(transType==0){
             
               transAmount = invTrans.getTransactionsAmountIn();
@@ -608,6 +660,10 @@ public class InvUITransactionTableRow implements ITableRow {
               
               transAmount = invTrans.getTransactionsTotalAmountOut();
           }
+          
+          fillAfterSetDB();
+          
+          calculateFields();
           
       }
 
