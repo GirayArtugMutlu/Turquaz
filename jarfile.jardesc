@@ -15,6 +15,7 @@
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.admin.bl"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.cloudgarden.resource"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.bank.ui"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.cheque"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.bill.bl"/>
         <folder path="/TurquazSF/.settings"/>
         <file path="/TurquazSF/hibernate.cfg.xml"/>
@@ -32,6 +33,7 @@
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.current.ui.comp"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.consignment"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.current.bl"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.cheque.bl"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.engine.bl"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;gfx"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.inventory"/>
@@ -53,16 +55,18 @@
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.inventory.ui.comp"/>
         <file path="/TurquazSF/log4j.properties"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.bill.ui"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.cheque.ui"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;de.kupzog.ktable"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.admin.ui"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.accounting.dal"/>
-        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.consignment.ui"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.accounting.ui.comp"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.consignment.ui"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.engine.test"/>
-        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.admin"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.cheque.dal"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.admin.dal"/>
-        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.bank.bl"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.admin"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.bank.dal"/>
+        <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.bank.bl"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.cash.dal"/>
         <javaElement handleIdentifier="=TurquazSF/&lt;com.turquaz.cash.ui"/>
     </selectedElements>
