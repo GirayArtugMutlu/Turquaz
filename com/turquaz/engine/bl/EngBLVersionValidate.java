@@ -9,6 +9,7 @@ package com.turquaz.engine.bl;
 import java.lang.reflect.Method;
 import java.sql.Statement;
 import net.sf.hibernate.Session;
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqSetting;
@@ -51,7 +52,16 @@ public class EngBLVersionValidate
 		if (!DBVersion.equals(EngBLCommon.DATABASE_VERSION))
 		{
 			DBVersion=DBVersion.replaceAll("\\.","");
-			String methodName="updateVersion"+DBVersion;
+			String dbType;
+			if (EngConfiguration.getString("dbType").startsWith("Turquaz"))
+			{
+				dbType="HSQLDB";
+			}
+			else
+			{
+				dbType="PG";
+			}
+			String methodName=dbType+"updateVersion"+DBVersion;
 			Class[] classList=new Class[]{TurqSetting.class};
 			Object[] argList=new Object[]{setting};
 			Method method=EngBLVersionValidate.class.getMethod(methodName,classList);
@@ -60,7 +70,19 @@ public class EngBLVersionValidate
 		}
 	}
 	
-	public static void updateVersion070(TurqSetting setting)throws Exception
+	public static void HSQLDBupdateVersion070(TurqSetting setting)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		Statement stmt = session.connection().createStatement();
+		String query=	"INSERT INTO turq_module_components VALUES (90, 4, 'com.turquaz.current.ui.CurUICurCardDeptList', 'Cari Borclu Listesi', 'admin', '2005-04-05', 'admin', '2004-04-05');"+
+						"INSERT INTO turq_module_components VALUES (91, 4, 'com.turquaz.current.ui.CurUICurCardCreditList', 'Cari Alacakli Listesi', 'admin', '2005-04-05', 'admin', '2005-04-05');";
+		stmt.execute(query);
+		setting.setDatabaseVersion("0.7.1");
+		EngDALCommon.updateObject(setting);	
+	
+	}
+	
+	public static void PGupdateVersion070(TurqSetting setting)throws Exception
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
