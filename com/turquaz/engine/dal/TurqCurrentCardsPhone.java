@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentCardsPhone implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentCardsPhonesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private int phonesCountryCode;
@@ -67,12 +67,12 @@ public class TurqCurrentCardsPhone implements Serializable {
         this.turqCurrentCard = turqCurrentCard;
     }
 
-    public java.lang.Integer getCurrentCardsPhonesId() {
-        return this.currentCardsPhonesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentCardsPhonesId(java.lang.Integer currentCardsPhonesId) {
-        this.currentCardsPhonesId = currentCardsPhonesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public int getPhonesCountryCode() {
@@ -149,7 +149,7 @@ public class TurqCurrentCardsPhone implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentCardsPhonesId", getCurrentCardsPhonesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -157,13 +157,13 @@ public class TurqCurrentCardsPhone implements Serializable {
         if ( !(other instanceof TurqCurrentCardsPhone) ) return false;
         TurqCurrentCardsPhone castOther = (TurqCurrentCardsPhone) other;
         return new EqualsBuilder()
-            .append(this.getCurrentCardsPhonesId(), castOther.getCurrentCardsPhonesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentCardsPhonesId())
+            .append(getId())
             .toHashCode();
     }
 

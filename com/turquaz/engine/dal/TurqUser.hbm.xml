@@ -17,9 +17,9 @@
 >
 
     <id
-        name="usersId"
+        name="id"
         type="int"
-        column="users_id"
+        column="id"
     >
         <generator class="native" />
     </id>

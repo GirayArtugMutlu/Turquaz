@@ -17,9 +17,9 @@
 >
 
     <id
-        name="groupPermissionsId"
+        name="id"
         type="int"
-        column="group_permissions_id"
+        column="id"
     >
         <generator class="native" />
     </id>

@@ -17,9 +17,9 @@
 >
 
     <id
-        name="engineSequencesId"
+        name="id"
         type="int"
-        column="engine_sequences_id"
+        column="id"
     >
         <generator class="native" />
     </id>

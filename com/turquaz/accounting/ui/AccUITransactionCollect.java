@@ -494,7 +494,7 @@ public class AccUITransactionCollect extends Composite implements
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getCurrenciesId()!=exchangeCurrency.getCurrenciesId())
+			if (baseCurrency.getId()!=exchangeCurrency.getId())
 			{
 					if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
 					{

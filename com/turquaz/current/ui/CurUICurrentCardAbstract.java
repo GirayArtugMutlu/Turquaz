@@ -318,7 +318,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			}
 			else if (currentCard2==null)
 			{
-				query +=" and curCard.currentCardsId="+currentCard.getCurrentCardsId(); //$NON-NLS-1$
+				query +=" and curCard.currentCardsId="+currentCard.getId(); //$NON-NLS-1$
 			}
 		
 			BigDecimal minAmount=txtTransAmount.getBigDecimalValue();
@@ -351,7 +351,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			{
 				parameters.put("showGeneralTotal", new Boolean(true));
 			}
-			else if (currentCard.getCurrentCardsId().intValue()==currentCard2.getCurrentCardsId().intValue())
+			else if (currentCard.getId().intValue()==currentCard2.getId().intValue())
 			{
 				parameters.put("showGeneralTotal", new Boolean(true));
 			}
@@ -452,7 +452,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			if (currentCard2==null)
 			{
 				sqlparam +=
-					" and curCard.current_cards_id="+currentCard.getCurrentCardsId().intValue(); //$NON-NLS-1$
+					" and curCard.current_cards_id="+currentCard.getId().intValue(); //$NON-NLS-1$
 			}
 			else
 			{

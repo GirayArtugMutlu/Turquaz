@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentContact implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentContactsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String contactsName;
@@ -82,12 +82,12 @@ public class TurqCurrentContact implements Serializable {
         this.turqCurrentCard = turqCurrentCard;
     }
 
-    public java.lang.Integer getCurrentContactsId() {
-        return this.currentContactsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentContactsId(java.lang.Integer currentContactsId) {
-        this.currentContactsId = currentContactsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getContactsName() {
@@ -188,7 +188,7 @@ public class TurqCurrentContact implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentContactsId", getCurrentContactsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -196,13 +196,13 @@ public class TurqCurrentContact implements Serializable {
         if ( !(other instanceof TurqCurrentContact) ) return false;
         TurqCurrentContact castOther = (TurqCurrentContact) other;
         return new EqualsBuilder()
-            .append(this.getCurrentContactsId(), castOther.getCurrentContactsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentContactsId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrency implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currenciesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String currenciesName;
@@ -113,12 +113,12 @@ public class TurqCurrency implements Serializable {
         this.turqCurrencyExchangeRatesByExchangeCurrencyId = turqCurrencyExchangeRatesByExchangeCurrencyId;
     }
 
-    public java.lang.Integer getCurrenciesId() {
-        return this.currenciesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrenciesId(java.lang.Integer currenciesId) {
-        this.currenciesId = currenciesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCurrenciesName() {
@@ -267,7 +267,7 @@ public class TurqCurrency implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currenciesId", getCurrenciesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -275,13 +275,13 @@ public class TurqCurrency implements Serializable {
         if ( !(other instanceof TurqCurrency) ) return false;
         TurqCurrency castOther = (TurqCurrency) other;
         return new EqualsBuilder()
-            .append(this.getCurrenciesId(), castOther.getCurrenciesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrenciesId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -159,7 +159,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite {
 					if (items.length > 0)
 					{				    
 					    TurqInventoryGroup group = (TurqInventoryGroup)items[0].getData();
-					    if(group.getTurqInventoryGroup().getInventoryGroupsId().intValue()==-1){
+					    if(group.getTurqInventoryGroup().getId().intValue()==-1){
 					        event.doit=true;
 					        
 					    }

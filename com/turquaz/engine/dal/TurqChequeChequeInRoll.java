@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqChequeChequeInRoll implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer chequeChequesRollsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqChequeChequeInRoll implements Serializable {
     public TurqChequeChequeInRoll() {
     }
 
-    public java.lang.Integer getChequeChequesRollsId() {
-        return this.chequeChequesRollsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setChequeChequesRollsId(java.lang.Integer chequeChequesRollsId) {
-        this.chequeChequesRollsId = chequeChequesRollsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqChequeChequeInRoll implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("chequeChequesRollsId", getChequeChequesRollsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqChequeChequeInRoll implements Serializable {
         if ( !(other instanceof TurqChequeChequeInRoll) ) return false;
         TurqChequeChequeInRoll castOther = (TurqChequeChequeInRoll) other;
         return new EqualsBuilder()
-            .append(this.getChequeChequesRollsId(), castOther.getChequeChequesRollsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getChequeChequesRollsId())
+            .append(getId())
             .toHashCode();
     }
 

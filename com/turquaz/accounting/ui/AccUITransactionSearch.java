@@ -333,7 +333,7 @@ public class AccUITransactionSearch extends Composite implements
 			int status = 0;
 
 			/* Check if it has a journal entry */
-			if (accTrans.getTurqAccountingJournal().getAccountingJournalId()
+			if (accTrans.getTurqAccountingJournal().getId()
 					.intValue() != -1) {
 				status = 1;
 
@@ -343,7 +343,7 @@ public class AccUITransactionSearch extends Composite implements
 			 *  
 			 */
 			//1- Muhasebe Modulu
-			else if (accTrans.getTurqModule().getModulesId().intValue() != 1) {
+			else if (accTrans.getTurqModule().getId().intValue() != 1) {
 				status = 2;
 
 			}
@@ -420,7 +420,7 @@ public class AccUITransactionSearch extends Composite implements
 				Object[] accTransValues = (Object[]) result.get(i);
 
 				accTran
-						.setAccountingTransactionsId((Integer) accTransValues[0]);
+						.setId((Integer) accTransValues[0]);
 
 				item = new TableItem(tableTransactions, SWT.NULL);
 				item.setData(accTran);
@@ -473,7 +473,7 @@ public class AccUITransactionSearch extends Composite implements
 				new AccBLTransactionUpdate()
 						.initiliazeTransactionRows(accTrans);
 				int type = accTrans.getTurqAccountingTransactionType()
-						.getAccountingTransactionTypesId().intValue();
+						.getId().intValue();
 				boolean updated;
 				if (type == 2) {
 					updated = new AccUITransactionUpdateDialog(this

@@ -52,7 +52,7 @@ public class AccUIAccountsTree{
 	item = new TreeItem(tree,SWT.NULL);
 	item.setText(account.getAccountCode()+" - "+account.getAccountName() );	
 	item.setData(account);	
-	fillBranch(item,account.getAccountingAccountsId().intValue(),"");
+	fillBranch(item,account.getId().intValue(),"");
 	
 	}
 	return tree;
@@ -78,7 +78,7 @@ public class AccUIAccountsTree{
 			item = new TreeItem(parentItem,SWT.NULL);
 			item.setText(account.getAccountCode()+" - "+account.getAccountName() );	
 			item.setData(account);
-			fillBranch(item,account.getAccountingAccountsId().intValue(),"");
+			fillBranch(item,account.getId().intValue(),"");
 		
 			
 		}

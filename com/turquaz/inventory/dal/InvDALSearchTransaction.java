@@ -209,7 +209,7 @@ public class InvDALSearchTransaction {
 			
 			if (invMainGroup !=null)
 			{
-				query+=" and cardGroup.turqInventoryGroup.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getInventoryGroupsId();
+				query+=" and cardGroup.turqInventoryGroup.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getId();
 				
 			}
 			if (type != EngBLCommon.COMMON_ALL_INT)
@@ -264,7 +264,7 @@ public class InvDALSearchTransaction {
 			{
 				if (invSubGroup != null)
 				{
-					query+=" and "+invSubGroup.getInventoryGroupsId()+" in (Select gr.turqInventoryGroup.inventoryGroupsId from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
+					query+=" and "+invSubGroup.getId()+" in (Select gr.turqInventoryGroup.inventoryGroupsId from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
 				
 				}	
 				else
@@ -273,7 +273,7 @@ public class InvDALSearchTransaction {
 							" from transaction.turqInventoryCard.turqInventoryCardGroups as tgr) " +
 							" intersect " +
 							" (Select invGr.inventoryGroupsId from TurqInventoryGroup as invGr " +
-							" where invGr.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getInventoryGroupsId()+")))";
+							" where invGr.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getId()+")))";
 				}
 			}
 			if (invMainGroup != null)

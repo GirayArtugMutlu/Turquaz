@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqOrder implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer ordersId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private int ordersDocumentNo;
@@ -100,12 +100,12 @@ public class TurqOrder implements Serializable {
     public TurqOrder() {
     }
 
-    public java.lang.Integer getOrdersId() {
-        return this.ordersId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setOrdersId(java.lang.Integer ordersId) {
-        this.ordersId = ordersId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public int getOrdersDocumentNo() {
@@ -270,7 +270,7 @@ public class TurqOrder implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("ordersId", getOrdersId())
+            .append("id", getId())
             .toString();
     }
 
@@ -278,13 +278,13 @@ public class TurqOrder implements Serializable {
         if ( !(other instanceof TurqOrder) ) return false;
         TurqOrder castOther = (TurqOrder) other;
         return new EqualsBuilder()
-            .append(this.getOrdersId(), castOther.getOrdersId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getOrdersId())
+            .append(getId())
             .toHashCode();
     }
 

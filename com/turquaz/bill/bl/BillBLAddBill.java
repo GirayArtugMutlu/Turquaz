@@ -101,7 +101,7 @@ public class BillBLAddBill {
 				curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),
 						bill.getBillsDate(), common.getBillDocumentNo(), true,
 						common.getTotalAmount(), common.getDiscountAmount(), 1,
-						bill.getTurqEngineSequence().getEngineSequencesId(),
+						bill.getTurqEngineSequence().getId(),
 						curTransDef);
 
 				//Kapal? Fatura
@@ -114,7 +114,7 @@ public class BillBLAddBill {
 											.getTotalAmount(), common
 											.getDiscountAmount(), 4, bill
 											.getTurqEngineSequence()
-											.getEngineSequencesId(),
+											.getId(),
 									curTransDef);
 				}
 
@@ -125,7 +125,7 @@ public class BillBLAddBill {
 				curBLTrans.saveCurrentTransaction(common.getTurqCurrentCard(),
 						bill.getBillsDate(), common.getBillDocumentNo(), false,
 						common.getTotalAmount(), common.getDiscountAmount(), 1,
-						bill.getTurqEngineSequence().getEngineSequencesId(),
+						bill.getTurqEngineSequence().getId(),
 						curTransDef);
 
 				//Kapal? Fatura
@@ -136,7 +136,7 @@ public class BillBLAddBill {
 							common.getTotalAmount(),
 							common.getDiscountAmount(), 4, bill
 									.getTurqEngineSequence()
-									.getEngineSequencesId(), curTransDef);
+									.getId(), curTransDef);
 				}
 			}
 
@@ -178,7 +178,7 @@ public class BillBLAddBill {
 
 				Integer transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 						common.getBillDocumentNo(), 2, 7,
-						bill.getTurqEngineSequence().getEngineSequencesId(),
+						bill.getTurqEngineSequence().getId(),
 						billDefinition);
 
 				TurqAccountingTransactionColumn transRow = null;
@@ -195,7 +195,7 @@ public class BillBLAddBill {
 					
 					BigDecimal transRowAmount =(BigDecimal) ROWList.get(invTrans
 									.getTurqInventoryCard()
-									.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountingAccountsId());
+									.getTurqAccountingAccountByAccountingAccountsIdBuy().getId());
 					
 					if(transRowAmount==null)
 					{
@@ -207,7 +207,7 @@ public class BillBLAddBill {
 					
 					ROWList.put(invTrans
 							.getTurqInventoryCard()
-							.getTurqAccountingAccountByAccountingAccountsIdBuy().getAccountingAccountsId(),transRowAmount);
+							.getTurqAccountingAccountByAccountingAccountsIdBuy().getId(),transRowAmount);
 					
 					
 
@@ -220,7 +220,7 @@ public class BillBLAddBill {
 						BigDecimal vatAmount = (BigDecimal) VATList
 								.get(invTrans
 										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdVat().getAccountingAccountsId());
+										.getTurqAccountingAccountByAccountingAccountsIdVat().getId());
 
 						if (vatAmount == null) {
 							vatAmount = new BigDecimal(0);
@@ -232,7 +232,7 @@ public class BillBLAddBill {
 								.put(
 										invTrans
 												.getTurqInventoryCard()
-												.getTurqAccountingAccountByAccountingAccountsIdVat().getAccountingAccountsId(),
+												.getTurqAccountingAccountByAccountingAccountsIdVat().getId(),
 										vatAmount);
 
 					}
@@ -286,7 +286,7 @@ public class BillBLAddBill {
 					
 								Integer rowId = (Integer)rowIt.next();
 								TurqAccountingAccount account = new TurqAccountingAccount();
-								account.setAccountingAccountsId(rowId);
+								account.setId(rowId);
 								transRow
 										.setTurqAccountingAccount(account);
 
@@ -323,7 +323,7 @@ public class BillBLAddBill {
 
 					Integer accountId = (Integer)vatIt.next();
 					TurqAccountingAccount account = new TurqAccountingAccount();
-					account.setAccountingAccountsId(accountId);
+					account.setId(accountId);
 					transRow.setTurqAccountingAccount(account);
 
 					transRow.setCreditAmount(new BigDecimal(0));
@@ -406,7 +406,7 @@ public class BillBLAddBill {
 					transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 							common.getBillDocumentNo(), 1, 7, bill
 									.getTurqEngineSequence()
-									.getEngineSequencesId(), billDefinition);
+									.getId(), billDefinition);
 
 					/**
 					 * 1-Cari Muhasebe Satiri
@@ -473,7 +473,7 @@ public class BillBLAddBill {
 
 				Integer transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 						common.getBillDocumentNo(), 2, 7,
-						bill.getTurqEngineSequence().getEngineSequencesId(),
+						bill.getTurqEngineSequence().getId(),
 						"FT "
 								+ bill.getTurqBillConsignmentCommon()
 										.getBillDocumentNo()
@@ -495,7 +495,7 @@ public class BillBLAddBill {
 					
 					BigDecimal transRowAmount =(BigDecimal) ROWList.get(invTrans
 							.getTurqInventoryCard()
-							.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountingAccountsId());
+							.getTurqAccountingAccountByAccountingAccountsIdSell().getId());
 			
 			if(transRowAmount==null)
 			{
@@ -507,7 +507,7 @@ public class BillBLAddBill {
 			
 			ROWList.put(invTrans
 					.getTurqInventoryCard()
-					.getTurqAccountingAccountByAccountingAccountsIdSell().getAccountingAccountsId(),transRowAmount);
+					.getTurqAccountingAccountByAccountingAccountsIdSell().getId(),transRowAmount);
 			
 					
 					/**
@@ -518,7 +518,7 @@ public class BillBLAddBill {
 						BigDecimal vatAmount = (BigDecimal) VATList
 								.get(invTrans
 										.getTurqInventoryCard()
-										.getTurqAccountingAccountByAccountingAccountsIdVatSell().getAccountingAccountsId());
+										.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId());
 
 						if (vatAmount == null) {
 							vatAmount = new BigDecimal(0);
@@ -530,7 +530,7 @@ public class BillBLAddBill {
 								.put(
 										invTrans
 												.getTurqInventoryCard()
-												.getTurqAccountingAccountByAccountingAccountsIdVatSell().getAccountingAccountsId(),
+												.getTurqAccountingAccountByAccountingAccountsIdVatSell().getId(),
 										vatAmount);
 
 					}
@@ -584,7 +584,7 @@ public class BillBLAddBill {
 					
 								Integer rowId = (Integer)rowIt.next();
 								TurqAccountingAccount account = new TurqAccountingAccount();
-								account.setAccountingAccountsId(rowId);
+								account.setId(rowId);
 								transRow
 										.setTurqAccountingAccount(account);
 
@@ -620,7 +620,7 @@ public class BillBLAddBill {
                      
 					Integer accountId = (Integer)vatIt.next();
 					TurqAccountingAccount account = new TurqAccountingAccount();
-					account.setAccountingAccountsId(accountId);
+					account.setId(accountId);
 					transRow.setTurqAccountingAccount(account);
 					
 					transRow.setCreditAmount((BigDecimal) VATList.get(accountId));
@@ -711,7 +711,7 @@ public class BillBLAddBill {
 					transID = blAcc.saveAccTransaction(bill.getBillsDate(),
 							common.getBillDocumentNo(), 0, 7, bill
 									.getTurqEngineSequence()
-									.getEngineSequencesId(), billDefinition);
+									.getId(), billDefinition);
 
 					/**
 					 * 1-Cari Muhasebe Satiri
@@ -778,7 +778,7 @@ public class BillBLAddBill {
 		try {
 			TurqBillInGroup cardGroup = new TurqBillInGroup();
 			TurqBill card = new TurqBill();
-			card.setBillsId(conId);
+			card.setId(conId);
 			cardGroup.setTurqBill(card);
 			cardGroup.setTurqBillGroup(grp);
 

@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqInventoryWarehous implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer inventoryWarehousesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String warehousesName;
@@ -75,12 +75,12 @@ public class TurqInventoryWarehous implements Serializable {
         this.turqInventoryTransactions = turqInventoryTransactions;
     }
 
-    public java.lang.Integer getInventoryWarehousesId() {
-        return this.inventoryWarehousesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setInventoryWarehousesId(java.lang.Integer inventoryWarehousesId) {
-        this.inventoryWarehousesId = inventoryWarehousesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getWarehousesName() {
@@ -173,7 +173,7 @@ public class TurqInventoryWarehous implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("inventoryWarehousesId", getInventoryWarehousesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -181,13 +181,13 @@ public class TurqInventoryWarehous implements Serializable {
         if ( !(other instanceof TurqInventoryWarehous) ) return false;
         TurqInventoryWarehous castOther = (TurqInventoryWarehous) other;
         return new EqualsBuilder()
-            .append(this.getInventoryWarehousesId(), castOther.getInventoryWarehousesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getInventoryWarehousesId())
+            .append(getId())
             .toHashCode();
     }
 

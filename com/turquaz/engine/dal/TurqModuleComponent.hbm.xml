@@ -17,9 +17,9 @@
 >
 
     <id
-        name="moduleComponentsId"
+        name="id"
         type="int"
-        column="module_components_id"
+        column="id"
     >
         <generator class="native" />
     </id>

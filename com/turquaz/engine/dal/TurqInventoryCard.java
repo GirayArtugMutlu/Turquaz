@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqInventoryCard implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer inventoryCardsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String cardInventoryCode;
@@ -116,12 +116,12 @@ public class TurqInventoryCard implements Serializable {
     public TurqInventoryCard() {
     }
 
-    public java.lang.Integer getInventoryCardsId() {
-        return this.inventoryCardsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setInventoryCardsId(java.lang.Integer inventoryCardsId) {
-        this.inventoryCardsId = inventoryCardsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCardInventoryCode() {
@@ -318,7 +318,7 @@ public class TurqInventoryCard implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("inventoryCardsId", getInventoryCardsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -326,13 +326,13 @@ public class TurqInventoryCard implements Serializable {
         if ( !(other instanceof TurqInventoryCard) ) return false;
         TurqInventoryCard castOther = (TurqInventoryCard) other;
         return new EqualsBuilder()
-            .append(this.getInventoryCardsId(), castOther.getInventoryCardsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getInventoryCardsId())
+            .append(getId())
             .toHashCode();
     }
 

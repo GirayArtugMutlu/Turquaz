@@ -62,14 +62,14 @@ public class CurBLCurrentTransactionAdd {
 			
 			if(seqDocNo==null){
 				TurqModule module = new TurqModule();
-				module.setModulesId(new Integer(4));
+				module.setId(new Integer(4));
 				docSeq.setTurqModule(module);
 				dalCurrentTrans.saveObject(docSeq);
 				
 			}
 			else
 			{
-				docSeq.setEngineSequencesId(seqDocNo);
+				docSeq.setId(seqDocNo);
 			}
 			
 			TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
@@ -107,7 +107,7 @@ public class CurBLCurrentTransactionAdd {
 			
 	        TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
 	        
-	        transType.setCurrentTransactionTypesId(new Integer(type));
+	        transType.setId(new Integer(type));
 	     
 	        
 	        curTrans.setTurqCurrentTransactionType(transType);	
@@ -141,7 +141,7 @@ public class CurBLCurrentTransactionAdd {
 			         // add accounting bill rows
 				  String transDefinition="Cari Borc/Alacak "+DatePicker.formatter.format(transDate) +" " + documentNo;
 			         Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
-			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getEngineSequencesId(),transDefinition);
+			         		EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getId(),transDefinition);
 			         
 			         saveAccountingCashTransactionRows(curCard,isCredit,amount,account,transId,definition);           
 			         
@@ -208,13 +208,13 @@ public class CurBLCurrentTransactionAdd {
          // current module id
          TurqEngineSequence seq= new TurqEngineSequence();
          TurqModule module = new TurqModule();
-         module.setModulesId(new Integer(4));
+         module.setId(new Integer(4));
          seq.setTurqModule(module);
          
          dalCurrentTrans.saveObject(seq);
          String transDefinition="Cari "+DatePicker.formatter.format(transDate) +" " + documentNo;
          Integer transId = blAcc.saveAccTransaction(transDate,documentNo,
-         		accTransactionType,4,seq.getEngineSequencesId(),transDefinition);
+         		accTransactionType,4,seq.getId(),transDefinition);
          
          //muhasebe fisi kalemlerini de ekleyelim.. 
          // add accounting bill rows
@@ -232,7 +232,7 @@ public class CurBLCurrentTransactionAdd {
  	    curTrans.setTurqCurrency(currency);
 		
  		TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
- 		accTrans.setAccountingTransactionsId(transId);
+ 		accTrans.setId(transId);
  		
  		 		
 		
@@ -257,7 +257,7 @@ public class CurBLCurrentTransactionAdd {
  		
          
         TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
-        transType.setCurrentTransactionTypesId(new Integer(type));
+        transType.setId(new Integer(type));
  		
  		curTrans.setTransactionsTotalDiscount(totalDiscount);
 		curTrans.setTotalDiscountInForeignCurrency(totalDiscount.multiply(currency.getExchangeRate()).setScale(2,BigDecimal.ROUND_HALF_DOWN));

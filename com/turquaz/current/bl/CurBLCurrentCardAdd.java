@@ -83,7 +83,7 @@ public class CurBLCurrentCardAdd {
 			
 			saveCurrentAccountingAccounts(currentCard,accountingAccounts);
 			
-			return currentCard.getCurrentCardsId();
+			return currentCard.getId();
 		}
 		catch(Exception ex){
 			throw ex;
@@ -115,7 +115,7 @@ public class CurBLCurrentCardAdd {
 			curAccount.setTurqAccountingAccount((TurqAccountingAccount)accounts.get(type));
 			
 			TurqCurrentAccountingType accType = new TurqCurrentAccountingType();
-			accType.setCurrentAccoutingTypesId(type);
+			accType.setId(type);
 			
 			curAccount.setTurqCurrentAccountingType(accType);
 			
@@ -145,7 +145,7 @@ throws Exception{
 	phone.setPhonesNumber(phoneNumber);
 	phone.setPhonesType(""); //$NON-NLS-1$
 	TurqCurrentCard card = new TurqCurrentCard();
-	card.setCurrentCardsId(curCard);
+	card.setId(curCard);
 	phone.setTurqCurrentCard(card);
 	phone.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 	phone.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -166,7 +166,7 @@ public void saveContact(Integer cardID, String name, String address,
 						{
 	
 	TurqCurrentCard card = new TurqCurrentCard();
-	card.setCurrentCardsId(cardID);
+	card.setId(cardID);
 	TurqCurrentContact contact = new TurqCurrentContact();
 	contact.setContactsName(name);
 	contact.setContactAddress(address);
@@ -191,7 +191,7 @@ public void registerGroup(Integer cardId, Object grp) throws Exception {
 			TurqCurrentCardsGroup cardGroup = new TurqCurrentCardsGroup();
 			TurqCurrentGroup group = (TurqCurrentGroup) grp;
 			TurqCurrentCard card = new TurqCurrentCard();
-			card.setCurrentCardsId(cardId);
+			card.setId(cardId);
 			cardGroup.setTurqCurrentCard(card);
 			cardGroup.setTurqCurrentGroup(group);
 

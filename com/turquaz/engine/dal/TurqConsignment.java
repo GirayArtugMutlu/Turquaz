@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqConsignment implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer consignmentsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.util.Date consignmentsDate;
@@ -64,12 +64,12 @@ public class TurqConsignment implements Serializable {
     public TurqConsignment() {
     }
 
-    public java.lang.Integer getConsignmentsId() {
-        return this.consignmentsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setConsignmentsId(java.lang.Integer consignmentsId) {
-        this.consignmentsId = consignmentsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.util.Date getConsignmentsDate() {
@@ -162,7 +162,7 @@ public class TurqConsignment implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("consignmentsId", getConsignmentsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -170,13 +170,13 @@ public class TurqConsignment implements Serializable {
         if ( !(other instanceof TurqConsignment) ) return false;
         TurqConsignment castOther = (TurqConsignment) other;
         return new EqualsBuilder()
-            .append(this.getConsignmentsId(), castOther.getConsignmentsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getConsignmentsId())
+            .append(getId())
             .toHashCode();
     }
 

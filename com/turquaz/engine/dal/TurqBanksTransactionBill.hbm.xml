@@ -17,9 +17,9 @@
 >
 
     <id
-        name="banksTransactionBillsId"
+        name="id"
         type="int"
-        column="banks_transaction_bills_id"
+        column="id"
     >
         <generator class="native" />
     </id>

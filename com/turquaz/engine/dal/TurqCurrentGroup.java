@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentGroupsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String groupsName;
@@ -48,12 +48,12 @@ public class TurqCurrentGroup implements Serializable {
     public TurqCurrentGroup() {
     }
 
-    public java.lang.Integer getCurrentGroupsId() {
-        return this.currentGroupsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentGroupsId(java.lang.Integer currentGroupsId) {
-        this.currentGroupsId = currentGroupsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getGroupsName() {
@@ -114,7 +114,7 @@ public class TurqCurrentGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentGroupsId", getCurrentGroupsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -122,13 +122,13 @@ public class TurqCurrentGroup implements Serializable {
         if ( !(other instanceof TurqCurrentGroup) ) return false;
         TurqCurrentGroup castOther = (TurqCurrentGroup) other;
         return new EqualsBuilder()
-            .append(this.getCurrentGroupsId(), castOther.getCurrentGroupsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentGroupsId())
+            .append(getId())
             .toHashCode();
     }
 

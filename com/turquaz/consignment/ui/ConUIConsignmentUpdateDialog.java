@@ -319,7 +319,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	        blCons.deleteObject(it.next());
 	    }
 	    
-	    compAddConsignment.saveGroups(consignment.getConsignmentsId());
+	    compAddConsignment.saveGroups(consignment.getId());
 	    
 	     
 	    
@@ -342,7 +342,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				blCons.deleteObject(it.next());
 									
 			}
-			compAddConsignment.saveGroups(consignment.getConsignmentsId());
+			compAddConsignment.saveGroups(consignment.getId());
 		  
 			//Update Inventory Transactions
 			it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
@@ -350,7 +350,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				blCons.deleteObject(it.next());
 									
 			}
-			compAddConsignment.saveConsignmentRows(consignment.getConsignmentsId());
+			compAddConsignment.saveConsignmentRows(consignment.getId());
 			
 			//Now we can update consignment
 		 int type = 0;

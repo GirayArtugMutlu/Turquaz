@@ -145,8 +145,8 @@ public class EngBLPermissions {
 				
 				TurqGroupPermission perms = (TurqGroupPermission)list.get(i);
 
-				module_id = perms.getTurqModule().getModulesId().intValue();
-				module_component_id = perms.getTurqModuleComponent().getModuleComponentsId().intValue();
+				module_id = perms.getTurqModule().getId().intValue();
+				module_component_id = perms.getTurqModuleComponent().getId().intValue();
 				
 				perm_level = perms.getGroupPermissionsLevel();
 
@@ -211,8 +211,8 @@ public class EngBLPermissions {
 				
 				TurqUserPermission perms = (TurqUserPermission)list.get(i);
 
-				module_id = perms.getTurqModule().getModulesId().intValue();
-				module_component_id = perms.getTurqModuleComponent().getModuleComponentsId().intValue();
+				module_id = perms.getTurqModule().getId().intValue();
+				module_component_id = perms.getTurqModuleComponent().getId().intValue();
 				
 				perm_level = perms.getUserPermissionsLevel();
 

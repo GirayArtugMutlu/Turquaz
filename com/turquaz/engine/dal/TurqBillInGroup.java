@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqBillInGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer billInGroupsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqBillInGroup implements Serializable {
     public TurqBillInGroup() {
     }
 
-    public java.lang.Integer getBillInGroupsId() {
-        return this.billInGroupsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setBillInGroupsId(java.lang.Integer billInGroupsId) {
-        this.billInGroupsId = billInGroupsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqBillInGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("billInGroupsId", getBillInGroupsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqBillInGroup implements Serializable {
         if ( !(other instanceof TurqBillInGroup) ) return false;
         TurqBillInGroup castOther = (TurqBillInGroup) other;
         return new EqualsBuilder()
-            .append(this.getBillInGroupsId(), castOther.getBillInGroupsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getBillInGroupsId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -134,7 +134,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			while(it.hasNext()){
 			blUserUpdate.deleteObject(it.next());
 		    }
-			compUserAdd.saveUserGroups(user.getUsersId());
+			compUserAdd.saveUserGroups(user.getId());
 			msg.setMessage(Messages.getString("AdmUIUserUpdateDialog.4")); //$NON-NLS-1$
 			msg.open();
 			dialogShell.close();

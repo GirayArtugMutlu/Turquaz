@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqInventoryCardUnit implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer inventoryCardUnitsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.math.BigDecimal cardUnitsFactor;
@@ -47,12 +47,12 @@ public class TurqInventoryCardUnit implements Serializable {
     public TurqInventoryCardUnit() {
     }
 
-    public java.lang.Integer getInventoryCardUnitsId() {
-        return this.inventoryCardUnitsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setInventoryCardUnitsId(java.lang.Integer inventoryCardUnitsId) {
-        this.inventoryCardUnitsId = inventoryCardUnitsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.math.BigDecimal getCardUnitsFactor() {
@@ -113,7 +113,7 @@ public class TurqInventoryCardUnit implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("inventoryCardUnitsId", getInventoryCardUnitsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -121,13 +121,13 @@ public class TurqInventoryCardUnit implements Serializable {
         if ( !(other instanceof TurqInventoryCardUnit) ) return false;
         TurqInventoryCardUnit castOther = (TurqInventoryCardUnit) other;
         return new EqualsBuilder()
-            .append(this.getInventoryCardUnitsId(), castOther.getInventoryCardUnitsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getInventoryCardUnitsId())
+            .append(getId())
             .toHashCode();
     }
 

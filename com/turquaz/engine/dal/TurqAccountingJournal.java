@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqAccountingJournal implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer accountingJournalId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.util.Date journalDate;
@@ -44,12 +44,12 @@ public class TurqAccountingJournal implements Serializable {
     public TurqAccountingJournal() {
     }
 
-    public java.lang.Integer getAccountingJournalId() {
-        return this.accountingJournalId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setAccountingJournalId(java.lang.Integer accountingJournalId) {
-        this.accountingJournalId = accountingJournalId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.util.Date getJournalDate() {
@@ -102,7 +102,7 @@ public class TurqAccountingJournal implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("accountingJournalId", getAccountingJournalId())
+            .append("id", getId())
             .toString();
     }
 
@@ -110,13 +110,13 @@ public class TurqAccountingJournal implements Serializable {
         if ( !(other instanceof TurqAccountingJournal) ) return false;
         TurqAccountingJournal castOther = (TurqAccountingJournal) other;
         return new EqualsBuilder()
-            .append(this.getAccountingJournalId(), castOther.getAccountingJournalId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getAccountingJournalId())
+            .append(getId())
             .toHashCode();
     }
 

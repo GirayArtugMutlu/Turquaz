@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCashCard implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer cashCardsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String cashCardName;
@@ -52,12 +52,12 @@ public class TurqCashCard implements Serializable {
     public TurqCashCard() {
     }
 
-    public java.lang.Integer getCashCardsId() {
-        return this.cashCardsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCashCardsId(java.lang.Integer cashCardsId) {
-        this.cashCardsId = cashCardsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCashCardName() {
@@ -126,7 +126,7 @@ public class TurqCashCard implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("cashCardsId", getCashCardsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -134,13 +134,13 @@ public class TurqCashCard implements Serializable {
         if ( !(other instanceof TurqCashCard) ) return false;
         TurqCashCard castOther = (TurqCashCard) other;
         return new EqualsBuilder()
-            .append(this.getCashCardsId(), castOther.getCashCardsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCashCardsId())
+            .append(getId())
             .toHashCode();
     }
 

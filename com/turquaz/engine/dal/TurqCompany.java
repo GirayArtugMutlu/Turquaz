@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCompany implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer companiesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String companyName;
@@ -51,12 +51,12 @@ public class TurqCompany implements Serializable {
     public TurqCompany() {
     }
 
-    public java.lang.Integer getCompaniesId() {
-        return this.companiesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCompaniesId(java.lang.Integer companiesId) {
-        this.companiesId = companiesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCompanyName() {
@@ -125,7 +125,7 @@ public class TurqCompany implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("companiesId", getCompaniesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -133,13 +133,13 @@ public class TurqCompany implements Serializable {
         if ( !(other instanceof TurqCompany) ) return false;
         TurqCompany castOther = (TurqCompany) other;
         return new EqualsBuilder()
-            .append(this.getCompaniesId(), castOther.getCompaniesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCompaniesId())
+            .append(getId())
             .toHashCode();
     }
 

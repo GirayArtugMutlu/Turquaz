@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqAccountingAccountClass implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer accountingClassesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String accountingClassesName;
@@ -34,8 +34,8 @@ public class TurqAccountingAccountClass implements Serializable {
     private Set turqAccountingAccounts;
 
     /** full constructor */
-    public TurqAccountingAccountClass(java.lang.Integer accountingClassesId, java.lang.String accountingClassesName, java.lang.String accountingClassesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts) {
-        this.accountingClassesId = accountingClassesId;
+    public TurqAccountingAccountClass(java.lang.Integer id, java.lang.String accountingClassesName, java.lang.String accountingClassesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts) {
+        this.id = id;
         this.accountingClassesName = accountingClassesName;
         this.accountingClassesDefinition = accountingClassesDefinition;
         this.createdBy = createdBy;
@@ -49,12 +49,12 @@ public class TurqAccountingAccountClass implements Serializable {
     public TurqAccountingAccountClass() {
     }
 
-    public java.lang.Integer getAccountingClassesId() {
-        return this.accountingClassesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setAccountingClassesId(java.lang.Integer accountingClassesId) {
-        this.accountingClassesId = accountingClassesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getAccountingClassesName() {
@@ -115,7 +115,7 @@ public class TurqAccountingAccountClass implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("accountingClassesId", getAccountingClassesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -123,13 +123,13 @@ public class TurqAccountingAccountClass implements Serializable {
         if ( !(other instanceof TurqAccountingAccountClass) ) return false;
         TurqAccountingAccountClass castOther = (TurqAccountingAccountClass) other;
         return new EqualsBuilder()
-            .append(this.getAccountingClassesId(), castOther.getAccountingClassesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getAccountingClassesId())
+            .append(getId())
             .toHashCode();
     }
 

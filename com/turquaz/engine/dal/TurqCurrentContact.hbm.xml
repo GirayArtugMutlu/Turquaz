@@ -17,9 +17,9 @@
 >
 
     <id
-        name="currentContactsId"
+        name="id"
         type="int"
-        column="current_contacts_id"
+        column="id"
     >
         <generator class="native" />
     </id>

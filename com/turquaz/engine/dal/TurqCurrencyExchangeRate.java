@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrencyExchangeRate implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer exchangeRatesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.util.Date exhangeRatesDate;
@@ -35,12 +35,12 @@ public class TurqCurrencyExchangeRate implements Serializable {
     public TurqCurrencyExchangeRate() {
     }
 
-    public java.lang.Integer getExchangeRatesId() {
-        return this.exchangeRatesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setExchangeRatesId(java.lang.Integer exchangeRatesId) {
-        this.exchangeRatesId = exchangeRatesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.util.Date getExhangeRatesDate() {
@@ -77,7 +77,7 @@ public class TurqCurrencyExchangeRate implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("exchangeRatesId", getExchangeRatesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -85,13 +85,13 @@ public class TurqCurrencyExchangeRate implements Serializable {
         if ( !(other instanceof TurqCurrencyExchangeRate) ) return false;
         TurqCurrencyExchangeRate castOther = (TurqCurrencyExchangeRate) other;
         return new EqualsBuilder()
-            .append(this.getExchangeRatesId(), castOther.getExchangeRatesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getExchangeRatesId())
+            .append(getId())
             .toHashCode();
     }
 

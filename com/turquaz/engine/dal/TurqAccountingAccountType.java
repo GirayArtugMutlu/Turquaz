@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqAccountingAccountType implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer accountingTypesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String accountingTypesName;
@@ -34,8 +34,8 @@ public class TurqAccountingAccountType implements Serializable {
     private Set turqAccountingAccounts;
 
     /** full constructor */
-    public TurqAccountingAccountType(java.lang.Integer accountingTypesId, java.lang.String accountingTypesName, java.lang.String accountingTypesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts) {
-        this.accountingTypesId = accountingTypesId;
+    public TurqAccountingAccountType(java.lang.Integer id, java.lang.String accountingTypesName, java.lang.String accountingTypesDefinition, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqAccountingAccounts) {
+        this.id = id;
         this.accountingTypesName = accountingTypesName;
         this.accountingTypesDefinition = accountingTypesDefinition;
         this.createdBy = createdBy;
@@ -49,12 +49,12 @@ public class TurqAccountingAccountType implements Serializable {
     public TurqAccountingAccountType() {
     }
 
-    public java.lang.Integer getAccountingTypesId() {
-        return this.accountingTypesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setAccountingTypesId(java.lang.Integer accountingTypesId) {
-        this.accountingTypesId = accountingTypesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getAccountingTypesName() {
@@ -115,7 +115,7 @@ public class TurqAccountingAccountType implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("accountingTypesId", getAccountingTypesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -123,13 +123,13 @@ public class TurqAccountingAccountType implements Serializable {
         if ( !(other instanceof TurqAccountingAccountType) ) return false;
         TurqAccountingAccountType castOther = (TurqAccountingAccountType) other;
         return new EqualsBuilder()
-            .append(this.getAccountingTypesId(), castOther.getAccountingTypesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getAccountingTypesId())
+            .append(getId())
             .toHashCode();
     }
 

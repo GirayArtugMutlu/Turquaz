@@ -101,7 +101,7 @@ public class BankBLTransactionUpdate {
             }
             
             TurqBanksTransactionType transType = new TurqBanksTransactionType();
-            transType.setBankTransactionTypesId(new Integer(EngBLCommon.BANK_TRANS_BETWEEN_BANKS));
+            transType.setId(new Integer(EngBLCommon.BANK_TRANS_BETWEEN_BANKS));
 
            
            
@@ -190,8 +190,8 @@ public class BankBLTransactionUpdate {
             
             Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
                     accTransType,
-                    bankTransBill.getTurqEngineSequence().getTurqModule().getModulesId().intValue(),bankTransBill.getTurqEngineSequence()
-                            .getEngineSequencesId(), accounting_definition);
+                    bankTransBill.getTurqEngineSequence().getTurqModule().getId().intValue(),bankTransBill.getTurqEngineSequence()
+                            .getId(), accounting_definition);
             blAccTran.saveAccTransactionRow(accTransRowCredit, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
             blAccTran.saveAccTransactionRow(accTransRowDept, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
 
@@ -283,7 +283,7 @@ public class BankBLTransactionUpdate {
             int cashTransType = 0;
 
             int type = bankTransBill.getTurqBanksTransactionType()
-                    .getBankTransactionTypesId().intValue();
+                    .getId().intValue();
             //Para yatirma
             if (type == EngBLCommon.BANK_TRANS_CASH_DEPOSIT) {
                 accTransRowBank.setDeptAmount(totalAmount);
@@ -352,9 +352,9 @@ public class BankBLTransactionUpdate {
 
             Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
                     accTransType, bankTransBill.getTurqEngineSequence()
-                            .getTurqModule().getModulesId().intValue(),
+                            .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
-                            .getEngineSequencesId(), definition);
+                            .getId(), definition);
             blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
             blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
 
@@ -430,7 +430,7 @@ public class BankBLTransactionUpdate {
          
 
             int type = bankTransBill.getTurqBanksTransactionType()
-                    .getBankTransactionTypesId().intValue();
+                    .getId().intValue();
             //Para yatirma
             if (type == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT) {
                 accTransRowBank.setDeptAmount(totalAmount);
@@ -486,9 +486,9 @@ public class BankBLTransactionUpdate {
 
             Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
                     accTransType, bankTransBill.getTurqEngineSequence()
-                            .getTurqModule().getModulesId().intValue(),
+                            .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
-                            .getEngineSequencesId(), definition);
+                            .getId(), definition);
             blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
             blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
 
@@ -586,7 +586,7 @@ public class BankBLTransactionUpdate {
             boolean currentTransType = false; // Credit or Debit
 
             int type = bankTransBill.getTurqBanksTransactionType()
-                    .getBankTransactionTypesId().intValue();
+                    .getId().intValue();
 
             if (type == EngBLCommon.BANK_TRANS_RECIEVE_MONEY) {
                 accTransRowBank.setDeptAmount(totalAmount);
@@ -646,7 +646,7 @@ public class BankBLTransactionUpdate {
             blCurTrans.saveCurrentTransaction(curCard, transDate, docNo,
                     currentTransType, totalAmount, new BigDecimal(0),
                     EngBLCommon.CURRENT_TRANS_BANK, bankTransBill
-                            .getTurqEngineSequence().getEngineSequencesId(),
+                            .getTurqEngineSequence().getId(),
                     currentTransDefinition);
 
             /**
@@ -656,9 +656,9 @@ public class BankBLTransactionUpdate {
 
             Integer transId = blAccTran.saveAccTransaction(transDate, docNo,
                     accTransType, bankTransBill.getTurqEngineSequence()
-                            .getTurqModule().getModulesId().intValue(),
+                            .getTurqModule().getId().intValue(),
                     bankTransBill.getTurqEngineSequence()
-                            .getEngineSequencesId(), definition);
+                            .getId(), definition);
             blAccTran.saveAccTransactionRow(accTransRowBank, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
             blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
 

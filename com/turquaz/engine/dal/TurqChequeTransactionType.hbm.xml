@@ -17,9 +17,9 @@
 >
 
     <id
-        name="chequeTransactionTypesId"
+        name="id"
         type="int"
-        column="cheque_transaction_types_id"
+        column="id"
     >
         <generator class="native" />
     </id>

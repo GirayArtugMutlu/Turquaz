@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentTransactionBill implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentTransactionBillId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqCurrentTransactionBill implements Serializable {
     public TurqCurrentTransactionBill() {
     }
 
-    public java.lang.Integer getCurrentTransactionBillId() {
-        return this.currentTransactionBillId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentTransactionBillId(java.lang.Integer currentTransactionBillId) {
-        this.currentTransactionBillId = currentTransactionBillId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqCurrentTransactionBill implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentTransactionBillId", getCurrentTransactionBillId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqCurrentTransactionBill implements Serializable {
         if ( !(other instanceof TurqCurrentTransactionBill) ) return false;
         TurqCurrentTransactionBill castOther = (TurqCurrentTransactionBill) other;
         return new EqualsBuilder()
-            .append(this.getCurrentTransactionBillId(), castOther.getCurrentTransactionBillId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentTransactionBillId())
+            .append(getId())
             .toHashCode();
     }
 

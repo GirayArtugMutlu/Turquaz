@@ -94,7 +94,7 @@ public class BankBLBankCardAdd {
 			bankAccount.setTurqAccountingAccount((TurqAccountingAccount)accounts.get(type));
 			
 			TurqBankAccountingType accType = new TurqBankAccountingType();
-			accType.setBankAccoutingTypesId(type);
+			accType.setId(type);
 			
 			bankAccount.setTurqBankAccountingType(accType);
 			

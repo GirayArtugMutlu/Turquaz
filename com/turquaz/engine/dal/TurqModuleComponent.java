@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqModuleComponent implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer moduleComponentsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String componentsName;
@@ -56,12 +56,12 @@ public class TurqModuleComponent implements Serializable {
     public TurqModuleComponent() {
     }
 
-    public java.lang.Integer getModuleComponentsId() {
-        return this.moduleComponentsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setModuleComponentsId(java.lang.Integer moduleComponentsId) {
-        this.moduleComponentsId = moduleComponentsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getComponentsName() {
@@ -138,7 +138,7 @@ public class TurqModuleComponent implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("moduleComponentsId", getModuleComponentsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -146,13 +146,13 @@ public class TurqModuleComponent implements Serializable {
         if ( !(other instanceof TurqModuleComponent) ) return false;
         TurqModuleComponent castOther = (TurqModuleComponent) other;
         return new EqualsBuilder()
-            .append(this.getModuleComponentsId(), castOther.getModuleComponentsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getModuleComponentsId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -176,7 +176,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog {
 	
 	public void postInitGUI(){
 	    
-	    if(cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue()!= EngBLCommon.MODULE_CASH)
+	    if(cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue()!= EngBLCommon.MODULE_CASH)
 	    {	    
 	     toolUpdate.setEnabled(false);
 	     tooldelete.setEnabled(false);

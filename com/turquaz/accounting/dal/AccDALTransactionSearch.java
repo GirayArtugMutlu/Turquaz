@@ -158,7 +158,7 @@ public class AccDALTransactionSearch {
 	    	
 	    	if (accountEnd==null)
 	    	{
-	    		query += " and acc.accountingAccountsId="+accountStart.getAccountingAccountsId();
+	    		query += " and acc.accountingAccountsId="+accountStart.getId();
 	    	}
 	    	else
 	    	{
@@ -298,7 +298,7 @@ public class AccDALTransactionSearch {
 			session
 					.delete("select row from TurqAccountingTransactionColumn as row where"
 							+ " row.turqAccountingTransaction.accountingTransactionsId ="
-							+ transaction.getAccountingTransactionsId()
+							+ transaction.getId()
 									.intValue());
 
 			session.flush();

@@ -1020,7 +1020,7 @@ implements SecureComposite{
 										paymentType.booleanValue() ? accountPickerCurAcc.getData() : null,
 										 dateDueDate.getDate());
 		
-				saveGroups(bill.getBillsId());
+				saveGroups(bill.getId());
 				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 				msg.open();
 				newForm();

@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqTradebillTransactionType implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer tradebillTransactionTypesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String transactionTypesName;
@@ -52,12 +52,12 @@ public class TurqTradebillTransactionType implements Serializable {
     public TurqTradebillTransactionType() {
     }
 
-    public java.lang.Integer getTradebillTransactionTypesId() {
-        return this.tradebillTransactionTypesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setTradebillTransactionTypesId(java.lang.Integer tradebillTransactionTypesId) {
-        this.tradebillTransactionTypesId = tradebillTransactionTypesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getTransactionTypesName() {
@@ -126,7 +126,7 @@ public class TurqTradebillTransactionType implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("tradebillTransactionTypesId", getTradebillTransactionTypesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -134,13 +134,13 @@ public class TurqTradebillTransactionType implements Serializable {
         if ( !(other instanceof TurqTradebillTransactionType) ) return false;
         TurqTradebillTransactionType castOther = (TurqTradebillTransactionType) other;
         return new EqualsBuilder()
-            .append(this.getTradebillTransactionTypesId(), castOther.getTradebillTransactionTypesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getTradebillTransactionTypesId())
+            .append(getId())
             .toHashCode();
     }
 

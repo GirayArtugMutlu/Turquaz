@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqAccountingTransactionColumn implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer accountingTransactionColumnsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.math.BigDecimal deptAmount;
@@ -67,12 +67,12 @@ public class TurqAccountingTransactionColumn implements Serializable {
     public TurqAccountingTransactionColumn() {
     }
 
-    public java.lang.Integer getAccountingTransactionColumnsId() {
-        return this.accountingTransactionColumnsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setAccountingTransactionColumnsId(java.lang.Integer accountingTransactionColumnsId) {
-        this.accountingTransactionColumnsId = accountingTransactionColumnsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.math.BigDecimal getDeptAmount() {
@@ -173,7 +173,7 @@ public class TurqAccountingTransactionColumn implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("accountingTransactionColumnsId", getAccountingTransactionColumnsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -181,13 +181,13 @@ public class TurqAccountingTransactionColumn implements Serializable {
         if ( !(other instanceof TurqAccountingTransactionColumn) ) return false;
         TurqAccountingTransactionColumn castOther = (TurqAccountingTransactionColumn) other;
         return new EqualsBuilder()
-            .append(this.getAccountingTransactionColumnsId(), castOther.getAccountingTransactionColumnsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getAccountingTransactionColumnsId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -314,7 +314,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 				blUpdateCons.deleteObject(it2.next());
 									
 			}
-			compAddBill.saveConsignmentRows(cons.getConsignmentsId());
+			compAddBill.saveConsignmentRows(cons.getId());
 			
 			}
 			Boolean paymentType = (Boolean)compAddBill.getComboPaymentType().getData(compAddBill.getComboPaymentType().getText());
@@ -364,7 +364,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 		        blUpdateBill.deleteObject(it.next());
 		    }
 		    
-		    compAddBill.saveGroups(bill.getBillsId());
+		    compAddBill.saveGroups(bill.getId());
 		    
 		     
 		    

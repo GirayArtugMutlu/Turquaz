@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentAccountingAccount implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentAccountingAccountsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -47,12 +47,12 @@ public class TurqCurrentAccountingAccount implements Serializable {
     public TurqCurrentAccountingAccount() {
     }
 
-    public java.lang.Integer getCurrentAccountingAccountsId() {
-        return this.currentAccountingAccountsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentAccountingAccountsId(java.lang.Integer currentAccountingAccountsId) {
-        this.currentAccountingAccountsId = currentAccountingAccountsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -113,7 +113,7 @@ public class TurqCurrentAccountingAccount implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentAccountingAccountsId", getCurrentAccountingAccountsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -121,13 +121,13 @@ public class TurqCurrentAccountingAccount implements Serializable {
         if ( !(other instanceof TurqCurrentAccountingAccount) ) return false;
         TurqCurrentAccountingAccount castOther = (TurqCurrentAccountingAccount) other;
         return new EqualsBuilder()
-            .append(this.getCurrentAccountingAccountsId(), castOther.getCurrentAccountingAccountsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentAccountingAccountsId())
+            .append(getId())
             .toHashCode();
     }
 

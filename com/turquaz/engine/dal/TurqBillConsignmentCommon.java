@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqBillConsignmentCommon implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer billConsignmentCommonId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private int discountRate;
@@ -80,12 +80,12 @@ public class TurqBillConsignmentCommon implements Serializable {
     public TurqBillConsignmentCommon() {
     }
 
-    public java.lang.Integer getBillConsignmentCommonId() {
-        return this.billConsignmentCommonId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setBillConsignmentCommonId(java.lang.Integer billConsignmentCommonId) {
-        this.billConsignmentCommonId = billConsignmentCommonId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public int getDiscountRate() {
@@ -210,7 +210,7 @@ public class TurqBillConsignmentCommon implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("billConsignmentCommonId", getBillConsignmentCommonId())
+            .append("id", getId())
             .toString();
     }
 
@@ -218,13 +218,13 @@ public class TurqBillConsignmentCommon implements Serializable {
         if ( !(other instanceof TurqBillConsignmentCommon) ) return false;
         TurqBillConsignmentCommon castOther = (TurqBillConsignmentCommon) other;
         return new EqualsBuilder()
-            .append(this.getBillConsignmentCommonId(), castOther.getBillConsignmentCommonId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getBillConsignmentCommonId())
+            .append(getId())
             .toHashCode();
     }
 

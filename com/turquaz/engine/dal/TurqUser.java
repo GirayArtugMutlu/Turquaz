@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqUser implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer usersId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String username;
@@ -60,12 +60,12 @@ public class TurqUser implements Serializable {
     public TurqUser() {
     }
 
-    public java.lang.Integer getUsersId() {
-        return this.usersId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setUsersId(java.lang.Integer usersId) {
-        this.usersId = usersId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getUsername() {
@@ -150,7 +150,7 @@ public class TurqUser implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("usersId", getUsersId())
+            .append("id", getId())
             .toString();
     }
 
@@ -158,13 +158,13 @@ public class TurqUser implements Serializable {
         if ( !(other instanceof TurqUser) ) return false;
         TurqUser castOther = (TurqUser) other;
         return new EqualsBuilder()
-            .append(this.getUsersId(), castOther.getUsersId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getUsersId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqUserGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer userGroupId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqUserGroup implements Serializable {
     public TurqUserGroup() {
     }
 
-    public java.lang.Integer getUserGroupId() {
-        return this.userGroupId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setUserGroupId(java.lang.Integer userGroupId) {
-        this.userGroupId = userGroupId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqUserGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("userGroupId", getUserGroupId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqUserGroup implements Serializable {
         if ( !(other instanceof TurqUserGroup) ) return false;
         TurqUserGroup castOther = (TurqUserGroup) other;
         return new EqualsBuilder()
-            .append(this.getUserGroupId(), castOther.getUserGroupId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getUserGroupId())
+            .append(getId())
             .toHashCode();
     }
 

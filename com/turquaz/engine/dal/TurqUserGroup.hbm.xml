@@ -17,9 +17,9 @@
 >
 
     <id
-        name="userGroupId"
+        name="id"
         type="int"
-        column="user_group_id"
+        column="id"
     >
         <generator class="native" />
     </id>

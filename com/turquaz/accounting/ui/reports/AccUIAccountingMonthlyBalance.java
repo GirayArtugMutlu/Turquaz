@@ -387,8 +387,8 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				totalDept=totalDept.add(transDept);
 				
 				
-				parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
-				accountId=account.getAccountingAccountsId();
+				parentId = account.getTurqAccountingAccountByParentAccount().getId();
+				accountId=account.getId();
 				LocateAccountToTable(account);
 
 				TableTreeItem accountItem=(TableTreeItem)treeItems.get(accountId);
@@ -437,7 +437,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					accountItem.setText(4,(newremaining.doubleValue() <= 0)? cf.format(newremaining.abs()):""); //$NON-NLS-1$
 					accountItem.setText(5,(newremaining.doubleValue() > 0)? cf.format(newremaining):""); //$NON-NLS-1$
 					parentAcc=parentAcc.getTurqAccountingAccountByParentAccount();
-					parentId=parentAcc.getAccountingAccountsId();
+					parentId=parentAcc.getId();
 				}
 			}
 			if (useMainAccountsRemain)
@@ -493,11 +493,11 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 	{
 		
 
-		if (!treeItems.containsKey(account.getAccountingAccountsId()))
+		if (!treeItems.containsKey(account.getId()))
 		{
 
 
-			Integer parentId=account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
+			Integer parentId=account.getTurqAccountingAccountByParentAccount().getId();
 			if (parentId.intValue()!=-1)
 			{
 				TurqAccountingAccount parentAcc=account.getTurqAccountingAccountByParentAccount();
@@ -522,7 +522,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				item.setText(4,"0.00"); //$NON-NLS-1$
 				item.setText(5,"0.00"); //$NON-NLS-1$
 				item.setData(account);	
-				treeItems.put(account.getAccountingAccountsId(),item);
+				treeItems.put(account.getId(),item);
 				
 				
 			}
@@ -545,7 +545,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				item.setText(4,"0.00"); //$NON-NLS-1$
 				item.setText(5,"0.00"); //$NON-NLS-1$
 				item.setData(account);	
-				treeItems.put(account.getAccountingAccountsId(),item);	
+				treeItems.put(account.getId(),item);	
 				
 			}
 		}

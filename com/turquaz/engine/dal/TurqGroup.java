@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer groupsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String groupsName;
@@ -52,12 +52,12 @@ public class TurqGroup implements Serializable {
     public TurqGroup() {
     }
 
-    public java.lang.Integer getGroupsId() {
-        return this.groupsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setGroupsId(java.lang.Integer groupsId) {
-        this.groupsId = groupsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getGroupsName() {
@@ -126,7 +126,7 @@ public class TurqGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("groupsId", getGroupsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -134,13 +134,13 @@ public class TurqGroup implements Serializable {
         if ( !(other instanceof TurqGroup) ) return false;
         TurqGroup castOther = (TurqGroup) other;
         return new EqualsBuilder()
-            .append(this.getGroupsId(), castOther.getGroupsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getGroupsId())
+            .append(getId())
             .toHashCode();
     }
 

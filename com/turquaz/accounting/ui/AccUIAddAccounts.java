@@ -143,7 +143,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
                             
                             
                             if(txtParentAccount.getData()!=null){
-                             if(((TurqAccountingAccount)txtParentAccount.getData()).getAccountingAccountsId().intValue()!=-1)
+                             if(((TurqAccountingAccount)txtParentAccount.getData()).getId().intValue()!=-1)
                                 txtAccAccountCode.setText(txtParentAccount.getText().trim()+" "); //$NON-NLS-1$
                                                    
                             }
@@ -270,7 +270,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     	}
     	else
     	{
-    		if (toUpdate!=null && !acc.getAccountingAccountsId().equals(toUpdate.getAccountingAccountsId()))
+    		if (toUpdate!=null && !acc.getId().equals(toUpdate.getId()))
     		{
     			msg.setMessage(Messages.getString("AccUIAddAccounts.7")); //$NON-NLS-1$
     			msg.open();
@@ -288,7 +288,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 		return false;
 	}
 	TurqAccountingAccount topAcc=(TurqAccountingAccount)txtParentAccount.getData();
-	if (topAcc.getAccountingAccountsId().intValue()!=-1)
+	if (topAcc.getId().intValue()!=-1)
 	{
 		if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
 		{

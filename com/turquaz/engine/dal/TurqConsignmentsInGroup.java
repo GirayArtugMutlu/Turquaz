@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqConsignmentsInGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer consignmentsInGroupId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqConsignmentsInGroup implements Serializable {
     public TurqConsignmentsInGroup() {
     }
 
-    public java.lang.Integer getConsignmentsInGroupId() {
-        return this.consignmentsInGroupId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setConsignmentsInGroupId(java.lang.Integer consignmentsInGroupId) {
-        this.consignmentsInGroupId = consignmentsInGroupId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqConsignmentsInGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("consignmentsInGroupId", getConsignmentsInGroupId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqConsignmentsInGroup implements Serializable {
         if ( !(other instanceof TurqConsignmentsInGroup) ) return false;
         TurqConsignmentsInGroup castOther = (TurqConsignmentsInGroup) other;
         return new EqualsBuilder()
-            .append(this.getConsignmentsInGroupId(), castOther.getConsignmentsInGroupId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getConsignmentsInGroupId())
+            .append(getId())
             .toHashCode();
     }
 

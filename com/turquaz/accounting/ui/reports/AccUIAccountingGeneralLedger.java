@@ -238,11 +238,11 @@ public class AccUIAccountingGeneralLedger extends
 			}
 			else if (accountStart !=null && accountEnd ==null)
 			{
-				sqlparam += " and accounts.accounting_accounts_id="+accountStart.getAccountingAccountsId();
+				sqlparam += " and accounts.accounting_accounts_id="+accountStart.getId();
 			}
 			else if (accountStart == null && accountEnd != null)
 			{
-				sqlparam += " and accounts.accounting_accounts_id="+accountEnd.getAccountingAccountsId();
+				sqlparam += " and accounts.accounting_accounts_id="+accountEnd.getId();
 			}
 
 			sqlparam += " ORDER BY accounts.top_account,trans.transactions_date"; //$NON-NLS-1$

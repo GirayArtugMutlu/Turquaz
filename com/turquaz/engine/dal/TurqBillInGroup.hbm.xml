@@ -17,9 +17,9 @@
 >
 
     <id
-        name="billInGroupsId"
+        name="id"
         type="int"
-        column="bill_in_groups_id"
+        column="id"
     >
         <generator class="native" />
     </id>

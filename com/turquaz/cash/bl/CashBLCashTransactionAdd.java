@@ -64,7 +64,7 @@ public class CashBLCashTransactionAdd {
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
-					module.setModulesId(new Integer(EngBLCommon.MODULE_CASH));
+					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
 					dalCash.save(seq);
@@ -74,7 +74,7 @@ public class CashBLCashTransactionAdd {
 			}
 
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setCashTransactionTypesId(new Integer(type));
+			transType.setId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 			
@@ -165,7 +165,7 @@ public class CashBLCashTransactionAdd {
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
-					module.setModulesId(new Integer(EngBLCommon.MODULE_CASH));
+					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
 					dalCash.save(seq);
@@ -175,7 +175,7 @@ public class CashBLCashTransactionAdd {
 			}
 
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setCashTransactionTypesId(new Integer(type));
+			transType.setId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 			
@@ -277,7 +277,7 @@ public class CashBLCashTransactionAdd {
 
 			blCurTrans.saveCurrentTransaction(current, transDate, document_no,
 					currentTransType, totalAmount, new BigDecimal(0),
-					EngBLCommon.CURRENT_TRANS_CASH, seq.getEngineSequencesId(),
+					EngBLCommon.CURRENT_TRANS_CASH, seq.getId(),
 					currentTransDefinition);
 
 			/**
@@ -287,8 +287,8 @@ public class CashBLCashTransactionAdd {
 
 			Integer transId = blAccTran.saveAccTransaction(transDate,
 					document_no, accTransType, seq.getTurqModule()
-							.getModulesId().intValue(), seq
-							.getEngineSequencesId(), definition);
+							.getId().intValue(), seq
+							.getId(), definition);
 			blAccTran.saveAccTransactionRow(accTransRowCash, transId,
 					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
 			blAccTran.saveAccTransactionRow(accTransRowCurrent, transId,
@@ -313,7 +313,7 @@ public class CashBLCashTransactionAdd {
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
-					module.setModulesId(new Integer(EngBLCommon.MODULE_CASH));
+					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
 					dalCash.save(seq);
@@ -323,7 +323,7 @@ public class CashBLCashTransactionAdd {
 			}
 
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setCashTransactionTypesId(new Integer(type));
+			transType.setId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 			
@@ -423,8 +423,8 @@ public class CashBLCashTransactionAdd {
 
 			Integer transId = blAccTran.saveAccTransaction(transDate,
 					document_no, accTransType, seq.getTurqModule()
-							.getModulesId().intValue(), seq
-							.getEngineSequencesId(), definition);
+							.getId().intValue(), seq
+							.getId(), definition);
 			blAccTran.saveAccTransactionRow(accTransRowCash, transId,
 					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
 			blAccTran.saveAccTransactionRow(accTransRowOther, transId,
@@ -448,7 +448,7 @@ public class CashBLCashTransactionAdd {
 			if (seq == null) {
 				try {
 					TurqModule module = new TurqModule();
-					module.setModulesId(new Integer(EngBLCommon.MODULE_CASH));
+					module.setId(new Integer(EngBLCommon.MODULE_CASH));
 					seq = new TurqEngineSequence();
 					seq.setTurqModule(module);
 					dalCash.save(seq);
@@ -458,7 +458,7 @@ public class CashBLCashTransactionAdd {
 			}
 
 			TurqCashTransactionType transType = new TurqCashTransactionType();
-			transType.setCashTransactionTypesId(new Integer(type));
+			transType.setId(new Integer(type));
 
 			TurqCashTransaction cashTrans = new TurqCashTransaction();
 		
@@ -564,8 +564,8 @@ public class CashBLCashTransactionAdd {
 
 			Integer transId = blAccTran.saveAccTransaction(transDate,
 					document_no, accTransType, seq.getTurqModule()
-							.getModulesId().intValue(), seq
-							.getEngineSequencesId(), definition);
+							.getId().intValue(), seq
+							.getId(), definition);
 			blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
 					EngBLCommon.getBaseCurrency(), new BigDecimal(1));
 			blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,

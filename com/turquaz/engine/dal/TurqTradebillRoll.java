@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqTradebillRoll implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer tradebillRollsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.util.Date tradebillRollsDate;
@@ -56,12 +56,12 @@ public class TurqTradebillRoll implements Serializable {
     public TurqTradebillRoll() {
     }
 
-    public java.lang.Integer getTradebillRollsId() {
-        return this.tradebillRollsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setTradebillRollsId(java.lang.Integer tradebillRollsId) {
-        this.tradebillRollsId = tradebillRollsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.util.Date getTradebillRollsDate() {
@@ -138,7 +138,7 @@ public class TurqTradebillRoll implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("tradebillRollsId", getTradebillRollsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -146,13 +146,13 @@ public class TurqTradebillRoll implements Serializable {
         if ( !(other instanceof TurqTradebillRoll) ) return false;
         TurqTradebillRoll castOther = (TurqTradebillRoll) other;
         return new EqualsBuilder()
-            .append(this.getTradebillRollsId(), castOther.getTradebillRollsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getTradebillRollsId())
+            .append(getId())
             .toHashCode();
     }
 

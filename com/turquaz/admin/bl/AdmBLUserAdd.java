@@ -58,7 +58,7 @@ public class AdmBLUserAdd {
 			
 			dalAdmin.saveObject(user);
 			
-			return user.getUsersId();
+			return user.getId();
 			
 			
 			
@@ -72,7 +72,7 @@ public class AdmBLUserAdd {
 		try{
 		
 			TurqUser user = new TurqUser();
-			user.setUsersId(userId);
+			user.setId(userId);
 			TurqUserGroup usergroup = new TurqUserGroup();
 			usergroup.setTurqUser(user);
 			usergroup.setTurqGroup((TurqGroup)group);

@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqOrderInGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer orderInGroupsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqOrderInGroup implements Serializable {
     public TurqOrderInGroup() {
     }
 
-    public java.lang.Integer getOrderInGroupsId() {
-        return this.orderInGroupsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setOrderInGroupsId(java.lang.Integer orderInGroupsId) {
-        this.orderInGroupsId = orderInGroupsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqOrderInGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("orderInGroupsId", getOrderInGroupsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqOrderInGroup implements Serializable {
         if ( !(other instanceof TurqOrderInGroup) ) return false;
         TurqOrderInGroup castOther = (TurqOrderInGroup) other;
         return new EqualsBuilder()
-            .append(this.getOrderInGroupsId(), castOther.getOrderInGroupsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getOrderInGroupsId())
+            .append(getId())
             .toHashCode();
     }
 

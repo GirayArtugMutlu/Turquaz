@@ -108,7 +108,7 @@ public class CurDALCurrentCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 		
 			String query = "Select currentView from TurqViewCurrentAmountTotal as currentView," +
-					" where currentView.currentCardsId="+currentCard.getCurrentCardsId();
+					" where currentView.currentCardsId="+currentCard.getId();
 	
 			Query q = session.createQuery(query); 	
 			List list = q.list();			
@@ -128,7 +128,7 @@ public class CurDALCurrentCardSearch {
 			Session session = EngDALSessionFactory.openSession();
 			
 			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans" +
-					" where bankTrans.turqCurrentCard.currentCardsId="+curCard.getCurrentCardsId()+
+					" where bankTrans.turqCurrentCard.currentCardsId="+curCard.getId()+
 					" and bankTrans.turqCurrentTransactionType.currentTransactionTypesId <>"+EngBLCommon.CURRENT_TRANS_INITIAL;
 
 			Query q = session.createQuery(query); 	
@@ -239,7 +239,7 @@ public class CurDALCurrentCardSearch {
 			{
 				TurqCurrentAccountingAccount curAccount = (TurqCurrentAccountingAccount)it.next();
 				
-				if(curAccount.getTurqCurrentAccountingType().getCurrentAccoutingTypesId().intValue()==type.intValue())
+				if(curAccount.getTurqCurrentAccountingType().getId().intValue()==type.intValue())
 				{
 					return curAccount.getTurqAccountingAccount();
 				}

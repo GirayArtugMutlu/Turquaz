@@ -17,9 +17,9 @@
 >
 
     <id
-        name="currentTransactionsId"
+        name="id"
         type="int"
-        column="current_transactions_id"
+        column="id"
     >
         <generator class="native" />
     </id>

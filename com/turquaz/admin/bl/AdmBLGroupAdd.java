@@ -52,7 +52,7 @@ public class AdmBLGroupAdd {
 
 			dalAdmin.saveObject(group);
 
-			return group.getGroupsId();
+			return group.getId();
 
 		} catch (Exception ex) {
 			throw ex;

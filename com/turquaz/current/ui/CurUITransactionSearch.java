@@ -427,7 +427,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				{
 					TurqCurrentTransaction trans = CurBLSearchTransaction.getCurTransByTransId(transId);
 					//nakit hareketi ise izin ver
-					if(trans.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()==EngBLCommon.CURRENT_TRANS_OTHERS)
+					if(trans.getTurqCurrentTransactionType().getId().intValue()==EngBLCommon.CURRENT_TRANS_OTHERS)
 					{
 						boolean updated=new CurUIVoucherUpdate(this.getShell(),SWT.NULL,trans).open();
 						if (updated)

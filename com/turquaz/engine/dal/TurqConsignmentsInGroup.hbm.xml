@@ -17,9 +17,9 @@
 >
 
     <id
-        name="consignmentsInGroupId"
+        name="id"
         type="int"
-        column="consignments_in_group_id"
+        column="id"
     >
         <generator class="native" />
     </id>

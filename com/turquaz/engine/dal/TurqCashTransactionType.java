@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCashTransactionType implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer cashTransactionTypesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String cashTransationTypeName;
@@ -44,12 +44,12 @@ public class TurqCashTransactionType implements Serializable {
     public TurqCashTransactionType() {
     }
 
-    public java.lang.Integer getCashTransactionTypesId() {
-        return this.cashTransactionTypesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCashTransactionTypesId(java.lang.Integer cashTransactionTypesId) {
-        this.cashTransactionTypesId = cashTransactionTypesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCashTransationTypeName() {
@@ -102,7 +102,7 @@ public class TurqCashTransactionType implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("cashTransactionTypesId", getCashTransactionTypesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -110,13 +110,13 @@ public class TurqCashTransactionType implements Serializable {
         if ( !(other instanceof TurqCashTransactionType) ) return false;
         TurqCashTransactionType castOther = (TurqCashTransactionType) other;
         return new EqualsBuilder()
-            .append(this.getCashTransactionTypesId(), castOther.getCashTransactionTypesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCashTransactionTypesId())
+            .append(getId())
             .toHashCode();
     }
 

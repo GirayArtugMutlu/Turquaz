@@ -73,7 +73,7 @@ public class ConBLAddConsignment {
 
             TurqEngineSequence seq = new TurqEngineSequence();
             TurqModule module = new TurqModule();
-            module.setModulesId(new Integer(6));
+            module.setId(new Integer(6));
             seq.setTurqModule(module);
             dalConsignment.save(seq);
             
@@ -146,7 +146,7 @@ public class ConBLAddConsignment {
 		TurqConsignmentsInGroup cardGroup = new TurqConsignmentsInGroup();
 		TurqConsignmentGroup group = (TurqConsignmentGroup) grp;
 		TurqConsignment card =new TurqConsignment();
-		card.setConsignmentsId(conId);
+		card.setId(conId);
 		cardGroup.setTurqConsignment(card);
 		cardGroup.setTurqConsignmentGroup(group);
 

@@ -512,7 +512,7 @@ public class AccUITransactionAdd extends  Composite implements SecureComposite {
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getCurrenciesId()!=exchangeCurrency.getCurrenciesId())
+			if (baseCurrency.getId()!=exchangeCurrency.getId())
 			{
 				if ((exchangeRatio=AccBLTransactionSearch.getExchangeRatio(baseCurrency,exchangeCurrency,Calendar.getInstance().getTime()))==null)
 				{

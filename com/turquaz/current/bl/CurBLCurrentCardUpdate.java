@@ -103,7 +103,7 @@ public class CurBLCurrentCardUpdate {
 			phone.setPhonesNumber(phoneNumber);
 			phone.setPhonesType("");
 			TurqCurrentCard card = new TurqCurrentCard();
-			card.setCurrentCardsId(curCard);
+			card.setId(curCard);
 			phone.setTurqCurrentCard(card);
 			phone.setCreatedBy(System.getProperty("user"));
 			phone.setUpdatedBy(System.getProperty("user"));
@@ -124,7 +124,7 @@ public class CurBLCurrentCardUpdate {
 			TurqCurrentCardsGroup cardGroup = new TurqCurrentCardsGroup();
 			TurqCurrentGroup group = (TurqCurrentGroup) grp;
 			TurqCurrentCard card = new TurqCurrentCard();
-			card.setCurrentCardsId(cardId);
+			card.setId(cardId);
 			cardGroup.setTurqCurrentCard(card);
 			cardGroup.setTurqCurrentGroup(group);
 			cardGroup.setCreatedBy(System.getProperty("user"));
@@ -154,7 +154,7 @@ public class CurBLCurrentCardUpdate {
 							{
 		
 		TurqCurrentCard card = new TurqCurrentCard();
-		card.setCurrentCardsId(cardID);
+		card.setId(cardID);
 		TurqCurrentContact contact = new TurqCurrentContact();
 		contact.setContactsName(name);
 		contact.setContactAddress(address);
@@ -175,7 +175,7 @@ public class CurBLCurrentCardUpdate {
 	
 		try{
 		TurqCurrentTransactionType transType = new TurqCurrentTransactionType();
-		transType.setCurrentTransactionTypesId(new Integer(type));
+		transType.setId(new Integer(type));
 		
 		return currentUpdate.getCurrentTransactionBalances(transType,curCard);
 		}

@@ -17,9 +17,9 @@
 >
 
     <id
-        name="currentCardsPhonesId"
+        name="id"
         type="int"
-        column="current_cards_phones_id"
+        column="id"
     >
         <generator class="native" />
     </id>

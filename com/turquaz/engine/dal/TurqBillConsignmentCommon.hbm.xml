@@ -17,9 +17,9 @@
 >
 
     <id
-        name="billConsignmentCommonId"
+        name="id"
         type="int"
-        column="bill_consignment_common_id"
+        column="id"
     >
         <generator class="native" />
     </id>

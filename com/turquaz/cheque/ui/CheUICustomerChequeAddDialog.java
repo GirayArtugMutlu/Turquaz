@@ -304,11 +304,11 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
         
 	    
 	    TurqBanksCard bankCard = new TurqBanksCard();
-	    bankCard.setBanksCardsId(new Integer(-1));
+	    bankCard.setId(new Integer(-1));
 	    cheque.setTurqBanksCard(bankCard);
 	    
 	    TurqCurrency cur = new TurqCurrency();
-	    cur.setCurrenciesId(new Integer(1));
+	    cur.setId(new Integer(1));
 	    cheque.setTurqCurrency(cur);
 	    
 	    dialogShell.close();

@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqInventoryPrice implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer inventoryPricesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private boolean pricesType;
@@ -51,12 +51,12 @@ public class TurqInventoryPrice implements Serializable {
     public TurqInventoryPrice() {
     }
 
-    public java.lang.Integer getInventoryPricesId() {
-        return this.inventoryPricesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setInventoryPricesId(java.lang.Integer inventoryPricesId) {
-        this.inventoryPricesId = inventoryPricesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public boolean isPricesType() {
@@ -125,7 +125,7 @@ public class TurqInventoryPrice implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("inventoryPricesId", getInventoryPricesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -133,13 +133,13 @@ public class TurqInventoryPrice implements Serializable {
         if ( !(other instanceof TurqInventoryPrice) ) return false;
         TurqInventoryPrice castOther = (TurqInventoryPrice) other;
         return new EqualsBuilder()
-            .append(this.getInventoryPricesId(), castOther.getInventoryPricesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getInventoryPricesId())
+            .append(getId())
             .toHashCode();
     }
 

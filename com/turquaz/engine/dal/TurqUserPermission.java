@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqUserPermission implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer userPermissionsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private int userPermissionsLevel;
@@ -51,12 +51,12 @@ public class TurqUserPermission implements Serializable {
     public TurqUserPermission() {
     }
 
-    public java.lang.Integer getUserPermissionsId() {
-        return this.userPermissionsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setUserPermissionsId(java.lang.Integer userPermissionsId) {
-        this.userPermissionsId = userPermissionsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public int getUserPermissionsLevel() {
@@ -125,7 +125,7 @@ public class TurqUserPermission implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("userPermissionsId", getUserPermissionsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -133,13 +133,13 @@ public class TurqUserPermission implements Serializable {
         if ( !(other instanceof TurqUserPermission) ) return false;
         TurqUserPermission castOther = (TurqUserPermission) other;
         return new EqualsBuilder()
-            .append(this.getUserPermissionsId(), castOther.getUserPermissionsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getUserPermissionsId())
+            .append(getId())
             .toHashCode();
     }
 

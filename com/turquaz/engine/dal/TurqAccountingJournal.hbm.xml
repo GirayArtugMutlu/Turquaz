@@ -17,9 +17,9 @@
 >
 
     <id
-        name="accountingJournalId"
+        name="id"
         type="int"
-        column="accounting_journal_id"
+        column="id"
     >
         <generator class="native" />
     </id>

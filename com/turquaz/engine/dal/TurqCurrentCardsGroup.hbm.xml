@@ -17,9 +17,9 @@
 >
 
     <id
-        name="currentCardsGroupsId"
+        name="id"
         type="int"
-        column="current_cards_groups_id"
+        column="id"
     >
         <generator class="native" />
     </id>

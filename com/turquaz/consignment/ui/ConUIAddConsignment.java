@@ -1253,8 +1253,8 @@ implements SecureComposite{
 										txtTotalVat.getBigDecimalValue(),
 										decSpecialVat.getBigDecimalValue(),
 										txtTotalAmount.getBigDecimalValue(),type);
-		saveConsignmentRows(cons.getConsignmentsId());
-		saveGroups(cons.getConsignmentsId());
+		saveConsignmentRows(cons.getId());
+		saveGroups(cons.getId());
 		msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$
 		msg.open();
 		newForm();

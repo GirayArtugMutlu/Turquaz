@@ -74,7 +74,7 @@ public class AccBLTransactionUpdate {
 	throws Exception{
 	
 		TurqAccountingTransactionType accTransType = new TurqAccountingTransactionType();
-		accTransType.setAccountingTransactionTypesId(new Integer(transType));
+		accTransType.setId(new Integer(transType));
 		transaction.setTurqAccountingTransactionType(accTransType);
 		transaction.setTransactionsDate(transDate);
 		transaction.setTransactionDocumentNo(docNo);

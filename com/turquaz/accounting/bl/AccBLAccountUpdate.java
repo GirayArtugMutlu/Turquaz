@@ -52,7 +52,7 @@ public class AccBLAccountUpdate {
 			account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
 	
 			account.setTurqAccountingAccountByParentAccount(parentAccount);
-			if(parentAccount.getAccountingAccountsId().intValue()==-1)
+			if(parentAccount.getId().intValue()==-1)
 			{
 				account.setTurqAccountingAccountByTopAccount(account);
 				

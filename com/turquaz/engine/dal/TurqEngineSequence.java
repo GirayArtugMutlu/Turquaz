@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqEngineSequence implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer engineSequencesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqModule turqModule;
@@ -56,12 +56,12 @@ public class TurqEngineSequence implements Serializable {
     public TurqEngineSequence() {
     }
 
-    public java.lang.Integer getEngineSequencesId() {
-        return this.engineSequencesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setEngineSequencesId(java.lang.Integer engineSequencesId) {
-        this.engineSequencesId = engineSequencesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public com.turquaz.engine.dal.TurqModule getTurqModule() {
@@ -138,7 +138,7 @@ public class TurqEngineSequence implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("engineSequencesId", getEngineSequencesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -146,13 +146,13 @@ public class TurqEngineSequence implements Serializable {
         if ( !(other instanceof TurqEngineSequence) ) return false;
         TurqEngineSequence castOther = (TurqEngineSequence) other;
         return new EqualsBuilder()
-            .append(this.getEngineSequencesId(), castOther.getEngineSequencesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getEngineSequencesId())
+            .append(getId())
             .toHashCode();
     }
 

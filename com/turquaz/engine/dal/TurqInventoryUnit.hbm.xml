@@ -17,9 +17,9 @@
 >
 
     <id
-        name="inventoryUnitsId"
+        name="id"
         type="int"
-        column="inventory_units_id"
+        column="id"
     >
         <generator class="native" />
     </id>

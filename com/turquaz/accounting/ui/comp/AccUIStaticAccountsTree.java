@@ -71,7 +71,7 @@ public class AccUIStaticAccountsTree {
 		
 		for(int i=0;i<accountsList.size();i++){
 		account = (TurqAccountingAccount)accountsList.get(i);
-		parentId = account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
+		parentId = account.getTurqAccountingAccountByParentAccount().getId();
 		
 		if(parentId.intValue()==-1){
 		item = new TreeItem(tree,SWT.NULL);
@@ -84,7 +84,7 @@ public class AccUIStaticAccountsTree {
              //handle the obtaining and disposing of resources
              SWTResourceManager.registerResourceUser(item);
          }
-		treeItems.put(account.getAccountingAccountsId(),item);
+		treeItems.put(account.getId(),item);
 		}
 		
 		else{
@@ -95,7 +95,7 @@ public class AccUIStaticAccountsTree {
 		}
 		else{
 		item = new TreeItem(parentItem,SWT.NULL);	
-		treeItems.put(account.getAccountingAccountsId(),item);
+		treeItems.put(account.getId(),item);
 		item.setText(account.getAccountCode()+" - "+account.getAccountName());
 		item.setData(account);
 		}

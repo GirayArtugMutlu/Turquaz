@@ -206,7 +206,7 @@ public class BankDALCommon {
 	            		" ON  totals.transId = bankTrans.banks_transaction_bills_id," +
 	            		" turq_banks_cards bankCard ," +
 	            		" turq_banks_transaction_types type" +
-	            		" where totals.banksId ="+bankCard.getBanksCardsId().intValue()+
+	            		" where totals.banksId ="+bankCard.getId().intValue()+
 	            		" and bankTrans.transaction_bill_date >= '"+frmt.format(startDate)+"' and " +
 	            		" bankTrans.transaction_bill_date <= '"+frmt.format(endDate)+"' " +
 	            		" and totals.banksId = bankCard.banks_cards_id" +

@@ -17,9 +17,9 @@
 >
 
     <id
-        name="cashCardsId"
+        name="id"
         type="int"
-        column="cash_cards_id"
+        column="id"
     >
         <generator class="native" />
     </id>

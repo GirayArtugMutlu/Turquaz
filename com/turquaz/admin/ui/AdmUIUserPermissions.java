@@ -296,7 +296,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 			if (comboModules.getText().equals("*")) { //$NON-NLS-1$
 				comboModuleComponents.removeAll();
 				TurqModuleComponent modComp = new TurqModuleComponent();
-				modComp.setModuleComponentsId(new Integer(-1));
+				modComp.setId(new Integer(-1));
 				comboModuleComponents.setText("*"); //$NON-NLS-1$
 				comboModuleComponents.add("*"); //$NON-NLS-1$
 				comboModuleComponents.setData("*", modComp); //$NON-NLS-1$
@@ -306,7 +306,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite
 				comboModuleComponents.removeAll();
 				TurqModule module = (TurqModule) comboModules
 						.getData(comboModules.getText());
-				fillComboModuleComponents(module.getModulesId().intValue());
+				fillComboModuleComponents(module.getId().intValue());
 
 			}
 

@@ -17,9 +17,9 @@
 >
 
     <id
-        name="orderGroupsId"
+        name="id"
         type="int"
-        column="order_groups_id"
+        column="id"
     >
         <generator class="native" />
     </id>

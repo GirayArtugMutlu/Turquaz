@@ -611,7 +611,7 @@ public class AccUIInitialTransaction extends Composite implements
 
             deleteTransactionRows();
 
-            saveTransactionRows(accTrans.getAccountingTransactionsId());
+            saveTransactionRows(accTrans.getId());
         }
 
         catch (Exception ex) {

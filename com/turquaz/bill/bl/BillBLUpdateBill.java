@@ -23,7 +23,7 @@ public class BillBLUpdateBill {
 	public void deleteCurrentTransactions(TurqBill bill)throws Exception{
 	    try{
 	        
-	    dalBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getEngineSequencesId().intValue());    
+	    dalBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getId().intValue());    
 	    
 	    }
 	    catch(Exception ex){
@@ -34,7 +34,7 @@ public class BillBLUpdateBill {
 	public void deleteAccountingTransactions(TurqBill bill)throws Exception{
 	    try{
 	        
-	       dalBill.deleteAccountingTransactions(bill.getTurqEngineSequence().getEngineSequencesId().intValue()); 
+	       dalBill.deleteAccountingTransactions(bill.getTurqEngineSequence().getId().intValue()); 
 	        
 	    }
 	    catch(Exception ex){

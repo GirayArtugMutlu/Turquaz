@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqChequeRollAccountingAccount implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer chequeRollsId;
+    private java.lang.Integer id;
 
     /** nullable persistent field */
     private com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll;
@@ -18,8 +18,8 @@ public class TurqChequeRollAccountingAccount implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** full constructor */
-    public TurqChequeRollAccountingAccount(java.lang.Integer chequeRollsId, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.chequeRollsId = chequeRollsId;
+    public TurqChequeRollAccountingAccount(java.lang.Integer id, com.turquaz.engine.dal.TurqChequeRoll turqChequeRoll, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
+        this.id = id;
         this.turqChequeRoll = turqChequeRoll;
         this.turqAccountingAccount = turqAccountingAccount;
     }
@@ -29,17 +29,17 @@ public class TurqChequeRollAccountingAccount implements Serializable {
     }
 
     /** minimal constructor */
-    public TurqChequeRollAccountingAccount(java.lang.Integer chequeRollsId, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
-        this.chequeRollsId = chequeRollsId;
+    public TurqChequeRollAccountingAccount(java.lang.Integer id, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount) {
+        this.id = id;
         this.turqAccountingAccount = turqAccountingAccount;
     }
 
-    public java.lang.Integer getChequeRollsId() {
-        return this.chequeRollsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setChequeRollsId(java.lang.Integer chequeRollsId) {
-        this.chequeRollsId = chequeRollsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public com.turquaz.engine.dal.TurqChequeRoll getTurqChequeRoll() {
@@ -60,7 +60,7 @@ public class TurqChequeRollAccountingAccount implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("chequeRollsId", getChequeRollsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -68,13 +68,13 @@ public class TurqChequeRollAccountingAccount implements Serializable {
         if ( !(other instanceof TurqChequeRollAccountingAccount) ) return false;
         TurqChequeRollAccountingAccount castOther = (TurqChequeRollAccountingAccount) other;
         return new EqualsBuilder()
-            .append(this.getChequeRollsId(), castOther.getChequeRollsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getChequeRollsId())
+            .append(getId())
             .toHashCode();
     }
 

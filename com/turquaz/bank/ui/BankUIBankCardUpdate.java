@@ -255,7 +255,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			while(it.hasNext())
 			{
 				TurqBankAccountingAccount bankAccount = (TurqBankAccountingAccount)it.next();
-			    Integer type = (Integer) bankAccount.getTurqBankAccountingType().getBankAccoutingTypesId();
+			    Integer type = (Integer) bankAccount.getTurqBankAccountingType().getId();
 			    AccountPicker picker = (AccountPicker)fieldMap.get(type);
 			    picker.setData(bankAccount.getTurqAccountingAccount());
 				

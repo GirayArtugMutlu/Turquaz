@@ -297,7 +297,7 @@ public class InvUICardUpdateDialog extends Dialog{
     while(it.hasNext()){
      
      cardGroup = (TurqInventoryCardGroup)it.next();
-     registeredGroups.put(cardGroup.getTurqInventoryGroup().getTurqInventoryGroup().getInventoryGroupsId(),cardGroup.getTurqInventoryGroup());
+     registeredGroups.put(cardGroup.getTurqInventoryGroup().getTurqInventoryGroup().getId(),cardGroup.getTurqInventoryGroup());
       
      
      }
@@ -381,7 +381,7 @@ public class InvUICardUpdateDialog extends Dialog{
      cardUnit = (TurqInventoryCardUnit)it.next();
      cardUpdate.deleteObject(cardUnit);				
 	}
-   compInvUICard.saveInvUnits(invCard.getInventoryCardsId());
+   compInvUICard.saveInvUnits(invCard.getId());
    
     }
     
@@ -422,7 +422,7 @@ public class InvUICardUpdateDialog extends Dialog{
      cardUpdate.deleteObject(cardGroup);
      }
    
-    compInvUICard.saveInvGroups(invCard.getInventoryCardsId());
+    compInvUICard.saveInvGroups(invCard.getId());
    
    }
    catch(Exception ex){
@@ -444,7 +444,7 @@ public class InvUICardUpdateDialog extends Dialog{
     
               
      }
-     compInvUICard.saveInvPrices(invCard.getInventoryCardsId());
+     compInvUICard.saveInvPrices(invCard.getId());
 	
    
    

@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqInventoryUnit implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer inventoryUnitsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String unitsName;
@@ -48,12 +48,12 @@ public class TurqInventoryUnit implements Serializable {
     public TurqInventoryUnit() {
     }
 
-    public java.lang.Integer getInventoryUnitsId() {
-        return this.inventoryUnitsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setInventoryUnitsId(java.lang.Integer inventoryUnitsId) {
-        this.inventoryUnitsId = inventoryUnitsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getUnitsName() {
@@ -114,7 +114,7 @@ public class TurqInventoryUnit implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("inventoryUnitsId", getInventoryUnitsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -122,13 +122,13 @@ public class TurqInventoryUnit implements Serializable {
         if ( !(other instanceof TurqInventoryUnit) ) return false;
         TurqInventoryUnit castOther = (TurqInventoryUnit) other;
         return new EqualsBuilder()
-            .append(this.getInventoryUnitsId(), castOther.getInventoryUnitsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getInventoryUnitsId())
+            .append(getId())
             .toHashCode();
     }
 

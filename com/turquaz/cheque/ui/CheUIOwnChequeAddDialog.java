@@ -270,7 +270,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog {
         cheque.setTurqBanksCard(bankCard);
 	    
 	    TurqCurrency cur = new TurqCurrency();
-	    cur.setCurrenciesId(new Integer(1));
+	    cur.setId(new Integer(1));
 	    cheque.setTurqCurrency(cur);
 	    
 	    dialogShell.close();

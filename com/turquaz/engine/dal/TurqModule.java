@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqModule implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer modulesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String modulesName;
@@ -64,12 +64,12 @@ public class TurqModule implements Serializable {
     public TurqModule() {
     }
 
-    public java.lang.Integer getModulesId() {
-        return this.modulesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setModulesId(java.lang.Integer modulesId) {
-        this.modulesId = modulesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getModulesName() {
@@ -162,7 +162,7 @@ public class TurqModule implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("modulesId", getModulesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -170,13 +170,13 @@ public class TurqModule implements Serializable {
         if ( !(other instanceof TurqModule) ) return false;
         TurqModule castOther = (TurqModule) other;
         return new EqualsBuilder()
-            .append(this.getModulesId(), castOther.getModulesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getModulesId())
+            .append(getId())
             .toHashCode();
     }
 

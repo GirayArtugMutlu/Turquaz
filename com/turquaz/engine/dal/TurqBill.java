@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqBill implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer billsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private int billsType;
@@ -80,12 +80,12 @@ public class TurqBill implements Serializable {
     public TurqBill() {
     }
 
-    public java.lang.Integer getBillsId() {
-        return this.billsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setBillsId(java.lang.Integer billsId) {
-        this.billsId = billsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public int getBillsType() {
@@ -210,7 +210,7 @@ public class TurqBill implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("billsId", getBillsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -218,13 +218,13 @@ public class TurqBill implements Serializable {
         if ( !(other instanceof TurqBill) ) return false;
         TurqBill castOther = (TurqBill) other;
         return new EqualsBuilder()
-            .append(this.getBillsId(), castOther.getBillsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getBillsId())
+            .append(getId())
             .toHashCode();
     }
 

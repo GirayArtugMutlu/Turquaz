@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentTransaction implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentTransactionsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.util.Date transactionsDate;
@@ -96,12 +96,12 @@ public class TurqCurrentTransaction implements Serializable {
     public TurqCurrentTransaction() {
     }
 
-    public java.lang.Integer getCurrentTransactionsId() {
-        return this.currentTransactionsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentTransactionsId(java.lang.Integer currentTransactionsId) {
-        this.currentTransactionsId = currentTransactionsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.util.Date getTransactionsDate() {
@@ -258,7 +258,7 @@ public class TurqCurrentTransaction implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentTransactionsId", getCurrentTransactionsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -266,13 +266,13 @@ public class TurqCurrentTransaction implements Serializable {
         if ( !(other instanceof TurqCurrentTransaction) ) return false;
         TurqCurrentTransaction castOther = (TurqCurrentTransaction) other;
         return new EqualsBuilder()
-            .append(this.getCurrentTransactionsId(), castOther.getCurrentTransactionsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentTransactionsId())
+            .append(getId())
             .toHashCode();
     }
 

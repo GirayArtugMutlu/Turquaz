@@ -1368,7 +1368,7 @@ public class BillUIAddBuyBill extends Composite
 							.getText(), txtTotalVat.getBigDecimalValue(),
 					decSpecialVat.getBigDecimalValue(), txtTotalAmount
 							.getBigDecimalValue(), type);
-			saveConsignmentRows(cons.getConsignmentsId());
+			saveConsignmentRows(cons.getId());
 
 			return cons;
 		} catch (Exception ex) {
@@ -1398,7 +1398,7 @@ public class BillUIAddBuyBill extends Composite
 								.booleanValue(),
 								paymentType.booleanValue() ? accountPickerCurAcc.getData():null,
 								 dateDueDate.getDate());
-				saveGroups(bill.getBillsId());
+				saveGroups(bill.getId());
 				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				msg.open();
 				newForm();

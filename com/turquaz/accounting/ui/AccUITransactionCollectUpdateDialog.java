@@ -243,7 +243,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		}   
 		
 	/*Check if it has a journal entry*/
-		if(accTrans.getTurqAccountingJournal().getAccountingJournalId().intValue()!=-1){
+		if(accTrans.getTurqAccountingJournal().getId().intValue()!=-1){
 			toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);		    
 		}
@@ -252,7 +252,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	 * 
 	 */
 		//1- Muhasebe Modulu
-		if(accTrans.getTurqModule().getModulesId().intValue()!=1){
+		if(accTrans.getTurqModule().getId().intValue()!=1){
 		    toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);	
 		    
@@ -265,7 +265,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	compTransactionCollect.getDatePickerTransactionDate().setDate(date);
 	;
 	fillTableAndCombo();
-		Integer trModule=accTrans.getTurqModule().getModulesId();
+		Integer trModule=accTrans.getTurqModule().getId();
 	if (trModule.intValue()!=1){ //1=Transaction, only view is allowed for other modules..
 	}
 	
@@ -339,7 +339,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	   
 	     deleteTransactionRows();
 	     
-	     compTransactionCollect.saveTransactionRows(accTrans.getAccountingTransactionsId());
+	     compTransactionCollect.saveTransactionRows(accTrans.getId());
 	     
 	     }
 	     catch(Exception ex){

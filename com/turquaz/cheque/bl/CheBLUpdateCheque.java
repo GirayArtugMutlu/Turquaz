@@ -147,7 +147,7 @@ public class CheBLUpdateCheque {
 			}
 			
 			
-			if(chequeRoll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_IN)
+			if(chequeRoll.getTurqChequeTransactionType().getId().intValue()==EngBLCommon.CHEQUE_TRANS_IN)
 			{
 				it = chequeRoll.getTurqChequeChequeInRolls().iterator(); 
 				
@@ -164,14 +164,14 @@ public class CheBLUpdateCheque {
 													chequeInRoll.getTurqChequeCheque().getChequesAmount(),
 													new BigDecimal(0),
 													EngBLCommon.CURRENT_TRANS_CHEQUE,
-													chequeRoll.getTurqEngineSequence().getEngineSequencesId(),
+													chequeRoll.getTurqEngineSequence().getId(),
 													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() );
 	             }
 				
 			    
 			
 			}
-			else if(chequeRoll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
+			else if(chequeRoll.getTurqChequeTransactionType().getId().intValue()==EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
 			{
 				it = chequeRoll.getTurqChequeChequeInRolls().iterator(); 
 				
@@ -188,7 +188,7 @@ public class CheBLUpdateCheque {
 													chequeInRoll.getTurqChequeCheque().getChequesAmount(),
 													new BigDecimal(0),
 													EngBLCommon.CURRENT_TRANS_CHEQUE,
-													chequeRoll.getTurqEngineSequence().getEngineSequencesId(),
+													chequeRoll.getTurqEngineSequence().getId(),
 													"Çek Portföy No:"+chequeInRoll.getTurqChequeCheque().getChequesPortfolioNo() );
 	             }
 				
@@ -221,7 +221,7 @@ public class CheBLUpdateCheque {
 				
 			}
 				
-			if(chequeRoll.getTurqChequeTransactionType().getChequeTransactionTypesId().intValue()==EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
+			if(chequeRoll.getTurqChequeTransactionType().getId().intValue()==EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
 			{
 				it = chequeRoll.getTurqChequeChequeInRolls().iterator(); 
 				

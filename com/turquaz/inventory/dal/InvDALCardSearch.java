@@ -254,7 +254,7 @@ public class InvDALCardSearch {
 				Session session = EngDALSessionFactory.openSession();
 				
 				String query = "Select invView from TurqViewInventoryAmountTotal as invView"+
-						" where  invView.inventoryCardsId ="+invCard.getInventoryCardsId();					
+						" where  invView.inventoryCardsId ="+invCard.getId();					
 					
 				   
 				Query q = session.createQuery(query); 

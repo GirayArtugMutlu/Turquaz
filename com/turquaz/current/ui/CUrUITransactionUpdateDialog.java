@@ -215,7 +215,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	    
 	// if it is not cash trasaction 
 	//close 
-	if(transaction.getTurqCurrentTransactionType().getCurrentTransactionTypesId().intValue()!=4){
+	if(transaction.getTurqCurrentTransactionType().getId().intValue()!=4){
 	dialogShell.close();
 	return;
 	}

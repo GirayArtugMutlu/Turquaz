@@ -17,9 +17,9 @@
 >
 
     <id
-        name="exchangeRatesId"
+        name="id"
         type="int"
-        column="exchange_rates_id"
+        column="id"
     >
         <generator class="native" />
     </id>

@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentCardsGroup implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentCardsGroupsId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -43,12 +43,12 @@ public class TurqCurrentCardsGroup implements Serializable {
     public TurqCurrentCardsGroup() {
     }
 
-    public java.lang.Integer getCurrentCardsGroupsId() {
-        return this.currentCardsGroupsId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentCardsGroupsId(java.lang.Integer currentCardsGroupsId) {
-        this.currentCardsGroupsId = currentCardsGroupsId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getCreatedBy() {
@@ -101,7 +101,7 @@ public class TurqCurrentCardsGroup implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentCardsGroupsId", getCurrentCardsGroupsId())
+            .append("id", getId())
             .toString();
     }
 
@@ -109,13 +109,13 @@ public class TurqCurrentCardsGroup implements Serializable {
         if ( !(other instanceof TurqCurrentCardsGroup) ) return false;
         TurqCurrentCardsGroup castOther = (TurqCurrentCardsGroup) other;
         return new EqualsBuilder()
-            .append(this.getCurrentCardsGroupsId(), castOther.getCurrentCardsGroupsId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentCardsGroupsId())
+            .append(getId())
             .toHashCode();
     }
 

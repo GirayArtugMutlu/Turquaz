@@ -10,7 +10,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class TurqCurrentAccountingType implements Serializable {
 
     /** identifier field */
-    private java.lang.Integer currentAccoutingTypesId;
+    private java.lang.Integer id;
 
     /** persistent field */
     private java.lang.String typeName;
@@ -32,12 +32,12 @@ public class TurqCurrentAccountingType implements Serializable {
     public TurqCurrentAccountingType() {
     }
 
-    public java.lang.Integer getCurrentAccoutingTypesId() {
-        return this.currentAccoutingTypesId;
+    public java.lang.Integer getId() {
+        return this.id;
     }
 
-    public void setCurrentAccoutingTypesId(java.lang.Integer currentAccoutingTypesId) {
-        this.currentAccoutingTypesId = currentAccoutingTypesId;
+    public void setId(java.lang.Integer id) {
+        this.id = id;
     }
 
     public java.lang.String getTypeName() {
@@ -66,7 +66,7 @@ public class TurqCurrentAccountingType implements Serializable {
 
     public String toString() {
         return new ToStringBuilder(this)
-            .append("currentAccoutingTypesId", getCurrentAccoutingTypesId())
+            .append("id", getId())
             .toString();
     }
 
@@ -74,13 +74,13 @@ public class TurqCurrentAccountingType implements Serializable {
         if ( !(other instanceof TurqCurrentAccountingType) ) return false;
         TurqCurrentAccountingType castOther = (TurqCurrentAccountingType) other;
         return new EqualsBuilder()
-            .append(this.getCurrentAccoutingTypesId(), castOther.getCurrentAccoutingTypesId())
+            .append(this.getId(), castOther.getId())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getCurrentAccoutingTypesId())
+            .append(getId())
             .toHashCode();
     }
 

@@ -352,7 +352,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 			while(it.hasNext())
 			{
 				TurqCurrentAccountingAccount curAccount = (TurqCurrentAccountingAccount)it.next();
-			    Integer type = (Integer) curAccount.getTurqCurrentAccountingType().getCurrentAccoutingTypesId();
+			    Integer type = (Integer) curAccount.getTurqCurrentAccountingType().getId();
 			    AccountPicker picker = (AccountPicker)fieldMap.get(type);
 			    picker.setData(curAccount.getTurqAccountingAccount());
 				
@@ -585,9 +585,9 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				compCurCardAdd.getNumDueDays().getIntValue(),currentCard);	
 				
 		deleteRelations();
-		compCurCardAdd.saveContact(currentCard.getCurrentCardsId());
-		compCurCardAdd.savePhones(currentCard.getCurrentCardsId());
-		compCurCardAdd.saveGroups(currentCard.getCurrentCardsId());
+		compCurCardAdd.saveContact(currentCard.getId());
+		compCurCardAdd.savePhones(currentCard.getId());
+		compCurCardAdd.saveGroups(currentCard.getId());
 		
 		EngBLCurrentCards.RefreshContentAsistantMap();
 		 msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$

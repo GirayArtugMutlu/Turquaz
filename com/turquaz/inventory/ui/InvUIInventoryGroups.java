@@ -178,7 +178,7 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite {
 	            item = new TableItem(tableParentGroups,SWT.NULL);
 	            item.setText(group.getGroupsName());
 	            item.setData(group);
-	            registeredGroups.put(group.getInventoryGroupsId(),null);
+	            registeredGroups.put(group.getId(),null);
 	            
 	        }
 	        
@@ -221,8 +221,8 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite {
                 item.setText(subGroup.getGroupsName());
                 item.setData(subGroup);
                 
-                if(registeredGroups.get(mainGroup.getInventoryGroupsId())!=null){
-                if(registeredGroups.get(mainGroup.getInventoryGroupsId()).equals(subGroup)){
+                if(registeredGroups.get(mainGroup.getId())!=null){
+                if(registeredGroups.get(mainGroup.getId()).equals(subGroup)){
                     item.setChecked(true);
                 }
                 }
@@ -243,11 +243,11 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite {
             }
             item.setChecked(true);
             
-            registeredGroups.put(group.getTurqInventoryGroup().getInventoryGroupsId(),group);
+            registeredGroups.put(group.getTurqInventoryGroup().getId(),group);
             tableSubGroups.addListener(SWT.Selection,subTablelistener);
         }
         else{
-            registeredGroups.put(group.getTurqInventoryGroup().getInventoryGroupsId(),null); 
+            registeredGroups.put(group.getTurqInventoryGroup().getId(),null); 
         }
     }
 

@@ -17,9 +17,9 @@
 >
 
     <id
-        name="bankCardsSecondaryAccountsId"
+        name="id"
         type="int"
-        column="bank_cards_secondary_accounts_id"
+        column="id"
     >
         <generator class="native" />
     </id>

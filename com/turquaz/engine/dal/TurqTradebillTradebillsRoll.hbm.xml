@@ -17,9 +17,9 @@
 >
 
     <id
-        name="tradebillTradebillsRollsId"
+        name="id"
         type="int"
-        column="tradebill_tradebills_rolls_id"
+        column="id"
     >
         <generator class="native" />
     </id>

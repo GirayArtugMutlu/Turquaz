@@ -163,7 +163,7 @@ public class BankDALBankCardSearch {
 			{
 				TurqBankAccountingAccount curAccount = (TurqBankAccountingAccount)it.next();
 				
-				if(curAccount.getTurqBankAccountingType().getBankAccoutingTypesId().intValue()==type.intValue())
+				if(curAccount.getTurqBankAccountingType().getId().intValue()==type.intValue())
 				{
 					return curAccount.getTurqAccountingAccount();
 				}

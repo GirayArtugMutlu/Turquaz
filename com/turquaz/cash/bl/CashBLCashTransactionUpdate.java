@@ -96,8 +96,8 @@ public class CashBLCashTransactionUpdate {
         try{
             
             // if it is a current transaction the delete Current Transactions
-            if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT
-                    ||cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT ){
+            if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT
+                    ||cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT ){
                 
             
                 
@@ -213,7 +213,7 @@ public class CashBLCashTransactionUpdate {
                  
             	 boolean currentTransType = false; // Credit or Debit
                  
-            	 if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT)
+            	 if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_COLLECT)
                  {
                     accTransRowCash.setDeptAmount(totalAmount);
                     accTransRowCash.setCreditAmount(new BigDecimal(0));
@@ -232,7 +232,7 @@ public class CashBLCashTransactionUpdate {
                     
                  }
                  
-                 else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT)
+                 else if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_CURRENT_PAYMENT)
                  {
                      
                      
@@ -278,7 +278,7 @@ public class CashBLCashTransactionUpdate {
             	    
             	    blCurTrans.saveCurrentTransaction(current, transDate,document_no,currentTransType,
             	            						  totalAmount,new BigDecimal(0),EngBLCommon.CURRENT_TRANS_CASH,
-            	            						 cashTrans.getTurqEngineSequence().getEngineSequencesId(),currentTransDefinition);
+            	            						 cashTrans.getTurqEngineSequence().getId(),currentTransDefinition);
             	
             		    
             	    
@@ -290,8 +290,8 @@ public class CashBLCashTransactionUpdate {
             	     * 
             	    */
             	   
-            	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue(),
-            	           										   cashTrans.getTurqEngineSequence().getEngineSequencesId(),definition);
+            	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue(),
+            	           										   cashTrans.getTurqEngineSequence().getId(),definition);
             	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
             	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));         
             
@@ -378,7 +378,7 @@ try{
          
     	 boolean currentTransType = false; // Credit or Debit
          
-    	 if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_OTHER_COLLECT)
+    	 if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_OTHER_COLLECT)
          {
             accTransRowCash.setDeptAmount(totalAmount);
             accTransRowCash.setCreditAmount(new BigDecimal(0));
@@ -396,7 +396,7 @@ try{
             
          }
          
-         else if(cashTrans.getTurqCashTransactionType().getCashTransactionTypesId().intValue()==EngBLCommon.CASH_OTHER_PAYMENT)
+         else if(cashTrans.getTurqCashTransactionType().getId().intValue()==EngBLCommon.CASH_OTHER_PAYMENT)
          {
              
              
@@ -441,8 +441,8 @@ try{
     	     * 
     	    */
     	   
-    	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getModulesId().intValue(),
-    	           										   cashTrans.getTurqEngineSequence().getEngineSequencesId(),definition);
+    	   Integer transId = blAccTran.saveAccTransaction(transDate,document_no,accTransType, cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue(),
+    	           										   cashTrans.getTurqEngineSequence().getId(),definition);
     	   blAccTran.saveAccTransactionRow(accTransRowCash,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));
     	   blAccTran.saveAccTransactionRow(accTransRowCurrent,transId,EngBLCommon.getBaseCurrency(),new BigDecimal(1));         
     
@@ -589,8 +589,8 @@ try{
 
 		Integer transId = blAccTran.saveAccTransaction(transDate,
 				document_no, accTransType, cashTrans.getTurqEngineSequence().getTurqModule()
-						.getModulesId().intValue(), cashTrans.getTurqEngineSequence()
-						.getEngineSequencesId(), definition);
+						.getId().intValue(), cashTrans.getTurqEngineSequence()
+						.getId(), definition);
 		blAccTran.saveAccTransactionRow(accTransCashWithDept, transId,
 				EngBLCommon.getBaseCurrency(), new BigDecimal(1));
 		blAccTran.saveAccTransactionRow(accTransCashWithCredit, transId,

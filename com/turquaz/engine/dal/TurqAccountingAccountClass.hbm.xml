@@ -17,9 +17,9 @@
 >
 
     <id
-        name="accountingClassesId"
+        name="id"
         type="int"
-        column="accounting_classes_id"
+        column="id"
     >
         <generator class="assigned" />
     </id>

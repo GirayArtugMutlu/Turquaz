@@ -224,7 +224,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 						.get(i))[0];
 				accView = (TurqViewAccTotal) ((Object[]) mainBranches.get(i))[1];
 				parentId = account.getTurqAccountingAccountByParentAccount()
-						.getAccountingAccountsId();
+						.getId();
 
 				BigDecimal totalDept = (accView.getTotaldeptamount() == null) ? new BigDecimal(
 						0)
@@ -259,7 +259,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 
 					item.setData(account);
 
-					treeItems.put(account.getAccountingAccountsId(), item);
+					treeItems.put(account.getId(), item);
 
 				}
 				else
@@ -287,7 +287,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 							break;
 					}
 					item = new TableTreeItem(parentItem, SWT.NULL, k);
-					treeItems.put(account.getAccountingAccountsId(), item);
+					treeItems.put(account.getId(), item);
 					item.setText(0, account.getAccountCode());
 					item.setText(1, account.getAccountName());
 					item.setData(account);
@@ -298,7 +298,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 						parentTotals[0]=parentTotals[0].add(totalCredit);
 						parentTotals[1]=parentTotals[1].add(totalDept);
 						account=account.getTurqAccountingAccountByParentAccount();
-						parentId=account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId();
+						parentId=account.getTurqAccountingAccountByParentAccount().getId();
 					}
 
 				}
@@ -332,7 +332,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 				item.setText(0, account.getAccountCode());
 				item.setText(1, account.getAccountName());
 				item.setData(account);
-				fillBranch(item, account.getAccountingAccountsId().intValue(),
+				fillBranch(item, account.getId().intValue(),
 						""); //$NON-NLS-1$
 
 			}
@@ -355,7 +355,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite
 			//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 			//	{
 			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL,
-					account,(BigDecimal[])accountTotals.get(account.getAccountingAccountsId())).open();
+					account,(BigDecimal[])accountTotals.get(account.getId())).open();
 			if (result) {
 				fillTree(-1, ""); //$NON-NLS-1$
 			}
