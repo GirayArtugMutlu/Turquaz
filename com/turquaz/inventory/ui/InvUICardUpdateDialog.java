@@ -61,7 +61,6 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.ui.component.CurrencyText;
-import com.turquaz.engine.ui.component.NumericText;
 
 
 import org.eclipse.swt.events.SelectionAdapter;

@@ -21,9 +21,6 @@ package com.turquaz.inventory.ui;
 * @version  $Id$
 */
 
-import java.math.BigDecimal;
-
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
@@ -31,12 +28,10 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
-import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
 import com.cloudgarden.resource.SWTResourceManager;

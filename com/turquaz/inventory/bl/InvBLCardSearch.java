@@ -53,6 +53,20 @@ public class InvBLCardSearch {
 			throw ex;
 		}
 	}
+	
+	public List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd,
+			String cardNameStart,String cardNameEnd, TurqInventoryGroup group)throws Exception{
+		try{
+		
+			return cardSearch.searchInventoryCardsAdvanced(cardCodeStart,cardCodeEnd,cardNameStart,cardNameEnd,
+					group);
+		}
+		
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+	
 	public TurqInventoryCard initializeInventoryCard(Integer cardId)throws Exception{
 	    try{
 	        

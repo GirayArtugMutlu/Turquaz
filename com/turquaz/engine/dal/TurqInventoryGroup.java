@@ -31,16 +31,24 @@ public class TurqInventoryGroup implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup;
+
+    /** persistent field */
+    private Set turqInventoryGroups;
+
+    /** persistent field */
     private Set turqInventoryCardGroups;
 
     /** full constructor */
-    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, Set turqInventoryCardGroups) {
+    public TurqInventoryGroup(java.lang.String groupsName, java.lang.String groupsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup, Set turqInventoryGroups, Set turqInventoryCardGroups) {
         this.groupsName = groupsName;
         this.groupsDescription = groupsDescription;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
+        this.turqInventoryGroup = turqInventoryGroup;
+        this.turqInventoryGroups = turqInventoryGroups;
         this.turqInventoryCardGroups = turqInventoryCardGroups;
     }
 
@@ -102,6 +110,22 @@ public class TurqInventoryGroup implements Serializable {
 
     public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public com.turquaz.engine.dal.TurqInventoryGroup getTurqInventoryGroup() {
+        return this.turqInventoryGroup;
+    }
+
+    public void setTurqInventoryGroup(com.turquaz.engine.dal.TurqInventoryGroup turqInventoryGroup) {
+        this.turqInventoryGroup = turqInventoryGroup;
+    }
+
+    public java.util.Set getTurqInventoryGroups() {
+        return this.turqInventoryGroups;
+    }
+
+    public void setTurqInventoryGroups(java.util.Set turqInventoryGroups) {
+        this.turqInventoryGroups = turqInventoryGroups;
     }
 
     public java.util.Set getTurqInventoryCardGroups() {

@@ -70,6 +70,28 @@
 
     <!-- Associations -->
   
+    <!-- bi-directional one-to-many association to TurqInventoryGroup -->
+    <set
+        name="turqInventoryGroups"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="parent_group" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryGroup"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TurqInventoryGroup -->
+    <many-to-one
+        name="turqInventoryGroup"
+        class="com.turquaz.engine.dal.TurqInventoryGroup"
+        not-null="true"
+    >
+        <column name="parent_group" />
+    </many-to-one>
     <!-- bi-directional one-to-many association to TurqInventoryCardGroup -->
     <set
         name="turqInventoryCardGroups"
