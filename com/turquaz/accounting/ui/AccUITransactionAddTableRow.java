@@ -152,6 +152,8 @@ public class AccUITransactionAddTableRow implements ITableRow {
 		 	if(formatted.equals("")){
 		 	    formatted="0";
 		 	}
+		    if (!formatted.equals("0"))
+		    	transRow.setCreditAmount(new BigDecimal(0));
 		 	 transRow.setDeptAmount(new BigDecimal(formatted));
 			break;
 			
@@ -162,6 +164,8 @@ public class AccUITransactionAddTableRow implements ITableRow {
 		    if(formatted.equals("")){
 		 	    formatted="0";
 		 	}
+		    if (!formatted.equals("0"))
+		    	transRow.setDeptAmount(new BigDecimal(0));
 		    transRow.setCreditAmount(new BigDecimal(formatted));
 			break;
 			
