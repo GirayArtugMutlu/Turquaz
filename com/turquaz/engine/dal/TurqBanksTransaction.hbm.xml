@@ -78,14 +78,6 @@
     >
         <column name="accounting_accounts_id" />
     </many-to-one>
-    <!-- bi-directional many-to-one association to TurqBankCardsSecondaryAccount -->
-    <many-to-one
-        name="turqBankCardsSecondaryAccount"
-        class="com.turquaz.engine.dal.TurqBankCardsSecondaryAccount"
-        not-null="true"
-    >
-        <column name="banks_secondary_accounts_id" />
-    </many-to-one>
     <!-- bi-directional many-to-one association to TurqBanksTransactionType -->
     <many-to-one
         name="turqBanksTransactionType"
@@ -93,14 +85,6 @@
         not-null="true"
     >
         <column name="transaction_types_id" />
-    </many-to-one>
-    <!-- bi-directional many-to-one association to TurqCurrentCard -->
-    <many-to-one
-        name="turqCurrentCard"
-        class="com.turquaz.engine.dal.TurqCurrentCard"
-        not-null="true"
-    >
-        <column name="current_cards_id" />
     </many-to-one>
 
 </class>

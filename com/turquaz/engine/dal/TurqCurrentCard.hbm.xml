@@ -239,20 +239,6 @@
             class="com.turquaz.engine.dal.TurqCurrentCardsPhone"
         />
     </set>
-    <!-- bi-directional one-to-many association to TurqBanksTransaction -->
-    <set
-        name="turqBanksTransactions"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="current_cards_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqBanksTransaction"
-        />
-    </set>
 
 </class>
 </hibernate-mapping>

@@ -34,10 +34,13 @@ public class TurqEngineSequence implements Serializable {
     private Set turqCurrentTransactions;
 
     /** persistent field */
+    private Set turqBanksTransactionBills;
+
+    /** persistent field */
     private Set turqBills;
 
     /** full constructor */
-    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqChequeRolls, Set turqAccountingTransactions, Set turqCashTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions, Set turqBills) {
+    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqChequeRolls, Set turqAccountingTransactions, Set turqCashTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions, Set turqBanksTransactionBills, Set turqBills) {
         this.turqModule = turqModule;
         this.turqChequeRolls = turqChequeRolls;
         this.turqAccountingTransactions = turqAccountingTransactions;
@@ -45,6 +48,7 @@ public class TurqEngineSequence implements Serializable {
         this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqConsignments = turqConsignments;
         this.turqCurrentTransactions = turqCurrentTransactions;
+        this.turqBanksTransactionBills = turqBanksTransactionBills;
         this.turqBills = turqBills;
     }
 
@@ -114,6 +118,14 @@ public class TurqEngineSequence implements Serializable {
 
     public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
         this.turqCurrentTransactions = turqCurrentTransactions;
+    }
+
+    public java.util.Set getTurqBanksTransactionBills() {
+        return this.turqBanksTransactionBills;
+    }
+
+    public void setTurqBanksTransactionBills(java.util.Set turqBanksTransactionBills) {
+        this.turqBanksTransactionBills = turqBanksTransactionBills;
     }
 
     public java.util.Set getTurqBills() {

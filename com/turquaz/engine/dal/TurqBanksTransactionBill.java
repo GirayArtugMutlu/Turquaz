@@ -34,10 +34,13 @@ public class TurqBanksTransactionBill implements Serializable {
     private com.turquaz.engine.dal.TurqBanksCard turqBanksCard;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
+
+    /** persistent field */
     private Set turqBanksTransactions;
 
     /** full constructor */
-    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, Set turqBanksTransactions) {
+    public TurqBanksTransactionBill(int transactionBillNo, java.util.Date transactionBillDate, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksCard turqBanksCard, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqBanksTransactions) {
         this.transactionBillNo = transactionBillNo;
         this.transactionBillDate = transactionBillDate;
         this.createdBy = createdBy;
@@ -45,6 +48,7 @@ public class TurqBanksTransactionBill implements Serializable {
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
         this.turqBanksCard = turqBanksCard;
+        this.turqEngineSequence = turqEngineSequence;
         this.turqBanksTransactions = turqBanksTransactions;
     }
 
@@ -114,6 +118,14 @@ public class TurqBanksTransactionBill implements Serializable {
 
     public void setTurqBanksCard(com.turquaz.engine.dal.TurqBanksCard turqBanksCard) {
         this.turqBanksCard = turqBanksCard;
+    }
+
+    public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
+        return this.turqEngineSequence;
+    }
+
+    public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
+        this.turqEngineSequence = turqEngineSequence;
     }
 
     public java.util.Set getTurqBanksTransactions() {

@@ -33,16 +33,10 @@ public class TurqBanksTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqBankCardsSecondaryAccount turqBankCardsSecondaryAccount;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType;
 
-    /** persistent field */
-    private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
-
     /** full constructor */
-    public TurqBanksTransaction(java.math.BigDecimal transactionAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBankCardsSecondaryAccount turqBankCardsSecondaryAccount, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
+    public TurqBanksTransaction(java.math.BigDecimal transactionAmount, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBanksTransactionBill turqBanksTransactionBill, com.turquaz.engine.dal.TurqAccountingAccount turqAccountingAccount, com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType) {
         this.transactionAmount = transactionAmount;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -50,9 +44,7 @@ public class TurqBanksTransaction implements Serializable {
         this.lastModified = lastModified;
         this.turqBanksTransactionBill = turqBanksTransactionBill;
         this.turqAccountingAccount = turqAccountingAccount;
-        this.turqBankCardsSecondaryAccount = turqBankCardsSecondaryAccount;
         this.turqBanksTransactionType = turqBanksTransactionType;
-        this.turqCurrentCard = turqCurrentCard;
     }
 
     /** default constructor */
@@ -123,28 +115,12 @@ public class TurqBanksTransaction implements Serializable {
         this.turqAccountingAccount = turqAccountingAccount;
     }
 
-    public com.turquaz.engine.dal.TurqBankCardsSecondaryAccount getTurqBankCardsSecondaryAccount() {
-        return this.turqBankCardsSecondaryAccount;
-    }
-
-    public void setTurqBankCardsSecondaryAccount(com.turquaz.engine.dal.TurqBankCardsSecondaryAccount turqBankCardsSecondaryAccount) {
-        this.turqBankCardsSecondaryAccount = turqBankCardsSecondaryAccount;
-    }
-
     public com.turquaz.engine.dal.TurqBanksTransactionType getTurqBanksTransactionType() {
         return this.turqBanksTransactionType;
     }
 
     public void setTurqBanksTransactionType(com.turquaz.engine.dal.TurqBanksTransactionType turqBanksTransactionType) {
         this.turqBanksTransactionType = turqBanksTransactionType;
-    }
-
-    public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {
-        return this.turqCurrentCard;
-    }
-
-    public void setTurqCurrentCard(com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
-        this.turqCurrentCard = turqCurrentCard;
     }
 
     public String toString() {
