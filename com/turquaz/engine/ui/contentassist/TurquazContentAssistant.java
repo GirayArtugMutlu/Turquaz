@@ -16,28 +16,24 @@ import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class TurquazContentAssistant {
+public class TurquazContentAssistant extends SubjectControlContentAssistant{
+    TurquazContentAssistProcessors processor = null;
 
-    public TurquazContentAssistant() {
-
-    }    
-
-    public static SubjectControlContentAssistant createContentAssistant(
-            TextContentAssistSubjectAdapter adapter,String type) {
-        final SubjectControlContentAssistant contentAssistant = new SubjectControlContentAssistant();
-
-        IContentAssistProcessor processor = new TurquazContentAssistProcessors(type);
-        contentAssistant.setContentAssistProcessor(processor,
+    public TurquazContentAssistant(
+            TextContentAssistSubjectAdapter adapter,int type) {
+        super();
+        
+        processor = new TurquazContentAssistProcessors(type);
+        
+        this.setContentAssistProcessor(processor,
                 IDocument.DEFAULT_CONTENT_TYPE);
-        contentAssistant.enableAutoActivation(true);
-        contentAssistant.setAutoActivationDelay(500);
+        this.enableAutoActivation(true);
+        this.setAutoActivationDelay(500);
 
-        contentAssistant
-                .setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
+        this.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
          
         
-        contentAssistant
-                .setInformationControlCreator(new IInformationControlCreator() {
+        this.setInformationControlCreator(new IInformationControlCreator() {
                     /*
                      * @see org.eclipse.jface.text.IInformationControlCreator#createInformationControl(org.eclipse.swt.widgets.Shell)
                      */
@@ -47,8 +43,22 @@ public class TurquazContentAssistant {
                     }
                 });
 
-        contentAssistant.install(adapter);
+        this.install(adapter);
         installCueLabelProvider(adapter);
+
+    }   
+    public void refreshContentAssistant(int type){
+
+        if(processor!=null){
+            processor.fillProposalArray(type);
+        }
+    }
+
+    public SubjectControlContentAssistant createContentAssistant() {
+       SubjectControlContentAssistant contentAssistant = new SubjectControlContentAssistant();
+
+        
+        
         return contentAssistant;
     }
 

@@ -1,4 +1,5 @@
 package com.turquaz.engine.ui.contentassist;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,51 +17,94 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqInventoryCard;
 
+public class TurquazContentAssistProcessors implements
+        ISubjectControlContentAssistProcessor {
 
+    int type = -1;
 
-public class TurquazContentAssistProcessors implements ISubjectControlContentAssistProcessor {
+    public TurquazContentAssistProcessors(int type) {
+        this.type = type;
+        fillProposalArray(type);
 
-    String type = "";
-    public TurquazContentAssistProcessors(String type){
-       this.type = type;  
-       fillProposalArray(type);
-    
     }
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer,
+     *      int)
      */
-    
-    
-    public static void fillProposalArray(String type){
-        try{
-        if(type.equals("accounting")){
-            System.out.println("filling proposals");
-         List list= EngBLAccountingAccounts.getAccounts();
-         List proposed = new ArrayList();
-         for(int i=0;i<list.size();i++){
-             TurqAccountingAccount acc = (TurqAccountingAccount)list.get(i);
-             proposed.add(acc.getAccountCode());
-         }
-         System.out.println("Total Proposals:"+proposed.size());
-         proposedCodes = new String[proposed.size()];
-         proposed.toArray(proposedCodes);              
-            
-        }
-        }
-        catch(Exception ex){
+
+    /**
+     * 0 -accounting 1- inventory
+     *  
+     */
+    public void fillProposalArray(int type) {
+        try {
+            List proposed = new ArrayList();
+            if (type == 0) {
+                List list = EngBLAccountingAccounts.getAccounts();
+
+                for (int i = 0; i < list.size(); i++) {
+                    TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
+                    proposed.add(acc.getAccountCode());
+                }
+
+            }
+            else if (type == 1) {
+                List list = EngBLInventoryCards.getInventoryCards();
+
+                for (int i = 0; i < list.size(); i++) {
+                    TurqInventoryCard acc = (TurqInventoryCard)list.get(i);
+                    proposed.add(acc.getCardInventoryCode());
+                }
+
+            }
+            proposedCodes = new String[proposed.size()];
+            proposed.toArray(proposedCodes);
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        
-        
+
     }
-    
-    public ICompletionProposal[] computeCompletionProposals(IContentAssistSubjectControl viewer,
-        
+
+    public ICompletionProposal[] computeCompletionProposals(
+            IContentAssistSubjectControl viewer,
+
             int documentOffset) {
-        System.out.println("proposal");
+         // TODO Auto-generated method stub
+        // Retrieve current document
+        IDocument doc = viewer.getDocument();
+
+        // Retrieve current selection range
+        Point selectedRange = viewer.getSelectedRange();
+        List propList = new ArrayList();
+
+        String qualifier = getQualifier(doc, documentOffset);
+
+        // Compute completion proposals
+        computeStructureProposals(qualifier, documentOffset, propList);
+
+        // Create completion proposal array
+        ICompletionProposal[] proposals = new ICompletionProposal[propList
+                .size()];
+
+        // and fill with list elements
+        propList.toArray(proposals);
+
+        // Return the proposals
+        return proposals;
+
+    }
+
+    public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
+
+    int documentOffset) {
         // TODO Auto-generated method stub
         // Retrieve current document
         IDocument doc = viewer.getDocument();
@@ -68,143 +112,113 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
         // Retrieve current selection range
         Point selectedRange = viewer.getSelectedRange();
         List propList = new ArrayList();
-       
+
         String qualifier = getQualifier(doc, documentOffset);
 
-         // Compute completion proposals
+        // Compute completion proposals
         computeStructureProposals(qualifier, documentOffset, propList);
-         
-          
-    // Create completion proposal array
-    ICompletionProposal[] proposals = new ICompletionProposal[propList.size()];
 
-    // and fill with list elements
-    propList.toArray(proposals);
-
-    // Return the proposals
-    return proposals;        
-        
-    }
-    public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
-            
-                int documentOffset) {
-                      // TODO Auto-generated method stub
-            // Retrieve current document
-            IDocument doc = viewer.getDocument();
-
-            // Retrieve current selection range
-            Point selectedRange = viewer.getSelectedRange();
-            List propList = new ArrayList();
-           
-            String qualifier = getQualifier(doc, documentOffset);
-
-             // Compute completion proposals
-         computeStructureProposals(qualifier, documentOffset, propList);
-             
-              
         // Create completion proposal array
-        ICompletionProposal[] proposals = new ICompletionProposal[propList.size()];
+        ICompletionProposal[] proposals = new ICompletionProposal[propList
+                .size()];
 
         // and fill with list elements
         propList.toArray(proposals);
 
         // Return the proposals
-        return proposals;        
-            
-        }
-        
+        return proposals;
+
+    }
+
     private String getQualifier(IDocument doc, int documentOffset) {
 
         // Use string buffer to collect characters
         StringBuffer buf = new StringBuffer();
         while (true) {
-          try {
+            try {
 
-            // Read character backwards
-            char c = doc.getChar(--documentOffset);
+                // Read character backwards
+                char c = doc.getChar(--documentOffset);
 
-            /*
-            if(c==' '){
+                /*
+                 * if(c==' '){ return buf.reverse().toString(); }
+                 */
+
+                buf.append(c);
+
+            } catch (BadLocationException e) {
+
+                // Document start reached, no tag found
                 return buf.reverse().toString();
-            }*/
-            
-            buf.append(c);
-
-          } catch (BadLocationException e) {
-
-            // Document start reached, no tag found
-            return buf.reverse().toString();
-          }
+            }
         }
-     }
-    
-//  Proposal part before cursor
-    private static String[] proposedCodes;
-   
+    }
 
-    
-    
-    private void computeStructureProposals(String qualifier, int documentOffset, List propList) { 
+    //  Proposal part before cursor
+    private String[] proposedCodes;
+
+    private void computeStructureProposals(String qualifier,
+            int documentOffset, List propList) {
         int qlen = qualifier.length();
 
         // Loop through all proposals
         for (int i = 0; i < proposedCodes.length; i++) {
-           String startTag = proposedCodes[i];
+            String startTag = proposedCodes[i];
 
-           
-           String text = startTag;
-              // Yes -- compute whole proposal text
-              if(text.startsWith(qualifier)){
-              
+            String text = startTag;
+            // Yes -- compute whole proposal text
+            if (text.startsWith(qualifier)) {
 
-              // Derive cursor position
-              int cursor = startTag.length();
-              
-              // Construct proposal
+                // Derive cursor position
+                int cursor = startTag.length();
 
-              CompletionProposal proposal =
-                 new CompletionProposal(text, documentOffset - qlen, qlen, cursor);
+                // Construct proposal
 
-              // and add to result list
-              propList.add(proposal);
-              }
-           
+                CompletionProposal proposal = new CompletionProposal(text,
+                        documentOffset - qlen, qlen, cursor);
+
+                // and add to result list
+                propList.add(proposal);
+            }
+
         }
-     }
-       
-    /* (non-Javadoc)
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getCompletionProposalAutoActivationCharacters()
      */
     public char[] getCompletionProposalAutoActivationCharacters() {
         // TODO Auto-generated method stub
-        return new char[] { '.',',' };
+        return new char[] { '.', ',' };
     }
-    
-    
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer, int)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer,
+     *      int)
      */
     public IContextInformation[] computeContextInformation(ITextViewer viewer,
             int offset) {
-    
+
         return null;
     }
-   
-    public IContextInformation[] computeContextInformation(IContentAssistSubjectControl viewer,
-            int offset) {
-        
+
+    public IContextInformation[] computeContextInformation(
+            IContentAssistSubjectControl viewer, int offset) {
+
         System.out.println("info");
-        ContextInformation info = new ContextInformation("111","deneme");
-        
-        return new ContextInformation[]{info};
-        
+        ContextInformation info = new ContextInformation("111", "deneme");
+
+        return new ContextInformation[] { info };
+
     }
 
-
- 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationAutoActivationCharacters()
      */
     public char[] getContextInformationAutoActivationCharacters() {
@@ -212,7 +226,9 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage()
      */
     public String getErrorMessage() {
@@ -222,6 +238,6 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 
     public IContextInformationValidator getContextInformationValidator() {
         return new ContextInformationValidator(this);
-     }
+    }
 
 }

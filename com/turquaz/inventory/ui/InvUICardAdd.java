@@ -21,6 +21,8 @@ package com.turquaz.inventory.ui;
  * @version $Id$
  */
 
+import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -68,6 +70,7 @@ import java.util.regex.Pattern;
 
 
 import com.turquaz.engine.ui.component.NumericText;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
@@ -86,6 +89,7 @@ import com.turquaz.inventory.ui.comp.InvUIPriceList;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Label;
@@ -1303,6 +1307,27 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		fillTableInvAllGroups();
 		initTableInvPrices();
 	
+		//Content Assistant for Inventory Code
+		/****************************************************/
+		  TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtInvCardCode);
+		    
+		 final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,1);
+		   
+		     adapter.appendVerifyKeyListener(
+		             new VerifyKeyListener() {
+		                 public void verifyKey(VerifyEvent event) {
+
+		                 // Check for Ctrl+Spacebar
+		                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+		             
+		                  asistant.showPossibleCompletions();              
+		                   event.doit = false;
+
+		                 }
+		              }
+		           });
+		 	
+		  /************************************************************/  
 		
 
 	}

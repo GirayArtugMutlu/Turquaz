@@ -141,7 +141,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite {
 	public void postInitGUI(){
 	    TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
 	    
-	 	final SubjectControlContentAssistant asistant= TurquazContentAssistant.createContentAssistant(adapter,"accounting");
+	 	final SubjectControlContentAssistant asistant= new TurquazContentAssistant(adapter,0);
 	   
 	     adapter.appendVerifyKeyListener(
 	             new VerifyKeyListener() {
