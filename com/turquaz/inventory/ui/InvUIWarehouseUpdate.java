@@ -86,16 +86,18 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(87,38));
 	
 	
-			toolUpdate.setText(Messages.getString("InvUIWarehouseUpdate.0")); //$NON-NLS-1$
+			toolUpdate.setText("Update");
+			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/save_edit.gif"));
+			toolUpdate.setImage(toolUpdateýmage);
 			toolUpdate.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolUpdateWidgetSelected(evt);
 				}
 			});
 	
-			toolDelete.setText(Messages.getString("InvUIWarehouseUpdate.1")); //$NON-NLS-1$
-			final org.eclipse.swt.graphics.Image toolDeleteimage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
-			toolDelete.setImage(toolDeleteimage);
+			toolDelete.setText("delete");
+			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass().getClassLoader().getResourceAsStream("icons/delete_edit.gif"));
+			toolDelete.setImage(toolDeleteýmage);
 			toolDelete.addSelectionListener( new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					toolDeleteWidgetSelected(evt);
@@ -126,7 +128,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.layout();
 			dialogShell.addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
-					toolDeleteimage.dispose();
+					toolUpdateýmage.dispose();
+					toolDeleteýmage.dispose();
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 518,428);
@@ -206,11 +209,8 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	 	whUpdate.deleteObject(warehouse);
 	 	msg.setMessage(Messages.getString("InvUIWarehouseUpdate.6")); //$NON-NLS-1$
 	 	msg.open();
-	    }
-	
-	 
-	 
-	
+	 	this.dialogShell.dispose();
+	    }	
 	 }
 	 catch(Exception ex){
 	 ex.printStackTrace();
@@ -219,7 +219,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	 }
 	
 	 
-	 this.dialogShell.dispose();
+
 	
 	
 	}

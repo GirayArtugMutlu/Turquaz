@@ -89,6 +89,9 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="Update"/>
+											<Property name="ımage" type="Image">
+												<Image name="\icons\save_edit.gif"/>
+											</Property>
 										</Properties>
 									</Component>
 									<Component class="org.eclipse.swt.widgets.ToolItem" name="toolDelete" style="0">
@@ -100,7 +103,7 @@
 										</Events>
 										<Properties>
 											<Property name="text" type="String" value="delete"/>
-											<Property name="image" type="Image">
+											<Property name="ımage" type="Image">
 												<Image name="\icons\delete_edit.gif"/>
 											</Property>
 										</Properties>

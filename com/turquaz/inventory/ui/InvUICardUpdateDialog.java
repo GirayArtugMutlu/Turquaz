@@ -488,6 +488,10 @@ public class InvUICardUpdateDialog extends Dialog{
     
     public void delete(){
       try{
+      MessageBox msg=new MessageBox(this.getParent(),SWT.YES|SWT.NO);
+      msg.setMessage("Really delete?");
+      if (msg.open()==SWT.NO)
+       return;
     //First Delete Groups
     deleteInvGroups();
     //delete Units
@@ -497,7 +501,7 @@ public class InvUICardUpdateDialog extends Dialog{
     // delete invCard
  
     cardUpdate.deleteObject(invCard);
-    MessageBox msg = new MessageBox(this.getParent(),SWT.NULL);
+    msg = new MessageBox(this.getParent(),SWT.NULL);
 	msg.setMessage(Messages.getString("InvUICardUpdateDialog.6"));	 //$NON-NLS-1$
 	msg.open();	 
 	this.dialogShell.dispose(); 
