@@ -423,7 +423,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BILL)
 					{
-						Integer bankTransId = (Integer)EngTXCommon.doSingleTX( EngBLCommon.class.getName(),"getBill",argMap);
+						Integer bankTransId = (Integer)EngTXCommon.doSingleTX( EngBLCommon.class.getName(),"getBillofCurrentTrans",argMap);
 						if (bankTransId != null)
 						{
 							updated = BillUIBillSearch.updateBill(bankTransId, getShell());

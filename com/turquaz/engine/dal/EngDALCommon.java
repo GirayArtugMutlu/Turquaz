@@ -219,6 +219,25 @@ public class EngDALCommon
 			throw ex;
 		}
 	}
+	public static Integer getBillOfCurrentTrans(TurqEngineSequence seq) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			session.refresh(seq);
+			Hibernate.initialize(seq.getTurqBills());
+			Iterator it = seq.getTurqBills().iterator();
+			if (it.hasNext())
+			{
+				return ((TurqBill) it.next()).getId();
+			}
+			return null;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static Integer getCashTransaction(TurqEngineSequence seq) throws Exception
 	{
