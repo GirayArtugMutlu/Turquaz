@@ -21,8 +21,11 @@ package com.turquaz.accounting.ui;
 */
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import java.util.Set;
 
@@ -41,9 +44,11 @@ import org.eclipse.swt.widgets.CoolItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
+
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -278,18 +283,15 @@ public void showDialog(TurqAccountingTransaction accTrans){
 	compTransactionAdd.rowList.removeAll();
 		
 	Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
-	//List transRows=new ArrayList();
-	//transRows.addAll(transactionRows);
-	//Collections.sort(transRows);
-	Iterator it = transactionRows.iterator();
+	List transRows=new ArrayList();
+	transRows.addAll(transactionRows);
+	Collections.sort(transRows,new EngBLHibernateComparer());
 	TurqAccountingTransactionColumn transRow;
 	TableItem item;
 	boolean isCurrencySet = false;
-	while(it.hasNext())
-	//for (int k=0; k<transRows.size(); k++)
+	for (int k=0; k<transRows.size(); k++)
 	{
-		transRow =(TurqAccountingTransactionColumn)it.next();
-		//transRow=(TurqAccountingTransactionColumn)transRows.get(k);
+		transRow=(TurqAccountingTransactionColumn)transRows.get(k);
 	
 		ITableRow row = new AccUITransactionAddTableRow(compTransactionAdd.rowList);
 		row.setDBObject(transRow);

@@ -20,8 +20,11 @@ package com.turquaz.accounting.ui;
 * @version  $Id$
 */
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.swt.graphics.Rectangle;
@@ -42,6 +45,7 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -277,12 +281,15 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	    
 	Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
 	
-	Iterator it = transactionRows.iterator();
+	List transRows=new ArrayList();
+	transRows.addAll(transactionRows);
+	Collections.sort(transRows,new EngBLHibernateComparer());
+	
 	TurqAccountingTransactionColumn transRow;
 	TableItem item;
-	while(it.hasNext()){
-	
-	transRow =(TurqAccountingTransactionColumn)it.next();
+	for (int k=0; k<transRows.size(); k++)
+	{
+		transRow=(TurqAccountingTransactionColumn)transRows.get(k);
 	
 	if(!transRow.getCreditAmount().toString().equals("0")){ //$NON-NLS-1$
 	
