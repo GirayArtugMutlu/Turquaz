@@ -846,7 +846,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	/** Add your post-init code in here 	*/
 	public void postInitGUI(){
 		StackLayout compo4layout =(StackLayout)compModulesTree.getLayout();
-		compo4layout.topControl = treeInventory;
+		compo4layout.topControl = treeAccounting;
 		sashMainHorizontal.setWeights(new int[]{25,75});
 	    
 	    comboModuleSelection.add(Messages.getString("EngUIMainFrame.31")); //$NON-NLS-1$
