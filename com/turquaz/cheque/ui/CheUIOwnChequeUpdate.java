@@ -39,6 +39,9 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.CTabItem;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -64,6 +67,9 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 
 	private Shell dialogShell;
 	private CurrencyText curText;
+	private Composite compCheq;
+	private CTabItem cTabItem1;
+	private CTabFolder tabFolder;
 	private ToolItem toolDelete;
 	private Text txtChequeNo;
 	private CLabel lblChequeNo;
@@ -148,65 +154,92 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog {
                     });
                 }
             }
-            {
-                lblChequeNo = new CLabel(dialogShell, SWT.NONE);
-                lblChequeNo.setText(Messages.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
-                GridData lblChequeNoLData = new GridData();
-                lblChequeNoLData.widthHint = 71;
-                lblChequeNoLData.heightHint = 19;
-                lblChequeNo.setLayoutData(lblChequeNoLData);
-            }
-            {
-                txtChequeNo = new Text(dialogShell, SWT.NONE);
-                GridData txtChequeNoLData = new GridData();
-                txtChequeNoLData.widthHint = 119;
-                txtChequeNoLData.heightHint = 17;
-                txtChequeNo.setLayoutData(txtChequeNoLData);
-            }
-            {
-                lblBankName = new CLabel(dialogShell, SWT.NONE);
-                lblBankName.setText(Messages.getString("CheUIOwnChequeAddDialog.1"));  //$NON-NLS-1$
-            }
-            {
-                bankPicker = new BankCardPicker(dialogShell, SWT.NONE);
-                GridData txtBankNameLData = new GridData();
-                txtBankNameLData.widthHint = 215;
-                txtBankNameLData.heightHint = 16;
-                bankPicker.setLayoutData(txtBankNameLData);
-            }
-            {
-                lblDueDate = new CLabel(dialogShell, SWT.NONE);
-                lblDueDate.setText(Messages.getString("CheUIOwnChequeAddDialog.2"));  //$NON-NLS-1$
-            }
-            {
-                datePickValueDate = new DatePicker(dialogShell, SWT.NONE);
-                GridData datePickValueDateLData = new GridData();
-                datePickValueDateLData.widthHint = 113;
-                datePickValueDateLData.heightHint = 19;
-                datePickValueDate.setLayoutData(datePickValueDateLData);
-            }
-            {
-                lblPaymentPlace = new CLabel(dialogShell, SWT.NONE);
-                lblPaymentPlace.setText(Messages.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
-            }
-            {
-                txtPaymentPlace = new Text(dialogShell, SWT.NONE);
-                GridData txtPaymentPlaceLData = new GridData();
-                txtPaymentPlaceLData.widthHint = 117;
-                txtPaymentPlaceLData.heightHint = 19;
-                txtPaymentPlace.setLayoutData(txtPaymentPlaceLData);
-            }
-            {
-                lblAmount = new CLabel(dialogShell, SWT.NONE);
-                lblAmount.setText(Messages.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
-            }
-            {
-                curText = new CurrencyText(dialogShell, SWT.NONE);
-                GridData curTextLData = new GridData();
-                curTextLData.widthHint = 117;
-                curTextLData.heightHint = 19;
-                curText.setLayoutData(curTextLData);
-            }
+			//START >>  tabFolder
+			tabFolder = new CTabFolder(dialogShell, SWT.NONE);
+			//START >>  cTabItem1
+			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
+			cTabItem1.setText(Messages.getString("CheUIOwnChequeUpdate.1")); //$NON-NLS-1$
+			//START >>  compCheq
+			compCheq = new Composite(tabFolder, SWT.NONE);
+			GridLayout compCheqLayout = new GridLayout();
+			compCheqLayout.numColumns = 2;
+			compCheq.setLayout(compCheqLayout);
+			cTabItem1.setControl(compCheq);
+			{
+				lblChequeNo = new CLabel(compCheq, SWT.NONE);
+				lblChequeNo.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
+				GridData lblChequeNoLData = new GridData();
+				lblChequeNoLData.widthHint = 71;
+				lblChequeNoLData.heightHint = 19;
+				lblChequeNo.setLayoutData(lblChequeNoLData);
+			}
+			{
+				txtChequeNo = new Text(compCheq, SWT.NONE);
+				GridData txtChequeNoLData = new GridData();
+				txtChequeNoLData.widthHint = 150;
+				txtChequeNoLData.heightHint = 17;
+				txtChequeNo.setLayoutData(txtChequeNoLData);
+			}
+			{
+				lblBankName = new CLabel(compCheq, SWT.NONE);
+				lblBankName.setText(Messages
+					.getString("CheUIOwnChequeAddDialog.1")); //$NON-NLS-1$
+			}
+			{
+				bankPicker = new BankCardPicker(compCheq, SWT.NONE);
+				GridData txtBankNameLData = new GridData();
+				txtBankNameLData.widthHint = 157;
+				txtBankNameLData.heightHint = 17;
+				bankPicker.setLayoutData(txtBankNameLData);
+			}
+			{
+				lblDueDate = new CLabel(compCheq, SWT.NONE);
+				lblDueDate.setText(Messages
+					.getString("CheUIOwnChequeAddDialog.2")); //$NON-NLS-1$
+			}
+			{
+				datePickValueDate = new DatePicker(compCheq, SWT.NONE);
+				GridData datePickValueDateLData = new GridData();
+				datePickValueDateLData.widthHint = 157;
+				datePickValueDateLData.heightHint = 23;
+				datePickValueDate.setLayoutData(datePickValueDateLData);
+			}
+			{
+				lblPaymentPlace = new CLabel(compCheq, SWT.NONE);
+				lblPaymentPlace.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
+			}
+			{
+				txtPaymentPlace = new Text(compCheq, SWT.NONE);
+				GridData txtPaymentPlaceLData = new GridData();
+				txtPaymentPlaceLData.widthHint = 150;
+				txtPaymentPlaceLData.heightHint = 17;
+				txtPaymentPlace.setLayoutData(txtPaymentPlaceLData);
+			}
+			{
+				lblAmount = new CLabel(compCheq, SWT.NONE);
+				lblAmount.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
+			}
+			{
+				curText = new CurrencyText(compCheq, SWT.NONE);
+				GridData curTextLData = new GridData();
+				curTextLData.widthHint = 150;
+				curTextLData.heightHint = 17;
+				curText.setLayoutData(curTextLData);
+			}
+			//END <<  compCheq
+			tabFolder.setSelection(0);
+			GridData tabFolderLData = new GridData();
+			tabFolderLData.grabExcessHorizontalSpace = true;
+			tabFolderLData.grabExcessVerticalSpace = true;
+			tabFolderLData.horizontalAlignment = GridData.FILL;
+			tabFolderLData.verticalAlignment = GridData.FILL;
+			tabFolderLData.horizontalSpan = 2;
+			tabFolder.setLayoutData(tabFolderLData);
+			//END <<  cTabItem1
+			//END <<  tabFolder
             postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();

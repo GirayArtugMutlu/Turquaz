@@ -89,6 +89,26 @@ public class CheDALSearch {
 			throw ex;
 		}
 	}
+	
+	public static List getChequeHistory(TurqChequeCheque cheque) throws Exception {
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+			String query="select cheqInRoll.turqChequeRoll from TurqChequeChequeInRoll cheqInRoll" +
+					" where cheqInRoll.turqChequeCheque.id="+cheque.getId()+
+					" order by cheqInRoll.turqChequeRoll.chequeRollsDate";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			session.close();
+			return list;
+
+		} 
+		catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	
 
 	public static List getTransactionTypes() throws Exception {
 		try {

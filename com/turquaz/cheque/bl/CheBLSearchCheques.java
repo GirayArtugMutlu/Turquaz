@@ -24,7 +24,10 @@ package com.turquaz.cheque.bl;
 import java.util.Date;
 import java.util.List;
 
+
+
 import com.turquaz.cheque.dal.CheDALSearch;
+
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
@@ -58,6 +61,17 @@ public class CheBLSearchCheques {
 		return CheDALSearch.getChequeRollAccountingAccount(cheque,rollType);
 	
 	
+	}
+	
+	public static List getChequeHistory(TurqChequeCheque cheque) throws Exception {
+		try 
+		{
+			return CheDALSearch.getChequeHistory(cheque);
+
+		} 
+		catch (Exception ex) {
+			throw ex;
+		}
 	}
 	
 

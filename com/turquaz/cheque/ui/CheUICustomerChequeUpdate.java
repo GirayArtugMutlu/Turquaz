@@ -19,17 +19,24 @@ package com.turquaz.cheque.ui;
 * @author  Onsel
 * @version  $Id$
 */
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.cheque.Messages;
+import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
+
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -37,6 +44,13 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -62,6 +76,16 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	private Shell dialogShell;
 	private CLabel lblPortfolioNo;
 	private CurrencyText curText;
+	private TableColumn tableColumnCurrentCode;
+	private TableColumn tableColumnBankCode;
+	private TableColumn tableColumnType;
+	private TableColumn tableColumnDate;
+	private Table tableHistory;
+	private Composite compHistory;
+	private CTabItem tabItemHistory;
+	private CTabItem cTabItem1;
+	private CTabFolder tabFolder;
+	private Composite compDialog;
 	private CLabel lblBankAccount;
 	private ToolItem toolDelete;
 	private Text txtBankAccountNO;
@@ -110,7 +134,7 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.3")); //$NON-NLS-1$
 			dialogShell.pack();
 			dialogShell.setText(Messages.getString("CheUICustomerChequeAddDialog.1")); //$NON-NLS-1$
-			dialogShell.setSize(507, 303);
+			dialogShell.setSize(581, 346);
             {
                 toolBar1 = new ToolBar(dialogShell, SWT.NONE);
                 GridData toolBar1LData = new GridData();
@@ -150,109 +174,194 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
                     });
                 }
             }
-            {
-                lblPortfolioNo = new CLabel(dialogShell, SWT.NONE);
-                lblPortfolioNo.setText(Messages.getString("CheUICustomerChequeAddDialog.4")); //$NON-NLS-1$
-            }
-            {
-                txtPortfoyNo = new Text(dialogShell, SWT.NONE);
-                GridData txtPortfoyNoLData = new GridData();
-                txtPortfoyNoLData.widthHint = 120;
-                txtPortfoyNoLData.heightHint = 18;
-                txtPortfoyNo.setLayoutData(txtPortfoyNoLData);
-            }
-            {
-                lblChequeNo = new CLabel(dialogShell, SWT.NONE);
-                lblChequeNo.setText(Messages.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
-            }
-            {
-                txtChequeNo = new Text(dialogShell, SWT.NONE);
-                GridData txtChequeNoLData = new GridData();
-                txtChequeNoLData.widthHint = 119;
-                txtChequeNoLData.heightHint = 17;
-                txtChequeNo.setLayoutData(txtChequeNoLData);
-            }
-            {
-                lblBankName = new CLabel(dialogShell, SWT.NONE);
-                lblBankName.setText(Messages.getString("CheUICustomerChequeAddDialog.6")); //$NON-NLS-1$
-            }
-            {
-                txtBankName = new Text(dialogShell, SWT.NONE);
-                GridData txtBankNameLData = new GridData();
-                txtBankNameLData.widthHint = 118;
-                txtBankNameLData.heightHint = 19;
-                txtBankName.setLayoutData(txtBankNameLData);
-            }
-            {
-                lblBankBranch = new CLabel(dialogShell, SWT.NONE);
-                lblBankBranch.setText(Messages.getString("CheUICustomerChequeAddDialog.7")); //$NON-NLS-1$
-            }
-            {
-                txtBankBranch = new Text(dialogShell, SWT.NONE);
-                GridData txtBankBranchLData = new GridData();
-                txtBankBranchLData.widthHint = 117;
-                txtBankBranchLData.heightHint = 18;
-                txtBankBranch.setLayoutData(txtBankBranchLData);
-            }
+			//START >>  tabFolder
+			tabFolder = new CTabFolder(dialogShell, SWT.NONE);
+			//START >>  cTabItem1
+			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
+			cTabItem1.setText(Messages.getString("CheUICustomerChequeUpdate.1")); //$NON-NLS-1$
+			//START >>  compDialog
+			compDialog = new Composite(tabFolder, SWT.NONE);
+			cTabItem1.setControl(compDialog);
+			GridLayout compDialogLayout = new GridLayout();
+			GridData compDialogLData = new GridData();
+			compDialogLData.horizontalAlignment = GridData.FILL;
+			compDialogLData.verticalAlignment = GridData.FILL;
+			compDialogLData.grabExcessVerticalSpace = true;
+			compDialogLData.grabExcessHorizontalSpace = true;
+			compDialogLData.horizontalSpan = 2;
+			compDialog.setLayoutData(compDialogLData);
+			compDialogLayout.numColumns = 2;
+			compDialog.setLayout(compDialogLayout);
+			{
+				lblPortfolioNo = new CLabel(compDialog, SWT.NONE);
+				lblPortfolioNo.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.4")); //$NON-NLS-1$
+			}
+			{
+				txtPortfoyNo = new Text(compDialog, SWT.NONE);
+				GridData txtPortfoyNoLData = new GridData();
+				txtPortfoyNoLData.widthHint = 150;
+				txtPortfoyNoLData.heightHint = 17;
+				txtPortfoyNo.setLayoutData(txtPortfoyNoLData);
+			}
+			{
+				lblChequeNo = new CLabel(compDialog, SWT.NONE);
+				lblChequeNo.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
+			}
+			{
+				txtChequeNo = new Text(compDialog, SWT.NONE);
+				GridData txtChequeNoLData = new GridData();
+				txtChequeNoLData.widthHint = 150;
+				txtChequeNoLData.heightHint = 17;
+				txtChequeNo.setLayoutData(txtChequeNoLData);
+			}
+			{
+				lblBankName = new CLabel(compDialog, SWT.NONE);
+				lblBankName.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.6")); //$NON-NLS-1$
+			}
+			{
+				txtBankName = new Text(compDialog, SWT.NONE);
+				GridData txtBankNameLData = new GridData();
+				txtBankNameLData.widthHint = 150;
+				txtBankNameLData.heightHint = 17;
+				txtBankName.setLayoutData(txtBankNameLData);
+			}
+			{
+				lblBankBranch = new CLabel(compDialog, SWT.NONE);
+				lblBankBranch.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.7")); //$NON-NLS-1$
+			}
+			{
+				txtBankBranch = new Text(compDialog, SWT.NONE);
+				GridData txtBankBranchLData = new GridData();
+				txtBankBranchLData.widthHint = 150;
+				txtBankBranchLData.heightHint = 17;
+				txtBankBranch.setLayoutData(txtBankBranchLData);
+			}
 			//START >>  lblBankAccount
-			lblBankAccount = new CLabel(dialogShell, SWT.NONE);
-			lblBankAccount.setText(Messages.getString("CheUICustomerChequeAddDialog.12")); //$NON-NLS-1$
+			lblBankAccount = new CLabel(compDialog, SWT.NONE);
+			lblBankAccount.setText(Messages
+				.getString("CheUICustomerChequeAddDialog.12")); //$NON-NLS-1$
 			//END <<  lblBankAccount
 			//START >>  txtBankAccountNO
-			txtBankAccountNO = new Text(dialogShell, SWT.NONE);
+			txtBankAccountNO = new Text(compDialog, SWT.NONE);
 			GridData txtBankAccountNOLData = new GridData();
-			txtBankAccountNOLData.widthHint = 118;
+			txtBankAccountNOLData.widthHint = 150;
 			txtBankAccountNOLData.heightHint = 17;
 			txtBankAccountNO.setLayoutData(txtBankAccountNOLData);
 			//END <<  txtBankAccountNO
-            {
-                lblDueDate = new CLabel(dialogShell, SWT.NONE);
-                lblDueDate.setText(Messages.getString("CheUICustomerChequeAddDialog.8")); //$NON-NLS-1$
-            }
-            {
-                datePickValueDate = new DatePicker(dialogShell, SWT.NONE);
-                GridData datePickValueDateLData = new GridData();
-                datePickValueDateLData.widthHint = 113;
-                datePickValueDateLData.heightHint = 19;
-                datePickValueDate.setLayoutData(datePickValueDateLData);
-            }
-            {
-                lblDeptor = new CLabel(dialogShell, SWT.NONE);
-                lblDeptor.setText(Messages.getString("CheUICustomerChequeAddDialog.9")); //$NON-NLS-1$
-                GridData lblDeptorLData = new GridData();
-                lblDeptorLData.widthHint = 42;
-                lblDeptorLData.heightHint = 19;
-                lblDeptor.setLayoutData(lblDeptorLData);
-            }
-            {
-                txtDeptor = new Text(dialogShell, SWT.NONE);
-                GridData txtDeptorLData = new GridData();
-                txtDeptorLData.widthHint = 190;
-                txtDeptorLData.heightHint = 17;
-                txtDeptor.setLayoutData(txtDeptorLData);
-            }
-            {
-                lblPaymentPlace = new CLabel(dialogShell, SWT.NONE);
-                lblPaymentPlace.setText(Messages.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
-            }
-            {
-                txtPaymentPlace = new Text(dialogShell, SWT.NONE);
-                GridData txtPaymentPlaceLData = new GridData();
-                txtPaymentPlaceLData.widthHint = 117;
-                txtPaymentPlaceLData.heightHint = 19;
-                txtPaymentPlace.setLayoutData(txtPaymentPlaceLData);
-            }
-            {
-                lblAmount = new CLabel(dialogShell, SWT.NONE);
-                lblAmount.setText(Messages.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
-            }
-            {
-                curText = new CurrencyText(dialogShell, SWT.NONE);
-                GridData curTextLData = new GridData();
-                curTextLData.widthHint = 117;
-                curTextLData.heightHint = 19;
-                curText.setLayoutData(curTextLData);
-            }
+			{
+				lblDueDate = new CLabel(compDialog, SWT.NONE);
+				lblDueDate.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.8")); //$NON-NLS-1$
+			}
+			{
+				datePickValueDate = new DatePicker(compDialog, SWT.NONE);
+				GridData datePickValueDateLData = new GridData();
+				datePickValueDateLData.widthHint = 157;
+				datePickValueDateLData.heightHint = 23;
+				datePickValueDate.setLayoutData(datePickValueDateLData);
+			}
+			{
+				lblDeptor = new CLabel(compDialog, SWT.NONE);
+				lblDeptor.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.9")); //$NON-NLS-1$
+				GridData lblDeptorLData = new GridData();
+				lblDeptorLData.widthHint = 42;
+				lblDeptorLData.heightHint = 19;
+				lblDeptor.setLayoutData(lblDeptorLData);
+			}
+			{
+				txtDeptor = new Text(compDialog, SWT.NONE);
+				GridData txtDeptorLData = new GridData();
+				txtDeptorLData.widthHint = 150;
+				txtDeptorLData.heightHint = 17;
+				txtDeptor.setLayoutData(txtDeptorLData);
+			}
+			{
+				lblPaymentPlace = new CLabel(compDialog, SWT.NONE);
+				lblPaymentPlace.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
+			}
+			{
+				txtPaymentPlace = new Text(compDialog, SWT.NONE);
+				GridData txtPaymentPlaceLData = new GridData();
+				txtPaymentPlaceLData.widthHint = 150;
+				txtPaymentPlaceLData.heightHint = 17;
+				txtPaymentPlace.setLayoutData(txtPaymentPlaceLData);
+			}
+			{
+				lblAmount = new CLabel(compDialog, SWT.NONE);
+				lblAmount.setText(Messages
+					.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
+			}
+			{
+				curText = new CurrencyText(compDialog, SWT.NONE);
+				GridData curTextLData = new GridData();
+				curTextLData.widthHint = 150;
+				curTextLData.heightHint = 17;
+				curText.setLayoutData(curTextLData);
+			}
+			//END <<  compDialog
+			GridData tabFolderLData = new GridData();
+			tabFolderLData.grabExcessVerticalSpace = true;
+			tabFolderLData.grabExcessHorizontalSpace = true;
+			tabFolderLData.horizontalAlignment = GridData.FILL;
+			tabFolderLData.verticalAlignment = GridData.FILL;
+			tabFolderLData.horizontalSpan = 2;
+			tabFolder.setLayoutData(tabFolderLData);
+			//END <<  cTabItem1
+			//START >>  tabItemHistory
+			tabItemHistory = new CTabItem(tabFolder, SWT.NONE);
+			tabItemHistory.setText(Messages.getString("CheUICustomerChequeUpdate.3")); //$NON-NLS-1$
+			//START >>  compHistory
+			compHistory = new Composite(tabFolder, SWT.NONE);
+			GridLayout compHistoryLayout = new GridLayout();
+			compHistoryLayout.makeColumnsEqualWidth = true;
+			compHistory.setLayout(compHistoryLayout);
+			tabItemHistory.setControl(compHistory);
+			//START >>  tableHistory
+			tableHistory = new Table(compHistory, SWT.NONE);
+			GridData tableHistoryLData = new GridData();
+			tableHistory.addMouseListener(new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableHistoryMouseDoubleClick(evt);
+				}
+			});
+			tableHistory.setHeaderVisible(true);
+			tableHistory.setLinesVisible(true);
+			tableHistoryLData.grabExcessHorizontalSpace = true;
+			tableHistoryLData.grabExcessVerticalSpace = true;
+			tableHistoryLData.horizontalAlignment = GridData.FILL;
+			tableHistoryLData.verticalAlignment = GridData.FILL;
+			tableHistory.setLayoutData(tableHistoryLData);
+			//START >>  tableColumnDate
+			tableColumnDate = new TableColumn(tableHistory, SWT.NONE);
+			tableColumnDate.setText(Messages.getString("CheUICustomerChequeUpdate.4")); //$NON-NLS-1$
+			tableColumnDate.setWidth(100);
+			//END <<  tableColumnDate
+			//START >>  tableColumnType
+			tableColumnType = new TableColumn(tableHistory, SWT.NONE);
+			tableColumnType.setText(Messages.getString("CheUICustomerChequeUpdate.5")); //$NON-NLS-1$
+			tableColumnType.setWidth(70);
+			//END <<  tableColumnType
+			//START >>  tableColumnBankCode
+			tableColumnBankCode = new TableColumn(tableHistory, SWT.NONE);
+			tableColumnBankCode.setText(Messages.getString("CheUICustomerChequeUpdate.6")); //$NON-NLS-1$
+			tableColumnBankCode.setWidth(100);
+			//END <<  tableColumnBankCode
+			//START >>  tableColumnCurrentCode
+			tableColumnCurrentCode = new TableColumn(tableHistory, SWT.NONE);
+			tableColumnCurrentCode.setText(Messages.getString("CheUICustomerChequeUpdate.7")); //$NON-NLS-1$
+			tableColumnCurrentCode.setWidth(100);
+			//END <<  tableColumnCurrentCode
+			//END <<  tableHistory
+			//END <<  compHistory
+			tabFolder.setSelection(0);
+			//END <<  tabItemHistory
+			//END <<  tabFolder
             postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -262,13 +371,18 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 			return isUpdated;
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (Exception ex) 
+		{
+			ex.printStackTrace();
 			return false;
 		}
 	}
+	
+	
 	public void postInitGUI(){
-	  
+		
+	  try
+	  {
 		EngUICommon.centreWindow(dialogShell);
 	    if(cheque!=null){
 	        txtBankBranch.setText(cheque.getBankBranchName());
@@ -282,10 +396,43 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 	      
 	        if(cheque.getBankAccountNo()!=null){
 	        txtBankAccountNO.setText(cheque.getBankAccountNo());
-	        }
+	        }        
+	        FillHistory();
 	        
 	    }
+	  }
+	  catch(Exception ex)
+	  {
+	  	ex.printStackTrace();
+	  }
 	    
+	}
+	
+	public void FillHistory()
+	{
+		try
+		{
+			 //HISTORY
+			tableHistory.removeAll();
+	        List history=CheBLSearchCheques.getChequeHistory(cheque);
+	        TableItem item;
+	        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+	        for (int k=0; k<history.size(); k++)
+	        {
+	        	TurqChequeRoll cheqRoll=(TurqChequeRoll)history.get(k);
+	        	item=new TableItem(tableHistory,SWT.NULL);
+	        	item.setText(new String[]{dateFormat.format(cheqRoll.getChequeRollsDate()),
+	        		cheqRoll.getTurqChequeTransactionType().getTransactionTypsName(),
+					((cheqRoll.getTurqBanksCard().getId().intValue()==-1) ? "" : cheqRoll.getTurqBanksCard().getBankCode()), //$NON-NLS-1$
+					((cheqRoll.getTurqCurrentCard().getId().intValue()==-1) ? "" : cheqRoll.getTurqCurrentCard().getCardsCurrentCode())}); //$NON-NLS-1$
+	        	item.setData(cheqRoll.getId());
+	        	
+	        }
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	public void update(){
@@ -331,6 +478,54 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog {
 		isUpdated = true;
 		dialogShell.close();
 		}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	private void tableHistoryMouseDoubleClick(MouseEvent evt)
+	{
+		try
+		{
+
+			TableItem[] selection=tableHistory.getSelection();
+		
+			if (selection.length > 0) 
+			{
+				Integer rollId = (Integer) selection[0].getData();
+				if (rollId != null)
+				{
+					boolean isUpdatedRoll = false;
+					TurqChequeRoll roll = CheBLUpdateChequeRoll.initializeChequeRoll(rollId);
+
+					if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_IN)
+					{
+						isUpdatedRoll = new CheUIChequeInPayrollUpdate(this.getParent(),SWT.NULL, roll).open();
+					} 
+					else if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_CURRENT)
+					{
+						isUpdatedRoll = new CheUIChequeOutPayrollCurrentUpdate(this.getParent(), SWT.NULL, roll).open();
+					} 
+					else if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_OUT_BANK) 
+					{
+						isUpdatedRoll = new CheUIChequeOutPayrollBankUpdate(this.getParent(), SWT.NULL, roll).open();
+					}
+					else if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK)
+					{
+						isUpdatedRoll = new CheUIChequeCollectFromBankUpdate(this.getParent(), SWT.NULL, roll).open();
+					}
+					else if	(roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_CURRENT)
+					{
+						isUpdatedRoll = new CheUIChequeCollectUpdate(this.getParent(), SWT.NULL, roll).open();
+					}
+
+					if (isUpdatedRoll) {
+						FillHistory();
+					}
+				}
+			}
 		}
 		catch(Exception ex)
 		{
