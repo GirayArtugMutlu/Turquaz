@@ -12,20 +12,20 @@ public class TurqViewCurrentAmountTotal implements Serializable {
     private int currentCardsId;
 
     /** identifier field */
-    private java.math.BigDecimal transactionsTotalDept;
-
-    /** identifier field */
     private java.math.BigDecimal transactionsTotalCredit;
 
     /** identifier field */
-    private java.math.BigDecimal transactionsTotalAmountNow;
+    private java.math.BigDecimal transactionsTotalDept;
+
+    /** identifier field */
+    private java.math.BigDecimal transactionsBalanceNow;
 
     /** full constructor */
-    public TurqViewCurrentAmountTotal(int currentCardsId, java.math.BigDecimal transactionsTotalDept, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalAmountNow) {
+    public TurqViewCurrentAmountTotal(int currentCardsId, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalDept, java.math.BigDecimal transactionsBalanceNow) {
         this.currentCardsId = currentCardsId;
-        this.transactionsTotalDept = transactionsTotalDept;
         this.transactionsTotalCredit = transactionsTotalCredit;
-        this.transactionsTotalAmountNow = transactionsTotalAmountNow;
+        this.transactionsTotalDept = transactionsTotalDept;
+        this.transactionsBalanceNow = transactionsBalanceNow;
     }
 
     /** default constructor */
@@ -40,14 +40,6 @@ public class TurqViewCurrentAmountTotal implements Serializable {
         this.currentCardsId = currentCardsId;
     }
 
-    public java.math.BigDecimal getTransactionsTotalDept() {
-        return this.transactionsTotalDept;
-    }
-
-    public void setTransactionsTotalDept(java.math.BigDecimal transactionsTotalDept) {
-        this.transactionsTotalDept = transactionsTotalDept;
-    }
-
     public java.math.BigDecimal getTransactionsTotalCredit() {
         return this.transactionsTotalCredit;
     }
@@ -56,20 +48,28 @@ public class TurqViewCurrentAmountTotal implements Serializable {
         this.transactionsTotalCredit = transactionsTotalCredit;
     }
 
-    public java.math.BigDecimal getTransactionsTotalAmountNow() {
-        return this.transactionsTotalAmountNow;
+    public java.math.BigDecimal getTransactionsTotalDept() {
+        return this.transactionsTotalDept;
     }
 
-    public void setTransactionsTotalAmountNow(java.math.BigDecimal transactionsTotalAmountNow) {
-        this.transactionsTotalAmountNow = transactionsTotalAmountNow;
+    public void setTransactionsTotalDept(java.math.BigDecimal transactionsTotalDept) {
+        this.transactionsTotalDept = transactionsTotalDept;
+    }
+
+    public java.math.BigDecimal getTransactionsBalanceNow() {
+        return this.transactionsBalanceNow;
+    }
+
+    public void setTransactionsBalanceNow(java.math.BigDecimal transactionsBalanceNow) {
+        this.transactionsBalanceNow = transactionsBalanceNow;
     }
 
     public String toString() {
         return new ToStringBuilder(this)
             .append("currentCardsId", getCurrentCardsId())
-            .append("transactionsTotalDept", getTransactionsTotalDept())
             .append("transactionsTotalCredit", getTransactionsTotalCredit())
-            .append("transactionsTotalAmountNow", getTransactionsTotalAmountNow())
+            .append("transactionsTotalDept", getTransactionsTotalDept())
+            .append("transactionsBalanceNow", getTransactionsBalanceNow())
             .toString();
     }
 
@@ -78,18 +78,18 @@ public class TurqViewCurrentAmountTotal implements Serializable {
         TurqViewCurrentAmountTotal castOther = (TurqViewCurrentAmountTotal) other;
         return new EqualsBuilder()
             .append(this.getCurrentCardsId(), castOther.getCurrentCardsId())
-            .append(this.getTransactionsTotalDept(), castOther.getTransactionsTotalDept())
             .append(this.getTransactionsTotalCredit(), castOther.getTransactionsTotalCredit())
-            .append(this.getTransactionsTotalAmountNow(), castOther.getTransactionsTotalAmountNow())
+            .append(this.getTransactionsTotalDept(), castOther.getTransactionsTotalDept())
+            .append(this.getTransactionsBalanceNow(), castOther.getTransactionsBalanceNow())
             .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder()
             .append(getCurrentCardsId())
-            .append(getTransactionsTotalDept())
             .append(getTransactionsTotalCredit())
-            .append(getTransactionsTotalAmountNow())
+            .append(getTransactionsTotalDept())
+            .append(getTransactionsBalanceNow())
             .toHashCode();
     }
 

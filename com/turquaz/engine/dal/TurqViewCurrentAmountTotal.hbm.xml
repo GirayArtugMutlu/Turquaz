@@ -24,20 +24,20 @@
             length="4"
         />
         <key-property 
-            name="transactionsTotalDept" 
-            column="transactions_total_dept" 
-            type="java.math.BigDecimal"
-            length="65535"
-        />
-        <key-property 
             name="transactionsTotalCredit" 
             column="transactions_total_credit" 
             type="java.math.BigDecimal"
             length="65535"
         />
         <key-property 
-            name="transactionsTotalAmountNow" 
-            column="transactions_total_amount_now" 
+            name="transactionsTotalDept" 
+            column="transactions_total_dept" 
+            type="java.math.BigDecimal"
+            length="65535"
+        />
+        <key-property 
+            name="transactionsBalanceNow" 
+            column="transactions_balance_now" 
             type="java.math.BigDecimal"
             length="65535"
         />
