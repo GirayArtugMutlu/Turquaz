@@ -237,6 +237,55 @@ public class AccDALTransactionSearch {
 	    }
 	}
 	
+	public List getTransactions(boolean initialAccounts, boolean finalAccounts, 
+			boolean subAccounts, Date startDate, Date endDate)throws Exception{
+		try{
+			Session session = EngDALSessionFactory.openSession();
+			
+	    	String query ="select accounts, transColumns from TurqAccountingAccount accounts," +	 
+					" TurqAccountingTransaction as accTrans,"+
+					" TurqAccountingTransactionColumn as transColumns" +
 	
+	    			" where transColumns.turqAccountingTransaction.accountingTransactionsId=accTrans.accountingTransactionsId" +
+	    			" and accounts.accountingAccountsId=transColumns.turqAccountingAccount.accountingAccountsId" +
+	    			" order by accounts.accountingAccountsId";
+	  
+			if(startDate!=null){
+			
+			query += " and accTrans.transactionsDate >= :startDate";
+			}
+			
+			if(endDate !=null){
+			query += " and accTrans.transactionsDate <= :endDate";	
+			}
+	    	
+			/*if(!initialAccounts){
+				query += " and accTrans.turqAccountingTransactionType <>"+new Integer(3);
+			}*/
+	    	
+			Query q = session.createQuery(query); 
+			
+			if(startDate!=null){
+				java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
+				q.setParameter("startDate",sqlDate);
+				}
+				
+			if(endDate !=null){
+					java.sql.Date sqlDate = new java.sql.Date(endDate.getTime());
+					q.setParameter("endDate",sqlDate);
+			}
 
+				
+			List list = q.list();
+			session.close();
+			
+			return list;
+
+			
+
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 }

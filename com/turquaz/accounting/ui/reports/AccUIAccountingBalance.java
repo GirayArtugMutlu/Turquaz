@@ -172,7 +172,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 3;
 			thisLayout.makeColumnsEqualWidth = true;
-			this.setSize(447, 162);
+			this.setSize(543, 194);
 			{
 				lblDateRange = new CLabel(this, SWT.NONE);
 				lblDateRange.setText(Messages.getString("AccUIAccountingBalance.0")); //$NON-NLS-1$
@@ -186,8 +186,9 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 			{
 				lblLogoURL = new CLabel(this, SWT.NONE);
 				GridData lblLogoURLLData = new GridData();
-				lblLogoURLLData.widthHint = 144;
-				lblLogoURLLData.heightHint = 16;
+				lblLogoURLLData.widthHint = 175;
+				lblLogoURLLData.heightHint = 14;
+				lblLogoURLLData.grabExcessHorizontalSpace = true;
 				lblLogoURL.setLayoutData(lblLogoURLLData);
 			}
 			{

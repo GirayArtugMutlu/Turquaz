@@ -144,6 +144,20 @@ public class AccBLTransactionSearch {
 	    }
 	}
 	
+	public List getTransactions(boolean initialAccounts, boolean finalAccounts, 
+			boolean subAccounts, Date startDate, Date endDate)throws Exception
+	{
+		try{
+			
+			return dalTransSearch.getTransactions(initialAccounts, finalAccounts,
+					subAccounts, startDate, endDate);
+		}
+		catch(Exception ex){
+			throw ex;
+		}		
+	}
+		
+	
 	
 
 }

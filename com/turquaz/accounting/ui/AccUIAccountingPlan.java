@@ -23,6 +23,7 @@ package com.turquaz.accounting.ui;
 
 
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -236,6 +237,7 @@ public void fillTree(int parent, String codeCrit){
 		item.setText(1,account.getAccountName());
 		item.setData(account);	
 		treeItems.put(account.getAccountingAccountsId(),item);
+	
 		}
 		
 		else{
