@@ -116,7 +116,7 @@ public class AccDALTransactionSearch {
 		{
 			Session session = EngDALSessionFactory.openSession();
 
-			String query = "select currency from TurqCurrency as currency";
+			String query = "select currency from TurqCurrency as currency where currency.id=1";
 			Query q = session.createQuery(query);
 			List list = q.list();
 			session.close();

@@ -372,8 +372,7 @@ public class CheBLSaveChequeTransaction {
             
           }
           
-          saveRollAccountingTransactions(rollAccount,null,chequeRoll,amount,EngBLCommon.getBaseCurrencyExchangeRate());
-   
+         
     
     }
     

@@ -354,6 +354,18 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 		this.toolItemDelete = toolItemDelete;
 	}
   
+	/**
+	 * @return Returns the accountPicker.
+	 */
+	public AccountPicker getAccountPicker() {
+		return accountPicker;
+	}
+	/**
+	 * @param accountPicker The accountPicker to set.
+	 */
+	public void setAccountPicker(AccountPicker accountPicker) {
+		this.accountPicker = accountPicker;
+	}
     public DatePicker getDatePicker1() {
         return datePicker1;
     }

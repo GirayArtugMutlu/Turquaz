@@ -307,6 +307,11 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite
 					isUpdated = new CheUIChequeCollectUpdate(
 							updateShell, SWT.NULL, roll).open();
 				}
+				else if (roll.getTurqChequeTransactionType()
+						.getId().intValue() == EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK) {
+					isUpdated = new CheUIReturnFromBankRollUpdate(
+							updateShell, SWT.NULL, roll).open();
+				}
 				
 				return isUpdated;
 			}

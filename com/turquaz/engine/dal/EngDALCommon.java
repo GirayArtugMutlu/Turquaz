@@ -23,7 +23,7 @@ public class EngDALCommon {
 			
 			Session session = EngDALSessionFactory.openSession();
 	
-			String query = "from TurqCurrency as currency ";		   
+			String query = "from TurqCurrency as currency where currency.id=1 ";		   
 			   
 
 			Query q = session.createQuery(query); 
