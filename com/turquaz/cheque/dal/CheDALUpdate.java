@@ -35,7 +35,9 @@ public class CheDALUpdate {
 			
 		     Session session = EngDALSessionFactory.openSession();
 		     TurqChequeCheque cheque = (TurqChequeCheque)session.load(TurqChequeCheque.class,chequeId);
-			return cheque;
+		     session.close();
+		     return cheque;
+			
 			
 		}
 		catch(Exception ex){

@@ -353,8 +353,8 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
          /**
           * TODO update Dialog
           */
-            
-       //  cheque = new CheUICustomerChequeAddDialog(getShell(),SWT.NULL).open((TurqChequeCheque)selection[0].getData());
+        	  cheque = (TurqChequeCheque)selection[0].getData();
+         cheque = new CheUIOwnChequeAddDialog(getShell(),SWT.NULL).open(cheque);
          if(cheque!=null){
             
              selection[0].setData(cheque);

@@ -8,14 +8,18 @@ import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
+import com.turquaz.cheque.dal.CheDALUpdate;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.bank.ui.comp.BankCardPicker;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
 
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -161,6 +165,11 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >>  tableCheques
 			tableCheques = new Table(this, SWT.SINGLE | SWT.FULL_SELECTION);
 			GridData tableChequesLData = new GridData();
+			tableCheques.addMouseListener(new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableChequesMouseDoubleClick(evt);
+				}
+			});
 			tableCheques.setLinesVisible(true);
 			tableCheques.setHeaderVisible(true);
 			tableChequesLData.horizontalAlignment = GridData.FILL;
@@ -274,4 +283,25 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		}
 
 	}
+	
+	private void tableChequesMouseDoubleClick(MouseEvent evt) {
+		try{
+			TableItem[] selection = tableCheques.getSelection();
+			if(selection.length>0){
+				TurqChequeCheque cheque = CheDALUpdate.initializeCheque((Integer)selection[0].getData());
+				boolean isUpdated = new CheUIOwnChequeUpdate(getShell(),SWT.NULL,cheque).open();
+			   
+				if(isUpdated)
+					search();
+			}
+			}
+			catch(Exception ex){
+				ex.printStackTrace();
+			}
+			
+			
+			
+			
+	}
+	
 }

@@ -207,6 +207,7 @@ public class CheBLUpdateCheque {
 		}
 		
 	}
+	
 	private static void updateBankTransactions(TurqChequeRoll chequeRoll)throws Exception{
 		try{
 			//Delete Bank Transactions First
@@ -214,7 +215,9 @@ public class CheBLUpdateCheque {
 			while(it.hasNext())
 			{
 			
-				BankBLTransactionUpdate.deleteTransaction((TurqBanksTransactionBill)it.next());
+				TurqBanksTransactionBill transBill = (TurqBanksTransactionBill)it.next();
+				BankBLTransactionUpdate.initializeTransaction(transBill);
+				BankBLTransactionUpdate.deleteTransaction(transBill);
 				
 			}
 				
