@@ -262,6 +262,7 @@ public class AccDALTransactionSearch {
 	{
 	    try {
 	        removeTransactionRows(trans);
+	        
 			Session session = EngDALSessionFactory.openSession();
 
 			Transaction tr = session.beginTransaction();

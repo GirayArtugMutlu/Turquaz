@@ -23,9 +23,11 @@ package com.turquaz.accounting.ui;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
 
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -43,6 +45,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 
 import com.turquaz.accounting.Messages;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 
@@ -325,10 +328,15 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		  if(compTransactionCollect.verifyFields()){
 		  	updated=true;
 		  	
+		  Map creditAccounts = new HashMap();
+		  Map deptAccounts = new HashMap();
+		  
+		  compTransactionCollect.prepareAccountingMaps(creditAccounts,deptAccounts);
+		  
 		 blTransUpdate.updateTransaction(accTrans,compTransactionCollect.getTxtDocumentNo().getText().trim(),
 										compTransactionCollect.getDatePickerTransactionDate().getData(),compTransactionCollect.getTxtTransDefinition().getText(),
-										compTransactionCollect.getExchangeRate());
-		 updateTransactionRows();
+										compTransactionCollect.getExchangeRate(),creditAccounts,deptAccounts,false);
+		
 		 msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.6")); //$NON-NLS-1$
 		 msg.open();
 		 dialogShell.close();
@@ -344,43 +352,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		
 		
 	}
-	 public void updateTransactionRows()throws Exception {
-	    try{
-	   
-	   
-	     deleteTransactionRows();
-	     
-	     
-	     compTransactionCollect.saveTransactionRows(accTrans.getId());
-	     
-	     }
-	     catch(Exception ex){
-	        throw ex;
-	     }
-	   
-	   }
-	 public void deleteTransactionRows()throws Exception{
-	    try{
-	     Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
-	     Iterator it = transactionRows.iterator();
-	     TurqAccountingTransactionColumn transRow;
-	     while(it.hasNext()){
-
-	     	blTransUpdate.delete(it.next());
-		
-		}
-	    
-	     
-	    
-	    
-	    }
-	    catch(Exception ex){
-	    throw ex;
-	    
-	    }
-	    
-	    
-	    }
+	
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
@@ -391,8 +363,9 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		if(answer ==SWT.YES){
 		try{
 		updated=true;
-		deleteTransactionRows();
-		blTransUpdate.delete(accTrans);
+		
+		new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+		
 		msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.9")); //$NON-NLS-1$
 		msg.open();	
 		this.dialogShell.dispose();	

@@ -23,8 +23,10 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -588,10 +590,16 @@ public class AccUIInitialTransaction extends Composite implements
 
             if (verifyFields()) {
             	//TODO acc trans exRate
-                blTransUpdate.updateTransaction(accTrans, txtDocumentNo
+            
+            Map creditAccounts = new HashMap();
+            Map deptAccounts = new HashMap();
+            
+            prepareAccountingMaps(creditAccounts,deptAccounts);
+            
+            blTransUpdate.updateTransaction(accTrans, txtDocumentNo
                         .getText().trim(), dateTransactionDate.getData(),
-                        txtTransDefinition.getText().trim(),EngBLCommon.getBaseCurrencyExchangeRate());
-                updateTransactionRows();
+                        txtTransDefinition.getText().trim(),EngBLCommon.getBaseCurrencyExchangeRate(),creditAccounts,deptAccounts,false);
+           
                 msg.setMessage(Messages
                         .getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
                 msg.open();
@@ -606,38 +614,68 @@ public class AccUIInitialTransaction extends Composite implements
 
     }
 
-    public void updateTransactionRows() throws Exception {
-        try {
 
-            deleteTransactionRows();
-
-            saveTransactionRows(accTrans.getId());
-        }
-
-        catch (Exception ex) {
-            throw ex;
-        }
-
+    public void prepareAccountingMaps(Map creditAccounts, Map deptAccounts)throws Exception
+	{
+    	creditAccounts.clear();
+    	deptAccounts.clear();
+    	   	
+    	try
+		{
+    
+    		TableItem items[] = tableTransactionColumns.getItems();
+    
+    		for(int i=0; i<items.length;i++)
+    		{
+   
+    			AccUITransactionAddTableRow row =(AccUITransactionAddTableRow)items[i].getData();
+    
+    			if(row.okToSave())
+    			{
+    			
+    				TurqAccountingTransactionColumn transColumn=(TurqAccountingTransactionColumn)row.getDBObject();
+    				if(transColumn.getCreditAmount().doubleValue()>0)
+    				{
+    					List ls = (List)creditAccounts.get(transColumn.getTurqAccountingAccount().getId());
+    					if(ls == null)
+    					{
+    						ls = new ArrayList();
+    					}
+    					ls.add(transColumn.getCreditAmount());
+    					creditAccounts.put(transColumn.getTurqAccountingAccount().getId(),ls);    					
+    					
+    				}
+    				else
+    				{
+    					List ls = (List)deptAccounts.get(transColumn.getTurqAccountingAccount().getId());
+    					if(ls == null)
+    					{
+    						ls = new ArrayList();
+    					}
+    					ls.add(transColumn.getDeptAmount());
+    					deptAccounts.put(transColumn.getTurqAccountingAccount().getId(),ls);    				   					
+    				}
+    				
+    				
+    			
+    			}
+    
+    		}
+    
+    
+    
+		}
+    	catch(Exception ex)
+		{
+    		throw ex;
+    
+		}
+    
+    
     }
-
-    public void deleteTransactionRows() throws Exception {
-        try {
-            Set transactionRows = accTrans
-                    .getTurqAccountingTransactionColumns();
-            Iterator it = transactionRows.iterator();
-            TurqAccountingTransactionColumn transRow;
-            while (it.hasNext()) {
-
-                blTransUpdate.delete(it.next());
-
-            }
-
-        } catch (Exception ex) {
-            throw ex;
-
-        }
-
-    }
+    
+    
+   
 
     void calculateTotalDeptAndCredit() {
         TurquazDecimalFormat df = new TurquazDecimalFormat();

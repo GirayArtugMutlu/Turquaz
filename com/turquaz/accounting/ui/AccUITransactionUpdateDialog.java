@@ -24,8 +24,9 @@ package com.turquaz.accounting.ui;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import java.util.Set;
 
@@ -44,6 +45,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.accounting.Messages;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 
@@ -310,12 +312,17 @@ public void showDialog(TurqAccountingTransaction accTrans){
 
 			if(compTransactionAdd.verifyFields())
 			{
+			
 				updated=true;
 
+				Map creditAccounts = new HashMap();
+				Map deptAccounts = new HashMap();
+				compTransactionAdd.prepareAccountingMaps(creditAccounts,deptAccounts);
+				
 			 blTransUpdate.updateTransaction(accTrans,compTransactionAdd.getTxtDocumentNo().getText().trim(),
 										compTransactionAdd.getDateTransactionDate().getData(),compTransactionAdd.getTxtTransDefinition().getText().trim(),
-										compTransactionAdd.getExchangeRate());
-			 updateTransactionRows();
+										compTransactionAdd.getExchangeRate(),creditAccounts,deptAccounts,false);
+
 			 msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 			 msg.open();
 			 dialogShell.close();
@@ -330,45 +337,7 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		
 		
 		
-	}
-	
-//TODO DONE
-  public void updateTransactionRows()throws Exception {
-   try{
-  
-    deleteTransactionRows();
-    
-    compTransactionAdd.saveTransactionRows(accTrans.getId());
-    }
-    
-    catch(Exception ex){
-       throw ex;
-    }
-  
-  }	
-	
-    public void deleteTransactionRows()throws Exception{
-    try{
-     Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
-     Iterator it = transactionRows.iterator();
-     TurqAccountingTransactionColumn transRow;
-     while(it.hasNext()){
-
-     	blTransUpdate.delete(it.next());
-	
-	}
-    
-     
-    
-    
-    }
-    catch(Exception ex){
-    throw ex;
-    
-    }
-        
-    }
-    
+	}   
     
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt){
@@ -379,8 +348,9 @@ public void showDialog(TurqAccountingTransaction accTrans){
 		if(answer ==SWT.YES){
 		try{
 		updated=true;
-		deleteTransactionRows();
-		blTransUpdate.delete(accTrans);
+		
+		new AccBLTransactionSearch().removeAccountingTransaction(accTrans);
+		
 		msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.5")); //$NON-NLS-1$
 		msg.open();	
 		this.dialogShell.dispose();	
