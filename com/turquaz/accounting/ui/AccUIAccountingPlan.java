@@ -146,7 +146,7 @@ SearchComposite, SecureComposite{
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
 		 
-		 //Add popup menu to add favorites
+		 //Add popup menu to delete account
 	     popup = new Menu(getShell(),SWT.POP_UP);
 	     MenuItem item = new MenuItem (popup, SWT.PUSH);
 		 item.setText(Messages.getString("AccUIAccountingPlan.2"));    	  //$NON-NLS-1$
@@ -329,7 +329,7 @@ public void fillTree(int parent, String codeCrit){
 	}
 	
 	public void printTable(){
-	    EngBLUtils.printTable(tableTreeAccountingPlan.getTable(),"Muhasebe Plan?");
+	    EngBLUtils.printTable(tableTreeAccountingPlan.getTable(),Messages.getString("AccUIAccountingPlan.4")); //$NON-NLS-1$
 	    
 	}
 	
@@ -354,6 +354,10 @@ public void fillTree(int parent, String codeCrit){
 			}
 
 		} catch (Exception ex) {
+			MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+			msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
+			msg.open();
+			
 			ex.printStackTrace();
 
 		}
