@@ -295,6 +295,16 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	public void save(){
 		
 	}
+	
+	public void initializeBill(TurqBill bill){
+	    try{
+	        
+	        blSearch.initializeBill(bill);
+	    }
+	    catch(Exception ex){
+	        ex.printStackTrace();
+	    }
+	}
 	public void search(){
 		
 		try{
@@ -348,12 +358,13 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	        if(items.length>0){
 	           
 	           TurqBill bill = (TurqBill)items[0].getData();
+	         
 	           if(blSearch.canUpdateBill(bill)){
 	               //delete Consignment Group
 	               MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 	               msg2.setMessage("Silmek istedi?inize emin misiniz?");
 	               if(msg2.open()==SWT.OK){
-					
+					initializeBill(bill);
 	                Iterator it = bill.getTurqBillInGroups().iterator();
 					while(it.hasNext()){
 					    
@@ -405,8 +416,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	public void tableMouseDoubleClick(){
 		TableItem items[] = tableBills.getSelection();
 		if(items.length>0){
-		
-		    new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,(TurqBill)items[0].getData()).open();
+		TurqBill bill = (TurqBill)items[0].getData();
+		initializeBill(bill);
+		    new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,bill).open();
 		    search();
 		    
 		    

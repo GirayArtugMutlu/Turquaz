@@ -8,6 +8,7 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
@@ -31,7 +32,7 @@ public class BillDALSearchBill {
 		Session session = EngDALSessionFactory.openSession();
 		
 		String query = "Select bill from TurqBill as bill" +
-				" left join fetch bill.turqBillInGroups where" +
+				" where" +
 				" bill.billsDate >= :startDate" +
 				" and bill.billsDate <= :endDate" +
 				" and bill.billsType ="+type +""+
@@ -55,22 +56,7 @@ public class BillDALSearchBill {
 		
 		
 		List list = q.list();
-		
-		TurqBill bill;
-		for(int i=0;i<list.size();i++){
-			
-		bill= (TurqBill)list.get(i);
-		Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
-		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-		
-		if(it.hasNext()){
-			TurqConsignment cons = (TurqConsignment)it.next();
-			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-		}
-	   
-	}
-		
-		session.close();
+	    session.close();
 		return list;
 		
 		
@@ -79,6 +65,36 @@ public class BillDALSearchBill {
 	catch(Exception ex){
 		throw ex;
 	}
+	}
+	
+	public void initializeBill(TurqBill bill)throws Exception{
+	    try{
+	    	Session session = EngDALSessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			session.refresh(bill);
+			
+			Hibernate.initialize(bill.getTurqBillInGroups());
+			Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
+			
+			Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+			if(it.hasNext()){
+				TurqConsignment cons = (TurqConsignment)it.next();
+				Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+				
+			}			
+			
+			
+			session.flush();
+			tx.commit();
+			session.close();
+	        
+	        
+	        
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
 	}
 
 }

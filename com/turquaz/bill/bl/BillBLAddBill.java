@@ -129,14 +129,13 @@ public class BillBLAddBill {
 		
 		//Al?? Faturas? 
 		if(bill.getBillsType()==0){
-			
-			
-			/**
-			 * 1- Stok muhasebe kayitlarini gir.
-			 * 2- Kdv muhasebe kayitlari
-			 * 3- Ötv muhasebe kayitlari
-			 * 4- Cari Hesap kay?d?
-			 */
+		    
+		/**
+		  * 1- Stok muhasebe kayitlarini gir.
+		  * 2- Kdv muhasebe kayitlari
+		  * 3- Ötv muhasebe kayitlari
+		  * 4- Cari Hesap kay?d?
+		 */
 
 			AccBLTransactionAdd blAcc = new AccBLTransactionAdd();
 			
@@ -182,7 +181,8 @@ public class BillBLAddBill {
 			 */
 			transRow = new TurqAccountingTransactionColumn();
 			
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("191"));
+			//191 olarak degistir...
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
@@ -205,7 +205,8 @@ public class BillBLAddBill {
 			 */
 			transRow = new TurqAccountingTransactionColumn();
 			
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("193"));
+			//193 olarak degistir..
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(new BigDecimal(0));
@@ -365,7 +366,8 @@ public class BillBLAddBill {
 			 */
 			transRow = new TurqAccountingTransactionColumn();
 			
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("391"));
+			//391 olarak degistir
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(invTrans.getTransactionsVatAmount());
@@ -388,7 +390,8 @@ public class BillBLAddBill {
 			 */
 			transRow = new TurqAccountingTransactionColumn();
 			
-			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("360"));
+			//360 olarak degistir
+			transRow.setTurqAccountingAccount(AccDALAccountAdd.getAccount("101"));
 			transRow.setTurqAccountingTransaction(accTrans);
 			
 			transRow.setCreditAmount(invTrans.getTransactionsVatSpecialAmount());

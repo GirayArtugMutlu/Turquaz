@@ -45,6 +45,15 @@ public class BillBLSearchBill {
 	        throw ex;
 	    }
 	}
+	public void initializeBill(TurqBill bill) throws Exception{
+	    try{
+	        
+	        dalSearch.initializeBill(bill);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 	
 	
 
