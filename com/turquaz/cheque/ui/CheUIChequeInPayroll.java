@@ -19,6 +19,7 @@ package com.turquaz.cheque.ui;
  * @author Onsel
  * @version $Id$
  */
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
@@ -28,6 +29,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -49,6 +51,21 @@ import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 import com.turquaz.engine.ui.component.SecureComposite;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
 	{
@@ -59,6 +76,9 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
+	private CurrencyTextAdvanced txtTotalAmount;
+	private CLabel lblTotalAmount;
+	private Composite compTotal;
 	private AccountPicker accountPicker;
 	private CLabel lblAccountingAccount;
 	private Button btnSumTotals;
@@ -230,6 +250,28 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 				}
 				currentPicker.setAccountPicker(accountPicker, EngBLCommon.CURRENT_ACC_TYPE_CHEQUES_TAKEN);
 			}
+			//START >>  compTotal
+			compTotal = new Composite(this, SWT.NONE);
+			GridLayout compTotalLayout = new GridLayout();
+			GridData compTotalLData = new GridData();
+			compTotalLData.heightHint = 29;
+			compTotalLData.grabExcessHorizontalSpace = true;
+			compTotalLData.horizontalAlignment = GridData.FILL;
+			compTotal.setLayoutData(compTotalLData);
+			compTotalLayout.numColumns = 2;
+			compTotal.setLayout(compTotalLayout);
+			//START >>  lblTotalAmount
+			lblTotalAmount = new CLabel(compTotal, SWT.NONE);
+			lblTotalAmount.setText("Toplam Tutar : ");
+			//END <<  lblTotalAmount
+			//START >>  txtTotalAmount
+			txtTotalAmount = new CurrencyTextAdvanced(compTotal, SWT.NONE);
+			GridData txtTotalAmountLData = new GridData();
+			txtTotalAmountLData.widthHint = 150;
+			txtTotalAmountLData.heightHint = 17;
+			txtTotalAmount.setLayoutData(txtTotalAmountLData);
+			//END <<  txtTotalAmount
+			//END <<  compTotal
 			this.layout();
 		}
 		catch (Exception e)
@@ -289,6 +331,18 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
 		}
 	}
+	
+	public void calculateTotal()
+	{
+		int count = tableCheques.getItemCount();
+		BigDecimal totalAmount=new BigDecimal(0);
+		for (int i = 0; i < count; i++)
+		{
+			TurqChequeCheque cheque=(TurqChequeCheque)tableCheques.getItem(i).getData();
+			totalAmount=totalAmount.add(cheque.getChequesAmount());
+		}
+		txtTotalAmount.setBigDecimalValue(totalAmount);
+	}
 
 	public void deleteTableRow()
 	{
@@ -299,6 +353,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 			{
 				selection[0].dispose();
 			}
+			calculateTotal();
 		}
 	}
 
@@ -315,6 +370,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 				selection[0].setText(new String[]{cheque.getChequesPortfolioNo(),
 						DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesPaymentPlace(),
 						cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+				calculateTotal();
 			}
 		}
 	}
@@ -329,6 +385,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 			item.setData(cheque);
 			item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
 					cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+			calculateTotal();
 		}
 	}
 

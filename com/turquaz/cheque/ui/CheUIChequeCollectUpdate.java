@@ -180,6 +180,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 					compChequeRoll.getCashCardPcker().setText(transRow.getTurqCashCard().getCashCardName());
 				}
 			}
+			compChequeRoll.calculateTotal();
 		}
 		catch (Exception ex)
 		{

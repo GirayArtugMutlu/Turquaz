@@ -19,6 +19,7 @@ package com.turquaz.cheque.ui;
  * @author  Onsel
  * @version  $Id$
  */
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
@@ -28,6 +29,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Table;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
@@ -65,6 +67,9 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 	private Composite compInfoPanel;
 	private ToolBar toolBarButtons;
 	private ToolItem toolItemAdd;
+	private CurrencyTextAdvanced txtTotalAmount;
+	private CLabel lblTotalAmount;
+	private Composite compTotal;
 	private AccountPicker accountPicker;
 	private CLabel lblAccountingAccount;
 	private Button btnSumTotals;
@@ -223,6 +228,28 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 					tableColumnAmount.setWidth(100);
 				}
 			}
+			//START >>  compTotal
+			compTotal = new Composite(this, SWT.NONE);
+			GridLayout compTotalLayout = new GridLayout();
+			compTotalLayout.numColumns = 2;
+			GridData compTotalLData = new GridData();
+			compTotal.setLayout(compTotalLayout);
+			compTotalLData.horizontalAlignment = GridData.FILL;
+			compTotalLData.heightHint = 29;
+			compTotalLData.grabExcessHorizontalSpace = true;
+			compTotal.setLayoutData(compTotalLData);
+			//START >>  lblTotalAmount
+			lblTotalAmount = new CLabel(compTotal, SWT.NONE);
+			lblTotalAmount.setText("Toplam Tutar : ");
+			//END <<  lblTotalAmount
+			//START >>  txtTotalAmount
+			txtTotalAmount = new CurrencyTextAdvanced(compTotal, SWT.NONE);
+			GridData txtTotalAmountLData = new GridData();
+			txtTotalAmountLData.widthHint = 150;
+			txtTotalAmountLData.heightHint = 17;
+			txtTotalAmount.setLayoutData(txtTotalAmountLData);
+			//END <<  txtTotalAmount
+			//END <<  compTotal
 			bankCardPicker.setAccountPicker(accountPicker, EngBLCommon.BANK_ACC_TYPE_CHEQUES_COLLECT);
 			this.layout();
 		}
@@ -287,6 +314,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 			{
 				cheques.remove(selection[0].getData());
 				selection[0].dispose();
+				calculateTotal();
 			}
 		}
 	}
@@ -295,6 +323,18 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 	{
 		cheques = new CheUICustomerChequeChooseDialog(getShell(), SWT.NULL, cheques).open();
 		fillTable();
+	}
+	
+	public void calculateTotal()
+	{
+		int count = tableCheques.getItemCount();
+		BigDecimal totalAmount=new BigDecimal(0);
+		for (int i = 0; i < count; i++)
+		{
+			TurqChequeCheque cheque=(TurqChequeCheque)tableCheques.getItem(i).getData();
+			totalAmount=totalAmount.add(cheque.getChequesAmount());
+		}
+		txtTotalAmount.setBigDecimalValue(totalAmount);
 	}
 
 	public void fillTable()
@@ -310,6 +350,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				item.setData(cheque);
 				item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
 						cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+				calculateTotal();
 			}
 		}
 	}

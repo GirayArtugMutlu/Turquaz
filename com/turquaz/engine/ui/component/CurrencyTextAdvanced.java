@@ -288,6 +288,11 @@ public class CurrencyTextAdvanced extends Composite
 		}
 		return new BigDecimal(text);
 	}
+	
+	public void setBigDecimalValue(BigDecimal bd)
+	{
+		text.setText(new TurkishCurrencyFormat().format(bd));
+	}
 
 	public Point computeSize(int wHint, int hHint, boolean arg)
 	{
