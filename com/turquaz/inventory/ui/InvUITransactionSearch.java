@@ -45,9 +45,9 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.current.ui.comp.CurrentPicker;
-import com.turquaz.engine.ui.component.TurquazDecimalFormat;
 
 
 import org.eclipse.swt.custom.CLabel;
@@ -267,16 +267,19 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
+					tableColumnTotalPriceIn = new TableColumn(
+						tableTransactions,
+						SWT.RIGHT);
+					tableColumnTotalPriceIn.setText(Messages
+						.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
+					tableColumnTotalPriceIn.setWidth(100);
+				}
+				{
 					tableColumnTotalAmountOut = new TableColumn(
 						tableTransactions,
 						SWT.RIGHT);
 					tableColumnTotalAmountOut.setText(Messages.getString("InvUITransactionSearch.10"));  //$NON-NLS-1$
 					tableColumnTotalAmountOut.setWidth(100);
-				}
-				{
-					tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceIn.setText(Messages.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
-					tableColumnTotalPriceIn.setWidth(100);
 				}
 				{
 					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
@@ -333,7 +336,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 		try {
 
-			TurquazDecimalFormat df = new TurquazDecimalFormat();
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 			tableTransactions.removeAll();
 			int type = 0;
 			if (comboTransactionsType.getText().equals(Messages.getString("InvUITransactionSearch.17"))) //$NON-NLS-1$
@@ -372,10 +375,10 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				item.setText(new String[] {
 								DatePicker.formatter.format(transDate),
 								transactions.getTurqInventoryCard().getCardName(),
-								transactions.getTransactionsAmountIn()+"", //$NON-NLS-1$
-								transactions.getTransactionsTotalAmountOut()+"", //$NON-NLS-1$
-								df.format(priceIn),
-								df.format(priceOut)});
+								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$
+								cf.format(priceIn),
+								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$								
+								cf.format(priceOut)});
 
 			}
 

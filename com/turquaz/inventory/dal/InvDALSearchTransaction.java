@@ -121,6 +121,7 @@ public class InvDALSearchTransaction {
 				query += " and transaction.turqInventoryCard = :invCardEnd";
 			}
 			
+			query +=" order by transaction.turqInventoryCard";
 
 			Query q = session.createQuery(query);
 

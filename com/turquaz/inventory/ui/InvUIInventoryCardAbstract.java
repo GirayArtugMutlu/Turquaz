@@ -17,16 +17,24 @@ package com.turquaz.inventory.ui;
 /************************************************************************/
 
 /**
-* @author  Onsel Armagan
+* @author  Cem Dayanik
 * @version  $Id$
 */
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.eclipse.swt.layout.GridLayout;
 
@@ -39,6 +47,7 @@ import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 
+import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -55,6 +64,7 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -67,6 +77,9 @@ import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import com.jasperassistant.designer.viewer.ViewerComposite;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
  * which is free for non-commercial use. If Jigloo is being used commercially
@@ -86,6 +99,10 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	private Table tableTransactions;
 
 	private TableColumn tableColumnTotalAmountOut;
+	private ViewerComposite viewer;
+	private CTabItem tabItemTable;
+	private CTabItem tabItemReport;
+	private CTabFolder tabFolderReport;
 	private InventoryPicker txtInvCardEnd;
 	private CLabel lblInvCardEnd;
 	private TableColumn tableColumnTotalPriceIn;
@@ -133,7 +150,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
                 GridLayout composite1Layout = new GridLayout();
                 composite1Layout.numColumns = 4;
                 GridData composite1LData = new GridData();
-                composite1LData.heightHint = 126;
+                composite1LData.heightHint = 94;
                 composite1LData.grabExcessHorizontalSpace = true;
                 composite1LData.horizontalAlignment = GridData.FILL;
                 compInvTransactionSearch.setLayoutData(composite1LData);
@@ -244,57 +261,95 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
                 }
             }
 			{
-				tableTransactions = new Table(this, SWT.FULL_SELECTION);
-				GridData tableConsignmentsLData = new GridData();
-				tableTransactions.addMouseListener(new MouseAdapter() {
-					public void mouseDoubleClick(MouseEvent evt) {
-						showConsignment();
-					}
-				});
+				tabFolderReport = new CTabFolder(this, SWT.NONE);
+				
+				tabFolderReport.setSize(56, 25);
+				GridData tabFolderReportLData = new GridData();
+				tabFolderReportLData.grabExcessVerticalSpace = true;
+				tabFolderReportLData.grabExcessHorizontalSpace = true;
+				tabFolderReportLData.horizontalAlignment = GridData.FILL;
+				tabFolderReportLData.verticalAlignment = GridData.FILL;
+				tabFolderReport.setLayoutData(tabFolderReportLData);
+				{
+					tabItemTable = new CTabItem(tabFolderReport, SWT.NONE);
+					tabItemTable.setText("Arama Sonucu");
+					{
+						tableTransactions = new Table(
+							tabFolderReport,
+							SWT.FULL_SELECTION);
+						tabItemTable.setControl(tableTransactions);
+						GridData tableConsignmentsLData = new GridData();
+						tabFolderReport.setSelection(tabItemTable);
+						tableTransactions.addMouseListener(new MouseAdapter() {
+							public void mouseDoubleClick(MouseEvent evt) {
+								showConsignment();
+							}
+						});
 
-				tableTransactions.setHeaderVisible(true);
-				tableTransactions.setLinesVisible(true);
-				tableConsignmentsLData.grabExcessHorizontalSpace = true;
-				tableConsignmentsLData.horizontalAlignment = GridData.FILL;
-				tableConsignmentsLData.verticalAlignment = GridData.FILL;
-				tableConsignmentsLData.grabExcessVerticalSpace = true;
-				tableTransactions.setLayoutData(tableConsignmentsLData);
-				{
-					tableColumnTransactionDate = new TableColumn(
-							tableTransactions, SWT.NONE);
-					tableColumnTransactionDate.setText(Messages.getString("InvUITransactionSearch.6")); //$NON-NLS-1$
-					tableColumnTransactionDate.setWidth(88);
+						tableTransactions.setHeaderVisible(true);
+						tableTransactions.setLinesVisible(true);
+						tableConsignmentsLData.grabExcessHorizontalSpace = true;
+						tableConsignmentsLData.horizontalAlignment = GridData.FILL;
+						tableConsignmentsLData.verticalAlignment = GridData.FILL;
+						tableConsignmentsLData.grabExcessVerticalSpace = true;
+						tableTransactions.setLayoutData(tableConsignmentsLData);
+						{
+							tableColumnTransactionDate = new TableColumn(
+								tableTransactions,
+								SWT.NONE);
+							tableColumnTransactionDate.setText(Messages
+								.getString("InvUITransactionSearch.6")); //$NON-NLS-1$
+							tableColumnTransactionDate.setWidth(88);
+						}
+						{
+							tableColumnInventoryCode = new TableColumn(
+								tableTransactions,
+								SWT.NONE);
+							tableColumnInventoryCode.setText(Messages
+								.getString("InvUITransactionSearch.8")); //$NON-NLS-1$
+							tableColumnInventoryCode.setWidth(108);
+						}
+						{
+							tableColumnTotalAmountIn = new TableColumn(
+								tableTransactions,
+								SWT.RIGHT);
+							tableColumnTotalAmountIn.setText(Messages
+								.getString("InvUITransactionSearch.7")); //$NON-NLS-1$
+							tableColumnTotalAmountIn.setWidth(100);
+						}
+						{
+							tableColumnTotalPriceIn = new TableColumn(
+								tableTransactions,
+								SWT.RIGHT);
+							tableColumnTotalPriceIn.setText(Messages
+								.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
+							tableColumnTotalPriceIn.setWidth(100);
+						}
+						{
+							tableColumnTotalAmountOut = new TableColumn(
+								tableTransactions,
+								SWT.RIGHT);
+							tableColumnTotalAmountOut.setText(Messages
+								.getString("InvUITransactionSearch.10")); //$NON-NLS-1$
+							tableColumnTotalAmountOut.setWidth(100);
+						}
+						{
+							tableColumnTotalPriceOut = new TableColumn(
+								tableTransactions,
+								SWT.RIGHT);
+							tableColumnTotalPriceOut.setText(Messages
+								.getString("InvUITransactionSearch.11")); //$NON-NLS-1$
+							tableColumnTotalPriceOut.setWidth(100);
+						}
+					}
 				}
 				{
-					tableColumnInventoryCode = new TableColumn(
-						tableTransactions,
-						SWT.NONE);
-					tableColumnInventoryCode.setText(Messages.getString("InvUITransactionSearch.8")); //$NON-NLS-1$
-					tableColumnInventoryCode.setWidth(108);
-				}
-				{
-					tableColumnTotalAmountIn = new TableColumn(
-						tableTransactions,
-						SWT.RIGHT);
-					tableColumnTotalAmountIn.setText(Messages.getString("InvUITransactionSearch.7"));  //$NON-NLS-1$
-					tableColumnTotalAmountIn.setWidth(100);
-				}
-				{
-					tableColumnTotalAmountOut = new TableColumn(
-						tableTransactions,
-						SWT.RIGHT);
-					tableColumnTotalAmountOut.setText(Messages.getString("InvUITransactionSearch.10"));  //$NON-NLS-1$
-					tableColumnTotalAmountOut.setWidth(100);
-				}
-				{
-					tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceIn.setText(Messages.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
-					tableColumnTotalPriceIn.setWidth(100);
-				}
-				{
-					tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
-					tableColumnTotalPriceOut.setText(Messages.getString("InvUITransactionSearch.11")); //$NON-NLS-1$
-					tableColumnTotalPriceOut.setWidth(100);
+					tabItemReport = new CTabItem(tabFolderReport, SWT.NONE);
+					tabItemReport.setText("Rapor");
+					{
+						viewer = new ViewerComposite(tabFolderReport, SWT.NONE);
+						tabItemReport.setControl(viewer);
+					}
 				}
 			}
 			postInitGui();
@@ -328,9 +383,10 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 	}
 	public void postInitGui() {
+		comboTransactionsType.add(EngBLCommon.COMMON_ALL_STRING);
 		comboTransactionsType.add(EngBLCommon.COMMON_BUY_STRING);
 		comboTransactionsType.add(EngBLCommon.COMMON_SELL_STRING);
-		comboTransactionsType.add(EngBLCommon.COMMON_ALL_STRING);
+		
 		comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
 
 		cal.set(cal.get(Calendar.YEAR),0,1);
@@ -386,16 +442,101 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 								DatePicker.formatter.format(transDate),
 								transactions.getTurqInventoryCard().getCardName(),
 								cf.format(transactions.getTransactionsAmountIn())+"", //$NON-NLS-1$
-								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$
 								cf.format(priceIn),
+								cf.format(transactions.getTransactionsTotalAmountOut())+"", //$NON-NLS-1$								
 								cf.format(priceOut)});
-
 			}
+			GenerateJasper(type);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 }
+	private void GenerateJasper(int type)
+	{
+		try
+		{
+			Map parameters = new HashMap();		
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
+			String sqlparam="Select trans.inventory_transactions_id,trans.transactions_amount_in," +
+					"trans.transactions_total_amount_out, trans.transactions_total_price," +
+					"invCard.card_inventory_code, invCard.card_name,curCard.cards_name," +
+					"trans.inventory_cards_id, trans.transactions_date,billcons.bill_document_no" +
+					" from turq_inventory_transactions trans," +
+					"turq_consignments cons, turq_bill_consignment_commons billcons," +
+					"turq_current_cards curCard, turq_inventory_cards invCard" +
+					" where trans.engine_sequences_id=cons.engine_sequences_id" +
+					" and cons.bill_consignment_common_id=billcons.bill_consignment_common_id" +
+					" and billcons.current_cards_id=curCard.current_cards_id" +
+					" and trans.inventory_cards_id=invCard.inventory_cards_id" +
+					" and trans.transactions_date >= '"+dformat.format(dateStartDate.getDate())+"'" +
+					" and trans.transactions_date <= '"+dformat.format(dateEndDate.getDate())+"'";
+			
+			
+			if (type != EngBLCommon.COMMON_ALL_INT)
+				sqlparam+=" and cons.consignments_type ="+ type;
+		
+			TurqCurrentCard curCard=(TurqCurrentCard)txtCurCard.getData();
+			if (curCard != null) {
+				sqlparam += " and curCard.current_cards_id="+curCard.getCurrentCardsId();
+			}
+		
+			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
+			TurqInventoryCard invCardEnd=(TurqInventoryCard)txtInvCardEnd.getData();
+			if (invCardStart != null && invCardEnd != null) {
+				sqlparam += " and invCard.card_inventory_code >= '"+invCardStart.getCardInventoryCode()+"'";
+				sqlparam += " and invCard.card_inventory_code <= '"+invCardEnd.getCardInventoryCode()+"'";
+				parameters.put("invCardStart",invCardStart.getCardInventoryCode());
+				parameters.put("invCardEnd",invCardEnd.getCardInventoryCode());
+			}
+			else if (invCardStart != null)
+			{
+				sqlparam += " and invCard.inventory_cards_id ="+invCardStart.getInventoryCardsId();
+				parameters.put("invCardStart",invCardStart.getCardInventoryCode());
+				parameters.put("invCardEnd","");
+			}
+			else if (invCardEnd !=null)
+			{
+				sqlparam += " and invCard.inventory_cards_id ="+invCardEnd.getInventoryCardsId();
+				parameters.put("invCardStart",invCardEnd.getCardInventoryCode());
+				parameters.put("invCardEnd","");
+			}
+			else
+			{
+				parameters.put("invCardStart","");
+				parameters.put("invCardEnd","");
+			}
+
+			sqlparam +=" order by invCard.inventory_cards_id,trans.transactions_date";
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
+			parameters.put("sqlparam",sqlparam);  //$NON-NLS-1$
+			parameters.put("startDate",dformat2.format(dateStartDate.getDate()));  //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(dateEndDate.getDate())); 			  //$NON-NLS-1$
+			parameters.put("dateformat",dformat2);  //$NON-NLS-1$
+			parameters.put("curCard",(curCard!=null)?curCard.getCardsCurrentCode():""); //$NON-NLS-1$
+			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
+			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			List balances = blSearch.searchTransactionsRange(invCardStart,invCardEnd,					
+					curCard,dateStartDate.getDate(), dateEndDate.getDate(),
+				type);
+
+			EngDALConnection db=new EngDALConnection();
+			db.connect();
+	
+			JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/inventory/InventoryCardAbstract.jasper");   //$NON-NLS-1$
+			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,db.getCon());	
+		
+			viewer.getReportViewer().setDocument(jasperPrint);	
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
+		
+	}
 
 	
 
