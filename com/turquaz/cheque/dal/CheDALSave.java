@@ -15,7 +15,7 @@ public class CheDALSave {
             session.save(obj);
             
             tx.commit();
-            session.flush();
+         session.flush();
             session.close();    
             
         }
@@ -32,7 +32,7 @@ public class CheDALSave {
             session.saveOrUpdate(obj);
             
             tx.commit();
-            session.flush();
+         //   session.flush();
             session.close();
             
             
@@ -53,7 +53,7 @@ public class CheDALSave {
             session.update(obj);
             
             tx.commit();
-            session.flush();
+          //  session.flush();
             session.close();
             
             
@@ -71,11 +71,11 @@ public class CheDALSave {
         try{
             
             Session session = EngDALSessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
+         Transaction tx = session.beginTransaction();
             session.delete(obj);
-            tx.commit();
-           session.flush();
-            session.close();
+          tx.commit();
+         
+           session.close();
             
             
             

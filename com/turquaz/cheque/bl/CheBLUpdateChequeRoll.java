@@ -72,10 +72,11 @@ public class CheBLUpdateChequeRoll {
                
                chequeInRoll = new TurqChequeChequeInRoll();
                
-               cheque = (TurqChequeCheque)chequeList.get(i);
-           
                
-             
+               cheque = (TurqChequeCheque)chequeList.get(i);     
+               cheque.setChequeChequesId(null);
+               cheque.setTurqChequeChequeInRolls(null);
+               
                
                CheDALSave.save(cheque);
                
