@@ -246,7 +246,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	}
 	
 	
-	public boolean verifyFields(boolean update){
+	public boolean verifyFields(boolean update, TurqAccountingAccount toUpdate){
 	try{
 	MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
    
@@ -258,12 +258,26 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
     this.txtAccAccountCode.setFocus();
     return false;
     }
-    else if (EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim())!= null&&!update)
+    TurqAccountingAccount acc=EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim());
+    if (acc!= null)
     {
-    	msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
-    	msg.open();
-    	txtAccAccountCode.setFocus();
-    	return false;   	
+    	if (!update)
+    	{
+    		msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
+    		msg.open();
+    		txtAccAccountCode.setFocus();
+    		return false;   
+    	}
+    	else
+    	{
+    		if (toUpdate!=null && !acc.getAccountingAccountsId().equals(toUpdate.getAccountingAccountsId()))
+    		{
+    			msg.setMessage("Daha önce varolan bir hesap kodu giremezsiniz!");
+    			msg.open();
+    			txtAccAccountCode.setFocus();
+    			return false;
+    		}
+    	}
     }
     
 	else if(txtParentAccount.getData()==null){
@@ -292,7 +306,7 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 	public void save(){
 		try{
 			
-			if(verifyFields(false))
+			if(verifyFields(false,null))
 			{
 				MessageBox msg = new MessageBox(this.getShell(),SWT.NULL);
 				TurqAccountingAccount parent=(TurqAccountingAccount)txtParentAccount.getData();
@@ -309,8 +323,10 @@ public class AccUIAddAccounts extends  Composite implements SecureComposite{
 				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();    
-				asistant.refreshContentAssistant(0);
+				
+				
 				EngBLAccountingAccounts.RefreshContentAsistantMap();
+				asistant.refreshContentAssistant(0);
     
 				clearFields();
 			}

@@ -52,11 +52,10 @@ public class AccBLAccountUpdate {
 			account.setUpdateDate(new java.sql.Date( cal.getTime().getTime()));
 	
 			account.setTurqAccountingAccountByParentAccount(parentAccount);
-			account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
-
-			EngBLAccountingAccounts.RefreshContentAsistantMap();
+			account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());			
 		    	
 			dalAccountUpdate.updateObject(account);		
+			EngBLAccountingAccounts.RefreshContentAsistantMap();
 	
 		}
 		catch(Exception ex)
@@ -70,6 +69,7 @@ public class AccBLAccountUpdate {
 	{
 		try
 		{
+			System.out.println("updateTOoOp");
 			toUpdate.setTurqAccountingAccountByTopAccount(topAccount);
 			List subAccounts=dalAccountUpdate.getSubAccounts(toUpdate);
 			for (int k=0; k<subAccounts.size(); k++)
