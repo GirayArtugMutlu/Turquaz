@@ -1,7 +1,7 @@
 
 package com.turquaz.bill.dal;
 
-import net.sf.hibernate.Hibernate;
+
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 
@@ -34,13 +34,26 @@ public class BillDALUpdateBill {
 			throw ex;
 		}
 	}
+	public void updateObject(Object obj)throws Exception{
+		try{
+		Session session = EngDALSessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.update(obj);
+		session.flush();
+		tx.commit();
+		session.close();
+		
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
 	public void updateBill(TurqBill obj)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			session.update(obj);
-			Hibernate.initialize(obj.getTurqBillInGroups());
-			Hibernate.initialize(obj.getTurqConsignment().getTurqInventoryTransactions());
+		
 			session.flush();
 			tx.commit();
 			session.close();

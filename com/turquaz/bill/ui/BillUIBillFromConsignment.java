@@ -34,9 +34,9 @@ import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -884,13 +884,7 @@ implements SecureComposite{
 										txtDefinition.getText(),
 										false,
 										dateBillDate.getDate(),
-										(TurqCurrentCard)txtCurrentCard.getData(),
-										txtDiscountRate.getIntValue(),
-										txtDiscountAmount.getBigDecimalValue(),
 										consignment,
-										txtTotalVat.getBigDecimalValue(),
-										decSpecialVat.getBigDecimalValue(),
-										txtTotalAmount.getBigDecimalValue(),
 										type,
 										!checkClosedBill.getSelection());
 		
@@ -966,14 +960,16 @@ implements SecureComposite{
 	
 	if(cons!=null){
 	txtConsignment.setData(cons);	
+	
+	TurqBillConsignmentCommon common = cons.getTurqBillConsignmentCommon();
 		
-	txtCurrentCard.setText(cons.getTurqCurrentCard().getCardsCurrentCode()+" - "+cons.getTurqCurrentCard().getCardsName());
-	txtCurrentCard.setData(cons.getTurqCurrentCard());
-	txtDocumentNo.setText(cons.getConsignmentsBillDocumentNo());
+	txtCurrentCard.setText(common.getTurqCurrentCard().getCardsCurrentCode()+" - "+common.getTurqCurrentCard().getCardsName());
+	txtCurrentCard.setData(common.getTurqCurrentCard());
+	txtDocumentNo.setText(common.getBillDocumentNo());
 	dateConsDate.setDate(cons.getConsignmentsDate());
     txtConsignment.setText(cons.getConsignmentsDocumentNo());
 	
-	Iterator it = cons.getTurqInventoryTransactions().iterator();
+	Iterator it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 	
 	TableItem item;
 	TurqInventoryTransaction invTrans;
@@ -1005,7 +1001,7 @@ implements SecureComposite{
 	}
 	comboConsignmentType.setText(type);
 	
-	txtDiscountRate.setText(cons.getCondignmentsDiscountRate());
+	txtDiscountRate.setText(common.getDiscountRate());
 	
 	
 	}

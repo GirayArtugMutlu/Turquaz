@@ -2,6 +2,7 @@
 package com.turquaz.bill.dal;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.hibernate.Hibernate;
@@ -10,6 +11,7 @@ import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
 /**
@@ -58,7 +60,13 @@ public class BillDALSearchBill {
 			
 		bill= (TurqBill)list.get(i);
 		Hibernate.initialize(bill.getTurqBillInGroups());
-	    Hibernate.initialize(bill.getTurqConsignment().getTurqInventoryTransactions());
+		Hibernate.initialize(bill.getTurqEngineSequence().getTurqConsignments());
+		Iterator it = bill.getTurqEngineSequence().getTurqConsignments().iterator();
+		if(it.hasNext()){
+			TurqConsignment cons = (TurqConsignment)it.next();
+			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
+		}
+	   
 	}
 		
 		session.close();

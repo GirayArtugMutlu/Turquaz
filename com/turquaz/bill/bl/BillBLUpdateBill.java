@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 
@@ -24,31 +25,41 @@ public class BillBLUpdateBill {
 
 	}
 
-	public void updateBill(String docNo, String definition, boolean isPrinted,
+	public void updateBill(TurqBill bill,String docNo, String definition, boolean isPrinted,
 			Date billDate, TurqCurrentCard curCard, int discountRate,
-			BigDecimal discountAmount, TurqConsignment cons,
+			BigDecimal discountAmount,
 			BigDecimal vatAmount, BigDecimal specialVatAmount,
 			BigDecimal totalAmount, int type) throws Exception {
 		try {
-			TurqBill bill = new TurqBill();
-			bill.setBillsDiscountRate(discountRate);
-			bill.setBillsCharges(new BigDecimal(0));
+			
+		
 			bill.setBillsDate(billDate);
 			bill.setBillsDefinition(definition);
-			bill.setBillsDiscountAmount(discountAmount);
-			bill.setBillDocumentNo(docNo);
+		
 			bill.setBillsPrinted(isPrinted);
-			bill.setBillsTotalAmount(totalAmount);
+		
 			bill.setBillsType(type);
-			bill.setBillsVatAmount(vatAmount);
-			bill.setBillsSpecialVatAmount(specialVatAmount);
-			bill.setTurqConsignment(cons);
-			bill.setTurqCurrentCard(curCard);
 
 			
 			bill.setUpdatedBy(System.getProperty("user"));
 			bill.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			
+			TurqBillConsignmentCommon common =bill.getTurqBillConsignmentCommon();
+			
+			common.setDiscountAmount(new BigDecimal(discountRate));
+			common.setCharges(new BigDecimal(0));
+			common.setDiscountAmount(discountAmount);
+			common.setBillDocumentNo(docNo);
+			common.setTotalAmount(totalAmount);
+			common.setVatAmount(vatAmount);
+			common.setSpecialVatAmount(specialVatAmount);
+			common.setTurqCurrentCard(curCard);
+
+	    	common.setUpdatedBy(System.getProperty("user"));
+		    common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+			
+		   
+			dalBill.updateObject(common);
 
 			dalBill.updateBill(bill);
 
