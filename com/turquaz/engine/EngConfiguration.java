@@ -28,12 +28,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.engine.dal.TurqCurrency;
+
 
 public class EngConfiguration {
 	private static final String filename = "config/turquaz.properties";//$NON-NLS-1$
     private Properties props ;
     public static String logoURL ="";
     public Date currentDate;
+    public TurqCurrency baseCurrency = null;
 	
 
 	private static EngConfiguration _instance;
@@ -42,6 +46,7 @@ public class EngConfiguration {
 	    
 	   currentDate  = Calendar.getInstance().getTime();    
        FileInputStream fis = new FileInputStream(filename);
+       baseCurrency = AccBLTransactionSearch.getBaseCurrency();
 	   props = new Properties();
 	   props.load(fis);
 	   logoURL=props.getProperty("logoURL");
@@ -104,11 +109,19 @@ public class EngConfiguration {
 		    _instance = new EngConfiguration();
 		}
 	    
-	  _instance.currentDate = d;;
+	  _instance.currentDate = d;
 	}
 	
+	public static TurqCurrency getBaseCurrency(){
+		if(_instance==null){
+		    _instance = new EngConfiguration();
+		}
+	    
+	  return _instance.baseCurrency;
+	}
 	public static void refreshConfig(){
 	    _instance = new EngConfiguration();
 	}
+	
 	
 }
