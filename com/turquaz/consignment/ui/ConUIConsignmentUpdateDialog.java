@@ -158,6 +158,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		;
 		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
+		compAddConsignment.getTxtDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
 		if(consignment.getConsignmentsType()==0){
 		compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
 		}

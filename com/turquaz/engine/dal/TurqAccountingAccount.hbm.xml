@@ -38,7 +38,6 @@
         type="java.lang.String"
         column="account_code"
         not-null="true"
-        unique="true"
         length="50"
     />
     <property

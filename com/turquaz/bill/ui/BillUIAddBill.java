@@ -1091,4 +1091,10 @@ implements SecureComposite{
 		
 	}
 
+    public Button getCheckIsOpen() {
+        return checkIsOpen;
+    }
+    public void setCheckIsOpen(Button checkIsOpen) {
+        this.checkIsOpen = checkIsOpen;
+    }
 }

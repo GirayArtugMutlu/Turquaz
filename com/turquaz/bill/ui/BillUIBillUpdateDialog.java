@@ -140,6 +140,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog {
 			;
 			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
+			compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
+		    compAddBill.getCheckIsOpen().setSelection(bill.isIsOpen());
+			
+			
 			if(bill.getBillsType()==0){
 			compAddBill.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
 			}

@@ -967,7 +967,7 @@ implements SecureComposite{
 	txtCurrentCard.setData(common.getTurqCurrentCard());
 	txtDocumentNo.setText(common.getBillDocumentNo());
 	dateConsDate.setDate(cons.getConsignmentsDate());
-    txtConsignment.setText(cons.getConsignmentsDocumentNo());
+    txtConsignment.setText(cons.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
 	
 	Iterator it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 	

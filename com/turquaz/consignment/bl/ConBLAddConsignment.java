@@ -16,6 +16,21 @@ import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqModule;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 /**
  * @author onsel
  *
@@ -39,7 +54,6 @@ public class ConBLAddConsignment {
 			
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
-			consignment.setConsignmentsDocumentNo(docNo);
 			consignment.setConsignmentsPrinted(isPrinted);
 			consignment.setConsignmentsType(type);
 					
@@ -70,6 +84,7 @@ public class ConBLAddConsignment {
 			common.setVatAmount(vatAmount);
 			common.setSpecialVatAmount(specialVatAmount);
 			common.setDiscountRate(discountRate);
+			common.setConsignmentDocumentNo(docNo);
 			common.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			common.setLastModified(new java.sql.Date(cal.getTime().getTime()));

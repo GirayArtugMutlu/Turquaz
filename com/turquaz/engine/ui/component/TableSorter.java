@@ -31,9 +31,9 @@ public static void sortTable(Table table, TableColumn column){
             String value2 = items[j].getText(col_index);
             if (collator.compare(value1, value2) < 0) {
                 String[] values = new String[table.getColumnCount()];
-            	for(int k=0;i<table.getColumnCount();k++){
-             		values[k]=items[i].getText(k);
-             		
+            	
+                for(int k=0;k<table.getColumnCount();k++){
+             		values[k]=items[i].getText(k);             		
              	}
                 
                 Object data = items[i].getData();

@@ -37,9 +37,6 @@ public class TurqConsignment implements Serializable {
     private boolean consignmentsPrinted;
 
     /** persistent field */
-    private java.lang.String consignmentsDocumentNo;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
 
     /** persistent field */
@@ -52,7 +49,7 @@ public class TurqConsignment implements Serializable {
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, java.lang.String consignmentsDocumentNo, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, java.util.Date creationDate, java.lang.String createdBy, java.util.Date lastModified, java.lang.String updatedBy, int consignmentsType, boolean consignmentsPrinted, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqCompany turqCompany, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
         this.creationDate = creationDate;
@@ -61,7 +58,6 @@ public class TurqConsignment implements Serializable {
         this.updatedBy = updatedBy;
         this.consignmentsType = consignmentsType;
         this.consignmentsPrinted = consignmentsPrinted;
-        this.consignmentsDocumentNo = consignmentsDocumentNo;
         this.turqBillConsignmentCommon = turqBillConsignmentCommon;
         this.turqCompany = turqCompany;
         this.turqEngineSequence = turqEngineSequence;
@@ -142,14 +138,6 @@ public class TurqConsignment implements Serializable {
 
     public void setConsignmentsPrinted(boolean consignmentsPrinted) {
         this.consignmentsPrinted = consignmentsPrinted;
-    }
-
-    public java.lang.String getConsignmentsDocumentNo() {
-        return this.consignmentsDocumentNo;
-    }
-
-    public void setConsignmentsDocumentNo(java.lang.String consignmentsDocumentNo) {
-        this.consignmentsDocumentNo = consignmentsDocumentNo;
     }
 
     public com.turquaz.engine.dal.TurqBillConsignmentCommon getTurqBillConsignmentCommon() {

@@ -82,13 +82,6 @@
         not-null="true"
         length="1"
     />
-    <property
-        name="consignmentsDocumentNo"
-        type="java.lang.String"
-        column="consignments_document_no"
-        not-null="true"
-        length="50"
-    />
 
     <!-- Associations -->
   

@@ -33,7 +33,6 @@ public class ConBLUpdateConsignment {
 		consignment.setConsignmentsDate(consignmentDate);
 		consignment.setConsignmentsDefinition(definition);
 		
-		consignment.setConsignmentsDocumentNo(docNo);
 	
 		consignment.setConsignmentsType(type);
 				
@@ -52,6 +51,7 @@ public class ConBLUpdateConsignment {
 		common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 		common.setTurqCurrentCard(curCard);
+		common.setConsignmentDocumentNo(docNo);
 	  
 		dalCons.update(common);
 		
