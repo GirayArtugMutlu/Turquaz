@@ -82,5 +82,15 @@ public class EngBLCommon {
 			throw ex;
 		}
 	}
+	public static void delete(Object obj)throws Exception{
+	    try{
+	        
+	        EngDALCommon common =new EngDALCommon();
+	        common.delete(obj);
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 
 }

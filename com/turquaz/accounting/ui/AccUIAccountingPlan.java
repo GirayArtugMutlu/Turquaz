@@ -354,8 +354,8 @@ public void fillTree(int parent, String codeCrit){
 
 		} catch (Exception ex) {
 			MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-			msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
-			msg.open();
+			msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
+			msg3.open();
 			
 			ex.printStackTrace();
 

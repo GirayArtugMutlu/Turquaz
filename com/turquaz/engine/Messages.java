@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  * Preferences - Java - Code Style - Code Templates
  */
 public class Messages {
-	private static String BUNDLE_NAME = "com.turquaz.engine.messages";//$NON-NLS-1$
+	private static String BUNDLE_NAME = "com.turquaz.engine.messages_tr_TR";//$NON-NLS-1$
 
 	/**
 	 * @return Returns the bUNDLE_NAME.
@@ -52,7 +52,7 @@ public class Messages {
 	public static String getString(String key) {
 		try {
 			final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(
-					BUNDLE_NAME, Locale.getDefault());
+					BUNDLE_NAME);
 
 			return RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {

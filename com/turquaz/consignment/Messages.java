@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class Messages {
-	private static final String BUNDLE_NAME = "com.turquaz.consignment.messages";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "com.turquaz.consignment.messages_tr_TR";//$NON-NLS-1$
 
 	private Messages() {
 	}
@@ -26,7 +26,7 @@ public class Messages {
 		// TODO Auto-generated method stub
 		try {
 			final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME,Locale.getDefault());
+			.getBundle(BUNDLE_NAME);
 			
 			return RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {

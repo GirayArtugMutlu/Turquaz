@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 
 import org.eclipse.swt.layout.GridData;
@@ -41,7 +42,9 @@ import org.eclipse.swt.custom.CCombo;
 
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqAccountingTransactionType;
@@ -311,7 +314,66 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	public void save(){
 	
 	}
-	public void delete(){
+	public void delete(){   
+	    
+		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+	    
+	   TableItem items[] = tableTransactions.getSelection();
+	   if(items.length>0){
+	   TurqAccountingTransaction accTrans = (TurqAccountingTransaction)items[0].getData();
+		
+	   int status=0;
+	   
+	   /*Check if it has a journal entry*/
+		if(accTrans.getTurqAccountingJournal().getAccountingJournalId().intValue()!=-1){
+			status =1;
+		    
+	   }	
+		/* Check if it is entered from accountingmodule
+		 * 
+		 */
+		//1- Muhasebe Modulu
+	   else	if(accTrans.getTurqModule().getModulesId().intValue()!=1){
+		  status = 2;	
+		    
+		}
+	   
+	   if(status ==2){
+	       msg.setMessage("Bu fi? baska bir modülden girilmi?.\n Bu ekrandan silemezsiniz!");
+	       msg.open();
+	       return;
+	   }
+	   if(status==1){
+	       msg.setMessage("Bu fi?in yevmiye kayd? yap?lm??. \n Art?k silinemez!");
+	       msg.open();
+	       return;
+	   }
+	   
+	     
+	
+		MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
+		try {
+			msg2.setMessage("Silmek istedi?inize emin misiniz?");
+			int result = msg2.open();
+
+			if (result == SWT.OK) {
+			
+				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
+				msg.open();
+				search();
+				
+			}
+
+		} catch (Exception ex) {
+			MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+			msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
+			msg3.open();
+			
+			ex.printStackTrace();
+
+		
+	}
+	   }
 	
 	}
 	public void search(){
