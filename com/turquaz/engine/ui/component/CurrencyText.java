@@ -185,8 +185,8 @@ public class CurrencyText extends Composite {
  }
  public String getText(){
  	String formatted=text.getText(); 	
- 	formatted=formatted.replace('.','\0');
- 	return formatted.replace(',','.');
+ 	formatted=formatted.replaceAll("\\.","");
+ 	return formatted.replaceAll(",",".");
  }
  public void selectAll(){
  	text.selectAll();
