@@ -728,11 +728,7 @@ public final class TreeFactory {
 			item.setData(CheUIChequeInPayroll.class.getName());
 	    }
 		
-		if(EngBLPermissions.getPermission(CheUIChequeRollSearch.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.65"));   //$NON-NLS-1$
-			item.setData(CheUIChequeRollSearch.class.getName());
-	    }
+		
 		if(EngBLPermissions.getPermission(CheUIChequeOutPayrollCurrent.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.66"));  //$NON-NLS-1$
@@ -743,11 +739,7 @@ public final class TreeFactory {
 			item.setText(Messages.getString("TreeFactory.100"));   //$NON-NLS-1$
 			item.setData(CheUIChequeOutPayrollBank.class.getName());
 	    }
-		if(EngBLPermissions.getPermission(CheUICustomerChequeSearch.class.getName())>0){
-			item = new TreeItem(root,SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.101"));    //$NON-NLS-1$
-			item.setData(CheUICustomerChequeSearch.class.getName());
-	    }
+		
 		
 		if(EngBLPermissions.getPermission(CheUIChequeCollectFromBank.class.getName())>0){
 			item = new TreeItem(root,SWT.NULL);
@@ -763,15 +755,26 @@ public final class TreeFactory {
 		
 		TreeItem searchRoot = new TreeItem(tree,SWT.NULL);
 		
-		searchRoot.setText("Bordrolar");  
+		searchRoot.setText("Arama");  
 		
 		if(EngBLPermissions.getPermission(CheUIOwnChequeSearch.class.getName())>0){
 			item = new TreeItem(searchRoot,SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.102"));    //$NON-NLS-1$
 			item.setData(CheUIOwnChequeSearch.class.getName());
 	    }
+		if(EngBLPermissions.getPermission(CheUICustomerChequeSearch.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.101"));    //$NON-NLS-1$
+			item.setData(CheUICustomerChequeSearch.class.getName());
+	    }
+		if(EngBLPermissions.getPermission(CheUIChequeRollSearch.class.getName())>0){
+			item = new TreeItem(searchRoot,SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.65"));   //$NON-NLS-1$
+			item.setData(CheUIChequeRollSearch.class.getName());
+	    }
 		
 		root.setExpanded(true);
+		searchRoot.setExpanded(true);
 		return tree;
 		
 	}

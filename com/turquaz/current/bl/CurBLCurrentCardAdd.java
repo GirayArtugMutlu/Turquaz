@@ -87,6 +87,8 @@ public class CurBLCurrentCardAdd {
 			
 			saveCurrentAccountingAccounts(currentCard,accountingAccounts);
 			
+			//new CurBLCurrentTransactionAdd().saveInitialTransaction(currentCard);
+			
 			return currentCard.getId();
 		}
 		catch(Exception ex){

@@ -49,6 +49,14 @@ import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cheque.ui.CheUIChequeCollect;
+import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
+import com.turquaz.cheque.ui.CheUIChequeInPayroll;
+import com.turquaz.cheque.ui.CheUIChequeOutPayrollBank;
+import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
+import com.turquaz.cheque.ui.CheUIChequeRollSearch;
+import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
+import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
 import com.turquaz.consignment.ui.ConUIAddConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurrentCardAbstract;
@@ -174,6 +182,65 @@ public class MenuFactory {
 		mit.setMenu(chequeMenu);
 
 		//	cheque menu items
+		if (EngBLPermissions.getPermission(CheUIChequeInPayroll.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.41"));  //$NON-NLS-1$
+			mit.setData(CheUIChequeInPayroll.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CheUIChequeOutPayrollCurrent.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.70"));  //$NON-NLS-1$
+			mit.setData(CheUIChequeOutPayrollCurrent.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CheUIChequeOutPayrollBank.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.71"));  //$NON-NLS-1$
+			mit.setData(CheUIChequeOutPayrollBank.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CheUIChequeCollectFromBank.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.72"));  //$NON-NLS-1$
+			mit.setData(CheUIChequeCollectFromBank.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CheUIChequeCollect.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.73"));  //$NON-NLS-1$
+			mit.setData(CheUIChequeCollect.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		sps = new MenuItem(chequeMenu, SWT.SEPARATOR);
+		
+		if (EngBLPermissions.getPermission(CheUIChequeRollSearch.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.74"));  //$NON-NLS-1$
+			mit.setData(CheUIChequeRollSearch.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CheUICustomerChequeSearch.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.75"));  //$NON-NLS-1$
+			mit.setData(CheUICustomerChequeSearch.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CheUIOwnChequeSearch.class
+				.getName()) > 0) {
+			mit = new MenuItem(chequeMenu, SWT.PUSH);			
+			mit.setText(Messages.getString("MenuFactory.76"));  //$NON-NLS-1$
+			mit.setData(CheUIOwnChequeSearch.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		
 
 		mit = new MenuItem(menuFinance, SWT.CASCADE);
 		mit.setText(Messages.getString("MenuFactory.8"));  //$NON-NLS-1$

@@ -51,7 +51,12 @@ public class CurBLCurrentTransactionAdd {
 		
 	}
 	
-	
+	public void saveInitialTransaction(TurqCurrentCard curCard)throws Exception{
+		
+		saveCurrentTransaction(curCard,DatePicker.getFirstDayOfYear(),"",true,new BigDecimal(0),new BigDecimal(0),EngBLCommon.CURRENT_TRANS_INITIAL,new Integer(-1),"",EngBLCommon.getBaseCurrencyExchangeRate());
+		
+		
+	}
 	public TurqCurrentTransaction saveCurrentTransaction(TurqCurrentCard curCard,java.util.Date transDate, String documentNo,
 			boolean isCredit,BigDecimal amount, BigDecimal totalDiscount, int type,Integer seqDocNo,String definition, TurqCurrencyExchangeRate exchangeRate)throws Exception{
 	  

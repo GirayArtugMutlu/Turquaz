@@ -509,7 +509,13 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog {
 				
 				currentUpdate.deleteObject(it.next());
 			}
-		new CurBLSearchTransaction().deleteInitialTransactions(currentCard);
+			it = currentCard.getTurqCurrentAccountingAccounts().iterator();
+			while(it.hasNext())
+			{
+				currentUpdate.deleteObject(it.next());
+			}
+		
+			new CurBLSearchTransaction().deleteInitialTransactions(currentCard);
 			
 	}
 	catch(Exception ex ){
