@@ -31,18 +31,26 @@ public class EngUITableProperties
 
 	public EngUITableProperties() throws Exception
 	{
-		File file = new File("config/table_props.xml");
+		
+		File prop_dir = new File(System.getProperty("user.home")+"/.turquaz");
+		if(!prop_dir.exists())
+		{
+			prop_dir.mkdir();
+		}
+		
+		
+		File file = new File(System.getProperty("user.home")+"/.turquaz/table_props.xml");
 		if (!file.exists())
 		{
 			XMLOutputter outputter = new XMLOutputter();
 			OutputStream output = null;
-			output = new FileOutputStream("config/table_props.xml"); //$NON-NLS-1$
+			output = new FileOutputStream(System.getProperty("user.home")+"/.turquaz/table_props.xml"); //$NON-NLS-1$
 			Element root = new Element("props");
 			outputter.output(root, output);
 			output.close();
 		}
 		SAXBuilder myBuilder = new SAXBuilder();
-		InputSource input = new InputSource("config/table_props.xml");
+		InputSource input = new InputSource(System.getProperty("user.home")+"/.turquaz/table_props.xml");
 		tableDoc = myBuilder.build(input);
 		if (!tableDoc.hasRootElement())
 		{
@@ -116,7 +124,7 @@ public class EngUITableProperties
 			Format format = Format.getPrettyFormat();
 			XMLOutputter outputter = new XMLOutputter(format);
 			OutputStream output = null;
-			output = new FileOutputStream("config/table_props.xml"); //$NON-NLS-1$
+			output = new FileOutputStream(System.getProperty("user.home")+"/.turquaz/table_props.xml"); //$NON-NLS-1$
 			outputter.output(_instance.tableDoc, output);
 			output.close();
 		}
