@@ -17,9 +17,12 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
 
 public class TurquazContentAssistProcessors implements
@@ -41,7 +44,7 @@ public class TurquazContentAssistProcessors implements
      */
 
     /**
-     * 0 -accounting 1- inventory
+     * 0 -accounting 1- inventory 2-accounting leaves 3 customers
      *  
      */
     public void fillProposalArray(int type) {
@@ -73,6 +76,16 @@ public class TurquazContentAssistProcessors implements
                 for (int i = 0; i < list.size(); i++) {
                     TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
                     proposed.add(acc.getAccountCode());
+                }
+
+            }
+           else if (type == 3) {
+           		
+                List list = EngBLCurrentCards.getCurrentCards();
+
+                for (int i = 0; i < list.size(); i++) {
+                    TurqCurrentCard card = (TurqCurrentCard) list.get(i);
+                    proposed.add(card.getCardsCurrentCode());
                 }
 
             }

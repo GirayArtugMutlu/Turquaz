@@ -1,5 +1,10 @@
-
 package com.turquaz.engine.bl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
+import com.turquaz.engine.dal.TurqCurrentCard;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -18,41 +23,37 @@ package com.turquaz.engine.bl;
 /************************************************************************/
 
 /**
- * @author  Onsel Armagan
- * @version  $Id$
+ * @author Huseyin Ergun
+ * @version $Id$
  */
 
-import java.util.HashMap;
-import java.util.List;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.inventory.bl.InvBLCardSearch;
+public class EngBLCurrentCards {
 
-public class EngBLInventoryCards {
-	public List cardList;
+	public List currentList;
 
 	public HashMap cardMap = new HashMap();
 
-	static EngBLInventoryCards _instance;
+	static EngBLCurrentCards _instance;
 
-	private InvBLCardSearch blAccount = new InvBLCardSearch();
+	private CurBLCurrentCardSearch blCurrentCards = new CurBLCurrentCardSearch();
 
-	public EngBLInventoryCards() throws Exception {
+	public EngBLCurrentCards() throws Exception {
 		try {
-			fillInventoryList();
+			fillCurrentCards();
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
 
-	public void fillInventoryList() throws Exception {
+	public void fillCurrentCards() throws Exception {
 		try {
-			cardList = blAccount.searchCards("", "", null);
+			currentList = blCurrentCards.searchCurrentCard("", "", null);
 			cardMap.clear();
 
-			TurqInventoryCard invCard;
-			for (int i = 0; i < cardList.size(); i++) {
-				invCard = (TurqInventoryCard) cardList.get(i);
-				cardMap.put(invCard.getCardInventoryCode(), invCard);
+			TurqCurrentCard currentCard;
+			for (int i = 0; i < currentList.size(); i++) {
+				currentCard = (TurqCurrentCard) currentList.get(i);
+				cardMap.put(currentCard.getCardsCurrentCode(), currentCard);
 
 			}
 		} catch (Exception ex) {
@@ -61,43 +62,40 @@ public class EngBLInventoryCards {
 
 	}
 
-	/**
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public static synchronized List getInventoryCards() throws Exception {
+	public static synchronized List getCurrentCards() throws Exception {
 		try {
 			if (_instance == null) {
 
-				_instance = new EngBLInventoryCards();
+				_instance = new EngBLCurrentCards();
 
 			}
 
-			return _instance.cardList;
+			return _instance.currentList;
 
 		} catch (Exception ex) {
 			throw ex;
 		}
 
 	}
-
-	public static TurqInventoryCard getAccount(String accountCode)
-			throws Exception {
+	
+	public static TurqCurrentCard getCards(String currentCode)
+	throws Exception {
 		try {
 
 			if (_instance == null) {
 
-				_instance = new EngBLInventoryCards();
+				_instance = new EngBLCurrentCards();
 
 			}
 
-			return (TurqInventoryCard) _instance.cardMap.get(accountCode);
+			return (TurqCurrentCard) _instance.cardMap.get(currentCode);
 
 		} catch (Exception ex) {
 			throw ex;
 		}
 
-	}
+}
+	
+	
 
 }

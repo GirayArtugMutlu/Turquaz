@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
@@ -38,12 +39,15 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.VerifyEvent;
+
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
@@ -53,6 +57,7 @@ import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 
@@ -60,6 +65,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 
 import org.eclipse.swt.widgets.Button;
@@ -299,7 +305,6 @@ implements SecureComposite{
 	private CLabel lblDocumentNo;
 	private DatePicker dateConsignmentDate;
 	private CLabel lblDate;
-	private Button btnChooseCurrentCard;
 	private Text txtCurrentCard;
 	private CLabel lblCurrentCard;
 	private TableColumn tableColumnInventoryName;
@@ -417,35 +422,28 @@ implements SecureComposite{
 									compInfoPanel,
 									SWT.MULTI);
 								GridData txtCurrentCardLData = new GridData();
+								txtCurrentCard
+									.addModifyListener(new ModifyListener() {
+									public void modifyText(ModifyEvent evt) {
+										
+										
+										try {
+											txtCurrentCard
+												.setData(EngBLCurrentCards
+													.getCards(txtCurrentCard
+														.getText().trim()));
+										} catch (Exception ex) {
+											ex.printStackTrace();
+										}
+										
+									}
+									});
 								txtCurrentCard.setBackground(SWTResourceManager
 									.getColor(255, 255, 255));
-								txtCurrentCard.setEditable(false);
-								txtCurrentCardLData.widthHint = 232;
-								txtCurrentCardLData.heightHint = 37;
-								txtCurrentCardLData.horizontalSpan = 2;
-								txtCurrentCard
-									.setLayoutData(txtCurrentCardLData);
-							}
-							{
-								btnChooseCurrentCard = new Button(
-									compInfoPanel,
-									SWT.PUSH | SWT.CENTER);
-								btnChooseCurrentCard.setText(Messages
-									.getString("BillUIAddBill.4")); //$NON-NLS-1$
-								GridData button1LData = new GridData();
-								btnChooseCurrentCard
-									.addMouseListener(new MouseAdapter() {
-										public void mouseUp(MouseEvent evt) {
-
-											btnChooseMouseUp();
-
-										}
-									});
-								button1LData.widthHint = 56;
-								button1LData.heightHint = 23;
-								button1LData.verticalAlignment = GridData.BEGINNING;
-								btnChooseCurrentCard
-									.setLayoutData(button1LData);
+								txtCurrentCardLData.widthHint = 109;
+								txtCurrentCardLData.heightHint = 15;
+								txtCurrentCardLData.horizontalSpan = 3;
+								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
 								lblDocumentNo = new CLabel(
@@ -942,6 +940,24 @@ implements SecureComposite{
 		comboPaymentType.add(Messages.getString("BillUIAddBill.25")); //$NON-NLS-1$
 		comboPaymentType.setData(Messages.getString("BillUIAddBill.30"),new Boolean(true)); //$NON-NLS-1$
 		comboPaymentType.setText(Messages.getString("BillUIAddBill.35")); //$NON-NLS-1$
+		
+		
+		//content assistant
+		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCard);
+		final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter,3);
+		adapter.appendVerifyKeyListener( new VerifyKeyListener() {
+	                 public void verifyKey(VerifyEvent event) {
+
+	                 // Check for Ctrl+Spacebar
+	                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+	             
+	                  assistant.showPossibleCompletions();    
+	                   event.doit = false;
+
+	                 }
+	              }
+		});
+		
 	}
 	
 	
@@ -986,7 +1002,7 @@ implements SecureComposite{
 		if(txtCurrentCard.getData()==null){
 			msg.setMessage(Messages.getString("BillUIAddBill.38"));  //$NON-NLS-1$
 			msg.open();
-			btnChooseCurrentCard.setFocus();
+			txtCurrentCard.setFocus();
 			return false;
 		}
 		

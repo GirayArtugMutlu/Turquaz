@@ -157,7 +157,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 					{
 						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
 						lblInvName.setText(Messages
-							.getString("InvUICardSearch.0"));
+							.getString("InvUICardSearch.0")); //$NON-NLS-1$
 						lblInvName.setSize(100, 18);
 						GridData lblInvNameLData = new GridData();
 						lblInvNameLData.widthHint = 100;
@@ -183,7 +183,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 					{
 						lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 						lblInvGroup.setText(Messages
-							.getString("InvUICardSearch.2"));
+							.getString("InvUICardSearch.2")); //$NON-NLS-1$
 						lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(
 							110,
 							17));
@@ -229,14 +229,14 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 						tableColumnInvName = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInvName.setText("Stok Kodu");
+						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3")); //$NON-NLS-1$
 						tableColumnInvName.setWidth(115);
 					}
 					{
 						tableColumnInventoryCode = new TableColumn(
 							tableSearcResults,
 							SWT.NONE);
-						tableColumnInventoryCode.setText("Stok Adý");
+						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4")); //$NON-NLS-1$
 						tableColumnInventoryCode.setWidth(107);
 					}
 					{
@@ -244,7 +244,7 @@ public class InvUICardSearch extends  Composite implements SecureComposite,Searc
 							tableSearcResults,
 							SWT.NONE);
 						tableColumnAmount.setText(Messages
-							.getString("InvUICardSearch.5"));
+							.getString("InvUICardSearch.5")); //$NON-NLS-1$
 						tableColumnAmount.setWidth(118);
 					}
 				}
