@@ -106,7 +106,8 @@ public class CurBLSearchTransaction {
 		}
 
  		dalUpdate.updateObject(curTrans);
- 		
+ 	
+ /*		
     	accDalUpdate.updateTransaction(curTrans.getTurqAccountingTransaction(),documentNo,transDate,accTransType);		
 		
 //    	Remove transaction rows
@@ -116,7 +117,7 @@ public class CurBLSearchTransaction {
 		blTransAdd.saveAccountingCashTransactionRows(curCard,isCredit,amount,account,
 				curTrans.getTurqAccountingTransaction().getAccountingTransactionsId());
 				
-			
+*/
 	}
 	catch(Exception ex){
 		throw ex;
@@ -126,7 +127,7 @@ public class CurBLSearchTransaction {
 	public void deleteCurrentTransaction(TurqCurrentTransaction curTrans)throws Exception{
 		try{
 			
-			//remove accounting transaction rows
+	/*		//remove accounting transaction rows
 			blAccSearch.removeTransactionRows(curTrans.getTurqAccountingTransaction());
 			//remove accounting transaction
 			dalUpdate.deleteObject(curTrans);
@@ -136,7 +137,7 @@ public class CurBLSearchTransaction {
 			//remove currren transaction
 			
 			
-			
+		*/	
 			
 		}
 		catch(Exception ex){

@@ -210,7 +210,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	compTransactionAdd.getComboCurrentCode().setText(transaction.getTurqCurrentCard().getCardsCurrentCode());
 	compTransactionAdd.getDateTransDate().setDate(transaction.getTransactionsDate());
 	
-	TurqAccountingTransaction accTrans = transaction.getTurqAccountingTransaction();
+	/*TurqAccountingTransaction accTrans = transaction.getTurqAccountingTransaction();
 	
 	boolean isCredit = false;
 	//Tediye fisi
@@ -246,7 +246,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	}
 
 	
-	
+	*/
 	}
 	
 	catch(Exception ex){

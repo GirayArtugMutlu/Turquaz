@@ -146,7 +146,7 @@ public class CurBLCurrentTransactionAdd {
 		
  		TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
  		accTrans.setAccountingTransactionsId(transId);
- 		curTrans.setTurqAccountingTransaction(accTrans);
+ 		
  		 		
 		
  		if(isCredit){		

@@ -46,9 +46,6 @@ public class TurqCurrentTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction;
-
-    /** persistent field */
     private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
 
     /** persistent field */
@@ -58,7 +55,7 @@ public class TurqCurrentTransaction implements Serializable {
     private Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen;
 
     /** full constructor */
-    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalDiscount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String createdBy, java.math.BigDecimal transactionsTotalDept, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType, com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen) {
+    public TurqCurrentTransaction(java.util.Date transactionsDate, java.lang.String transactionsDocumentNo, java.math.BigDecimal transactionsTotalCredit, java.math.BigDecimal transactionsTotalDiscount, java.util.Date creationDate, java.util.Date lastModified, java.lang.String updatedBy, java.lang.String createdBy, java.math.BigDecimal transactionsTotalDept, com.turquaz.engine.dal.TurqCurrency turqCurrency, com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqCurrentTransactionBillsByCurrentTransactionsIdClose, Set turqCurrentTransactionBillsByCurrentTransactionsIdOpen) {
         this.transactionsDate = transactionsDate;
         this.transactionsDocumentNo = transactionsDocumentNo;
         this.transactionsTotalCredit = transactionsTotalCredit;
@@ -70,7 +67,6 @@ public class TurqCurrentTransaction implements Serializable {
         this.transactionsTotalDept = transactionsTotalDept;
         this.turqCurrency = turqCurrency;
         this.turqCurrentTransactionType = turqCurrentTransactionType;
-        this.turqAccountingTransaction = turqAccountingTransaction;
         this.turqCurrentCard = turqCurrentCard;
         this.turqCurrentTransactionBillsByCurrentTransactionsIdClose = turqCurrentTransactionBillsByCurrentTransactionsIdClose;
         this.turqCurrentTransactionBillsByCurrentTransactionsIdOpen = turqCurrentTransactionBillsByCurrentTransactionsIdOpen;
@@ -174,14 +170,6 @@ public class TurqCurrentTransaction implements Serializable {
 
     public void setTurqCurrentTransactionType(com.turquaz.engine.dal.TurqCurrentTransactionType turqCurrentTransactionType) {
         this.turqCurrentTransactionType = turqCurrentTransactionType;
-    }
-
-    public com.turquaz.engine.dal.TurqAccountingTransaction getTurqAccountingTransaction() {
-        return this.turqAccountingTransaction;
-    }
-
-    public void setTurqAccountingTransaction(com.turquaz.engine.dal.TurqAccountingTransaction turqAccountingTransaction) {
-        this.turqAccountingTransaction = turqAccountingTransaction;
     }
 
     public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {
