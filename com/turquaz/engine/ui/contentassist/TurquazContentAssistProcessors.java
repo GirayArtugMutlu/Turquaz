@@ -120,6 +120,18 @@ public class TurquazContentAssistProcessors implements
                
                }
            }
+           else if(type==EngBLCommon.CONTENT_ASSIST_CURRENT_CODE){
+               
+               List list = EngBLCurrentCards.getCurrentCards();
+
+               
+               for (int i = 0; i < list.size(); i++) {
+                   Object[] result = ((Object[]) list.get(i));
+                   
+                   proposed.add(new Proposal(result[0].toString(),result[1].toString()));
+               
+               }
+           }
             proposedCodes = new Proposal[proposed.size()];
             proposed.toArray(proposedCodes);
 

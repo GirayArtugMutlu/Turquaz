@@ -19,6 +19,7 @@ package com.turquaz.current.ui;
 * @author  Onsel Armagan
 * @version  $Id$
 */
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.eclipse.swt.custom.CLabel;
 
 import org.eclipse.swt.layout.GridData;
 
+import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
@@ -80,6 +82,9 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	private CLabel lblCurrentCard;
 	private CLabel lblTransactionGroup;
 	private Table tableCurrentTransactions;
+	private Text txtDefinition;
+	private CLabel lblDefinition;
+	private TableColumn tableColumn;
 	private CurrentPicker txtCurCard;
 	private TableColumn tableColumnDocNo;
 	private TableColumn tableColumnTransDate;
@@ -107,7 +112,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 		try {
 			preInitGUI();
 
-			this.setSize(569, 379);
+			this.setSize(638, 381);
 
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -118,7 +123,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				GridData composite1LData = new GridData();
 				composite1.setLayout(composite1Layout);
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 76;
+				composite1LData.heightHint = 85;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1.setLayoutData(composite1LData);
 				{
@@ -194,6 +199,17 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
+                {
+                    lblDefinition = new CLabel(composite1, SWT.NONE);
+                    lblDefinition.setText(Messages.getString("CurUITransactionSearch.10")); //$NON-NLS-1$
+                }
+                {
+                    txtDefinition = new Text(composite1, SWT.NONE);
+                    GridData txtDefinitionLData = new GridData();
+                    txtDefinitionLData.widthHint = 170;
+                    txtDefinitionLData.heightHint = 18;
+                    txtDefinition.setLayoutData(txtDefinitionLData);
+                }
 			}
 			{
 				tableCurrentTransactions = new Table(this, SWT.FULL_SELECTION);
@@ -215,29 +231,36 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 						tableCurrentTransactions,
 						SWT.NONE);
 					tableColumnTransDate.setText(Messages.getString("CurUITransactionSearch.9")); //$NON-NLS-1$
-					tableColumnTransDate.setWidth(100);
+					tableColumnTransDate.setWidth(98);
 				}
 				{
 					tableColumnDocNo = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
 					tableColumnDocNo.setText(Messages.getString("CurUITransactionSearch.2")); //$NON-NLS-1$
-					tableColumnDocNo.setWidth(80);
+					tableColumnDocNo.setWidth(85);
 				}
 				{
 					tableColumnCurrentCode = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
 					tableColumnCurrentCode.setText(Messages.getString("CurUITransactionSearch.5")); //$NON-NLS-1$
-					tableColumnCurrentCode.setWidth(107);
+					tableColumnCurrentCode.setWidth(82);
 				}
 				{
 					tableColumnTransGroup = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
 					tableColumnTransGroup.setText(Messages.getString("CurUITransactionSearch.6")); //$NON-NLS-1$
-					tableColumnTransGroup.setWidth(114);
+					tableColumnTransGroup.setWidth(95);
 				}
+                {
+                    tableColumn = new TableColumn(
+                        tableCurrentTransactions,
+                        SWT.NONE);
+                    tableColumn.setText(Messages.getString("CurUITransactionSearch.13")); //$NON-NLS-1$
+                    tableColumn.setWidth(100);
+                }
 				{
 					tableColumnDebit = new TableColumn(
 						tableCurrentTransactions,
@@ -311,10 +334,12 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	public void search(){
 	try{
 	tableCurrentTransactions.removeAll();
+	BigDecimal totalDept = new BigDecimal(0);
+	BigDecimal totalCredit = new BigDecimal(0);
 	
 	List results =blSearch.searchCurrentTransaction(txtCurCard.getData(),
 									 comboTransactionGroup.getData(comboTransactionGroup.getText()),
-									 "",dateStartDate.getDate(),dateEndDate.getDate()); //$NON-NLS-1$
+									 "",txtDefinition.getText().trim(),dateStartDate.getDate(),dateEndDate.getDate()); //$NON-NLS-1$
 	
 	TurqCurrentTransaction transaction;
 	TableItem item;
@@ -329,12 +354,17 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 								transaction.getTransactionsDocumentNo().toString(),
 								transaction.getTurqCurrentCard().getCardsCurrentCode(),
 							  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
+							  transaction.getTransactionsDefinition(),
 							  cf.format(transaction.getTransactionsTotalDept()),
 							  cf.format(transaction.getTransactionsTotalCredit())
 								});
+	totalDept = totalDept.add(transaction.getTransactionsTotalDept());
+	totalCredit = totalCredit.add(transaction.getTransactionsTotalCredit());
 	
-	} 
-	
+	}
+	item = new TableItem(tableCurrentTransactions,SWT.NULL);
+	item = new TableItem(tableCurrentTransactions,SWT.NULL);
+	item.setText(new String[]{"","","","","---TOPLAM---",cf.format(totalDept),cf.format(totalCredit)});
 	
 	
      	

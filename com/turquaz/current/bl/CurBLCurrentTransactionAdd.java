@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 
@@ -72,7 +73,7 @@ public class CurBLCurrentTransactionAdd {
 			curTrans.setTransactionsDate(transDate);
 			curTrans.setTransactionsDocumentNo(documentNo);
 			curTrans.setTransactionsTotalDiscount(totalDiscount);
-			curTrans.setTransactionsDefinition(definition);
+			curTrans.setTransactionsDefinition(definition.toUpperCase(Locale.getDefault()));
 			curTrans.setTurqEngineSequence(docSeq);
 		
 			if(isCredit){

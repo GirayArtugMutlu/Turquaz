@@ -60,6 +60,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.current.ui.comp.CurrentPicker;
+import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.dal.EngDALConnection;
@@ -73,10 +74,10 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
 	private Composite compSearch;
-	private CurrentPicker txtCurrentCard2;
+	private CurrentCodePicker txtCurrentCard2;
 	private CLabel lblCurCard2;
 	private CLabel lblCurrentCard;
-	private CurrentPicker txtCurrentCard;
+	private CurrentCodePicker txtCurrentCard;
 	private DatePicker datePickerEndDate;
 	private ViewerComposite viewer;
 	private CLabel lblEndDate;
@@ -151,7 +152,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					lblCurrentCard.setLayoutData(lblCurrentCardLData);
 				}
 				{
-					txtCurrentCard = new CurrentPicker(compSearch, SWT.NONE);
+					txtCurrentCard = new CurrentCodePicker(compSearch, SWT.NONE);
 					GridData txtCurrentCardLData = new GridData();
 					txtCurrentCardLData.widthHint = 237;
 					txtCurrentCardLData.heightHint = 15;
@@ -163,7 +164,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					lblCurCard2.setText(Messages.getString("CurUICurrentCardAbstract.3")); //$NON-NLS-1$
 				}
 				{
-					txtCurrentCard2 = new CurrentPicker(compSearch, SWT.NONE);
+					txtCurrentCard2 = new CurrentCodePicker(compSearch, SWT.NONE);
 					GridData txtCurrentCard2LData = new GridData();
 					txtCurrentCard2.setSize(237, 15);
 					txtCurrentCard2LData.widthHint = 237;

@@ -47,13 +47,13 @@ public class CurBLSearchTransaction {
 		
 	}
 	public List searchCurrentTransaction(Object curCard,
-										Object type, String docNo, Date startDate,
+										Object type, String docNo, String definition, Date startDate,
 										Date endDate)throws Exception {
 		try{
 		
 		return 	dalSearch.searchTransaction((TurqCurrentCard)curCard,
 											(TurqCurrentTransactionType)type,
-											docNo,startDate, endDate);
+											docNo,definition,startDate, endDate);
 			
 			
 			
