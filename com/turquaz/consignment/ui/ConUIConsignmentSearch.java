@@ -125,10 +125,10 @@ SearchComposite{
 			{
 				composite1 = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
-				composite1Layout.numColumns = 2;
+				composite1Layout.numColumns = 4;
 				composite1Layout.horizontalSpacing = 0;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 152;
+				composite1LData.heightHint = 88;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
@@ -144,7 +144,7 @@ SearchComposite{
 				{
 					txtCurCard = new Text(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 229;
+					txtCurCardLData.widthHint = 203;
 					txtCurCardLData.heightHint = 21;
 					txtCurCard.setLayoutData(txtCurCardLData);
 					txtCurCard
@@ -161,6 +161,25 @@ SearchComposite{
 
 					}
 					});
+				}
+				{
+					lblType = new CLabel(composite1, SWT.NONE);
+					lblType.setText(Messages
+						.getString("ConUIConsignmentSearch.3")); //$NON-NLS-1$
+					GridData lblTypeLData = new GridData();
+					lblTypeLData.widthHint = 74;
+					lblTypeLData.heightHint = 21;
+					lblType.setLayoutData(lblTypeLData);
+				}
+				{
+					comboConsignmentType = new CCombo(composite1, SWT.NONE);
+					GridData comboConsignmentTypeLData = new GridData();
+					comboConsignmentType.setText(Messages
+						.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
+					comboConsignmentTypeLData.widthHint = 73;
+					comboConsignmentTypeLData.heightHint = 18;
+					comboConsignmentType
+						.setLayoutData(comboConsignmentTypeLData);
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
@@ -191,22 +210,6 @@ SearchComposite{
 					dateEndDateLData.widthHint = 143;
 					dateEndDateLData.heightHint = 31;
 					dateEndDate.setLayoutData(dateEndDateLData);
-				}
-				{
-					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText(Messages.getString("ConUIConsignmentSearch.3")); //$NON-NLS-1$
-					GridData lblTypeLData = new GridData();
-					lblTypeLData.widthHint = 74;
-					lblTypeLData.heightHint = 21;
-					lblType.setLayoutData(lblTypeLData);
-				}
-				{
-					comboConsignmentType = new CCombo(composite1, SWT.NONE);
-					GridData comboConsignmentTypeLData = new GridData();
-					comboConsignmentType.setText(Messages.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
-					comboConsignmentTypeLData.widthHint = 73;
-					comboConsignmentTypeLData.heightHint = 18;
-					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
 				}
 			}
 			{

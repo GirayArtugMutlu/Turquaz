@@ -226,6 +226,13 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				tableCurrentTransactionsLData.grabExcessVerticalSpace = true;
 				tableCurrentTransactions.setLayoutData(tableCurrentTransactionsLData);
 				{
+					tableColumnTransDate = new TableColumn(
+						tableCurrentTransactions,
+						SWT.NONE);
+					tableColumnTransDate.setText(Messages.getString("CurUITransactionSearch.9")); //$NON-NLS-1$
+					tableColumnTransDate.setWidth(100);
+				}
+				{
 					tableColumnCurrentCode = new TableColumn(
 						tableCurrentTransactions,
 						SWT.NONE);
@@ -253,13 +260,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
 					tableColumnCredit.setWidth(101);
 				}
-				{
-					tableColumnTransDate = new TableColumn(
-						tableCurrentTransactions,
-						SWT.NONE);
-					tableColumnTransDate.setText(Messages.getString("CurUITransactionSearch.9")); //$NON-NLS-1$
-					tableColumnTransDate.setWidth(100);
-				}
+			
 			}
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
@@ -350,11 +351,12 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	transaction = (TurqCurrentTransaction)results.get(i);
 	item = new TableItem(tableCurrentTransactions,SWT.NULL);
 	item.setData(transaction);
-	item.setText(new String[]{transaction.getTurqCurrentCard().getCardsCurrentCode(),
+	item.setText(new String[]{
+								DatePicker.formatter.format(transaction.getTransactionsDate()),
+								transaction.getTurqCurrentCard().getCardsCurrentCode(),
 							  transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
 							  transaction.getTransactionsTotalDept().toString(),
-							  transaction.getTransactionsTotalCredit().toString(),
-							  DatePicker.formatter.format(transaction.getTransactionsDate())
+							  transaction.getTransactionsTotalCredit().toString()
 								});
 	
 	} 

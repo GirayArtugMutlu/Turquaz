@@ -123,12 +123,10 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 					compInvCardSearchPanel = new Composite(compInvCardSearch, SWT.NONE);
 					GridLayout compInvCardSearchPanelLayout = new GridLayout();
 					compInvCardSearchPanelLayout.numColumns = 4;
-					compInvCardSearchPanel
-						.setSize(new org.eclipse.swt.graphics.Point(563, 84));
 					GridData compInvCardSearchPanelLData = new GridData();
 					compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 					compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-					compInvCardSearchPanelLData.heightHint = 84;
+					compInvCardSearchPanelLData.heightHint = 71;
 					compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 					compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 					{

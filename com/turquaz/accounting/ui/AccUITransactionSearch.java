@@ -114,16 +114,11 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 
 			{
 				compAccTransactionSearch = new Composite(this, SWT.NONE);
-				GridLayout composite1Layout = new GridLayout(2, true);
-				composite1Layout.marginWidth = 5;
-				composite1Layout.marginHeight = 5;
-				composite1Layout.numColumns = 2;
-				composite1Layout.makeColumnsEqualWidth = false;
-				composite1Layout.horizontalSpacing = 5;
-				composite1Layout.verticalSpacing = 5;
+				GridLayout composite1Layout = new GridLayout();
+				composite1Layout.numColumns = 4;
 				GridData composite1LData = new GridData();
 				composite1LData.horizontalAlignment = GridData.FILL;
-				composite1LData.heightHint = 127;
+				composite1LData.heightHint = 84;
 				composite1LData.grabExcessHorizontalSpace = true;
 				compAccTransactionSearch.setLayoutData(composite1LData);
 				compAccTransactionSearch.setLayout(composite1Layout);
@@ -216,9 +211,14 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 				compAccTransactionSearch.layout();
 			}
 			tableTransactions = new Table(this,SWT.MULTI| SWT.FULL_SELECTION);
-			tableColumnTransType = new TableColumn(tableTransactions,SWT.NULL);
+			{
+				tableColumnDate = new TableColumn(tableTransactions, SWT.NONE);
+				tableColumnDate.setText(Messages
+					.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
+				tableColumnDate.setWidth(118);
+			}
 			tableColumnDocumentNo = new TableColumn(tableTransactions,SWT.NULL);
-			tableColumnDate = new TableColumn(tableTransactions,SWT.NULL);
+			tableColumnTransType = new TableColumn(tableTransactions,SWT.NULL);
 			tableColumnTotalAmount = new TableColumn(tableTransactions,SWT.NULL);
 	
 			this.setSize(new org.eclipse.swt.graphics.Point(646,513));
@@ -231,6 +231,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 			tableTransactions.setLayoutData(tableTransactionsLData);
 			tableTransactions.setHeaderVisible(true);
 			tableTransactions.setLinesVisible(true);
+			
 			tableTransactions.addMouseListener( new MouseAdapter() {
 				public void mouseDoubleClick(MouseEvent evt) {
 					tableTransactionsMouseDoubleClick(evt);
@@ -242,10 +243,7 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 	
 			tableColumnDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
 			tableColumnDocumentNo.setWidth(126);
-	
-			tableColumnDate.setText(Messages.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
-			tableColumnDate.setWidth(118);
-	
+
 			tableColumnTotalAmount.setText(Messages.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
 			tableColumnTotalAmount.setWidth(118);
 			{
@@ -413,8 +411,8 @@ public class AccUITransactionSearch extends  Composite implements SearchComposit
 		
 		
 		String transDate =formatter.format(accTrans.getTransactionsDate());
-		item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
-					accTrans.getTransactionDocumentNo(),transDate,total.toString(),accTrans.getTransactionDescription()}); //$NON-NLS-1$
+		item.setText(new String[]{transDate,accTrans.getTransactionDocumentNo(),accTrans.getTurqAccountingTransactionType().getTypesName(),
+					total.toString(),accTrans.getTransactionDescription()}); //$NON-NLS-1$
 	
 	}
 	
