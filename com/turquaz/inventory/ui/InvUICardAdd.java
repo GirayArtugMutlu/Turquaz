@@ -59,7 +59,7 @@ import com.turquaz.engine.dal.TurqInventoryUnit;
 
 import com.turquaz.engine.ui.component.SecureComposite;
 
-import java.awt.Color;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -92,8 +92,7 @@ import org.eclipse.swt.widgets.Label;
 
 
 import com.cloudgarden.resource.SWTResourceManager;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
+
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.events.TraverseEvent;
 /**

@@ -1,8 +1,7 @@
 
 package com.turquaz.engine.dal;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 
 import org.hsqldb.Server;
 
