@@ -863,5 +863,19 @@ INSERT INTO turq_cheque_transaction_types VALUES (7, 'Cariden Portfoye Iade', 1,
 INSERT INTO turq_module_components VALUES (86, 9, 'com.turquaz.cheque.ui.CheUIReturnFromGivenCheques', 'Verilen Cek Iade Bordrosu', 'cem', '2005-02-28', 'cem', '2005-02-28');
 
 
+CREATE TABLE turq_inventory_transaction_types
+(
+  id int4 NOT NULL,
+  inventory_transaction_type_name varchar(100) NOT NULL,
+  created_by varchar(100) NOT NULL,
+  "creation_date" date NOT NULL,
+  updated_by varchar(100) NOT NULL,
+  last_modified date NOT NULL
+)
+
+INSERT INTO turq_inventory_transaction_types VALUES (0, 'Acilis', 'admin', '2005-03-18', 'admin', '2005-03-18');
+INSERT INTO turq_inventory_transaction_types VALUES (1, 'Alis/Satis', 'admin', '2005-03-18', 'admin', '2005-03-18');
+INSERT INTO turq_inventory_transaction_types VALUES (2, 'Giris/Cikis', 'admin', '2005-03-18', 'admin', '2005-03-18');
+INSERT INTO turq_inventory_transaction_types VALUES (3, 'Uretim', 'admin', '2005-03-18', 'admin', '2005-03-18');
 
 
