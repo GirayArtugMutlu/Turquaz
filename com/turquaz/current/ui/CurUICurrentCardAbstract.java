@@ -17,14 +17,16 @@ package com.turquaz.current.ui;
 
 
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
+import net.sf.hibernate.Query;
+import net.sf.hibernate.Session;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -63,6 +65,7 @@ import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -70,6 +73,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
 
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.widgets.Text;
 public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite{
@@ -250,9 +254,125 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		
 	}
 	
-	
-	
 	public void search()
+	{
+		try
+		{
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			currentCard=null;
+			currentCard2=null;
+			if (txtCurrentCard.getData()== null && txtCurrentCard2.getData()== null)
+			{
+		    	msg.setMessage(Messages.getString("CurUICurrentCardAbstract.4")); //$NON-NLS-1$
+		    	msg.open();
+		    	txtCurrentCard.setFocus();
+		    	return ; 
+			}
+			else if (txtCurrentCard.getData()==null)
+			{
+				currentCard=(TurqCurrentCard)txtCurrentCard2.getData();
+				currentCard2=null;
+			}
+			else if (txtCurrentCard2.getData()==null)
+			{
+				currentCard=(TurqCurrentCard)txtCurrentCard.getData();
+				currentCard2=null;
+			}
+			else
+			{
+				currentCard=(TurqCurrentCard)txtCurrentCard.getData();
+				currentCard2=(TurqCurrentCard)txtCurrentCard2.getData();
+			}	
+			SimpleDateFormat dformat=new SimpleDateFormat("yyyy-MM-dd");  //$NON-NLS-1$
+			String query="Select curCard.cardsCurrentCode, curCard.cardsName," +
+					" curTrans.turqCurrentTransactionType.transactionTypeName," +
+					" curTrans.transactionsDate, curTrans.transactionsDocumentNo," +
+					" curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," +
+					" curTrans.currentTransactionsId," +
+					" curTrans.transactionsDefinition" +
+					" from TurqCurrentCard curCard right outer join" +
+					" curCard.turqCurrentTransactions as curTrans" +
+					" where (curTrans.transactionsDate >= :startDate" +
+					" and curTrans.transactionsDate <= :endDate ) or " +
+					" curCard.turqCurrentTransactions.size=0";
+			
+			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
+				query +=" and curTrans.transactionsDefinition like '"+txtDefinition.getText().toUpperCase(Locale.getDefault())+"%'"; //$NON-NLS-1$ //$NON-NLS-2$
+			if (currentCard2==null)
+			{
+				query +=" and curCard.currentCardsId="+currentCard.getCurrentCardsId().intValue(); //$NON-NLS-1$
+			}
+			else
+			{
+				query+=" and curCard.cardsCurrentCode >= "+"'"+currentCard.getCardsCurrentCode()+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					" and curCard.cardsCurrentCode <= "+"'"+currentCard2.getCardsCurrentCode()+"'";				 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+			query += " order by curCard.cardsCurrentCode, curTrans.transactionsDate"; //$NON-NLS-1$
+			
+			Session session = EngDALSessionFactory.openSession();
+			Query q = session.createQuery(query); 	
+			q.setParameter("startDate",datePickerStartDate.getDate());
+			q.setParameter("endDate",datePickerEndDate.getDate());
+			List list = q.list();
+			session.close();
+			
+			
+			Map parameters=new HashMap();
+			SimpleDateFormat dformat2=new SimpleDateFormat("dd/MM/yyyy");  //$NON-NLS-1$
+			parameters.put("startDate",dformat2.format(datePickerStartDate.getDate()));  //$NON-NLS-1$
+			parameters.put("endDate",dformat2.format(datePickerEndDate.getDate())); 			  //$NON-NLS-1$
+			parameters.put("dformat",dformat2);  //$NON-NLS-1$
+			parameters.put("currentCard1",currentCard.getCardsCurrentCode()); //$NON-NLS-1$
+			parameters.put("currentCard2",(currentCard2==null)? "" : currentCard2.getCardsCurrentCode());  //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("formatter", new TurkishCurrencyFormat(2));  //$NON-NLS-1$
+			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
+			parameters.put("currentDate",dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			List balances = CurBLSearchTransaction.getCurrentBalances(currentCard,currentCard2,datePickerStartDate.getDate());
+			HashMap balanceList=new HashMap();
+			for (int k=0; k < balances.size(); k++)
+			{
+				Object[] balanceArr=(Object[])balances.get(k);
+				//balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+				balanceList.put((String)balanceArr[0],balanceArr);
+			}
+			parameters.put("balanceList",balanceList); //$NON-NLS-1$
+			GenerateJasper(list,parameters);
+			
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public void GenerateJasper(List list, Map parameters){
+    	try
+		{
+    		String []fields= new String[]{"cards_current_code",
+    				"cards_name",
+					"transaction_type_name",
+					"transactions_date",
+					"transactions_document_no",
+					"transactions_total_credit",
+					"transactions_total_dept",
+					"current_transactions_id",
+					"transactions_definition"	
+						};
+    			
+    	
+    		HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list,fields);
+    		JasperReport jasperReport =(JasperReport)JRLoader.loadObject("reports/current/CurrentCardAbstract.jasper");   //$NON-NLS-1$
+    		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+    		viewer.getReportViewer().setDocument(jasperPrint);
+		}
+    	catch(Exception ex)
+		{
+    		ex.printStackTrace();
+		}
+    }
+	
+	
+	public void search2()
 	{
 		try
 		{
@@ -289,7 +409,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			" trans.transactions_total_dept, trans.transactions_total_credit," + //$NON-NLS-1$
 			" curCard.cards_current_code, curCard.cards_name" + //$NON-NLS-1$
 			" from turq_current_transactions trans, turq_current_transaction_types transtype," + //$NON-NLS-1$
-			" turq_current_cards curCard" + //$NON-NLS-1$
+			" turq_current_cards curCard" +
+			" left join " + //$NON-NLS-1$
 			" where trans.current_transaction_types_id=transtype.current_transaction_types_id" + //$NON-NLS-1$
 			" and trans.current_cards_id=curCard.current_cards_id"+ //$NON-NLS-1$
 			" and trans.transactions_date >="+"'"+dformat.format(datePickerStartDate.getDate())+"'"+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -325,7 +446,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			for (int k=0; k < balances.size(); k++)
 			{
 				Object[] balanceArr=(Object[])balances.get(k);
-				balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+				//balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+				balanceList.put((String)balanceArr[0],balanceArr);
 			}
 			parameters.put("balanceList",balanceList); //$NON-NLS-1$
 			//parameters.put("balances",balances);

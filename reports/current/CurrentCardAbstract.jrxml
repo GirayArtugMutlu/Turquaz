@@ -44,8 +44,16 @@
 	</field>
 	<field name="current_transactions_id" class="java.lang.Integer">
 	</field>
+	<variable name="initialDept" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[(((Object[])((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))==null)? new BigDecimal(0) : ((BigDecimal)(((Object[])((HashMap) $P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))[1]))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="initialCredit" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[(((Object[])((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))==null)? new BigDecimal(0) : ((BigDecimal)(((Object[])((HashMap) $P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))[2]))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
 	<variable name="initialBalance" class="java.math.BigDecimal" resetType="None">
-		<variableExpression><![CDATA[(((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))==null) ? new BigDecimal(0) : ((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))]]></variableExpression>
+		<variableExpression><![CDATA[$V{initialCredit}.subtract($V{initialDept})]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="Balance" class="java.math.BigDecimal" resetType="Group" resetGroup="current" calculation="Sum">
@@ -270,22 +278,18 @@
 				<text><![CDATA[Devreden]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="297" y="67" width="62" height="11">
-					<printWhenExpression><![CDATA[($V{initialBalance}.doubleValue() <= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
-				</reportElement>
+				<reportElement positionType="Float" x="297" y="67" width="62" height="11"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialBalance}.multiply(new BigDecimal(-1)))]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialDept})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="362" y="67" width="62" height="11">
-					<printWhenExpression><![CDATA[($V{initialBalance}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
-				</reportElement>
+				<reportElement positionType="Float" x="362" y="67" width="62" height="11"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialBalance})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialCredit})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="427" y="67" width="62" height="11">
@@ -434,7 +438,7 @@
 			</textField>
 			<textField evaluationTime="Group" evaluationGroup="trans">
 				<reportElement positionType="Float" x="492" y="1" width="62" height="11">
-					<printWhenExpression><![CDATA[($V{Balance}.add(((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{cards_current_code}))).add($F{transactions_total_credit}.subtract($F{transactions_total_dept})).doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($V{Balance}.add($V{initialBalance}).add($F{transactions_total_credit}.subtract($F{transactions_total_dept})).doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>

@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="AccountingSubsidiaryLedger" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.VGuides.Title" value="20"/>
@@ -44,16 +44,24 @@
 	</field>
 	<field name="columnId" class="java.lang.Integer">
 	</field>
+	<variable name="initialDept" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[(((Object[])((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{accCode}))==null)? new BigDecimal(0) : ((BigDecimal)(((Object[])((HashMap) $P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{accCode}))[1]))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="initialCredit" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[(((Object[])((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{accCode}))==null)? new BigDecimal(0) : ((BigDecimal)(((Object[])((HashMap) $P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{accCode}))[2]))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="initialBalance" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$V{initialCredit}.subtract($V{initialDept})]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
 	<variable name="totalDept" class="java.math.BigDecimal" resetType="Group" resetGroup="account" calculation="Sum">
 		<variableExpression><![CDATA[$F{rows_dept_in_base_currency}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalCredit" class="java.math.BigDecimal" resetType="Group" resetGroup="account" calculation="Sum">
 		<variableExpression><![CDATA[$F{rows_credit_in_base_currency}]]></variableExpression>
-		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
-	</variable>
-	<variable name="initialBalance" class="java.math.BigDecimal" resetType="None">
-		<variableExpression><![CDATA[(((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{accCode}))==null) ? new BigDecimal(0) : ((BigDecimal)((HashMap)$P{REPORT_PARAMETERS_MAP}.get("balanceList")).get($F{accCode}))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="Balance" class="java.math.BigDecimal" resetType="Group" resetGroup="account" calculation="Sum">
@@ -207,22 +215,18 @@
 				<text><![CDATA[DEVREDEN]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="241" y="60" width="75" height="12">
-					<printWhenExpression><![CDATA[($V{initialBalance}.doubleValue() <= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
-				</reportElement>
+				<reportElement positionType="Float" x="241" y="60" width="75" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialBalance}.multiply(new BigDecimal(-1)))+" "]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialDept})+" "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="318" y="60" width="75" height="12">
-					<printWhenExpression><![CDATA[($V{initialBalance}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
-				</reportElement>
+				<reportElement positionType="Float" x="318" y="60" width="75" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialBalance})+" "]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($V{initialCredit})+" "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="395" y="60" width="75" height="12">

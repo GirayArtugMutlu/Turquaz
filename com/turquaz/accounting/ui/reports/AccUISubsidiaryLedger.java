@@ -348,7 +348,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite 
 			for (int k=0; k < balances.size(); k++)
 			{
 				Object[] balanceArr=(Object[])balances.get(k);
-				balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+				//balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
+				balanceList.put((String)balanceArr[0],balanceArr);
 			}
 			parameters.put("balanceList",balanceList); //$NON-NLS-1$
 			

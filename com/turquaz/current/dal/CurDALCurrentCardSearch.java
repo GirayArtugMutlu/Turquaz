@@ -61,7 +61,9 @@ public class CurDALCurrentCardSearch {
 		try{
 			Session session = EngDALSessionFactory.openSession();
 		
-			String query = "Select currentView, currentCard.cardsCurrentCode, currentCard.cardsName, currentCard.currentCardsId from TurqViewCurrentAmountTotal as currentView," +
+			String query = "Select currentView, currentCard.cardsCurrentCode," +
+					" currentCard.cardsName, currentCard.currentCardsId" +
+					" from TurqViewCurrentAmountTotal as currentView," +
 					" TurqCurrentCard as currentCard left join " +
 					" currentCard.turqCurrentCardsGroups as gr where" +
 					" currentCard.currentCardsId=currentView.currentCardsId" +
