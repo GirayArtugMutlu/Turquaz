@@ -80,6 +80,7 @@ public class AccBLTransactionUpdate {
 		transaction.setTurqAccountingTransactionType(accTransType);
 		transaction.setTransactionsDate(transDate);
 		transaction.setTransactionDocumentNo(docNo);
+		transaction.setTransactionDescription(definition);
 		transaction.setTurqCurrencyExchangeRate(exchangeRate);
 		transaction.setUpdatedBy(System.getProperty("user"));
 		transaction.setLastModified(new java.sql.Date( cal.getTime().getTime()));
