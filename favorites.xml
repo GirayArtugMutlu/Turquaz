@@ -1,1 +1,1 @@
-<tree />
+<tree><treeitem text="Stok Hareketi Arama" class="com.turquaz.inventory.ui.InvUITransactionSearch" /><treeitem text="Stok Kartı Ekle" class="com.turquaz.inventory.ui.InvUICardAdd" /><treeitem text="Stok Kartı Arama" class="com.turquaz.inventory.ui.InvUICardSearch" /></tree>

@@ -31,6 +31,7 @@ import java.util.Properties;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.TabItem;
 
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.events.DisposeEvent;
@@ -144,6 +145,15 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	private CCombo comboModuleSelection;
 	private CLabel lblModuleSelection;
 	private Composite compModuleSelection;
+	private static Tree treeHistory;
+	private CLabel lblHistory;
+	private Composite compHistoryTab;
+	private CTabItem tabHistory;
+	private MenuItem mitHistory;
+	private MenuItem mitFavorites;
+	private MenuItem mitModules;
+	private Menu menuView;
+	private MenuItem mitView;
 	private CoolItem coolItem1;
 	private CoolBar coolBar1;
 	private Tree treeBill;
@@ -193,7 +203,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compMainIn = new Composite(compMain,SWT.NULL);
 			sashMainVertical = new SashForm(compMainIn,SWT.NULL);
 			sashMainHorizontal = new LiveSashForm(sashMainVertical, SWT.NONE);
-			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER);
+			tabfldMenu = new CTabFolder(sashMainHorizontal,SWT.TOP| SWT.BORDER|SWT.CLOSE);
 			tabModules = new CTabItem(tabfldMenu,SWT.NULL);
 			compModulesTab = new Composite(tabfldMenu,SWT.NULL);
 			compModuleSelection = new Composite(compModulesTab,SWT.BORDER);
@@ -303,16 +313,13 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			sashMainHorizontal.setSize(new org.eclipse.swt.graphics.Point(792,572));
 			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,792,572));
-	
-			tabfldMenu.setSize(new org.eclipse.swt.graphics.Point(386,566));
-			tabfldMenu.setBounds(new org.eclipse.swt.graphics.Rectangle(0,0,392,572));
+
+			tabfldMenu.setBounds(0, -1, 202, 573);
 	
 			tabModules.setControl(compModulesTab);
 			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
 			tabModules.setImage(SWTResourceManager.getImage("icons/Process16.gif")); //$NON-NLS-1$
 
-			compModulesTab.setSize(new org.eclipse.swt.graphics.Point(386,549));
-	
 			GridData compModuleSelectionLData = new GridData();
 			compModuleSelectionLData.horizontalAlignment = GridData.FILL;
 			compModuleSelectionLData.heightHint = 22;
@@ -467,6 +474,38 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			tabFavorites.setControl(compFavoritesTab);
 			tabFavorites.setText(Messages.getString("EngUIMainFrame.5")); //$NON-NLS-1$
 			tabFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif")); //$NON-NLS-1$
+            {
+               
+                {
+                    compHistoryTab = new Composite(tabfldMenu, SWT.NONE);
+                    GridLayout compHistoryTabLayout = new GridLayout();
+                    compHistoryTabLayout.makeColumnsEqualWidth = true;
+                    compHistoryTab.setLayout(compHistoryTabLayout);
+                   
+                    {
+                        lblHistory = new CLabel(compHistoryTab, SWT.NONE);
+                        lblHistory.setText(Messages.getString("EngUIMainFrame.7")); //$NON-NLS-1$
+                    }
+                    {
+                        treeHistory = new Tree(compHistoryTab, SWT.NONE);
+                        GridData treeHistoryLData = new GridData();
+                        treeHistory.addMouseListener(new MouseAdapter() {
+                            public void mouseDoubleClick(MouseEvent evt) {
+                            
+                                treeHistoryMouseDoubleClick();
+                                    
+                                
+                                
+                            }
+                        });
+                        treeHistoryLData.grabExcessHorizontalSpace = true;
+                        treeHistoryLData.grabExcessVerticalSpace = true;
+                        treeHistoryLData.horizontalAlignment = GridData.FILL;
+                        treeHistoryLData.verticalAlignment = GridData.FILL;
+                        treeHistory.setLayoutData(treeHistoryLData);
+                    }
+                }
+            }
 
 			GridData compFavoritesSelectionLData = new GridData();
 			compFavoritesSelectionLData.verticalAlignment = GridData.CENTER;
@@ -539,6 +578,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			compFavoritesTab.layout();
 			tabfldMenu.setLayout(null);
 			tabfldMenu.setSelection(0);
+            tabfldMenu.addCTabFolder2Listener(new CTabFolder2Adapter() {
+                public void close(CTabFolderEvent evt) {
+                   ((CTabItem)evt.item).setControl(null);
+                   if(tabfldMenu.getItemCount()==1){
+                       sashMainHorizontal.setMaximizedControl(compMainInRight);
+                   }
+                }
+            });
 
 			compMainInRight.setBounds(200, 2, 592, 572);
 
@@ -573,7 +620,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
                             toolNew.setToolTipText(Messages
                                 .getString("EngUIMainFrame.9")); //$NON-NLS-1$
                             toolNew.setImage(SWTResourceManager
-                                .getImage("icons/new_wiz.gif"));
+                                .getImage("icons/new_wiz.gif")); //$NON-NLS-1$
 
                             toolNew
                                 .addSelectionListener(new SelectionAdapter() {
@@ -723,6 +770,70 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 	
 			mitHelp.setEnabled(true);
 			mitHelp.setText(Messages.getString("EngUIMainFrame.22")); //$NON-NLS-1$
+            {
+                mitView = new MenuItem(menuMain, SWT.CASCADE);
+                mitView.setText(Messages.getString("EngUIMainFrame.14")); //$NON-NLS-1$
+                {
+                    menuView = new Menu(mitView);
+                    mitView.setMenu(menuView);
+                    {
+                        mitModules = new MenuItem(menuView, SWT.PUSH);
+                        mitModules.setText(Messages.getString("EngUIMainFrame.2"));//$NON-NLS-1$
+                        mitModules.setImage(SWTResourceManager.getImage("icons/Process16.gif"));//$NON-NLS-1$
+                        mitModules.addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                           
+                              if(checkTabMenu(compModulesTab)==-1){
+                                  CTabItem item = new CTabItem(tabfldMenu,SWT.NULL);
+                                  item.setControl(compModulesTab);
+                                  item.setText(Messages.getString("EngUIMainFrame.2"));//$NON-NLS-1$
+                                  item.setImage(SWTResourceManager.getImage("icons/Process16.gif")); //$NON-NLS-1$
+                                  tabfldMenu.setSelection(item);
+                                  sashMainHorizontal.setMaximizedControl(null);
+                                  
+                              }
+                                             
+                            }
+                        });
+                    }
+                    {
+                        mitFavorites = new MenuItem(menuView, SWT.PUSH);
+                        mitFavorites.setText(Messages.getString("EngUIMainFrame.5"));//$NON-NLS-1$
+                        mitFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif"));//$NON-NLS-1$
+                        mitFavorites
+                            .addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                                if(checkTabMenu(compFavoritesTab)==-1){
+                                    CTabItem item = new CTabItem(tabfldMenu,SWT.NULL);
+                                    item.setControl(compFavoritesTab);
+                                    item.setText(Messages.getString("EngUIMainFrame.5"));//$NON-NLS-1$
+                                    item.setImage(SWTResourceManager.getImage("icons/favorites.gif")); //$NON-NLS-1$
+                                    tabfldMenu.setSelection(item);
+                                    sashMainHorizontal.setMaximizedControl(null);
+                                }
+                            
+                            }
+                            });
+                    }
+                    {
+                        mitHistory = new MenuItem(menuView, SWT.PUSH);
+                        mitHistory.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
+                        mitHistory.setImage(SWTResourceManager.getImage("icons/history.png"));//$NON-NLS-1$
+                        mitHistory.addSelectionListener(new SelectionAdapter() {
+                            public void widgetSelected(SelectionEvent evt) {
+                                if(checkTabMenu(compHistoryTab)==-1){
+                                    CTabItem item = new CTabItem(tabfldMenu,SWT.NULL);
+                                    item.setControl(compHistoryTab);
+                                    item.setText(Messages.getString("EngUIMainFrame.19")); //$NON-NLS-1$
+                                    item.setImage(SWTResourceManager.getImage("icons/history.png")); //$NON-NLS-1$
+                                    tabfldMenu.setSelection(item);
+                                    sashMainHorizontal.setMaximizedControl(null);
+                                }   
+                            }
+                        });
+                    }
+                }
+            }
 			addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 				}
@@ -732,6 +843,20 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+    int checkTabMenu(Composite comp){
+	   CTabItem items[] = tabfldMenu.getItems();
+	   
+	    for(int i= 0; i<items.length;i++){
+	        if(items[i].getControl().equals(comp)){
+	            tabfldMenu.setSelection(items[i]);
+	            return i;
+	        }
+	        
+	        
+	    }
+	    return -1;
 	}
 /** Add your pre-init code in here 	*/
 	public void preInitGUI(){
@@ -1045,11 +1170,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			
 			saveFavoritesTree();
 			saveProperties();
-			if(EngConfiguration.getString("serverAddress").equals("localhost")){
+			if(EngConfiguration.getString("serverAddress").equals("localhost")){ //$NON-NLS-1$ //$NON-NLS-2$
 			EngDALConnection connection = new EngDALConnection();
 			try{
 			connection.connect();
-			connection.execQuery("SHUTDOWN");
+			connection.execQuery("SHUTDOWN"); //$NON-NLS-1$
 			}
 			catch(Exception ex){
 			    ex.printStackTrace();
@@ -1121,16 +1246,22 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 				CTabItem yeni = new CTabItem (tabfldMain,SWT.NULL );
 				yeni.setText(Name);
 			    try{
-			    
+			        
 				Class c = Class.forName(classname);
 				Composite comp =(Composite)c.getConstructor(new Class[]{Composite.class, int.class})
 				.newInstance(new Object[]{tabfldMain,Integer.valueOf(SWT.NULL+"")}); //$NON-NLS-1$
 				yeni.setControl(comp);
 				tabfldMain.setSelection(yeni);
-				arrangeIcons();
-				
+				arrangeIcons();				
 				// put into the tab hashmap 
 				mapList.put(classname,yeni);
+				
+				//Add To History Tree
+				TreeItem item = new TreeItem(treeHistory,SWT.NULL);
+				item.setText(Name);
+				item.setData(classname);
+				
+				
 			    }
 			    catch(Exception ex){
 			    	ex.printStackTrace();
@@ -1358,7 +1489,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 			openNewTab(item);
 		}
 	}
-
+	/** Auto-generated event handler method */
+	protected void treeHistoryMouseDoubleClick(){
+		TreeItem item = treeHistory.getSelection()[0];
+		if(item.getItemCount()==0){
+			openNewTab(item);
+		}
+	}     
+	
 	/** Auto-generated event handler method */
 	protected void treeCurrentMouseDoubleClick(){
 		TreeItem item = treeCurrent.getSelection()[0];
@@ -1376,7 +1514,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite {
 		    input.close();
 		    
 		   // props.put("logo","dfaf");
-		   props.put("logoURL",EngConfiguration.logoURL);
+		   props.put("logoURL",EngConfiguration.logoURL); //$NON-NLS-1$
 		    
 		    FileOutputStream output = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
 		    props.save(output,"Turquaz Configuration"); //$NON-NLS-1$
