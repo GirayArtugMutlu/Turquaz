@@ -50,7 +50,7 @@ public class InvDALSearchTransaction {
 		try {
 			Session session = EngDALSessionFactory.openSession();
   
-			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
+			String query = "Select transaction.id,transaction.transactionsDate,transaction.transactionsAmountIn," +
 			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
 			" transaction.turqInventoryCard.cardInventoryCode, " +
 			" transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction," +
@@ -107,18 +107,20 @@ public class InvDALSearchTransaction {
 		try {
 			Session session = EngDALSessionFactory.openSession();
 			
-			String query = "Select transaction.inventoryTransactionsId,transaction.transactionsDate,transaction.transactionsAmountIn," +
-			"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
-			" transaction.turqInventoryCard.cardInventoryCode, " +
-			" transaction.turqInventoryCard.cardName," +
-			" consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," +
-			" transaction.turqInventoryCard.inventoryCardsId," +
-			" consignment.turqBillConsignmentCommon.billDocumentNo " +
-			"  from TurqInventoryTransaction as transaction," +
-			 " TurqConsignment as consignment where" +
-			 " consignment.turqEngineSequence = transaction.turqEngineSequence "
-			+ " and consignment.consignmentsDate >= :startDate"
-			+ " and consignment.consignmentsDate <= :endDate";
+			String query = "Select transaction.id," +
+					"transaction.transactionsDate," +
+					"transaction.transactionsAmountIn," +
+					"transaction.transactionsTotalAmountOut, transaction.transactionsTotalPrice," +
+					" transaction.turqInventoryCard.cardInventoryCode, " +
+					" transaction.turqInventoryCard.cardName," +
+					" consignment.turqBillConsignmentCommon.turqCurrentCard.cardsName," +
+					" transaction.turqInventoryCard.inventoryCardsId," +
+					" consignment.turqBillConsignmentCommon.billDocumentNo " +
+					"  from TurqInventoryTransaction as transaction," +
+					" TurqConsignment as consignment where" +
+					 " consignment.turqEngineSequence = transaction.turqEngineSequence "
+					+ " and consignment.consignmentsDate >= :startDate"
+					+ " and consignment.consignmentsDate <= :endDate";
                  			
 			
 			if (type != EngBLCommon.COMMON_ALL_INT)
@@ -180,7 +182,7 @@ public class InvDALSearchTransaction {
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select transaction.inventoryTransactionsId," +
+			String query = "Select transaction.id," +
 					"transaction.transactionsDate," +
 					"transaction.transactionsAmountIn," +
 					"transaction.transactionsTotalAmountOut," +
@@ -193,7 +195,7 @@ public class InvDALSearchTransaction {
 			if (invMainGroup != null)
 			{
 				query+=", cardGroup.turqInventoryGroup.groupsName," +
-						" cardGroup.turqInventoryGroup.inventoryGroupsId";
+						" cardGroup.turqInventoryGroup.id";
 			}
 					
 				query += " from TurqInventoryTransaction as transaction";
@@ -209,7 +211,7 @@ public class InvDALSearchTransaction {
 			
 			if (invMainGroup !=null)
 			{
-				query+=" and cardGroup.turqInventoryGroup.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getId();
+				query+=" and cardGroup.turqInventoryGroup.turqInventoryGroup.id="+invMainGroup.getId();
 				
 			}
 			if (type != EngBLCommon.COMMON_ALL_INT)
@@ -264,25 +266,25 @@ public class InvDALSearchTransaction {
 			{
 				if (invSubGroup != null)
 				{
-					query+=" and "+invSubGroup.getId()+" in (Select gr.turqInventoryGroup.inventoryGroupsId from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
+					query+=" and "+invSubGroup.getId()+" in (Select gr.turqInventoryGroup.id from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
 				
 				}	
 				else
 				{
-					query+=" and exists (((Select tgr.turqInventoryGroup.inventoryGroupsId" +
+					query+=" and exists (((Select tgr.turqInventoryGroup.id" +
 							" from transaction.turqInventoryCard.turqInventoryCardGroups as tgr) " +
 							" intersect " +
-							" (Select invGr.inventoryGroupsId from TurqInventoryGroup as invGr " +
-							" where invGr.turqInventoryGroup.inventoryGroupsId="+invMainGroup.getId()+")))";
+							" (Select invGr.id from TurqInventoryGroup as invGr " +
+							" where invGr.turqInventoryGroup.id="+invMainGroup.getId()+")))";
 				}
 			}
 			if (invMainGroup != null)
 			{
-				query += " order by cardGroup.turqInventoryGroup.inventoryGroupsId,transaction.transactionsDate";
+				query += " order by cardGroup.turqInventoryGroup.id, transaction.transactionsDate";
 			}
 			else
 			{
-				query += " order by transaction.turqInventoryCard.inventoryCardsId,transaction.transactionsDate";
+				query += " order by transaction.turqInventoryCard.id,transaction.transactionsDate";
 			}
 			
 			Query q = session.createQuery(query);
@@ -319,7 +321,7 @@ public class InvDALSearchTransaction {
 		{
 			Session session = EngDALSessionFactory.openSession();
 			String query = "Select transaction from TurqInventoryTransaction as transaction" +
-					" where transaction.inventoryTransactionsId="+transId;
+					" where transaction.id="+transId;
 			
 			Query q = session.createQuery(query);
 	

@@ -24,7 +24,7 @@ public class InvDALProfitAnalysis {
             Session session = EngDALSessionFactory.openSession();
             String query = "select invCard.cardInventoryCode,invCard.cardName, invTotal.totalAmountIn," +
             		" invTotal.totalAmountOut, invTotal.totalPriceIn, invTotal.totalPriceOut from TurqInventoryCard as invCard, TurqViewInventoryTotal as invTotal" +
-            		" where invCard.inventoryCardsId = invTotal.inventoryCardsId" +
+            		" where invCard.id = invTotal.inventoryCardsId" +
             		" order by invCard.cardInventoryCode";
 
             

@@ -200,7 +200,7 @@ public class InvDALCardAdd {
 		Session session = EngDALSessionFactory.openSession();
 	
 		String query = "from TurqInventoryGroup as invGroup " +
-				" where invGroup.turqInventoryGroup.inventoryGroupsId <> -1";		   
+				" where invGroup.turqInventoryGroup.id <> -1";		   
 		   
 
 		Query q = session.createQuery(query); 
@@ -224,8 +224,8 @@ public class InvDALCardAdd {
 			Session session = EngDALSessionFactory.openSession();
 	
 			String query = "from TurqInventoryGroup as invGroup " +
-					" where invGroup.turqInventoryGroup.inventoryGroupsId = -1 and" +
-					" invGroup.inventoryGroupsId <> -1";
+					" where invGroup.turqInventoryGroup.id = -1 and" +
+					" invGroup.id <> -1";
 			
 
 			Query q = session.createQuery(query); 
