@@ -78,6 +78,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 	private TableColumn tableColumnDate;
 	private DatePicker dateEnd;
 	private CLabel lblEndDate;
+	private TableColumn tableColumnDefintion;
 	private DatePicker dateStart;
 	private CLabel lblStartDate;
 	private Text txtDocNo;
@@ -169,6 +170,13 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
                     tableColumnType.setText(Messages.getString("BankUISearchMoneyTransaction.7")); //$NON-NLS-1$
                     tableColumnType.setWidth(104);
                 }
+				//START >>  tableColumnDefintion
+				tableColumnDefintion = new TableColumn(
+					tableMoneyTrans,
+					SWT.NONE);
+				tableColumnDefintion.setText("Aç\u0131klama");
+				tableColumnDefintion.setWidth(150);
+				//END <<  tableColumnDefintion
             }
 			this.layout();
 		} catch (Exception e) {
@@ -199,7 +207,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
         
         List ls = BankBLTransactionSearch.searchtransaction(txtDocNo.getText().trim(),dateStart.getDate(),dateEnd.getDate());
       
-        Object []result;
+       TurqBanksTransactionBill result;
         Integer transId;
         Date transDate;
         BigDecimal dept = new BigDecimal(0);
@@ -214,13 +222,14 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
             dept = new BigDecimal(0);
             credit = new BigDecimal(0);
             
-            result = (Object[])ls.get(i);
-            transId = (Integer)result[0];
+            result = (TurqBanksTransactionBill)ls.get(i);
+            transId = result.getBanksTransactionBillsId();
           
-            transType = result[1].toString();
+            transType = result.getTurqBanksTransactionType().getTransactionTypeName();
           
-            transDate = (Date)result[2];
-            docNo = result[3].toString();
+            transDate = result.getTransactionBillDate();
+            docNo = result.getTransactionBillNo();
+            String definition = result.getTransactionBillDefinition();
             
             item = new TableItem(tableMoneyTrans,SWT.NULL);
             item.setData(transId);
@@ -228,6 +237,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
                     				  DatePicker.formatter.format(transDate),
                     				  docNo,
                     				  transType,
+									  definition
                     				});
             
             

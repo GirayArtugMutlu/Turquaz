@@ -644,7 +644,7 @@ public class BankBLTransactionAdd {
         }
 
     }
-    public static void saveChequeTransaction(TurqBanksCard bankCard, TurqAccountingAccount chequeAccount, TurqEngineSequence seq,
+    public static void saveChequeTransaction(TurqBanksCard bankCard, TurqEngineSequence seq,
             BigDecimal totalAmount, Date transDate, String definition,
             String docNo) throws Exception {
     	
