@@ -17,9 +17,12 @@ package com.turquaz.current.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 
+import java.math.BigDecimal;
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -41,17 +44,24 @@ import org.eclipse.swt.SWT;
 * *************************************
 */
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.ui.component.SecureComposite;
 
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.current.Messages;
+import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite
-implements SearchComposite{
+implements SecureComposite{
 	private CLabel lvlCurrentCard;
 	private CurrentPicker txtCurrentCard;
 	private CLabel lvlDate;
@@ -62,6 +72,7 @@ implements SearchComposite{
 	private CLabel lblDept;
 	private CurrencyText txtCredit;
 	private CLabel lblCredit;
+	private CurBLCurrentTransactionAdd curBLTransAdd=new CurBLCurrentTransactionAdd();
 
 	/**
 	* Auto-generated main method to display this 
@@ -112,7 +123,7 @@ implements SearchComposite{
 			this.setSize(591, 269);
 			{
 				lvlCurrentCard = new CLabel(this, SWT.NONE);
-				lvlCurrentCard.setText("Cari Kart :");
+				lvlCurrentCard.setText(Messages.getString("CurUICurrentCardVoucher.0")); //$NON-NLS-1$
 				GridData lvlCurrentCardLData = new GridData();
 				lvlCurrentCardLData.widthHint = 101;
 				lvlCurrentCardLData.heightHint = 15;
@@ -127,7 +138,7 @@ implements SearchComposite{
 			}
 			{
 				lvlDate = new CLabel(this, SWT.NONE);
-				lvlDate.setText("Tarih :");
+				lvlDate.setText(Messages.getString("CurUICurrentCardVoucher.1")); //$NON-NLS-1$
 			}
 			{
 				dateTransDate = new DatePicker(this, SWT.NONE);
@@ -138,7 +149,7 @@ implements SearchComposite{
 			}
 			{
 				lvlDefinition = new CLabel(this, SWT.NONE);
-				lvlDefinition.setText("Aç?klama :");
+				lvlDefinition.setText(Messages.getString("CurUICurrentCardVoucher.2")); //$NON-NLS-1$
 			}
 			{
 				txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL);
@@ -148,9 +159,28 @@ implements SearchComposite{
 				txtDefinition.setLayoutData(txtDefinitionLData);
 			}
 			{
+				lblDept = new CLabel(this, SWT.NONE);
+				lblDept.setText(Messages.getString("CurUICurrentCardVoucher.3")); //$NON-NLS-1$
+			}
+			{
+				txtDept = new CurrencyText(this, SWT.NONE);
+				GridData txtDeptLData = new GridData();
+				txtDept.addModifyListener(new ModifyListener() {
+					public void modifyText(ModifyEvent arg0) {
+						if (!txtDept.getText().equals("")) //$NON-NLS-1$
+							txtCredit.setText(""); //$NON-NLS-1$
+
+					}
+				});
+				txtDept.setSize(209, 14);
+				txtDeptLData.widthHint = 203;
+				txtDeptLData.heightHint = 14;
+				txtDept.setLayoutData(txtDeptLData);
+			}
+			{
 				lblCredit = new CLabel(this, SWT.NONE);
 				GridData lblCreditLData = new GridData();
-				lblCredit.setText("Alacak :");
+				lblCredit.setText(Messages.getString("CurUICurrentCardVoucher.6")); //$NON-NLS-1$
 				lblCreditLData.widthHint = 81;
 				lblCreditLData.heightHint = 18;
 				lblCredit.setLayoutData(lblCreditLData);
@@ -160,8 +190,8 @@ implements SearchComposite{
 				GridData txtCreditLData = new GridData();
 				txtCredit.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent arg0) {
-						if (!txtCredit.getText().equals(""))
-							txtDept.setText("");
+						if (!txtCredit.getText().equals("")) //$NON-NLS-1$
+							txtDept.setText(""); //$NON-NLS-1$
 
 					}
 				});
@@ -170,49 +200,63 @@ implements SearchComposite{
 				txtCreditLData.heightHint = 14;
 				txtCredit.setLayoutData(txtCreditLData);
 			}
-			{
-				lblDept = new CLabel(this, SWT.NONE);
-				lblDept.setText("Borç :");
-			}
-			{
-				txtDept = new CurrencyText(this, SWT.NONE);
-				GridData txtDeptLData = new GridData();
-				txtDept.addModifyListener(new ModifyListener() {
-					public void modifyText(ModifyEvent arg0) {
-						if (!txtDept.getText().equals(""))
-							txtCredit.setText("");
-
-					}
-				});
-				txtDept.setSize(209, 14);
-				txtDeptLData.widthHint = 209;
-				txtDeptLData.heightHint = 14;
-				txtDept.setLayoutData(txtDeptLData);
-			}
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void printTable()
+	public void newForm()
 	{
-		
-	}
-	public void search()
-	{
-		
-	}
-	public void delete()
-	{
+		 CurUICurrentCardVoucher  curCard = new CurUICurrentCardVoucher(this.getParent(),this.getStyle());
+		 CTabFolder tabfld = (CTabFolder)this.getParent();
+		 tabfld.getSelection().setControl(curCard);	 
+		 this.dispose();
 		
 	}
 	public void save()
 	{
-		
+		try
+		{			
+
+			if (verifyFields())
+			{
+				BigDecimal credit=txtCredit.getBigDecimalValue();
+				BigDecimal dept=txtDept.getBigDecimalValue();
+				boolean isCredit=dept.equals(new BigDecimal(0));
+				curBLTransAdd.saveCurrentTransaction((TurqCurrentCard)txtCurrentCard.getData(),
+					dateTransDate.getDate(),"",isCredit,(isCredit)? credit : dept, //$NON-NLS-1$
+							new BigDecimal(0),EngBLCommon.CURRENT_TRANS_OTHERS,
+							new Integer(-1),txtDefinition.getText());
+				newForm();
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+		}
 	}
-	public void exportToExcel()
+	private boolean verifyFields()
 	{
-		
+		MessageBox msg=new MessageBox(this.getShell(), SWT.NULL);
+		if (txtCurrentCard.getData()==null)
+		{
+			msg.setMessage(Messages.getString("CurUICurrentCardVoucher.10")); //$NON-NLS-1$
+			msg.open();
+			txtCurrentCard.setFocus();
+			return false;
+		}
+		else if (txtCredit.getText().equals("") && txtDept.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
+		{
+			msg.setMessage(Messages.getString("CurUICurrentCardVoucher.13")); //$NON-NLS-1$
+			msg.open();
+			txtDept.setFocus();
+			return false;
+		}
+		return true;
 	}
+
 }
