@@ -504,13 +504,13 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			TurqCurrentCard curCard=(TurqCurrentCard)txtCurCard.getData();
 			if (curCard != null) {
 				sqlparam += " and curCard.current_cards_id="+curCard.getCurrentCardsId(); //$NON-NLS-1$
-				parameters.put("curCardName",curCard.getCardsName());
-				parameters.put("curCardCode",curCard.getCardsCurrentCode());
+				parameters.put("curCardName",curCard.getCardsName()); //$NON-NLS-1$
+				parameters.put("curCardCode",curCard.getCardsCurrentCode()); //$NON-NLS-1$
 			}
 			else
 			{
-				parameters.put("curCardName"," - ");
-				parameters.put("curCardCode"," - ");
+				parameters.put("curCardName"," - "); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("curCardCode"," - "); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		
 			TurqInventoryCard invCardStart=(TurqInventoryCard) txtInvCardStart.getData();
