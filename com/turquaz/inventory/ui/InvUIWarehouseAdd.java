@@ -122,16 +122,30 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			{
 				txtWarehouseCode = new Text(this, SWT.NONE);
 				txtWarehouseCode.setTextLimit(50);
-				txtWarehouseCode.setSize(259, 17);
 				GridData txtWarehouseCodeLData = new GridData();
-				txtWarehouseCodeLData.heightHint = 17;
+				txtWarehouseCodeLData.heightHint = 18;
 				txtWarehouseCodeLData.horizontalAlignment = GridData.FILL;
 				txtWarehouseCode.setLayoutData(txtWarehouseCodeLData);
 			}
 			lblWarehouseName = new CLabel(this, SWT.NULL);
 			txtWarehouseName = new Text(this, SWT.NULL);
 			lblWarehouseAdres = new CLabel(this, SWT.NULL);
+
 			txtWarehouseAdres = new Text(this, SWT.MULTI | SWT.WRAP | SWT.H_SCROLL | SWT.V_SCROLL);
+			GridData txtWarehouseAdresLData = new GridData();
+			txtWarehouseAdresLData.widthHint = 321;
+			txtWarehouseAdresLData.heightHint = 62;
+			txtWarehouseAdres.addVerifyListener(new VerifyListener() {
+				public void verifyText(VerifyEvent evt) {
+					if (evt.keyCode == SWT.TAB) {
+						txtWarehouseCity.setFocus();
+						evt.doit = false;
+					}
+				}
+			});
+			txtWarehouseAdres.setLayoutData(txtWarehouseAdresLData);
+			txtWarehouseAdres.setTextLimit(250);
+
 			lblWareHouseCity = new CLabel(this, SWT.NULL);
 			txtWarehouseCity = new Text(this, SWT.NULL);
 			lblWarehouseTelephone = new CLabel(this, SWT.NULL);
@@ -153,10 +167,9 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblWarehouseName.setText(Messages.getString("InvUIWarehouseAdd.0")); //$NON-NLS-1$
 			GridData txtWarehouseNameLData = new GridData();
 			txtWarehouseNameLData.horizontalAlignment = GridData.FILL;
-			txtWarehouseNameLData.heightHint = 17;
+			txtWarehouseNameLData.heightHint = 18;
 			txtWarehouseName.setLayoutData(txtWarehouseNameLData);
 			txtWarehouseName.setTextLimit(50);
-			txtWarehouseName.setSize(new org.eclipse.swt.graphics.Point(259, 17));
 			GridData lblWarehouseAdresLData = new GridData();
 			lblWarehouseAdresLData.verticalAlignment = GridData.BEGINNING;
 			lblWarehouseAdresLData.horizontalAlignment = GridData.BEGINNING;
@@ -169,30 +182,6 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblWarehouseAdresLData.grabExcessVerticalSpace = false;
 			lblWarehouseAdres.setLayoutData(lblWarehouseAdresLData);
 			lblWarehouseAdres.setText(Messages.getString("InvUIWarehouseAdd.1")); //$NON-NLS-1$
-			GridData txtWarehouseAdresLData = new GridData();
-			txtWarehouseAdres.addVerifyListener(new VerifyListener()
-			{
-				public void verifyText(VerifyEvent evt)
-				{
-					if (evt.keyCode == SWT.TAB)
-					{
-						txtWarehouseCity.setFocus();
-						evt.doit = false;
-					}
-				}
-			});
-			txtWarehouseAdresLData.verticalAlignment = GridData.CENTER;
-			txtWarehouseAdresLData.horizontalAlignment = GridData.BEGINNING;
-			txtWarehouseAdresLData.widthHint = 323;
-			txtWarehouseAdresLData.heightHint = 74;
-			txtWarehouseAdresLData.horizontalIndent = 0;
-			txtWarehouseAdresLData.horizontalSpan = 1;
-			txtWarehouseAdresLData.verticalSpan = 1;
-			txtWarehouseAdresLData.grabExcessHorizontalSpace = false;
-			txtWarehouseAdresLData.grabExcessVerticalSpace = false;
-			txtWarehouseAdres.setLayoutData(txtWarehouseAdresLData);
-			txtWarehouseAdres.setTextLimit(250);
-			txtWarehouseAdres.setSize(new org.eclipse.swt.graphics.Point(323, 74));
 			GridData lblWareHouseCityLData = new GridData();
 			lblWareHouseCityLData.verticalAlignment = GridData.CENTER;
 			lblWareHouseCityLData.horizontalAlignment = GridData.BEGINNING;

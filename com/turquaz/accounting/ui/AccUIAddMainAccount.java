@@ -19,6 +19,8 @@ package com.turquaz.accounting.ui;
  * @author  Cem Dayanik
  * @version  $Id$
  */
+ import org.eclipse.swt.custom.CTabFolder;
+ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
@@ -72,8 +74,11 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 	/**
 	 * @return Returns the txtParentAccount.
 	 */
-	private CLabel cLabel1;
+	private CLabel lblAccountCode;
 	private Text txtAccAcountName;
+	private Composite compAcc;
+	private CTabItem cTabItem1;
+	private CTabFolder TabFolderAccountInfo;
 	private Text txtAccountGroup;
 	private CLabel lblAccountGroup;
 	private Text txtAccountClass;
@@ -97,56 +102,77 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 			preInitGUI();
 			GridLayout thisLayout = new GridLayout(2, true);
 			this.setLayout(thisLayout);
-			this.setSize(395, 168);
+			this.setSize(478, 162);
+			//START >>  TabFolderAccountInfo
+			TabFolderAccountInfo = new CTabFolder(this, SWT.NONE);
+			//START >>  cTabItem1
+			cTabItem1 = new CTabItem(TabFolderAccountInfo, SWT.NONE);
+			cTabItem1.setText("Hesap Bilgileri");
+			//START >>  compAcc
+			compAcc = new Composite(TabFolderAccountInfo, SWT.NONE);
+			GridLayout compAccLayout = new GridLayout();
+			compAccLayout.numColumns = 2;
+			compAcc.setLayout(compAccLayout);
+			cTabItem1.setControl(compAcc);
 			{
-				cLabel1 = new CLabel(this, SWT.NONE);
-				cLabel1.setSize(new org.eclipse.swt.graphics.Point(83, 17));
+				lblAccountCode = new CLabel(compAcc, SWT.NONE);
+				lblAccountCode.setSize(new org.eclipse.swt.graphics.Point(83, 17));
 				GridData cLabel1LData = new GridData();
-				cLabel1.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
+				lblAccountCode.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
 				cLabel1LData.widthHint = 83;
 				cLabel1LData.heightHint = 17;
-				cLabel1.setLayoutData(cLabel1LData);
+				lblAccountCode.setLayoutData(cLabel1LData);
 			}
 			{
-				txtAccAccountCode = new Text(this, SWT.NONE);
+				txtAccAccountCode = new Text(compAcc, SWT.NONE);
 				GridData txtAccAccountCodeLData = new GridData();
 				txtAccAccountCodeLData.widthHint = 200;
 				txtAccAccountCodeLData.heightHint = 17;
 				txtAccAccountCode.setLayoutData(txtAccAccountCodeLData);
 			}
 			//START >> lblAccountName
-			lblAccountName = new CLabel(this, SWT.NONE);
+			lblAccountName = new CLabel(compAcc, SWT.NONE);
 			lblAccountName.setText("Hesap Ad\u0131");
 			//END << lblAccountName
 			{
-				txtAccAcountName = new Text(this, SWT.NONE);
+				txtAccAcountName = new Text(compAcc, SWT.NONE);
 				GridData txtAccAcountNameLData = new GridData();
 				txtAccAcountNameLData.widthHint = 200;
 				txtAccAcountNameLData.heightHint = 17;
 				txtAccAcountName.setLayoutData(txtAccAcountNameLData);
 			}
 			//START >> lblAccountClass
-			lblAccountClass = new CLabel(this, SWT.NONE);
+			lblAccountClass = new CLabel(compAcc, SWT.NONE);
 			lblAccountClass.setText("Hesap S\u0131n\u0131f\u0131");
 			//END << lblAccountClass
 			//START >> txtAccountClass
-			txtAccountClass = new Text(this, SWT.NONE);
+			txtAccountClass = new Text(compAcc, SWT.NONE);
 			GridData txtAccountClassLData = new GridData();
 			txtAccountClassLData.widthHint = 200;
 			txtAccountClassLData.heightHint = 17;
 			txtAccountClass.setLayoutData(txtAccountClassLData);
 			//END << txtAccountClass
 			//START >> lblAccountGroup
-			lblAccountGroup = new CLabel(this, SWT.NONE);
+			lblAccountGroup = new CLabel(compAcc, SWT.NONE);
 			lblAccountGroup.setText("Hesap Grubu");
 			//END << lblAccountGroup
 			//START >> txtAccountGroup
-			txtAccountGroup = new Text(this, SWT.NONE);
+			txtAccountGroup = new Text(compAcc, SWT.NONE);
 			GridData txtAccountGroupLData = new GridData();
 			txtAccountGroupLData.widthHint = 200;
 			txtAccountGroupLData.heightHint = 17;
 			txtAccountGroup.setLayoutData(txtAccountGroupLData);
 			//END << txtAccountGroup
+			//END <<  compAcc
+			TabFolderAccountInfo.setSelection(0);
+			GridData TabFolderAccountInfoLData = new GridData();
+			TabFolderAccountInfoLData.grabExcessHorizontalSpace = true;
+			TabFolderAccountInfoLData.grabExcessVerticalSpace = true;
+			TabFolderAccountInfoLData.horizontalAlignment = GridData.FILL;
+			TabFolderAccountInfoLData.verticalAlignment = GridData.FILL;
+			TabFolderAccountInfo.setLayoutData(TabFolderAccountInfoLData);
+			//END <<  cTabItem1
+			//END <<  TabFolderAccountInfo
 			final Color txtAccAccountCodebackground = new Color(Display.getDefault(), 255, 255, 255);
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;

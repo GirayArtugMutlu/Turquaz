@@ -167,8 +167,8 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 			{
 				datePickerTransactionDate = new DatePicker(this, SWT.NONE);
 				GridData datePickerTransactionDateLData = new GridData();
-				datePickerTransactionDateLData.widthHint = 150;
-				datePickerTransactionDateLData.heightHint = 22;
+				datePickerTransactionDateLData.widthHint = 157;
+				datePickerTransactionDateLData.heightHint = 23;
 				datePickerTransactionDate.setLayoutData(datePickerTransactionDateLData);
 			}
 			{
@@ -186,6 +186,17 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 				comboDeptorLData.heightHint = 17;
 				comboDeptor.setLayoutData(comboDeptorLData);
 			}
+			//START >> lblCurrency
+			lblCurrency = new CLabel(this, SWT.NONE);
+			lblCurrency.setText(Messages.getString("AccUITransactionCollect.8")); //$NON-NLS-1$
+			//END << lblCurrency
+			//START >> comboCurrencyType
+			comboCurrencyType = new CCombo(this, SWT.NONE);
+			GridData comboCurrencyTypeLData = new GridData();
+			comboCurrencyTypeLData.widthHint = 135;
+			comboCurrencyTypeLData.heightHint = 17;
+			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
+			//END << comboCurrencyType
 			{
 				lblTransDefinition = new CLabel(this, SWT.NONE);
 				lblTransDefinition.setText(Messages.getString("AccUITransactionCollect.1")); //$NON-NLS-1$
@@ -208,21 +219,11 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 						}
 					}
 				});
-				txtTransDefinitionLData.widthHint = 307;
-				txtTransDefinitionLData.heightHint = 18;
+				txtTransDefinitionLData.widthHint = 356;
+				txtTransDefinitionLData.heightHint = 21;
+				txtTransDefinitionLData.horizontalSpan = 3;
 				txtTransDefinition.setLayoutData(txtTransDefinitionLData);
 			}
-			//START >> lblCurrency
-			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText(Messages.getString("AccUITransactionCollect.8")); //$NON-NLS-1$
-			//END << lblCurrency
-			//START >> comboCurrencyType
-			comboCurrencyType = new CCombo(this, SWT.NONE);
-			GridData comboCurrencyTypeLData = new GridData();
-			comboCurrencyTypeLData.widthHint = 130;
-			comboCurrencyTypeLData.heightHint = 17;
-			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
-			//END << comboCurrencyType
 			{
 				tableTransactionRows = new Table(this, SWT.FULL_SELECTION | SWT.HIDE_SELECTION | SWT.BORDER);
 				tableTransactionRows.setHeaderVisible(true);

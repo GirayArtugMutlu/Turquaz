@@ -204,8 +204,8 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				dateTransactionDate = new DatePicker(this, SWT.NONE);
 				GridData dateTransactionDateLData = new GridData();
 				dateTransactionDateLData.verticalAlignment = GridData.BEGINNING;
-				dateTransactionDateLData.widthHint = 170;
-				dateTransactionDateLData.heightHint = 22;
+				dateTransactionDateLData.widthHint = 157;
+				dateTransactionDateLData.heightHint = 23;
 				dateTransactionDate.setLayoutData(dateTransactionDateLData);
 			}
 			{
@@ -234,7 +234,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				txtTransDefinition.setTextLimit(250);
 				text1LData.heightHint = 27;
 				text1LData.horizontalSpan = 3;
-				text1LData.widthHint = 381;
+				text1LData.widthHint = 370;
 				txtTransDefinition.setLayoutData(text1LData);
 			}
 			//START >> lblCurrency
@@ -244,7 +244,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			//START >> comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
 			GridData comboCurrencyTypeLData = new GridData();
-			comboCurrencyTypeLData.widthHint = 130;
+			comboCurrencyTypeLData.widthHint = 135;
 			comboCurrencyTypeLData.heightHint = 17;
 			comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
 			//END << comboCurrencyType

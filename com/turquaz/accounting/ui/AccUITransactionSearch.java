@@ -170,8 +170,8 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				{
 					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 156;
-					dateStartDateLData.heightHint = 22;
+					dateStartDateLData.widthHint = 157;
+					dateStartDateLData.heightHint = 23;
 					dateStartDateLData.horizontalSpan = 2;
 					dateStartDate.setLayoutData(dateStartDateLData);
 					dateStartDate.layout();
@@ -185,8 +185,8 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 154;
-					dateEndDateLData.heightHint = 21;
+					dateEndDateLData.widthHint = 157;
+					dateEndDateLData.heightHint = 23;
 					dateEndDate.setLayoutData(dateEndDateLData);
 					dateEndDate.layout();
 				}

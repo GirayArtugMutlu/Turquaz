@@ -163,7 +163,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.makeColumnsEqualWidth = true;
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
-			dialogShell.setSize(487, 336);
+			dialogShell.setSize(494, 233);
 			dialogShell.setText(getText());
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
@@ -192,13 +192,14 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 					});
 				}
 			}
-			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
+
+			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NONE);
 			GridData compAccountCardLData = new GridData();
 			compAccountCardLData.widthHint = 452;
 			compAccountCardLData.heightHint = 125;
 			compAccountCard.setLayoutData(compAccountCardLData);
-			compAccountCard.getTxtParentAccount().setBounds(101, 92, 234, 23);
 			compAccountCard.layout();
+
 			postInitGUI();
 			dialogShell.layout();
 			dialogShell.open();

@@ -94,8 +94,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				{
 					datePicker = new DatePicker(compFilter, SWT.NONE);
 					GridData datePickerLData = new GridData();
-					datePickerLData.widthHint = 122;
-					datePickerLData.heightHint = 26;
+					datePickerLData.widthHint = 157;
+					datePickerLData.heightHint = 23;
 					datePicker.setLayoutData(datePickerLData);
 				}
 				{
@@ -138,8 +138,8 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				{
 					txtInvCode = new InventoryPicker(compFilter, SWT.NONE);
 					GridData txtInvCodeLData = new GridData();
-					txtInvCodeLData.widthHint = 150;
-					txtInvCodeLData.heightHint = 16;
+					txtInvCodeLData.widthHint = 157;
+					txtInvCodeLData.heightHint = 17;
 					txtInvCodeLData.verticalAlignment = GridData.BEGINNING;
 					txtInvCode.setLayoutData(txtInvCodeLData);
 				}
