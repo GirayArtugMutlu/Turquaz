@@ -349,18 +349,34 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 	public void newForm(){
 	}
 	
-	public void search(){
-		try{
+	public void search()
+	{
+		try
+		{
 			tableBankCards.removeAll();
 			List listBankCards=bankBLBankCardSearch.searchBankCards(txtBankName.getText().trim(),
 																txtBankBranchName.getText().trim(),
 																txtBankAccountNo.getText().trim(),
 																(TurqCurrency)(comboCurrency.getData(comboCurrency.getText())));
-			for(int k=0; k<listBankCards.size(); k++){
-				TurqBanksCard aBankCard=(TurqBanksCard)listBankCards.get(k);
+			Object[] result;
+			for(int k=0; k<listBankCards.size(); k++)
+			{
+				result=(Object[])listBankCards.get(k);
 				TableItem item=new TableItem(tableBankCards, SWT.NULL);
-				item.setData(aBankCard);
-				item.setText(new String[]{aBankCard.getBankName(),aBankCard.getBankBranchName(),aBankCard.getBankAccountNo(),aBankCard.getTurqCurrency().getCurrenciesAbbreviation(),aBankCard.getBankDefinition()});
+				
+				Integer bankId=(Integer)result[0];
+				String bankName=(String)result[1];
+				String bankBranchName=(String)result[2];
+				String bankAccNo=(String)result[3];
+				String abbr=(String) result[4];
+				String bankDefinition=(String)result[5];				
+				
+				item.setData(bankId);
+				item.setText(new String[]{bankName,
+						bankBranchName,
+						bankAccNo,
+						abbr,
+						bankDefinition});
 			}
 
 		}
@@ -378,16 +394,28 @@ public class BankUIBankCardSearch extends  Composite implements SearchComposite 
 		
 	}
 	/** Auto-generated event handler method */
-	protected void tableBankCardsMouseDoubleClick(MouseEvent evt){
-		
-		TableItem [] selection= tableBankCards.getSelection();	
+	protected void tableBankCardsMouseDoubleClick(MouseEvent evt)
+	{
+		try
+		{
+			TableItem [] selection= tableBankCards.getSelection();	
 	
-		if(selection.length>0){
-	
-			TurqBanksCard card = (TurqBanksCard)selection[0].getData();
-			boolean updated=new BankUIBankCardUpdate(this.getShell(),SWT.NULL,card).open();
-			if (updated)
-				search();
+			if(selection.length>0)
+			{
+				Integer bankId=(Integer)selection[0].getData();
+				TurqBanksCard card = BankBLBankCardSearch.getBankCardByBankCardId(bankId);
+				boolean updated=new BankUIBankCardUpdate(this.getShell(),SWT.NULL,card).open();
+				if (updated)
+					search();
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			MessageBox msg=new MessageBox(this.getShell(),SWT.NULL);
+			msg.setMessage(ex.getMessage());
+			msg.open();
+			
 		}
 	}
 	public void printTable(){

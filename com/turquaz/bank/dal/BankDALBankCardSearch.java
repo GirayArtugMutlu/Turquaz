@@ -28,6 +28,8 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 
 
@@ -38,29 +40,64 @@ public class BankDALBankCardSearch {
 	}
 	
 	public List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
-	throws Exception{
-		try{
-		Session session = EngDALSessionFactory.openSession();
+	throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.openSession();
 		
-		String query = "Select bankCard from TurqBanksCard as bankCard where" + //$NON-NLS-1$
-		" bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		" and bankCard.bankAccountNo like '"+bankAccountNo+"%'" +
-		" and bankCard.banksCardsId <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
+			String query = "Select bankCard.banksCardsId," +
+			" bankCard.bankName, bankCard.bankBranchName," +
+			" bankCard.bankAccountNo,turqCur.currenciesAbbreviation," +
+			" bankCard.bankDefinition from TurqBanksCard as bankCard," +
+			" bankCard.turqCurrency as turqCur where" + //$NON-NLS-1$
+			" bankCard.bankName like '"+bankName+"%' and bankCard.bankBranchName like '"+bankBranchName+"%' "+ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			" and bankCard.bankAccountNo like '"+bankAccountNo+"%'" +
+			" and bankCard.banksCardsId <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
 		
-		if (currency!=null){
-			query +=" and bankCard.turqCurrency = :currency"; //$NON-NLS-1$
-		}
+			if (currency!=null)
+			{
+				query +=" and bankCard.turqCurrency = :currency"; //$NON-NLS-1$
+			}
 		
-		Query q = session.createQuery(query); 	
-		if (currency!=null){
-			q.setParameter("currency",currency); //$NON-NLS-1$
+			Query q = session.createQuery(query); 	
+			if (currency!=null)
+			{
+				q.setParameter("currency",currency); //$NON-NLS-1$
+			}
+			List list = q.list();
+			session.close();
+			return list;
 		}
-		List list = q.list();
-		session.close();
-		return list;
-		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
 			throw ex;
 		}
 	}
+	
+	public static TurqBanksCard getBankCardByBankCardId(Integer bankId)
+	throws Exception
+	{
+		try 
+		{
+			Session session = EngDALSessionFactory.openSession();
+
+			String query = "Select bankCard from TurqBanksCard as bankCard" +
+					" where bankCard.banksCardsId="+bankId; //$NON-NLS-1$
+
+
+			Query q = session.createQuery(query);
+
+			List list = q.list();
+
+			session.close();
+			return (TurqBanksCard)list.get(0);
+
+		} 
+		catch (Exception ex) 
+		{
+			throw ex;
+		}
+	}
+	
 }
