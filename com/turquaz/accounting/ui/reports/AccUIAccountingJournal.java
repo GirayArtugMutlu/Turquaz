@@ -111,7 +111,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite {
 			{
 				btnReports = new Button(this, SWT.PUSH | SWT.CENTER);
 				GridData btnReportsLData = new GridData();
-				btnReportsLData.widthHint = 98;
+				btnReportsLData.widthHint = 118;
 				btnReportsLData.heightHint = 28;
 				btnReportsLData.verticalAlignment = GridData.BEGINNING;
 				btnReports.setText(Messages

@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLUtils;
 
@@ -85,12 +86,12 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 	private TableColumn tableColumnVatAmount;
 
-	private TextWithButton txtCurCard;
 	private TableColumn tableColumnInventoryCode;
 	private Text txtInvCard;
 	private Label lblInvCard;
 
 	private CCombo comboTransactionsType;
+	private Text txtCurCard;
 
 	private CLabel lblType;
 
@@ -125,9 +126,9 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
             {
                 compInvTransactionSearch = new Composite(this, SWT.NONE);
                 GridLayout composite1Layout = new GridLayout();
-                composite1Layout.numColumns = 2;
+                composite1Layout.numColumns = 4;
                 GridData composite1LData = new GridData();
-                composite1LData.heightHint = 147;
+                composite1LData.heightHint = 116;
                 composite1LData.grabExcessHorizontalSpace = true;
                 composite1LData.horizontalAlignment = GridData.FILL;
                 compInvTransactionSearch.setLayoutData(composite1LData);
@@ -161,6 +162,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     txtInvCard.setDoubleClickEnabled(false);
                     textWithButton1LData.widthHint = 203;
                     textWithButton1LData.heightHint = 20;
+                    textWithButton1LData.horizontalSpan = 3;
                     txtInvCard.setLayoutData(textWithButton1LData);
                 }
                 {
@@ -174,20 +176,26 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
                     lblCurrentCardLData.heightHint = 18;
                     lblCurrentCard.setLayoutData(lblCurrentCardLData);
                 }
-                {
-                    txtCurCard = new TextWithButton(
-                        compInvTransactionSearch,
-                        SWT.NONE);
-                    GridData txtCurCardLData = new GridData();
-                    txtCurCard.addMouseListener(new MouseAdapter() {
-                        public void mouseUp(MouseEvent evt) {
-                            currentCardChoose();
-                        }
-                    });
-                    txtCurCardLData.widthHint = 208;
-                    txtCurCardLData.heightHint = 20;
-                    txtCurCard.setLayoutData(txtCurCardLData);
-                }
+				{
+					txtCurCard = new Text(compInvTransactionSearch, SWT.NONE);
+					txtCurCard.setSize(209, 20);
+					GridData txtCurCardLData = new GridData();
+					txtCurCard.addModifyListener(new ModifyListener() {
+						public void modifyText(ModifyEvent evt) {
+						    try{
+	                             txtCurCard.setData( EngBLCurrentCards.getCards(txtCurCard.getText().trim()));
+	                                                 
+	                           }
+	                           catch(Exception ex){
+	                               ex.printStackTrace();
+	                           }
+						}
+					});
+					txtCurCardLData.widthHint = 203;
+					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.horizontalSpan = 3;
+					txtCurCard.setLayoutData(txtCurCardLData);
+				}
                 {
                     lblStartDate = new CLabel(
                         compInvTransactionSearch,
@@ -330,11 +338,32 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		 	
 		  /************************************************************/  
 		
-		
+		 	
+//				Content Assistant for Current Code
+				/****************************************************/
+				  TextContentAssistSubjectAdapter adapterCurrent = new TextContentAssistSubjectAdapter(txtCurCard);
+				
+				 final SubjectControlContentAssistant asistantCurrent= new TurquazContentAssistant(adapterCurrent,3);
+				   
+				     adapterCurrent.appendVerifyKeyListener(
+				             new VerifyKeyListener() {
+				                 public void verifyKey(VerifyEvent event) {
+
+				                 // Check for Ctrl+Spacebar
+				                 if (event.stateMask == SWT.CTRL && event.character == ' ') {
+				             
+				                  asistantCurrent.showPossibleCompletions();              
+				                   event.doit = false;
+				                 }
+				              }
+				           });
+				 	
+				  /************************************************************/  
+
 		
 		
 	}
-
+/*
 	public void currentCardChoose() {
 		Object data = new CurUICurrentCardSearchDialog(this.getShell(),
 				SWT.NULL).open();
@@ -342,13 +371,13 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 
 			System.out.println(data.getClass().getName());
 			TurqCurrentCard curCard = (TurqCurrentCard) data;
-			txtCurCard.setText(curCard.getCardsCurrentCode() + " - " //$NON-NLS-1$
+			txtCurrentCard.setText(curCard.getCardsCurrentCode() + " - " //$NON-NLS-1$
 					+ curCard.getCardsName());
-			txtCurCard.setData(curCard);
+			txtCurrentCard.setData(curCard);
 
 		}
 
-	}
+	} */
 	/*
 	public void inventoryCardChoose() {
 		Object data = new InvUICardSearchDialog(this.getShell(),

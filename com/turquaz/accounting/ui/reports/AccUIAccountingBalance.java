@@ -212,8 +212,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite {
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnShow.setText(Messages.getString("AccUIAccountingBalance.30")); //$NON-NLS-1$
 				GridData btnShowLData = new GridData();
-				btnShow.setSize(102, 30);
-				btnShowLData.widthHint = 102;
+				btnShowLData.widthHint = 117;
 				btnShowLData.heightHint = 30;
 				btnShow.setLayoutData(btnShowLData);
 				btnShow.addMouseListener(new MouseAdapter() {
