@@ -30,11 +30,7 @@ import com.turquaz.inventory.dal.InvDALWarehouseUpdate;
 
 public class InvBLWarehouseUpdate {
 	
-	private InvDALWarehouseUpdate whDALUpdate = new InvDALWarehouseUpdate();
-
-	Calendar cal = Calendar.getInstance();
-	
-	public void updateWarehouse(TurqInventoryWarehous wh, String whAddres,
+	public static void updateWarehouse(TurqInventoryWarehous wh, String whAddres,
 			String whTelephone, String whCity, String whDescription,String whName
 			)
 	    throws Exception{
@@ -47,8 +43,9 @@ public class InvBLWarehouseUpdate {
 		wh.setWarehousesTelephone(whTelephone);
 		
 		wh.setUpdatedBy(System.getProperty("user"));
-		wh.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-          
+		
+		Calendar cal=Calendar.getInstance();
+		wh.setLastModified(cal.getTime());          
 		EngDALCommon.updateObject(wh);
         }
         catch(Exception ex){
@@ -56,29 +53,24 @@ public class InvBLWarehouseUpdate {
         }
 
 	}
-	public void deleteObject(Object obj)throws Exception{
+	public static void deleteObject(Object obj)throws Exception{
 		try{
-			EngDALCommon.deleteObject(obj);
-			
-			
-			
+			EngDALCommon.deleteObject(obj);			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 		
 	}
-	public boolean hasTransactions (TurqInventoryWarehous warehouse) throws Exception{
+	public static boolean hasTransactions (TurqInventoryWarehous warehouse) throws Exception{
 		
-		try{	
-			
-		return whDALUpdate.hasTransaction(warehouse);
-		
+		try
+		{				
+			return InvDALWarehouseUpdate.hasTransaction(warehouse);		
 		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
 			throw ex;
 		}
 	}
-	
-
 }

@@ -45,13 +45,8 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 * *************************************
 */
 public class InvDALCardUpdate {
-	public InvDALCardUpdate() {
 
-	}
-
-	
-
-	public boolean hasTransactions(TurqInventoryCard card) throws Exception {
+	public static boolean hasTransactions(TurqInventoryCard card) throws Exception {
 		try {
 
 			Session session = EngDALSessionFactory.openSession();

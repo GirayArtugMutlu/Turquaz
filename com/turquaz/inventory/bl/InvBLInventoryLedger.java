@@ -30,26 +30,16 @@ import com.turquaz.inventory.dal.InvDALInventoryLedger;
  * 
  */
 public class InvBLInventoryLedger {
-    
-    InvDALInventoryLedger dalInvLedger = new InvDALInventoryLedger();
-    public InvBLInventoryLedger(){
-     
         
-    }
-    
-    public List getInventoryLedger(Date date, String invCode)throws Exception {
+    public static List getInventoryLedger(Date date, String invCode)throws Exception {
         
-    try{
-        
-        return dalInvLedger.getInventoryLedger(date, invCode);
-        
-        
+    try
+	{        
+        return InvDALInventoryLedger.getInventoryLedger(date, invCode);        
     }
     catch(Exception ex){
         throw ex;
     }
         
     }
-    
-
 }

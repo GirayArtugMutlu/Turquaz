@@ -24,16 +24,5 @@ package com.turquaz.inventory.dal;
 
 
 public class InvDALWarehouseAdd {
-	public InvDALWarehouseAdd()
-	{
-			
-	}
-	
-
-	
-	
-	
-	
-	
 
 }

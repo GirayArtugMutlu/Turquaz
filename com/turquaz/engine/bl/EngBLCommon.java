@@ -400,29 +400,11 @@ public class EngBLCommon {
 
 	}
 
-	public static List getTurqCurrentGroups() throws Exception {
-		try {
-			return EngDALCommon.getTurqCurrentGroups();
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-
 	public static boolean checkUserPass(String user, String pass) throws Exception {
 		try {
 
 			return EngDALCommon.checkUserPass(user, pass);
 
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-	//TODO what is inventory method doing here? should be removed
-	
-	public static List getInventoryWarehouses() throws Exception {
-		try {
-
-			return EngDALCommon.getInventoryWarehouses();
 		} catch (Exception ex) {
 			throw ex;
 		}

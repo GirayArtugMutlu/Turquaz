@@ -229,7 +229,7 @@ public class InvUITransactionTableRow implements ITableRow {
             
             TurqInventoryCard invCard = invTrans.getTurqInventoryCard();
            
-            blCardSearch.initializeInventoryCard(invCard);
+            InvBLCardSearch.initializeInventoryCard(invCard);
             
             
             
@@ -281,7 +281,7 @@ public class InvUITransactionTableRow implements ITableRow {
     
     public void fillDefaults(TurqInventoryCard invCard){
         try{
-        blCardSearch.initializeInventoryCard(invCard);
+        	InvBLCardSearch.initializeInventoryCard(invCard);
         
         //KDV Yuzdesi 
         

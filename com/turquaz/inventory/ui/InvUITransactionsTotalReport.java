@@ -43,6 +43,7 @@ import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
+import com.turquaz.inventory.dal.InvDALCardUpdate;
 
 import org.eclipse.swt.layout.GridData;
 
@@ -103,7 +104,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	private InventoryPicker txtInvCodeStart;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
-	InvBLCardSearch cardSearch = new InvBLCardSearch();
+
 	public InvUITransactionsTotalReport(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -394,7 +395,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	   try{
 	    
 	     InvBLCardSearch blCardSearch = new InvBLCardSearch();
-		   blCardSearch.initializeInventoryCard(invCard);
+	     InvBLCardSearch.initializeInventoryCard(invCard);
 	   }
 	   catch(Exception ex){
 	   	ex.printStackTrace();
@@ -407,7 +408,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	       return;
 	     
 	     // if the inventory card contains transactions 
-	     if(cardUpdate.hasTransactions(invCard))
+	     if(InvDALCardUpdate.hasTransactions(invCard))
 	     {
 	     	MessageBox msg2 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
 	    	msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. ");  //$NON-NLS-1$
@@ -446,13 +447,13 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	List result;
 	try{
 	if(comboInvGroup.getSelectionIndex()==-1){
-	result = cardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(),txtInvCodeEnd.getText().trim(),
+	result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(),txtInvCodeEnd.getText().trim(),
 			txtInvNameStart.getText().trim(),txtInvNameEnd.getText().trim(),
 			null);
 	
 	}
 	else{
-	result = cardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(),txtInvCodeEnd.getText().trim(),
+	result = InvBLCardSearch.searchCardsAdvanced(txtInvCodeStart.getText().trim(),txtInvCodeEnd.getText().trim(),
 			txtInvNameStart.getText().trim(),txtInvNameEnd.getText().trim(),
 			(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
 	
@@ -569,7 +570,7 @@ public class InvUITransactionsTotalReport extends  Composite implements SearchCo
 	if(selection.length>0){
 	try{
 	Integer cardId = (Integer)selection[0].getData();
-	TurqInventoryCard card = cardSearch.initializeInventoryCard(cardId);
+	TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
 	boolean updated=new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
 	if (updated)
 		search();

@@ -1,7 +1,6 @@
 
 package com.turquaz.inventory.bl;
 
-import java.util.Calendar;
 import java.util.List;
 
 import com.turquaz.inventory.dal.InvDALWarehouseSearch;
@@ -28,27 +27,24 @@ import com.turquaz.inventory.dal.InvDALWarehouseSearch;
 */
 
 public class InvBLWarehouseSearch {
-	private InvDALWarehouseSearch whDALSearch = new InvDALWarehouseSearch();
-	Calendar cal = Calendar.getInstance();
-
 	
-	public List searchWarehouse(String name, String city)throws Exception{
-		try{
-			
-	    return whDALSearch.searchWarehouse(name, city);
-		
+	public static List searchWarehouse(String name, String city)throws Exception{
+		try
+		{			
+			return InvDALWarehouseSearch.searchWarehouse(name, city);		
 		}
-		catch(Exception ex){
-			
-			throw ex;
-			
-		}
-		
-		
-		
+		catch(Exception ex)
+		{			
+			throw ex;			
+		}		
 	}
 
+	public static List getInventoryWarehouses() throws Exception {
+		try {
 	
-	
-
+			return InvDALWarehouseSearch.getInventoryWarehouses();
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 }

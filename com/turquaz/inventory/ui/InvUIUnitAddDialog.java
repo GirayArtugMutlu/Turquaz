@@ -85,7 +85,6 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private CLabel lblUnitName;
 	private Composite composite1;
 	private Shell dialogShell;
-	private InvBLCardAdd blCardAdd = new InvBLCardAdd();
     Calendar cal = Calendar.getInstance();
 
 	public InvUIUnitAddDialog(Shell parent, int style) {
@@ -295,7 +294,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
     public void fillTable(){
     try{
     tableInvUnits.removeAll();
-    List list = blCardAdd.getInventoryUnits();
+    List list = InvBLCardAdd.getInventoryUnits();
     
     TurqInventoryUnit invUnit;
     TableItem item;
@@ -329,7 +328,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    int result = msg.open();
 	    if(result==SWT.OK){
 	   
-	    blCardAdd.deleteObject(txtUnitName.getData());
+	    	InvBLCardAdd.deleteObject(txtUnitName.getData());
 	   
 	   
 	    btnDelete.setEnabled(false);
@@ -373,7 +372,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 			else
 			{
 		
-				List list = blCardAdd.getInventoryUnits();
+				List list = InvBLCardAdd.getInventoryUnits();
 				String unit=txtUnitName.getText().trim();	   
 				boolean exist=false;
 				for(int k=0; k<list.size(); k++)
@@ -397,7 +396,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 				invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 				invUnit.setUnitsName(txtUnitName.getText().trim());
 	
-				blCardAdd.saveObject(invUnit);
+				InvBLCardAdd.saveObject(invUnit);
 	
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
@@ -438,7 +437,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    txtUnitName.setFocus();
 	    return;
 	    }
-	    List list = blCardAdd.getInventoryUnits();
+	    List list = InvBLCardAdd.getInventoryUnits();
 	    String unit=txtUnitName.getText().trim();	   
 	    boolean exist=false;
 	    for(int k=0; k<list.size(); k++)
@@ -457,7 +456,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog {
 	    	return;
 	    }
 	    
-	    blCardAdd.saveUnit(txtUnitName.getText().trim());
+	    InvBLCardAdd.saveUnit(txtUnitName.getText().trim());
 	    msg.setMessage(Messages.getString("InvUIUnitAddDialog.19")); //$NON-NLS-1$
 	    txtUnitName.setText(""); //$NON-NLS-1$
 	    fillTable();

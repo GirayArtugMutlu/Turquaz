@@ -207,80 +207,43 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	private CTabItem tabInvCardGroups;
 
 	private CTabItem tabInvCardPrices;
-
 	private Button btnInvCardNext;
-
 	private Button btnInvCardDetPre;
-
 	private CCombo comboInvCardUnits;
-
 	private CLabel lblInvCardUnit;
-
 	private Composite compInvCardUnit;
-
 	private NumericText txtInvCardDiscount;
-
 	private CLabel lblInvCardDiscount;
-
 	private NumericText txtInvCardVat;
-
 	private CLabel lblInvCardVat;
-
 	private NumericText txtnumInvCardMax;
-
 	private CLabel lblInvCardMax;
-
 	private NumericText txtnumInvCardMin;
-
 	private Label lblInvCardMin;
-
 	private Composite compInvCardDetails;
-
 	private CTabItem tabInvCardDetails;
-
 	private Button btnInvCardGeneral;
-
 	private CTabItem tabInvCardUnits;
-
 	private Text txtInvCardDefinition;
-
 	private CLabel lblInvCardDefinition;
-
 	private InventoryPicker txtInvCardCode;
-
 	private CLabel lblInvCardCode;
-
+	
 	private CurrencyText decTextSpecialVatAmount;
-
 	private NumericText numTextSpecailVATPercent;
-
 	private Label label5;
-
 	private Label label4;
-
 	private Label label3;
-
 	private Label label2;
-
 	private Label label1;
-
 	private Text txtInvCardName;
-
 	private CLabel lblInvCardName;
-
 	private Composite compInvCardGeneral;
-
 	private CTabItem tabInvCardGeneral;
-
 	private CTabFolder tabfldInvCardAdd;
-
 	private List currencyList;
-
 	public InvUIPriceList priceList;
 
-	InvBLCardAdd blCardAdd = new InvBLCardAdd();
-
-	EngBLCommon engCardAdd = new EngBLCommon();
 	
 	private final String INV_ACC_TYPE="Muhasebe Tipi";
 	private final String ACC_CODE="Hesap Kodu";
@@ -1162,7 +1125,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 	public void preInitGUI() {
 		try {
 			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-			currencyList = engCardAdd.getCurrencies();
+			currencyList = EngBLCommon.getCurrencies();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -1406,7 +1369,7 @@ public class InvUICardAdd extends Composite implements SecureComposite {
 		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
 
 		try {
-			java.util.List unitLst = invBLCardAdd.getInventoryUnits();
+			java.util.List unitLst = InvBLCardAdd.getInventoryUnits();
 			TableItem item = null;
 			TurqInventoryUnit trqInvUnit;
 

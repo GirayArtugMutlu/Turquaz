@@ -44,13 +44,7 @@ import com.turquaz.inventory.dal.InvDALCardUpdate;
 
 
 public class InvBLCardUpdate {
-	private InvDALCardUpdate cardUpdate = new InvDALCardUpdate();
 
-	Calendar cal = Calendar.getInstance();
-   
-	public InvBLCardUpdate(){
-		
-	}
 	public static void updateInventoryCard(String invCode, String cardName, String cardDefinition, int minAmount,
 			int maxAmount, int cardVat, int discount,int cardSpecialVat, BigDecimal cardSpecialVatEach,
 			TurqInventoryCard card,  Map invGroups,	List invCardUnits, 
@@ -266,24 +260,17 @@ public class InvBLCardUpdate {
 		catch(Exception ex)
 		{
 			throw ex;
-		}
-		
-		
-		
+		}		
 	}
 	
-	public boolean hasTransactions (TurqInventoryCard card) throws Exception{
+	public static boolean hasTransactions (TurqInventoryCard card) throws Exception{
 		
-		try{	
-			
-		return cardUpdate.hasTransactions(card);
-		
+		try
+		{				
+			return InvDALCardUpdate.hasTransactions(card);		
 		}
 		catch(Exception ex){
 			throw ex;
 		}
 	}
-	
-	
-
 }

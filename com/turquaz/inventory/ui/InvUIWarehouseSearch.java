@@ -74,7 +74,6 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 		SWTResourceManager.registerResourceUser(this);
 	}
 
-	InvBLWarehouseSearch whBLsearch = new InvBLWarehouseSearch();
 	private CLabel lblWarehouseCity;
 	private TableColumn tableColumnDescription;
 	private TableColumn tableColumnTelephone;
@@ -262,7 +261,7 @@ public class InvUIWarehouseSearch extends  Composite implements SecureComposite,
 	tableInvUIWarehouses.removeAll();
 	TableItem item;
 	TurqInventoryWarehous warehouse;
-	List result = whBLsearch.searchWarehouse(txtWarehouseName.getText().trim(),txtCity.getText().trim());
+	List result = InvBLWarehouseSearch.searchWarehouse(txtWarehouseName.getText().trim(),txtCity.getText().trim());
 	
 	for(int i= 0; i< result.size();i++){
 	item = new TableItem(tableInvUIWarehouses, SWT.NULL);

@@ -33,7 +33,7 @@ public class InvDALWarehouseUpdate {
 
 
 
-	public boolean hasTransaction(TurqInventoryWarehous warehouse)
+	public static boolean hasTransaction(TurqInventoryWarehous warehouse)
 			throws Exception {
 		try {
 			Session session = EngDALSessionFactory.openSession();

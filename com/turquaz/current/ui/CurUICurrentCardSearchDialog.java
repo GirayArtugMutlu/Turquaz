@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Button;
 
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
-import com.turquaz.engine.bl.EngBLCommon;
 
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentContact;
@@ -304,7 +303,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups=EngBLCommon.getTurqCurrentGroups();
+			List groups=CurBLCurrentCardSearch.getTurqCurrentGroups();
 			for(int k=0; k<groups.size(); k++){
 				TurqCurrentGroup group=(TurqCurrentGroup)groups.get(k);
 				comboTurqGroupName.add(group.getGroupsName());

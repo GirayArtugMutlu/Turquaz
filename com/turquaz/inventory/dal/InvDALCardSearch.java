@@ -42,12 +42,7 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 
 public class InvDALCardSearch {
 
-	public InvDALCardSearch()
-	{
-			
-	}
-	
-	public List searchInventoryCards(String cardName, String cardCode, TurqInventoryGroup invGroup)throws Exception{
+	public static List searchInventoryCards(String cardName, String cardCode, TurqInventoryGroup invGroup)throws Exception{
 		try{
 			
 				Session session = EngDALSessionFactory.openSession();
@@ -130,7 +125,7 @@ public class InvDALCardSearch {
 	    }		
 	}
 	
-	public List searchInventoryCardsAdvanced(String cardCodeStart, String cardCodeEnd,
+	public static List searchInventoryCardsAdvanced(String cardCodeStart, String cardCodeEnd,
 			String cardNameStart,String cardNameEnd, TurqInventoryGroup invGroup)throws Exception{
 		try{
 			
@@ -195,7 +190,7 @@ public class InvDALCardSearch {
 			}
 					
 	}
-	public List getInventoryCards()throws Exception{
+	public static List getInventoryCards()throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 	        String query = "Select invCard.cardInventoryCode,invCard.cardName from TurqInventoryCard as invCard";
@@ -254,7 +249,7 @@ public class InvDALCardSearch {
 	
 	
 	
-	public TurqInventoryCard getInventoryCard(String cardCode)throws Exception {
+	public static TurqInventoryCard getInventoryCard(String cardCode)throws Exception {
 	    try{
 	        
 	        Session session = EngDALSessionFactory.openSession();
@@ -289,7 +284,7 @@ public class InvDALCardSearch {
 	    
 	}
 	
-	public TurqInventoryCard initializeInventoryCard(Integer cardId )throws Exception{
+	public static TurqInventoryCard initializeInventoryCard(Integer cardId )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 	  
@@ -311,7 +306,7 @@ public class InvDALCardSearch {
 	    }
 	}
 	
-	public TurqInventoryCard initializeInventoryCard(TurqInventoryCard invCard )throws Exception{
+	public static TurqInventoryCard initializeInventoryCard(TurqInventoryCard invCard )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 	
@@ -333,7 +328,7 @@ public class InvDALCardSearch {
 	    }
 	}
 	
-	public TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
+	public static TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
 	{
 		
 		try{
@@ -357,7 +352,7 @@ public class InvDALCardSearch {
 			}
 	}
 	
-	public TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
+	public static TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 	    

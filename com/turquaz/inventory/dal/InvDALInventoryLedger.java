@@ -12,12 +12,8 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import net.sf.hibernate.Session;
 
 public class InvDALInventoryLedger {
-    public InvDALInventoryLedger(){
-        
-        
-    }
     
-    public List getInventoryLedger(Date date, String invCode)throws Exception{
+    public static List getInventoryLedger(Date date, String invCode)throws Exception{
     
         try{
             SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd");

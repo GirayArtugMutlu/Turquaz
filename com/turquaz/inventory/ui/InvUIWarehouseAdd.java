@@ -97,8 +97,6 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 	private Text txtWarehouseName;
 	private CLabel lblWarehouseName;
 	
-	InvBLWarehouseAdd whBLAdd = new InvBLWarehouseAdd();
-	
 	public InvUIWarehouseAdd(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -338,7 +336,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 	try{
 	
 	if(verifyFields()){
-	whBLAdd.saveWarehouse(txtWarehouseName.getText().trim(),txtWarehouseCode.getText().trim(),
+	InvBLWarehouseAdd.saveWarehouse(txtWarehouseName.getText().trim(),txtWarehouseCode.getText().trim(),
 						 txtWarehouseDescription.getText().trim(),
 						 txtWarehouseAdres.getText().trim(),
 						 txtTelephone.getText().trim(),

@@ -81,39 +81,25 @@ import org.eclipse.swt.events.MouseEvent;
 public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 		implements SearchComposite {
 	private Composite compInvTransactionSearch;
-
 	private Table tableTransactions;
-
 	private TableColumn tableColumnTotalAmountOut;
 	private CLabel lblInvCard;
 	private TableColumn tableColumnInventoryName;
 	private TableColumn tableColumnTotalPriceIn;
-
 	private TableColumn tableColumnInventoryCode;
 	private InventoryPicker txtInvCard;
-
 	private CCombo comboTransactionsType;
 	private CurrentPicker txtCurCard;
-
 	private CLabel lblType;
-
 	private CLabel lblEndDate;
-
 	private DatePicker dateEndDate;
-
 	private DatePicker dateStartDate;
-
 	private CLabel lblStartDate;
-
 	private CLabel lblCurrentCard;
-
 	private TableColumn tableColumnTotalAmountIn;
-
 	private TableColumn tableColumnTotalPriceOut;
-
 	private TableColumn tableColumnTransactionDate;
 
-	private InvBLSearchTransaction blSearch = new InvBLSearchTransaction();
 	private Calendar cal=Calendar.getInstance();
 
 	public InvUITransactionSearch(org.eclipse.swt.widgets.Composite parent,
@@ -314,13 +300,13 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 			
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 			
-					TurqBill bill = blSearch.getBill(seq);
+					TurqBill bill = InvBLSearchTransaction.getBill(seq);
 					if(bill!=null)
 					{
 					updated = new BillUIBillUpdateDialog(this.getShell(),SWT.NULL,bill).open();
 					}
 					else{
-					TurqConsignment cons = blSearch.getConsignment(seq);
+					TurqConsignment cons = InvBLSearchTransaction.getConsignment(seq);
 					 updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
 					}
 					
@@ -366,7 +352,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
 
-			List list = blSearch.searchTransactions((TurqCurrentCard) txtCurCard
+			List list = InvBLSearchTransaction.searchTransactions((TurqCurrentCard) txtCurCard
 					.getData(),(TurqInventoryCard) txtInvCard.getData(), dateStartDate.getDate(), dateEndDate.getDate(),
 					type);
 			TurqInventoryTransaction transactions;

@@ -114,6 +114,14 @@ public class CurBLCurrentCardSearch {
 		}
 		
 	}
+
+	public static List getTurqCurrentGroups() throws Exception {
+		try {
+			return CurDALCurrentCardSearch.getTurqCurrentGroups();
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 	
 
 }

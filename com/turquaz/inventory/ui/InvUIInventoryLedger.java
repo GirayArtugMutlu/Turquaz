@@ -55,7 +55,6 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	private DatePicker datePicker;
 	private CLabel lblDate;
 	private Table tableInventories;
-	InvBLInventoryLedger blLedger = new InvBLInventoryLedger();
 	
 	final int INV_ALL = 0;
 	final int INV_WITH_TRANS = 1;
@@ -196,7 +195,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 	      tableInventories.removeAll();
 	      
 	      TurkishCurrencyFormat curFormat = new TurkishCurrencyFormat();  
-	      List list = blLedger.getInventoryLedger(datePicker.getDate(),txtInvCode.getText().trim()); 
+	      List list = InvBLInventoryLedger.getInventoryLedger(datePicker.getDate(),txtInvCode.getText().trim()); 
 	      Object[]result;
 	      String invCode = ""; //$NON-NLS-1$
 	      String invName = ""; //$NON-NLS-1$

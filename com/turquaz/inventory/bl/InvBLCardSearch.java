@@ -21,7 +21,6 @@ package com.turquaz.inventory.bl;
 * @version  $Id$
 */
 
-import java.util.Calendar;
 import java.util.List;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
@@ -32,19 +31,11 @@ import com.turquaz.inventory.dal.InvDALCardSearch;
 
 
 public class InvBLCardSearch {
-	private InvDALCardSearch cardSearch;
-
-	Calendar cal = Calendar.getInstance();
-
-	public InvBLCardSearch() {
-
-		cardSearch = new InvDALCardSearch();
-
-	}
-	public List searchCards(String cardName, String cardCode, TurqInventoryGroup group)throws Exception{
+	
+	public static List searchCards(String cardName, String cardCode, TurqInventoryGroup group)throws Exception{
 		try{
 		
-			return cardSearch.searchInventoryCards(cardName,cardCode,group);
+			return InvDALCardSearch.searchInventoryCards(cardName,cardCode,group);
 		}
 		
 		catch(Exception ex){
@@ -85,11 +76,11 @@ public class InvBLCardSearch {
 	    }
 	}
 	
-	public List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd,
+	public static List searchCardsAdvanced(String cardCodeStart, String cardCodeEnd,
 			String cardNameStart,String cardNameEnd, TurqInventoryGroup group)throws Exception{
 		try{
 		
-			return cardSearch.searchInventoryCardsAdvanced(cardCodeStart,cardCodeEnd,cardNameStart,cardNameEnd,
+			return InvDALCardSearch.searchInventoryCardsAdvanced(cardCodeStart,cardCodeEnd,cardNameStart,cardNameEnd,
 					group);
 		}
 		
@@ -98,20 +89,20 @@ public class InvBLCardSearch {
 		}
 	}
 	
-	public TurqInventoryCard initializeInventoryCard(Integer cardId)throws Exception{
+	public static TurqInventoryCard initializeInventoryCard(Integer cardId)throws Exception{
 	    try{
 	        
-	        return cardSearch.initializeInventoryCard(cardId);
+	        return InvDALCardSearch.initializeInventoryCard(cardId);
 	        
 	    }
 	    catch(Exception ex){
 	        throw ex;
 	    }
 	}
-	public void initializeInventoryCard(TurqInventoryCard invCard)throws Exception{
+	public static void initializeInventoryCard(TurqInventoryCard invCard)throws Exception{
 	    try{
 	        
-	        cardSearch.initializeInventoryCard(invCard);
+	    	InvDALCardSearch.initializeInventoryCard(invCard);
 	        
 	    }
 	    catch(Exception ex){
@@ -119,10 +110,10 @@ public class InvBLCardSearch {
 	    }
 	}
 	
-	public TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
+	public static TurqInventoryCard getTurqInvCardById(Integer cardId )throws Exception{
 	    try{      
 	        
-	        return cardSearch.getTurqInvCardById(cardId);
+	        return InvDALCardSearch.getTurqInvCardById(cardId);
 			}
 	    catch(Exception ex){
 	        throw ex;
@@ -130,11 +121,11 @@ public class InvBLCardSearch {
 	}
 	
 	
-	public TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
+	public static TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
 	{
 		try{
 		    
-			return cardSearch.getView(invCard);
+			return InvDALCardSearch.getView(invCard);
 			
 		}
 		catch(Exception ex)
@@ -142,9 +133,9 @@ public class InvBLCardSearch {
 			throw ex;
 		}
 	}
-	public List getInventoryCards()throws Exception {
+	public static List getInventoryCards()throws Exception {
 	    try{
-	        return cardSearch.getInventoryCards();
+	        return InvDALCardSearch.getInventoryCards();
 	        
 	    }
 	    catch(Exception ex){
@@ -166,9 +157,9 @@ public class InvBLCardSearch {
 	    }
 	}
 	
-	public TurqInventoryCard getInventoryCard(String invCode)throws Exception {
+	public static TurqInventoryCard getInventoryCard(String invCode)throws Exception {
 	    try{
-	        return cardSearch.getInventoryCard(invCode);
+	        return InvDALCardSearch.getInventoryCard(invCode);
 	        
 	    }
 	    catch(Exception ex){

@@ -44,15 +44,12 @@ public class EngBLInventoryCards {
 	public void fillInventoryList() throws Exception {
 		try {
 			
-		    cardList = blAccount.getInventoryCards();
-			
+		    cardList = InvBLCardSearch.getInventoryCards();			
 			
 		} catch (Exception ex) {
 			throw ex;
 		}
-
 	}
-
 	/**
 	 * 
 	 * @return
@@ -96,7 +93,7 @@ public class EngBLInventoryCards {
 		try {
 
 
-			return (TurqInventoryCard)blAccount.getInventoryCard(invCode); 
+			return (TurqInventoryCard)InvBLCardSearch.getInventoryCard(invCode); 
 
 		} catch (Exception ex) {
 			throw ex;

@@ -37,16 +37,7 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 
 
 public class InvDALCardAdd {
-	
-	
-	public InvDALCardAdd()
-	{
-			
-	}
 
-	
-	
-	
 	public static TurqCurrency getCurrency(String abbrev)throws Exception{
 		try{
 			Session session = EngDALSessionFactory.openSession();
@@ -122,14 +113,10 @@ public class InvDALCardAdd {
 		}
 		catch(Exception ex){
 			throw ex;
-		}
-			
-		
-		
-		
-		}
+		}	
+	}
 	
-	public List getInventoryUnits()throws Exception{
+	public static List getInventoryUnits()throws Exception{
 		try{
 			
 			Session session = EngDALSessionFactory.openSession();

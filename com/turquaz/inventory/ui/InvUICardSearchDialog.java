@@ -281,11 +281,11 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog {
 		List result;
 		try{
 		if(comboInvGroup.getSelectionIndex()==-1){
-		result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),null);
+		result = InvBLCardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),null);
 		
 		}
 		else{
-		result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
+		result = InvBLCardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvGroup.getData(comboInvGroup.getText()));
 		
 		}
 		

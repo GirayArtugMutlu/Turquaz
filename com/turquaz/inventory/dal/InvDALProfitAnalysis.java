@@ -11,11 +11,8 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 
 public class InvDALProfitAnalysis {
- 
-    public InvDALProfitAnalysis(){
-        
-    }
-    public List getInventoryTotalsAccordingToAvarage(TurqInventoryCard invCard, Date startDate, Date endDate)
+
+    public static List getInventoryTotalsAccordingToAvarage(TurqInventoryCard invCard, Date startDate, Date endDate)
     throws Exception
 	{
         try

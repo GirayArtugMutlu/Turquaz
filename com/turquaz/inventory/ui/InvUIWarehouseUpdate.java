@@ -59,23 +59,14 @@ import com.cloudgarden.resource.SWTResourceManager;
  */
 public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolItem toolDelete;
-
 	private ToolItem toolUpdate;
-
 	private ToolBar toolWarehouseUpdate;
-
 	private CoolItem coolWarehouseUpdate;
-
 	private CoolBar coolBarInvUIWarehouse;
-
 	private InvUIWarehouseAdd compInvUIWarehouse;
-
 	private Shell dialogShell;
-
 	private TurqInventoryWarehous warehouse;
 	private ToolItem toolCancel;
-
-	private InvBLWarehouseUpdate whUpdate = new InvBLWarehouseUpdate();
 
 	public InvUIWarehouseUpdate(Shell parent, int style,
 			TurqInventoryWarehous wh) {
@@ -259,7 +250,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			if (!compInvUIWarehouse.verifyFields())
 				return;
 
-			whUpdate.updateWarehouse(warehouse, compInvUIWarehouse
+			InvBLWarehouseUpdate.updateWarehouse(warehouse, compInvUIWarehouse
 					.getTxtWarehouseAdres().getText().trim(),
 					compInvUIWarehouse.getTxtTelephone().getText().trim(),
 					compInvUIWarehouse.getTxtWarehouseCity().getText().trim(),
@@ -286,14 +277,14 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog {
 			int result = msg2.open();
 			if (result == SWT.OK) {
 				// if the warehouse card contains transactions
-				if (whUpdate.hasTransactions(warehouse)) {
+				if (InvBLWarehouseUpdate.hasTransactions(warehouse)) {
 					msg
 							.setMessage("Warehouse card contains transactions and \ncan not be deleted. Delete transactions first. "); //$NON-NLS-1$
 					msg.open();
 					return;
 				}
 
-				whUpdate.deleteObject(warehouse);
+				InvBLWarehouseUpdate.deleteObject(warehouse);
 				msg.setMessage(Messages.getString("InvUIWarehouseUpdate.6")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.dispose();

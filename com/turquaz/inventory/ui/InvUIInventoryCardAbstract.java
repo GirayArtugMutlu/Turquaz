@@ -56,6 +56,7 @@ import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import com.turquaz.current.ui.comp.CurrentPicker;
 
@@ -70,9 +71,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 
 import org.eclipse.swt.SWT;
-
 import com.turquaz.inventory.Messages;
-import com.turquaz.inventory.bl.InvBLSearchTransaction;
+
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
@@ -95,9 +95,7 @@ import com.jasperassistant.designer.viewer.ViewerComposite;
 public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composite
 		implements SearchComposite {
 	private Composite compInvTransactionSearch;
-
 	private Table tableTransactions;
-
 	private TableColumn tableColumnTotalAmountOut;
 	private TableColumn tableColumnRemainPrice;
 	private TableColumn tableColumnRemainAmount;
@@ -109,33 +107,20 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 	private InventoryPicker txtInvCardEnd;
 	private CLabel lblInvCardEnd;
 	private TableColumn tableColumnTotalPriceIn;
-
 	private TableColumn tableColumnInventoryCode;
 	private InventoryPicker txtInvCardStart;
 	private Label lblInvCard;
-
 	private CCombo comboTransactionsType;
 	private CurrentPicker txtCurCard;
-
 	private CLabel lblType;
-
 	private CLabel lblEndDate;
-
 	private DatePicker dateEndDate;
-
 	private DatePicker dateStartDate;
-
 	private CLabel lblStartDate;
-
 	private CLabel lblCurrentCard;
-
 	private TableColumn tableColumnTotalAmountIn;
-
 	private TableColumn tableColumnTotalPriceOut;
-
 	private TableColumn tableColumnTransactionDate;
-
-	private InvBLSearchTransaction blSearch = new InvBLSearchTransaction();
 	private Calendar cal=Calendar.getInstance();
 
 	public InvUIInventoryCardAbstract(org.eclipse.swt.widgets.Composite parent,
@@ -400,7 +385,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 			
-					TurqConsignment cons = blSearch.getConsignment(seq);
+					TurqConsignment cons = InvBLSearchTransaction.getConsignment(seq);
 					boolean updated=new ConUIConsignmentUpdateDialog(this.getShell(),SWT.NULL,cons).open();
 					if (updated)
 						search();
@@ -441,7 +426,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
 				type = EngBLCommon.COMMON_SELL_INT;
 
-			List list = blSearch.searchTransactionsRange((TurqInventoryCard) txtInvCardStart.getData(),
+			List list = InvBLSearchTransaction.searchTransactionsRange((TurqInventoryCard) txtInvCardStart.getData(),
 					(TurqInventoryCard) txtInvCardEnd.getData(),
 					(TurqCurrentCard) txtCurCard.getData(),dateStartDate.getDate(), dateEndDate.getDate(),
 					type);

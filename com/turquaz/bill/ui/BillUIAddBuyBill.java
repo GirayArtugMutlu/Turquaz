@@ -82,6 +82,8 @@ import com.turquaz.engine.ui.viewers.TurquazCellModifier;
 import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import com.turquaz.inventory.bl.InvBLCardSearch;
+import com.turquaz.inventory.bl.InvBLSearchTransaction;
+import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 
@@ -999,7 +1001,7 @@ public class BillUIAddBuyBill extends Composite
 	public void fillComboWarehouses(){
 		try{
 			comboWareHouse.removeAll();
-			List list = EngBLCommon.getInventoryWarehouses();
+			List list = InvBLWarehouseSearch.getInventoryWarehouses();
 			
 			TurqInventoryWarehous warehouse;	
 			for(int i=0;i<list.size();i++){
@@ -1387,7 +1389,7 @@ public class BillUIAddBuyBill extends Composite
 	    try
 		{	     
 	    	InvBLCardSearch blCardSearch = new InvBLCardSearch();    
-	    	TurqViewInventoryAmountTotal invView=blCardSearch.getView(invCard);
+	    	TurqViewInventoryAmountTotal invView=InvBLSearchTransaction.getView(invCard);
 	    	int Now=(invView.getTransactionsTotalAmountNow()==null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
 	    	int Max=invCard.getCardMaximumAmount();
 			int Min=invCard.getCardMinimumAmount();	

@@ -155,7 +155,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
         InvBLCardAdd blCardAdd =new InvBLCardAdd();
         try{
             if(verifyFields()){
-                blCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),(TurqInventoryGroup)txtMainGroup.getData());
+            	InvBLCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),(TurqInventoryGroup)txtMainGroup.getData());
                 EngUICommon.showSavedSuccesfullyMessage(getShell());
                 EngBLInventoryGroups.RefreshContentAsistantMap();
                   newForm();
@@ -195,7 +195,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
        InvBLCardAdd blCardAdd =new InvBLCardAdd();
         try{
             if(verifyFields()){
-                blCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),mainGroup);
+            	InvBLCardAdd.saveInvGroup(txtGroupName.getText(),txtDefinition.getText(),mainGroup);
                 EngUICommon.showSavedSuccesfullyMessage(getShell());
                 EngBLInventoryGroups.RefreshContentAsistantMap();
                   

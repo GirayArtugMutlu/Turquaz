@@ -21,8 +21,6 @@ package com.turquaz.inventory.bl;
 * @author  Huseyin Ergun
 * @version  $Id$
 */
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,30 +34,24 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.inventory.dal.InvDALSearchTransaction;
 
 public class InvBLSearchTransaction {
-	Calendar cal = Calendar.getInstance();
-	InvDALSearchTransaction dalSearch = new InvDALSearchTransaction();
    
-	public InvBLSearchTransaction(){
-   	
-	}
-	public List searchTransactions(TurqCurrentCard card, TurqInventoryCard invCard, Date startDate,Date endDate, int type)throws Exception{
-		try{
-			
-			return dalSearch.searchTransactions(card,invCard,startDate,endDate,type);
-			
+	public static List searchTransactions(TurqCurrentCard card, TurqInventoryCard invCard, Date startDate,Date endDate, int type)throws Exception{
+		try{			
+			return InvDALSearchTransaction.searchTransactions(card,invCard,startDate,endDate,type);	
 		}
-		catch(Exception ex){
+		catch(Exception ex)
+		{
 			throw ex;
 		}
 		
 	}
 	
-	public List searchTransactionsRange(TurqInventoryCard invCardStart,
+	public static List searchTransactionsRange(TurqInventoryCard invCardStart,
 			TurqInventoryCard invCardEnd, TurqCurrentCard curCard,
 			Date startDate,Date endDate, int type)throws Exception{
 		try{
 			
-			return dalSearch.searchTransactionsRange(invCardStart,invCardEnd,curCard,startDate,endDate,type);
+			return InvDALSearchTransaction.searchTransactionsRange(invCardStart,invCardEnd,curCard,startDate,endDate,type);
 			
 		}
 		catch(Exception ex){
@@ -79,14 +71,14 @@ public class InvBLSearchTransaction {
 		}
 	}
 	
-	public List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
+	public static List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
 			String invCardNameStart, String invCardNameEnd, 
 			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
 			Date startDate,Date endDate, int type, TurqInventoryGroup invMainGroup,
 			TurqInventoryGroup invSubGroup)throws Exception{
 		try{
 			
-			return dalSearch.searchTransactionsAdvanced(invCardCodeStart,invCardCodeEnd,
+			return InvDALSearchTransaction.searchTransactionsAdvanced(invCardCodeStart,invCardCodeEnd,
 					invCardNameStart,invCardNameEnd,curCardStart,curCardEnd,
 					startDate,endDate,type,invMainGroup, invSubGroup);
 			
@@ -97,22 +89,22 @@ public class InvBLSearchTransaction {
 		
 	}
 	
-	public TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
+	public static TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
 	{
 		try {
 			
-			return dalSearch.getConsignment(seq);
+			return InvDALSearchTransaction.getConsignment(seq);
 		}
 		
 		catch (Exception ex) {
 			throw ex;
 		}
 	}
-	public TurqBill getBill(TurqEngineSequence seq) throws Exception
+	public static TurqBill getBill(TurqEngineSequence seq) throws Exception
 	{
 		try {
 			
-			return dalSearch.getBill(seq);
+			return InvDALSearchTransaction.getBill(seq);
 		}
 		
 		catch (Exception ex) {

@@ -270,4 +270,22 @@ public class CurDALCurrentCardSearch {
 		}
 	}
 
+	public static List getTurqCurrentGroups() throws Exception {
+		try{
+			
+			Session session = EngDALSessionFactory.openSession();
+		
+			String query = "from TurqCurrentGroup as gr ";	
+			Query q = session.createQuery(query); 
+			List list = q.list();
+		
+			session.close();
+			return list;	
+			
+		}
+		catch(Exception ex){
+			throw ex;
+		}
+	}
+
 }

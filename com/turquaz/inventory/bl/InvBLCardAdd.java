@@ -44,21 +44,8 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
-//TODO All methods should be static
 
 public class InvBLCardAdd {
-
-    private InvDALCardAdd cardAdd;
-
-    private InvBLCardSearch cardSearch = new InvBLCardSearch();
-
-    private static Calendar cal = Calendar.getInstance();
-
-    public InvBLCardAdd() {
-
-        cardAdd = new InvDALCardAdd();
-
-    }
 
     public static void registerInvCardGroup(Session session,TurqInventoryCard card, TurqInventoryGroup group) throws Exception {
         try {
@@ -69,10 +56,10 @@ public class InvBLCardAdd {
 
             cardGroup.setCreatedBy(System.getProperty("user"));
             cardGroup.setUpdatedBy(System.getProperty("user"));
-            cardGroup
-                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
-            cardGroup
-                    .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            
+            Calendar cal=Calendar.getInstance();
+            cardGroup.setLastModified(cal.getTime());
+            cardGroup.setCreationDate(cal.getTime());
 
             EngDALCommon.saveObject(session, cardGroup);
 
@@ -127,8 +114,10 @@ public class InvBLCardAdd {
         cardUnit.setTurqInventoryUnit(unit);
         cardUnit.setCreatedBy(System.getProperty("user"));
         cardUnit.setUpdatedBy(System.getProperty("user"));
-        cardUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-        cardUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+        
+        Calendar cal=Calendar.getInstance();
+        cardUnit.setLastModified(cal.getTime());
+        cardUnit.setCreationDate(cal.getTime());
 
         EngDALCommon.saveObject(session,cardUnit);
 
@@ -146,10 +135,10 @@ public class InvBLCardAdd {
             invPrice.setTurqCurrency(currency);
             invPrice.setCreatedBy(System.getProperty("user"));
             invPrice.setUpdatedBy(System.getProperty("user"));
-            invPrice
-			.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-            invPrice
-                    .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            
+            Calendar cal=Calendar.getInstance();
+            invPrice.setLastModified(cal.getTime());
+            invPrice.setCreationDate(cal.getTime());
 
             EngDALCommon.saveObject(session, invPrice);
 
@@ -166,8 +155,10 @@ public class InvBLCardAdd {
         	invAcc.setTurqInventoryCard(card);
         	invAcc.setCreatedBy(System.getProperty("user"));
         	invAcc.setUpdatedBy(System.getProperty("user"));
-        	invAcc.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-        	invAcc.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+        	
+        	Calendar cal=Calendar.getInstance();
+        	invAcc.setLastModified(cal.getTime());
+        	invAcc.setCreationDate(cal.getTime());
         	EngDALCommon.saveObject(session, invAcc);
 
         } catch (Exception ex) {
@@ -177,7 +168,7 @@ public class InvBLCardAdd {
 
     }
 
-    public void saveObject(Object obj) throws Exception {
+    public static void saveObject(Object obj) throws Exception {
         try {
 
         	EngDALCommon.saveObject(obj);
@@ -188,7 +179,7 @@ public class InvBLCardAdd {
 
     }
 
-    public void saveUnit(String unitName) throws Exception {
+    public static void saveUnit(String unitName) throws Exception {
         try {
             TurqInventoryUnit invUnit = new TurqInventoryUnit();
             invUnit.setUnitsName(unitName);
@@ -196,8 +187,10 @@ public class InvBLCardAdd {
 
             invUnit.setCreatedBy(System.getProperty("user"));
             invUnit.setUpdatedBy(System.getProperty("user"));
-            invUnit.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-            invUnit.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            
+            Calendar cal=Calendar.getInstance();
+            invUnit.setLastModified(cal.getTime());
+            invUnit.setCreationDate(cal.getTime());
 
             EngDALCommon.saveObject(invUnit);
 
@@ -207,7 +200,7 @@ public class InvBLCardAdd {
 
     }
 
-    public void saveInvGroup(String groupName, String groupDescription,
+    public static void saveInvGroup(String groupName, String groupDescription,
             TurqInventoryGroup parent) throws Exception {
         try {
             if (parent == null) {
@@ -222,10 +215,10 @@ public class InvBLCardAdd {
 
             invGroup.setCreatedBy(System.getProperty("user"));
             invGroup.setUpdatedBy(System.getProperty("user"));
-            invGroup
-                    .setLastModified(new java.sql.Date(cal.getTime().getTime()));
-            invGroup
-                    .setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            
+            Calendar cal=Calendar.getInstance();
+            invGroup.setLastModified(cal.getTime());
+            invGroup.setCreationDate(cal.getTime());
 
             EngDALCommon.saveObject(invGroup);
 
@@ -314,8 +307,10 @@ public class InvBLCardAdd {
             card.setCardSpecialVatEach(cardSpecialVatEach);
             card.setCreatedBy(System.getProperty("user"));
             card.setUpdatedBy(System.getProperty("user"));
-            card.setUpdateDate(new java.sql.Date(cal.getTime().getTime()));
-            card.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+            
+            Calendar cal=Calendar.getInstance();
+            card.setUpdateDate(cal.getTime());
+            card.setCreationDate(cal.getTime());
             card.setSpecVatForEach(isSpecAmount);
             EngDALCommon.saveObject(session,card);
 
@@ -327,7 +322,7 @@ public class InvBLCardAdd {
 
     }
 
-    public void deleteObject(Object obj) throws Exception {
+    public static void deleteObject(Object obj) throws Exception {
         try {
 
         	EngDALCommon.deleteObject(obj);
@@ -361,11 +356,11 @@ public class InvBLCardAdd {
 
     }
 
-    public List getInventoryUnits() throws Exception {
+    public static List getInventoryUnits() throws Exception {
 
         try {
 
-            return cardAdd.getInventoryUnits();
+            return InvDALCardAdd.getInventoryUnits();
 
         } catch (Exception ex) {
             throw ex;
@@ -373,17 +368,18 @@ public class InvBLCardAdd {
 
     }
 
-    public List searchInventoryCards(TurqInventoryGroup invGroup,
-            String invName, String invCode) {
-        try {
+    public static List searchInventoryCards(TurqInventoryGroup invGroup,
+            String invName, String invCode)
+    {
+        try 
+		{
             String query = "from TurqInventoryCard as invCard";
             return null;
 
-        } catch (Exception ex) {
-
+        } 
+        catch (Exception ex)
+		{
             return null;
         }
-
     }
-
-}
+ }

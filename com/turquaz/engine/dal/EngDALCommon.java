@@ -39,24 +39,6 @@ public class EngDALCommon {
 		
 	}
 	
-	public static List getTurqCurrentGroups() throws Exception {
-		try{
-			
-			Session session = EngDALSessionFactory.openSession();
-		
-			String query = "from TurqCurrentGroup as gr ";	
-			Query q = session.createQuery(query); 
-			List list = q.list();
-		
-			session.close();
-			return list;	
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	
 	public static TurqCurrencyExchangeRate getCurrencyExchangeRate(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency, Date exchangeDate)
 	throws Exception
 	{
@@ -118,23 +100,6 @@ public class EngDALCommon {
 			Session session = EngDALSessionFactory.openSession();
 		
 			String query = "from TurqGroup as group";
-			Query q = session.createQuery(query); 
-			List list = q.list();
-		
-			session.close();
-			return list;
-			
-			
-		}
-		catch(Exception ex){
-			throw ex;
-		}
-	}
-	public static List getInventoryWarehouses()throws Exception {
-		try{
-			Session session = EngDALSessionFactory.openSession();
-		
-			String query = "from TurqInventoryWarehous as wh" ;	
 			Query q = session.createQuery(query); 
 			List list = q.list();
 		

@@ -42,7 +42,7 @@ import org.eclipse.swt.events.MouseEvent;import com.turquaz.engine.ui.component.
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.inventory.Messages;
-import com.turquaz.inventory.bl.InvBLCardSearch;
+import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
@@ -93,8 +93,6 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	private CCombo comboUnitType;
 	private Group txtInvCard;
 	private CLabel lblInvVard;
-	private EngBLCommon blCommon = new EngBLCommon();
-	private InvBLCardSearch blCardSearch=new InvBLCardSearch();
 	private boolean BUY;
 	TurqInventoryTransaction invTrans;
 	TurqInventoryUnit defaultUnit;
@@ -361,7 +359,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	public void fillComboCurrency(){
 		try{
 		comboCurrency.removeAll();	
-		List currencies = blCommon.getCurrencies();
+		List currencies = EngBLCommon.getCurrencies();
 		TurqCurrency currency;	
 		for(int i=0;i<currencies.size();i++){
 		
@@ -384,7 +382,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog {
 	public void fillComboWarehouses(){
 		try{
 			comboWareHouses.removeAll();
-			List list = blCommon.getInventoryWarehouses();
+			List list = InvBLWarehouseSearch.getInventoryWarehouses();
 			
 			TurqInventoryWarehous warehouse;	
 			for(int i=0;i<list.size();i++){

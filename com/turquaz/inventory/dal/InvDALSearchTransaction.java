@@ -42,11 +42,8 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 public class InvDALSearchTransaction {
-	public InvDALSearchTransaction() {
 
-	}
-
-	public List searchTransactions(TurqCurrentCard curCard,
+	public static List searchTransactions(TurqCurrentCard curCard,
 			TurqInventoryCard invCard, Date startDate, Date endDate, int type)
 			throws Exception {
 		try {
@@ -102,7 +99,7 @@ public class InvDALSearchTransaction {
 		}
 	}
 	
-	public List searchTransactionsRange(TurqInventoryCard invCardStart,
+	public static List searchTransactionsRange(TurqInventoryCard invCardStart,
 			TurqInventoryCard invCardEnd ,TurqCurrentCard curCard,
 			Date startDate, Date endDate, int type)
 			throws Exception {
@@ -176,7 +173,7 @@ public class InvDALSearchTransaction {
 		}
 	}
 	
-	public List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
+	public static List searchTransactionsAdvanced(String invCardCodeStart,String invCardCodeEnd,
 			String invCardNameStart,String invCardNameEnd, 
 			TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, 
 			Date startDate,Date endDate, int type, TurqInventoryGroup invMainGroup,
@@ -338,7 +335,7 @@ public class InvDALSearchTransaction {
 	}
 	
 	
-	public TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
+	public static TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
 	{
 		try {
 			Session session = EngDALSessionFactory.openSession();
@@ -362,7 +359,7 @@ public class InvDALSearchTransaction {
 		}
 	}
 
-	public TurqBill getBill(TurqEngineSequence seq) throws Exception
+	public static TurqBill getBill(TurqEngineSequence seq) throws Exception
 	{
 		try {
 			Session session = EngDALSessionFactory.openSession();

@@ -22,44 +22,46 @@ package com.turquaz.inventory.dal;
 * @version  $Id$
 */
 import java.util.List;
-
-
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-
 import com.turquaz.engine.dal.EngDALSessionFactory;
 
-
-
 public class InvDALWarehouseSearch {
-	public InvDALWarehouseSearch(){
-		
-	}
-	public List searchWarehouse(String name, String city)throws Exception{
-		try{
-		
-			Session session = EngDALSessionFactory.openSession();
-			
+
+	public static List searchWarehouse(String name, String city)throws Exception{
+		try
+		{		
+			Session session = EngDALSessionFactory.openSession();			
 			String query = "Select wh from TurqInventoryWarehous as wh " +
 							
 						   "where wh.warehousesName like '"+name+"%' and wh.warehousesCity like '"+city+"%' ";
 			  	
+			Query q = session.createQuery(query);					
+			List list = q.list();						
+		    session.close();		
+			return list;				
+		}
+		catch(Exception ex){
+			throw ex;
+		}		
+	}
+
+	public static List getInventoryWarehouses()throws Exception {
+		try{
+			Session session = EngDALSessionFactory.openSession();
+		
+			String query = "from TurqInventoryWarehous as wh" ;	
 			Query q = session.createQuery(query); 
-					
 			List list = q.list();
-						
-		    session.close();
 		
-			return list;		
+			session.close();
+			return list;
 			
-					
-		
+			
 		}
 		catch(Exception ex){
 			throw ex;
 		}
-		
-		
 	}
 	
 	

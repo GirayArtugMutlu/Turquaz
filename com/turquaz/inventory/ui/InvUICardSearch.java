@@ -46,6 +46,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
+import com.turquaz.inventory.dal.InvDALCardUpdate;
 
 import org.eclipse.swt.layout.GridData;
 
@@ -102,7 +103,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	private InventoryPicker txtInvCode;
 	private CLabel lblInvCode;
 	private Composite compInvCardSearchPanel;
-	InvBLCardSearch cardSearch = new InvBLCardSearch();
+	
 	public InvUICardSearch(Composite parent, int style) {
 		super(parent, style);
 		initGUI();
@@ -371,7 +372,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	   try{
 	    
 	     InvBLCardSearch blCardSearch = new InvBLCardSearch();
-		   blCardSearch.initializeInventoryCard(invCard);
+	     InvBLCardSearch.initializeInventoryCard(invCard);
 	   }
 	   catch(Exception ex){
 	   	ex.printStackTrace();
@@ -384,7 +385,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	       return;
 	     
 	     // if the inventory card contains transactions 
-	     if(cardUpdate.hasTransactions(invCard))
+	     if(InvDALCardUpdate.hasTransactions(invCard))
 	     {
 	     	MessageBox msg2 = new MessageBox(this.getShell(),SWT.ICON_WARNING);
 	    	msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. ");  //$NON-NLS-1$
@@ -424,7 +425,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 		try
 		{
 			
-			List result = cardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			List result = InvBLCardSearch.searchCards(txtInvName.getText().trim(),txtInvCode.getText().trim(),(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText()));
 
 	
 			TableItem item;
@@ -524,7 +525,7 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	if(selection.length>0){
 	try{
 	Integer cardId = (Integer)selection[0].getData();
-	TurqInventoryCard card = cardSearch.initializeInventoryCard(cardId);
+	TurqInventoryCard card = InvBLCardSearch.initializeInventoryCard(cardId);
 	boolean updated=new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
 	if (updated)
 		search();
