@@ -168,6 +168,9 @@ public class BillBLAddBill {
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmount(invTrans.getTransactionsTotalPrice());
 			
+			// set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -188,6 +191,9 @@ public class BillBLAddBill {
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmount(invTrans.getTransactionsVatAmount());
 			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -207,6 +213,10 @@ public class BillBLAddBill {
 			
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmount(invTrans.getTransactionsVatSpecialAmount());
+		
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -226,6 +236,10 @@ public class BillBLAddBill {
 			
 			transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
 			transRow.setDeptAmount(new BigDecimal(0));
+		
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -259,6 +273,9 @@ public class BillBLAddBill {
 				transRow.setCreditAmount(new BigDecimal(0));
 				transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
 				
+//				 set Transaction Row Definition
+				transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+				
 				transRow.setCreatedBy(System.getProperty("user"));
 				transRow.setUpdatedBy(System.getProperty("user"));
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -276,6 +293,10 @@ public class BillBLAddBill {
 					
 					transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
 					transRow.setDeptAmount(new BigDecimal(0));
+					
+//					 set Transaction Row Definition
+					transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+					
 					
 					transRow.setCreatedBy(System.getProperty("user"));
 					transRow.setUpdatedBy(System.getProperty("user"));
@@ -329,6 +350,10 @@ public class BillBLAddBill {
 			transRow.setCreditAmount(invTrans.getTransactionsTotalPrice());
 			transRow.setDeptAmount(new BigDecimal(0));
 			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
+			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -348,6 +373,9 @@ public class BillBLAddBill {
 			
 			transRow.setCreditAmount(invTrans.getTransactionsVatAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
+			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -369,6 +397,9 @@ public class BillBLAddBill {
 			transRow.setCreditAmount(invTrans.getTransactionsVatSpecialAmount());
 			transRow.setDeptAmount(new BigDecimal(0));
 			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
 			transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -387,6 +418,9 @@ public class BillBLAddBill {
 			
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
+			
+//			 set Transaction Row Definition
+			transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
 			
 			transRow.setCreatedBy(System.getProperty("user"));
 			transRow.setUpdatedBy(System.getProperty("user"));
@@ -420,6 +454,9 @@ public class BillBLAddBill {
 				transRow.setCreditAmount(invTrans.getTransactionsCumilativePrice());
 				transRow.setDeptAmount(new BigDecimal(0));
 				
+//				 set Transaction Row Definition
+				transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
+				
 				transRow.setCreatedBy(System.getProperty("user"));
 				transRow.setUpdatedBy(System.getProperty("user"));
 				transRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
@@ -437,6 +474,9 @@ public class BillBLAddBill {
 					
 					transRow.setCreditAmount(new BigDecimal(0));
 					transRow.setDeptAmount(invTrans.getTransactionsCumilativePrice());
+					
+//					 set Transaction Row Definition
+					transRow.setTransactionDefinition("Fatura "+bill.getTurqBillConsignmentCommon().getBillDocumentNo()+" "+DatePicker.formatter.format(bill.getBillsDate()));
 					
 					transRow.setCreatedBy(System.getProperty("user"));
 					transRow.setUpdatedBy(System.getProperty("user"));
