@@ -222,7 +222,7 @@
 					</Component>
 				</SubComponents>
 			</Component>
-			<Component class="org.eclipse.swt.widgets.Table" name="tableCurrentCardSearch" style="0">
+			<Component class="org.eclipse.swt.widgets.Table" name="tableCurrentCardSearch" style="65792">
 				<Constraints>
 					<Constraint class="org.eclipse.swt.layout.GridData"/>
 					<LayoutConstraint class="org.eclipse.swt.layout.GridData">
@@ -238,6 +238,7 @@
 					</LayoutConstraint>
 				</Constraints>
 				<Events>
+					<EventHandler event="mouseDoubleClick" listener="org.eclipse.swt.events.MouseListener" handler="tableCurrentCardSearchMouseDoubleClick"/>
 				</Events>
 				<Properties>
 					<Property name="headerVisible" type="boolean" value="true"/>

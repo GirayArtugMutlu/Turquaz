@@ -15,14 +15,18 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 
+import com.turquaz.bank.ui.BankUIBankCardUpdate;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
@@ -71,7 +75,7 @@ private TableColumn tableColumnContactName;
 			txtCurrentName = new Text(compCurrentCardSearch,SWT.NULL);
 			lblTurqGroupName = new CLabel(compCurrentCardSearch,SWT.NULL);
 			comboTurqGroupName = new CCombo(compCurrentCardSearch,SWT.NULL);
-			tableCurrentCardSearch = new Table(this,SWT.NULL);
+			tableCurrentCardSearch = new Table(this,SWT.FULL_SELECTION| SWT.H_SCROLL);
 			tableColumnCurrentCode = new TableColumn(tableCurrentCardSearch,SWT.NULL);
 			tableColumnCurrentName = new TableColumn(tableCurrentCardSearch,SWT.NULL);
 			tableColumnContactName = new TableColumn(tableCurrentCardSearch,SWT.NULL);
@@ -192,6 +196,11 @@ private TableColumn tableColumnContactName;
 			tableCurrentCardSearch.setHeaderVisible(true);
 			tableCurrentCardSearch.setLinesVisible(true);
 			tableCurrentCardSearch.setSize(new org.eclipse.swt.graphics.Point(409,168));
+			tableCurrentCardSearch.addMouseListener( new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
+					tableCurrentCardSearchMouseDoubleClick(evt);
+				}
+			});
 	
 			tableColumnCurrentCode.setText("Current Code");
 			tableColumnCurrentCode.setWidth(120);
@@ -315,6 +324,18 @@ private TableColumn tableColumnContactName;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	/** Auto-generated event handler method */
+	protected void tableCurrentCardSearchMouseDoubleClick(MouseEvent evt){
+		//TODO add your handler code here
+		TableItem [] selection= tableCurrentCardSearch.getSelection();	
+	
+		if(selection.length>0){
+	
+			TurqCurrentCard card = (TurqCurrentCard)selection[0].getData();
+			new CurUICurrentCardUpdate(this.getShell(),SWT.NULL,card).open();
+			search();
 		}
 	}
 }
