@@ -49,11 +49,12 @@ public class InvDALCardSearch {
 			
 				Session session = EngDALSessionFactory.openSession();
 				
-				String query = "Select invView, invCard from TurqViewInventoryTotal as invView," +
+				String query = "Select invView, invCard.cardInventoryCode, invCard.cardName, invCard.inventoryCardsId from TurqViewInventoryTotal as invView," +
 						" TurqInventoryCard as invCard" +						
 						" where invCard.inventoryCardsId = invView.inventoryCardsId and " +
-						" lower(invCard.cardName) like '"+cardName.toLowerCase()+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
-							
+						" invCard.cardName like '"+cardName+"%' and invCard.cardInventoryCode like '"+cardCode+"%' ";
+					
+				
 							   	
 				if(invGroup!=null){
 					
@@ -65,6 +66,7 @@ public class InvDALCardSearch {
 				if(invGroup!=null){
 					q.setParameter("invGroup",invGroup);
 				}
+				
 				
 				q.setMaxResults(1000);
 			
@@ -133,12 +135,12 @@ public class InvDALCardSearch {
 	    
 	}
 	
-	public void initializeInventoryCard(TurqInventoryCard invCard )throws Exception{
+	public TurqInventoryCard initializeInventoryCard(Integer cardId )throws Exception{
 	    try{
 	        Session session = EngDALSessionFactory.openSession();
 	        Transaction tx = session.beginTransaction();
 	        
-	        session.refresh(invCard);
+	        TurqInventoryCard invCard = (TurqInventoryCard)session.load(TurqInventoryCard.class,cardId);
 	        Hibernate.initialize(invCard.getTurqInventoryCardGroups());
 			Hibernate.initialize(invCard.getTurqInventoryPrices());
 			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
@@ -148,6 +150,30 @@ public class InvDALCardSearch {
 	        session.flush();
 	        session.close();
 	        
+	        return invCard;
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
+	
+	public TurqInventoryCard initializeInventoryCard(TurqInventoryCard invCard )throws Exception{
+	    try{
+	        Session session = EngDALSessionFactory.openSession();
+	        Transaction tx = session.beginTransaction();
+	        
+	        session.refresh(invCard);
+	        
+	        Hibernate.initialize(invCard.getTurqInventoryCardGroups());
+			Hibernate.initialize(invCard.getTurqInventoryPrices());
+			Hibernate.initialize(invCard.getTurqInventoryCardUnits());
+	        
+	        
+	        tx.commit();
+	        session.flush();
+	        session.close();
+	        
+	        return invCard;
 	    }
 	    catch(Exception ex){
 	        throw ex;

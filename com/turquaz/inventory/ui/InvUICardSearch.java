@@ -483,10 +483,16 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	int listSize = result.size();
 	for(int i =0; i<listSize;i++){
 	Object[] objs=(Object[])result.get(i);
-	TurqInventoryCard card = (TurqInventoryCard)objs[1];
+	
+	
+	String invCode = objs[1].toString();
+	String invName = objs[2].toString();
+	Integer cardId = (Integer)objs[3];
+	
 	TurqViewInventoryTotal invView=(TurqViewInventoryTotal)((Object[])result.get(i))[0];
 	item = new TableItem(tableSearcResults,SWT.NULL);
-	item.setData(card);
+	
+	item.setData(cardId);
 	
 	BigDecimal totalAmountIn =(invView.getTotalAmountIn()==null) ? new BigDecimal(0): invView.getTotalAmountIn();
 	BigDecimal totalAmountOut = (invView.getTotalAmountOut()==null) ? new BigDecimal(0) : invView.getTotalAmountOut();
@@ -510,8 +516,8 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	
 	
 	
-	item.setText(new String[]{card.getCardInventoryCode(),
-							  card.getCardName(),
+	item.setText(new String[]{invCode,
+							  invName,
 					          totalAmountIn.toString(),
 							  totalAmountOut.toString(),
 							  balanceAmountIn.toString(),
@@ -562,12 +568,13 @@ public class InvUICardSearch extends  Composite implements SearchComposite {
 	}
 /** Auto-generated event handler method */
 	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt){
+	    
     TableItem [] selection= tableSearcResults.getSelection();	
 	
 	if(selection.length>0){
 	try{
-	TurqInventoryCard card = (TurqInventoryCard)selection[0].getData();
-	cardSearch.initializeInventoryCard(card);
+	Integer cardId = (Integer)selection[0].getData();
+	TurqInventoryCard card = cardSearch.initializeInventoryCard(cardId);
 	new InvUICardUpdateDialog(this.getShell(),SWT.NULL,card).open();
 	search();
 	}

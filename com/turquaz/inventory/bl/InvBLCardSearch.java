@@ -51,6 +51,16 @@ public class InvBLCardSearch {
 			throw ex;
 		}
 	}
+	public TurqInventoryCard initializeInventoryCard(Integer cardId)throws Exception{
+	    try{
+	        
+	        return cardSearch.initializeInventoryCard(cardId);
+	        
+	    }
+	    catch(Exception ex){
+	        throw ex;
+	    }
+	}
 	public void initializeInventoryCard(TurqInventoryCard invCard)throws Exception{
 	    try{
 	        
@@ -61,6 +71,7 @@ public class InvBLCardSearch {
 	        throw ex;
 	    }
 	}
+	
 	
 	public TurqViewInventoryAmountTotal getView (TurqInventoryCard invCard)throws Exception
 	{
