@@ -184,7 +184,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void checkBill()
 	{
-		if (consignment.getTurqBillConsignmentCommon().getTurqBills().isEmpty())
+		if (consignment.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
 		{
 		}
 		else
@@ -216,11 +216,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			ex.printStackTrace();
 		}
 		checkBill();
-		TurqCurrentCard curCard = consignment.getTurqBillConsignmentCommon().getTurqCurrentCard();
+		TurqCurrentCard curCard = consignment.getTurqCurrentCard();
 		compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}");
-		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getBillDocumentNo());
 		compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
-		compAddConsignment.getTxtDocumentNo().setText(consignment.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
+		compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentDocumentNo());
+		compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
 		if (consignment.getConsignmentsType() == 0)
 		{
 			compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
@@ -301,10 +301,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				type = 1;
 			ConBLUpdateConsignment.updateConsignment(consignment, compAddConsignment.getTxtDocumentNo().getText(), compAddConsignment
 					.getTxtDefinition().getText(), compAddConsignment.getDateConsignmentDate().getDate(),
-					(TurqCurrentCard) compAddConsignment.getTxtCurrentCard().getData(), compAddConsignment.getTxtDiscountAmount()
-							.getBigDecimalValue(), compAddConsignment.getTxtBillDocumentNo().getText(), compAddConsignment
-							.getTxtTotalVat().getBigDecimalValue(), compAddConsignment.getDecSpecialVat().getBigDecimalValue(),
-					compAddConsignment.getTxtTotalAmount().getBigDecimalValue(), type, EngBLCommon.getBaseCurrencyExchangeRate(),
+					(TurqCurrentCard) compAddConsignment.getTxtCurrentCard().getData(), 
+							 type, EngBLCommon.getBaseCurrencyExchangeRate(),
 					compAddConsignment.getInventoryTransactions(), compAddConsignment.getConsignmentGroups());
 			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
 			msg.open();

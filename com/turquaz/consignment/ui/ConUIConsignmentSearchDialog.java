@@ -275,11 +275,12 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				cons = (TurqConsignment) list.get(i);
 				item = new TableItem(tableConsignments, SWT.NULL);
 				item.setData(cons);
-				item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
-						cons.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName(),
+				//XXX the data should be retrieved from view
+				/*item.setText(new String[]{DatePicker.formatter.format(cons.getConsignmentsDate()),
+						cons.getTurqCurrentCard().getCardsName(),
 						cons.getTurqBillConsignmentCommon().getTotalAmount().toString(),
 						cons.getTurqBillConsignmentCommon().getVatAmount().toString(),
-						cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});
+						cons.getTurqBillConsignmentCommon().getSpecialVatAmount().toString()});*/
 			}
 		}
 		catch (Exception ex)

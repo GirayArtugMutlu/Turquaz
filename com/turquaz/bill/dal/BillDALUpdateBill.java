@@ -14,18 +14,15 @@ import com.turquaz.engine.dal.TurqBill;
  */
 public class BillDALUpdateBill
 {
-	public BillDALUpdateBill()
-	{
-	}
-
-	public static void deleteAccountingTransactions(int seq_id) throws Exception
+	public static void deleteAccountingTransactions(int billId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			Iterator iter = session
-					.iterate("from TurqAccountingTransaction as trans where " + " trans.turqEngineSequence.id =" + seq_id);
+			Iterator iter = session.iterate("from TurqAccountingTransaction as trans" +
+					", TurqBill bill where bill.id="+billId+
+					" and trans.turqEngineSequence.id in bill.turqBillInEngineSequences.turqEngineSequence");
 			while (iter.hasNext())
 			{
 				TurqAccountingTransaction trans = (TurqAccountingTransaction) iter.next();
@@ -46,13 +43,15 @@ public class BillDALUpdateBill
 		}
 	}
 
-	public static void deleteCurrentTransactions(int seq_id) throws Exception
+	public static void deleteCurrentTransactions(int billId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
-			Iterator iter = session.iterate("from TurqCurrentTransaction as trans where " + " trans.turqEngineSequence.id =" + seq_id);
+			Iterator iter = session.iterate("from TurqCurrentTransaction as trans," +
+					" TurqBill bill where"+" bill.id="+billId+
+					" and trans.turqEngineSequence.id in bill.turqBillInEngineSequences.turqEngineSequence");
 			while (iter.hasNext())
 			{
 				session.delete(iter.next());
@@ -72,10 +71,12 @@ public class BillDALUpdateBill
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select accTrans from TurqAccountingTransaction as accTrans where "
-					+ " accTrans.turqAccountingJournal.id <>-1" + " and accTrans.turqEngineSequence = :billEngineSeq";
+			String query = "Select accTrans from TurqAccountingTransaction as accTrans," +
+					" TurqBill as bill where " +
+					" accTrans.turqAccountingJournal.id <>-1" + 
+					" and bill.id ="+bill.getId()+
+					" and accTrans.turqEngineSequence in bill.turqBillInEngineSequences.turqEngineSequence";
 			Query q = session.createQuery(query);
-			q.setParameter("billEngineSeq", bill.getTurqEngineSequence());
 			List list = q.list();
 			if (list.size() == 0)
 			{

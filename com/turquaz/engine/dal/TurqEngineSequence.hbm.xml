@@ -133,9 +133,9 @@
             class="com.turquaz.engine.dal.TurqBanksTransactionBill"
         />
     </set>
-    <!-- bi-directional one-to-many association to TurqBill -->
+    <!-- bi-directional one-to-many association to TurqBillInEngineSequence -->
     <set
-        name="turqBills"
+        name="turqBillInEngineSequences"
         lazy="true"
         inverse="true"
 		cascade="none"
@@ -144,7 +144,7 @@
             <column name="engine_sequences_id" />
         </key>
         <one-to-many 
-            class="com.turquaz.engine.dal.TurqBill"
+            class="com.turquaz.engine.dal.TurqBillInEngineSequence"
         />
     </set>
 

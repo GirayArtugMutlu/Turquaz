@@ -25,6 +25,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -621,7 +622,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		cal.add(Calendar.YEAR, 1);
 		cal.add(Calendar.DATE, -1);
 		dateDueDateEnd.setDate(cal.getTime());
-		tabFolderReport.setSelection(cTabItem1);
+		tabFolderReport.setSelection(0);
 		createTableViewer();
 		//postFinalizeGui();
 	}
@@ -651,14 +652,15 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					toolUpdate.setEnabled(true);
 				}
 			}
-			compAddBill.getTxtCurrentCard().setData(bill.getTurqBillConsignmentCommon().getTurqCurrentCard());
+			compAddBill.getTxtCurrentCard().setData(bill.getTurqCurrentCard());
 			compAddBill.getTxtCurrentCard().setText(
-					bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsName()
-							+ " {" + bill.getTurqBillConsignmentCommon().getTurqCurrentCard().getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+					bill.getTurqCurrentCard().getCardsName()
+							+ " {" + bill.getTurqCurrentCard().getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
 			;
-			compAddBill.getTxtDocumentNo().setText(bill.getTurqBillConsignmentCommon().getBillDocumentNo());
+			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
 			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
-			compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
+			//XXX consignment no could be more than.. change UI etc..
+			//compAddBill.getTxtConsignmentDocumentNo().setText(bill.getTurqBillConsignmentCommon().getConsignmentDocumentNo());
 			if (bill.isIsOpen())
 			{
 				compAddBill.getComboPaymentType().setText(Messages.getString("BillUIBillUpdateDialog.8")); //$NON-NLS-1$
@@ -719,18 +721,22 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		compAddBill.tableViewer.removeAll();
 		TableItem item;
 		TurqInventoryTransaction invTrans;
-		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		if (it.hasNext())
 		{
-			TurqConsignment cons = (TurqConsignment) it.next();
-			Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while (it2.hasNext())
+			TurqBillInEngineSequence billInEng=(TurqBillInEngineSequence)it.next();
+			Iterator it3=billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
+			while (it3.hasNext())
 			{
-				invTrans = (TurqInventoryTransaction) it2.next();
-				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,
-						compAddBill.tableViewer);
-				row.setDBObject(invTrans);
-				compAddBill.tableViewer.addRow(row);
+				TurqConsignment cons = (TurqConsignment) it.next();
+				Iterator it2 = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+				while (it2.hasNext())
+				{
+					invTrans = (TurqInventoryTransaction) it2.next();
+					InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE,compAddBill.tableViewer);
+					row.setDBObject(invTrans);
+					compAddBill.tableViewer.addRow(row);
+				}
 			}
 		}
 		InvUITransactionTableRow row2 = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);

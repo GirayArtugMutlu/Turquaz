@@ -272,23 +272,30 @@ public class InvBLCardAdd
 			invTrans.setTransactionsDate(DatePicker.getFirstDayOfYear());
 			invTrans.setDefinition(Messages.getString("InvBLCardAdd.0"));  //$NON-NLS-1$
 			invTrans.setDocumentNo(""); //$NON-NLS-1$
-			invTrans.setTransactionsAmountIn(new BigDecimal(0));
-			invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));
+			invTrans.setAmountIn(new BigDecimal(0));
+			invTrans.setAmountOut(new BigDecimal(0));
+			invTrans.setTotalPrice(new BigDecimal(0));
+			invTrans.setTotalPriceInForeignCurrency(new BigDecimal(0));
 			
-			invTrans.setTransactionsTotalPrice(new BigDecimal(0));
-			invTrans.setTransactionsDiscountAmount(new BigDecimal(0));
-			invTrans.setTransactionsDiscount(new BigDecimal(0));
-			invTrans.setTransactionsCumilativePrice(new BigDecimal(0));
-			invTrans.setTransactionsUnitPrice(new BigDecimal(0));
-			invTrans.setTransactionsVat(0);
-			invTrans.setTransactionsVatAmount(new BigDecimal(0));
-			invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
-			invTrans.setTransactionsVatSpecial(new BigDecimal(0));
-			invTrans.setTransactionsVatSpecialAmount(new BigDecimal(0));
+			invTrans.setDiscountAmount(new BigDecimal(0));
+			invTrans.setDiscountAmountInForeignCurrency(new BigDecimal(0));
+			invTrans.setDiscountRate(new BigDecimal(0));
+			invTrans.setCumilativePrice(new BigDecimal(0));
+			invTrans.setCumilativePriceInForeignCurrency(new BigDecimal(0));
+			invTrans.setUnitPrice(new BigDecimal(0));
+			invTrans.setUnitPriceInForeignCurrency(new BigDecimal(0));
+			invTrans.setVatRate(new BigDecimal(0));
+			invTrans.setVatAmount(new BigDecimal(0));
+			invTrans.setVatAmountInForeignCurrency(new BigDecimal(0));
+			invTrans.setVatSpecialUnitPrice(new BigDecimal(0));
+			invTrans.setVatSpecialUnitPriceInForeignCurrency(new BigDecimal(0));
+			invTrans.setVatSpecialRate(new BigDecimal(0));
+			invTrans.setVatSpecialAmount(new BigDecimal(0));
+			invTrans.setVatSpecialAmountInForeignCurrency(new BigDecimal(0));
 			invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			invTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			invTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));	
+			invTrans.setLastModified(cal.getTime());
+			invTrans.setCreationDate(cal.getTime());	
 			
 			EngDALCommon.saveObject(session,invTrans);
 			

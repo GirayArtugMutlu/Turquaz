@@ -37,10 +37,10 @@ public class TurqEngineSequence implements Serializable {
     private Set turqBanksTransactionBills;
 
     /** persistent field */
-    private Set turqBills;
+    private Set turqBillInEngineSequences;
 
     /** full constructor */
-    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqChequeRolls, Set turqAccountingTransactions, Set turqCashTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions, Set turqBanksTransactionBills, Set turqBills) {
+    public TurqEngineSequence(com.turquaz.engine.dal.TurqModule turqModule, Set turqChequeRolls, Set turqAccountingTransactions, Set turqCashTransactions, Set turqInventoryTransactions, Set turqConsignments, Set turqCurrentTransactions, Set turqBanksTransactionBills, Set turqBillInEngineSequences) {
         this.turqModule = turqModule;
         this.turqChequeRolls = turqChequeRolls;
         this.turqAccountingTransactions = turqAccountingTransactions;
@@ -49,7 +49,7 @@ public class TurqEngineSequence implements Serializable {
         this.turqConsignments = turqConsignments;
         this.turqCurrentTransactions = turqCurrentTransactions;
         this.turqBanksTransactionBills = turqBanksTransactionBills;
-        this.turqBills = turqBills;
+        this.turqBillInEngineSequences = turqBillInEngineSequences;
     }
 
     /** default constructor */
@@ -128,12 +128,12 @@ public class TurqEngineSequence implements Serializable {
         this.turqBanksTransactionBills = turqBanksTransactionBills;
     }
 
-    public java.util.Set getTurqBills() {
-        return this.turqBills;
+    public java.util.Set getTurqBillInEngineSequences() {
+        return this.turqBillInEngineSequences;
     }
 
-    public void setTurqBills(java.util.Set turqBills) {
-        this.turqBills = turqBills;
+    public void setTurqBillInEngineSequences(java.util.Set turqBillInEngineSequences) {
+        this.turqBillInEngineSequences = turqBillInEngineSequences;
     }
 
     public String toString() {

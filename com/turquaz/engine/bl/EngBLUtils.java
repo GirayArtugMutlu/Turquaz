@@ -16,7 +16,6 @@ package com.turquaz.engine.bl;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 import java.io.FileOutputStream;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -40,18 +39,14 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.jasperassistant.designer.viewer.ViewerApp;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
-import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
-import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
@@ -303,7 +298,7 @@ public class EngBLUtils
 				EngUICommon.showMessageBox(Display.getCurrent().getActiveShell(), Messages.getString("EngBLUtils.1"), SWT.ICON_WARNING); //$NON-NLS-1$
 				return;
 			}
-			TurqConsignment cons = (TurqConsignment) bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
+			//TurqConsignment cons = (TurqConsignment) bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator().next();
 			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
 			Map parameters = new HashMap();
 			String sqlparam = "Select invTrans.id as inventory_transactions_id," + //$NON-NLS-1$
@@ -320,14 +315,15 @@ public class EngBLUtils
 					" from turq_inventory_transactions invTrans, turq_inventory_units units," + //$NON-NLS-1$
 					" turq_inventory_cards invCard, turq_inventory_card_units invCardUnits," + //$NON-NLS-1$
 					" turq_inventory_warehouses warehouse where" + //$NON-NLS-1$
-					" invTrans.engine_sequences_id=" + cons.getTurqEngineSequence().getId().intValue() + //$NON-NLS-1$
+					//" invTrans.engine_sequences_id=" + cons.getTurqEngineSequence().getId().intValue() + //$NON-NLS-1$
 					" and invTrans.inventory_cards_id=invCard.id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" + //$NON-NLS-1$
 					" and warehouse.id=invTrans.inventory_warehouses_id" + //$NON-NLS-1$
 					" and units.id=invTrans.inventory_units_id"; //$NON-NLS-1$
 			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			TurqBillConsignmentCommon billCommon = bill.getTurqBillConsignmentCommon();
+			//XXX print bill should be fixed..
+			/*TurqBillConsignmentCommon billCommon = bill.getTurqBillConsignmentCommon();
 			BigDecimal discount = billCommon.getDiscountAmount();
 			BigDecimal VAT = billCommon.getVatAmount();
 			BigDecimal invoiceSum = billCommon.getTotalAmount().subtract(VAT).add(discount);
@@ -374,7 +370,7 @@ public class EngBLUtils
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
 			ViewerApp viewer = new ViewerApp();
 			viewer.getReportViewer().setDocument(jasperPrint);
-			viewer.open();
+			viewer.open();*/
 		}
 		catch (Exception ex)
 		{
@@ -404,8 +400,9 @@ public class EngBLUtils
 					" and invCardUnits.inventory_cards_id=invTrans.inventory_cards_id" + //$NON-NLS-1$
 					" and invCardUnits.inventory_units_id=invTrans.inventory_units_id" + //$NON-NLS-1$
 					" and units.inventory_units_id=invTrans.inventory_units_id"; //$NON-NLS-1$
+			//XXX cons print should be fixed..
 			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			TurqBillConsignmentCommon billCommon = cons.getTurqBillConsignmentCommon();
+			/*TurqBillConsignmentCommon billCommon = cons.getTurqBillConsignmentCommon();
 			BigDecimal invoiceSum = billCommon.getTotalAmount().add(billCommon.getSpecialVatAmount());
 			BigDecimal discount = billCommon.getDiscountAmount();
 			BigDecimal specialVAT = billCommon.getVatAmount();
@@ -443,7 +440,7 @@ public class EngBLUtils
 			ViewerApp viewerApp = new ViewerApp();
 			viewerApp.getReportViewer().setDocument(jasperPrint);
 			viewerApp.open();
-			//reportViewer.getReportViewer().setDocument(jasperPrint);
+			//reportViewer.getReportViewer().setDocument(jasperPrint);*/
 		}
 		catch (Exception ex)
 		{

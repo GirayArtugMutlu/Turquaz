@@ -26,28 +26,25 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 
 public class ConDALSearchConsignment
 {
-	public ConDALSearchConsignment()
-	{
-	}
-
 	public static List searchConsignments(TurqCurrentCard curCard, Date startDate, Date endDate, int type, String docNo) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.openSession();
-			String query = "Select consignment.id," + " consignment.consignmentsDate, curCard.cardsCurrentCode,"
-					+ " curCard.cardsName, billcons.consignmentDocumentNo,"
-					+ " billcons.totalAmount, billcons.vatAmount, billcons.specialVatAmount" + " from TurqConsignment as consignment,"
-					+ " consignment.turqBillConsignmentCommon.turqCurrentCard as curCard,"
-					+ " consignment.turqBillConsignmentCommon as billcons" + " where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
+			String query = "Select consignment.id," + " consignment.consignmentsDate, consignment.turqCurrentCard.cardsCurrentCode,"
+					+ " consignment.turqCurrentCard.cardsName, consignment.consignmentDocumentNo,"
+					+ " view.totalprice, view.vatamount, view.specialvatamount" + " from TurqViewInvPriceTotal view,"
+					+" TurqConsignment as consignment"
+					+ " where consignment.consignmentsDate >= :startDate" + //$NON-NLS-1$
 					" and consignment.consignmentsDate <= :endDate" + //$NON-NLS-1$					
 					" and consignment.id <> -1 " + //$NON-NLS-1$
-					" and consignment.turqBillConsignmentCommon.consignmentDocumentNo like '" + docNo + "%'"; //$NON-NLS-1$		
+					" and consignment.turqEngineSequence.id=view.engineSequencesId"+
+					" and consignment.consignmentDocumentNo like '" + docNo + "%'"; //$NON-NLS-1$		
 			if (type != EngBLCommon.COMMON_ALL_INT)
 				query += " and consignment.consignmentsType =" + type; //$NON-NLS-1$
 			if (curCard != null)
 			{
-				query += " and consignment.turqBillConsignmentCommon.turqCurrentCard = :curCard"; //$NON-NLS-1$
+				query += " and consignment.turqCurrentCard = :curCard"; //$NON-NLS-1$
 			}
 			query += " order by consignment.consignmentsDate"; //$NON-NLS-1$
 			Query q = session.createQuery(query);

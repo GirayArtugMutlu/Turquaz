@@ -15,6 +15,7 @@ package com.turquaz.consignment.dal;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /** ********************************************************************* */
+import java.util.Iterator;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -33,7 +34,7 @@ public class ConDALUpdateConsignment
 			Session session = EngDALSessionFactory.openSession();
 			session.refresh(cons);
 			Hibernate.initialize(cons.getTurqEngineSequence().getTurqInventoryTransactions());
-			Hibernate.initialize(cons.getTurqBillConsignmentCommon().getTurqBills());
+			Iterator it=cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
 			Hibernate.initialize(cons.getTurqConsignmentsInGroups());
 			session.close();
 		}

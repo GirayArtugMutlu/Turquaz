@@ -58,7 +58,6 @@ public class InvUITransactionTableRow implements ITableRow
 	TurqInventoryCardUnit cardUnits[];
 	TurqInventoryUnit base_unit;
 	int base_unit_index = -1;
-	InvBLCardSearch blCardSearch = new InvBLCardSearch();
 	SaveTableViewer tableViewer;
 	BigDecimal transAmount = new BigDecimal(0);
 	BigDecimal transAmountinBaseUnit = new BigDecimal(0);
@@ -73,18 +72,18 @@ public class InvUITransactionTableRow implements ITableRow
 		this.tableViewer = viewer;
 		this.rowList = viewer.getRowList();
 		this.transType = type;
-		invTrans.setTransactionsAmountIn(new BigDecimal(0));
-		invTrans.setTransactionsTotalAmountOut(new BigDecimal(0));
-		invTrans.setTransactionsUnitPrice(new BigDecimal(0));
-		invTrans.setTransactionsTotalPrice(new BigDecimal(0));
-		invTrans.setTransactionsVat(0);
-		invTrans.setTransactionsVatAmount(new BigDecimal(0));
-		invTrans.setTransactionsVatSpecial(new BigDecimal(0));
-		invTrans.setTransactionsVatSpecialAmount(new BigDecimal(0));
-		invTrans.setTransactionsVatSpecialEach(new BigDecimal(0));
-		invTrans.setTransactionsCumilativePrice(new BigDecimal(0));
-		invTrans.setTransactionsDiscount(new BigDecimal(0));
-		invTrans.setTransactionsDiscountAmount(new BigDecimal(0));
+		invTrans.setAmountIn(new BigDecimal(0));
+		invTrans.setAmountOut(new BigDecimal(0));
+		invTrans.setUnitPriceInForeignCurrency(new BigDecimal(0));
+		invTrans.setTotalPriceInForeignCurrency(new BigDecimal(0));
+		invTrans.setVatRate(new BigDecimal(0));
+		invTrans.setVatAmountInForeignCurrency(new BigDecimal(0));
+		invTrans.setVatSpecialRate(new BigDecimal(0));
+		invTrans.setVatSpecialAmountInForeignCurrency(new BigDecimal(0));
+		invTrans.setVatSpecialUnitPriceInForeignCurrency(new BigDecimal(0));
+		invTrans.setCumilativePriceInForeignCurrency(new BigDecimal(0));
+		invTrans.setDiscountRate(new BigDecimal(0));
+		invTrans.setDiscountAmountInForeignCurrency(new BigDecimal(0));
 		
 		TurqInventoryTransactionType transType = new TurqInventoryTransactionType();
 		transType.setId(new Integer(EngBLCommon.INV_TRANS_BUY_SELL));
@@ -133,11 +132,11 @@ public class InvUITransactionTableRow implements ITableRow
 			case 4 : //Amount in Base Unit
 				if (transType == 0)
 				{
-					result = cf.format(invTrans.getTransactionsAmountIn());
+					result = cf.format(invTrans.getAmountIn());
 				}
 				else
 				{
-					result = cf.format(invTrans.getTransactionsTotalAmountOut());
+					result = cf.format(invTrans.getAmountOut());
 				}
 				break;
 			case 5 : //Base Unit
@@ -151,22 +150,22 @@ public class InvUITransactionTableRow implements ITableRow
 				}
 				break;
 			case 6 : //Unit Price
-				result = cf4.format(invTrans.getTransactionsUnitPrice());
+				result = cf4.format(invTrans.getUnitPriceInForeignCurrency());
 				break;
 			case 7 : // total Price
-				result = cf.format(invTrans.getTransactionsTotalPrice());
+				result = cf.format(invTrans.getTotalPriceInForeignCurrency());
 				break;
 			case 8 : // discount %
-				result = cf4.format(invTrans.getTransactionsDiscount());
+				result = cf4.format(invTrans.getDiscountRate());
 				break;
 			case 9 : // Amount after discount
-				result = cf.format(invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount()));
+				result = cf.format(invTrans.getTotalPriceInForeignCurrency().subtract(invTrans.getDiscountAmountInForeignCurrency()));
 				break;
 			case 10 : // VAT percent
-				result = invTrans.getTransactionsVat() + "";
+				result = invTrans.getVatRate() + "";
 				break;
 			case 11 : // VAT total
-				result = cf.format(invTrans.getTransactionsVatAmount());
+				result = cf.format(invTrans.getVatAmountInForeignCurrency());
 				break;
 			case 12 : // Special VAT percent
 				TurqInventoryCard invCard = invTrans.getTurqInventoryCard();
@@ -177,16 +176,16 @@ public class InvUITransactionTableRow implements ITableRow
 				else
 				{
 					if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-						result = cf4.format(invTrans.getTransactionsVatSpecialEach());
+						result = cf4.format(invTrans.getVatSpecialUnitPriceInForeignCurrency());
 					else
-						result = cf4.format(invTrans.getTransactionsVatSpecial());
+						result = cf4.format(invTrans.getVatSpecialRate());
 				}
 				break;
 			case 13 : // Specail VAT Total
-				result = cf.format(invTrans.getTransactionsVatSpecialAmount());
+				result = cf.format(invTrans.getVatSpecialAmountInForeignCurrency());
 				break;
 			case 14 : //Cumulative Price
-				result = cf.format(invTrans.getTransactionsCumilativePrice());
+				result = cf.format(invTrans.getCumilativePriceInForeignCurrency());
 				break;
 			default :
 				result = "";
@@ -226,7 +225,7 @@ public class InvUITransactionTableRow implements ITableRow
 				if (invTrans.getTurqInventoryUnit().equals(cardUnits[i].getTurqInventoryUnit()))
 				{
 					unit_index = new Integer(i);
-					transAmount = transAmount.divide(cardUnits[i].getCardUnitsFactor(), 2, BigDecimal.ROUND_HALF_DOWN);
+					transAmount = transAmount.divide(cardUnits[i].getCardUnitsFactor(), 2, EngBLCommon.ROUNDING_METHOD);
 				}
 			}
 			unit_text = invTrans.getTurqInventoryUnit().getUnitsName();
@@ -243,10 +242,11 @@ public class InvUITransactionTableRow implements ITableRow
 		{
 			InvBLCardSearch.initializeInventoryCard(invCard);
 			//KDV Yuzdesi
-			invTrans.setTransactionsVat(invCard.getCardVat());
+			//TODO invCard->getCardVat should be decimal
+			invTrans.setVatRate(new BigDecimal(invCard.getCardVat()));
 			//ÖTV Yuzdesi
-			invTrans.setTransactionsVatSpecial(new BigDecimal(invCard.getCardSpecialVat()));
-			invTrans.setTransactionsVatSpecialEach(invCard.getCardSpecialVatEach());
+			invTrans.setVatSpecialRate(new BigDecimal(invCard.getCardSpecialVat()));
+			invTrans.setVatSpecialUnitPriceInForeignCurrency(invCard.getCardSpecialVatEach());
 			//Birimleri doldur
 			List unit_list = new ArrayList();
 			Set set = invCard.getTurqInventoryCardUnits();
@@ -260,9 +260,10 @@ public class InvUITransactionTableRow implements ITableRow
 					base_unit = cardUnit.getTurqInventoryUnit();
 				}
 			}
-			invTrans.setTransactionsDiscount(new BigDecimal(invCard.getCardDiscount()));
-			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount())
-					.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_DOWN));
+			//TODO INVCARD discount should be decimal
+			invTrans.setDiscountRate(new BigDecimal(invCard.getCardDiscount()));
+			invTrans.setDiscountAmountInForeignCurrency(invTrans.getTotalPriceInForeignCurrency().multiply(invTrans.getDiscountRate())
+					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
 			invTrans.setTurqInventoryUnit(base_unit);
 			cardUnits = new TurqInventoryCardUnit[unit_list.size()];
 			units = new String[unit_list.size()];
@@ -318,11 +319,11 @@ public class InvUITransactionTableRow implements ITableRow
 			case 4 : //amount in base units
 				if (transType == 0)
 				{
-					result = cf.format(invTrans.getTransactionsAmountIn());
+					result = cf.format(invTrans.getAmountIn());
 				}
 				else
 				{
-					result = cf.format(invTrans.getTransactionsTotalAmountOut());
+					result = cf.format(invTrans.getAmountOut());
 				}
 				break;
 			case 5 : //Base Unit
@@ -336,22 +337,22 @@ public class InvUITransactionTableRow implements ITableRow
 				}
 				break;
 			case 6 : //Unit Price
-				result = cf4.format(invTrans.getTransactionsUnitPrice());
+				result = cf4.format(invTrans.getUnitPriceInForeignCurrency());
 				break;
 			case 7 : // total Price
-				result = cf.format(invTrans.getTransactionsTotalPrice());
+				result = cf.format(invTrans.getTotalPriceInForeignCurrency());
 				break;
 			case 8 : // Discount percent
-				result = cf4.format(invTrans.getTransactionsDiscount());
+				result = cf4.format(invTrans.getDiscountRate());
 				break;
 			case 9 : // Amount after discount
-				result = cf.format(invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount()));
+				result = cf.format(invTrans.getTotalPriceInForeignCurrency().subtract(invTrans.getDiscountAmountInForeignCurrency()));
 				break;
 			case 10 : // VAT percent
-				result = invTrans.getTransactionsVat() + "";
+				result = invTrans.getVatRate() + "";
 				break;
 			case 11 : // VAT total
-				result = cf.format(invTrans.getTransactionsVatAmount());
+				result = cf.format(invTrans.getVatAmountInForeignCurrency());
 				break;
 			case 12 : // Special VAT percent
 				if (invTrans.getTurqInventoryCard() == null)
@@ -360,15 +361,15 @@ public class InvUITransactionTableRow implements ITableRow
 					break;
 				}
 				if (invTrans.getTurqInventoryCard().isSpecVatForEach())
-					result = cf4.format(invTrans.getTransactionsVatSpecialEach());
+					result = cf4.format(invTrans.getVatSpecialUnitPriceInForeignCurrency());
 				else
-					result = invTrans.getTransactionsVatSpecial().toString();
+					result = invTrans.getVatSpecialRate().toString();
 				break;
 			case 13 : // Specail VAT Total
-				result = cf.format(invTrans.getTransactionsVatSpecialAmount());
+				result = cf.format(invTrans.getVatSpecialAmountInForeignCurrency());
 				break;
 			case 14 : //Cumulative Price
-				result = cf.format(invTrans.getTransactionsCumilativePrice().toString());
+				result = cf.format(invTrans.getCumilativePriceInForeignCurrency().toString());
 				break;
 			default :
 				result = "";
@@ -429,7 +430,7 @@ public class InvUITransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				invTrans.setTransactionsUnitPrice(new BigDecimal(formatted));
+				invTrans.setUnitPriceInForeignCurrency(new BigDecimal(formatted));
 				break;
 			case 7 : // total Price
 				break;
@@ -441,7 +442,7 @@ public class InvUITransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				invTrans.setTransactionsDiscount(new BigDecimal(formatted).setScale(2, BigDecimal.ROUND_HALF_DOWN));
+				invTrans.setDiscountRate(new BigDecimal(formatted).setScale(2, EngBLCommon.ROUNDING_METHOD));
 				break;
 			case 9 : // Amount after discount
 				formatted = value.toString();
@@ -451,11 +452,11 @@ public class InvUITransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				BigDecimal bdValue = new BigDecimal(formatted).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+				BigDecimal bdValue = new BigDecimal(formatted).setScale(2, EngBLCommon.ROUNDING_METHOD);
 				BigDecimal discAmount = new BigDecimal(0);
-				discAmount = invTrans.getTransactionsTotalPrice().subtract(bdValue).setScale(2, BigDecimal.ROUND_HALF_DOWN);
-				invTrans.setTransactionsDiscountAmount(discAmount);
-				invTrans.setTransactionsDiscount(discAmount.divide(invTrans.getTransactionsTotalPrice(), 6, BigDecimal.ROUND_HALF_UP)
+				discAmount = invTrans.getTotalPriceInForeignCurrency().subtract(bdValue).setScale(2, EngBLCommon.ROUNDING_METHOD);
+				invTrans.setDiscountAmountInForeignCurrency(discAmount);
+				invTrans.setDiscountRate(discAmount.divide(invTrans.getTotalPriceInForeignCurrency(), 6, EngBLCommon.ROUNDING_METHOD)
 						.multiply(new BigDecimal(100)));
 				break;
 			case 10 : // VAT percent
@@ -464,7 +465,7 @@ public class InvUITransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				invTrans.setTransactionsVat(Integer.parseInt(formatted));
+				invTrans.setVatRate(new BigDecimal(formatted));
 				break;
 			case 11 : // VAT total
 				break;
@@ -480,9 +481,9 @@ public class InvUITransactionTableRow implements ITableRow
 				if (invCard != null)
 				{
 					if (invCard.isSpecVatForEach())
-						invTrans.setTransactionsVatSpecialEach(new BigDecimal(formatted));
+						invTrans.setVatSpecialUnitPriceInForeignCurrency(new BigDecimal(formatted));
 					else
-						invTrans.setTransactionsVatSpecial(new BigDecimal(formatted));
+						invTrans.setVatSpecialRate(new BigDecimal(formatted));
 				}
 				break;
 			case 13 : // Specail VAT Total
@@ -500,38 +501,38 @@ public class InvUITransactionTableRow implements ITableRow
 		if (invTrans.getTurqInventoryCard() != null)
 		{
 			transAmountinBaseUnit = transAmount.multiply(cardUnits[unit_index.intValue()].getCardUnitsFactor()).setScale(2,
-					BigDecimal.ROUND_HALF_DOWN);
-			invTrans.setTransactionsTotalPrice(invTrans.getTransactionsUnitPrice().multiply(transAmountinBaseUnit).setScale(2,
-					BigDecimal.ROUND_HALF_DOWN));
-			invTrans.setTransactionsDiscountAmount(invTrans.getTransactionsTotalPrice().multiply(invTrans.getTransactionsDiscount())
-					.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_DOWN));
-			BigDecimal totalPriceAfterDiscount = invTrans.getTransactionsTotalPrice().subtract(invTrans.getTransactionsDiscountAmount())
-					.setScale(2, BigDecimal.ROUND_HALF_DOWN);
+					EngBLCommon.ROUNDING_METHOD);
+			invTrans.setTotalPriceInForeignCurrency(invTrans.getUnitPriceInForeignCurrency().multiply(transAmountinBaseUnit).setScale(2,
+					EngBLCommon.ROUNDING_METHOD));
+			invTrans.setDiscountAmountInForeignCurrency(invTrans.getTotalPriceInForeignCurrency().multiply(invTrans.getDiscountRate())
+					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
+			BigDecimal totalPriceAfterDiscount = invTrans.getTotalPriceInForeignCurrency().subtract(invTrans.getDiscountAmountInForeignCurrency())
+					.setScale(2, EngBLCommon.ROUNDING_METHOD);
 			if (transType == 0)
 			{
-				invTrans.setTransactionsAmountIn(transAmountinBaseUnit);
+				invTrans.setAmountIn(transAmountinBaseUnit);
 			}
 			else
 			{
-				invTrans.setTransactionsTotalAmountOut(transAmountinBaseUnit);
+				invTrans.setAmountOut(transAmountinBaseUnit);
 			}
 			if (invTrans.getTurqInventoryCard().isSpecVatForEach())
 			{
-				BigDecimal vatSpecialAmount = invTrans.getTransactionsVatSpecialEach().multiply(transAmountinBaseUnit).setScale(2,
-						BigDecimal.ROUND_HALF_DOWN);
-				invTrans.setTransactionsVatSpecialAmount(vatSpecialAmount);
+				BigDecimal vatSpecialAmount = invTrans.getVatSpecialUnitPriceInForeignCurrency().multiply(transAmountinBaseUnit).setScale(2,
+						EngBLCommon.ROUNDING_METHOD);
+				invTrans.setVatSpecialAmountInForeignCurrency(vatSpecialAmount);
 			}
 			else
 			{
-				invTrans.setTransactionsVatSpecialAmount(totalPriceAfterDiscount.multiply(invTrans.getTransactionsVatSpecial()).divide(
-						new BigDecimal(100), 2, BigDecimal.ROUND_HALF_DOWN));
+				invTrans.setVatSpecialAmountInForeignCurrency(totalPriceAfterDiscount.multiply(invTrans.getVatSpecialRate()).divide(
+						new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
 			}
-			BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount());
-			invTrans.setTransactionsVatAmount(totalPriceAfterDiscountAddedSpecVAT
-					.multiply(new BigDecimal(invTrans.getTransactionsVat()))
-					.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_DOWN));
-			invTrans.setTransactionsCumilativePrice(totalPriceAfterDiscount.add(invTrans.getTransactionsVatSpecialAmount()).add(
-					invTrans.getTransactionsVatAmount()));
+			BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount.add(invTrans.getVatSpecialAmountInForeignCurrency());
+			invTrans.setVatAmountInForeignCurrency(totalPriceAfterDiscountAddedSpecVAT
+					.multiply(invTrans.getVatRate())
+					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
+			invTrans.setCumilativePriceInForeignCurrency(totalPriceAfterDiscount.add(invTrans.getVatSpecialAmountInForeignCurrency()).add(
+					invTrans.getVatAmountInForeignCurrency()));
 		}
 	}
 
@@ -596,11 +597,11 @@ public class InvUITransactionTableRow implements ITableRow
 			invTrans = (TurqInventoryTransaction) obj;
 			if (transType == 0)
 			{
-				transAmount = invTrans.getTransactionsAmountIn();
+				transAmount = invTrans.getAmountIn();
 			}
 			else
 			{
-				transAmount = invTrans.getTransactionsTotalAmountOut();
+				transAmount = invTrans.getAmountOut();
 			}
 			fillAfterSetDB();
 			calculateFields();

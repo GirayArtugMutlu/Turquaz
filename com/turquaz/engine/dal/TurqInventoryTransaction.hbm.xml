@@ -25,86 +25,79 @@
     </id>
 
     <property
-        name="transactionsAmountIn"
+        name="amountIn"
         type="java.math.BigDecimal"
-        column="transactions_amount_in"
+        column="amount_in"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsUnitPrice"
+        name="unitPrice"
         type="java.math.BigDecimal"
-        column="transactions_unit_price"
+        column="unit_price"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsTotalPrice"
+        name="totalPrice"
         type="java.math.BigDecimal"
-        column="transactions_total_price"
+        column="total_price"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsDiscount"
+        name="discountRate"
         type="java.math.BigDecimal"
-        column="transactions_discount"
+        column="discount_rate"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsDiscountAmount"
+        name="discountAmount"
         type="java.math.BigDecimal"
-        column="transactions_discount_amount"
+        column="discount_amount"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsVat"
-        type="int"
-        column="transactions_vat"
-        not-null="true"
-        length="4"
-    />
-    <property
-        name="transactionsVatAmount"
+        name="vatAmount"
         type="java.math.BigDecimal"
-        column="transactions_vat_amount"
+        column="vat_amount"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsVatSpecialEach"
+        name="vatSpecialUnitPrice"
         type="java.math.BigDecimal"
-        column="transactions_vat_special_each"
+        column="vat_special_unit_price"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsVatSpecial"
+        name="vatSpecialRate"
         type="java.math.BigDecimal"
-        column="transactions_vat_special"
+        column="vat_special_rate"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsVatSpecialAmount"
+        name="vatSpecialAmount"
         type="java.math.BigDecimal"
-        column="transactions_vat_special_amount"
+        column="vat_special_amount"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsCumilativePrice"
+        name="cumilativePrice"
         type="java.math.BigDecimal"
-        column="transactions_cumilative_price"
+        column="cumilative_price"
         not-null="true"
         length="65535"
     />
     <property
-        name="transactionsTotalAmountOut"
+        name="amountOut"
         type="java.math.BigDecimal"
-        column="transactions_total_amount_out"
+        column="amount_out"
         not-null="true"
         length="65535"
     />
@@ -157,6 +150,62 @@
         not-null="true"
         length="250"
     />
+    <property
+        name="vatRate"
+        type="java.math.BigDecimal"
+        column="vat_rate"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="unitPriceInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="unit_price_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="totalPriceInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="total_price_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="discountAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="discount_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="vatAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="vat_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="vatSpecialUnitPriceInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="vat_special_unit_price_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="vatSpecialAmountInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="vat_special_amount_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
+    <property
+        name="cumilativePriceInForeignCurrency"
+        type="java.math.BigDecimal"
+        column="cumilative_price_in_foreign_currency"
+        not-null="true"
+        length="65535"
+    />
 
     <!-- Associations -->
   
@@ -175,6 +224,14 @@
         not-null="true"
     >
         <column name="transaction_type" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrencyExchangeRate -->
+    <many-to-one
+        name="turqCurrencyExchangeRate"
+        class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
+        not-null="true"
+    >
+        <column name="exchange_rate_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqInventoryUnit -->
     <many-to-one

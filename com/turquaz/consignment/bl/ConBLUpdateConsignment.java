@@ -15,20 +15,17 @@ package com.turquaz.consignment.bl;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.TurqBillConsignmentCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.inventory.bl.InvBLSaveTransaction;
 
 /**
  * @author Huseyin Ergun
@@ -36,10 +33,6 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
  */
 public class ConBLUpdateConsignment
 {
-	public ConBLUpdateConsignment()
-	{
-	}
-
 	/**
 	 * @param consignment
 	 * @param docNo
@@ -56,8 +49,7 @@ public class ConBLUpdateConsignment
 	 * @throws Exception
 	 */
 	public static void updateConsignment(TurqConsignment consignment, String docNo, String definition, Date consignmentDate,
-			TurqCurrentCard curCard, BigDecimal discountAmount, String billDocNo, BigDecimal vatAmount, BigDecimal specialVatAmount,
-			BigDecimal totalAmount, int type, TurqCurrencyExchangeRate exRate, List invTransactions, List groups) throws Exception
+			TurqCurrentCard curCard, int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions, List groups) throws Exception
 	{
 		try
 		{
@@ -84,34 +76,15 @@ public class ConBLUpdateConsignment
 			{
 				EngDALCommon.deleteObject(it2.next());
 			}
-			for (int i = 0; i < invTransactions.size(); i++)
-			{
-				TurqInventoryTransaction invTrans = (TurqInventoryTransaction) invTransactions.get(i);
-				ConBLAddConsignment.saveConsignmentRow(invTrans, consignment.getId(), type);
-			}
+			InvBLSaveTransaction.saveInventoryTransactions(invTransactions,consignment.getTurqEngineSequence().getId(),type,consignmentDate,definition,docNo,exchangeRate);
 			consignment.setConsignmentsDate(consignmentDate);
 			consignment.setConsignmentsDefinition(definition);
 			consignment.setConsignmentsType(type);
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			consignment.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			TurqBillConsignmentCommon common = consignment.getTurqBillConsignmentCommon();
-			common.setBillDocumentNo(billDocNo);
-			common.setCharges(new BigDecimal(0));
-			common.setChargesInForeignCurrency(new BigDecimal(0));
-			common.setTotalAmount(totalAmount.multiply(exRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
-			common.setTotalAmountInForeignCurrency(totalAmount);
-			common.setDiscountAmount(discountAmount.multiply(exRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
-			common.setDiscountAmountInForeignCurrency(discountAmount);
-			common.setVatAmount(vatAmount.multiply(exRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
-			common.setVatAmountInForeignCurrency(vatAmount);
-			common.setSpecialVatAmount(specialVatAmount.multiply(exRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
-			common.setSpecialVatAmountInForeignCurrency(specialVatAmount);
-			common.setDiscountRate(0);
-			common.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			common.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			common.setTurqCurrentCard(curCard);
-			common.setConsignmentDocumentNo(docNo);
-			EngDALCommon.updateObject(common);
+			consignment.setLastModified(cal.getTime());
+			consignment.setConsignmentDocumentNo(docNo);
+			consignment.setTurqCurrencyExchangeRate(exchangeRate);
+			consignment.setTurqCurrentCard(curCard);
 			EngDALCommon.updateObject(consignment);
 		}
 		catch (Exception ex)
@@ -136,9 +109,7 @@ public class ConBLUpdateConsignment
 			{
 				deleteObject(it.next());
 			}
-			Object o = consignment.getTurqBillConsignmentCommon();
 			deleteObject(consignment);
-			deleteObject(o);
 		}
 		catch (Exception ex)
 		{

@@ -85,6 +85,20 @@
             class="com.turquaz.engine.dal.TurqAccountingTransactionColumn"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqInventoryTransaction -->
+    <set
+        name="turqInventoryTransactions"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqInventoryTransaction"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqChequeCheque -->
     <set
         name="turqChequeCheques"
@@ -99,6 +113,20 @@
             class="com.turquaz.engine.dal.TurqChequeCheque"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqConsignment -->
+    <set
+        name="turqConsignments"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqConsignment"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqCurrentTransaction -->
     <set
         name="turqCurrentTransactions"
@@ -111,20 +139,6 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqCurrentTransaction"
-        />
-    </set>
-    <!-- bi-directional one-to-many association to TurqBillConsignmentCommon -->
-    <set
-        name="turqBillConsignmentCommons"
-        lazy="true"
-        inverse="true"
-		cascade="none"
-    >
-        <key>
-            <column name="exchange_rate_id" />
-        </key>
-        <one-to-many 
-            class="com.turquaz.engine.dal.TurqBillConsignmentCommon"
         />
     </set>
     <!-- bi-directional one-to-many association to TurqCashTransactionRow -->
@@ -153,6 +167,20 @@
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqBanksTransaction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TurqBill -->
+    <set
+        name="turqBills"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="exchange_rate_id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqBill"
         />
     </set>
 

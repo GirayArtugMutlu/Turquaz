@@ -31,13 +31,16 @@ public class TurqCurrencyExchangeRate implements Serializable {
     private Set turqAccountingTransactionColumns;
 
     /** persistent field */
+    private Set turqInventoryTransactions;
+
+    /** persistent field */
     private Set turqChequeCheques;
 
     /** persistent field */
-    private Set turqCurrentTransactions;
+    private Set turqConsignments;
 
     /** persistent field */
-    private Set turqBillConsignmentCommons;
+    private Set turqCurrentTransactions;
 
     /** persistent field */
     private Set turqCashTransactionRows;
@@ -45,19 +48,24 @@ public class TurqCurrencyExchangeRate implements Serializable {
     /** persistent field */
     private Set turqBanksTransactions;
 
+    /** persistent field */
+    private Set turqBills;
+
     /** full constructor */
-    public TurqCurrencyExchangeRate(java.util.Date exhangeRatesDate, java.math.BigDecimal exchangeRatio, com.turquaz.engine.dal.TurqCurrency turqCurrencyByBaseCurrencyId, com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId, Set turqAccountingTransactions, Set turqAccountingTransactionColumns, Set turqChequeCheques, Set turqCurrentTransactions, Set turqBillConsignmentCommons, Set turqCashTransactionRows, Set turqBanksTransactions) {
+    public TurqCurrencyExchangeRate(java.util.Date exhangeRatesDate, java.math.BigDecimal exchangeRatio, com.turquaz.engine.dal.TurqCurrency turqCurrencyByBaseCurrencyId, com.turquaz.engine.dal.TurqCurrency turqCurrencyByExchangeCurrencyId, Set turqAccountingTransactions, Set turqAccountingTransactionColumns, Set turqInventoryTransactions, Set turqChequeCheques, Set turqConsignments, Set turqCurrentTransactions, Set turqCashTransactionRows, Set turqBanksTransactions, Set turqBills) {
         this.exhangeRatesDate = exhangeRatesDate;
         this.exchangeRatio = exchangeRatio;
         this.turqCurrencyByBaseCurrencyId = turqCurrencyByBaseCurrencyId;
         this.turqCurrencyByExchangeCurrencyId = turqCurrencyByExchangeCurrencyId;
         this.turqAccountingTransactions = turqAccountingTransactions;
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
+        this.turqInventoryTransactions = turqInventoryTransactions;
         this.turqChequeCheques = turqChequeCheques;
+        this.turqConsignments = turqConsignments;
         this.turqCurrentTransactions = turqCurrentTransactions;
-        this.turqBillConsignmentCommons = turqBillConsignmentCommons;
         this.turqCashTransactionRows = turqCashTransactionRows;
         this.turqBanksTransactions = turqBanksTransactions;
+        this.turqBills = turqBills;
     }
 
     /** default constructor */
@@ -120,6 +128,14 @@ public class TurqCurrencyExchangeRate implements Serializable {
         this.turqAccountingTransactionColumns = turqAccountingTransactionColumns;
     }
 
+    public java.util.Set getTurqInventoryTransactions() {
+        return this.turqInventoryTransactions;
+    }
+
+    public void setTurqInventoryTransactions(java.util.Set turqInventoryTransactions) {
+        this.turqInventoryTransactions = turqInventoryTransactions;
+    }
+
     public java.util.Set getTurqChequeCheques() {
         return this.turqChequeCheques;
     }
@@ -128,20 +144,20 @@ public class TurqCurrencyExchangeRate implements Serializable {
         this.turqChequeCheques = turqChequeCheques;
     }
 
+    public java.util.Set getTurqConsignments() {
+        return this.turqConsignments;
+    }
+
+    public void setTurqConsignments(java.util.Set turqConsignments) {
+        this.turqConsignments = turqConsignments;
+    }
+
     public java.util.Set getTurqCurrentTransactions() {
         return this.turqCurrentTransactions;
     }
 
     public void setTurqCurrentTransactions(java.util.Set turqCurrentTransactions) {
         this.turqCurrentTransactions = turqCurrentTransactions;
-    }
-
-    public java.util.Set getTurqBillConsignmentCommons() {
-        return this.turqBillConsignmentCommons;
-    }
-
-    public void setTurqBillConsignmentCommons(java.util.Set turqBillConsignmentCommons) {
-        this.turqBillConsignmentCommons = turqBillConsignmentCommons;
     }
 
     public java.util.Set getTurqCashTransactionRows() {
@@ -158,6 +174,14 @@ public class TurqCurrencyExchangeRate implements Serializable {
 
     public void setTurqBanksTransactions(java.util.Set turqBanksTransactions) {
         this.turqBanksTransactions = turqBanksTransactions;
+    }
+
+    public java.util.Set getTurqBills() {
+        return this.turqBills;
+    }
+
+    public void setTurqBills(java.util.Set turqBills) {
+        this.turqBills = turqBills;
     }
 
     public String toString() {

@@ -80,16 +80,30 @@
         not-null="true"
         length="4"
     />
+    <property
+        name="consignmentDocumentNo"
+        type="java.lang.String"
+        column="consignment_document_no"
+        not-null="true"
+        length="50"
+    />
+    <property
+        name="billDocumentNo"
+        type="java.lang.String"
+        column="bill_document_no"
+        not-null="true"
+        length="50"
+    />
 
     <!-- Associations -->
   
-    <!-- bi-directional many-to-one association to TurqBillConsignmentCommon -->
+    <!-- bi-directional many-to-one association to TurqCurrencyExchangeRate -->
     <many-to-one
-        name="turqBillConsignmentCommon"
-        class="com.turquaz.engine.dal.TurqBillConsignmentCommon"
+        name="turqCurrencyExchangeRate"
+        class="com.turquaz.engine.dal.TurqCurrencyExchangeRate"
         not-null="true"
     >
-        <column name="bill_consignment_common_id" />
+        <column name="exchange_rate_id" />
     </many-to-one>
     <!-- bi-directional many-to-one association to TurqEngineSequence -->
     <many-to-one
@@ -98,6 +112,14 @@
         not-null="true"
     >
         <column name="engine_sequences_id" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TurqCurrentCard -->
+    <many-to-one
+        name="turqCurrentCard"
+        class="com.turquaz.engine.dal.TurqCurrentCard"
+        not-null="true"
+    >
+        <column name="current_cards_id" />
     </many-to-one>
     <!-- bi-directional one-to-many association to TurqConsignmentsInGroup -->
     <set

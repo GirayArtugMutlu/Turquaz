@@ -98,29 +98,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param compRegisterGroup
-	 *             The compRegisterGroup to set.
-	 */
-	public void setCompRegisterGroup(RegisterGroupComposite compRegisterGroup)
-	{
-		this.compRegisterGroup = compRegisterGroup;
-	}
-
-	/**
 	 * @return Returns the dateConsignmentDate.
 	 */
 	public DatePicker getDateConsignmentDate()
 	{
 		return dateConsignmentDate;
-	}
-
-	/**
-	 * @param dateConsignmentDate
-	 *             The dateConsignmentDate to set.
-	 */
-	public void setDateConsignmentDate(DatePicker dateConsignmentDate)
-	{
-		this.dateConsignmentDate = dateConsignmentDate;
 	}
 
 	/**
@@ -132,29 +114,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param decSpecialVat
-	 *             The decSpecialVat to set.
-	 */
-	public void setDecSpecialVat(CurrencyText decSpecialVat)
-	{
-		this.decSpecialVat = decSpecialVat;
-	}
-
-	/**
 	 * @return Returns the tableConsignmentRows.
 	 */
 	public Table getTableConsignmentRows()
 	{
 		return tableConsignmentRows;
-	}
-
-	/**
-	 * @param tableConsignmentRows
-	 *             The tableConsignmentRows to set.
-	 */
-	public void setTableConsignmentRows(Table tableConsignmentRows)
-	{
-		this.tableConsignmentRows = tableConsignmentRows;
 	}
 
 	/**
@@ -166,29 +130,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param txtConsignmentDocumentNo
-	 *             The txtConsignmentDocumentNo to set.
-	 */
-	public void setTxtConsignmentDocumentNo(Text txtBillDocumentNo)
-	{
-		this.txtConsignmentDocumentNo = txtBillDocumentNo;
-	}
-
-	/**
 	 * @return Returns the txtCurrentCard.
 	 */
 	public CurrentPicker getTxtCurrentCard()
 	{
 		return txtCurrentCard;
-	}
-
-	/**
-	 * @param txtCurrentCard
-	 *             The txtCurrentCard to set.
-	 */
-	public void setTxtCurrentCard(CurrentPicker txtCurrentCard)
-	{
-		this.txtCurrentCard = txtCurrentCard;
 	}
 
 	/**
@@ -200,29 +146,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param txtDefinition
-	 *             The txtDefinition to set.
-	 */
-	public void setTxtDefinition(Text txtDefinition)
-	{
-		this.txtDefinition = txtDefinition;
-	}
-
-	/**
 	 * @return Returns the txtDiscountAmount.
 	 */
 	public CurrencyText getTxtDiscountAmount()
 	{
 		return txtDiscountAmount;
-	}
-
-	/**
-	 * @param txtDiscountAmount
-	 *             The txtDiscountAmount to set.
-	 */
-	public void setTxtDiscountAmount(CurrencyText txtDiscountAmount)
-	{
-		this.txtDiscountAmount = txtDiscountAmount;
 	}
 
 	/**
@@ -234,29 +162,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param txtDocumentNo
-	 *             The txtDocumentNo to set.
-	 */
-	public void setTxtDocumentNo(Text txtDocumentNo)
-	{
-		this.txtDocumentNo = txtDocumentNo;
-	}
-
-	/**
 	 * @return Returns the txtSubTotal.
 	 */
 	public CurrencyText getTxtSubTotal()
 	{
 		return txtSubTotal;
-	}
-
-	/**
-	 * @param txtSubTotal
-	 *             The txtSubTotal to set.
-	 */
-	public void setTxtSubTotal(CurrencyText txtSubTotal)
-	{
-		this.txtSubTotal = txtSubTotal;
 	}
 
 	/**
@@ -268,29 +178,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param txtTotalAmount
-	 *             The txtTotalAmount to set.
-	 */
-	public void setTxtTotalAmount(CurrencyText txtTotalAmount)
-	{
-		this.txtTotalAmount = txtTotalAmount;
-	}
-
-	/**
 	 * @return Returns the txtTotalVat.
 	 */
 	public CurrencyText getTxtTotalVat()
 	{
 		return txtTotalVat;
-	}
-
-	/**
-	 * @param txtTotalVat
-	 *             The txtTotalVat to set.
-	 */
-	public void setTxtTotalVat(CurrencyText txtTotalVat)
-	{
-		this.txtTotalVat = txtTotalVat;
 	}
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -326,7 +218,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	private TableColumn tableColumn2;
 	private TableColumn tableColumn1;
 	private Table tableConsignmentRows;
-	private CLabel lblBillDocumentNo;
+	private CLabel lblConsDocumentNo;
 	private Text txtDefinition;
 	private CLabel lblDefinition;
 	private CurrencyText decSpecialVat;
@@ -417,7 +309,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 143;
+							compInfoPanelLData.heightHint = 140;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -435,8 +327,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								txtCurrentCard = new CurrentPicker(compInfoPanel, SWT.NONE);
 								GridData txtCurrentCardLData = new GridData();
 								txtCurrentCard.setBackground(SWTResourceManager.getColor(255, 255, 255));
-								txtCurrentCardLData.widthHint = 216;
-								txtCurrentCardLData.heightHint = 14;
+								txtCurrentCardLData.widthHint = 157;
+								txtCurrentCardLData.heightHint = 17;
 								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
@@ -450,24 +342,9 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							{
 								txtDocumentNo = new Text(compInfoPanel, SWT.NONE);
 								GridData txtDocumentNoLData = new GridData();
-								txtDocumentNoLData.widthHint = 106;
-								txtDocumentNoLData.heightHint = 16;
+								txtDocumentNoLData.widthHint = 150;
+								txtDocumentNoLData.heightHint = 17;
 								txtDocumentNo.setLayoutData(txtDocumentNoLData);
-							}
-							{
-								lblBillDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
-								lblBillDocumentNo.setText(Messages.getString("BillUIAddBill.6")); //$NON-NLS-1$
-								GridData lblBillDocumentNoLData = new GridData();
-								lblBillDocumentNoLData.widthHint = 99;
-								lblBillDocumentNoLData.heightHint = 16;
-								lblBillDocumentNo.setLayoutData(lblBillDocumentNoLData);
-							}
-							{
-								txtConsignmentDocumentNo = new Text(compInfoPanel, SWT.NONE);
-								GridData txtBillDocumentNoLData = new GridData();
-								txtBillDocumentNoLData.widthHint = 133;
-								txtBillDocumentNoLData.heightHint = 15;
-								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
@@ -480,25 +357,50 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							{
 								dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
 								GridData dateConsignmentDateLData = new GridData();
-								dateConsignmentDateLData.widthHint = 113;
-								dateConsignmentDateLData.heightHint = 20;
+								dateConsignmentDateLData.widthHint = 157;
+								dateConsignmentDateLData.heightHint = 23;
 								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
-								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDefinition.setText(Messages.getString("BillUIAddBill.11")); //$NON-NLS-1$
-								GridData lblDefinitionLData = new GridData();
-								lblDefinitionLData.widthHint = 108;
-								lblDefinitionLData.heightHint = 20;
-								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
-								lblDefinition.setLayoutData(lblDefinitionLData);
+								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
+								lblDueDate.setText(Messages.getString("BillUIAddSellBill.18")); //$NON-NLS-1$
 							}
 							{
-								txtDefinition = new Text(compInfoPanel, SWT.NONE);
-								GridData txtDefinitionLData = new GridData();
-								txtDefinitionLData.widthHint = 211;
-								txtDefinitionLData.heightHint = 17;
-								txtDefinition.setLayoutData(txtDefinitionLData);
+								dateDueDate = new DatePicker(compInfoPanel, SWT.NONE);
+								GridData dateDueDateLData = new GridData();
+								dateDueDateLData.widthHint = 157;
+								dateDueDateLData.heightHint = 23;
+								dateDueDate.setLayoutData(dateDueDateLData);
+							}
+							{
+								lblConsDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
+								lblConsDocumentNo.setText(Messages.getString("BillUIAddBill.6")); //$NON-NLS-1$
+								GridData lblBillDocumentNoLData = new GridData();
+								lblBillDocumentNoLData.widthHint = 99;
+								lblBillDocumentNoLData.heightHint = 16;
+								lblConsDocumentNo.setLayoutData(lblBillDocumentNoLData);
+							}
+							{
+								txtConsignmentDocumentNo = new Text(compInfoPanel, SWT.NONE);
+								GridData txtBillDocumentNoLData = new GridData();
+								txtBillDocumentNoLData.widthHint = 150;
+								txtBillDocumentNoLData.heightHint = 17;
+								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
+							}
+							{
+								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
+								lblWareHouse.setText(Messages.getString("BillUIAddSellBill.13")); //$NON-NLS-1$
+								GridData lblWareHouseLData = new GridData();
+								lblWareHouseLData.widthHint = 52;
+								lblWareHouseLData.heightHint = 19;
+								lblWareHouse.setLayoutData(lblWareHouseLData);
+							}
+							{
+								comboWareHouse = new CCombo(compInfoPanel, SWT.NONE);
+								GridData comboWareHouseLData = new GridData();
+								comboWareHouseLData.widthHint = 135;
+								comboWareHouseLData.heightHint = 17;
+								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
 							{
 								lblPaymentType = new Label(compInfoPanel, SWT.LEFT);
@@ -522,24 +424,9 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 											accountPickerCurAcc.setEnabled(false);
 									}
 								});
-								comboPaymentTypeLData.widthHint = 90;
-								comboPaymentTypeLData.heightHint = 16;
+								comboPaymentTypeLData.widthHint = 135;
+								comboPaymentTypeLData.heightHint = 17;
 								comboPaymentType.setLayoutData(comboPaymentTypeLData);
-							}
-							{
-								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
-								lblWareHouse.setText(Messages.getString("BillUIAddSellBill.13")); //$NON-NLS-1$
-								GridData lblWareHouseLData = new GridData();
-								lblWareHouseLData.widthHint = 52;
-								lblWareHouseLData.heightHint = 19;
-								lblWareHouse.setLayoutData(lblWareHouseLData);
-							}
-							{
-								comboWareHouse = new CCombo(compInfoPanel, SWT.NONE);
-								GridData comboWareHouseLData = new GridData();
-								comboWareHouseLData.widthHint = 89;
-								comboWareHouseLData.heightHint = 14;
-								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
 							{
 								lblCashAccount = new CLabel(compInfoPanel, SWT.NONE);
@@ -548,20 +435,26 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							{
 								accountPickerCurAcc = new AccountPicker(compInfoPanel, SWT.NONE);
 								GridData accountPickerCurAccLData = new GridData();
-								accountPickerCurAccLData.widthHint = 110;
-								accountPickerCurAccLData.heightHint = 14;
+								accountPickerCurAccLData.widthHint = 157;
+								accountPickerCurAccLData.heightHint = 17;
 								accountPickerCurAcc.setLayoutData(accountPickerCurAccLData);
 							}
 							{
-								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblDueDate.setText(Messages.getString("BillUIAddSellBill.18")); //$NON-NLS-1$
+								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
+								lblDefinition.setText(Messages.getString("BillUIAddBill.11")); //$NON-NLS-1$
+								GridData lblDefinitionLData = new GridData();
+								lblDefinitionLData.widthHint = 108;
+								lblDefinitionLData.heightHint = 20;
+								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
+								lblDefinition.setLayoutData(lblDefinitionLData);
 							}
 							{
-								dateDueDate = new DatePicker(compInfoPanel, SWT.NONE);
-								GridData dateDueDateLData = new GridData();
-								dateDueDateLData.widthHint = 119;
-								dateDueDateLData.heightHint = 20;
-								dateDueDate.setLayoutData(dateDueDateLData);
+								txtDefinition = new Text(compInfoPanel, SWT.WRAP | SWT.V_SCROLL);
+								GridData txtDefinitionLData = new GridData();
+								txtDefinitionLData.widthHint = 390;
+								txtDefinitionLData.heightHint = 21;
+								txtDefinitionLData.horizontalSpan = 3;
+								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 						}
 						{
@@ -682,8 +575,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								GridData txtDiscountAmountLData = new GridData();
 								txtDiscountAmount.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								txtDiscountAmount.setEditable(false);
-								txtDiscountAmountLData.widthHint = 191;
-								txtDiscountAmountLData.heightHint = 18;
+								txtDiscountAmountLData.widthHint = 150;
+								txtDiscountAmountLData.heightHint = 17;
 								txtDiscountAmount.setLayoutData(txtDiscountAmountLData);
 							}
 							{
@@ -699,8 +592,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								GridData txtTotalAmountLData = new GridData();
 								txtTotalAmount.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								txtTotalAmount.setEditable(false);
-								txtTotalAmountLData.widthHint = 158;
-								txtTotalAmountLData.heightHint = 19;
+								txtTotalAmountLData.widthHint = 150;
+								txtTotalAmountLData.heightHint = 17;
 								txtTotalAmount.setLayoutData(txtTotalAmountLData);
 							}
 							{
@@ -717,8 +610,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								GridData text1LData = new GridData();
 								txtSubTotal.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								txtSubTotal.setEditable(false);
-								text1LData.widthHint = 190;
-								text1LData.heightHint = 19;
+								text1LData.widthHint = 150;
+								text1LData.heightHint = 17;
 								text1LData.horizontalSpan = 3;
 								txtSubTotal.setLayoutData(text1LData);
 							}
@@ -736,8 +629,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								GridData txtTotalVatLData = new GridData();
 								txtTotalVat.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								txtTotalVat.setEditable(false);
-								txtTotalVatLData.widthHint = 190;
-								txtTotalVatLData.heightHint = 19;
+								txtTotalVatLData.widthHint = 150;
+								txtTotalVatLData.heightHint = 17;
 								txtTotalVatLData.horizontalSpan = 3;
 								txtTotalVat.setLayoutData(txtTotalVatLData);
 							}
@@ -752,8 +645,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							{
 								decSpecialVat = new CurrencyText(compTotalsPanel, SWT.NONE);
 								GridData decSpecialVatLData = new GridData();
-								decSpecialVatLData.widthHint = 191;
-								decSpecialVatLData.heightHint = 19;
+								decSpecialVatLData.widthHint = 150;
+								decSpecialVatLData.heightHint = 17;
 								decSpecialVatLData.horizontalSpan = 3;
 								decSpecialVat.setLayoutData(decSpecialVatLData);
 							}
@@ -923,7 +816,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 
 	public void postInitGui()
 	{
-		cTabFolder1.setSelection(tabItemGeneral);
+		cTabFolder1.setSelection(0);
 		fillGroupsTable();
 		//fill combo type
 		comboPaymentType.add(Messages.getString("BillUIAddBill.13")); //$NON-NLS-1$
@@ -1061,11 +954,11 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			TableItem item = new TableItem(tableConsignmentRows, SWT.NULL);
 			item.setData(invTrans);
 			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
-					invTrans.getTurqInventoryCard().getCardName(), invTrans.getTransactionsAmountIn() + "", //$NON-NLS-1$
-					invTrans.getTurqInventoryUnit().getUnitsName(), invTrans.getTransactionsUnitPrice().toString(),
-					invTrans.getTransactionsTotalPrice().toString(), invTrans.getTransactionsVat() + "", //$NON-NLS-1$
-					invTrans.getTransactionsVatAmount().toString(), invTrans.getTransactionsVatSpecialAmount().toString(),
-					invTrans.getTransactionsCumilativePrice().toString()});
+					invTrans.getTurqInventoryCard().getCardName(), invTrans.getAmountIn() + "", //$NON-NLS-1$
+					invTrans.getTurqInventoryUnit().getUnitsName(), invTrans.getUnitPriceInForeignCurrency().toString(),
+					invTrans.getTotalPriceInForeignCurrency().toString(), invTrans.getVatRate() + "", //$NON-NLS-1$
+					invTrans.getVatAmountInForeignCurrency().toString(), invTrans.getVatSpecialAmountInForeignCurrency().toString(),
+					invTrans.getCumilativePriceInForeignCurrency().toString()});
 			calculateTotals();
 		}
 	}
@@ -1202,10 +1095,10 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		{
 			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) ((InvUITransactionTableRow) (items[i].getData()))
 					.getDBObject();
-			subTotal = subTotal.add(invTrans.getTransactionsTotalPrice());
-			totalVAT = totalVAT.add(invTrans.getTransactionsVatAmount());
-			totalSpecVAT = totalSpecVAT.add(invTrans.getTransactionsVatSpecialAmount());
-			discountTotal = discountTotal.add(invTrans.getTransactionsDiscountAmount());
+			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
+			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
+			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
+			discountTotal = discountTotal.add(invTrans.getDiscountAmountInForeignCurrency());
 		}
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		txtDiscountAmount.setText(discountTotal);
@@ -1221,14 +1114,5 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	public CCombo getComboPaymentType()
 	{
 		return comboPaymentType;
-	}
-
-	/**
-	 * @param comboPaymentType
-	 *             The comboPaymentType to set.
-	 */
-	public void setComboPaymentType(CCombo comboPaymentType)
-	{
-		this.comboPaymentType = comboPaymentType;
 	}
 }

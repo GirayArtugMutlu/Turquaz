@@ -11,6 +11,7 @@ import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
+import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -25,7 +26,7 @@ public class BillBLUpdateBill
 	{
 		try
 		{
-			BillDALUpdateBill.deleteCurrentTransactions(bill.getTurqEngineSequence().getId().intValue());
+			BillDALUpdateBill.deleteCurrentTransactions(bill.getId().intValue());
 		}
 		catch (Exception ex)
 		{
@@ -37,7 +38,7 @@ public class BillBLUpdateBill
 	{
 		try
 		{
-			BillDALUpdateBill.deleteAccountingTransactions(bill.getTurqEngineSequence().getId().intValue());
+			BillDALUpdateBill.deleteAccountingTransactions(bill.getId().intValue());
 		}
 		catch (Exception ex)
 		{
@@ -47,12 +48,16 @@ public class BillBLUpdateBill
 
 	public static void deleteBillConsignment(TurqBill bill) throws Exception
 	{
-		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
+		Iterator it = bill.getTurqBillInEngineSequences().iterator();
 		while (it.hasNext())
 		{
-			TurqConsignment cons = (TurqConsignment) it.next();
-			ConBLUpdateConsignment.initiliazeConsignment(cons);
-			ConBLUpdateConsignment.deleteConsignment(cons);
+			Iterator it2=((TurqBillInEngineSequence)it.next()).getTurqEngineSequence().getTurqConsignments().iterator();
+			while(it2.hasNext())
+			{
+				TurqConsignment cons = (TurqConsignment) it2.next();
+				ConBLUpdateConsignment.initiliazeConsignment(cons);
+				ConBLUpdateConsignment.deleteConsignment(cons);
+			}
 		}
 	}
 
@@ -99,8 +104,9 @@ public class BillBLUpdateBill
 			//Update Transactions
 			deleteAccountingTransactions(bill);
 			deleteCurrentTransactions(bill);
-			BillBLAddBill.saveCurrentTransaction(bill);
-			BillBLAddBill.saveAccountingTransaction(bill, cashAccount);
+			//XXX update methods should be re-written..
+			//BillBLAddBill.saveCurrentTransaction(bill);
+			//BillBLAddBill.saveAccountingTransaction(bill, cashAccount);
 		}
 		catch (Exception ex)
 		{
@@ -127,12 +133,16 @@ public class BillBLUpdateBill
 			BigDecimal discountAmount, String billNo, BigDecimal vatAmount, BigDecimal specialVatAmount, BigDecimal totalAmount,
 			int type, TurqCurrencyExchangeRate exchangeRate, List invTransactions) throws Exception
 	{
-		Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
-		if (it.hasNext())
+		Iterator it = bill.getTurqBillInEngineSequences().iterator();
+		while (it.hasNext())
 		{
-			TurqConsignment cons = (TurqConsignment) it.next();
-			ConBLUpdateConsignment.updateConsignment(cons, consNo, definition, billDate, curCard, discountAmount, billNo, vatAmount,
-					specialVatAmount, totalAmount, type, exchangeRate, invTransactions, null);
+			Iterator it2=((TurqBillInEngineSequence)it.next()).getTurqEngineSequence().getTurqConsignments().iterator();
+			while (it2.hasNext())
+			{
+				TurqConsignment cons = (TurqConsignment) it.next();
+				ConBLUpdateConsignment.updateConsignment(cons, consNo, definition, billDate, curCard, 
+						type, exchangeRate, invTransactions, null);
+			}
 		}
 	}
 

@@ -145,7 +145,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				composite1Layout.numColumns = 4;
 				composite1Layout.horizontalSpacing = 0;
 				GridData composite1LData = new GridData();
-				composite1LData.heightHint = 98;
+				composite1LData.heightHint = 88;
 				composite1LData.grabExcessHorizontalSpace = true;
 				composite1LData.horizontalAlignment = GridData.FILL;
 				composite1.setLayoutData(composite1LData);
@@ -161,8 +161,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 185;
-					txtCurCardLData.heightHint = 16;
+					txtCurCardLData.widthHint = 157;
+					txtCurCardLData.heightHint = 17;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
 				{
@@ -177,8 +177,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
 					comboConsignmentType.setText(EngBLCommon.COMMON_BUY_STRING);
-					comboConsignmentTypeLData.widthHint = 73;
-					comboConsignmentTypeLData.heightHint = 18;
+					comboConsignmentTypeLData.widthHint = 135;
+					comboConsignmentTypeLData.heightHint = 17;
 					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
 				}
 				{
@@ -192,8 +192,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					dateStartDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 141;
-					dateStartDateLData.heightHint = 31;
+					dateStartDateLData.widthHint = 157;
+					dateStartDateLData.heightHint = 23;
 					dateStartDate.setLayoutData(dateStartDateLData);
 				}
 				{
@@ -207,8 +207,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					dateEndDate = new DatePicker(composite1, SWT.NONE);
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 143;
-					dateEndDateLData.heightHint = 31;
+					dateEndDateLData.widthHint = 157;
+					dateEndDateLData.heightHint = 23;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
 				{
@@ -218,8 +218,8 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					txtDocNo = new Text(composite1, SWT.NONE);
 					GridData txtDocNoLData = new GridData();
-					txtDocNoLData.widthHint = 173;
-					txtDocNoLData.heightHint = 15;
+					txtDocNoLData.widthHint = 150;
+					txtDocNoLData.heightHint = 17;
 					txtDocNo.setLayoutData(txtDocNoLData);
 				}
 			}
@@ -413,7 +413,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			{
 				TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
 				ConBLUpdateConsignment.initiliazeConsignment(cons);
-				if (cons.getTurqBillConsignmentCommon().getTurqBills().isEmpty())
+				if (cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
 				{
 					MessageBox msg2 = new MessageBox(this.getShell(), SWT.CANCEL | SWT.OK);
 					msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$

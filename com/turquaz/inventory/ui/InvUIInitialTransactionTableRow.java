@@ -94,7 +94,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getTransactionsAmountIn());
+					result = cf.format(invTrans.getAmountIn());
 				}
 				break;
 			}
@@ -105,7 +105,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getTransactionsTotalPrice());
+					result = cf.format(invTrans.getTotalPriceInForeignCurrency());
 				}
 				break;
 		
@@ -176,7 +176,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getTransactionsAmountIn());
+					result = cf.format(invTrans.getAmountIn());
 				}
 				break;
 			}
@@ -187,7 +187,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getTransactionsTotalPrice());
+					result = cf.format(invTrans.getTotalPriceInForeignCurrency());
 				}
 				break;
 		
@@ -228,7 +228,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.setTransactionsAmountIn(new BigDecimal(formatted));
+					invTrans.setAmountIn(new BigDecimal(formatted));
 					
 				}
 				break;
@@ -247,7 +247,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.setTransactionsTotalPrice(new BigDecimal(formatted));
+					invTrans.setTotalPriceInForeignCurrency(new BigDecimal(formatted));
 					
 				}
 				break;

@@ -30,7 +30,6 @@ import java.util.Map;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.engine.Messages;
@@ -39,7 +38,10 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.inventory.dal.InvDALCardSearch;
+
 
 public class EngBLCommon
 {
@@ -322,10 +324,6 @@ public class EngBLCommon
 		}
 	}
 
-	public EngBLCommon()
-	{
-	}
-
 	public static List getCurrencies() throws Exception
 	{
 		try
@@ -336,6 +334,16 @@ public class EngBLCommon
 		{
 			throw ex;
 		}
+	}
+	
+	public static TurqEngineSequence saveEngineSequence(int moduleId)throws Exception
+	{
+		TurqEngineSequence seq = new TurqEngineSequence();
+		TurqModule module = new TurqModule();
+		module.setId(new Integer(moduleId));
+		seq.setTurqModule(module);
+		EngDALCommon.saveObject(seq);
+		return seq;
 	}
 	
 	public static void insertBillInEngineSeq()
@@ -408,7 +416,8 @@ public class EngBLCommon
 				TurqBill bill = BillDALSearchBill.getBillByBillId((Integer) result[0]);
 				BillDALSearchBill.initializeBill(bill);
 				BillBLUpdateBill.deleteAccountingTransactions(bill);
-				BillBLAddBill.saveAccountingTransaction(bill, null);
+				//XXX this method should be checked..
+				//BillBLAddBill.saveAccountingTransaction(bill, null);
 			}
 		}
 		catch (Exception ex)

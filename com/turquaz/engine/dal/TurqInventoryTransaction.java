@@ -12,40 +12,37 @@ public class TurqInventoryTransaction implements Serializable {
     private java.lang.Integer id;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsAmountIn;
+    private java.math.BigDecimal amountIn;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsUnitPrice;
+    private java.math.BigDecimal unitPrice;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsTotalPrice;
+    private java.math.BigDecimal totalPrice;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsDiscount;
+    private java.math.BigDecimal discountRate;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsDiscountAmount;
+    private java.math.BigDecimal discountAmount;
 
     /** persistent field */
-    private int transactionsVat;
+    private java.math.BigDecimal vatAmount;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsVatAmount;
+    private java.math.BigDecimal vatSpecialUnitPrice;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsVatSpecialEach;
+    private java.math.BigDecimal vatSpecialRate;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsVatSpecial;
+    private java.math.BigDecimal vatSpecialAmount;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsVatSpecialAmount;
+    private java.math.BigDecimal cumilativePrice;
 
     /** persistent field */
-    private java.math.BigDecimal transactionsCumilativePrice;
-
-    /** persistent field */
-    private java.math.BigDecimal transactionsTotalAmountOut;
+    private java.math.BigDecimal amountOut;
 
     /** persistent field */
     private java.lang.String createdBy;
@@ -69,10 +66,37 @@ public class TurqInventoryTransaction implements Serializable {
     private java.lang.String definition;
 
     /** persistent field */
+    private java.math.BigDecimal vatRate;
+
+    /** persistent field */
+    private java.math.BigDecimal unitPriceInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal totalPriceInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal discountAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal vatAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal vatSpecialUnitPriceInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal vatSpecialAmountInForeignCurrency;
+
+    /** persistent field */
+    private java.math.BigDecimal cumilativePriceInForeignCurrency;
+
+    /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit;
@@ -84,19 +108,18 @@ public class TurqInventoryTransaction implements Serializable {
     private com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard;
 
     /** full constructor */
-    public TurqInventoryTransaction(java.math.BigDecimal transactionsAmountIn, java.math.BigDecimal transactionsUnitPrice, java.math.BigDecimal transactionsTotalPrice, java.math.BigDecimal transactionsDiscount, java.math.BigDecimal transactionsDiscountAmount, int transactionsVat, java.math.BigDecimal transactionsVatAmount, java.math.BigDecimal transactionsVatSpecialEach, java.math.BigDecimal transactionsVatSpecial, java.math.BigDecimal transactionsVatSpecialAmount, java.math.BigDecimal transactionsCumilativePrice, java.math.BigDecimal transactionsTotalAmountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, java.lang.String documentNo, java.lang.String definition, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
-        this.transactionsAmountIn = transactionsAmountIn;
-        this.transactionsUnitPrice = transactionsUnitPrice;
-        this.transactionsTotalPrice = transactionsTotalPrice;
-        this.transactionsDiscount = transactionsDiscount;
-        this.transactionsDiscountAmount = transactionsDiscountAmount;
-        this.transactionsVat = transactionsVat;
-        this.transactionsVatAmount = transactionsVatAmount;
-        this.transactionsVatSpecialEach = transactionsVatSpecialEach;
-        this.transactionsVatSpecial = transactionsVatSpecial;
-        this.transactionsVatSpecialAmount = transactionsVatSpecialAmount;
-        this.transactionsCumilativePrice = transactionsCumilativePrice;
-        this.transactionsTotalAmountOut = transactionsTotalAmountOut;
+    public TurqInventoryTransaction(java.math.BigDecimal amountIn, java.math.BigDecimal unitPrice, java.math.BigDecimal totalPrice, java.math.BigDecimal discountRate, java.math.BigDecimal discountAmount, java.math.BigDecimal vatAmount, java.math.BigDecimal vatSpecialUnitPrice, java.math.BigDecimal vatSpecialRate, java.math.BigDecimal vatSpecialAmount, java.math.BigDecimal cumilativePrice, java.math.BigDecimal amountOut, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.util.Date transactionsDate, java.lang.String documentNo, java.lang.String definition, java.math.BigDecimal vatRate, java.math.BigDecimal unitPriceInForeignCurrency, java.math.BigDecimal totalPriceInForeignCurrency, java.math.BigDecimal discountAmountInForeignCurrency, java.math.BigDecimal vatAmountInForeignCurrency, java.math.BigDecimal vatSpecialUnitPriceInForeignCurrency, java.math.BigDecimal vatSpecialAmountInForeignCurrency, java.math.BigDecimal cumilativePriceInForeignCurrency, com.turquaz.engine.dal.TurqInventoryWarehous turqInventoryWarehous, com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqInventoryUnit turqInventoryUnit, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqInventoryCard turqInventoryCard) {
+        this.amountIn = amountIn;
+        this.unitPrice = unitPrice;
+        this.totalPrice = totalPrice;
+        this.discountRate = discountRate;
+        this.discountAmount = discountAmount;
+        this.vatAmount = vatAmount;
+        this.vatSpecialUnitPrice = vatSpecialUnitPrice;
+        this.vatSpecialRate = vatSpecialRate;
+        this.vatSpecialAmount = vatSpecialAmount;
+        this.cumilativePrice = cumilativePrice;
+        this.amountOut = amountOut;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
@@ -104,8 +127,17 @@ public class TurqInventoryTransaction implements Serializable {
         this.transactionsDate = transactionsDate;
         this.documentNo = documentNo;
         this.definition = definition;
+        this.vatRate = vatRate;
+        this.unitPriceInForeignCurrency = unitPriceInForeignCurrency;
+        this.totalPriceInForeignCurrency = totalPriceInForeignCurrency;
+        this.discountAmountInForeignCurrency = discountAmountInForeignCurrency;
+        this.vatAmountInForeignCurrency = vatAmountInForeignCurrency;
+        this.vatSpecialUnitPriceInForeignCurrency = vatSpecialUnitPriceInForeignCurrency;
+        this.vatSpecialAmountInForeignCurrency = vatSpecialAmountInForeignCurrency;
+        this.cumilativePriceInForeignCurrency = cumilativePriceInForeignCurrency;
         this.turqInventoryWarehous = turqInventoryWarehous;
         this.turqInventoryTransactionType = turqInventoryTransactionType;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
         this.turqInventoryUnit = turqInventoryUnit;
         this.turqEngineSequence = turqEngineSequence;
         this.turqInventoryCard = turqInventoryCard;
@@ -123,100 +155,92 @@ public class TurqInventoryTransaction implements Serializable {
         this.id = id;
     }
 
-    public java.math.BigDecimal getTransactionsAmountIn() {
-        return this.transactionsAmountIn;
+    public java.math.BigDecimal getAmountIn() {
+        return this.amountIn;
     }
 
-    public void setTransactionsAmountIn(java.math.BigDecimal transactionsAmountIn) {
-        this.transactionsAmountIn = transactionsAmountIn;
+    public void setAmountIn(java.math.BigDecimal amountIn) {
+        this.amountIn = amountIn;
     }
 
-    public java.math.BigDecimal getTransactionsUnitPrice() {
-        return this.transactionsUnitPrice;
+    public java.math.BigDecimal getUnitPrice() {
+        return this.unitPrice;
     }
 
-    public void setTransactionsUnitPrice(java.math.BigDecimal transactionsUnitPrice) {
-        this.transactionsUnitPrice = transactionsUnitPrice;
+    public void setUnitPrice(java.math.BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public java.math.BigDecimal getTransactionsTotalPrice() {
-        return this.transactionsTotalPrice;
+    public java.math.BigDecimal getTotalPrice() {
+        return this.totalPrice;
     }
 
-    public void setTransactionsTotalPrice(java.math.BigDecimal transactionsTotalPrice) {
-        this.transactionsTotalPrice = transactionsTotalPrice;
+    public void setTotalPrice(java.math.BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public java.math.BigDecimal getTransactionsDiscount() {
-        return this.transactionsDiscount;
+    public java.math.BigDecimal getDiscountRate() {
+        return this.discountRate;
     }
 
-    public void setTransactionsDiscount(java.math.BigDecimal transactionsDiscount) {
-        this.transactionsDiscount = transactionsDiscount;
+    public void setDiscountRate(java.math.BigDecimal discountRate) {
+        this.discountRate = discountRate;
     }
 
-    public java.math.BigDecimal getTransactionsDiscountAmount() {
-        return this.transactionsDiscountAmount;
+    public java.math.BigDecimal getDiscountAmount() {
+        return this.discountAmount;
     }
 
-    public void setTransactionsDiscountAmount(java.math.BigDecimal transactionsDiscountAmount) {
-        this.transactionsDiscountAmount = transactionsDiscountAmount;
+    public void setDiscountAmount(java.math.BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
     }
 
-    public int getTransactionsVat() {
-        return this.transactionsVat;
+    public java.math.BigDecimal getVatAmount() {
+        return this.vatAmount;
     }
 
-    public void setTransactionsVat(int transactionsVat) {
-        this.transactionsVat = transactionsVat;
+    public void setVatAmount(java.math.BigDecimal vatAmount) {
+        this.vatAmount = vatAmount;
     }
 
-    public java.math.BigDecimal getTransactionsVatAmount() {
-        return this.transactionsVatAmount;
+    public java.math.BigDecimal getVatSpecialUnitPrice() {
+        return this.vatSpecialUnitPrice;
     }
 
-    public void setTransactionsVatAmount(java.math.BigDecimal transactionsVatAmount) {
-        this.transactionsVatAmount = transactionsVatAmount;
+    public void setVatSpecialUnitPrice(java.math.BigDecimal vatSpecialUnitPrice) {
+        this.vatSpecialUnitPrice = vatSpecialUnitPrice;
     }
 
-    public java.math.BigDecimal getTransactionsVatSpecialEach() {
-        return this.transactionsVatSpecialEach;
+    public java.math.BigDecimal getVatSpecialRate() {
+        return this.vatSpecialRate;
     }
 
-    public void setTransactionsVatSpecialEach(java.math.BigDecimal transactionsVatSpecialEach) {
-        this.transactionsVatSpecialEach = transactionsVatSpecialEach;
+    public void setVatSpecialRate(java.math.BigDecimal vatSpecialRate) {
+        this.vatSpecialRate = vatSpecialRate;
     }
 
-    public java.math.BigDecimal getTransactionsVatSpecial() {
-        return this.transactionsVatSpecial;
+    public java.math.BigDecimal getVatSpecialAmount() {
+        return this.vatSpecialAmount;
     }
 
-    public void setTransactionsVatSpecial(java.math.BigDecimal transactionsVatSpecial) {
-        this.transactionsVatSpecial = transactionsVatSpecial;
+    public void setVatSpecialAmount(java.math.BigDecimal vatSpecialAmount) {
+        this.vatSpecialAmount = vatSpecialAmount;
     }
 
-    public java.math.BigDecimal getTransactionsVatSpecialAmount() {
-        return this.transactionsVatSpecialAmount;
+    public java.math.BigDecimal getCumilativePrice() {
+        return this.cumilativePrice;
     }
 
-    public void setTransactionsVatSpecialAmount(java.math.BigDecimal transactionsVatSpecialAmount) {
-        this.transactionsVatSpecialAmount = transactionsVatSpecialAmount;
+    public void setCumilativePrice(java.math.BigDecimal cumilativePrice) {
+        this.cumilativePrice = cumilativePrice;
     }
 
-    public java.math.BigDecimal getTransactionsCumilativePrice() {
-        return this.transactionsCumilativePrice;
+    public java.math.BigDecimal getAmountOut() {
+        return this.amountOut;
     }
 
-    public void setTransactionsCumilativePrice(java.math.BigDecimal transactionsCumilativePrice) {
-        this.transactionsCumilativePrice = transactionsCumilativePrice;
-    }
-
-    public java.math.BigDecimal getTransactionsTotalAmountOut() {
-        return this.transactionsTotalAmountOut;
-    }
-
-    public void setTransactionsTotalAmountOut(java.math.BigDecimal transactionsTotalAmountOut) {
-        this.transactionsTotalAmountOut = transactionsTotalAmountOut;
+    public void setAmountOut(java.math.BigDecimal amountOut) {
+        this.amountOut = amountOut;
     }
 
     public java.lang.String getCreatedBy() {
@@ -275,6 +299,70 @@ public class TurqInventoryTransaction implements Serializable {
         this.definition = definition;
     }
 
+    public java.math.BigDecimal getVatRate() {
+        return this.vatRate;
+    }
+
+    public void setVatRate(java.math.BigDecimal vatRate) {
+        this.vatRate = vatRate;
+    }
+
+    public java.math.BigDecimal getUnitPriceInForeignCurrency() {
+        return this.unitPriceInForeignCurrency;
+    }
+
+    public void setUnitPriceInForeignCurrency(java.math.BigDecimal unitPriceInForeignCurrency) {
+        this.unitPriceInForeignCurrency = unitPriceInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getTotalPriceInForeignCurrency() {
+        return this.totalPriceInForeignCurrency;
+    }
+
+    public void setTotalPriceInForeignCurrency(java.math.BigDecimal totalPriceInForeignCurrency) {
+        this.totalPriceInForeignCurrency = totalPriceInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getDiscountAmountInForeignCurrency() {
+        return this.discountAmountInForeignCurrency;
+    }
+
+    public void setDiscountAmountInForeignCurrency(java.math.BigDecimal discountAmountInForeignCurrency) {
+        this.discountAmountInForeignCurrency = discountAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getVatAmountInForeignCurrency() {
+        return this.vatAmountInForeignCurrency;
+    }
+
+    public void setVatAmountInForeignCurrency(java.math.BigDecimal vatAmountInForeignCurrency) {
+        this.vatAmountInForeignCurrency = vatAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getVatSpecialUnitPriceInForeignCurrency() {
+        return this.vatSpecialUnitPriceInForeignCurrency;
+    }
+
+    public void setVatSpecialUnitPriceInForeignCurrency(java.math.BigDecimal vatSpecialUnitPriceInForeignCurrency) {
+        this.vatSpecialUnitPriceInForeignCurrency = vatSpecialUnitPriceInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getVatSpecialAmountInForeignCurrency() {
+        return this.vatSpecialAmountInForeignCurrency;
+    }
+
+    public void setVatSpecialAmountInForeignCurrency(java.math.BigDecimal vatSpecialAmountInForeignCurrency) {
+        this.vatSpecialAmountInForeignCurrency = vatSpecialAmountInForeignCurrency;
+    }
+
+    public java.math.BigDecimal getCumilativePriceInForeignCurrency() {
+        return this.cumilativePriceInForeignCurrency;
+    }
+
+    public void setCumilativePriceInForeignCurrency(java.math.BigDecimal cumilativePriceInForeignCurrency) {
+        this.cumilativePriceInForeignCurrency = cumilativePriceInForeignCurrency;
+    }
+
     public com.turquaz.engine.dal.TurqInventoryWarehous getTurqInventoryWarehous() {
         return this.turqInventoryWarehous;
     }
@@ -289,6 +377,14 @@ public class TurqInventoryTransaction implements Serializable {
 
     public void setTurqInventoryTransactionType(com.turquaz.engine.dal.TurqInventoryTransactionType turqInventoryTransactionType) {
         this.turqInventoryTransactionType = turqInventoryTransactionType;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
+    }
+
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
     }
 
     public com.turquaz.engine.dal.TurqInventoryUnit getTurqInventoryUnit() {

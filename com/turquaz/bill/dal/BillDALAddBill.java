@@ -1,12 +1,7 @@
 package com.turquaz.bill.dal;
 
-import java.util.Iterator;
 import java.util.Set;
-import net.sf.hibernate.Hibernate;
-import net.sf.hibernate.Session;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqConsignment;
 
 public class BillDALAddBill
 {
@@ -18,9 +13,10 @@ public class BillDALAddBill
 	{
 		try
 		{
-			Session session = EngDALSessionFactory.openSession();
+			/*Session session = EngDALSessionFactory.openSession();
 			session.refresh(bill);
-			Hibernate.initialize(bill.getTurqBillConsignmentCommon().getTurqConsignments());
+			//XXX initialize cons
+			Hibernate.initialize(bill.getTurqBillInEngineSequences().getTurqConsignments());
 			Iterator it = bill.getTurqBillConsignmentCommon().getTurqConsignments().iterator();
 			if (it.hasNext())
 			{
@@ -30,7 +26,7 @@ public class BillDALAddBill
 				return cons.getTurqEngineSequence().getTurqInventoryTransactions();
 			}
 			else
-				session.close();
+				session.close();*/
 			return null;
 		}
 		catch (Exception ex)

@@ -37,16 +37,25 @@ public class TurqConsignment implements Serializable {
     private java.util.Date lastModified;
 
     /** persistent field */
-    private com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon;
+    private java.lang.String consignmentDocumentNo;
+
+    /** persistent field */
+    private java.lang.String billDocumentNo;
+
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate;
 
     /** persistent field */
     private com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence;
 
     /** persistent field */
+    private com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard;
+
+    /** persistent field */
     private Set turqConsignmentsInGroups;
 
     /** full constructor */
-    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int consignmentsType, boolean consignmentsPrinted, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, Set turqConsignmentsInGroups) {
+    public TurqConsignment(java.util.Date consignmentsDate, java.lang.String consignmentsDefinition, int consignmentsType, boolean consignmentsPrinted, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, java.lang.String consignmentDocumentNo, java.lang.String billDocumentNo, com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate, com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence, com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard, Set turqConsignmentsInGroups) {
         this.consignmentsDate = consignmentsDate;
         this.consignmentsDefinition = consignmentsDefinition;
         this.consignmentsType = consignmentsType;
@@ -55,8 +64,11 @@ public class TurqConsignment implements Serializable {
         this.creationDate = creationDate;
         this.updatedBy = updatedBy;
         this.lastModified = lastModified;
-        this.turqBillConsignmentCommon = turqBillConsignmentCommon;
+        this.consignmentDocumentNo = consignmentDocumentNo;
+        this.billDocumentNo = billDocumentNo;
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
         this.turqEngineSequence = turqEngineSequence;
+        this.turqCurrentCard = turqCurrentCard;
         this.turqConsignmentsInGroups = turqConsignmentsInGroups;
     }
 
@@ -136,12 +148,28 @@ public class TurqConsignment implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public com.turquaz.engine.dal.TurqBillConsignmentCommon getTurqBillConsignmentCommon() {
-        return this.turqBillConsignmentCommon;
+    public java.lang.String getConsignmentDocumentNo() {
+        return this.consignmentDocumentNo;
     }
 
-    public void setTurqBillConsignmentCommon(com.turquaz.engine.dal.TurqBillConsignmentCommon turqBillConsignmentCommon) {
-        this.turqBillConsignmentCommon = turqBillConsignmentCommon;
+    public void setConsignmentDocumentNo(java.lang.String consignmentDocumentNo) {
+        this.consignmentDocumentNo = consignmentDocumentNo;
+    }
+
+    public java.lang.String getBillDocumentNo() {
+        return this.billDocumentNo;
+    }
+
+    public void setBillDocumentNo(java.lang.String billDocumentNo) {
+        this.billDocumentNo = billDocumentNo;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrencyExchangeRate getTurqCurrencyExchangeRate() {
+        return this.turqCurrencyExchangeRate;
+    }
+
+    public void setTurqCurrencyExchangeRate(com.turquaz.engine.dal.TurqCurrencyExchangeRate turqCurrencyExchangeRate) {
+        this.turqCurrencyExchangeRate = turqCurrencyExchangeRate;
     }
 
     public com.turquaz.engine.dal.TurqEngineSequence getTurqEngineSequence() {
@@ -150,6 +178,14 @@ public class TurqConsignment implements Serializable {
 
     public void setTurqEngineSequence(com.turquaz.engine.dal.TurqEngineSequence turqEngineSequence) {
         this.turqEngineSequence = turqEngineSequence;
+    }
+
+    public com.turquaz.engine.dal.TurqCurrentCard getTurqCurrentCard() {
+        return this.turqCurrentCard;
+    }
+
+    public void setTurqCurrentCard(com.turquaz.engine.dal.TurqCurrentCard turqCurrentCard) {
+        this.turqCurrentCard = turqCurrentCard;
     }
 
     public java.util.Set getTurqConsignmentsInGroups() {

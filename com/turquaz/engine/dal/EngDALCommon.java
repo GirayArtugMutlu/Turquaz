@@ -1,5 +1,6 @@
 package com.turquaz.engine.dal;
 
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -11,10 +12,6 @@ import net.sf.hibernate.Transaction;
 
 public class EngDALCommon
 {
-	public EngDALCommon()
-	{
-	}
-
 	public static List getCurrencies() throws Exception
 	{
 		try
@@ -30,6 +27,16 @@ public class EngDALCommon
 		{
 			throw ex;
 		}
+	}
+	
+	public static void initializeObject(Object obj, String myMethod)throws Exception
+	{
+		Session session=EngDALSessionFactory.openSession();
+		session.refresh(obj);
+		Class myClass=obj.getClass();
+		Method method=myClass.getMethod(myMethod,null);
+		Hibernate.initialize(method.invoke(obj,null));
+		session.close();		
 	}
 
 	public static TurqCurrencyExchangeRate getCurrencyExchangeRate(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency,
@@ -214,11 +221,11 @@ public class EngDALCommon
 		try{
 			Session session = EngDALSessionFactory.openSession();
 			session.refresh(seq);
-			Hibernate.initialize(seq.getTurqBills());
-			Iterator it = seq.getTurqBills().iterator();
+			Hibernate.initialize(seq.getTurqBillInEngineSequences());
+			Iterator it = seq.getTurqBillInEngineSequences().iterator();
 			if(it.hasNext())
-			{
-				return ((TurqBill)it.next()).getId();
+			{	
+				return ((TurqBillInEngineSequence)it.next()).getTurqBill().getId();
 			}
 			
 			return null;

@@ -350,16 +350,16 @@ public class InvDALSearchTransaction
 		 session = EngDALSessionFactory.openSession();
 			session.refresh(seq);
 			Hibernate.initialize(seq.getTurqConsignments());
-			Iterator it = seq.getTurqBills().iterator();
-			TurqBill cons = null;
+			Iterator it = seq.getTurqBillInEngineSequences().iterator();
+			TurqBill bill=null;
 			if (it.hasNext())
 			{
-				cons = (TurqBill) it.next();
-				ConDALUpdateConsignment dalSearchCons = new ConDALUpdateConsignment();
-				BillDALSearchBill.initializeBill(cons);
+				bill=(TurqBill)it.next();
+				BillDALSearchBill.initializeBill(bill);
 			}
-			
-			return cons;
+			session.close();
+			return bill;
+
 		}
 		catch (Exception ex)
 		{
