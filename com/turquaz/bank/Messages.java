@@ -22,7 +22,7 @@ package com.turquaz.bank;
 * @version  $Id$
 */
 
-import java.util.Locale;
+
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 

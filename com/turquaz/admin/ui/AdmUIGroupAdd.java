@@ -50,8 +50,7 @@ import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupAdd;
-import com.turquaz.current.ui.CurUICurrentCardAdd;
-import com.turquaz.engine.ui.EngUIMainFrame;
+
 import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;

@@ -51,10 +51,10 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
-import com.turquaz.current.ui.CurUICurrentCardAdd;
+
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
-import com.turquaz.engine.ui.EngUIMainFrame;
+
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 

@@ -19,7 +19,7 @@ package com.turquaz.current.ui;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-import java.math.BigDecimal;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;

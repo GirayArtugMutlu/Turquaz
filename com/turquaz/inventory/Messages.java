@@ -26,7 +26,7 @@ package com.turquaz.inventory;
 * @author  Onsel Armagan
 * @version  $Id$
 */
-import java.util.Locale;
+
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
