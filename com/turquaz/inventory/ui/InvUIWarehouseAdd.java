@@ -330,6 +330,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite{
 		txtTelephone.setText(""); //$NON-NLS-1$
 		txtWarehouseAdres.setText(""); //$NON-NLS-1$
 		txtWarehouseCity.setText(""); //$NON-NLS-1$
+		txtWarehouseCode.setText("");
 		
 		
 	}
