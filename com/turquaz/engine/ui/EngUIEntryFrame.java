@@ -171,6 +171,10 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			{
 				lblPassword = new CLabel(this, SWT.NONE);
 				lblPassword.setText(Messages.getString("EngUIEntryFrame.2")); //$NON-NLS-1$
+				GridData lblPasswordLData = new GridData();
+				lblPasswordLData.widthHint = 81;
+				lblPasswordLData.heightHint = 19;
+				lblPassword.setLayoutData(lblPasswordLData);
 			}
 			{
 			    txtPassword = new Text(this, SWT.PASSWORD);
@@ -192,7 +196,11 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			}
 			{
 				lblLanguage = new CLabel(this, SWT.NONE);
-				lblLanguage.setText("Dil Seçiniz");
+				lblLanguage.setText(Messages.getString("EngUIEntryFrame.4")); //$NON-NLS-1$
+				GridData lblLanguageLData = new GridData();
+				lblLanguageLData.widthHint = 106;
+				lblLanguageLData.heightHint = 19;
+				lblLanguage.setLayoutData(lblLanguageLData);
 			}
 			{
 				comboLanguage = new CCombo(this, SWT.NONE);
@@ -205,12 +213,14 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 						
 						if (comboLanguage.getData(comboLanguage.getText())
 							.equals(new Integer(1))) {
-							Locale.setDefault(new Locale("tr", "TR"));
+							Locale.setDefault(new Locale("tr", "TR")); //$NON-NLS-1$ //$NON-NLS-2$
+							displayStrings();
 							
 						} 
 						else if (comboLanguage.getData(
 							comboLanguage.getText()).equals(new Integer(2))) {
-							Locale.setDefault(new Locale("en", "US"));
+							Locale.setDefault(new Locale("en", "US")); //$NON-NLS-1$ //$NON-NLS-2$
+							displayStrings();
 						}
 					}
 				});
@@ -282,7 +292,18 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			e.printStackTrace();
 		}
 	}
+	
+	// display the strings 
+	public  void displayStrings()
+	{
+			checkRememberPassword.setText(Messages
+					.getString("EngUIEntryFrame.3")); //$NON-NLS-1$
+			lblLanguage.setText(Messages.getString("EngUIEntryFrame.4")); //$NON-NLS-1$
+			lblPassword.setText(Messages.getString("EngUIEntryFrame.2")); //$NON-NLS-1$
+			lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
 
+	}
+	
 	public void btnCancelMouseUp(MouseEvent e){
 		
 		this.getShell().dispose();
@@ -320,11 +341,11 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 			    System.setProperty("company","0"); //$NON-NLS-1$ //$NON-NLS-2$
 			    if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==1)
 			    {
-			    	Locale.setDefault(new Locale("tr","TR"));
+			    	Locale.setDefault(new Locale("tr","TR")); //$NON-NLS-1$ //$NON-NLS-2$
 			    }
 			    else if (((Integer)comboLanguage.getData(comboLanguage.getText())).intValue() ==2)
 			    {
-			    	Locale.setDefault(new Locale("en","US"));
+			    	Locale.setDefault(new Locale("en","US")); //$NON-NLS-1$ //$NON-NLS-2$
 			    }
 			    
 			    
@@ -386,13 +407,13 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite {
 	if(rememberPassword!=null&&rememberPassword.equals("true")){ //$NON-NLS-1$
 		checkRememberPassword.setSelection(true);
 	}
-	comboLanguage.add("Türkçe");
-	comboLanguage.add("English");
+	comboLanguage.add(Messages.getString("EngUIEntryFrame.16")); //$NON-NLS-1$
+	comboLanguage.add(Messages.getString("EngUIEntryFrame.17")); //$NON-NLS-1$
 	
-	comboLanguage.setData("Türkçe",new Integer(1));
-	comboLanguage.setData("English",new Integer(2));
+	comboLanguage.setData(Messages.getString("EngUIEntryFrame.18"),new Integer(1)); //$NON-NLS-1$
+	comboLanguage.setData(Messages.getString("EngUIEntryFrame.19"),new Integer(2)); //$NON-NLS-1$
 
-	comboLanguage.setText("Türkçe");
+	comboLanguage.setText(Messages.getString("EngUIEntryFrame.20")); //$NON-NLS-1$
 	}
 	public Text getTxtPassword() {
 		return txtPassword;
