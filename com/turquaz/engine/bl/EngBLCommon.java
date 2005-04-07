@@ -51,7 +51,7 @@ public class EngBLCommon
 {
 	
 	public static String VERSION = "0.7.0 Alpha2";
-	public static String DATABASE_VERSION="0.7.1";
+	public static String DATABASE_VERSION="0.7.2";
 	
 	public static int BILL_ERR_TOO_MANY_CONS = -1;
 	public static int BILL_SAVED_SUCCESFULLY = 1;
@@ -105,6 +105,9 @@ public class EngBLCommon
 	public final static int CURRENT_TRANS_INITIAL = 6; //Cari
 	// Acilis
 	public final static int CURRENT_TRANS_OTHERS = 7; //Diger Borc
+	
+	public final static int CURRENT_TRANS_BETWEEN_ACCOUNTS = 8; //Virman
+	
 	// Alacaklar
 	public final static Integer CURRENT_ACC_TYPE_GENERAL = new Integer(0); // Cari
 	// alt

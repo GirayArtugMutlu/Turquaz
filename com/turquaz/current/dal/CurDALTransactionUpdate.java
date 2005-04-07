@@ -1,5 +1,6 @@
 package com.turquaz.current.dal;
 
+
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
@@ -21,4 +22,6 @@ package com.turquaz.current.dal;
  */
 public class CurDALTransactionUpdate
 {
+	
+	
 }

@@ -445,6 +445,12 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 							updated = CashUICashTransactionSearch.updateCashTransaction(bankTransId, getShell());
 						}
 					}
+					else if (type == EngBLCommon.CURRENT_TRANS_BETWEEN_ACCOUNTS)
+					{
+						
+							updated =new CurUICurrentTransferUpdate(getShell(),SWT.NONE,trans).open();
+						
+					}
 					else
 					{
 						MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);

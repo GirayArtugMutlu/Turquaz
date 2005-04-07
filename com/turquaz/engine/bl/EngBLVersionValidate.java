@@ -93,4 +93,47 @@ public class EngBLVersionValidate
 		EngDALCommon.updateObject(setting);	
 	
 	}
+	public static void HSQLDBupdateVersion071(TurqSetting setting)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		Statement stmt = session.connection().createStatement();
+		try{
+		String query="INSERT INTO TURQ_CURRENT_TRANSACTION_TYPES VALUES((8,'Virman','admin','2004-10-18','admin','2004-10-18')";
+		stmt.execute(query);
+		}
+		catch(Exception ex)
+		{
+			
+		}
+		try{
+		String query="INSERT INTO turq_module_components VALUES (92, 4, 'com.turquaz.current.ui.CurUICurrentTransfer', 'Cari Virman', 'cem', '2005-02-28', 'cem', '2005-02-28')";
+		stmt.execute(query);
+		}
+		catch(Exception ex)
+		{
+			
+		}
+		setting.setDatabaseVersion("0.7.2");
+		EngDALCommon.updateObject(setting);	
+	
+	}
+	
+	public static void PGupdateVersion071(TurqSetting setting)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		Statement stmt = session.connection().createStatement();
+	
+			try{
+			String query="INSERT INTO turq_module_components VALUES (92, 4, 'com.turquaz.current.ui.CurUICurrentTransfer', 'Cari Virman', 'cem', '2005-02-28', 'cem', '2005-02-28')";
+			stmt.execute(query);
+			}
+			catch(Exception ex)
+			{
+				
+			}
+			
+			setting.setDatabaseVersion("0.7.2");
+			EngDALCommon.updateObject(setting);
+	
+	}
 }

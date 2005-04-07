@@ -77,7 +77,8 @@ public class CurDALCurrentCardUpdate
 			Session session = EngDALSessionFactory.getSession();
 			session.refresh(curTrans);
 			Hibernate.initialize(curTrans.getTurqEngineSequence().getTurqAccountingTransactions());
-			session.flush();
+			Hibernate.initialize(curTrans.getTurqEngineSequence().getTurqCurrentTransactions());
+		
 		}
 		catch (Exception ex)
 		{

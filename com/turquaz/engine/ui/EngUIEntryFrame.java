@@ -50,6 +50,7 @@ import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLVersionValidate;
 import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -358,6 +359,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 				Locale.setDefault(new Locale("en", "US")); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			
+			validateDB();
+			
 		}
 		catch (Exception ex)
 		{
@@ -367,6 +370,29 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		this.getShell().dispose();
 		
+	}
+	public void validateDB(){
+		try{
+		Boolean isVersionUpdated=(Boolean)EngTXCommon.doSingleTX(EngBLVersionValidate.class.getName(),"checkVersion",null);		
+		if (!isVersionUpdated.booleanValue())
+		{
+			EngUICommon.showMessageBox(getShell(),"Veritabanýnýz yeni versiyon için otomatik güncellenecektir");
+			Boolean successfull=(Boolean)EngTXCommon.doTransactionTX(EngBLVersionValidate.class.getName(),"validateVersion",null);
+			if (successfull.booleanValue())
+			{
+				EngUICommon.showMessageBox(getShell(),"Veritabaný baþarýyla güncellendi!");
+			}
+			else
+			{
+				EngUICommon.showMessageBox(getShell(),"Veritabaný güncellemesi yapýlamadý!");
+				System.exit(1);
+			}
+		}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	public void btnOkMouseUp()

@@ -74,7 +74,6 @@ import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.bl.EngBLVersionValidate;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.ui.component.MenuFactory;
@@ -869,21 +868,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		//init user permissions
 		try
 		{
-			Boolean isVersionUpdated=(Boolean)EngTXCommon.doSingleTX(EngBLVersionValidate.class.getName(),"checkVersion",null);		
-			if (!isVersionUpdated.booleanValue())
-			{
-				EngUICommon.showMessageBox(getShell(),"Veritabanýnýz yeni versiyon için otomatik güncellenecektir");
-				Boolean successfull=(Boolean)EngTXCommon.doTransactionTX(EngBLVersionValidate.class.getName(),"validateVersion",null);
-				if (successfull.booleanValue())
-				{
-					EngUICommon.showMessageBox(getShell(),"Veritabaný baþarýyla güncellendi!");
-				}
-				else
-				{
-					EngUICommon.showMessageBox(getShell(),"Veritabaný güncellemesi yapýlamadý!");
-					System.exit(1);
-				}
-			}
+			
 			EngTXCommon.doSingleTX(EngBLPermissions.class.getName(), "init", null);
 			//Add popup menu to add favorites
 			popupTreeAddFavorites = new Menu(getShell(), SWT.POP_UP);

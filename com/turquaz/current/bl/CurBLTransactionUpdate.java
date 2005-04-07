@@ -5,9 +5,11 @@ import java.util.Iterator;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.dal.TurqEngineSequence;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -52,6 +54,18 @@ public class CurBLTransactionUpdate
 		EngDALCommon.deleteObject(curTrans);
 		
 	}
+	public static void deleteTransfer(HashMap argMap)throws Exception
+	 {
+		
+	  TurqEngineSequence seq	= (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
+	  Iterator it = seq.getTurqCurrentTransactions().iterator();
+	  while(it.hasNext())
+	  {
+	   EngDALCommon.deleteObject(it.next());
+	  }
+	  
+	  
+	 }
 
 	public static void initCurTrans(HashMap argMap) throws Exception
 	{

@@ -88,6 +88,7 @@ import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardCreditVoucher;
 import com.turquaz.current.ui.CurUICurrentCardDeptVoucher;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
+import com.turquaz.current.ui.CurUICurrentTransfer;
 import com.turquaz.current.ui.CurUIInitialTransaction;
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.Messages;
@@ -435,6 +436,12 @@ public final class TreeFactory
 			item = new TreeItem(transactionsRoot, SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.119"));  //$NON-NLS-1$
 			item.setData(CurUICurrentCardCreditVoucher.class.getName());
+		}
+		if (EngBLPermissions.getPermission(CurUICurrentTransfer.class.getName()) > 0)
+		{
+			item = new TreeItem(transactionsRoot, SWT.NULL);
+			item.setText("CariVirman");  
+			item.setData(CurUICurrentTransfer.class.getName());
 		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);
 		searchRoot.setText(Messages.getString("TreeFactory.83")); //$NON-NLS-1$
