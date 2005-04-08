@@ -365,7 +365,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 		this.getShell().dispose();
@@ -373,18 +373,18 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	}
 	public void validateDB(){
 		try{
-		Boolean isVersionUpdated=(Boolean)EngTXCommon.doSingleTX(EngBLVersionValidate.class.getName(),"checkVersion",null);		
+		Boolean isVersionUpdated=(Boolean)EngTXCommon.doSingleTX(EngBLVersionValidate.class.getName(),"checkVersion",null);		 //$NON-NLS-1$
 		if (!isVersionUpdated.booleanValue())
 		{
-			EngUICommon.showMessageBox(getShell(),"Veritabanýnýz yeni versiyon için otomatik güncellenecektir");
-			Boolean successfull=(Boolean)EngTXCommon.doTransactionTX(EngBLVersionValidate.class.getName(),"validateVersion",null);
+			EngUICommon.showMessageBox(getShell(),Messages.getString("EngUIEntryFrame.9")); //$NON-NLS-1$
+			Boolean successfull=(Boolean)EngTXCommon.doTransactionTX(EngBLVersionValidate.class.getName(),"validateVersion",null); //$NON-NLS-1$
 			if (successfull.booleanValue())
 			{
-				EngUICommon.showMessageBox(getShell(),"Veritabaný baþarýyla güncellendi!");
+				EngUICommon.showMessageBox(getShell(),Messages.getString("EngUIEntryFrame.11")); //$NON-NLS-1$
 			}
 			else
 			{
-				EngUICommon.showMessageBox(getShell(),"Veritabaný güncellemesi yapýlamadý!");
+				EngUICommon.showMessageBox(getShell(),Messages.getString("EngUIEntryFrame.12")); //$NON-NLS-1$
 				System.exit(1);
 			}
 		}
@@ -404,7 +404,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			argMap.put(EngKeys.USER,txtUserName.getText());
 			argMap.put(EngKeys.PASSWORD,txtPassword.getText());
 			
-			Boolean result = (Boolean)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"checkUserPass",argMap);
+			Boolean result = (Boolean)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"checkUserPass",argMap); //$NON-NLS-1$
 			if (result.booleanValue())
 			{
 				showMainFrame();
@@ -418,7 +418,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			msg.setMessage(ex.getMessage());
 			msg.open();
@@ -500,7 +500,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
