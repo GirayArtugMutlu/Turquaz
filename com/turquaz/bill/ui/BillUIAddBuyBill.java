@@ -1086,7 +1086,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			{
 				// buy bill
 				int type = 0;
-				TurqBill bill = null;
+				TurqBill bill =new TurqBill();
 				
 				HashMap argMap=new HashMap();
 				
