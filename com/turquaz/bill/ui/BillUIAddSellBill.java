@@ -1,23 +1,23 @@
 package com.turquaz.bill.ui;
 
-/************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
-/* ============================================                         */
-/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/** ********************************************************************* */
+/* TURQUAZ: Higly Modular Accounting/ERP Program */
+/* ============================================ */
+/* Copyright (c) 2004 by Turquaz Software Development Group */
 /*																		*/
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License, or    */
-/* (at your option) any later version.       							*/
+/* the Free Software Foundation; either version 2 of the License, or */
+/* (at your option) any later version. */
 /* 																		*/
-/* This program is distributed in the hope that it will be useful,		*/
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
-/* GNU General Public License for more details.         				*/
-/************************************************************************/
+/* This program is distributed in the hope that it will be useful, */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the */
+/* GNU General Public License for more details. */
+/** ********************************************************************* */
 /**
- * @author  Huseyin Ergun
- * @version  $Id$
+ * @author Huseyin Ergun
+ * @version $Id$
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -744,7 +744,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
+			List list = (List) EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(), "getInventoryWarehouses", null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -770,7 +770,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		try
 		{
 			//Fill Group Table
-			List list = (List)EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
+			List list = (List) EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(), "getBillGroups", null);
 			HashMap groupMap = new HashMap();
 			TurqBillGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
@@ -962,7 +962,6 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			msg.open();
 			return false;
 		}
-		
 		return true;
 	}
 
@@ -970,9 +969,10 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	{
 		try
 		{
-			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD,invCard);
-			TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getView",argMap);
+			HashMap argMap = new HashMap();
+			argMap.put(InvKeys.INV_CARD, invCard);
+			TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal) EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),
+					"getView", argMap);
 			int Now = (invView.getTransactionsTotalAmountNow() == null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
 			int Max = invCard.getCardMaximumAmount();
 			int Min = invCard.getCardMinimumAmount();
@@ -995,54 +995,49 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
-		int k=0;
+		int k = 0;
 		try
 		{
 			if (verifyFields())
 			{
 				// sell bill
 				int type = BILL_TYPE;
-				
-				HashMap argMap=new HashMap();
-				TurqBill bill=null;
-				
-				argMap.put(BillKeys.BILL_DEFINITION,txtDefinition.getText().trim());
-				argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
-				argMap.put(BillKeys.BILL_DATE,dateConsignmentDate.getDate());
+				HashMap argMap = new HashMap();
+				TurqBill bill = null;
+				argMap.put(BillKeys.BILL_DEFINITION, txtDefinition.getText().trim());
+				argMap.put(BillKeys.BILL_IS_PRINTED, new Boolean(false));
+				argMap.put(BillKeys.BILL_DATE, dateConsignmentDate.getDate());
 				argMap.put(EngKeys.TYPE, new Integer(type));
-				argMap.put(EngKeys.CURRENT_CARD,txtCurrentCard.getData());
-				argMap.put(BillKeys.BILL_DUE_DATE,dateDueDate.getDate());
-				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
-				argMap.put(BillKeys.BILL_DOC_NO,txtDocumentNo.getText().trim());
-				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
-				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
-				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());
-				
-				Integer result=new Integer(0);
-				
-				for(k=0; k<1000; k++)
+				argMap.put(EngKeys.CURRENT_CARD, txtCurrentCard.getData());
+				argMap.put(BillKeys.BILL_DUE_DATE, dateDueDate.getDate());
+				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT, txtDiscountAmount.getBigDecimalValue());
+				argMap.put(BillKeys.BILL_DOC_NO, txtDocumentNo.getText().trim());
+				argMap.put(BillKeys.BILL_TOTAL_AMOUNT, txtTotalAmount.getBigDecimalValue());
+				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(BillKeys.BILL_GROUPS, getBillGroups());
+				argMap.put(InvKeys.INV_TRANSACTIONS, getInventoryTransactions());
+				Integer result = new Integer(0);
+				for (k = 0; k < 1000; k++)
 				{
-					bill = new TurqBill();	
-					argMap.put(BillKeys.BILL,bill);
-					result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
+					bill = new TurqBill();
+					argMap.put(BillKeys.BILL, bill);
+					result = (Integer) EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(), "saveBillFromBill", argMap);
 				}
-			 	if(result.intValue()!=1)
+				if (result.intValue() != 1)
 				{
-					EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIAddSellBill.23"), SWT.ICON_WARNING); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getShell(), Messages.getString("BillUIAddSellBill.23"), SWT.ICON_WARNING); //$NON-NLS-1$
 				}
-			 
-			 	//msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
+				//msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
 				//msg.open();
 				//msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
 				int answer = SWT.NO;//msg2.open();
 				if (answer == SWT.YES)
 				{
 					boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
-					argMap=new HashMap();
-					argMap.put(BillKeys.BILL,bill);
-					argMap.put(BillKeys.BILL_BALANCE,new Boolean(ans));
-					EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"printBill",argMap);
+					argMap = new HashMap();
+					argMap.put(BillKeys.BILL, bill);
+					argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));
+					EngTXCommon.doSingleTX(EngBLUtils.class.getName(), "printBill", argMap);
 				}
 				newForm();
 			}
@@ -1085,8 +1080,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		BigDecimal discountTotal = new BigDecimal(0);
 		for (int i = 0; i < items.length; i++)
 		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) ((InvUITransactionTableRow) (items[i].getData()))
-					.getDBObject();
+			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) ((InvUITransactionTableRow) (items[i].getData())).getDBObject();
 			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
 			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
 			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
@@ -1099,6 +1093,4 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		decSpecialVat.setText(totalSpecVAT);
 		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
 	}
-
-	
 }
