@@ -995,15 +995,18 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
-		int k = 0;
 		try
 		{
 			if (verifyFields())
 			{
 				// sell bill
 				int type = BILL_TYPE;
+				
+				TurqBill bill = new TurqBill();
+				
 				HashMap argMap = new HashMap();
-				TurqBill bill = null;
+				
+				argMap.put(BillKeys.BILL, bill);
 				argMap.put(BillKeys.BILL_DEFINITION, txtDefinition.getText().trim());
 				argMap.put(BillKeys.BILL_IS_PRINTED, new Boolean(false));
 				argMap.put(BillKeys.BILL_DATE, dateConsignmentDate.getDate());
@@ -1016,21 +1019,17 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS, getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS, getInventoryTransactions());
-				Integer result = new Integer(0);
-				for (k = 0; k < 1000; k++)
-				{
-					bill = new TurqBill();
-					argMap.put(BillKeys.BILL, bill);
-					result = (Integer) EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(), "saveBillFromBill", argMap);
-				}
+									
+				Integer result = (Integer) EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(), "saveBillFromBill", argMap);
+
 				if (result.intValue() != 1)
 				{
 					EngUICommon.showMessageBox(getShell(), Messages.getString("BillUIAddSellBill.23"), SWT.ICON_WARNING); //$NON-NLS-1$
 				}
-				//msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
-				//msg.open();
-				//msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
-				int answer = SWT.NO;//msg2.open();
+				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
+				msg.open();
+				msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
+				int answer = msg2.open();
 				if (answer == SWT.YES)
 				{
 					boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
@@ -1047,10 +1046,6 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
-		}
-		finally
-		{
-			System.out.println(k);
 		}
 	}
 
