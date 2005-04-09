@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="CashCardAbstract" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
@@ -41,7 +41,7 @@
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalCredit" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$V{totalCredit}]]></variableExpression>
+		<variableExpression><![CDATA[$F{credit_amount}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<group name="design">
@@ -191,7 +191,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kart Adı : ]]></text>
+				<text><![CDATA[Kart Adı :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="52" y="7" width="207" height="14"/>
@@ -217,7 +217,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EKSTRE TOPLAMI : ]]></text>
+				<text><![CDATA[EKSTRE TOPLAMI :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="341" y="3" width="111" height="13"/>
@@ -246,7 +246,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[GENEL TOPLAM : ]]></text>
+				<text><![CDATA[GENEL TOPLAM :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="341" y="20" width="111" height="13"/>
