@@ -98,7 +98,7 @@ public class EngBLVersionValidate
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
 		try{
-		String query="INSERT INTO TURQ_CURRENT_TRANSACTION_TYPES VALUES((8,'Virman','admin','2004-10-18','admin','2004-10-18')";
+		String query="INSERT INTO TURQ_CURRENT_TRANSACTION_TYPES VALUES(8,'Virman','admin','2004-10-18','admin','2004-10-18')";
 		stmt.execute(query);
 		}
 		catch(Exception ex)
