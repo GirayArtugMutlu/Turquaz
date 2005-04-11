@@ -1,14 +1,21 @@
 package com.turquaz.cash.bl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.engine.dal.TurqCashTransactionType;
+import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.dal.TurqModule;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -53,6 +60,60 @@ public class CashBLCashCardAdd
 			cashCard.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			EngDALCommon.saveObject(cashCard);
 			
+			saveInitialTransaction(cashCard);
+			
 	
+	}
+	public static void saveInitialTransaction(TurqCashCard cashCard)throws Exception
+	{
+		TurqEngineSequence seq;
+		TurqModule module = new TurqModule();
+		module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+		seq = new TurqEngineSequence();
+		seq.setTurqModule(module);
+		EngDALCommon.saveObject(seq);
+		TurqCashTransactionType transType = new TurqCashTransactionType();
+		transType.setId(new Integer(EngBLCommon.CASH_INITIAL_TRANSACTION));
+		
+		TurqCashTransaction cashTrans = new TurqCashTransaction();
+		
+		cashTrans.setTurqEngineSequence(seq);
+		Calendar cal = Calendar.getInstance();
+		cal.set(cal.get(Calendar.YEAR), 0, 1);
+		
+		cashTrans.setTransactionDate(cal.getTime());
+		cashTrans.setTransactionDefinition("Aç?l?? Hareketi");
+		cashTrans.setDocumentNo(""); //$NON-NLS-1$
+		cashTrans.setTurqCashTransactionType(transType);
+		cashTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		cashTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		cashTrans.setLastModified(Calendar.getInstance().getTime());
+		cashTrans.setCreationDate(Calendar.getInstance().getTime());
+		/*
+		 * Transaction Rows
+		 */
+		TurqCashTransactionRow transRow = new TurqCashTransactionRow();
+		transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		transRow.setLastModified(Calendar.getInstance().getTime());
+		transRow.setCreationDate(Calendar.getInstance().getTime());
+		transRow.setTurqCashCard(cashCard);
+		transRow.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+		transRow.setDeptAmount(new BigDecimal(0));
+		transRow.setCreditAmount(new BigDecimal(0));
+		transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
+		transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+		transRow.setTurqAccountingAccount(cashCard.getTurqAccountingAccount());
+		/**
+		 * Save transaction bill
+		 */
+		EngDALCommon.saveObject(cashTrans);
+		/**
+		 * Save transaction row
+		 */
+		transRow.setTurqCashTransaction(cashTrans);
+		EngDALCommon.saveObject(transRow);
+		
+		
 	}
 }

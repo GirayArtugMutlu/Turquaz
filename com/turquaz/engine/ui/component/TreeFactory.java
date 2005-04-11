@@ -68,6 +68,7 @@ import com.turquaz.cash.ui.CashUICashOtherPaymentTransaction;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.cash.ui.CashUICashTransferBetweenCards;
+import com.turquaz.cash.ui.CashUIInitialTransactions;
 import com.turquaz.cheque.ui.CheUIChequeCollect;
 import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
 import com.turquaz.cheque.ui.CheUIChequeInPayroll;
@@ -440,7 +441,7 @@ public final class TreeFactory
 		if (EngBLPermissions.getPermission(CurUICurrentTransfer.class.getName()) > 0)
 		{
 			item = new TreeItem(transactionsRoot, SWT.NULL);
-			item.setText("CariVirman");  
+			item.setText(Messages.getString("TreeFactory.109"));   //$NON-NLS-1$
 			item.setData(CurUICurrentTransfer.class.getName());
 		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);
@@ -682,6 +683,12 @@ public final class TreeFactory
 			item = new TreeItem(transRoot, SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.106")); //$NON-NLS-1$
 			item.setData(CashUICashTransferBetweenCards.class.getName());
+		}
+		if (EngBLPermissions.getPermission(CashUIInitialTransactions.class.getName()) > 0)
+		{
+			item = new TreeItem(transRoot, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.110") ); //$NON-NLS-1$
+			item.setData(CashUIInitialTransactions.class.getName());
 		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);
 		searchRoot.setText(Messages.getString("TreeFactory.94")); //$NON-NLS-1$

@@ -142,12 +142,17 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 			TurqBanksTransaction bankTrans = (TurqBanksTransaction) it.next();
 			compTransfer.getComboCurrencyType().setText(
 					bankTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
-			compTransfer.getCurAmount().setText(bankTrans.getCreditAmountInForeignCurrency());
-			compTransfer.getBankCardPickerWithDept().setText(bankTrans.getTurqBanksCard().getBankCode());
-			if (bankTrans.getCreditAmountInForeignCurrency().compareTo(bankTrans.getDeptAmountInForeignCurrency()) < 1)
+			
+			if (bankTrans.getDeptAmountInForeignCurrency().doubleValue()>0)
 			{
 				compTransfer.getBankCardPickerWithCredit().setText(bankTrans.getTurqBanksCard().getBankCode());
 				compTransfer.getCurAmount().setText(bankTrans.getDeptAmountInForeignCurrency());
+			}
+			else
+			{
+				compTransfer.getCurAmount().setText(bankTrans.getCreditAmountInForeignCurrency());
+				compTransfer.getBankCardPickerWithDept().setText(bankTrans.getTurqBanksCard().getBankCode());
+			
 			}
 		}
 	}

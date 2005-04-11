@@ -18,6 +18,7 @@ package com.turquaz.cash.dal;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -230,4 +231,36 @@ public class CashDALCashCard
 			throw ex;
 		}
 	}
+	public static List getInitialTransactions()throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		String query = "Select transRow from TurqCashTransactionRow as transRow where" +
+				" transRow.turqCashTransaction.turqCashTransactionType.id ="+EngBLCommon.CASH_INITIAL_TRANSACTION;
+		Query q = session.createQuery(query);
+		List ls = q.list();
+		return ls;		
+	}
+	public static boolean checkInitialTransaction( TurqCashCard cashCard) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "select cashTrans.id from TurqCashTransactionRow as cashTrans "
+					+ " where cashTrans.turqCashCard = :cashCard and cashTrans.turqCashTransaction.turqCashTransactionType.id="
+					+ EngBLCommon.CASH_INITIAL_TRANSACTION;
+			Query q = session.createQuery(query);
+			q.setParameter("cashCard", cashCard);
+			List ls = q.list();
+			if (ls.size() == 0)
+			{
+				return false;
+			}
+			return true;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
 }

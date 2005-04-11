@@ -315,10 +315,10 @@ public class CashBLCashTransactionUpdate
 			if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_COLLECT)
 			{
 				prepareAccountingMaps(account, cashAccount, totalAmount, creditAccounts, deptAccounts);
-				cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
-				cashTransRow.setDeptAmount(new BigDecimal(0));
-				cashTransRow.setCreditAmountInForeignCurrency(totalAmount);
-				cashTransRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
+				cashTransRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+				cashTransRow.setCreditAmount(new BigDecimal(0));
+				cashTransRow.setDeptAmountInForeignCurrency(totalAmount);
+				cashTransRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
 						EngBLCommon.ROUNDING_METHOD));
 				accTransType = EngBLCommon.ACCOUNTING_TRANS_COLLECT;
 				currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
@@ -326,11 +326,11 @@ public class CashBLCashTransactionUpdate
 			else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
 			{
 				prepareAccountingMaps(cashAccount, account, totalAmount, creditAccounts, deptAccounts);
-				cashTransRow.setDeptAmountInForeignCurrency(totalAmount);
-				cashTransRow.setDeptAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
+				cashTransRow.setCreditAmountInForeignCurrency(totalAmount);
+				cashTransRow.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
 						EngBLCommon.ROUNDING_METHOD));
-				cashTransRow.setCreditAmount(new BigDecimal(0));
-				cashTransRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
+				cashTransRow.setDeptAmount(new BigDecimal(0));
+				cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
 				accTransType = EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
 				currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
 			}

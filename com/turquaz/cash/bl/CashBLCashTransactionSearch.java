@@ -69,6 +69,11 @@ public class CashBLCashTransactionSearch
 			return CashDALCashCard.getTransactions(cashCard, startDate, endDate);
 	
 	}
+	public static List getInitialTransactions()throws Exception 
+	{
+		return CashDALCashCard.getInitialTransactions();
+		
+	}
 
 	// Devreden
 	public static List getDeferredTotal(HashMap argMap) throws Exception

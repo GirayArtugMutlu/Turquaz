@@ -271,6 +271,8 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnSpecialVatAmount.setWidth(100);
 				}
 			}
+			
+			dateStartDate.setFirstDayOfYear();
 			composite1.layout();
 			dialogShell.layout();
 			EngUICommon.centreWindow(dialogShell);

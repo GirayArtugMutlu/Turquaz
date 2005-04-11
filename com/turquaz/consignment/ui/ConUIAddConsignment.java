@@ -735,7 +735,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		editors[3] = new ComboBoxCellEditor(tableConsignmentRows, new String[]{}, SWT.READ_ONLY);
 		editors[4] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[5] = new TextCellEditor(tableConsignmentRows);
-		editors[6] = new CurrencyCellEditor(tableConsignmentRows, 2);
+		editors[6] = new CurrencyCellEditor(tableConsignmentRows, 4);
 		editors[7] = new CurrencyCellEditor(tableConsignmentRows, 4);
 		editors[8] = new CurrencyCellEditor(tableConsignmentRows, 4);
 		editors[9] = new CurrencyCellEditor(tableConsignmentRows, 2);

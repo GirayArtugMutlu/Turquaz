@@ -167,8 +167,7 @@ public class BankBLTransactionAdd
 
 	public static void saveInitialBankTransaction(TurqBanksCard bankCard) throws Exception
 	{
-		try
-		{
+		
 			TurqEngineSequence seq;
 			TurqModule module = new TurqModule();
 			module.setId(new Integer(EngBLCommon.MODULE_BANKS));
@@ -212,11 +211,7 @@ public class BankBLTransactionAdd
 			 */
 			transRow.setTurqBanksTransactionBill(bankTransBill);
 			EngDALCommon.saveObject(transRow);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static void saveCashTransaction(HashMap argMap)

@@ -51,6 +51,12 @@ public class CashBLCashCardUpdate
 			cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			EngDALCommon.updateObject(cashCard);
+			
+			if(!CashDALCashCard.checkInitialTransaction(cashCard))
+			{
+				CashBLCashCardAdd.saveInitialTransaction(cashCard);
+				
+			}
 	
 	}
 

@@ -50,6 +50,7 @@ import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cash.ui.CashUIInitialTransactions;
 import com.turquaz.cheque.ui.CheUIChequeCollect;
 import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
 import com.turquaz.cheque.ui.CheUIChequeInPayroll;
@@ -363,6 +364,13 @@ public class MenuFactory
 			mit = new MenuItem(cashMenu, SWT.PUSH);
 			mit.setText(Messages.getString("MenuFactory.24")); //$NON-NLS-1$
 			mit.setData(CashUICashPaymentTransactionAdd.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(CashUIInitialTransactions.class.getName()) > 0)
+		{
+			mit = new MenuItem(cashMenu, SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.83"));  //$NON-NLS-1$
+			mit.setData(CashUIInitialTransactions.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		sps = new MenuItem(cashMenu, SWT.SEPARATOR);

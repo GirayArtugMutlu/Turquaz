@@ -80,6 +80,10 @@ public class EngBLCommon
 	public final static int CASH_TRANSFER_BETWEEN_CARDS = 4; // Virman
 	public final static int CASH_CHEQUE_COLLECT = 5; // Çek
 	// Tahsilat?
+	public final static int CASH_INITIAL_TRANSACTION = 6; //Kasa Acilis..
+	
+	
+	
 	public final static int ACCOUNTING_TRANS_COLLECT = 0; //Tahsil
 	// Fisi
 	public final static int ACCOUNTING_TRANS_PAYMENT = 1; //Tediye
