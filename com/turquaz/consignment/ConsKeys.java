@@ -23,4 +23,5 @@ public class ConsKeys
 	public static String CONS_GROUP_NAME="consGroupName";
 	public static String CONS_GROUP_DESCRIPTION="consGroupDescription";
 	public static String CONS_UPDATE_BILLS="consUpdateBills";
+	public static String CONS_DOC_NO ="consDocNo";
 }

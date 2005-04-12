@@ -32,5 +32,6 @@ public class BillKeys
 	public static String BILL_GROUP_DESCRIPTION="billGroupDescription";
 	public static String BILL_BALANCE="billBalance";
 	public static String BILL_DELETE_CONS="billDeleteCons";
+	public static String BILL_SAVE_CONS = "billSaveCons";
 	
 }

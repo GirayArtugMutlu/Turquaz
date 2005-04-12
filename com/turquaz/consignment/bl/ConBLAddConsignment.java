@@ -91,6 +91,27 @@ public class ConBLAddConsignment
 			throw ex;
 		}
 	}
+	
+	public static void saveConsignmentFromBill(String docNo,String billDocNo, String definition,Boolean isPrinted,Date consignmentDate,Integer type,TurqCurrentCard curCard, TurqCurrencyExchangeRate exRate, TurqEngineSequence engSeq)throws Exception
+	{
+		Calendar cal = Calendar.getInstance();
+		TurqConsignment consignment = new TurqConsignment();
+		consignment.setConsignmentsDate(consignmentDate);
+		consignment.setConsignmentsDefinition(definition);
+		consignment.setConsignmentsPrinted(isPrinted.booleanValue());
+		consignment.setConsignmentsType(type.intValue());
+		consignment.setTurqCurrentCard(curCard);
+		consignment.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		consignment.setLastModified(cal.getTime());
+		consignment.setCreationDate(cal.getTime());
+		consignment.setTurqEngineSequence(engSeq);
+		consignment.setConsignmentDocumentNo(docNo);
+		consignment.setTurqCurrencyExchangeRate(exRate);
+		consignment.setBillDocumentNo(billDocNo);
+		EngDALCommon.saveObject(consignment);
+		
+	}
 
 	public static void registerGroup(TurqConsignmentGroup grp, TurqConsignment cons) throws Exception
 	{

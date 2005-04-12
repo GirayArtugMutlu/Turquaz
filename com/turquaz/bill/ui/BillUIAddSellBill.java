@@ -57,6 +57,7 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -198,6 +199,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	private Composite compTotalsPanel;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private DatePicker datePickerConsDate;
+	private CLabel lblConsignemntDate;
 	private TableColumn tableColumnAmountAfterDiscount;
 	private DatePicker dateDueDate;
 	private CLabel lblDueDate;
@@ -283,7 +286,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(1403, 536);
+			this.setSize(1061, 530);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -310,7 +313,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 112;
+							compInfoPanelLData.heightHint = 147;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -392,6 +395,17 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								txtBillDocumentNoLData.heightHint = 17;
 								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
 							}
+							//START >>  lblConsignemntDate
+							lblConsignemntDate = new CLabel(compInfoPanel, SWT.NONE);
+							lblConsignemntDate.setText("\u0130rsaliye Tarihi");
+							//END <<  lblConsignemntDate
+							//START >>  datePickerConsDate
+							GridData datePickerConsDateLData = new GridData();
+							datePickerConsDateLData.heightHint = 23;
+							datePickerConsDateLData.widthHint = 157;
+							datePickerConsDate = new DatePicker(compInfoPanel, SWT.NONE);
+							datePickerConsDate.setLayoutData(datePickerConsDateLData);
+							//END <<  datePickerConsDate
 							{
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 								lblWareHouse.setText(Messages.getString("BillUIAddSellBill.13")); //$NON-NLS-1$
@@ -405,6 +419,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								GridData comboWareHouseLData = new GridData();
 								comboWareHouseLData.widthHint = 135;
 								comboWareHouseLData.heightHint = 17;
+								comboWareHouseLData.horizontalSpan = 3;
 								comboWareHouse.setLayoutData(comboWareHouseLData);
 							}
 							{
@@ -419,8 +434,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							{
 								txtDefinition = new Text(compInfoPanel, SWT.WRAP | SWT.V_SCROLL);
 								GridData txtDefinitionLData = new GridData();
-								txtDefinitionLData.widthHint = 392;
-								txtDefinitionLData.heightHint = 21;
+								txtDefinitionLData.widthHint = 393;
+								txtDefinitionLData.heightHint = 24;
 								txtDefinitionLData.horizontalSpan = 3;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
@@ -1019,6 +1034,9 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS, getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS, getInventoryTransactions());
+				argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(true));
+				argMap.put(ConsKeys.CONS_DOC_NO,txtConsignmentDocumentNo.getText());
+				argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
 									
 				Integer result = (Integer) EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(), "saveBillFromBill", argMap);
 

@@ -57,6 +57,7 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -200,6 +201,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	private Composite compTotalsPanel;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private DatePicker datePickerConsDate;
+	private CLabel lblConsDate;
 	private CCombo comboCurrencyType;
 	private CLabel lblCurrency;
 	private TableColumn tableColumnPriceAfterDiscount;
@@ -317,7 +320,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 118;
+							compInfoPanelLData.heightHint = 154;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -400,9 +403,19 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								txtBillDocumentNoLData.widthHint = 150;
 								txtBillDocumentNoLData.heightHint = 17;
 								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
-								txtConsignmentDocumentNo.setEnabled(false);
 								txtConsignmentDocumentNo.setBackground(SWTResourceManager.getColor(255,255,255));
 							}
+							//START >>  lblConsDate
+							lblConsDate = new CLabel(compInfoPanel, SWT.NONE);
+							lblConsDate.setText("\u0130rsaliye Tarihi");
+							//END <<  lblConsDate
+							//START >>  datePickerConsDate
+							GridData datePickerConsDateLData = new GridData();
+							datePickerConsDateLData.heightHint = 23;
+							datePickerConsDateLData.widthHint = 157;
+							datePickerConsDate = new DatePicker(compInfoPanel, SWT.NONE);
+							datePickerConsDate.setLayoutData(datePickerConsDateLData);
+							//END <<  datePickerConsDate
 							{
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 								lblWareHouse.setText(Messages.getString("BillUIAddBuyBill.13")); //$NON-NLS-1$
@@ -446,9 +459,10 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								txtDefinition = new Text(compInfoPanel, SWT.WRAP | SWT.V_SCROLL);
 								GridData txtDefinitionLData = new GridData();
 								txtDefinition.setTextLimit(250);
-								txtDefinitionLData.heightHint = 22;
+								txtDefinitionLData.heightHint = 31;
 								txtDefinitionLData.grabExcessHorizontalSpace = true;
-								txtDefinitionLData.horizontalAlignment = GridData.FILL;
+								txtDefinitionLData.horizontalSpan = 3;
+								txtDefinitionLData.widthHint = 391;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 						}
@@ -1103,7 +1117,9 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
-				
+				argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(true));
+				argMap.put(ConsKeys.CONS_DOC_NO,txtConsignmentDocumentNo.getText());
+				argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
 				Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
 				if(result.intValue()!=1)
 				{

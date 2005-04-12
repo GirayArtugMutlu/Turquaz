@@ -11,6 +11,8 @@ import java.util.Map;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.BillKeys;
+import com.turquaz.consignment.ConsKeys;
+import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
@@ -45,13 +47,15 @@ public class BillBLAddBill
 		Integer type=(Integer)argMap.get(EngKeys.TYPE);
 		TurqCurrentCard currentCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
 		Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
+		Date consDate = (Date)argMap.get(ConsKeys.CONS_DATE);
+		String consDocNo = (String)argMap.get(ConsKeys.CONS_DOC_NO);
 		BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);
 		String billDocNo=(String)argMap.get(BillKeys.BILL_DOC_NO);
 		BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
 		TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 		List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
-		
+		Boolean saveCons = (Boolean)argMap.get(BillKeys.BILL_SAVE_CONS);
 		
 		registerBill(bill,billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
@@ -63,6 +67,11 @@ public class BillBLAddBill
 				exchangeRate, currentCard);
 		saveCurrentTransaction(bill, totalAmount, discountAmount);
 		saveBillGroups(bill.getId(), billGroups);
+		if(consDocNo!=null&&consDate!=null&&saveCons.booleanValue())
+		{
+			ConBLAddConsignment.saveConsignmentFromBill(consDocNo,billDocNo,definition,isPrinted,consDate,type,currentCard,exchangeRate,engSeq);
+		}
+		
 		int result = saveAccountingTransaction(bill);
 		return new Integer(result);
 		
