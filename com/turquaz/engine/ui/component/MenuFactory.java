@@ -59,7 +59,8 @@ import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
 import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
-import com.turquaz.consignment.ui.ConUIAddConsignment;
+import com.turquaz.consignment.ui.ConUIAddBuyConsignment;
+import com.turquaz.consignment.ui.ConUIAddSellConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurCardCreditList;
 import com.turquaz.current.ui.CurUICurCardDeptList;
@@ -562,11 +563,18 @@ public class MenuFactory
 		mit.setText(Messages.getString("MenuFactory.48")); //$NON-NLS-1$
 		Menu despatchMenu = new Menu(mit);
 		mit.setMenu(despatchMenu);
-		if (EngBLPermissions.getPermission(ConUIAddConsignment.class.getName()) > 0)
+		if (EngBLPermissions.getPermission(ConUIAddBuyConsignment.class.getName()) > 0)
 		{
 			mit = new MenuItem(despatchMenu, SWT.PUSH);
-			mit.setText(Messages.getString("MenuFactory.49")); //$NON-NLS-1$
-			mit.setData(ConUIAddConsignment.class.getName());
+			mit.setText(Messages.getString("MenuFactory.49"));  //$NON-NLS-1$
+			mit.setData(ConUIAddBuyConsignment.class.getName());
+			mit.addSelectionListener(new MenuSelectionAdapter());
+		}
+		if (EngBLPermissions.getPermission(ConUIAddSellConsignment.class.getName()) > 0)
+		{
+			mit = new MenuItem(despatchMenu, SWT.PUSH);
+			mit.setText(Messages.getString("MenuFactory.84"));  //$NON-NLS-1$
+			mit.setData(ConUIAddSellConsignment.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		sps = new MenuItem(despatchMenu, SWT.SEPARATOR);
