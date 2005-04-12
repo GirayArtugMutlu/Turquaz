@@ -85,15 +85,9 @@ import org.eclipse.swt.SWT;
  * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
  * legally for any corporate or commercial purpose. *************************************
  */
-public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite implements SecureComposite
+public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
-	/**
-	 * @return Returns the comboConsignmentType.
-	 */
-	public CCombo getComboConsignmentType()
-	{
-		return comboConsignmentType;
-	}
+	
 
 	/**
 	 * @return Returns the compRegisterGroup.
@@ -229,8 +223,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	private CTabItem tabItemGroups;
 	private Composite compGeneral;
 	private CTabFolder cTabFolder1;
-	private CCombo comboConsignmentType;
-	private CLabel lblType;
 	private CurrencyText txtDiscountAmount;
 	private CLabel lblDiscountAmount;
 	private CurrencyText txtTotalAmount;
@@ -267,6 +259,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	private final String SPECIAL_VAT_TOTAL = Messages.getString("ConUIAddConsignment.32"); //$NON-NLS-1$
 	private final String ROW_TOTAL = Messages.getString("ConUIAddConsignment.33"); //$NON-NLS-1$
 	int last_row_index = 0;
+	int CONS_TYPE = EngBLCommon.COMMON_SELL_INT;
 	TableSpreadsheetCursor cursor;
 	// Set column names
 	private String[] columnNames = new String[]{INVENTORY_CODE, INVENTORY_NAME, TRANS_AMOUNT, UNIT, TRANS_AMOUNT_IN_BASE_UNIT, BASE_UNIT,
@@ -274,7 +267,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 			SPECIAL_VAT_TOTAL, ROW_TOTAL};
 	private List columnList = new ArrayList();
 
-	public ConUIAddConsignment(org.eclipse.swt.widgets.Composite parent, int style)
+	public ConUIAddSellConsignment(org.eclipse.swt.widgets.Composite parent, int style)
 	{
 		super(parent, style);
 		initGUI();
@@ -385,22 +378,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 						}
 						{
-							lblType = new CLabel(compInfoPanel, SWT.LEFT);
-							lblType.setText(Messages.getString("ConUIAddConsignment.6")); //$NON-NLS-1$
-							GridData lblTypeLData = new GridData();
-							lblTypeLData.widthHint = 68;
-							lblTypeLData.heightHint = 15;
-							lblType.setLayoutData(lblTypeLData);
-						}
-						{
-							comboConsignmentType = new CCombo(compInfoPanel, SWT.NONE);
-							GridData comboConsignmentTypeLData = new GridData();
-							comboConsignmentType.setText(Messages.getString("ConUIAddConsignment.7")); //$NON-NLS-1$
-							comboConsignmentTypeLData.widthHint = 135;
-							comboConsignmentTypeLData.heightHint = 17;
-							comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
-						}
-						{
 							lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 							lblWareHouse.setText(Messages.getString("ConUIAddConsignment.38")); //$NON-NLS-1$
 							GridData lblWareHouseLData = new GridData();
@@ -413,6 +390,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							GridData comboWareHouseLData = new GridData();
 							comboWareHouseLData.widthHint = 135;
 							comboWareHouseLData.heightHint = 17;
+							comboWareHouseLData.horizontalSpan = 3;
 							comboWareHouse.setLayoutData(comboWareHouseLData);
 						}
 						{
@@ -778,17 +756,14 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 			public void updateRow(ITableRow row)
 			{
 				calculateTotals();
-				int type = 0;
 				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
 				if (index == vec.size() - 1)
 				{
 					if (row.okToSave())
 					{
-						if (comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.34"))) { //$NON-NLS-1$
-							type = 1;
-						}
-						InvUITransactionTableRow row2 = new InvUITransactionTableRow(type, tableViewer);
+						
+						InvUITransactionTableRow row2 = new InvUITransactionTableRow(CONS_TYPE, tableViewer);
 						tableViewer.addRow(row2);
 					}
 				}
@@ -838,21 +813,16 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	public void postInitGui()
 	{
 		fillGroupsTable();
-		//fill combo type
-		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING);
-		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING);
+		
 		//fill WareHouse combo
 		fillComboWarehouses();
 		//Create the table viewer..
 		createTableViewer();
-		int type = 0;
-		if (comboConsignmentType.getText().equals(Messages.getString("ConUIAddConsignment.34"))) { //$NON-NLS-1$
-			type = 1;
-		}
+		
 		for (int i = 0; i < 10; i++)
 		{
 			//		enter empty table rows.
-			InvUITransactionTableRow row = new InvUITransactionTableRow(type, tableViewer);
+			InvUITransactionTableRow row = new InvUITransactionTableRow(CONS_TYPE, tableViewer);
 			tableViewer.addRow(row);
 		}
 		cTabFolder1.setSelection(0);
@@ -946,14 +916,14 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		return list;
 	}
 
-	public List getInventoryTransactions(int type)
+	public List getInventoryTransactions()
 	{
 		List invTransactions = new ArrayList();
 		TableItem items[] = tableConsignmentRows.getItems();
 		for (int i = 0; i < items.length; i++)
 		{
 			InvUITransactionTableRow row = (InvUITransactionTableRow) items[i].getData();
-			row.setTransType(type);
+		
 			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) row.getDBObject();
 			invTrans.setTurqInventoryWarehous((TurqInventoryWarehous) comboWareHouse.getData(comboWareHouse.getText()));
 			if (row.okToSave())
@@ -971,21 +941,18 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		{
 			if (verifyFields())
 			{
-				int type = EngBLCommon.COMMON_BUY_INT;
-				if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) { 
-					type=EngBLCommon.COMMON_SELL_INT;
-				}
+				
 				HashMap argMap=new HashMap();
 				
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 				argMap.put(ConsKeys.CONS_IS_PRINTED,new Boolean(false));
 				argMap.put(ConsKeys.CONS_DATE,dateConsignmentDate.getDate());
-				argMap.put(EngKeys.TYPE,new Integer(type));
+				argMap.put(EngKeys.TYPE,new Integer(CONS_TYPE));
 				argMap.put(EngKeys.CURRENT_CARD,txtCurrentCard.getData());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(ConsKeys.CONS_GROUPS,getConsignmentGroups());
-				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions(type));				
+				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
 				
 				TurqConsignment cons =(TurqConsignment)EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(),"saveConsignment",argMap);
 				msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$
@@ -1013,7 +980,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 
 	public void newForm()
 	{
-		ConUIAddConsignment curCard = new ConUIAddConsignment(this.getParent(), this.getStyle());
+		ConUIAddSellConsignment curCard = new ConUIAddSellConsignment(this.getParent(), this.getStyle());
 		CTabFolder tabfld = (CTabFolder) this.getParent();
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();

@@ -54,6 +54,7 @@ public class InvUITransactionTableRow implements ITableRow
 	public void setTransType(int transType)
 	{
 		this.transType = transType;
+		calculateFields();
 	}
 	int transType = 0;
 	Integer unit_index = new Integer(-1);

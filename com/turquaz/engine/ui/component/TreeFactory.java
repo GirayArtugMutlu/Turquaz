@@ -80,7 +80,8 @@ import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
 import com.turquaz.cheque.ui.CheUIReturnFromBankRoll;
 import com.turquaz.cheque.ui.CheUIReturnFromCurrent;
 import com.turquaz.cheque.ui.CheUIReturnFromGivenCheques;
-import com.turquaz.consignment.ui.ConUIAddConsignment;
+import com.turquaz.consignment.ui.ConUIAddBuyConsignment;
+import com.turquaz.consignment.ui.ConUIAddSellConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
 import com.turquaz.current.ui.CurUICurCardCreditList;
 import com.turquaz.current.ui.CurUICurCardDeptList;
@@ -580,11 +581,17 @@ public final class TreeFactory
 		TreeItem root = new TreeItem(tree, SWT.NULL);
 		root.setText(Messages.getString("TreeFactory.31")); //$NON-NLS-1$
 		TreeItem item;
-		if (EngBLPermissions.getPermission(ConUIAddConsignment.class.getName()) > 0)
+		if (EngBLPermissions.getPermission(ConUIAddBuyConsignment.class.getName()) > 0)
 		{
 			item = new TreeItem(root, SWT.NULL);
-			item.setText(Messages.getString("TreeFactory.30")); //$NON-NLS-1$
-			item.setData(ConUIAddConsignment.class.getName());
+			item.setText(Messages.getString("TreeFactory.30"));  //$NON-NLS-1$
+			item.setData(ConUIAddBuyConsignment.class.getName());
+		}
+		if (EngBLPermissions.getPermission(ConUIAddSellConsignment.class.getName()) > 0)
+		{
+			item = new TreeItem(root, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.120")); //$NON-NLS-1$
+			item.setData(ConUIAddSellConsignment.class.getName());
 		}
 		if (EngBLPermissions.getPermission(ConUIConsignmentSearch.class.getName()) > 0)
 		{

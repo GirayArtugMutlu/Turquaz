@@ -21,9 +21,11 @@ package com.turquaz.bill.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -59,6 +61,9 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
+import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -704,9 +709,23 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 
-				EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromCons",argMap);
+				TurqBill bill = (TurqBill)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromCons",argMap);
 				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 				msg.open();
+				
+				MessageBox msg2 = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
+				msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
+				int answer = msg2.open();
+				if (answer == SWT.YES)
+				{
+					boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
+					argMap = new HashMap();
+					argMap.put(BillKeys.BILL, bill);
+					argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));
+					EngTXCommon.doSingleTX(EngBLUtils.class.getName(), "printBill", argMap);
+				}	
+				
+				
 				newForm();
 			}
 		}
@@ -779,7 +798,14 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		  	    argMap.put(ConsKeys.CONS_ID,consId);
 		  		cons = (TurqConsignment)EngTXCommon.doSingleTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignmentById",argMap);
 				dateConsDate.setDate(cons.getConsignmentsDate());
-				Iterator it = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+				
+				Set invTransactions = cons.getTurqEngineSequence().getTurqInventoryTransactions();
+				
+				List list = new ArrayList(invTransactions);
+				
+				Collections.sort(list,new EngBLHibernateComparer());
+				
+				Iterator it = list.iterator();
 				TableItem item;
 				TurqInventoryTransaction invTrans;
 				
@@ -790,7 +816,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 					 */
 					invTrans = (TurqInventoryTransaction) it.next();
 					BigDecimal amount = invTrans.getAmountIn();
-					if (amount.doubleValue()<=0)
+					if (amount.doubleValue()==0)
 					{
 						amount = invTrans.getAmountOut();
 					}

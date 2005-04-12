@@ -144,13 +144,18 @@ public class AccDALTransactionSearch
 	{
 		try
 		{
+			
 			Session session = EngDALSessionFactory.getSession();
 			String query = "select accTrans.id," + " accTrans.transactionsDate," + "accTrans.transactionDocumentNo,"
 					+ "accTrans.turqAccountingTransactionType.typesName," + "accTrans.transactionDescription, "
-					+ "sum(transRow.creditAmount)," + "accTrans.turqModule.moduleDescription "
-					+ "from TurqAccountingTransaction as accTrans"
-					+ " left join accTrans.turqAccountingTransactionColumns as transRow where accTrans.transactionDocumentNo like '"
-					+ docNo + "%' ";
+					+ "accView.totalcreditamount," + "accTrans.turqModule.moduleDescription "
+					+ "from TurqAccountingTransaction as accTrans, TurqViewAccTransTotalAmount as accView "
+					+ " where accTrans.id = accView.accountingTransactionsId" ;
+			if(!docNo.trim().equals(""))
+			{
+				query += " and accTrans.transactionDocumentNo like '"+ docNo + "%' ";
+			}
+					
 			if (startDate != null)
 			{
 				query += " and accTrans.transactionsDate >= :startDate";
@@ -173,7 +178,6 @@ public class AccDALTransactionSearch
 				query += " or accTrans.turqAccountingTransactionType.id =" + EngBLCommon.ACCOUNTING_TRANS_PAYMENT;
 			}
 			query += " )";
-			query += " group by  accTrans.id, accTrans.transactionsDate,accTrans.transactionDocumentNo,accTrans.turqAccountingTransactionType.typesName,accTrans.transactionDescription,accTrans.turqModule.moduleDescription";
 			query += " order by accTrans.transactionsDate";
 			Query q = session.createQuery(query);
 			if (startDate != null)
