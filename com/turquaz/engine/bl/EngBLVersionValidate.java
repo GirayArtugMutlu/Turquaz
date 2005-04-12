@@ -136,4 +136,45 @@ public class EngBLVersionValidate
 			EngDALCommon.updateObject(setting);
 	
 	}
+	public static void HSQLDBupdateVersion072(TurqSetting setting)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		Statement stmt = session.connection().createStatement();
+		try{
+		String query="INSERT INTO turq_cash_transaction_types VALUES (6, 'Acilis', 'admin', '2004-12-12', 'admin', '2004-12-12');"+
+					 "INSERT INTO turq_module_components VALUES (93, 8, 'com.turquaz.cash.ui.CashUIInitialTransactions', 'Kasa Acilis', 'cem', '2005-02-28', 'cem', '2005-02-28');"+
+					 "INSERT INTO turq_module_components VALUES (94, 6, 'com.turquaz.consignment.ui.ConUIAddBuyConsignment', 'Alis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+					 "INSERT INTO turq_module_components VALUES (95, 6, 'com.turquaz.consignment.ui.ConUIAddSellConsignment', 'Satis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+		stmt.execute(query);
+		}
+		catch(Exception ex)
+		{
+			
+		}
+		
+		setting.setDatabaseVersion("0.7.3");
+		EngDALCommon.updateObject(setting);	
+	
+	}
+	
+	public static void PGupdateVersion072(TurqSetting setting)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		Statement stmt = session.connection().createStatement();
+		try{
+		String query="INSERT INTO turq_cash_transaction_types VALUES (6, 'Acilis', 'admin', '2004-12-12', 'admin', '2004-12-12');"+
+					 "INSERT INTO turq_module_components VALUES (93, 8, 'com.turquaz.cash.ui.CashUIInitialTransactions', 'Kasa Acilis', 'cem', '2005-02-28', 'cem', '2005-02-28');"+
+					 "INSERT INTO turq_module_components VALUES (94, 6, 'com.turquaz.consignment.ui.ConUIAddBuyConsignment', 'Alis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+					 "INSERT INTO turq_module_components VALUES (95, 6, 'com.turquaz.consignment.ui.ConUIAddSellConsignment', 'Satis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+		stmt.execute(query);
+		}
+		catch(Exception ex)
+		{
+			
+		}
+		
+		setting.setDatabaseVersion("0.7.3");
+		EngDALCommon.updateObject(setting);	
+	
+	}
 }
