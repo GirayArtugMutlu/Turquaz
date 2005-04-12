@@ -73,6 +73,30 @@ public class EngConfiguration
 			ex.printStackTrace();
 		}
 	}
+	public static boolean automaticDispatcNote(){
+		
+		if (_instance == null)
+		{
+			_instance = new EngConfiguration();
+		}
+		
+		String ADN = _instance.findString("automatic.dispatch.note");
+		
+		if(ADN == null)
+		{
+			return true;
+		}
+		
+		if(ADN.trim().equals("true"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
 
 	public static String getString(String key)
 	{

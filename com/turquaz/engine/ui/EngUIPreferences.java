@@ -37,6 +37,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 	private CCombo cCombo;
 	private Button btnCurrentCards;
 	private Button btnUpdateCashTrans;
+	private Button btnAutomaticDispatcNote;
 	private Button btnFillBillInEngineSeq;
 	private Button btnJiraBugReport;
 	private Button btnExportInvAccounts;
@@ -82,6 +83,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 						{
 							EngConfiguration.setCurrentDate(datePicker.getDate());
 							EngConfiguration.setString("invoice_template", cCombo.getText().trim()); //$NON-NLS-1$
+							EngConfiguration.setString("automatic.dispatch.note",btnAutomaticDispatcNote.getSelection()+"");
 							dialogShell.close();
 						}
 					});
@@ -135,6 +137,14 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 					cComboLData.heightHint = 17;
 					cCombo.setLayoutData(cComboLData);
 				}
+				//START >>  btnAutomaticDispatcNote
+				btnAutomaticDispatcNote = new Button(composite1, SWT.CHECK | SWT.LEFT);
+				GridData btnAutomaticDispatcNoteLData = new GridData();
+				btnAutomaticDispatcNoteLData.horizontalSpan = 2;
+				btnAutomaticDispatcNote.setLayoutData(btnAutomaticDispatcNoteLData);
+				btnAutomaticDispatcNote.setText("Fatura kaydedildi\u011finde Otamatik \u0130rsaliye kesilsin mi?");
+				btnAutomaticDispatcNote.setSelection(true);
+				//END <<  btnAutomaticDispatcNote
 				//START >> btnUpdateBills
 				btnUpdateBills = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnUpdateBills.setText(Messages.getString("EngUIPreferences.3")); //$NON-NLS-1$
@@ -174,6 +184,9 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				//START >> btnExportBankCards
 				btnExportBankCards = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnExportBankCards.setText("Banka Muhasebe Hesaplarini Aktar");
+				GridData btnExportBankCardsLData = new GridData();
+				btnExportBankCardsLData.horizontalSpan = 2;
+				btnExportBankCards.setLayoutData(btnExportBankCardsLData);
 				btnExportBankCards.setVisible(false);
 				btnExportBankCards.addMouseListener(new MouseAdapter()
 				{
@@ -195,6 +208,9 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				//START >> btnUpdateCashTrans
 				btnUpdateCashTrans = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnUpdateCashTrans.setText("Kasa Hareketlerini Güncelle");
+				GridData btnUpdateCashTransLData = new GridData();
+				btnUpdateCashTransLData.horizontalSpan = 2;
+				btnUpdateCashTrans.setLayoutData(btnUpdateCashTransLData);
 				btnUpdateCashTrans.setVisible(false);
 				btnUpdateCashTrans.addMouseListener(new MouseAdapter()
 				{
@@ -244,7 +260,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				//START >> btnFillBillInEngineSeq
 				btnFillBillInEngineSeq = new Button(composite1, SWT.PUSH | SWT.CENTER);
 				btnFillBillInEngineSeq.setText("Fill Bill In EngineSeq");
-				btnFillBillInEngineSeq.setVisible(true);
+				btnFillBillInEngineSeq.setVisible(false);
 				btnFillBillInEngineSeq.addMouseListener(new MouseAdapter()
 				{
 					public void mouseUp(MouseEvent evt)
@@ -254,7 +270,8 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				});
 				//END << btnFillBillInEngineSeq
 			}
-			fillBillTypeCombo();
+		
+			postInitGUI();
 			EngUICommon.centreWindow(dialogShell);
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -268,6 +285,11 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		{
 			e.printStackTrace();
 		}
+	}
+	public void postInitGUI(){
+		fillBillTypeCombo();
+		btnAutomaticDispatcNote.setSelection(EngConfiguration.automaticDispatcNote());
+		
 	}
 
 	public void fillBillTypeCombo()
