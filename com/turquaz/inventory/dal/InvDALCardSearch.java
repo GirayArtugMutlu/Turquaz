@@ -21,7 +21,9 @@ package com.turquaz.inventory.dal;
  */
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
@@ -147,6 +149,418 @@ public class InvDALCardSearch
 			}
 			q.setMaxResults(1000);
 			List list = q.list();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public static List getTransactionTotalReport(String cardCodeStart, String cardCodeEnd, String cardNameStart, String cardNameEnd,
+			Date startDate, Date endDate, String curCardStart, String curCardEnd,
+			TurqInventoryGroup invMainGroup, TurqInventoryGroup invSubGroup) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
+			String query="SELECT invCard.id, invCard.card_inventory_code, invCard.card_name, transin.totalamountin, transin.totalpricein, transout.totalamountout," +
+					" transout.totalpriceout, transoverin.totalamountin, transoverin.totalpricein," +
+					" transoverout.totalamountout, transoverout.totalpriceout";
+			if (invMainGroup != null)
+			{
+				query += ", gr2.id, gr2.groups_name ";
+			}
+			query +=	" FROM ";
+			if (invMainGroup != null)
+			{
+				query +=" turq_inventory_groups gr2, turq_inventory_card_groups cardgr2," +
+						" turq_inventory_cards invCard";
+			}
+			else
+			{
+				query += " turq_inventory_cards invCard";
+			}
+					
+			query+= " LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id," +
+					" sum(turq_inventory_transactions.total_price) AS totalpricein, " +
+					" sum(turq_inventory_transactions.amount_in) AS totalamountin FROM turq_inventory_transactions," +
+					" turq_inventory_cards invc, turq_current_cards curCard";
+			if (invMainGroup != null)
+			{
+				query +=" ,turq_inventory_groups gr, turq_inventory_card_groups cardgr";
+			}
+			query +=" WHERE turq_inventory_transactions.amount_in <> 0::numeric " +
+			        " AND turq_inventory_transactions.transaction_type = 1" +
+			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
+			        " and turq_inventory_transactions.current_cards_id=curCard.id" +
+					" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
+					" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
+			
+			if (invMainGroup != null)
+			{
+				query +=" and gr.id=cardgr.inventory_groups_id and invc.id=cardgr.inventory_cards_id";
+				if (invSubGroup != null)
+				{
+					query += " and gr.id="+invSubGroup.getId().intValue();
+				}
+				else
+				{
+					query += " and gr.parent_group="+invMainGroup.getId().intValue();
+				}
+			}
+			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
+			{
+				query+=" AND invc.card_inventory_code >= '"+cardCodeStart+"'";
+				query+=" AND invc.card_inventory_code <= '"+cardCodeEnd+"'";
+			}
+			else if (!cardCodeStart.equals(""))
+			{
+				query+=" AND invc.card_inventory_code like '"+cardCodeStart+"%'";
+			}
+			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
+			{
+				query+=" AND invc.card_name >= '"+cardNameStart+"'";
+				query+=" AND invc.card_name <= '"+cardNameEnd+"'";
+			}
+			else if (!cardNameStart.equals(""))
+			{
+				query+=" AND invc.card_name like '"+cardNameStart+"%'";
+			}
+			if (!curCardStart.equals("") && !curCardEnd.equals(""))
+			{
+				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
+				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+			}
+			else if (!curCardStart.equals(""))
+			{
+				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+			}
+			        
+			query+=	" GROUP BY turq_inventory_transactions.inventory_cards_id) transin ON"+
+			        " invCard.id = transin.inventory_cards_id"+
+					
+					" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id," +
+					" sum(turq_inventory_transactions.total_price) AS totalpriceout," +
+					" sum(turq_inventory_transactions.amount_out) AS totalamountout FROM turq_inventory_transactions,"+
+					" turq_inventory_cards invc, turq_current_cards curCard";
+			if (invMainGroup != null)
+			{
+				query +=" ,turq_inventory_groups gr, turq_inventory_card_groups cardgr";
+			}	
+			query+= " WHERE turq_inventory_transactions.transaction_type = 1 " +
+			        " AND turq_inventory_transactions.amount_out <> 0::numeric"+
+			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
+			        " and turq_inventory_transactions.current_cards_id=curCard.id" +
+					" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
+					" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
+			
+			if (invMainGroup != null)
+			{
+				query +=" and gr.id=cardgr.inventory_groups_id and invc.id=cardgr.inventory_cards_id";
+				if (invSubGroup != null)
+				{
+					query += " and gr.id="+invSubGroup.getId().intValue();
+				}
+				else
+				{
+					query += " and gr.parent_group="+invMainGroup.getId().intValue();
+				}
+			}
+			
+			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
+			{
+				query+=" AND invc.card_inventory_code >= '"+cardCodeStart+"'";
+				query+=" AND invc.card_inventory_code <= '"+cardCodeEnd+"'";
+			}
+			else if (!cardCodeStart.equals(""))
+			{
+				query+=" AND invc.card_inventory_code like '"+cardCodeStart+"%'";
+			}
+			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
+			{
+				query+=" AND invc.card_name >= '"+cardNameStart+"'";
+				query+=" AND invc.card_name <= '"+cardNameEnd+"'";
+			}
+			else if (!cardNameStart.equals(""))
+			{
+				query+=" AND invc.card_name like '"+cardNameStart+"%'";
+			}
+			if (!curCardStart.equals("") && !curCardEnd.equals(""))
+			{
+				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
+				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+			}
+			else if (!curCardStart.equals(""))
+			{
+				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+			}
+			query+= " GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON" +
+			        " invCard.id = transout.inventory_cards_id"+
+					
+					" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, " +
+					" sum(turq_inventory_transactions.total_price) AS totalpricein, " +
+					" sum(turq_inventory_transactions.amount_in) AS totalamountin FROM turq_inventory_transactions,"+
+					" turq_inventory_cards invc, turq_current_cards curCard";
+			if (invMainGroup != null)
+			{
+				query +=" ,turq_inventory_groups gr, turq_inventory_card_groups cardgr";
+			}
+			query+= " WHERE turq_inventory_transactions.amount_in <> 0::numeric " +
+			        " AND turq_inventory_transactions.transaction_type = 0"+
+			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
+			        " and turq_inventory_transactions.current_cards_id=curCard.id";
+					//" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
+					//" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'"
+			
+			if (invMainGroup != null)
+			{
+				query +=" and gr.id=cardgr.inventory_groups_id and invc.id=cardgr.inventory_cards_id";
+				if (invSubGroup != null)
+				{
+					query += " and gr.id="+invSubGroup.getId().intValue();
+				}
+				else
+				{
+					query += " and gr.parent_group="+invMainGroup.getId().intValue();
+				}
+			}
+			
+			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
+			{
+				query+=" AND invc.card_inventory_code >= '"+cardCodeStart+"'";
+				query+=" AND invc.card_inventory_code <= '"+cardCodeEnd+"'";
+			}
+			else if (!cardCodeStart.equals(""))
+			{
+				query+=" AND invc.card_inventory_code like '"+cardCodeStart+"%'";
+			}
+			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
+			{
+				query+=" AND invc.card_name >= '"+cardNameStart+"'";
+				query+=" AND invc.card_name <= '"+cardNameEnd+"'";
+			}
+			else if (!cardNameStart.equals(""))
+			{
+				query+=" AND invc.card_name like '"+cardNameStart+"%'";
+			}
+			if (!curCardStart.equals("") && !curCardEnd.equals(""))
+			{
+				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
+				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+			}
+			else if (!curCardStart.equals(""))
+			{
+				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+			}
+			query+= " GROUP BY turq_inventory_transactions.inventory_cards_id) transoverin ON " +
+			        " invCard.id = transoverin.inventory_cards_id"+
+					
+					" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, " +
+					" sum(turq_inventory_transactions.total_price) AS totalpriceout, " +
+					" sum(turq_inventory_transactions.amount_out) AS totalamountout FROM turq_inventory_transactions,"+
+					" turq_inventory_cards invc, turq_current_cards curCard";
+			if (invMainGroup != null)
+			{
+				query +=" ,turq_inventory_groups gr, turq_inventory_card_groups cardgr";
+			}
+			query+= " WHERE turq_inventory_transactions.transaction_type = 0 " +
+			        " AND turq_inventory_transactions.amount_out <> 0::numeric"+
+			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
+			        " and turq_inventory_transactions.current_cards_id=curCard.id";
+					//" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
+					//" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
+			
+			if (invMainGroup != null)
+			{
+				query +=" and gr.id=cardgr.inventory_groups_id and invc.id=cardgr.inventory_cards_id";
+				if (invSubGroup != null)
+				{
+					query += " and gr.id="+invSubGroup.getId().intValue();
+				}
+				else
+				{
+					query += " and gr.parent_group="+invMainGroup.getId().intValue();
+				}
+			}
+			
+			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
+			{
+				query+=" AND invc.card_inventory_code >= '"+cardCodeStart+"'";
+				query+=" AND invc.card_inventory_code <= '"+cardCodeEnd+"'";
+			}
+			else if (!cardCodeStart.equals(""))
+			{
+				query+=" AND invc.card_inventory_code like '"+cardCodeStart+"%'";
+			}
+			
+			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
+			{
+				query+=" AND invc.card_name >= '"+cardNameStart+"'";
+				query+=" AND invc.card_name <= '"+cardNameEnd+"'";
+			}
+			else if (!cardNameStart.equals(""))
+			{
+				query+=" AND invc.card_name like '"+cardNameStart+"%'";
+			}
+			
+			if (!curCardStart.equals("") && !curCardEnd.equals(""))
+			{
+				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
+				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+			}
+			else if (!curCardStart.equals(""))
+			{
+				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+			}
+			query+= " GROUP BY turq_inventory_transactions.inventory_cards_id) transoverout ON" +
+			        " invCard.id = transoverout.inventory_cards_id";
+			
+			boolean whereAdded=false;
+			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
+			{
+				query+=" where invCard.card_inventory_code >= '"+cardCodeStart+"'";
+				query+=" AND invCard.card_inventory_code <= '"+cardCodeEnd+"'";
+				whereAdded=true;
+			}
+			else if (!cardCodeStart.equals(""))
+			{
+				if (whereAdded)
+				{
+					query+=" AND invCard.card_inventory_code like '"+cardCodeStart+"%'";
+				}
+				else
+				{
+					query+=" where invCard.card_inventory_code like '"+cardCodeStart+"%'";
+					whereAdded=true;
+				}
+			}
+			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
+			{
+				if (whereAdded)
+				{
+					query+=" AND invCard.card_name >= '"+cardNameStart+"'";
+					query+=" AND invCard.card_name <= '"+cardNameEnd+"'";
+				}
+				else
+				{
+					query+=" where invCard.card_name >= '"+cardNameStart+"'";
+					query+=" AND invCard.card_name <= '"+cardNameEnd+"'";
+					whereAdded=true;
+				}
+			}
+			else if (!cardNameStart.equals(""))
+			{
+				if (whereAdded)
+				{
+					query+=" AND invCard.card_name like '"+cardNameStart+"%'";
+				}
+				else
+				{
+					query+=" where invCard.card_name like '"+cardNameStart+"%'";
+				}
+			}
+			
+			if (invMainGroup != null)
+			{
+				if (whereAdded)
+				{
+					query +=" and gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
+				}
+				else
+				{
+					query +=" where gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
+					whereAdded=true;
+				}				
+				if (invSubGroup != null)
+				{
+					query += " and gr2.id="+invSubGroup.getId().intValue();
+				}
+				else
+				{
+					query += " and gr2.parent_group="+invMainGroup.getId().intValue();
+				}
+			}
+			if (invMainGroup != null)
+			{
+				query += " order by gr2.id";
+			}
+			else
+			{
+				query += " order by invCard.id";
+			}
+						
+			Statement stmt = session.connection().createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			List list = new ArrayList();
+			boolean addGroup=invMainGroup!=null;
+			while (rs.next())
+			{
+				Object[] result;
+				if (addGroup)
+					result = new Object[13];
+				else
+					result = new Object[11];
+				result[0] = rs.getObject(1);
+				result[1] = rs.getObject(2);
+				result[2] = rs.getObject(3);
+				result[3] = rs.getObject(4);
+				result[4] = rs.getObject(5);
+				result[5] = rs.getObject(6);
+				result[6] = rs.getObject(7);
+				result[7] = rs.getObject(8);
+				result[8] = rs.getObject(9);
+				result[9] = rs.getObject(10);
+				result[10] = rs.getObject(11);
+				if (addGroup)
+				{
+					result[11] = rs.getObject(12);
+					result[12] = rs.getObject(13);					
+				}
+				list.add(result);
+			}
+			
+			/*
+			
+			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
+			{
+				query += " and invCard.cardName >= '" + cardNameStart + "'";
+				query += " and invCard.cardName <= '" + cardNameEnd + "'";
+			}
+			else if (!cardNameStart.equals(""))
+			{
+				query += " and invCard.cardName like '" + cardNameStart + "%'";
+			}
+			else if (!cardNameEnd.equals(""))
+			{
+				query += " and invCard.cardName like '" + cardNameEnd + "%'";
+			}
+			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
+			{
+				query += " and invCard.cardInventoryCode >= '" + cardCodeStart + "'";
+				query += " and invCard.cardInventoryCode <= '" + cardCodeEnd + "'";
+			}
+			else if (!cardCodeStart.equals(""))
+			{
+				query += " and invCard.cardInventoryCode like '" + cardCodeStart + "%'";
+			}
+			else if (!cardCodeEnd.equals(""))
+			{
+				query += " and invCard.cardInventoryCode like '" + cardCodeEnd + "%'";
+			}
+			if (invSubGroup != null)
+			{
+				query += " and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqInventoryCardGroups as myGroup)";
+			}
+			query += " order by invCard.cardInventoryCode";
+			Query q = session.createQuery(query);
+			if (invSubGroup != null)
+			{
+				q.setParameter("invGroup", invSubGroup);
+			}
+			*/
+			
 			return list;
 		}
 		catch (Exception ex)

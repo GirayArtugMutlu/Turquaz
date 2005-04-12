@@ -20,6 +20,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,11 +32,11 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
-import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -46,6 +47,8 @@ import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
@@ -77,6 +80,15 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
 	private TableColumn tableColumnInvName;
+	private CurrentCodePicker txtCurCardEnd;
+	private CLabel lblCurCarEnd;
+	private CurrentCodePicker txtCurCardStart;
+	private CLabel lblCurrentCard;
+	private DatePicker dateEndDate;
+	private CLabel lblEndDate;
+	private DatePicker dateStartDate;
+	private CLabel lblStartDate;
+	private TableColumn tableColumnBalanceUnitPrice;
 	private TableColumn tableColumnUnitPriceOut;
 	private TableColumn tableColumnUnitPriceIn;
 	private TableColumn tableColumnUnitPriceTransOver;
@@ -133,7 +145,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					GridData compInvCardSearchPanelLData = new GridData();
 					compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 					compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-					compInvCardSearchPanelLData.heightHint = 82;
+					compInvCardSearchPanelLData.heightHint = 134;
 					compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 					compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 					{
@@ -196,6 +208,58 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						txtInvNameEndLData.heightHint = 17;
 						txtInvNameEnd.setLayoutData(txtInvNameEndLData);
 					}
+					//START >>  lblCurrentCard
+					lblCurrentCard = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblCurrentCard.setText(Messages.getString("InvUIInventoryTransactionReport.2"));
+					//END <<  lblCurrentCard
+					//START >>  txtCurCardStart
+					txtCurCardStart = new CurrentCodePicker(compInvCardSearchPanel, SWT.NONE);
+					GridData txtCurCardLData = new GridData();
+					txtCurCardLData.widthHint = 157;
+					txtCurCardLData.heightHint = 17;
+					txtCurCardStart.setLayoutData(txtCurCardLData);
+					//END <<  txtCurCardStart
+					//START >>  lblCurCarEnd
+					lblCurCarEnd = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblCurCarEnd.setText(Messages.getString("InvUIInventoryTransactionReport.3"));
+					//END <<  lblCurCarEnd
+					//START >>  txtCurCardEnd
+					txtCurCardEnd = new CurrentCodePicker(compInvCardSearchPanel, SWT.NONE);
+					GridData txtCurCardEndLData = new GridData();
+					txtCurCardEndLData.widthHint = 157;
+					txtCurCardEndLData.heightHint = 17;
+					txtCurCardEnd.setLayoutData(txtCurCardEndLData);
+					//END <<  txtCurCardEnd
+					//START >>  lblStartDate
+					lblStartDate = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblStartDate.setText(Messages.getString("InvUIInventoryTransactionReport.4"));
+					GridData lblStartDateLData = new GridData();
+					lblStartDateLData.widthHint = 109;
+					lblStartDateLData.heightHint = 17;
+					lblStartDate.setLayoutData(lblStartDateLData);
+					//END <<  lblStartDate
+					//START >>  dateStartDate
+					dateStartDate = new DatePicker(compInvCardSearchPanel, SWT.NONE);
+					GridData dateStartDateLData = new GridData();
+					dateStartDateLData.widthHint = 157;
+					dateStartDateLData.heightHint = 23;
+					dateStartDate.setLayoutData(dateStartDateLData);
+					//END <<  dateStartDate
+					//START >>  lblEndDate
+					lblEndDate = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblEndDate.setText(Messages.getString("InvUIInventoryTransactionReport.5"));
+					GridData lblEndDateLData = new GridData();
+					lblEndDateLData.widthHint = 105;
+					lblEndDateLData.heightHint = 19;
+					lblEndDate.setLayoutData(lblEndDateLData);
+					//END <<  lblEndDate
+					//START >>  dateEndDate
+					dateEndDate = new DatePicker(compInvCardSearchPanel, SWT.NONE);
+					GridData dateEndDateLData = new GridData();
+					dateEndDateLData.widthHint = 157;
+					dateEndDateLData.heightHint = 23;
+					dateEndDate.setLayoutData(dateEndDateLData);
+					//END <<  dateEndDate
 					//START >> lblInvGroup
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					lblInvGroup.setText(Messages.getString("InvUITransactionsTotalReport.2")); //$NON-NLS-1$
@@ -234,7 +298,6 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					tableSearcResults = new Table(compInvCardSearch, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 					tableSearcResults.setHeaderVisible(true);
 					tableSearcResults.setLinesVisible(true);
-					tableSearcResults.setSize(new org.eclipse.swt.graphics.Point(543, 318));
 					GridData tableSearcResultsLData = new GridData();
 					tableSearcResults.addMouseListener(new MouseAdapter()
 					{
@@ -313,6 +376,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnBalanceAmountOut.setText(Messages.getString("InvUITransactionsTotalReport.9")); //$NON-NLS-1$
 						tableColumnBalanceAmountOut.setWidth(71);
 					}
+					//START >>  tableColumnBalanceUnitPrice
+					tableColumnBalanceUnitPrice = new TableColumn(tableSearcResults, SWT.NONE);
+					tableColumnBalanceUnitPrice.setText(Messages.getString("InvUITransactionsTotalReport.14")); //$NON-NLS-1$
+					tableColumnBalanceUnitPrice.setWidth(80);
+					//END <<  tableColumnBalanceUnitPrice
 				}
 			}
 			thisLayout.type = SWT.HORIZONTAL;
@@ -336,6 +404,9 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
+		Calendar cal=Calendar.getInstance();
+		cal.set(cal.get(Calendar.YEAR),0,1);
+		dateStartDate.setDate(cal.getTime());
 		fillComboGroup();
 		createTableViewer();
 	}
@@ -344,7 +415,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			List groupList = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List groupList = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null); //$NON-NLS-1$
 			comboInvMainGroup.add(""); //$NON-NLS-1$
 			for (int k = 0; k < groupList.size(); k++)
 			{
@@ -356,7 +427,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -367,7 +438,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 
 	public void createTableViewer()
 	{
-		int columnTypes[] = new int[13];
+		int columnTypes[] = new int[14];
 		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
@@ -381,7 +452,8 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		columnTypes[10] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[11] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		columnTypes[12] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes, true);
+		columnTypes[13] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer = new SearchTableViewer(tableSearcResults, columnTypes, false);
 	}
 
 	public void delete()
@@ -395,14 +467,14 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_CARD_ID,cardId);
-				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
+				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 				if (msg.open() == SWT.NO)
 					return;
 				// if the inventory card contains transactions
 				argMap=new HashMap();
 				argMap.put(InvKeys.INV_CARD,invCard);
-				Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
+				Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap); //$NON-NLS-1$
 				if (hasTX.booleanValue())
 				{
 					MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
@@ -412,7 +484,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				}
 				argMap=new HashMap();
 				argMap.put(InvKeys.INV_CARD,invCard);					
-				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
+				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap); //$NON-NLS-1$
 				msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 				msg.open();
@@ -422,7 +494,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 			msg = new MessageBox(this.getShell(), SWT.ICON_ERROR);
 			msg.setMessage(ex.getMessage());
@@ -440,87 +512,144 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		{
 			tableViewer.removeAll();
 			HashMap argMap=new HashMap();
+			TurqInventoryGroup invMainGroup=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
+			TurqInventoryGroup invSubGroup=(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText());
 			argMap.put(InvKeys.INV_CARD_CODE_START,txtInvCodeStart.getText().trim());
 			argMap.put(InvKeys.INV_CARD_CODE_END,txtInvCodeEnd.getText().trim());
 			argMap.put(InvKeys.INV_CARD_NAME_START,txtInvNameStart.getText().trim());
 			argMap.put(InvKeys.INV_CARD_NAME_END,txtInvNameEnd.getText().trim());
+			argMap.put(EngKeys.CURRENT_CARD_START, txtCurCardStart.getText().trim());
+			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getText().trim());
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			argMap.put(InvKeys.INV_MAIN_GROUP,invMainGroup);
+			argMap.put(InvKeys.INV_SUB_GROUP,invSubGroup);
 			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
-			List result =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCardsAdvanced",argMap);
+			
+			//List result =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCardsAdvanced",argMap); //$NON-NLS-1$
+			List result=(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getTransactionTotalReport",argMap);
 			int listSize = result.size();
+			int currentGroupId=-2;
+			Integer groupId=new Integer(-2);
+			String groupName="";
+			boolean giveTotal=false;
+			BigDecimal TOTAL_TRANSOVER_PRICE=new BigDecimal(0);
+			BigDecimal TOTAL_PRICE_IN=new BigDecimal(0);
+			BigDecimal TOTAL_PRICE_OUT=new BigDecimal(0);
+			BigDecimal TOTAL_BALANCE=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_TRANSOVER_PRICE=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_PRICE_IN=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_PRICE_OUT=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_BALANCE=new BigDecimal(0);
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < listSize; i++)
 			{
 				Object[] objs = (Object[]) result.get(i);
+				Integer cardId=(Integer)objs[0];
 				String invCode = objs[1].toString();
 				String invName = objs[2].toString();
-				Integer cardId = (Integer) objs[3];
-				TurqViewInventoryTotal invView = (TurqViewInventoryTotal) ((Object[]) result.get(i))[0];
-				boolean add = false;
-				if (invView.getTotalAmountIn() != null)
-					add = true;
-				else if (invView.getTotalAmountOut() != null)
-					add = true;
-				else if (invView.getTotalPriceIn() != null)
-					add = true;
-				else if (invView.getTotalPriceOut() != null)
-					add = true;
-				else if (invView.getTotalTransoverPriceIn() != null)
-					add = true;
-				else if (invView.getTotalTransoverAmountIn() != null)
-					add = true;
-				else if (invView.getTotalTransoverPriceOut() != null)
-					add = true;
-				else if (invView.getTotalTransoverAmountOut() != null)
-					add = true;
-				if (add)
+				BigDecimal totalAmountIn=((BigDecimal)objs[3]==null) ? new BigDecimal(0) : (BigDecimal)objs[3];
+				BigDecimal totalPriceIn=((BigDecimal)objs[4]==null) ? new BigDecimal(0) : (BigDecimal)objs[4];
+				BigDecimal totalAmountOut=((BigDecimal)objs[5]==null) ? new BigDecimal(0) : (BigDecimal)objs[5];
+				BigDecimal totalPriceOut=((BigDecimal)objs[6]==null) ? new BigDecimal(0) : (BigDecimal)objs[6];
+				BigDecimal totaltransOverAmountIn=((BigDecimal)objs[7]==null) ? new BigDecimal(0) : (BigDecimal)objs[7];
+				BigDecimal totaltransOverPriceIn=((BigDecimal)objs[8]==null) ? new BigDecimal(0) : (BigDecimal)objs[8];
+				BigDecimal totaltransOverAmountOut=((BigDecimal)objs[9]==null) ? new BigDecimal(0) : (BigDecimal)objs[9];
+				BigDecimal totaltransOverPriceOut=((BigDecimal)objs[10]==null) ? new BigDecimal(0) : (BigDecimal)objs[10];
+				
+				
+				if (invMainGroup != null)
 				{
-					BigDecimal totalAmountIn = (invView.getTotalAmountIn() == null) ? new BigDecimal(0) : invView.getTotalAmountIn();
-					BigDecimal totalAmountOut = (invView.getTotalAmountOut() == null) ? new BigDecimal(0) : invView
-							.getTotalAmountOut();
-					BigDecimal totalPriceIn = (invView.getTotalPriceIn() == null) ? new BigDecimal(0) : invView.getTotalPriceIn();
-					BigDecimal totalPriceOut = (invView.getTotalPriceOut() == null) ? new BigDecimal(0) : invView.getTotalPriceOut();
-					BigDecimal totaltransOverPriceIn = (invView.getTotalTransoverPriceIn() == null) ? new BigDecimal(0) : invView
-							.getTotalTransoverPriceIn();
-					BigDecimal totaltransOverAmountIn = (invView.getTotalTransoverAmountIn() == null) ? new BigDecimal(0) : invView
-							.getTotalTransoverAmountIn();
-					BigDecimal totaltransOverPriceOut = (invView.getTotalTransoverPriceOut() == null) ? new BigDecimal(0) : invView
-							.getTotalTransoverPriceOut();
-					BigDecimal totaltransOverAmountOut = (invView.getTotalTransoverAmountOut() == null) ? new BigDecimal(0) : invView
-							.getTotalTransoverAmountOut();
-					BigDecimal balanceAmount = totaltransOverAmountIn.add(totalAmountIn).subtract(totaltransOverAmountOut).subtract(
-							totalAmountOut);
-					BigDecimal balancePrice = (totalAmountIn.doubleValue() == 0) ? new BigDecimal(0) : balanceAmount
-							.multiply(totalPriceIn.divide(totalAmountIn, 2, BigDecimal.ROUND_HALF_DOWN));
-					BigDecimal unitPriceTransover = new BigDecimal(0);
-					BigDecimal unitPriceIn = new BigDecimal(0);
-					BigDecimal unitPriceOut = new BigDecimal(0);
-					if (totalAmountIn.doubleValue() != 0)
-					{
-						unitPriceIn = totalPriceIn.divide(totalAmountIn, 2, EngBLCommon.ROUNDING_METHOD);
-					}
-					if (totalAmountOut.doubleValue() != 0)
-					{
-						unitPriceOut = totalPriceOut.divide(totalAmountOut, 2, EngBLCommon.ROUNDING_METHOD);
-					}
-					BigDecimal transOverAmountNet = totaltransOverAmountIn.subtract(totaltransOverAmountOut);
-					BigDecimal transOverPriceNet = totaltransOverPriceIn.subtract(totaltransOverPriceOut);
-					if (transOverAmountNet.doubleValue() != 0)
-					{
-						unitPriceTransover = transOverPriceNet.divide(transOverAmountNet, 2, EngBLCommon.ROUNDING_METHOD);
-					}
-					TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-					tableViewer.addRow(new String[]{invCode, invName,
-							cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
-							cf.format(totaltransOverPriceIn.subtract(totaltransOverPriceOut)), cf.format(unitPriceTransover),
-							cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut),
-							cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice)},
-							cardId);
+					groupId=(Integer)objs[11];
+					groupName=(String)objs[12];
 				}
+
+				BigDecimal balanceAmount = totaltransOverAmountIn.add(totalAmountIn).subtract(totaltransOverAmountOut).subtract(
+						totalAmountOut);
+				BigDecimal balancePrice = (totalAmountIn.doubleValue() == 0) ? new BigDecimal(0) : balanceAmount
+						.multiply(totalPriceIn.divide(totalAmountIn, 2, BigDecimal.ROUND_HALF_DOWN));
+				BigDecimal unitPriceTransover = new BigDecimal(0);
+				BigDecimal unitPriceIn = new BigDecimal(0);
+				BigDecimal unitPriceOut = new BigDecimal(0);
+				if (totalAmountIn.doubleValue() != 0)
+				{
+					unitPriceIn = totalPriceIn.divide(totalAmountIn, 2, EngBLCommon.ROUNDING_METHOD);
+				}
+				if (totalAmountOut.doubleValue() != 0)
+				{
+					unitPriceOut = totalPriceOut.divide(totalAmountOut, 2, EngBLCommon.ROUNDING_METHOD);
+				}
+				BigDecimal transOverAmountNet = totaltransOverAmountIn.subtract(totaltransOverAmountOut);
+				BigDecimal transOverPriceNet = totaltransOverPriceIn.subtract(totaltransOverPriceOut);
+				if (transOverAmountNet.doubleValue() != 0)
+				{
+					unitPriceTransover = transOverPriceNet.divide(transOverAmountNet, 2, EngBLCommon.ROUNDING_METHOD);
+				}
+				BigDecimal balanceTotalPrice=totalPriceIn.add(totaltransOverPriceIn);
+				BigDecimal balanceTotalAmount=totalAmountIn.add(totaltransOverAmountIn);
+				BigDecimal balanceUnitPrice=(balanceTotalAmount.doubleValue() ==0) ? new BigDecimal(0) :
+					balanceTotalPrice.divide(balanceTotalAmount,2,EngBLCommon.ROUNDING_METHOD);
+				
+				BigDecimal transOverNetPrice=totaltransOverPriceIn.subtract(totaltransOverPriceOut);
+				
+
+				
+				if (invMainGroup != null)
+				{
+					if (currentGroupId != groupId.intValue())
+					{
+						if (giveTotal)
+						{
+							tableViewer.addRow(new String[]{"","","TOPLAM",cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
+							tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);
+						}
+						TOTAL_TRANSOVER_PRICE=new BigDecimal(0);
+						TOTAL_PRICE_IN=new BigDecimal(0);
+						TOTAL_PRICE_OUT=new BigDecimal(0);
+						TOTAL_BALANCE=new BigDecimal(0);
+						tableViewer.addRow(new String[]{groupName,"","","","","","","","","","","","",""},null);
+						giveTotal=true;
+						currentGroupId=groupId.intValue();							
+					}
+				}
+				
+				TOTAL_TRANSOVER_PRICE=TOTAL_TRANSOVER_PRICE.add(transOverNetPrice);
+				TOTAL_PRICE_IN=TOTAL_PRICE_IN.add(totalPriceIn);
+				TOTAL_PRICE_OUT=TOTAL_PRICE_OUT.add(totalPriceOut);
+				TOTAL_BALANCE=TOTAL_BALANCE.add(balancePrice);
+				
+				GENERAL_TOTAL_TRANSOVER_PRICE=GENERAL_TOTAL_TRANSOVER_PRICE.add(transOverNetPrice);
+				GENERAL_TOTAL_PRICE_IN=GENERAL_TOTAL_PRICE_IN.add(totalPriceIn);
+				GENERAL_TOTAL_PRICE_OUT=GENERAL_TOTAL_PRICE_OUT.add(totalPriceOut);
+				GENERAL_TOTAL_BALANCE=GENERAL_TOTAL_BALANCE.add(balancePrice);
+				
+				tableViewer.addRow(new String[]{invCode, invName,
+						cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
+						cf.format(transOverNetPrice), cf.format(unitPriceTransover),
+						cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut),
+						cf.format(totalPriceOut), cf.format(unitPriceOut), cf.format(balanceAmount), cf.format(balancePrice),
+						cf.format(balanceUnitPrice)},
+						cardId);
+				
+				if (invMainGroup != null)
+				{
+					if (i==listSize-1)
+					{
+						tableViewer.addRow(new String[]{"","","TOPLAM",cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
+						tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);					
+					}
+				}
+				
 			}
+			tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);
+			tableViewer.addRow(new String[]{"","","GENEL TOPLAM",cf.format(GENERAL_TOTAL_TRANSOVER_PRICE),"","",cf.format(GENERAL_TOTAL_PRICE_IN),"","",cf.format(GENERAL_TOTAL_PRICE_OUT),"","",cf.format(GENERAL_TOTAL_BALANCE),""},null);
+			
+			
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -562,17 +691,20 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			try
 			{
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
-				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_CARD_ID,cardId);
-				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
-				boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
-				if (updated)
-					search();
+				if (cardId != null)
+				{
+					HashMap argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD_ID,cardId);
+					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
+					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
+					if (updated)
+						search();
+				}
 			}
 			catch (Exception ex)
 			{
 				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
+				loger.error("Exception Caught", ex); //$NON-NLS-1$
 				ex.printStackTrace();
 			}
 		}

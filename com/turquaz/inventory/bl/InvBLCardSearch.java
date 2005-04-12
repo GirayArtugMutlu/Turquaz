@@ -1,26 +1,28 @@
 package com.turquaz.inventory.bl;
 
-/************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
-/* ============================================                         */
-/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/** ********************************************************************* */
+/* TURQUAZ: Higly Modular Accounting/ERP Program */
+/* ============================================ */
+/* Copyright (c) 2004 by Turquaz Software Development Group */
 /*																		*/
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License, or    */
-/* (at your option) any later version.       							*/
+/* the Free Software Foundation; either version 2 of the License, or */
+/* (at your option) any later version. */
 /* 																		*/
-/* This program is distributed in the hope that it will be useful,		*/
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
-/* GNU General Public License for more details.         				*/
-/************************************************************************/
+/* This program is distributed in the hope that it will be useful, */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the */
+/* GNU General Public License for more details. */
+/** ********************************************************************* */
 /**
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
@@ -34,9 +36,9 @@ public class InvBLCardSearch
 	{
 		try
 		{
-			String cardName=(String)argMap.get(InvKeys.INV_CARD_NAME);
-			String cardCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
-			TurqInventoryGroup group=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP);
+			String cardName = (String) argMap.get(InvKeys.INV_CARD_NAME);
+			String cardCode = (String) argMap.get(InvKeys.INV_CARD_CODE);
+			TurqInventoryGroup group = (TurqInventoryGroup) argMap.get(InvKeys.INV_GROUP);
 			return InvDALCardSearch.searchInventoryCards(cardName, cardCode, group);
 		}
 		catch (Exception ex)
@@ -61,7 +63,7 @@ public class InvBLCardSearch
 	{
 		try
 		{
-			Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
+			Integer invCardId = (Integer) argMap.get(InvKeys.INV_CARD_ID);
 			return InvDALCardSearch.getInvAccountingAccs(invCardId);
 		}
 		catch (Exception ex)
@@ -86,12 +88,13 @@ public class InvBLCardSearch
 	{
 		try
 		{
-			String cardCodeStart=(String)argMap.get(InvKeys.INV_CARD_CODE_START);
-			String cardCodeEnd=(String)argMap.get(InvKeys.INV_CARD_CODE_END);
-			String cardNameStart=(String)argMap.get(InvKeys.INV_CARD_NAME_START);
-			String cardNameEnd=(String)argMap.get(InvKeys.INV_CARD_NAME_END);
-			TurqInventoryGroup group=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP);
-			return InvDALCardSearch.searchInventoryCardsAdvanced(cardCodeStart, cardCodeEnd, cardNameStart, cardNameEnd, group);
+			String cardCodeStart = (String) argMap.get(InvKeys.INV_CARD_CODE_START);
+			String cardCodeEnd = (String) argMap.get(InvKeys.INV_CARD_CODE_END);
+			String cardNameStart = (String) argMap.get(InvKeys.INV_CARD_NAME_START);
+			String cardNameEnd = (String) argMap.get(InvKeys.INV_CARD_NAME_END);
+			TurqInventoryGroup group = (TurqInventoryGroup) argMap.get(InvKeys.INV_GROUP);
+			return InvDALCardSearch.searchInventoryCardsAdvanced(cardCodeStart, cardCodeEnd, cardNameStart,
+					cardNameEnd, group);
 		}
 		catch (Exception ex)
 		{
@@ -99,12 +102,29 @@ public class InvBLCardSearch
 		}
 	}
 
+	public static List getTransactionTotalReport(HashMap argMap) throws Exception
+	{
+		String cardCodeStart = (String) argMap.get(InvKeys.INV_CARD_CODE_START);
+		String cardCodeEnd = (String) argMap.get(InvKeys.INV_CARD_CODE_END);
+		String cardNameStart = (String) argMap.get(InvKeys.INV_CARD_NAME_START);
+		String cardNameEnd = (String) argMap.get(InvKeys.INV_CARD_NAME_END);
+		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+		Date endDate=(Date)argMap.get(EngKeys.DATE_END);
+		String curCardStart=(String)argMap.get(EngKeys.CURRENT_CARD_START);
+		String curCardEnd=(String)argMap.get(EngKeys.CURRENT_CARD_END);
+		TurqInventoryGroup invMainGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_MAIN_GROUP);
+		TurqInventoryGroup invSubGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_SUB_GROUP);
+		
+		return InvDALCardSearch.getTransactionTotalReport(cardCodeStart, cardCodeEnd, cardNameStart, cardNameEnd,
+				startDate, endDate, curCardStart, curCardEnd, invMainGroup, invSubGroup);
+	}
+
 	public static TurqInventoryCard initializeInventoryCardById(HashMap argMap) throws Exception
 	{
 		try
 		{
-			Integer cardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
-			TurqInventoryCard card=InvDALCardSearch.initializeInventoryCard(cardId);
+			Integer cardId = (Integer) argMap.get(InvKeys.INV_CARD_ID);
+			TurqInventoryCard card = InvDALCardSearch.initializeInventoryCard(cardId);
 			return card;
 		}
 		catch (Exception ex)
@@ -117,7 +137,7 @@ public class InvBLCardSearch
 	{
 		try
 		{
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			TurqInventoryCard invCard = (TurqInventoryCard) argMap.get(InvKeys.INV_CARD);
 			InvDALCardSearch.initializeInventoryCard(invCard);
 		}
 		catch (Exception ex)
@@ -130,7 +150,7 @@ public class InvBLCardSearch
 	{
 		try
 		{
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			TurqInventoryCard invCard = (TurqInventoryCard) argMap.get(InvKeys.INV_CARD);
 			return InvDALCardSearch.getView(invCard);
 		}
 		catch (Exception ex)
@@ -155,7 +175,7 @@ public class InvBLCardSearch
 	{
 		try
 		{
-			String invCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
+			String invCode = (String) argMap.get(InvKeys.INV_CARD_CODE);
 			return InvDALCardSearch.getInventoryCard(invCode);
 		}
 		catch (Exception ex)
@@ -163,11 +183,12 @@ public class InvBLCardSearch
 			throw ex;
 		}
 	}
+
 	public static TurqInventoryCard getInventoryCardFromName(HashMap argMap) throws Exception
 	{
 		try
 		{
-			String invCode=(String)argMap.get(InvKeys.INV_CARD_NAME);
+			String invCode = (String) argMap.get(InvKeys.INV_CARD_NAME);
 			return InvDALCardSearch.getInventoryCardFromName(invCode);
 		}
 		catch (Exception ex)

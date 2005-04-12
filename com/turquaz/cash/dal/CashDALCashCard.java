@@ -195,7 +195,7 @@ public class CashDALCashCard
 					+ " from TurqCashTransaction as trans left join trans.turqCashTransactionRows as transRow "
 					+ " where transRow.turqCashCard = :cashCard"
 					+ " and trans.transactionDate >= :startDate and trans.transactionDate<= :endDate"
-					+ " order by trans.id,trans.transactionDate";
+					+ " order by trans.transactionDate";
 			Query q = session.createQuery(query);
 			q.setParameter("cashCard", cashCard);
 			q.setParameter("startDate", startDate);

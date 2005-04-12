@@ -66,7 +66,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private Composite compSearchPanel;
 	private CLabel lblCashCard;
 	private CLabel lblEndDate;
-	private TableColumn tableColumnTotal;
+	private TableColumn tableColumnDept;
 	private TableColumn tableColumnType;
 	private TableColumn tableColumnDate;
 	private DatePicker datePickerEnd;
@@ -74,6 +74,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 	private CLabel lblStartDate;
 	private CashCardPicker txtCashCard;
 	private Text txtDefinition;
+	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDefinition;
 	private CLabel lblDefinition;
 	private Table tableCashTransactions;
@@ -184,10 +185,15 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 					tableColumnType.setWidth(95);
 				}
 				{
-					tableColumnTotal = new TableColumn(tableCashTransactions, SWT.RIGHT);
-					tableColumnTotal.setWidth(103);
-					tableColumnTotal.setText(Messages.getString("CashUICashTransactionSearch.6")); //$NON-NLS-1$
+					tableColumnDept = new TableColumn(tableCashTransactions, SWT.RIGHT);
+					tableColumnDept.setWidth(103);
+					tableColumnDept.setText(Messages.getString("CashUICashTransactionSearch.4")); //$NON-NLS-1$
 				}
+				//START >>  tableColumnCredit
+				tableColumnCredit = new TableColumn(tableCashTransactions, SWT.RIGHT);
+				tableColumnCredit.setText(Messages.getString("CashUICashTransactionSearch.6")); //$NON-NLS-1$
+				tableColumnCredit.setWidth(100);
+				//END <<  tableColumnCredit
 			}
 			postInitGUI();
 			this.layout();
@@ -208,11 +214,12 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	public void createTableViewer()
 	{
-		int columnTypes[] = new int[4];
+		int columnTypes[] = new int[5];
 		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_DATE;
 		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
 		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		columnTypes[4] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
 		tableViewer = new SearchTableViewer(tableCashTransactions, columnTypes, true);
 	}
 
@@ -244,13 +251,12 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
 			
 			
-			List list =(List)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"searchCashTransactions",argMap);
+			List list =(List)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"searchCashTransactions",argMap); //$NON-NLS-1$
 			
 			
 			Object[] row;
 			BigDecimal deptAmount = new BigDecimal(0);
 			BigDecimal creditAmount = new BigDecimal(0);
-			BigDecimal amount;
 			String cardName, transDefinition;
 			Date transDate = null;
 			String type;
@@ -270,20 +276,15 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 					creditAmount = (BigDecimal) row[3];
 				}
 				transDate = (Date) row[4];
-				amount = creditAmount;
-				if (deptAmount.compareTo(new BigDecimal(0)) == 1)
-				{
-					amount = deptAmount;
-				}
 				transDefinition = row[5].toString();
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(amount)}, id);
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(deptAmount),cf.format(creditAmount)}, id);
 			}
 		}
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
@@ -293,7 +294,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		HashMap argMap = new HashMap();
 		argMap.put(EngKeys.TRANS_ID,transId);
 		
-		TurqCashTransaction cashTrans =(TurqCashTransaction)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeCashTransaction",argMap);
+		TurqCashTransaction cashTrans =(TurqCashTransaction)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeCashTransaction",argMap); //$NON-NLS-1$
 		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 		{
 			EngUICommon.showMessageBox(shell, Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
@@ -340,7 +341,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		catch (Exception ex)
 		{
 			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
 			ex.printStackTrace();
 		}
 	}
