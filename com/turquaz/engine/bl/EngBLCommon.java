@@ -143,6 +143,10 @@ public class EngBLCommon
 	public final static int BANK_TRANS_BETWEEN_BANKS = 7; //Virman
 	public final static int BANK_TRANS_CHEQUE_COLLECT = 8; //Banka Cek
 	// Tahsili
+	public final static int BANK_TRANS_OWN_CHEQUE_COLLECT = 9;
+	
+	
+	
 	public final static Integer BANK_ACC_TYPE_GENERAL = new Integer(0); //banka
 	// muhasebe
 	// hesabi
@@ -198,12 +202,16 @@ public class EngBLCommon
 	// Portfoye
 	// iade...
 	public final static String CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING = Messages.getString("EngBLCommon.10"); //$NON-NLS-1$
-	public final static Integer CHEQUE_TRANS_RETURN_TO_CURRENT = new Integer(6); //Cariden
-	// Portfoye
-	// iade...
+	public final static Integer CHEQUE_TRANS_RETURN_TO_CURRENT = new Integer(6); //Cariden Portfoye iade...
 	public final static String CHEQUE_TRANS_RETURN_TO_CURRENT_STRING = Messages.getString("EngBLCommon.11"); //$NON-NLS-1$
 	public final static Integer CHEQUE_TRANS_RETURN_FROM_CURRENT = new Integer(7);
 	public final static String CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.18"); //$NON-NLS-1$
+	public final static String CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING ="Firma Çeki Tahsilat?";
+	public final static Integer CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE =new Integer(8);	
+	
+	
+	
+	
 	public final static Integer CHEQUE_STATUS_PORTFOY = new Integer(1);
 	public final static String CHEQUE_STATUS_PORTFOY_STRING = Messages.getString("EngBLCommon.12"); //$NON-NLS-1$
 	public final static Integer CHEQUE_STATUS_CURRENT = new Integer(2);
@@ -217,6 +225,9 @@ public class EngBLCommon
 	public final static Integer CHEQUE_STATUS_BOUNCED = new Integer(5);
 	public final static String CHEQUE_STATUS_BOUNCED_STRING = Messages.getString("EngBLCommon.17"); //$NON-NLS-1$
 
+
+	
+	
 	public static Map getChequeStatusMapWithStringKey()
 	{
 		Map map = new HashMap();
@@ -241,6 +252,7 @@ public class EngBLCommon
 		map.put(CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING, CHEQUE_TRANS_COLLECT_FROM_CURRENT);
 		map.put(CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING, CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY);
 		map.put(CHEQUE_TRANS_RETURN_TO_CURRENT_STRING, CHEQUE_TRANS_RETURN_TO_CURRENT);
+		map.put(CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING,CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE);
 		return map;
 	}
 
@@ -254,6 +266,7 @@ public class EngBLCommon
 		map.put(CHEQUE_TRANS_COLLECT_FROM_CURRENT, CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING);
 		map.put(CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY, CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING);
 		map.put(CHEQUE_TRANS_RETURN_TO_CURRENT, CHEQUE_TRANS_RETURN_TO_CURRENT_STRING);
+		map.put(CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE,CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING);
 		return map;
 	}
 	public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV

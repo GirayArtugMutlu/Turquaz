@@ -76,6 +76,7 @@ import com.turquaz.cheque.ui.CheUIChequeOutPayrollBank;
 import com.turquaz.cheque.ui.CheUIChequeOutPayrollCurrent;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
+import com.turquaz.cheque.ui.CheUIOwnChequeCollect;
 import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
 import com.turquaz.cheque.ui.CheUIReturnFromBankRoll;
 import com.turquaz.cheque.ui.CheUIReturnFromCurrent;
@@ -784,6 +785,12 @@ public final class TreeFactory
 			item = new TreeItem(root, SWT.NULL);
 			item.setText(Messages.getString("TreeFactory.114")); //$NON-NLS-1$
 			item.setData(CheUIReturnFromGivenCheques.class.getName());
+		}
+		if (EngBLPermissions.getPermission(CheUIOwnChequeCollect.class.getName()) > 0)
+		{
+			item = new TreeItem(root, SWT.NULL);
+			item.setText("Firma Çeki Tahsilat?"); 
+			item.setData(CheUIOwnChequeCollect.class.getName());
 		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);
 		searchRoot.setText(Messages.getString("TreeFactory.112")); //$NON-NLS-1$

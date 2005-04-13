@@ -194,6 +194,62 @@ public class CheBLSaveChequeTransaction
 	}
 
 	
+	public static void saveCollectOfOwnCheques(HashMap argMap)throws Exception
+	{
+		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		Date rollDate = (Date)argMap.get(EngKeys.DATE);
+		List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);
+		TurqAccountingAccount rollAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		TurqChequeTransactionType type = new TurqChequeTransactionType();
+		type.setId(EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE);
+		
+		TurqModule module = new TurqModule();
+		module.setId(new Integer(EngBLCommon.MODULE_CHEQUE));
+		TurqEngineSequence seq = new TurqEngineSequence();
+		seq.setTurqModule(module);
+		EngDALCommon.saveObject(seq);
+		TurqChequeRoll chequeRoll = new TurqChequeRoll();
+		chequeRoll.setChequeRollsDate(rollDate);
+		chequeRoll.setChequeRollNo(rollNo);
+		chequeRoll.setTurqChequeTransactionType(type);
+		chequeRoll.setSumChequeAmounts(false);
+		chequeRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+		chequeRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		chequeRoll.setLastModified(Calendar.getInstance().getTime());
+		chequeRoll.setCreationDate(Calendar.getInstance().getTime());
+		TurqCurrentCard curCardEmpty = new TurqCurrentCard();
+		curCardEmpty.setId(new Integer(-1));
+		chequeRoll.setTurqCurrentCard(curCardEmpty);
+		TurqBanksCard bankCardEmpty = new TurqBanksCard();
+		bankCardEmpty.setId(new Integer(-1));
+		chequeRoll.setTurqBanksCard(bankCardEmpty);
+		chequeRoll.setTurqEngineSequence(seq);
+		EngDALCommon.saveObject(chequeRoll);
+		TurqChequeChequeInRoll chequeInRoll;
+		TurqChequeCheque cheque;
+		for (int i = 0; i < chequeList.size(); i++)
+		{
+			chequeInRoll = new TurqChequeChequeInRoll();
+			cheque = (TurqChequeCheque) chequeList.get(i);
+			chequeInRoll.setTurqChequeCheque(cheque);
+			chequeInRoll.setTurqChequeRoll(chequeRoll);
+			chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			chequeInRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			chequeInRoll.setLastModified(Calendar.getInstance().getTime());
+			chequeInRoll.setCreationDate(Calendar.getInstance().getTime());
+			EngDALCommon.saveObject(chequeInRoll);
+			BankBLTransactionAdd.saveOwnChequeCollect(cheque.getTurqBanksCard(), seq, cheque.getChequesAmount(),
+					rollDate,
+					Messages.getString("CheBLSaveChequeTransaction.14") + rollNo, rollNo, cheque.getTurqCurrencyExchangeRate());  //$NON-NLS-1$
+		}
+		
+		saveRollAccountingTransactions(rollAccount, null, chequeRoll, null, EngBLCommon.getBaseCurrencyExchangeRate(), "Firma Çeki Tahsili" + chequeRoll.getChequeRollNo()); 
+	
+		
+		
+		
+	}
+	
 	public static void saveCollectFromBank(HashMap argMap) throws Exception
 	{
 		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
@@ -560,6 +616,61 @@ public class CheBLSaveChequeTransaction
 			List creditList = new ArrayList();
 			creditList.add(amount);
 			creditAccountsMap.put(counterAccount.getId(), creditList);
+		}
+		else if(type == EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE.intValue())
+		{
+			
+			CheDALUpdate.initializeChequeRoll(roll);
+			TurqChequeCheque cheque = null;
+			TurqAccountingAccount givenChequesAccount = null;
+			TurqAccountingAccount bankGeneralAccount = null;
+			Iterator it = roll.getTurqChequeChequeInRolls().iterator();
+			while (it.hasNext())
+			{
+				cheque = ((TurqChequeChequeInRoll) it.next()).getTurqChequeCheque();
+				
+				givenChequesAccount = BankBLBankCardSearch.getAccountingAccount(cheque.getTurqBanksCard(), EngBLCommon.BANK_ACC_TYPE_CHEQUES_GIVEN);
+				
+				bankGeneralAccount = BankBLBankCardSearch.getAccountingAccount(cheque.getTurqBanksCard(), EngBLCommon.BANK_ACC_TYPE_GENERAL);
+				
+				if (givenChequesAccount == null)
+				{
+					System.out.println("asdasd");
+					return false;
+				}
+				if (bankGeneralAccount == null)
+				{
+					
+					return false;
+				}
+				
+				
+				if (deptAccountsMap.containsKey(givenChequesAccount.getId()))
+				{
+					List ls = (List) deptAccountsMap.get(givenChequesAccount.getId());
+					ls.add(cheque.getChequesAmount());
+					deptAccountsMap.put(givenChequesAccount.getId(), ls);
+				}
+				else
+				{
+					List ls = new ArrayList();
+					ls.add(cheque.getChequesAmount());
+					deptAccountsMap.put(givenChequesAccount.getId(), ls);
+				}
+				if (creditAccountsMap.containsKey(bankGeneralAccount.getId()))
+				{
+					List ls = (List)creditAccountsMap.get(bankGeneralAccount.getId());
+					ls.add(cheque.getChequesAmount());
+					creditAccountsMap.put(bankGeneralAccount.getId(), ls);
+				}
+				else
+				{
+					List ls = new ArrayList();
+					ls.add(cheque.getChequesAmount());
+					creditAccountsMap.put(bankGeneralAccount.getId(), ls);
+				}
+			}
+						
 		}
 		else if (type == EngBLCommon.CHEQUE_TRANS_OUT_BANK.intValue())
 		{

@@ -130,8 +130,32 @@ public class CheDALSearch
 			throw ex;
 		}
 	}
+	
+//	Müsteriye verilen firma ceklerinin listesi
+	public static List getOwnChequesGivenToCurrent() throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			TurqViewChequeStatus chequeStatus = null;
+			String query = "Select cheque from TurqChequeCheque as cheque, TurqViewChequeStatus as chequeStatus, TurqCurrentCard currentCard "
+					+ "where cheque.id = chequeStatus.chequeChequesId "
+					+ " and currentCard.id =  chequeStatus.currentCardsId "
+					+ " and chequeStatus.chequeTransactionTypesId ="
+					+ EngBLCommon.CHEQUE_TRANS_OUT_CURRENT
+					+ " and cheque.chequesType = " + EngBLCommon.CHEQUE_TYPE_OWN;
+			Query q = session.createQuery(query);
+			List list = q.list();
+		
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
-	//	Portfoydeki ceklerin listesini getir.
+	//	Musteriye verilen ceklerin listesini getir.
 	public static List getChequesGivenToCurrent() throws Exception
 	{
 		try
@@ -284,7 +308,7 @@ public class CheDALSearch
 			throw ex;
 		}
 	}
-
+	
 	public static TurqBanksCard getBankOfCustomerCheque(TurqChequeCheque cheque) throws Exception
 	{
 		try

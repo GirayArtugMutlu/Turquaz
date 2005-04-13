@@ -618,4 +618,65 @@ public class BankBLTransactionAdd
 			throw ex;
 		}
 	}
+	public static void saveOwnChequeCollect(TurqBanksCard bankCard, TurqEngineSequence seq, BigDecimal totalAmount, Date transDate,
+			String definition, String docNo, TurqCurrencyExchangeRate exRate) throws Exception
+	{
+		try
+		{
+			if (seq == null)
+			{
+				try
+				{
+					TurqModule module = new TurqModule();
+					module.setId(new Integer(EngBLCommon.MODULE_BANKS));
+					seq = new TurqEngineSequence();
+					seq.setTurqModule(module);
+					EngDALCommon.saveObject(seq);
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+			}
+			TurqBanksTransactionType transType = new TurqBanksTransactionType();
+			transType.setId(new Integer(EngBLCommon.BANK_TRANS_OWN_CHEQUE_COLLECT));
+			TurqBanksTransactionBill bankTransBill = new TurqBanksTransactionBill();
+			bankTransBill.setTurqEngineSequence(seq);
+			bankTransBill.setTransactionBillDate(transDate);
+			bankTransBill.setTransactionBillDefinition(definition);
+			bankTransBill.setTransactionBillNo(docNo);
+			bankTransBill.setTurqBanksTransactionType(transType);
+			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			bankTransBill.setLastModified(Calendar.getInstance().getTime());
+			bankTransBill.setCreationDate(Calendar.getInstance().getTime());
+			/*
+			 * Transaction Rows
+			 */
+			TurqBanksTransaction transRow = new TurqBanksTransaction();
+			transRow.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+			transRow.setLastModified(Calendar.getInstance().getTime());
+			transRow.setCreationDate(Calendar.getInstance().getTime());
+			transRow.setTurqBanksCard(bankCard);
+			transRow.setTurqCurrencyExchangeRate(exRate);
+			transRow.setCreditAmount(totalAmount.multiply(exRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD));
+			transRow.setCreditAmountInForeignCurrency(totalAmount);
+			transRow.setDeptAmount(new BigDecimal(0));
+			transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));
+			/**
+			 * Save transaction bill
+			 */
+			EngDALCommon.saveObject(bankTransBill);
+			/**
+			 * Save transaction row
+			 */
+			transRow.setTurqBanksTransactionBill(bankTransBill);
+			EngDALCommon.saveObject(transRow);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 }
