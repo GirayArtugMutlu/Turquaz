@@ -346,11 +346,12 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				String curCardCode = (String) bill[3];
 				String curCardName = (String) bill[4];
 				BigDecimal totalAmount = (BigDecimal) bill[5];
+				BigDecimal discountAmount = (BigDecimal)bill[9];
 				BigDecimal vatAmount = (BigDecimal) bill[6];
 				BigDecimal specVatAmount = (BigDecimal) bill[7];
 				String currency=(String)bill[8];
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,currency,
-						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
+						cf.format(totalAmount.add(vatAmount).add(specVatAmount).subtract(discountAmount)), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
 		}
 		catch (Exception ex)

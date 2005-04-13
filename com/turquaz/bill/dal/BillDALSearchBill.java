@@ -30,8 +30,8 @@ public class BillDALSearchBill
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bill.id, bill.billsDate, bill.billDocumentNo,"
 					+ " bill.turqCurrentCard.cardsCurrentCode, bill.turqCurrentCard.cardsName,"
-					+ " billview.totalprice, billview.vatamount, billview.specialvatamount, bill.turqCurrencyExchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation"
-					+ " from TurqBill as bill,TurqViewBillTransTotal as billview" + " where"
+					+ " billview.totalprice, billview.vatamount, billview.specialvatamount, bill.turqCurrencyExchangeRate.turqCurrencyByExchangeCurrencyId.currenciesAbbreviation,"
+					+ " billview.discountamount from TurqBill as bill,TurqViewBillTransTotal as billview" + " where"
 					+ " billview.billsId = bill.id and bill.billsDate >= :startDate" + " and bill.billsDate <= :endDate"
 					+ " and bill.id <> -1 ";
 			;
