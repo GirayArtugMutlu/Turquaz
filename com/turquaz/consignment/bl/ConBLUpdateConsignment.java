@@ -144,7 +144,7 @@ public class ConBLUpdateConsignment
 	{
 		try
 		{
-			return deleteCons(consignment);
+			return deleteCons(consignment,false);
 		}
 		catch (Exception ex)
 		{
@@ -157,7 +157,7 @@ public class ConBLUpdateConsignment
 		try
 		{
 			TurqConsignment consignment=(TurqConsignment)argMap.get(ConsKeys.CONS);
-			return deleteCons(consignment);
+			return deleteCons(consignment,true);
 		}
 		catch (Exception ex)
 		{
@@ -165,13 +165,16 @@ public class ConBLUpdateConsignment
 		}
 	}
 	
-	private static Integer deleteCons(TurqConsignment consignment) throws Exception
+	private static Integer deleteCons(TurqConsignment consignment, boolean checkBill) throws Exception
 	{
 		try
 		{
-			if(consignment.getTurqEngineSequence().getTurqBillInEngineSequences().size()>0)
+			if (checkBill)
 			{
-				return new Integer(-1);
+				if(consignment.getTurqEngineSequence().getTurqBillInEngineSequences().size()>0)
+				{
+					return new Integer(-1);
+				}
 			}
 			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 			while (it.hasNext())
