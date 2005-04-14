@@ -50,8 +50,8 @@ import com.turquaz.inventory.dal.InvDALCardSearch;
 public class EngBLCommon
 {
 	
-	public static String VERSION = "0.7.3 Beta 3";
-	public static String DATABASE_VERSION="0.7.3";
+	public static String VERSION = "0.7.3 Beta 4";
+	public static String DATABASE_VERSION="0.7.4";
 	
 	public static int BILL_ERR_TOO_MANY_CONS = -1;
 	public static int BILL_SAVED_SUCCESFULLY = 1;

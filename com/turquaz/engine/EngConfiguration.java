@@ -47,6 +47,23 @@ public class EngConfiguration
 			{
 				logoURL = "";
 			}
+			
+			
+			
+			if (props.getProperty("invoice_template") != null) { //$NON-NLS-1$
+				
+				String invoice_template = props.getProperty("invoice_template");
+				if(invoice_template.endsWith(".jasper"))
+				{
+					invoice_template = invoice_template.substring(0,invoice_template.length()-7)+".jrxml";
+					props.setProperty("invoice_template",invoice_template);		
+					FileOutputStream fileout = new FileOutputStream("config/turquaz.properties"); //$NON-NLS-1$
+					props.store(fileout, "Turquaz Properties File"); //$NON-NLS-1$
+					fileout.flush();
+					fileout.close();
+				}
+			}
+			
 		}
 		catch (Exception ex)
 		{
@@ -58,6 +75,7 @@ public class EngConfiguration
 
 	public static void setString(String key, String value)
 	{
+		
 		_instance.props.setProperty(key, value);
 		try
 		{

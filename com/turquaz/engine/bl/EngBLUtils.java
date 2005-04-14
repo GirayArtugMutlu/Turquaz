@@ -400,7 +400,7 @@ public class EngBLUtils
 					"card_name", "units_name", "amount", "unit_price", "total_price",
 					"warehouses_name","transactions_vat"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = JasperCompileManager.compileReport("reports/invoice/" +EngConfiguration.getString("invoice_template")+".jrxml");
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/invoice/" +EngConfiguration.getString("invoice_template"));
 			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/invoice/" +EngConfiguration.getString("invoice_template")); 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			ViewerApp viewer = new ViewerApp();

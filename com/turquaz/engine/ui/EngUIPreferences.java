@@ -297,7 +297,16 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			if (EngConfiguration.getString("invoice_template") != null) { //$NON-NLS-1$
-				cCombo.setText(EngConfiguration.getString("invoice_template")); //$NON-NLS-1$
+	
+				String invoice_template = EngConfiguration.getString("invoice_template");
+				if(invoice_template.endsWith(".jasper"))
+				{
+				invoice_template = invoice_template.substring(0,invoice_template.length()-7)+".jrxml";
+								
+				}
+				
+				cCombo.setText(invoice_template); //$NON-NLS-1$
+			
 			}
 			File file = new File("reports/invoice"); //$NON-NLS-1$
 			if (file.exists() && file.isDirectory())
@@ -305,7 +314,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				File templates[] = file.listFiles();
 				for (int i = 0; i < templates.length; i++)
 				{
-					if (templates[i].getName().endsWith(".jasper")) //$NON-NLS-1$
+					if (templates[i].getName().endsWith(".jrxml")) //$NON-NLS-1$
 					{
 						cCombo.add(templates[i].getName());
 					}
