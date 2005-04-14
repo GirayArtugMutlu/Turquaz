@@ -44,9 +44,9 @@
 	<classpathentry kind="lib" path="lib/swtjasperviewer.jar"/>
 	<classpathentry kind="lib" path="lib/swt-nl.jar"/>
 	<classpathentry kind="lib" path="lib/pg74.214.jdbc2.jar"/>
-	<classpathentry kind="lib" path="lib/jasperreports-0.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/jdt-compiler.jar"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports-0.6.6.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

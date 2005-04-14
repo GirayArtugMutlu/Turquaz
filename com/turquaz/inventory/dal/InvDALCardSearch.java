@@ -1,20 +1,20 @@
 package com.turquaz.inventory.dal;
 
-/************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
-/* ============================================                         */
-/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/** ********************************************************************* */
+/* TURQUAZ: Higly Modular Accounting/ERP Program */
+/* ============================================ */
+/* Copyright (c) 2004 by Turquaz Software Development Group */
 /*																		*/
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License, or    */
-/* (at your option) any later version.       							*/
+/* the Free Software Foundation; either version 2 of the License, or */
+/* (at your option) any later version. */
 /* 																		*/
-/* This program is distributed in the hope that it will be useful,		*/
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
-/* GNU General Public License for more details.         				*/
-/************************************************************************/
+/* This program is distributed in the hope that it will be useful, */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the */
+/* GNU General Public License for more details. */
+/** ********************************************************************* */
 /**
  * @author Onsel Armagan
  * @version $Id$
@@ -36,7 +36,8 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 
 public class InvDALCardSearch
 {
-	public static List searchInventoryCards(String cardName, String cardCode, TurqInventoryGroup invGroup) throws Exception
+	public static List searchInventoryCards(String cardName, String cardCode, TurqInventoryGroup invGroup)
+			throws Exception
 	{
 		try
 		{
@@ -44,7 +45,11 @@ public class InvDALCardSearch
 			String query = "Select invView, invCard.cardInventoryCode, invCard.cardName, invCard.id from TurqViewInventoryTotal as invView,"
 					+ " TurqInventoryCard as invCard"
 					+ " where invCard.id = invView.inventoryCardsId and "
-					+ " invCard.cardName like '" + cardName + "%' and invCard.cardInventoryCode like '" + cardCode + "%' ";
+					+ " invCard.cardName like '"
+					+ cardName
+					+ "%' and invCard.cardInventoryCode like '"
+					+ cardCode
+					+ "%' ";
 			if (invGroup != null)
 			{
 				query += "and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqInventoryCardGroups as myGroup)";
@@ -71,8 +76,8 @@ public class InvDALCardSearch
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invAcc.turqAccountingAccount from TurqInventoryAccountingAccount as invAcc"
-					+ " where invAcc.turqInventoryCard.id=" + invCardId.intValue() + " and invAcc.turqInventoryAccountingType="
-					+ invAccTypeId;
+					+ " where invAcc.turqInventoryCard.id=" + invCardId.intValue()
+					+ " and invAcc.turqInventoryAccountingType=" + invAccTypeId;
 			Query q = session.createQuery(query);
 			List list = q.list();
 			if (list.size() == 0)
@@ -91,8 +96,8 @@ public class InvDALCardSearch
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select invAcc from TurqInventoryAccountingAccount as invAcc" + " where invAcc.turqInventoryCard.id="
-					+ invCardId.intValue();
+			String query = "Select invAcc from TurqInventoryAccountingAccount as invAcc"
+					+ " where invAcc.turqInventoryCard.id=" + invCardId.intValue();
 			Query q = session.createQuery(query);
 			List list = q.list();
 			return list;
@@ -103,8 +108,8 @@ public class InvDALCardSearch
 		}
 	}
 
-	public static List searchInventoryCardsAdvanced(String cardCodeStart, String cardCodeEnd, String cardNameStart, String cardNameEnd,
-			TurqInventoryGroup invGroup) throws Exception
+	public static List searchInventoryCardsAdvanced(String cardCodeStart, String cardCodeEnd, String cardNameStart,
+			String cardNameEnd, TurqInventoryGroup invGroup) throws Exception
 	{
 		try
 		{
@@ -156,189 +161,179 @@ public class InvDALCardSearch
 			throw ex;
 		}
 	}
-	
-	public static List getTransactionTotalReport(String cardCodeStart, String cardCodeEnd, String cardNameStart, String cardNameEnd,
-			Date startDate, Date endDate, String curCardStart, String curCardEnd,
+
+	public static List getTransactionTotalReport(String cardCodeStart, String cardCodeEnd, String cardNameStart,
+			String cardNameEnd, Date startDate, Date endDate, String curCardStart, String curCardEnd,
 			TurqInventoryGroup invMainGroup, TurqInventoryGroup invSubGroup) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
-			String query="SELECT invCard.id, invCard.card_inventory_code, invCard.card_name, transin.totalamountin, transin.totalpricein, transout.totalamountout," +
-					" transout.totalpriceout, transoverin.totalamountin, transoverin.totalpricein," +
-					" transoverout.totalamountout, transoverout.totalpriceout";
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String query = "SELECT invCard.id, invCard.card_inventory_code, invCard.card_name, transin.transintotalamountin, "
+					+ "transin.transintotalpricein, transout.transouttotalamountout, transout.transouttotalpriceout,"
+					+ " transoverin.overintotalamountin, transoverin.overintotalpricein,"
+					+ " transoverout.overouttotalamountout, transoverout.overouttotalpriceout";
 			if (invMainGroup != null)
 			{
 				query += ", gr2.id, gr2.groups_name ";
 			}
-			query +=	" FROM ";
+			query += " FROM ";
 			if (invMainGroup != null)
 			{
-				query +=" turq_inventory_groups gr2, turq_inventory_card_groups cardgr2," +
-						" turq_inventory_cards invCard";
+				query += " turq_inventory_groups gr2, turq_inventory_card_groups cardgr2,"
+						+ " turq_inventory_cards invCard";
 			}
 			else
 			{
 				query += " turq_inventory_cards invCard";
 			}
-					
-			query+= " LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id," +
-					" sum(turq_inventory_transactions.total_price) AS totalpricein, " +
-					" sum(turq_inventory_transactions.amount_in) AS totalamountin FROM turq_inventory_transactions," +
-					" turq_inventory_cards invc, turq_current_cards curCard";
-			query +=" WHERE turq_inventory_transactions.amount_in <> 0::numeric " +
-			        " AND turq_inventory_transactions.transaction_type = 1" +
-			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
-			        " and turq_inventory_transactions.current_cards_id=curCard.id" +
-					" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
-					" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
-			
+			query += " LEFT JOIN ( SELECT invTrans.inventory_cards_id,"
+					+ " sum(invTrans.total_price) AS transintotalpricein, "
+					+ " sum(invTrans.amount_in) AS transintotalamountin FROM turq_inventory_transactions invTrans,"
+					+ " turq_inventory_cards invc, turq_current_cards curCard"
+					+ " WHERE invTrans.amount_in <> 0 "
+					+ " AND invTrans.transaction_type = 1"
+					+ " and invTrans.inventory_cards_id=invc.id"
+					+ " and invTrans.current_cards_id=curCard.id"
+					+ " and invTrans.transactions_date >= '" + df.format(startDate) + "'"
+					+ " and invTrans.transactions_date <= '" + df.format(endDate) + "'";
 			if (!curCardStart.equals("") && !curCardEnd.equals(""))
 			{
-				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
-				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+				query += " AND curCard.cards_current_code >= '" + curCardStart + "'";
+				query += " AND curCard.cards_current_code <= '" + curCardEnd + "'";
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
 			}
-			        
-			query+=	" GROUP BY turq_inventory_transactions.inventory_cards_id) transin ON"+
-			        " invCard.id = transin.inventory_cards_id"+
-					
-					" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id," +
-					" sum(turq_inventory_transactions.total_price) AS totalpriceout," +
-					" sum(turq_inventory_transactions.amount_out) AS totalamountout FROM turq_inventory_transactions,"+
-					" turq_inventory_cards invc, turq_current_cards curCard";	
-			query+= " WHERE turq_inventory_transactions.transaction_type = 1 " +
-			        " AND turq_inventory_transactions.amount_out <> 0::numeric"+
-			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
-			        " and turq_inventory_transactions.current_cards_id=curCard.id" +
-					" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
-					" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
-			
+			query += " GROUP BY invTrans.inventory_cards_id) transin ON"
+					+ " invCard.id = transin.inventory_cards_id"
+					+ " LEFT JOIN ( SELECT invTrans.inventory_cards_id,"
+					+ " sum(invTrans.total_price) AS transouttotalpriceout,"
+					+ " sum(invTrans.amount_out) AS transouttotalamountout FROM turq_inventory_transactions invTrans,"
+					+ " turq_inventory_cards invc, turq_current_cards curCard";
+			query += " WHERE invTrans.transaction_type = 1 "
+					+ " AND invTrans.amount_out <> 0"
+					+ " and invTrans.inventory_cards_id=invc.id"
+					+ " and invTrans.current_cards_id=curCard.id"
+					+ " and invTrans.transactions_date >= '" + df.format(startDate) + "'"
+					+ " and invTrans.transactions_date <= '" + df.format(endDate) + "'";
 			if (!curCardStart.equals("") && !curCardEnd.equals(""))
 			{
-				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
-				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+				query += " AND curCard.cards_current_code >= '" + curCardStart + "'";
+				query += " AND curCard.cards_current_code <= '" + curCardEnd + "'";
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
 			}
-			query+= " GROUP BY turq_inventory_transactions.inventory_cards_id) transout ON" +
-			        " invCard.id = transout.inventory_cards_id"+
-					
-					" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, " +
-					" sum(turq_inventory_transactions.total_price) AS totalpricein, " +
-					" sum(turq_inventory_transactions.amount_in) AS totalamountin FROM turq_inventory_transactions,"+
-					" turq_inventory_cards invc, turq_current_cards curCard";
-			query+= " WHERE turq_inventory_transactions.amount_in <> 0::numeric " +
-			        " AND turq_inventory_transactions.transaction_type = 0"+
-			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
-			        " and turq_inventory_transactions.current_cards_id=curCard.id";
-					//" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
-					//" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'"
+			query += " GROUP BY invTrans.inventory_cards_id) transout ON"
+					+ " invCard.id = transout.inventory_cards_id"
+					+ " LEFT JOIN ( SELECT invTrans.inventory_cards_id, "
+					+ " sum(invTrans.total_price) AS overintotalpricein, "
+					+ " sum(invTrans.amount_in) AS overintotalamountin FROM turq_inventory_transactions invTrans,"
+					+ " turq_inventory_cards invc, turq_current_cards curCard";
+			query += " WHERE invTrans.amount_in <> 0 "
+					+ " AND invTrans.transaction_type = 0"
+					+ " and invTrans.inventory_cards_id=invc.id"
+					+ " and invTrans.current_cards_id=curCard.id";
+			//" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
+			//" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'"
 			if (!curCardStart.equals("") && !curCardEnd.equals(""))
 			{
-				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
-				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+				query += " AND curCard.cards_current_code >= '" + curCardStart + "'";
+				query += " AND curCard.cards_current_code <= '" + curCardEnd + "'";
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
 			}
-			query+= " GROUP BY turq_inventory_transactions.inventory_cards_id) transoverin ON " +
-			        " invCard.id = transoverin.inventory_cards_id"+
-					
-					" LEFT JOIN ( SELECT turq_inventory_transactions.inventory_cards_id, " +
-					" sum(turq_inventory_transactions.total_price) AS totalpriceout, " +
-					" sum(turq_inventory_transactions.amount_out) AS totalamountout FROM turq_inventory_transactions,"+
-					" turq_inventory_cards invc, turq_current_cards curCard";
-
-			query+= " WHERE turq_inventory_transactions.transaction_type = 0 " +
-			        " AND turq_inventory_transactions.amount_out <> 0::numeric"+
-			        " and turq_inventory_transactions.inventory_cards_id=invc.id" +
-			        " and turq_inventory_transactions.current_cards_id=curCard.id";
-					//" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
-					//" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
-			
+			query += " GROUP BY invTrans.inventory_cards_id) transoverin ON "
+					+ " invCard.id = transoverin.inventory_cards_id"
+					+ " LEFT JOIN ( SELECT invTrans.inventory_cards_id, "
+					+ " sum(invTrans.total_price) AS overouttotalpriceout, "
+					+ " sum(invTrans.amount_out) AS overouttotalamountout FROM turq_inventory_transactions invTrans,"
+					+ " turq_inventory_cards invc, turq_current_cards curCard";
+			query += " WHERE invTrans.transaction_type = 0 "
+					+ " AND invTrans.amount_out <> 0"
+					+ " and invTrans.inventory_cards_id=invc.id"
+					+ " and invTrans.current_cards_id=curCard.id";
+			//" and turq_inventory_transactions.transactions_date >= '"+df.format(startDate)+"'"+
+			//" and turq_inventory_transactions.transactions_date <= '"+df.format(endDate)+"'";
 			if (!curCardStart.equals("") && !curCardEnd.equals(""))
 			{
-				query+=" AND curCard.cards_current_code >= '"+curCardStart+"'";
-				query+=" AND curCard.cards_current_code <= '"+curCardEnd+"'";
+				query += " AND curCard.cards_current_code >= '" + curCardStart + "'";
+				query += " AND curCard.cards_current_code <= '" + curCardEnd + "'";
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query+=" AND curCard.cards_current_code '"+curCardStart+"%'";
+				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
 			}
-			query+= " GROUP BY turq_inventory_transactions.inventory_cards_id) transoverout ON" +
-			        " invCard.id = transoverout.inventory_cards_id";
-			
-			boolean whereAdded=false;
+			query += " GROUP BY invTrans.inventory_cards_id) transoverout ON"
+					+ " invCard.id = transoverout.inventory_cards_id";
+			boolean whereAdded = false;
 			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
 			{
-				query+=" where invCard.card_inventory_code >= '"+cardCodeStart+"'";
-				query+=" AND invCard.card_inventory_code <= '"+cardCodeEnd+"'";
-				whereAdded=true;
+				query += " where invCard.card_inventory_code >= '" + cardCodeStart + "'";
+				query += " AND invCard.card_inventory_code <= '" + cardCodeEnd + "'";
+				whereAdded = true;
 			}
 			else if (!cardCodeStart.equals(""))
 			{
 				if (whereAdded)
 				{
-					query+=" AND invCard.card_inventory_code like '"+cardCodeStart+"%'";
+					query += " AND invCard.card_inventory_code like '" + cardCodeStart + "%'";
 				}
 				else
 				{
-					query+=" where invCard.card_inventory_code like '"+cardCodeStart+"%'";
-					whereAdded=true;
+					query += " where invCard.card_inventory_code like '" + cardCodeStart + "%'";
+					whereAdded = true;
 				}
 			}
 			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
 			{
 				if (whereAdded)
 				{
-					query+=" AND invCard.card_name >= '"+cardNameStart+"'";
-					query+=" AND invCard.card_name <= '"+cardNameEnd+"'";
+					query += " AND invCard.card_name >= '" + cardNameStart + "'";
+					query += " AND invCard.card_name <= '" + cardNameEnd + "'";
 				}
 				else
 				{
-					query+=" where invCard.card_name >= '"+cardNameStart+"'";
-					query+=" AND invCard.card_name <= '"+cardNameEnd+"'";
-					whereAdded=true;
+					query += " where invCard.card_name >= '" + cardNameStart + "'";
+					query += " AND invCard.card_name <= '" + cardNameEnd + "'";
+					whereAdded = true;
 				}
 			}
 			else if (!cardNameStart.equals(""))
 			{
 				if (whereAdded)
 				{
-					query+=" AND invCard.card_name like '"+cardNameStart+"%'";
+					query += " AND invCard.card_name like '" + cardNameStart + "%'";
 				}
 				else
 				{
-					query+=" where invCard.card_name like '"+cardNameStart+"%'";
+					query += " where invCard.card_name like '" + cardNameStart + "%'";
 				}
 			}
-			
 			if (invMainGroup != null)
 			{
 				if (whereAdded)
 				{
-					query +=" and gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
+					query += " and gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
 				}
 				else
 				{
-					query +=" where gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
-					whereAdded=true;
-				}				
+					query += " where gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
+					whereAdded = true;
+				}
 				if (invSubGroup != null)
 				{
-					query += " and gr2.id="+invSubGroup.getId().intValue();
+					query += " and gr2.id=" + invSubGroup.getId().intValue();
 				}
 				else
 				{
-					query += " and gr2.parent_group="+invMainGroup.getId().intValue();
+					query += " and gr2.parent_group=" + invMainGroup.getId().intValue();
 				}
 			}
 			if (invMainGroup != null)
@@ -349,11 +344,10 @@ public class InvDALCardSearch
 			{
 				query += " order by invCard.id";
 			}
-						
 			Statement stmt = session.connection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			List list = new ArrayList();
-			boolean addGroup=invMainGroup!=null;
+			boolean addGroup = invMainGroup != null;
 			while (rs.next())
 			{
 				Object[] result;
@@ -375,51 +369,10 @@ public class InvDALCardSearch
 				if (addGroup)
 				{
 					result[11] = rs.getObject(12);
-					result[12] = rs.getObject(13);					
+					result[12] = rs.getObject(13);
 				}
 				list.add(result);
 			}
-			
-			/*
-			
-			if (!cardNameStart.equals("") && !cardNameEnd.equals(""))
-			{
-				query += " and invCard.cardName >= '" + cardNameStart + "'";
-				query += " and invCard.cardName <= '" + cardNameEnd + "'";
-			}
-			else if (!cardNameStart.equals(""))
-			{
-				query += " and invCard.cardName like '" + cardNameStart + "%'";
-			}
-			else if (!cardNameEnd.equals(""))
-			{
-				query += " and invCard.cardName like '" + cardNameEnd + "%'";
-			}
-			if (!cardCodeStart.equals("") && !cardCodeEnd.equals(""))
-			{
-				query += " and invCard.cardInventoryCode >= '" + cardCodeStart + "'";
-				query += " and invCard.cardInventoryCode <= '" + cardCodeEnd + "'";
-			}
-			else if (!cardCodeStart.equals(""))
-			{
-				query += " and invCard.cardInventoryCode like '" + cardCodeStart + "%'";
-			}
-			else if (!cardCodeEnd.equals(""))
-			{
-				query += " and invCard.cardInventoryCode like '" + cardCodeEnd + "%'";
-			}
-			if (invSubGroup != null)
-			{
-				query += " and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqInventoryCardGroups as myGroup)";
-			}
-			query += " order by invCard.cardInventoryCode";
-			Query q = session.createQuery(query);
-			if (invSubGroup != null)
-			{
-				q.setParameter("invGroup", invSubGroup);
-			}
-			*/
-			
 			return list;
 		}
 		catch (Exception ex)
@@ -466,7 +419,8 @@ public class InvDALCardSearch
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select invCard from TurqInventoryCard as invCard " + " where invCard.cardInventoryCode = :cardCode";
+			String query = "Select invCard from TurqInventoryCard as invCard "
+					+ " where invCard.cardInventoryCode = :cardCode";
 			Query q = session.createQuery(query);
 			q.setParameter("cardCode", cardCode);
 			List list = q.list();
@@ -484,6 +438,7 @@ public class InvDALCardSearch
 			throw ex;
 		}
 	}
+
 	public static TurqInventoryCard getInventoryCardFromName(String cardName) throws Exception
 	{
 		try
@@ -549,8 +504,8 @@ public class InvDALCardSearch
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select invView from TurqViewInventoryAmountTotal as invView" + " where  invView.inventoryCardsId ="
-					+ invCard.getId();
+			String query = "Select invView from TurqViewInventoryAmountTotal as invView"
+					+ " where  invView.inventoryCardsId =" + invCard.getId();
 			Query q = session.createQuery(query);
 			List list = q.list();
 			return (TurqViewInventoryAmountTotal) list.get(0);
@@ -569,7 +524,8 @@ public class InvDALCardSearch
 			String query = "Select invCard.id, invCard.accounting_accounts_id_buy,"
 					+ " invCard.accounting_accounts_id_sell,invCard.accounting_accounts_id_vat,"
 					+ "invCard.accounting_accounts_id_vat_sell, invCard.accounting_accounts_id_special_vat,"
-					+ "invCard.accounting_accounts_id_special_vat_sell from turq_inventory_cards invCard " + " where invCard.id <> -1";
+					+ "invCard.accounting_accounts_id_special_vat_sell from turq_inventory_cards invCard "
+					+ " where invCard.id <> -1";
 			Statement stmt = session.connection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			List list = new ArrayList();

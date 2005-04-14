@@ -21,9 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -345,7 +347,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					"transactions_document_no", "transactions_total_credit", "transactions_total_dept", "current_transactions_id",
 					"transactions_definition"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/current/CurrentCardAbstract.jasper"); //$NON-NLS-1$
+			
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/current/CurrentCardAbstract.jrxml");//(JasperReport) JRLoader.loadObject("reports/current/CurrentCardAbstract.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

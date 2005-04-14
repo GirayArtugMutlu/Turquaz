@@ -83,7 +83,7 @@
 		<variableExpression><![CDATA[$F{transactions_total_credit}.subtract($F{transactions_total_dept})]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
-	<variable name="generalInitialBalance" class="java.math.BigDecimal" calculation="Sum">
+	<variable name="generalInitialBalance" class="java.math.BigDecimal" calculation="Sum" incrementType="Group" incrementGroup="current">
 		<variableExpression><![CDATA[$V{initialBalance}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal (0)]]></initialValueExpression>
 	</variable>
@@ -135,7 +135,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="427" y="22" width="62" height="14">
-					<printWhenExpression><![CDATA[($V{generalBalance}.add($V{generalInitialBalance}).doubleValue() <= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[( ($V{generalBalance}.add($V{generalInitialBalance})).doubleValue() <= 0) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
@@ -144,7 +144,7 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="492" y="22" width="62" height="14">
-					<printWhenExpression><![CDATA[($V{generalBalance}.add($V{generalInitialBalance}).doubleValue() >= 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[( ($V{generalBalance}.add($V{generalInitialBalance})).doubleValue() > 0) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
