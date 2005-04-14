@@ -20,10 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
@@ -242,7 +242,8 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			parameters.put("formatter", formatter); //$NON-NLS-1$
 			EngDALConnection db = new EngDALConnection();
 			db.connect();
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingGeneralLedger.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

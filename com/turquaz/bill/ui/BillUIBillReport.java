@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
@@ -891,7 +891,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			String[] fields = new String[]{"id", "bills_date", "bill_document_no", "cards_current_code", "cards_name", "total_amount", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 					"vat_amount", "special_vat_amount","currency"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/bill/BillReport.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/bill/BillReport.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/bill/BillReport.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

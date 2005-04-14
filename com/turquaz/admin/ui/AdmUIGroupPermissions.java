@@ -48,6 +48,7 @@ import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupPermissions;
 import com.turquaz.admin.bl.AdmBLGroups;
+import com.turquaz.admin.bl.AdmBLUserPermissions;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -55,6 +56,7 @@ import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqGroupPermission;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
+import com.turquaz.engine.dal.TurqUserPermissionLevel;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -268,8 +270,8 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 			for (int i = 0; i < groupList.size(); i++)
 			{
 				TurqGroup group = (TurqGroup) groupList.get(i);
-				comboGroups.setData(group.getGroupsDescription(), group);
-				comboGroups.add(group.getGroupsDescription());
+				comboGroups.setData(group.getGroupsName(), group);
+				comboGroups.add(group.getGroupsName());
 			}
 			List moduleList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
 			for (int i = 0; i < moduleList.size(); i++)
@@ -278,15 +280,14 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 				comboModules.setData(module.getModuleDescription(), module);
 				comboModules.add(module.getModuleDescription());
 			}
-			comboPermissionLevel.add("None"); //$NON-NLS-1$
-			comboPermissionLevel.setData("None", new Integer(0)); //$NON-NLS-1$
-			comboPermissionLevel.add("Read"); //$NON-NLS-1$
-			comboPermissionLevel.setData("Read", new Integer(1)); //$NON-NLS-1$
-			comboPermissionLevel.add("Read/Write"); //$NON-NLS-1$
-			comboPermissionLevel.setData("Read/Write", new Integer(2)); //$NON-NLS-1$
-			comboPermissionLevel.add("Read/Write/Delete"); //$NON-NLS-1$
-			comboPermissionLevel.setData("Read/Write/Delete", new Integer(3)); //$NON-NLS-1$
-			comboPermissionLevel.setText("None"); //$NON-NLS-1$
+			
+			List permissionLevels=(List)EngTXCommon.doSingleTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
+			for (int i=0; i<permissionLevels.size(); i++)
+			{
+				TurqUserPermissionLevel perLevel=(TurqUserPermissionLevel)permissionLevels.get(i);
+				comboPermissionLevel.setData(perLevel.getPermissionDescription(),perLevel);
+				comboPermissionLevel.add(perLevel.getPermissionDescription());
+			}
 			fillTableUserPermissions();
 		}
 		catch (Exception ex)
@@ -400,13 +401,13 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 	public boolean verifyFields()
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-		if (comboGroups.getSelectionIndex() == -1)
+		if (comboGroups.getData(comboGroups.getText()) == null)
 		{
 			msg.setMessage(Messages.getString("AdmUIGroupPermissions.19")); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
-		else if (comboModules.getSelectionIndex() == -1)
+		else if (comboModules.getData(comboModules.getText()) == null)
 		{
 			msg.setMessage(Messages.getString("AdmUIGroupPermissions.20")); //$NON-NLS-1$
 			msg.open();
@@ -418,7 +419,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 			msg.open();
 			return false;
 		}
-		else if (comboPermissionLevel.getData(comboPermissionLevel.getText().trim()) == null)
+		else if (comboPermissionLevel.getData(comboPermissionLevel.getText()) == null)
 		{
 			msg.setMessage(Messages.getString("AdmUIGroupPermissions.22")); //$NON-NLS-1$
 			msg.open();

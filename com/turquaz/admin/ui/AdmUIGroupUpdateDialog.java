@@ -158,7 +158,7 @@ public class AdmUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			Logger loger = Logger.getLogger(this.getClass());
 			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			EngUICommon.showMessageBox(getParent(),Messages.getString("AdmUIGroupUpdateDialog.2"),SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getParent(),Messages.getString("AdmUIGroupUpdateDialog.1"),SWT.ICON_WARNING); //$NON-NLS-1$
 		
 		}
 	}

@@ -26,10 +26,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
@@ -482,7 +482,8 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 					"transactions_total_amount_out", "transactions_total_price", "card_inventory_code", "card_name", "cards_name",
 					"inventory_cards_id", "bill_document_no"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryCardAbstract.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/inventory/InventoryCardAbstract.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryCardAbstract.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

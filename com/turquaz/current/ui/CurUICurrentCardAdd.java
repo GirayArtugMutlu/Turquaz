@@ -964,7 +964,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			btnUpdateGroupsLData.heightHint = 36;
 			btnUpdateGroupsLData.horizontalIndent = 10;
 			btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
-			btnUpdateGroups.setText(Messages.getString("CurUICurrentCardAdd.24")); //$NON-NLS-1$
+			btnUpdateGroups.setText(Messages.getString("CurUICurrentCardAdd.24"));  //$NON-NLS-1$
 			btnUpdateGroups.addMouseListener(new MouseAdapter()
 			{
 				public void mouseUp(MouseEvent evt)
@@ -1013,7 +1013,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		try
 		{
 			HashMap groupMap = new HashMap();
-			List list = (List)EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
+			List list = (List)EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null); //$NON-NLS-1$
 			TurqCurrentGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -1195,7 +1195,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				argMap.put(CurKeys.CUR_PHONE_LIST,getPhoneList());
 				argMap.put(CurKeys.CUR_CONTACT_INFO,getContactInfo());
 				argMap.put(CurKeys.CUR_GROUP_LIST,getGroupList());
-				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentCard",argMap);	
+				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentCard",argMap);	 //$NON-NLS-1$
 				
 				EngBLCurrentCards.RefreshContentAsistantMap();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);

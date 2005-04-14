@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -375,7 +375,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			String[] fields = new String[]{"id", "cheque_rolls_date", "cards_name", "cheques_due_date", "cheque_transaction_types_id",
 					"cheques_amount", "bank_code", "cheques_no"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/cheque/OwnChequeReport.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/cheque/OwnChequeReport.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/cheque/OwnChequeReport.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

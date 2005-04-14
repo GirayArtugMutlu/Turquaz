@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.EngKeys;
@@ -492,7 +492,8 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			String[] fields = new String[]{"transaction_bill_date", " bank_code", "transaction_bill_definition", "dept_amount",
 					"credit_amount", "transaction_type_name", "id"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/bank/BankCardAbstract.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/bank/BankCardAbstract.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/bank/BankCardAbstract.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

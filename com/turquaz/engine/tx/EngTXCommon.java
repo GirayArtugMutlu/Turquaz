@@ -89,8 +89,7 @@ public class EngTXCommon
 		finally
 		{
 			if (session != null)
-			{
-				
+			{				
 				session.close();
 			}
 		}

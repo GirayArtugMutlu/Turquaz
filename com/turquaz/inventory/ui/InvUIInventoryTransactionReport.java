@@ -27,10 +27,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
@@ -442,9 +442,15 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport;
 			if (useGroup)
-				jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryTransactionReportByGroup.jasper"); //$NON-NLS-1$
+			{
+				jasperReport = JasperCompileManager.compileReport("reports/inventory/InventoryTransactionReportByGroup.jrxml");
+				//jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryTransactionReportByGroup.jasper"); //$NON-NLS-1$
+			}
 			else
-				jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper"); //$NON-NLS-1$
+			{
+				jasperReport = JasperCompileManager.compileReport("reports/inventory/InventoryTransactionReport.jrxml");
+				//jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper"); //$NON-NLS-1$
+			}
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

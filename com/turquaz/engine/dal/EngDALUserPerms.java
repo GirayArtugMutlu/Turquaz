@@ -134,9 +134,7 @@ public class EngDALUserPerms
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-		
-			String query = "select comp.componentsName from TurqModuleComponent as comp" + " where comp.id= " + component_id
-					+ " and comp.id=" + module_id;
+			String query = "select comp.componentsName from TurqModuleComponent as comp" + " where comp.id= " + component_id;
 			Query q = session.createQuery(query);
 			List lst = q.list();
 			String s = lst.get(0).toString();

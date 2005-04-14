@@ -145,9 +145,12 @@ public final class TreeFactory
 			item.setText(Messages.getString("TreeFactory.117")); //$NON-NLS-1$
 			item.setData(InvUIOtherTransactionOut.class.getName());
 		}
-		item = new TreeItem(transRoot, SWT.NULL);
-		item.setText(Messages.getString("TreeFactory.118")); //$NON-NLS-1$
-		item.setData(InvUIInitialTransacions.class.getName());
+		if (EngBLPermissions.getPermission(InvUIInitialTransacions.class.getName()) > 0)
+		{
+			item = new TreeItem(transRoot, SWT.NULL);
+			item.setText(Messages.getString("TreeFactory.118")); //$NON-NLS-1$
+			item.setData(InvUIInitialTransacions.class.getName());
+		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);
 		searchRoot.setText(Messages.getString("TreeFactory.6")); //$NON-NLS-1$
 		if (EngBLPermissions.getPermission(InvUICardSearch.class.getName()) > 0)

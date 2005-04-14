@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -399,7 +400,8 @@ public class EngBLUtils
 					"card_name", "units_name", "amount", "unit_price", "total_price",
 					"warehouses_name","transactions_vat"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader .loadObject("reports/invoice/" +EngConfiguration.getString("invoice_template")); 
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/invoice/" +EngConfiguration.getString("invoice_template")+".jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/invoice/" +EngConfiguration.getString("invoice_template")); 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			ViewerApp viewer = new ViewerApp();
 			viewer.getReportViewer().setDocument(jasperPrint);
@@ -465,7 +467,8 @@ public class EngBLUtils
 			String[] fields = new String[]{"trans_id", "card_units_factor", "card_inventory_code",
 					"card_name", "units_name", "amount", "unit_price", "total_price"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/consignment/template1.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/consignment/template1.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/consignment/template1.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			ViewerApp viewer = new ViewerApp();
 			viewer.getReportViewer().setDocument(jasperPrint);

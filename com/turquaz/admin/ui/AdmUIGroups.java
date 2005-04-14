@@ -19,6 +19,7 @@ package com.turquaz.admin.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
@@ -42,11 +43,14 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
+import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 
@@ -108,6 +112,34 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 
 	public void delete()
 	{
+		try
+		{
+			TableItem[] selection=tableGroups.getSelection();
+			if (selection.length > 0)
+			{
+				TurqGroup group=(TurqGroup)selection[0].getData();
+				if (group != null)
+				{
+					boolean delete = EngUICommon.okToDelete(this.getShell(), Messages.getString("AdmUIGroupUpdateDialog.0"));  //$NON-NLS-1$
+					if (delete)
+					{
+						HashMap argMap=new HashMap();
+						argMap.put(AdmKeys.ADM_GROUP,group);
+						EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteGroup",argMap); //$NON-NLS-1$
+						EngUICommon.showMessageBox(this.getShell(),Messages.getString("AdmUIUserUpdateDialog.7")); //$NON-NLS-1$
+						fillTable();
+					}					
+				}
+			}
+
+		}
+		catch (Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(),Messages.getString("AdmUIGroupUpdateDialog.1"),SWT.ICON_WARNING); //$NON-NLS-1$
+		
+		}
 	}
 
 	public void newForm()

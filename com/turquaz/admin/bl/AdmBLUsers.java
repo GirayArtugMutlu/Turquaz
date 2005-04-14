@@ -52,7 +52,7 @@ public class AdmBLUsers
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+			throw ex;
 		}
 	}
 	

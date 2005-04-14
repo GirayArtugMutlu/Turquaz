@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -395,7 +395,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			String[] fields = new String[]{"id", "cheques_portfolio_no", "cheque_rolls_date", "cards_name", "cheques_due_date",
 					"cheque_transaction_types_id", "cheques_amount", "transaction_typs_name"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/cheque/CustomerChequeReport.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/cheque/CustomerChequeReport.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/cheque/CustomerChequeReport.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}

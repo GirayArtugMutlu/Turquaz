@@ -56,7 +56,7 @@ public class DatabaseTransfer
 				String code = "";
 				try
 				{
-					data = in.readLine();
+					data = "";
 					String rest = "";
 					int a = data.indexOf(",");
 					code = data.substring(0, a);
