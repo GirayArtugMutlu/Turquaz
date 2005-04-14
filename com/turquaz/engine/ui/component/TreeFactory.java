@@ -789,7 +789,7 @@ public final class TreeFactory
 		if (EngBLPermissions.getPermission(CheUIOwnChequeCollect.class.getName()) > 0)
 		{
 			item = new TreeItem(root, SWT.NULL);
-			item.setText("Firma Çeki Tahsilat?"); 
+			item.setText(Messages.getString("TreeFactory.121"));  //$NON-NLS-1$
 			item.setData(CheUIOwnChequeCollect.class.getName());
 		}
 		TreeItem searchRoot = new TreeItem(tree, SWT.NULL);

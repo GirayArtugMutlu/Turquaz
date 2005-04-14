@@ -520,10 +520,39 @@ public class BankBLTransactionUpdate
 		}
 	}
 
+	public static void deleteOnlyBankTransaction(TurqBanksTransactionBill bankTransBill)throws Exception
+	{
+		try
+		{
+			BankDALCommon.initializeTransaction(bankTransBill);
+			//delete transactions
+			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
+			while (it.hasNext())
+			{
+				EngDALCommon.deleteObject(it.next());
+			}
+			//delete current transactions
+			it = bankTransBill.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
+			while (it.hasNext())
+			{
+				EngDALCommon.deleteObject(it.next());
+			}
+			
+		
+			
+			//delete transaction..
+			EngDALCommon.deleteObject(bankTransBill);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 	public static void deleteTransaction(TurqBanksTransactionBill bankTransBill) throws Exception
 	{
 		try
 		{
+			BankDALCommon.initializeTransaction(bankTransBill);
 			//delete transactions
 			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
 			while (it.hasNext())

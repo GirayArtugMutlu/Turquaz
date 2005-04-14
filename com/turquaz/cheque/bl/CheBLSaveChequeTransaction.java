@@ -199,7 +199,6 @@ public class CheBLSaveChequeTransaction
 		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		Date rollDate = (Date)argMap.get(EngKeys.DATE);
 		List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);
-		TurqAccountingAccount rollAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
 		TurqChequeTransactionType type = new TurqChequeTransactionType();
 		type.setId(EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE);
 		
@@ -243,7 +242,7 @@ public class CheBLSaveChequeTransaction
 					Messages.getString("CheBLSaveChequeTransaction.14") + rollNo, rollNo, cheque.getTurqCurrencyExchangeRate());  //$NON-NLS-1$
 		}
 		
-		saveRollAccountingTransactions(rollAccount, null, chequeRoll, null, EngBLCommon.getBaseCurrencyExchangeRate(), "Firma Çeki Tahsili" + chequeRoll.getChequeRollNo()); 
+		saveRollAccountingTransactions(null, null, chequeRoll, null, EngBLCommon.getBaseCurrencyExchangeRate(), "Firma Çeki Tahsili" + chequeRoll.getChequeRollNo()); 
 	
 		
 		

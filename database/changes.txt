@@ -1128,5 +1128,5 @@ INSERT INTO turq_module_components VALUES (95, 6, 'com.turquaz.consignment.ui.Co
 !!!!!!!!!!!!!!!!!!!!!0.7.0 Beta 3 yayinlandi...
 
 INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');
-INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Çeki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
+INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Ceki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');
 INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01');
