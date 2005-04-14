@@ -170,10 +170,6 @@ public class CurUICurCardCreditList extends Composite implements SearchComposite
 			//START >> lblTurqGroupName
 			lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
 			lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2"));
-			GridData lblTurqGroupNameLData = new GridData();
-			lblTurqGroupNameLData.widthHint = 80;
-			lblTurqGroupNameLData.heightHint = 20;
-			lblTurqGroupName.setLayoutData(lblTurqGroupNameLData);
 			//END << lblTurqGroupName
 			//START >> comboTurqGroupName
 			comboTurqGroupName = new CCombo(compCurrentCardSearch, SWT.NONE);

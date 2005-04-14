@@ -876,6 +876,7 @@ INSERT INTO TURQ_MODULE_COMPONENTS VALUES(93,8,'com.turquaz.cash.ui.CashUIInitia
 INSERT INTO TURQ_MODULE_COMPONENTS VALUES(94,6,'com.turquaz.consignment.ui.ConUIAddBuyConsignment','Alis Irsaliyesi Ekle','onsel','2004-10-18','onsel','2004-10-18')
 INSERT INTO TURQ_MODULE_COMPONENTS VALUES(95,6,'com.turquaz.consignment.ui.ConUIAddSellConsignment','Satis Irsaliyesi Ekle','onsel','2004-10-18','onsel','2004-10-18')
 INSERT INTO TURQ_MODULE_COMPONENTS VALUES(96,9,'com.turquaz.cheque.ui.CheUIOwnChequeCollect','Firma Ceki Tahsili','onsel','2004-10-18','onsel','2004-10-18')
+INSERT INTO TURQ_MODULE_COMPONENTS VALUES(97,0,'com.turquaz.inventory.ui.InvUIInitialTransacions','Stok Acilis Degerleri','onsel','2004-10-18','onsel','2004-10-18')
 INSERT INTO TURQ_BANK_ACCOUNTING_ACCOUNTS VALUES(0,0,3,2,'admin','2005-04-14','admin','2005-04-14')
 INSERT INTO TURQ_BANK_ACCOUNTING_ACCOUNTS VALUES(1,0,2,0,'admin','2005-04-14','admin','2005-04-14')
 INSERT INTO TURQ_BANKS_TRANSACTIONS VALUES(0,0,0,'admin','2005-04-14','admin','2005-04-14',536356.00,0,0,536356,-1)

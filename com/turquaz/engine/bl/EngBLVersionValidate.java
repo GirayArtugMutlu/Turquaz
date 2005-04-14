@@ -182,10 +182,11 @@ public class EngBLVersionValidate
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
 		try{
-		String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
-					  "INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Ceki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');"+
-					  "INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01')";
-		stmt.execute(query);
+			String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+			  "INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Ceki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');"+
+			  "INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01');" +
+			  "INSERT INTO turq_module_components VALUES (97, 0, 'com.turquaz.inventory.ui.InvUIInitialTransacions', 'Stok Acilis Degerleri', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+			stmt.execute(query);
 		}
 		catch(Exception ex)
 		{
@@ -204,7 +205,8 @@ public class EngBLVersionValidate
 		try{
 			String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
 			  "INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Ceki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');"+
-			  "INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01')";
+			  "INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01');" +
+			  "INSERT INTO turq_module_components VALUES (97, 0, 'com.turquaz.inventory.ui.InvUIInitialTransacions', 'Stok Acilis Degerleri', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
 			stmt.execute(query);
 		}
 		catch(Exception ex)
