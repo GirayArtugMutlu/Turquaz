@@ -503,7 +503,8 @@ public class EngBLUtils
 			String[] fields = new String[]{"accountName", "accountCode", "topAccountName",
 					"topAccountCode", "dept_amount", "credit_amount", "transaction_definition", "columnId"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingTransaction.jasper"); //$NON-NLS-1$
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingTransaction.jrxml");
+			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingTransaction.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			ViewerApp viewer = new ViewerApp();
 			viewer.getReportViewer().setDocument(jasperPrint);

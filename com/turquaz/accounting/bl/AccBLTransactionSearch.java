@@ -34,10 +34,6 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 public class AccBLTransactionSearch
 {
-	public AccBLTransactionSearch()
-	{
-	}
-
 	public static List searchAccTransaction(HashMap argMap) throws Exception
 	{
 		try
@@ -50,7 +46,6 @@ public class AccBLTransactionSearch
 			Boolean isPayment = (Boolean)argMap.get(AccKeys.ACC_IS_PAYMENT);
 					
 			List ls = AccDALTransactionSearch.searchTransaction(docNo, startDate, endDate, isGeneralTrans.booleanValue(), isCollect.booleanValue(), isPayment.booleanValue());
-		    System.out.println(ls.size());
 			return ls;
 		}
 		catch (Exception ex)
