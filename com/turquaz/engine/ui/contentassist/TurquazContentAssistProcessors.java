@@ -1,20 +1,20 @@
 package com.turquaz.engine.ui.contentassist;
 
-/************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
-/* ============================================                         */
-/* Copyright (c) 2004 by Turquaz Software Development Group			    */
+/** ********************************************************************* */
+/* TURQUAZ: Higly Modular Accounting/ERP Program */
+/* ============================================ */
+/* Copyright (c) 2004 by Turquaz Software Development Group */
 /*																		*/
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License, or    */
-/* (at your option) any later version.       							*/
+/* the Free Software Foundation; either version 2 of the License, or */
+/* (at your option) any later version. */
 /* 																		*/
-/* This program is distributed in the hope that it will be useful,		*/
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
-/* GNU General Public License for more details.         				*/
-/************************************************************************/
+/* This program is distributed in the hope that it will be useful, */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the */
+/* GNU General Public License for more details. */
+/** ********************************************************************* */
 /**
  * @author Onsel
  * @version $Id$
@@ -49,6 +49,31 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 public class TurquazContentAssistProcessors implements ISubjectControlContentAssistProcessor
 {
 	int contentType = -1;
+	//  Proposal part before cursor
+	//public static Proposal[] proposedCodes;
+	public static Proposal[] ACCOUNTS;
+	public static Proposal[] CONTENT_ASSIST_INVENTORY;
+	public static Proposal[] CONTENT_ASSIST_ACCOUNT_LEAVES;
+	public static Proposal[] CONTENT_ASSIST_CURRENT;
+	public static Proposal[] CONTENT_ASSIST_CASH;
+	public static Proposal[] CONTENT_ASSIST_ACCOUNTING_CASH;
+	public static Proposal[] CONTENT_ASSIST_CURRENT_CODE;
+	public static Proposal[] CONTENT_ASSIST_BANK;
+	public static Proposal[] CONTENT_ASSIST_INVENTORY_GROUPS;
+	public static Proposal[] CONTENT_ASSIST_MAIN_ACCOUNTS;
+	public static Proposal[] CONTENT_ASSIST_INVENTORY_NAME;
+	
+	public static Proposal[][] proposedCodeList = new Proposal[][]{ACCOUNTS,
+			CONTENT_ASSIST_INVENTORY,
+			CONTENT_ASSIST_ACCOUNT_LEAVES,
+			CONTENT_ASSIST_CURRENT,
+			CONTENT_ASSIST_CASH,
+			CONTENT_ASSIST_ACCOUNTING_CASH,
+			CONTENT_ASSIST_CURRENT_CODE,
+			CONTENT_ASSIST_BANK, 
+			CONTENT_ASSIST_INVENTORY_GROUPS,
+			CONTENT_ASSIST_MAIN_ACCOUNTS,
+			CONTENT_ASSIST_INVENTORY_NAME};
 
 	public TurquazContentAssistProcessors(int type)
 	{
@@ -59,8 +84,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer,
-	 *      int)
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
 	 */
 	/**
 	 * 0 -accounting 1- inventory 2-accounting leaves 3 customers
@@ -72,106 +96,48 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 			List proposed = new ArrayList();
 			if (type == 0)
 			{
-				List list = EngBLAccountingAccounts.getAccounts();
-				for (int i = 0; i < list.size(); i++)
-				{
-					TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-					proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
-				}
+				fillAccountingModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY)
 			{
-				List list = EngBLInventoryCards.getInventoryCards();
-				for (int i = 0; i < list.size(); i++)
-				{
-					Object[] result = (Object[]) list.get(i);
-					proposed.add(new Proposal(result[0].toString(), result[1].toString()));
-				}
+				fillInvCardModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES)
 			{
-				List list = EngBLAccountingAccounts.getAccountsForAccountPickers();
-				for (int i = 0; i < list.size(); i++)
-				{
-					TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-					proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
-				}
+				fillAccountingModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT)
 			{
-				List list = EngBLCurrentCards.getCurrentCards();
-				for (int i = 0; i < list.size(); i++)
-				{
-					Object[] result = ((Object[]) list.get(i));
-					proposed.add(new Proposal(result[1].toString() + " {" + result[0].toString() + "}", null));
-				}
+				fillCurrentModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_CASH)
 			{
-				List list = EngBLCashCards.getCashCards();
-				for (int i = 0; i < list.size(); i++)
-				{
-					TurqCashCard card = (TurqCashCard) (list.get(i));
-					proposed.add(new Proposal(card.getCashCardName(), card.getCashCardDefinition()));
-				}
+				fillCashModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH)
 			{
-				List list = EngBLAccountingAccounts.getCashAccounts();
-				for (int i = 0; i < list.size(); i++)
-				{
-					Object[] cards = (Object[]) (list.get(i));
-					proposed.add(new Proposal(cards[0].toString(), cards[1].toString()));
-				}
+				fillAccountingModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT_CODE)
 			{
-				List list = EngBLCurrentCards.getCurrentCards();
-				for (int i = 0; i < list.size(); i++)
-				{
-					Object[] result = ((Object[]) list.get(i));
-					proposed.add(new Proposal(result[0].toString(), result[1].toString()));
-				}
+				fillCurrentModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_BANK)
 			{
-				List list = EngBLBankCards.getBankCards();
-				for (int i = 0; i < list.size(); i++)
-				{
-					TurqBanksCard bankCard = ((TurqBanksCard) list.get(i));
-					proposed.add(new Proposal(bankCard.getBankCode(), bankCard.getBankName() + "-" + bankCard.getBankBranchName()
-							+ "-" + bankCard.getBankAccountNo()));
-				}
+				fillBankModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS)
 			{
-				List list = EngBLInventoryGroups.getInvGroups();
-				for (int i = 0; i < list.size(); i++)
-				{
-					TurqInventoryGroup bankCard = ((TurqInventoryGroup) list.get(i));
-					proposed.add(new Proposal(bankCard.getGroupsName(), bankCard.getGroupsDescription()));
-				}
+				fillInvGroupModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS)
 			{
-				List list = EngBLAccountingAccounts.getMainAccounts();
-				for (int i = 0; i < list.size(); i++)
-				{
-					TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-					proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
-				}
+				fillAccountingModuleArray();
 			}
 			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
 			{
-				List list = EngBLInventoryCards.getInventoryCards();
-				for (int i = 0; i < list.size(); i++) 
-				{
-					Object[] result = (Object[]) list.get(i);
-					proposed.add(new Proposal(result[1].toString(),result[0].toString()));
-				}
+				fillInvCardModuleArray();
 			}
-			proposedCodes = new Proposal[proposed.size()];
-			proposed.toArray(proposedCodes);
 		}
 		catch (Exception ex)
 		{
@@ -179,6 +145,144 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
 		}
+	}
+	
+	public void fillCurrentModuleArray() throws Exception
+	{
+		List proposed = new ArrayList();
+		List list = EngBLCurrentCards.getCurrentCards();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Object[] result = ((Object[]) list.get(i));
+			proposed.add(new Proposal(result[1].toString() + " {" + result[0].toString() + "}", null));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_CURRENT] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_CURRENT]);
+		
+		proposed = new ArrayList();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Object[] result = ((Object[]) list.get(i));
+			proposed.add(new Proposal(result[0].toString(), result[1].toString()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_CURRENT_CODE] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_CURRENT_CODE]);
+
+	}
+	
+	public void fillAccountingModuleArray() throws Exception
+	{
+		List proposed = new ArrayList();
+		List list = EngBLAccountingAccounts.getAccounts();
+		for (int i = 0; i < list.size(); i++)
+		{
+			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
+			proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
+		}
+		proposedCodeList[0] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[0]);
+		
+		proposed = new ArrayList();
+		
+		list = EngBLAccountingAccounts.getAccountsForAccountPickers();
+		for (int i = 0; i < list.size(); i++)
+		{
+			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
+			proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES]);
+		
+		proposed = new ArrayList();
+		list = EngBLAccountingAccounts.getCashAccounts();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Object[] cards = (Object[]) (list.get(i));
+			proposed.add(new Proposal(cards[0].toString(), cards[1].toString()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH]);
+		
+		proposed = new ArrayList();
+		list = EngBLAccountingAccounts.getMainAccounts();
+		for (int i = 0; i < list.size(); i++)
+		{
+			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
+			proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS]);
+
+		
+	}
+	
+	public void fillInvCardModuleArray() throws Exception
+	{
+		List proposed = new ArrayList();
+		List list = EngBLInventoryCards.getInventoryCards();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Object[] result = (Object[]) list.get(i);
+			proposed.add(new Proposal(result[0].toString(), result[1].toString()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY]);
+		
+		proposed = new ArrayList();
+		list = EngBLInventoryCards.getInventoryCards();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Object[] result = (Object[]) list.get(i);
+			proposed.add(new Proposal(result[1].toString(), result[0].toString()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME]);
+
+	}
+	
+	public void fillInvGroupModuleArray() throws Exception
+	{
+		List proposed = new ArrayList();
+		List list = EngBLInventoryGroups.getInvGroups();
+		for (int i = 0; i < list.size(); i++)
+		{
+			TurqInventoryGroup bankCard = ((TurqInventoryGroup) list.get(i));
+			proposed.add(new Proposal(bankCard.getGroupsName(), bankCard.getGroupsDescription()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS]);
+	}
+	
+	public void fillBankModuleArray() throws Exception
+	{
+		List proposed = new ArrayList();
+		List list = EngBLBankCards.getBankCards();
+		for (int i = 0; i < list.size(); i++)
+		{
+			TurqBanksCard bankCard = ((TurqBanksCard) list.get(i));
+			proposed.add(new Proposal(bankCard.getBankCode(), bankCard.getBankName() + "-"
+					+ bankCard.getBankBranchName() + "-" + bankCard.getBankAccountNo()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_BANK] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_BANK]);
+	}
+	
+	public void fillCashModuleArray() throws Exception
+	{
+		List proposed = new ArrayList();
+		List list = EngBLCashCards.getCashCards();
+		for (int i = 0; i < list.size(); i++)
+		{
+			TurqCashCard card = (TurqCashCard) (list.get(i));
+			proposed.add(new Proposal(card.getCashCardName(), card.getCashCardDefinition()));
+		}
+		proposedCodeList[EngBLCommon.CONTENT_ASSIST_CASH] = new Proposal[proposed.size()];
+		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_CASH]);
+	}
+	
+	public void fillChequeModuleArray() throws Exception
+	{
+		
 	}
 
 	public ICompletionProposal[] computeCompletionProposals(IContentAssistSubjectControl viewer, int documentOffset)
@@ -235,42 +339,51 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 			}
 		}
 	}
-	//  Proposal part before cursor
-	public Proposal[] proposedCodes;
 
 	private void computeStructureProposals(String qualifier, int documentOffset, List propList)
 	{
-		int qlen = qualifier.length();
-		qualifier = qualifier.toLowerCase(Locale.getDefault());
-		// Loop through all proposals
-		for (int i = 0; i < proposedCodes.length; i++)
+		try
 		{
-			if (propList.size() > 1000)
+			Proposal[] proposedCodes = proposedCodeList[this.contentType];
+			int qlen = qualifier.length();
+			qualifier = qualifier.toLowerCase(Locale.getDefault());
+			// Loop through all proposals
+			for (int i = 0; i < proposedCodes.length; i++)
 			{
-				return;
-			}
-			String startTag = proposedCodes[i].text;
-			String info = proposedCodes[i].info;
-			String text = startTag;
-			String lower_text = text.toLowerCase(Locale.getDefault());
-			// Yes -- compute whole proposal text
-			if (lower_text.startsWith(qualifier))
-			{
-				// Derive cursor position
-				int cursor = startTag.length();
-				// Construct proposal
-				CompletionProposal proposal = null;
-				if (info != null)
+				if (propList.size() > 1000)
 				{
-					proposal = new CompletionProposal(text, documentOffset - qlen, qlen, cursor, null, text + " - " + info, null, null);
+					return;
 				}
-				else
+				String startTag = proposedCodes[i].text;
+				String info = proposedCodes[i].info;
+				String text = startTag;
+				String lower_text = text.toLowerCase(Locale.getDefault());
+				// Yes -- compute whole proposal text
+				if (lower_text.startsWith(qualifier))
 				{
-					proposal = new CompletionProposal(text, documentOffset - qlen, qlen, cursor);
+					// Derive cursor position
+					int cursor = startTag.length();
+					// Construct proposal
+					CompletionProposal proposal = null;
+					if (info != null)
+					{
+						proposal = new CompletionProposal(text, documentOffset - qlen, qlen, cursor, null, text + " - "
+								+ info, null, null);
+					}
+					else
+					{
+						proposal = new CompletionProposal(text, documentOffset - qlen, qlen, cursor);
+					}
+					// and add to result list
+					propList.add(proposal);
 				}
-				// and add to result list
-				propList.add(proposal);
 			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			if (ex.getMessage() != null)
+				System.out.println(ex.getMessage());
 		}
 	}
 

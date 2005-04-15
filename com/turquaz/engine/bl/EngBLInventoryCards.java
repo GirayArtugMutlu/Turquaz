@@ -30,7 +30,6 @@ public class EngBLInventoryCards
 {
 	public List cardList;
 	static EngBLInventoryCards _instance;
-	private InvBLCardSearch blAccount = new InvBLCardSearch();
 
 	public EngBLInventoryCards() throws Exception
 	{

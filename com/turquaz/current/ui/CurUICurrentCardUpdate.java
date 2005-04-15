@@ -426,7 +426,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap = new HashMap();
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
-			
+				EngBLCurrentCards.RefreshContentAsistantMap();
 				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();

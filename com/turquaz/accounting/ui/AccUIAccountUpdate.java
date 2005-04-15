@@ -311,7 +311,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,compAccountCard.getTxtParentAccount().getData());
 				
 				EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"updateAccount",argMap);						
-				
+				EngBLAccountingAccounts.RefreshContentAsistantMap();
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
 				msg.open();
 				updateOccured = true;
@@ -341,12 +341,9 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT,account);
 				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
-				
-				
+				EngBLAccountingAccounts.RefreshContentAsistantMap();				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
-				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
-
 				updateOccured = true;
 				this.dialogShell.close();
 				this.dialogShell.dispose();
