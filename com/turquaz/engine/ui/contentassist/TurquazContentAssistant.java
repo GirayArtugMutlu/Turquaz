@@ -33,6 +33,8 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.custom.VerifyKeyListener;
+import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -44,7 +46,25 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 
 	public TurquazContentAssistant(TextContentAssistSubjectAdapter adapter, int type)
 	{
-		super();
+		super();		
+		adapter.appendVerifyKeyListener(new VerifyKeyListener()
+				{
+					public void verifyKey(VerifyEvent event)
+					{
+						try
+						{
+							// Check for Ctrl+Spacebar							
+							if (event.stateMask == SWT.CTRL && event.character == ' ')
+							{
+								showPossibleCompletions();
+								event.doit = false;
+							}
+						}
+						catch(Exception ex)
+						{
+						}
+					}
+				});
 		processor = new TurquazContentAssistProcessors(type);
 		Color bgColor = SWTResourceManager.getColor(255, 255, 255);
 		this.setProposalSelectorBackground(bgColor);
@@ -69,7 +89,7 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 			installCueLabelProvider(adapter);
 		}
 	}
-
+	
 	public int findIndex(String text)
 	{
 		

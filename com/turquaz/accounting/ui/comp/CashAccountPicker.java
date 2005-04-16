@@ -24,11 +24,9 @@ import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
@@ -135,18 +133,6 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 	{
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
 		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener()
-		{
-			public void verifyKey(VerifyEvent event)
-			{
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ')
-				{
-					asistant.showPossibleCompletions();
-					event.doit = false;
-				}
-			}
-		});
 	}
 
 	public void verifyData()

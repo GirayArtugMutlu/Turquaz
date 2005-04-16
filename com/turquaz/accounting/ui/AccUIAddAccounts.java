@@ -37,7 +37,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
@@ -46,7 +45,6 @@ import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -238,18 +236,6 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 	{
 		adapter = new TextContentAssistSubjectAdapter(txtParentAccount);
 		asistant = new TurquazContentAssistant(adapter, 0);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener()
-		{
-			public void verifyKey(VerifyEvent event)
-			{
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ')
-				{
-					asistant.showPossibleCompletions();
-					event.doit = false;
-				}
-			}
-		});
 	}
 
 	public boolean verifyFields(boolean update, TurqAccountingAccount toUpdate)

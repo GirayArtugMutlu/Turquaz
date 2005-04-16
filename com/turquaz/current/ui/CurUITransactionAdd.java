@@ -33,14 +33,12 @@ import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -278,18 +276,6 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		//	content assistant
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCode);
 		final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter, 3);
-		adapter.appendVerifyKeyListener(new VerifyKeyListener()
-		{
-			public void verifyKey(VerifyEvent event)
-			{
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ')
-				{
-					assistant.showPossibleCompletions();
-					event.doit = false;
-				}
-			}
-		});
 	}
 
 	public void fillCurrencyCombo()
