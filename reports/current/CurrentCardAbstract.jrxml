@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="CurrentCardAbstract" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<parameter name="currentCard1" class="java.lang.String">
@@ -64,23 +64,23 @@
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalDept" class="java.math.BigDecimal" resetType="Group" resetGroup="current" calculation="Sum">
-		<variableExpression><![CDATA[$F{transactions_total_dept}]]></variableExpression>
+		<variableExpression><![CDATA[($F{transactions_total_dept}==null) ? new BigDecimal(0) : $F{transactions_total_dept}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalCredit" class="java.math.BigDecimal" resetType="Group" resetGroup="current" calculation="Sum">
-		<variableExpression><![CDATA[$F{transactions_total_credit}]]></variableExpression>
+		<variableExpression><![CDATA[($F{transactions_total_credit}==null) ? new BigDecimal(0) : $F{transactions_total_credit}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="generalDept" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{transactions_total_dept}]]></variableExpression>
+		<variableExpression><![CDATA[($F{transactions_total_dept}==null) ? new BigDecimal(0) : $F{transactions_total_dept}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="generalCredit" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{transactions_total_credit}]]></variableExpression>
+		<variableExpression><![CDATA[($F{transactions_total_credit}==null) ? new BigDecimal(0) : $F{transactions_total_credit}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="generalBalance" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{transactions_total_credit}.subtract($F{transactions_total_dept})]]></variableExpression>
+		<variableExpression><![CDATA[($F{transactions_total_credit}==null) ? new BigDecimal(0) : $F{transactions_total_credit}.subtract($F{transactions_total_dept})]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="generalInitialBalance" class="java.math.BigDecimal" calculation="Sum" incrementType="Group" incrementGroup="current">
@@ -392,6 +392,7 @@
 		<groupExpression><![CDATA[$F{current_transactions_id}]]></groupExpression>
 		<groupHeader>
 		<band height="12">
+			<printWhenExpression><![CDATA[($F{current_transactions_id}==null) ? Boolean.FALSE : Boolean.TRUE]]></printWhenExpression>
 			<textField>
 				<reportElement positionType="Float" x="66" y="1" width="45" height="11"/>
 				<textElement verticalAlignment="Middle">

@@ -129,10 +129,10 @@ public class CurBLSearchTransaction
 	public static List getCurrentBalances(HashMap argMap) throws Exception
 	{
 		
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_START);
-		TurqCurrentCard curCard2 = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_END);
+		TurqCurrentCard curCardStart = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_START);
+		TurqCurrentCard curCardEnd = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_END);
 		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
-			return CurDALSearchTransaction.getCurrentBalances(curCard, curCard2, startDate);
+			return CurDALSearchTransaction.getCurrentBalances(curCardStart, curCardEnd, startDate);
 		
 	}
 

@@ -20,6 +20,10 @@ package com.turquaz.current.dal;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -126,40 +130,28 @@ public class CurDALSearchTransaction
 		}
 	}
 
-	public static List getCurrentBalances(TurqCurrentCard curCard, TurqCurrentCard curCard2, Date endDate) throws Exception
+	public static List getCurrentBalances(TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, Date endDate) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "";
-			if (curCard == null)
+			String query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept), " +
+					" sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction " +
+					" where transaction.transactionsDate < :endDate ";
+			
+			if (curCardStart != null && curCardEnd != null)
 			{
-				query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept),"
-						+ "sum(transaction.transactionsTotalCredit)" + " from TurqCurrentTransaction as transaction where"
-						+ " transaction.transactionsDate < :endDate" + " group by transaction.turqCurrentCard.cardsCurrentCode";
+				query += " and transaction.turqCurrentCard.cardsCurrentCode >= '"+curCardStart.getCardsCurrentCode()+"'";
+				query += " and transaction.turqCurrentCard.cardsCurrentCode <= '"+curCardEnd.getCardsCurrentCode()+"'";
 			}
-			else if (curCard2 == null)
+			else if (curCardStart != null)
 			{
-				query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept),"
-						+ "sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where"
-						+ " transaction.turqCurrentCard= :curCard and" + " transaction.transactionsDate < :endDate"
-						+ " group by transaction.turqCurrentCard.cardsCurrentCode";
+				query += " and transaction.turqCurrentCard.id="+curCardStart.getId();
 			}
-			else
-			{
-				query = "Select transaction.turqCurrentCard.cardsCurrentCode,sum(transaction.transactionsTotalDept),"
-						+ "sum(transaction.transactionsTotalCredit) from TurqCurrentTransaction as transaction where"
-						+ " transaction.turqCurrentCard.cardsCurrentCode >=" + "'" + curCard.getCardsCurrentCode() + "'"
-						+ " and transaction.turqCurrentCard.cardsCurrentCode <=" + "'" + curCard2.getCardsCurrentCode() + "'"
-						+ " and transaction.transactionsDate < :endDate" + " group by transaction.turqCurrentCard.cardsCurrentCode"
-						+ " order by transaction.turqCurrentCard.cardsCurrentCode";
-			}
+			query +=" group by transaction.turqCurrentCard.cardsCurrentCode"+
+					" order by transaction.turqCurrentCard.cardsCurrentCode";
+
 			Query q = session.createQuery(query);
-			if (curCard == null)
-			{
-			}
-			else if (curCard2 == null)
-				q.setParameter("curCard", curCard);
 			q.setParameter("endDate", endDate);
 			List list = q.list();
 			return list;
@@ -219,44 +211,70 @@ public class CurDALSearchTransaction
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select curCard.cardsCurrentCode, curCard.cardsName,"
-				+ " curTrans.turqCurrentTransactionType.transactionTypeName,"
-				+ " curTrans.transactionsDate, curTrans.transactionsDocumentNo,"
-				+ " curTrans.transactionsTotalCredit, curTrans.transactionsTotalDept," + " curTrans.id,"
-				+ " curTrans.transactionsDefinition" + " from TurqViewCurrentAmountTotal as curView,"
-				+ " TurqCurrentCard as curCard " + " left join" + " curCard.turqCurrentTransactions as curTrans"
-				+ " where curTrans.transactionsDate >= :startDate" + " and curTrans.transactionsDate <= :endDate "
-				+ " and curView.currentCardsId=curCard.id ";
+			Statement statement=session.connection().createStatement();
+			SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 			
-			if (!definition.equals("")) //$NON-NLS-1$
-				query += " and curTrans.transactionsDefinition like '" + definition.toUpperCase(Locale.getDefault()) + "%'"; 
+			String query="Select curCard.cards_current_code, curCard.cards_name," +
+			" curTransTable.transaction_type_name,curTransTable.transactions_date," +
+			" curTransTable.transactions_document_no,curTransTable.transactions_total_credit," +
+			" curTransTable.transactions_total_dept,curTransTable.id,curTransTable.transactions_definition" +
+			" from turq_view_current_amount_total curView, turq_current_cards curCard" +
+			" left join (Select curTransType.transaction_type_name, curTrans.transactions_date," +
+			" curTrans.transactions_document_no,curTrans.transactions_total_credit," +
+			" curTrans.transactions_total_dept, curTrans.id, curTrans.transactions_definition," +
+			" curTrans.current_cards_id " +
+			" from turq_current_transactions curTrans," +
+			" turq_current_transaction_types curTransType " +
+			" where curTrans.current_transaction_types_id=curTransType.id";
+			
+			if (!definition.trim().equals(""))
+			{
+				query += " and curTrans.transactions_definition like '"+definition.toUpperCase(Locale.getDefault()) +"%'";
+			}
+			query += " and curTrans.transactions_date >= '"+df.format(startDate)+"'"+
+			" and curTrans.transactions_date <= '"+df.format(endDate)+ "')" +
+			" curTransTable ON curTransTable.current_cards_id=curCard.id" +
+			" where curCard.id=curView.current_cards_id";
+			
 			if (curCardStart != null && curCardEnd != null)
 			{
-				query += " and curCard.cardsCurrentCode >= " + "'" + curCardStart.getCardsCurrentCode() + "'" + 
-						" and curCard.cardsCurrentCode <= " + "'" + curCardEnd.getCardsCurrentCode() + "'"; 
+				query += " and curCard.cards_current_code >= '"+curCardStart.getCardsCurrentCode()+"'";
+				query += " and curCard.cards_current_code <= '"+curCardEnd.getCardsCurrentCode()+"'";
 			}
-			else if (curCardStart == null)
+			else if (curCardStart != null)
 			{
+				query += " and curCard.id="+curCardStart.getId();
 			}
-			else if (curCardEnd == null)
-			{
-				query += " and curCard.id=" + curCardStart.getId(); 
-			}
+			
 			if (minAmount.doubleValue() > 0)
 			{
-				query += " and ((curView.transactionsTotalCredit >=" + minAmount.doubleValue()
-						+ ") or (curView.transactionsTotalDept >=" + minAmount.doubleValue() + "))";
+				query += " and (Select sum(trans.transactions_total_dept)+sum(trans.transactions_total_credit)" +
+						" from turq_current_transactions trans" +
+						" where trans.current_cards_id=curCard.id" +
+						" and trans.transactions_date >= '"+df.format(startDate)+"'"+
+						" and trans.transactions_date <= '"+df.format(endDate)+ "') >"+minAmount;
 			}
-			query += " order by curCard.cardsCurrentCode, curTrans.transactionsDate";
-			Query q = session.createQuery(query);
+			query += " order by curCard.cards_current_code, curTransTable.transactions_date";
 			
-			q.setParameter("startDate", startDate);
-			q.setParameter("endDate", endDate);
-			
-			List list = q.list();
+			ResultSet rs=statement.executeQuery(query);
+			List list=new ArrayList();
+			while (rs.next())
+			{
+				Object[] result=new Object[9];
+				result[0]=rs.getObject(1);
+				result[1]=rs.getObject(2);
+				result[2]=rs.getObject(3);
+				result[3]=rs.getObject(4);
+				result[4]=rs.getObject(5);
+				result[5]=rs.getObject(6);
+				result[6]=rs.getObject(7);
+				result[7]=rs.getObject(8);
+				result[8]=rs.getObject(9);
+				list.add(result);
+			}			
 			return list;
 		}
-		catch (Exception ex)
+		catch(Exception ex)
 		{
 			throw ex;
 		}

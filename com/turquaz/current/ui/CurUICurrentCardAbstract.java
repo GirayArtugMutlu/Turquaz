@@ -19,13 +19,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -50,7 +48,6 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
-import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -324,7 +321,6 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			for (int k = 0; k < balances.size(); k++)
 			{
 				Object[] balanceArr = (Object[]) balances.get(k);
-				//balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
 				balanceList.put((String) balanceArr[0], balanceArr);
 			}
 			parameters.put("balanceList", balanceList); //$NON-NLS-1$
@@ -358,135 +354,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			ex.printStackTrace();
 		}
 	}
-
-	public void search2()
-	{
-		try
-		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			currentCard = null;
-			currentCard2 = null;
-			if (txtCurrentCard.getData() == null && txtCurrentCard2.getData() == null)
-			{
-				msg.setMessage(Messages.getString("CurUICurrentCardAbstract.4")); //$NON-NLS-1$
-				msg.open();
-				txtCurrentCard.setFocus();
-				return;
-			}
-			else if (txtCurrentCard.getData() == null)
-			{
-				currentCard = (TurqCurrentCard) txtCurrentCard2.getData();
-				currentCard2 = null;
-			}
-			else if (txtCurrentCard2.getData() == null)
-			{
-				currentCard = (TurqCurrentCard) txtCurrentCard.getData();
-				currentCard2 = null;
-			}
-			else
-			{
-				currentCard = (TurqCurrentCard) txtCurrentCard.getData();
-				currentCard2 = (TurqCurrentCard) txtCurrentCard2.getData();
-			}
-			Map parameters = new HashMap();
-			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			String sqlparam = "Select trans.transactions_date, trans.transactions_document_no," + //$NON-NLS-1$
-					" trans.current_transactions_id, " + //$NON-NLS-1$
-					" transtype.transaction_type_name, trans.transactions_definition," + //$NON-NLS-1$
-					" trans.transactions_total_dept, trans.transactions_total_credit," + //$NON-NLS-1$
-					" curCard.cards_current_code, curCard.cards_name" + //$NON-NLS-1$
-					" from turq_current_transactions trans, turq_current_transaction_types transtype," + //$NON-NLS-1$
-					" turq_current_cards curCard" + " left join " + //$NON-NLS-1$
-					" where trans.current_transaction_types_id=transtype.current_transaction_types_id" + //$NON-NLS-1$
-					" and trans.current_cards_id=curCard.current_cards_id" + //$NON-NLS-1$
-					" and trans.transactions_date >=" + "'" + dformat.format(datePickerStartDate.getDate()) + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					" and trans.transactions_date <=" + "'" + dformat.format(datePickerEndDate.getDate()) + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			if (!txtDefinition.getText().equals("")) //$NON-NLS-1$
-				sqlparam += " and trans.transactions_definition like '" + txtDefinition.getText().toUpperCase(Locale.getDefault()) + "%'"; //$NON-NLS-1$ //$NON-NLS-2$
-			if (currentCard2 == null)
-			{
-				sqlparam += " and curCard.current_cards_id=" + currentCard.getId().intValue(); //$NON-NLS-1$
-			}
-			else
-			{
-				sqlparam += " and curCard.cards_current_code >= " + "'" + currentCard.getCardsCurrentCode() + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" and curCard.cards_current_code <= " + "'" + currentCard2.getCardsCurrentCode() + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			}
-			sqlparam += " order by curCard.cards_current_code, trans.transactions_date"; //$NON-NLS-1$
-			//System.out.println(sqlparam);
-			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			parameters.put("startDate", dformat2.format(datePickerStartDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
-			parameters.put("dformat", dformat2); //$NON-NLS-1$
-			parameters.put("currentCard1", currentCard.getCardsCurrentCode()); //$NON-NLS-1$
-			parameters.put("currentCard2", (currentCard2 == null) ? "" : currentCard2.getCardsCurrentCode()); //$NON-NLS-1$ //$NON-NLS-2$
-			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
-			parameters.put("currency", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
-			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			
-			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
-			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
-			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
-			
-			List balances =(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurrentBalances",argMap);
-			
-			HashMap balanceList = new HashMap();
-			for (int k = 0; k < balances.size(); k++)
-			{
-				Object[] balanceArr = (Object[]) balances.get(k);
-				//balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
-				balanceList.put((String) balanceArr[0], balanceArr);
-			}
-			parameters.put("balanceList", balanceList); //$NON-NLS-1$
-			//parameters.put("balances",balances);
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/current/CurrentCardAbstract.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
-			viewer.getReportViewer().setDocument(jasperPrint);
-		}
-		catch (Exception ex)
-		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
-		}
-		/*
-		 * try { MessageBox msg=new MessageBox(this.getShell(),SWT.NULL); if (txtCurrentCard.getData()==null) {
-		 * msg.setMessage(Messages.getString("CurUICurrentCardAbstract.3")); //$NON-NLS-1$ msg.open(); return; } TurkishCurrencyFormat
-		 * cf=new TurkishCurrencyFormat(); currentCard=(TurqCurrentCard)txtCurrentCard.getData(); tableCurrentTransactions.removeAll();
-		 * Date startDate=datePickerStartDate.getDate(); Date endDate=datePickerEndDate.getDate(); List balances =
-		 * BLsearch.getCurrentBalances(currentCard,startDate); TableItem item; BigDecimal balance = new BigDecimal(0); BigDecimal
-		 * totalDept = new BigDecimal(0); BigDecimal totalCredit = new BigDecimal(0); BigDecimal balanceCredit = new BigDecimal(0);
-		 * BigDecimal balanceDept = new BigDecimal(0); if(balances.size()>0){ item = new TableItem(tableCurrentTransactions,SWT.NULL);
-		 * if(((Object[])balances.get(0))[0]!=null){ totalDept =(BigDecimal)((Object[])balances.get(0))[0]; balance =
-		 * balance.subtract(totalDept); } if(((Object[])balances.get(0))[1]!=null){ totalCredit
-		 * =(BigDecimal)((Object[])balances.get(0))[1]; balance = balance.add(totalCredit); } item.setText(new String[]{ "", //$NON-NLS-1$
-		 * "", //$NON-NLS-1$ "", //$NON-NLS-1$ Messages.getString("CurUICurrentCardAbstract.11"), //$NON-NLS-1$ cf.format(totalDept),
-		 * cf.format(totalCredit), (balance.compareTo(new BigDecimal(0)) <0) ? cf.format(balance.multiply(new BigDecimal(-1))) : "",
-		 * //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ? cf.format(balance): "" //$NON-NLS-1$ }); } else{ item = new
-		 * TableItem(tableCurrentTransactions,SWT.NULL); item.setText(new String[]{ "", //$NON-NLS-1$ "", //$NON-NLS-1$ "", //$NON-NLS-1$
-		 * "", //$NON-NLS-1$ "0,00", //$NON-NLS-1$ "0,00", //$NON-NLS-1$ "0,00", //$NON-NLS-1$ "0,00" //$NON-NLS-1$ }); } List results
-		 * =BLsearch.getCurrentTransactions(currentCard, startDate, endDate); TurqCurrentTransaction transaction; for(int i=0;i
-		 * <results.size();i++) { transaction = (TurqCurrentTransaction)results.get(i); balance =
-		 * balance.subtract(transaction.getTransactionsTotalDept()); balance = balance.add(transaction.getTransactionsTotalCredit()); item =
-		 * new TableItem(tableCurrentTransactions,SWT.NULL); item.setData(transaction); item.setText(new
-		 * String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
-		 * transaction.getTurqCurrentTransactionType().getTransactionTypeName(), transaction.getTransactionsDocumentNo(),
-		 * transaction.getTransactionsDefinition(), cf.format(transaction.getTransactionsTotalDept()),
-		 * cf.format(transaction.getTransactionsTotalCredit()), (balance.compareTo(new BigDecimal(0)) <0) ? cf.format(balance.multiply(new
-		 * BigDecimal(-1))) : "", //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ? cf.format(balance): "" //$NON-NLS-1$ }); } }
-		 * catch(Exception ex) { MessageBox msg=new MessageBox(this.getShell(),SWT.NULL); Logger loger =
-		 * Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStackTrace(); msg.setMessage(ex.getMessage());
-		 * msg.open(); }
-		 */
-	}
-
+	
 	public void printTable()
 	{
 	}
