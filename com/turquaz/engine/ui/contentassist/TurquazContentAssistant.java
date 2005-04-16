@@ -48,28 +48,22 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 	{
 		super();		
 		adapter.appendVerifyKeyListener(new VerifyKeyListener()
+		{
+			public void verifyKey(VerifyEvent event)
+			{
+				// Check for Ctrl+Spacebar
+				if (event.stateMask == SWT.CTRL && event.character == ' ')
 				{
-					public void verifyKey(VerifyEvent event)
-					{
-						try
-						{
-							// Check for Ctrl+Spacebar							
-							if (event.stateMask == SWT.CTRL && event.character == ' ')
-							{
-								showPossibleCompletions();
-								event.doit = false;
-							}
-						}
-						catch(Exception ex)
-						{
-						}
-					}
-				});
+					showPossibleCompletions();
+					event.doit = false;
+				}
+			}
+		});
 		processor = new TurquazContentAssistProcessors(type);
 		Color bgColor = SWTResourceManager.getColor(255, 255, 255);
 		this.setProposalSelectorBackground(bgColor);
 		this.setContentAssistProcessor(processor, IDocument.DEFAULT_CONTENT_TYPE);
-		this.enableAutoActivation(true);
+		this.enableAutoActivation(false);
 		this.enableAutoInsert(true);
 		this.setAutoActivationDelay(500);
 		this.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
