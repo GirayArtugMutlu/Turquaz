@@ -46,12 +46,10 @@ import com.turquaz.engine.tx.EngTXCommon;
 public class TurquazContentAssistant extends SubjectControlContentAssistant
 {
 	TurquazContentAssistProcessors processor = null;
-	int type;
 
 	public TurquazContentAssistant(TextContentAssistSubjectAdapter adapter, int type)
 	{
 		super();		
-		this.type=type;
 		adapter.appendVerifyKeyListener(new VerifyKeyListener()
 		{
 			public void verifyKey(VerifyEvent event)
@@ -59,12 +57,6 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 				// Check for Ctrl+Spacebar
 				if (event.stateMask == SWT.CTRL && event.character == ' ')
 				{
-					showPossibleCompletions();
-					event.doit = false;
-				}
-				else if (event.stateMask == (SWT.CTRL|SWT.SHIFT) && event.character == ' ')
-				{
-					refreshMap();
 					showPossibleCompletions();
 					event.doit = false;
 				}
@@ -92,18 +84,6 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 		{
 			this.install(adapter);
 			installCueLabelProvider(adapter);
-		}
-	}
-	
-	public void refreshMap() 
-	{
-		try
-		{
-			refreshContentAssistant(type);
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
 		}
 	}
 	
