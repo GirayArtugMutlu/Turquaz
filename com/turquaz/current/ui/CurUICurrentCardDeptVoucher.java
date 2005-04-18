@@ -52,7 +52,7 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.custom.CCombo;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.CurKeys;
@@ -93,7 +93,7 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 	private Text txtDefinition;
 	private CCombo comboCurrencyType;
 	private CLabel lblCurrency;
-	private AccountPicker accountPicker;
+	private AccountPickerLeaf accountPicker;
 	private CLabel lblAcccountingAccount;
 	private CurrencyText txtCredit;
 	private DatePicker dateTransDate;
@@ -210,7 +210,7 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 			lblAcccountingAccount.setText(Messages.getString("CurUICurrentCardVoucher.3")); //$NON-NLS-1$
 			//END <<  lblAcccountingAccount
 			//START >>  accountPicker
-			accountPicker = new AccountPicker(this, SWT.NONE);
+			accountPicker = new AccountPickerLeaf(this, SWT.NONE);
 			GridData accountPickerLData = new GridData();
 			accountPickerLData.widthHint = 157;
 			accountPickerLData.heightHint = 17;
@@ -402,7 +402,7 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 	/**
 	 * @return Returns the accountPicker.
 	 */
-	public AccountPicker getAccountPicker()
+	public AccountPickerLeaf getAccountPicker()
 	{
 		return accountPicker;
 	}

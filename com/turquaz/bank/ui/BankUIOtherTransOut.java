@@ -23,7 +23,7 @@ import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.ui.component.SecureComposite;
@@ -45,7 +45,7 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 	private CLabel lblDefinition;
 	private CurrencyText curAmount;
 	private CLabel lblAmount;
-	private AccountPicker currentPicker;
+	private AccountPickerLeaf currentPicker;
 	private CLabel lblCurrentCard;
 	private BankCardPicker txtBankCard;
 	private DatePicker datePick;
@@ -123,7 +123,7 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 				lblCurrentCard.setText(Messages.getString("BankUIOtherTransOut.3")); //$NON-NLS-1$
 			}
 			{
-				currentPicker = new AccountPicker(this, SWT.NONE);
+				currentPicker = new AccountPickerLeaf(this, SWT.NONE);
 				GridData currentPickerLData = new GridData();
 				currentPickerLData.widthHint = 157;
 				currentPickerLData.heightHint = 17;
@@ -304,12 +304,12 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 		this.curAmount = curAmount;
 	}
 
-	public AccountPicker getCurrentPicker()
+	public AccountPickerLeaf getCurrentPicker()
 	{
 		return currentPicker;
 	}
 
-	public void setCurrentPicker(AccountPicker currentPicker)
+	public void setCurrentPicker(AccountPickerLeaf currentPicker)
 	{
 		this.currentPicker = currentPicker;
 	}

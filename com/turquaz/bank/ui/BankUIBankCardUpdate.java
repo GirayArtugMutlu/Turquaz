@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
@@ -238,7 +238,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				TurqBankAccountingAccount bankAccount = (TurqBankAccountingAccount) it.next();
 				Integer type = (Integer) bankAccount.getTurqBankAccountingType().getId();
-				AccountPicker picker = (AccountPicker) fieldMap.get(type);
+				AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
 				picker.setData(bankAccount.getTurqAccountingAccount());
 			}
 		}

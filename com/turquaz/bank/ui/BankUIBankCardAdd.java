@@ -24,7 +24,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -91,7 +91,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 		initGUI();
 	}
 
-	public AccountPicker getAccountPicker()
+	public AccountPickerLeaf getAccountPicker()
 	{
 		return accountPicker;
 	}
@@ -104,8 +104,8 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 	private CLabel lblBankName;
 	private Text txtDefinition;
 	private CLabel lblChequesCollect;
-	private AccountPicker accountPickerChequesCollect;
-	private AccountPicker accountPickerChequesGiven;
+	private AccountPickerLeaf accountPickerChequesCollect;
+	private AccountPickerLeaf accountPickerChequesGiven;
 	private CLabel lblChequesGiven;
 	private Composite composite;
 	private CTabItem tabAccountingAccounts;
@@ -113,7 +113,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 	private CTabItem tabGeneralInfo;
 	private CTabFolder cTabFolder1;
 	private CLabel lblDefinition;
-	private AccountPicker accountPicker;
+	private AccountPickerLeaf accountPicker;
 	private CLabel lblAccCode;
 	private CCombo comboCurrency;
 	private CLabel lblCurrency;
@@ -257,7 +257,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				lblAccCode.setText(Messages.getString("BankUIBankCardAdd.10")); //$NON-NLS-1$
 			}
 			{
-				accountPicker = new AccountPicker(composite, SWT.NONE);
+				accountPicker = new AccountPickerLeaf(composite, SWT.NONE);
 				GridData accountPickerLData = new GridData();
 				accountPickerLData.widthHint = 255;
 				accountPickerLData.heightHint = 17;
@@ -268,7 +268,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			lblChequesGiven.setText("Verilen Çekler Hesab\u0131");
 			//END << lblChequesGiven
 			//START >> accountPickerChequesGiven
-			accountPickerChequesGiven = new AccountPicker(composite, SWT.NONE);
+			accountPickerChequesGiven = new AccountPickerLeaf(composite, SWT.NONE);
 			GridData accountPickerChequesGivenLData = new GridData();
 			accountPickerChequesGivenLData.widthHint = 255;
 			accountPickerChequesGivenLData.heightHint = 17;
@@ -279,7 +279,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			lblChequesCollect.setText("Tahsildeki Çekler Hesab\u0131");
 			//END << lblChequesCollect
 			//START >> accountPickerChequesCollect
-			accountPickerChequesCollect = new AccountPicker(composite, SWT.NONE);
+			accountPickerChequesCollect = new AccountPickerLeaf(composite, SWT.NONE);
 			GridData accountPickerChequesCollectLData = new GridData();
 			accountPickerChequesCollectLData.widthHint = 253;
 			accountPickerChequesCollectLData.heightHint = 17;
@@ -380,7 +380,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 		while (it.hasNext())
 		{
 			Integer type = (Integer) it.next();
-			AccountPicker picker = (AccountPicker) fieldMap.get(type);
+			AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
 			if (picker.getTurqAccountingAccount() != null)
 			{
 				map.put(type, picker.getTurqAccountingAccount());

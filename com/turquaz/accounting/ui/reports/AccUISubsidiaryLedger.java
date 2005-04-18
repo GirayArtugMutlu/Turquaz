@@ -48,7 +48,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.SWT;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 
 /**
@@ -69,10 +69,10 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 	private CLabel lblEndDate;
 	private DatePicker dateStartDate;
 	private CLabel lblStartDate;
-	private AccountPicker txtAccount;
+	private AccountPickerLeaf txtAccount;
 	private ViewerComposite viewer;
 	private CLabel lblAccountCode2;
-	private AccountPicker txtAccount2;
+	private AccountPickerLeaf txtAccount2;
 	private CLabel lblAccNo;
 	private Composite compAccTransactionSearch;
 	private AccBLTransactionSearch blTransSearch = new AccBLTransactionSearch();
@@ -114,7 +114,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 					lblAccNo.setText(Messages.getString("AccUISubsidiaryLedger.0")); //$NON-NLS-1$
 				}
 				{
-					txtAccount = new AccountPicker(compAccTransactionSearch, SWT.NONE);
+					txtAccount = new AccountPickerLeaf(compAccTransactionSearch, SWT.NONE);
 					GridData txtDocumentNoLData = new GridData();
 					txtDocumentNoLData.widthHint = 157;
 					txtDocumentNoLData.heightHint = 17;
@@ -125,7 +125,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 					lblAccountCode2.setText(Messages.getString("AccUISubsidiaryLedger.12")); //$NON-NLS-1$
 				}
 				{
-					txtAccount2 = new AccountPicker(compAccTransactionSearch, SWT.NONE);
+					txtAccount2 = new AccountPickerLeaf(compAccTransactionSearch, SWT.NONE);
 					GridData txtAccount2LData = new GridData();
 					txtAccount2LData.widthHint = 157;
 					txtAccount2LData.heightHint = 17;

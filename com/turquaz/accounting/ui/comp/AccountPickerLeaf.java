@@ -16,7 +16,7 @@ package com.turquaz.accounting.ui.comp;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 /**
- * @author  Cem Dayanik
+ * @author  Onsel Armagan
  * @version  $Id$
  */
 import org.apache.log4j.Logger;
@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -46,7 +45,7 @@ import com.cloudgarden.resource.SWTResourceManager;
  * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
  * legally for any corporate or commercial purpose. *************************************
  */
-public class AccountPickerAll extends org.eclipse.swt.widgets.Composite
+public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite
 {
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -56,7 +55,7 @@ public class AccountPickerAll extends org.eclipse.swt.widgets.Composite
 	private String filter = "";
 	private Text text1;
 
-	public AccountPickerAll(Composite parent, int style)
+	public AccountPickerLeaf(Composite parent, int style)
 	{
 		super(parent, style);
 		initGUI();
@@ -86,7 +85,7 @@ public class AccountPickerAll extends org.eclipse.swt.widgets.Composite
 					{
 						try
 						{
-							setData2(EngBLAccountingAccounts.getAllAccounts(text1.getText().trim()));
+							setData2(EngBLAccountingAccounts.getLeafAccount(text1.getText().trim()));
 						}
 						catch (Exception ex)
 						{
@@ -132,7 +131,7 @@ public class AccountPickerAll extends org.eclipse.swt.widgets.Composite
 	public void postInitGUI()
 	{
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
-		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS);
+		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, 2);
 	}
 
 	public void verifyData()
@@ -162,8 +161,12 @@ public class AccountPickerAll extends org.eclipse.swt.widgets.Composite
 	public void setData(Object obj)
 	{
 		super.setData(obj);
-		TurqAccountingAccount account = (TurqAccountingAccount) obj;
-		text1.setText(account.getAccountCode());
+		text1.setText("");
+		if (obj != null)
+		{
+			TurqAccountingAccount account = (TurqAccountingAccount) obj;
+			text1.setText(account.getAccountCode());
+		}
 	}
 
 	public void setData2(Object obj)

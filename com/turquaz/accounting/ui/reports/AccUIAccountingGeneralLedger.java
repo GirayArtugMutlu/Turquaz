@@ -39,7 +39,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
-import com.turquaz.accounting.ui.comp.AccountPickerAll;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.accounting.Messages;
 import com.turquaz.engine.dal.EngDALConnection;
@@ -54,13 +54,13 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 	private Composite compOptions;
 	private CLabel lblAccountEnd;
 	private Composite compViewever;
-	private AccountPickerAll txtAccountStart;
+	private AccountPicker txtAccountStart;
 	private CLabel lblAccountStart;
 	private Button btnShow;
 	private Button checkApproved;
 	private DatePicker datePickerEndDate;
 	private ViewerComposite viewer;
-	private AccountPickerAll txtAccountEnd;
+	private AccountPicker txtAccountEnd;
 	private CLabel lblEndDate;
 	private DatePicker datePickerBeginDate;
 	private CLabel lblStartDate;
@@ -126,7 +126,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			lblAccountStart.setText(Messages.getString("AccUIAccountingGeneralLedger.4")); //$NON-NLS-1$
 			//END << lblAccountStart
 			//START >> txtAccountStart
-			txtAccountStart = new AccountPickerAll(compOptions, SWT.NONE);
+			txtAccountStart = new AccountPicker(compOptions, SWT.NONE);
 			GridData txtAccountStartLData = new GridData();
 			txtAccountStartLData.widthHint = 134;
 			txtAccountStartLData.heightHint = 17;
@@ -137,7 +137,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			lblAccountEnd.setText(Messages.getString("AccUIAccountingGeneralLedger.5")); //$NON-NLS-1$
 			//END << lblAccountEnd
 			//START >> txtAccountEnd
-			txtAccountEnd = new AccountPickerAll(compOptions, SWT.NONE);
+			txtAccountEnd = new AccountPicker(compOptions, SWT.NONE);
 			GridData txtAccountEndLData = new GridData();
 			txtAccountEndLData.widthHint = 134;
 			txtAccountEndLData.heightHint = 17;

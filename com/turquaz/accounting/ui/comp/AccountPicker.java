@@ -16,7 +16,7 @@ package com.turquaz.accounting.ui.comp;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 /**
- * @author  Onsel Armagan
+ * @author  Cem Dayanik
  * @version  $Id$
  */
 import org.apache.log4j.Logger;
@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -85,7 +86,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite
 					{
 						try
 						{
-							setData2(EngBLAccountingAccounts.getLeafAccount(text1.getText().trim()));
+							setData2(EngBLAccountingAccounts.getAllAccounts(text1.getText().trim()));
 						}
 						catch (Exception ex)
 						{
@@ -131,7 +132,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite
 	public void postInitGUI()
 	{
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
-		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, 2);
+		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS);
 	}
 
 	public void verifyData()
@@ -161,12 +162,8 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite
 	public void setData(Object obj)
 	{
 		super.setData(obj);
-		text1.setText("");
-		if (obj != null)
-		{
-			TurqAccountingAccount account = (TurqAccountingAccount) obj;
-			text1.setText(account.getAccountCode());
-		}
+		TurqAccountingAccount account = (TurqAccountingAccount) obj;
+		text1.setText(account.getAccountCode());
 	}
 
 	public void setData2(Object obj)

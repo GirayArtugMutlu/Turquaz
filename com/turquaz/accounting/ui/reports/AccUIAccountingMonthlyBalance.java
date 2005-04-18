@@ -59,7 +59,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CLabel;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.custom.CCombo;
 
 public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Composite implements SearchComposite
@@ -71,10 +71,10 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 	private Group groupRemainder;
 	private CLabel lblMonth;
 	private CCombo comboMonth;
-	private AccountPicker accountPickerEnd;
+	private AccountPickerLeaf accountPickerEnd;
 	private CLabel lblAccEnd;
 	private CLabel lblAccStart;
-	private AccountPicker accountPickerStart;
+	private AccountPickerLeaf accountPickerStart;
 	private TableColumn tableColumnCreditRemaining;
 	private TableTree tableTreeAccounts;
 	private Composite compTable;
@@ -175,7 +175,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					lblAccStart.setText(Messages.getString("AccUIAccountingMonthlyBalance.15")); //$NON-NLS-1$
 				}
 				{
-					accountPickerStart = new AccountPicker(compAdvanced, SWT.NONE);
+					accountPickerStart = new AccountPickerLeaf(compAdvanced, SWT.NONE);
 					GridData accountPickerStartLData = new GridData();
 					accountPickerStartLData.widthHint = 248;
 					accountPickerStartLData.heightHint = 18;
@@ -189,7 +189,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					lblAccEnd.setLayoutData(lblAccEndLData);
 				}
 				{
-					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);
+					accountPickerEnd = new AccountPickerLeaf(compAdvanced, SWT.NONE);
 					GridData accountPickerEndLData = new GridData();
 					accountPickerEndLData.widthHint = 249;
 					accountPickerEndLData.heightHint = 17;

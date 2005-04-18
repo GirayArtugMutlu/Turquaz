@@ -42,7 +42,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -73,7 +73,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 	private CurrencyTextAdvanced txtTotalAmount;
 	private CLabel lblTotalAmount;
 	private Composite compTotal;
-	private AccountPicker accountPicker;
+	private AccountPickerLeaf accountPicker;
 	private CLabel lblReturnBankAccounting;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnPaymentPlace;
@@ -139,7 +139,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 				lblReturnBankAccounting.setText("Portföydeki Çekler Hesab\u0131");
 				//END << lblReturnBankAccounting
 				//START >> accountPicker
-				accountPicker = new AccountPicker(compInfoPanel, SWT.NONE);
+				accountPicker = new AccountPickerLeaf(compInfoPanel, SWT.NONE);
 				GridData accountPickerLData = new GridData();
 				accountPickerLData.widthHint = 215;
 				accountPickerLData.heightHint = 19;
@@ -387,7 +387,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 	/**
 	 * @return Returns the accountPicker.
 	 */
-	public AccountPicker getAccountPicker()
+	public AccountPickerLeaf getAccountPicker()
 	{
 		return accountPicker;
 	}
@@ -396,7 +396,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 	 * @param accountPicker
 	 *             The accountPicker to set.
 	 */
-	public void setAccountPicker(AccountPicker accountPicker)
+	public void setAccountPicker(AccountPickerLeaf accountPicker)
 	{
 		this.accountPicker = accountPicker;
 	}

@@ -27,7 +27,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
@@ -89,7 +89,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
 	private CLabel lblDocumentNo;
 	private CurrencyText curTextTotalAmount;
 	private CLabel lblTotalAmount;
-	private AccountPicker txtAccountingAccount;
+	private AccountPickerLeaf txtAccountingAccount;
 	private CLabel lblCurrentCard;
 	private CashCardPicker txtCashCard;
 	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
@@ -148,7 +148,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
 				lblCurrentCard.setText("Kar\u015f\u0131 Muhasebe Hesab\u0131"); //$NON-NLS-1$
 			}
 			{
-				txtAccountingAccount = new AccountPicker(this, SWT.NONE);
+				txtAccountingAccount = new AccountPickerLeaf(this, SWT.NONE);
 				GridData txtCurrentAccountLData = new GridData();
 				txtCurrentAccountLData.widthHint = 157;
 				txtCurrentAccountLData.heightHint = 17;
@@ -383,7 +383,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
 	/**
 	 * @return Returns the txtAccountingAccount.
 	 */
-	public AccountPicker getTxtAccountingAccount()
+	public AccountPickerLeaf getTxtAccountingAccount()
 	{
 		return txtAccountingAccount;
 	}
@@ -392,7 +392,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
 	 * @param txtAccountingAccount
 	 *             The txtAccountingAccount to set.
 	 */
-	public void setTxtAccountingAccount(AccountPicker txtAccountingAccount)
+	public void setTxtAccountingAccount(AccountPickerLeaf txtAccountingAccount)
 	{
 		this.txtAccountingAccount = txtAccountingAccount;
 	}

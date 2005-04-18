@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import com.turquaz.current.CurKeys;
@@ -63,7 +63,7 @@ import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
  */
 public class CurUITransactionAdd extends Composite implements SecureComposite
 {
-	private AccountPicker accPickerCashAccount;
+	private AccountPickerLeaf accPickerCashAccount;
 	private CLabel lblCashAccount;
 	private CCombo comboCurrencyType;
 	private CLabel lblCurrency;
@@ -152,7 +152,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			lblTransDate = new CLabel(this, SWT.NULL);
 			dateTransDate = new DatePicker(this, SWT.NULL);
 			lblCashAccount = new CLabel(this, SWT.NULL);
-			accPickerCashAccount = new AccountPicker(this, SWT.NONE);
+			accPickerCashAccount = new AccountPickerLeaf(this, SWT.NONE);
 			this.setSize(498, 290);
 			GridData lblDocumentNoLData = new GridData();
 			lblDocumentNoLData.verticalAlignment = GridData.CENTER;
@@ -434,7 +434,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	/**
 	 * @return Returns the accPickerCashAccount.
 	 */
-	public AccountPicker getAccPickerCashAccount()
+	public AccountPickerLeaf getAccPickerCashAccount()
 	{
 		return accPickerCashAccount;
 	}
@@ -443,7 +443,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	 * @param accPickerCashAccount
 	 *             The accPickerCashAccount to set.
 	 */
-	public void setAccPickerCashAccount(AccountPicker accPickerCashAccount)
+	public void setAccPickerCashAccount(AccountPickerLeaf accPickerCashAccount)
 	{
 		this.accPickerCashAccount = accPickerCashAccount;
 	}

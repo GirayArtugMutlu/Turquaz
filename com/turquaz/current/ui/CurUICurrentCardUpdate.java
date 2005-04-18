@@ -33,7 +33,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
@@ -305,7 +305,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				TurqCurrentAccountingAccount curAccount = (TurqCurrentAccountingAccount) it.next();
 				Integer type = (Integer) curAccount.getTurqCurrentAccountingType().getId();
-				AccountPicker picker = (AccountPicker) fieldMap.get(type);
+				AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
 				picker.setData(curAccount.getTurqAccountingAccount());
 			}
 			it = currentCard.getTurqCurrentCardsGroups().iterator();

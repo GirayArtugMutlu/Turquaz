@@ -41,7 +41,7 @@ import org.eclipse.swt.SWT;
  * legally for any corporate or commercial purpose. *************************************
  */
 import org.eclipse.swt.widgets.Group;
-import com.turquaz.accounting.ui.comp.AccountPickerAll;
+import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -70,10 +70,10 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	private Button radioUseMainAccounts;
 	private Group groupRemainder;
 	private TableColumn tableColumnRemain;
-	private AccountPickerAll accountPickerEnd;
+	private AccountPicker accountPickerEnd;
 	private CLabel lblAccEnd;
 	private CLabel lblAccStart;
-	private AccountPickerAll accountPickerStart;
+	private AccountPicker accountPickerStart;
 	private TableColumn tableColumnCreditRemaining;
 	private Label lblEndDate;
 	private CLabel lblStartDate;
@@ -202,7 +202,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					lblAccStart.setLayoutData(lblAccStartLData);
 				}
 				{
-					accountPickerStart = new AccountPickerAll(compAdvanced, SWT.NONE);
+					accountPickerStart = new AccountPicker(compAdvanced, SWT.NONE);
 					GridData accountPickerStartLData = new GridData();
 					accountPickerStartLData.widthHint = 128;
 					accountPickerStartLData.heightHint = 17;
@@ -217,7 +217,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					lblAccEnd.setLayoutData(lblAccEndLData);
 				}
 				{
-					accountPickerEnd = new AccountPickerAll(compAdvanced, SWT.NONE);
+					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);
 					GridData accountPickerEndLData = new GridData();
 					accountPickerEndLData.widthHint = 129;
 					accountPickerEndLData.heightHint = 17;

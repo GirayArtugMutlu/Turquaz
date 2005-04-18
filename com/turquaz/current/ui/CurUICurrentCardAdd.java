@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.Messages;
 import com.turquaz.accounting.ui.AccUIAddAccountDialog;
-import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -86,7 +86,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	/**
 	 * @return Returns the accPickerCustomer.
 	 */
-	public AccountPicker getAccPickerCustomer()
+	public AccountPickerLeaf getAccPickerCustomer()
 	{
 		return accPickerCustomer;
 	}
@@ -324,10 +324,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	private CLabel cLabel4;
 	private CLabel cLabel3;
 	private CLabel lblChequesGiven;
-	private AccountPicker accountPickerChequesTaken;
-	private AccountPicker accountPickerChequesGiven;
+	private AccountPickerLeaf accountPickerChequesTaken;
+	private AccountPickerLeaf accountPickerChequesGiven;
 	private CLabel lblChequeTaken;
-	private AccountPicker accPickerCustomer;
+	private AccountPickerLeaf accPickerCustomer;
 	private CLabel lblAccountingCodeCustomer;
 	private Composite compaccountingAccounts;
 	private CTabItem tabItemAccountingAccounts;
@@ -571,7 +571,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.27")); //$NON-NLS-1$
 			//END << lblAccountingCodeCustomer
 			//START >> accPickerCustomer
-			accPickerCustomer = new AccountPicker(compaccountingAccounts, SWT.NONE);
+			accPickerCustomer = new AccountPickerLeaf(compaccountingAccounts, SWT.NONE);
 			GridData accountPickerCustomerLData = new GridData();
 			accountPickerCustomerLData.widthHint = 157;
 			accountPickerCustomerLData.heightHint = 17;
@@ -586,7 +586,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			lblChequeTaken.setLayoutData(lblChequeTakenLData);
 			//END << lblChequeTaken
 			//START >> accountPickerChequesGiven
-			accountPickerChequesGiven = new AccountPicker(compaccountingAccounts, SWT.NONE);
+			accountPickerChequesGiven = new AccountPickerLeaf(compaccountingAccounts, SWT.NONE);
 			GridData accountPickerChequesGivenLData = new GridData();
 			accountPickerChequesGivenLData.widthHint = 157;
 			accountPickerChequesGivenLData.heightHint = 17;
@@ -597,7 +597,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			lblChequesGiven.setText(Messages.getString("CurUICurrentCardAdd.31")); //$NON-NLS-1$
 			//END << lblChequesGiven
 			//START >> accountPickerChequesTaken
-			accountPickerChequesTaken = new AccountPicker(compaccountingAccounts, SWT.NONE);
+			accountPickerChequesTaken = new AccountPickerLeaf(compaccountingAccounts, SWT.NONE);
 			GridData accountPicker1LData = new GridData();
 			accountPicker1LData.widthHint = 157;
 			accountPicker1LData.heightHint = 17;
@@ -1164,7 +1164,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		while (it.hasNext())
 		{
 			Integer type = (Integer) it.next();
-			AccountPicker picker = (AccountPicker) fieldMap.get(type);
+			AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
 			if (picker.getTurqAccountingAccount() != null)
 			{
 				map.put(type, picker.getTurqAccountingAccount());
