@@ -52,10 +52,10 @@ public class EngBLAccountingAccounts
 		try
 		{
 			
-			accountList = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccounts",null);
-			accountListForAccountPickers = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccountsForAccountPickers",null);
-			allAccountList = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccountsForAccountPickerAll",null);
-			cashAccountList = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getCashAccounts",null);
+			accountList = AccBLAccountAdd.getAllAccounts();
+			accountListForAccountPickers =AccBLAccountAdd.getAccountsForAccountPickers();
+			allAccountList = AccBLAccountAdd.getAllAccountsForAccountPickerAll();
+			cashAccountList =AccBLAccountAdd.getCashAccounts();
 			accountMap.clear();
 			TurqAccountingAccount account;
 			for (int i = 0; i < accountList.size(); i++)

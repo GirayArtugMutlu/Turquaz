@@ -7,6 +7,7 @@
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<reportFont name="pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="beginDate" class="java.lang.String">
 	</parameter>
 	<parameter name="endDate" class="java.lang.String">

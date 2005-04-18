@@ -34,7 +34,6 @@ import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.custom.CTabItem;
@@ -156,11 +155,9 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 				argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
 				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
 				argMap.put(AccKeys.ACC_ACCOUNT,(TurqAccountingAccount) accountPicker.getData());
-				EngTXCommon.doTransactionTX(CashBLCashCardAdd.class.getName(),"saveCashCard",argMap);
-				
+				EngTXCommon.doTransactionTX(CashBLCashCardAdd.class.getName(),"saveCashCard",argMap);	
 				msg.setMessage(Messages.getString("CashUICashCardAdd.3")); //$NON-NLS-1$
 				msg.open();
-				EngBLCashCards.RefreshContentAsistantMap();
 				newForm();
 			}
 		}

@@ -336,12 +336,8 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);
 				
 				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
-				
 				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
 				msg.open();
-				EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
-
-				asistant.refreshContentAssistant(0);
 				clearFields();
 				return account;
 			}
@@ -384,8 +380,6 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);				
 				
 				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
-				EngBLAccountingAccounts.RefreshContentAsistantMap();
-				asistant.refreshContentAssistant(0);
 				msg.open();			
 				clearFields();
 			}

@@ -35,7 +35,6 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CTabItem;
-import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -136,6 +135,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			preInitGUI();
 			this.setSize(634, 380);
 			GridLayout thisLayout = new GridLayout();
+			this.setEnabled(false);
 			this.setLayout(thisLayout);
 			//START >> cTabFolder1
 			cTabFolder1 = new CTabFolder(this, SWT.NONE);
@@ -410,7 +410,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				msg.setMessage(Messages.getString("BankUIBankCardAdd.17")); //$NON-NLS-1$
 				msg.open();
 				newForm();
-				EngBLBankCards.RefreshContentAsistantMap();
+				
 			}
 		}
 		catch (Exception ex)

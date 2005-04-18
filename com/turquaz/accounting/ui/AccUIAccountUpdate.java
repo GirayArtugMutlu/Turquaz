@@ -31,7 +31,6 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
-import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -311,11 +310,9 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,compAccountCard.getTxtParentAccount().getData());
 				
 				EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"updateAccount",argMap);						
-				EngBLAccountingAccounts.RefreshContentAsistantMap();
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
 				msg.open();
 				updateOccured = true;
-				compAccountCard.asistant.refreshContentAssistant(0);
 				this.dialogShell.close();
 			}
 		}
@@ -340,8 +337,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT,account);
-				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
-				EngBLAccountingAccounts.RefreshContentAsistantMap();				
+				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);				
 				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 				msg.open();
 				updateOccured = true;

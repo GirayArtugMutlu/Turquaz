@@ -20,6 +20,7 @@ package com.turquaz.engine.ui.contentassist;
  * @version $Id$
  */
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
@@ -39,14 +40,18 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class TurquazContentAssistant extends SubjectControlContentAssistant
 {
 	TurquazContentAssistProcessors processor = null;
+	int type;
 
 	public TurquazContentAssistant(TextContentAssistSubjectAdapter adapter, int type)
 	{
 		super();		
+		this.type=type;
 		adapter.appendVerifyKeyListener(new VerifyKeyListener()
 		{
 			public void verifyKey(VerifyEvent event)
@@ -54,6 +59,12 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 				// Check for Ctrl+Spacebar
 				if (event.stateMask == SWT.CTRL && event.character == ' ')
 				{
+					showPossibleCompletions();
+					event.doit = false;
+				}
+				else if (event.stateMask == (SWT.CTRL|SWT.SHIFT) && event.character == ' ')
+				{
+					refreshMap();
 					showPossibleCompletions();
 					event.doit = false;
 				}
@@ -81,6 +92,18 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 		{
 			this.install(adapter);
 			installCueLabelProvider(adapter);
+		}
+	}
+	
+	public void refreshMap() 
+	{
+		try
+		{
+			refreshContentAssistant(type);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 	
@@ -123,12 +146,11 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 		return new ArrayList();
 	}
 
-	public void refreshContentAssistant(int type)
+	public static void refreshContentAssistant(int type) throws Exception
 	{
-		if (processor != null)
-		{
-			processor.fillProposalArray(type);
-		}
+		HashMap argMap=new HashMap();
+		argMap.put(EngKeys.TYPE,new Integer(type));
+		EngTXCommon.doSingleTX(TurquazContentAssistProcessors.class.getName(),"fillProposalArray",argMap);
 	}
 
 	public SubjectControlContentAssistant createContentAssistant()

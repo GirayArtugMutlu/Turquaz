@@ -1196,8 +1196,6 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				argMap.put(CurKeys.CUR_CONTACT_INFO,getContactInfo());
 				argMap.put(CurKeys.CUR_GROUP_LIST,getGroupList());
 				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentCard",argMap);	 //$NON-NLS-1$
-				
-				EngBLCurrentCards.RefreshContentAsistantMap();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
 				msg.open();

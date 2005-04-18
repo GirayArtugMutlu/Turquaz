@@ -20,9 +20,9 @@ package com.turquaz.engine.ui.contentassist;
  * @version $Id$
  */
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.IContentAssistSubjectControl;
 import org.eclipse.jface.contentassist.ISubjectControlContentAssistProcessor;
 import org.eclipse.jface.text.BadLocationException;
@@ -34,6 +34,7 @@ import org.eclipse.jface.text.contentassist.ContextInformationValidator;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCashCards;
@@ -45,6 +46,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 
 public class TurquazContentAssistProcessors implements ISubjectControlContentAssistProcessor
 {
@@ -77,8 +79,17 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 
 	public TurquazContentAssistProcessors(int type)
 	{
-		this.contentType = type;
-		fillProposalArray(type);
+		try
+		{
+			this.contentType = type;
+			HashMap argMap=new HashMap();
+			argMap.put(EngKeys.TYPE,new Integer(type));
+			EngTXCommon.doSingleTX(this.getClass().getName(),"fillProposalArray",argMap);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	/*
@@ -89,65 +100,57 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 	/**
 	 * 0 -accounting 1- inventory 2-accounting leaves 3 customers
 	 */
-	public void fillProposalArray(int type)
+	public static void fillProposalArray(HashMap argMap) throws Exception
 	{
-		try
+		int type=((Integer)argMap.get(EngKeys.TYPE)).intValue();
+		List proposed = new ArrayList();
+		if (type == 0)
 		{
-			List proposed = new ArrayList();
-			if (type == 0)
-			{
-				fillAccountingModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY)
-			{
-				fillInvCardModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES)
-			{
-				fillAccountingModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT)
-			{
-				fillCurrentModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_CASH)
-			{
-				fillCashModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH)
-			{
-				fillAccountingModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT_CODE)
-			{
-				fillCurrentModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_BANK)
-			{
-				fillBankModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS)
-			{
-				fillInvGroupModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS)
-			{
-				fillAccountingModuleArray();
-			}
-			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
-			{
-				fillInvCardModuleArray();
-			}
+			fillAccountingModuleArray();
 		}
-		catch (Exception ex)
+		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+			fillInvCardModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES)
+		{
+			fillAccountingModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT)
+		{
+			fillCurrentModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_CASH)
+		{
+			fillCashModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH)
+		{
+			fillAccountingModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT_CODE)
+		{
+			fillCurrentModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_BANK)
+		{
+			fillBankModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS)
+		{
+			fillInvGroupModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS)
+		{
+			fillAccountingModuleArray();
+		}
+		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
+		{
+			fillInvCardModuleArray();
 		}
 	}
 	
-	public void fillCurrentModuleArray() throws Exception
+	public static void fillCurrentModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
 		List list = EngBLCurrentCards.getCurrentCards();
@@ -170,7 +173,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 
 	}
 	
-	public void fillAccountingModuleArray() throws Exception
+	public static void fillAccountingModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
 		List list = EngBLAccountingAccounts.getAccounts();
@@ -216,7 +219,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		
 	}
 	
-	public void fillInvCardModuleArray() throws Exception
+	public static void fillInvCardModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
 		List list = EngBLInventoryCards.getInventoryCards();
@@ -240,7 +243,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 
 	}
 	
-	public void fillInvGroupModuleArray() throws Exception
+	public static void fillInvGroupModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
 		List list = EngBLInventoryGroups.getInvGroups();
@@ -253,7 +256,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS]);
 	}
 	
-	public void fillBankModuleArray() throws Exception
+	public static void fillBankModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
 		List list = EngBLBankCards.getBankCards();
@@ -267,7 +270,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_BANK]);
 	}
 	
-	public void fillCashModuleArray() throws Exception
+	public static void fillCashModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
 		List list = EngBLCashCards.getCashCards();
@@ -278,11 +281,6 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		}
 		proposedCodeList[EngBLCommon.CONTENT_ASSIST_CASH] = new Proposal[proposed.size()];
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_CASH]);
-	}
-	
-	public void fillChequeModuleArray() throws Exception
-	{
-		
 	}
 
 	public ICompletionProposal[] computeCompletionProposals(IContentAssistSubjectControl viewer, int documentOffset)

@@ -49,7 +49,7 @@ public class EngBLCurrentCards
 	{
 		try
 		{
-			currentList = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCards",null);
+			currentList = CurBLCurrentCardSearch.getCurrentCards();
 		}
 		catch (Exception ex)
 		{

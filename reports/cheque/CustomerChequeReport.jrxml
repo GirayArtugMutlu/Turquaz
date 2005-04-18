@@ -3,11 +3,12 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="CustomerChequeReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="reportDate" class="java.lang.String">
 	</parameter>
 	<parameter name="startDate" class="java.lang.String">
@@ -80,7 +81,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tutar ]]></text>
+				<text><![CDATA[Tutar]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="Float" x="69" y="80" width="1" height="20"/>
@@ -114,35 +115,35 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Rapor Tarihi : ]]></text>
+				<text><![CDATA[Rapor Tarihi :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="389" y="19" width="110" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Giriş Tarihi : ]]></text>
+				<text><![CDATA[Giriş Tarihi :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="389" y="33" width="110" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Çıkış Tarihi : ]]></text>
+				<text><![CDATA[Çıkış Tarihi :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="389" y="47" width="110" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vade Tarihi Başlangıcı : ]]></text>
+				<text><![CDATA[Vade Tarihi Başlangıcı :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="389" y="61" width="110" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vade Tarihi Bitişi : ]]></text>
+				<text><![CDATA[Vade Tarihi Bitişi :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="501" y="5" width="55" height="12"/>
@@ -199,7 +200,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOPLAM : ]]></text>
+				<text><![CDATA[TOPLAM :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="463" y="3" width="90" height="12"/>

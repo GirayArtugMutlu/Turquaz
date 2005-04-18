@@ -7,6 +7,7 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -61,6 +62,7 @@ public class CashBLCashCardAdd
 			EngDALCommon.saveObject(cashCard);
 			
 			saveInitialTransaction(cashCard);
+			EngBLCashCards.RefreshContentAsistantMap();
 			
 	
 	}

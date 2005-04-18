@@ -42,7 +42,6 @@ import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
@@ -426,7 +425,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap = new HashMap();
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
-				EngBLCurrentCards.RefreshContentAsistantMap();
 				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
@@ -503,8 +501,6 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"updateCurrentCard",argMap);
-				
-				EngBLCurrentCards.RefreshContentAsistantMap();
 				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();

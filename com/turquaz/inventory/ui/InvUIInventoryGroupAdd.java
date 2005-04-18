@@ -10,7 +10,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
-import com.turquaz.engine.bl.EngBLInventoryGroups;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -167,7 +166,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 				argMap.put(InvKeys.INV_GROUP_PARENT,(TurqInventoryGroup)txtMainGroup.getData());
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
-				EngBLInventoryGroups.RefreshContentAsistantMap();
+				
 				newForm();
 			}
 		}
@@ -191,8 +190,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
 				argMap.put(InvKeys.INV_GROUP,group);
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"updateInvGroup",argMap);
-				EngUICommon.showSavedSuccesfullyMessage(getShell()); EngBLInventoryGroups.RefreshContentAsistantMap();
-			   
+				EngUICommon.showSavedSuccesfullyMessage(getShell());			   
 			}
 		}
 		catch (Exception ex)
@@ -206,7 +204,6 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 
 	public void save(TurqInventoryGroup mainGroup)
 	{
-		InvBLCardAdd blCardAdd = new InvBLCardAdd();
 		try
 		{
 			if (verifyFields())
@@ -217,7 +214,6 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 				argMap.put(InvKeys.INV_GROUP_PARENT,mainGroup);
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
-				EngBLInventoryGroups.RefreshContentAsistantMap();
 			}
 		}
 		catch (Exception ex)

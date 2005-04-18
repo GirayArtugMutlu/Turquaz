@@ -29,6 +29,7 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardUpdate;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -59,17 +60,18 @@ public class CurBLCurrentCardUpdate
 		 Map accountingAccounts = (Map)argMap.get(CurKeys.CUR_ACCOUNTING_LIST);
 		 List phoneList = (List)argMap.get(CurKeys.CUR_PHONE_LIST);
 		 Map contactInfo = (Map)argMap.get(CurKeys.CUR_CONTACT_INFO);
-		 List groupList = (List)argMap.get(CurKeys.CUR_GROUP_LIST);
+		 List groupList = (List) argMap.get(CurKeys.CUR_GROUP_LIST);
+		 
+		 
+		 updateCurrentCardInfo(currentCard, currentCode, cardName, cardDefinition, cardAddress,
+				cardDiscountRate, cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment,
+				cardTaxNumber, daysToValue.intValue());
+		updateCurrentCardAccounts(currentCard, accountingAccounts);
+		updateCurrentCardPhones(currentCard, phoneList);
+		updateCurrentCardContact(currentCard, contactInfo);
+		updateCurrentCardGroups(currentCard, groupList);
 		
-		
-		
-		
-			updateCurrentCardInfo(currentCard, currentCode, cardName, cardDefinition, cardAddress, cardDiscountRate,
-					cardDiscountPayment, cardCreditLimit, cardRiskLimit, cardTaxDepartment, cardTaxNumber, daysToValue.intValue());
-			updateCurrentCardAccounts(currentCard, accountingAccounts);
-			updateCurrentCardPhones(currentCard, phoneList);
-			updateCurrentCardContact(currentCard, contactInfo);
-			updateCurrentCardGroups(currentCard, groupList);
+		EngBLCurrentCards.RefreshContentAsistantMap();
 	
 	}
 
@@ -176,6 +178,8 @@ public class CurBLCurrentCardUpdate
 			deleteCurrentCardPhones(currentCard);
 			CurDALSearchTransaction.deleteInitialTransactions(currentCard);
 			EngDALCommon.deleteObject(currentCard);
+			
+			EngBLCurrentCards.RefreshContentAsistantMap();
 	
 	}
 

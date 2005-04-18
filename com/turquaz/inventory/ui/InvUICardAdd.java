@@ -1286,8 +1286,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				argMap.put(InvKeys.INV_CARD_ACCOUNTS,getInvAccounts());
 				
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInventoryCard",argMap);
-				txtInvCardCode.asistant.refreshContentAssistant(1);
-				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
+				
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardAdd.36")); //$NON-NLS-1$
 				msg.open();

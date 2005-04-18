@@ -3,10 +3,11 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="ConsignmentTemplate1" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="currentName" class="java.lang.String">
 	</parameter>
 	<parameter name="currentAddress" class="java.lang.String">

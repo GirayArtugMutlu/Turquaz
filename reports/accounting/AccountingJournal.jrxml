@@ -5,6 +5,7 @@
 <jasperReport name="AccountingJournal" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="ireport.scriptlethandling" value="2"/>
+	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="ReportTitle" class="java.lang.String">
 	</parameter>
 	<parameter name="imageUrl" class="java.lang.String">

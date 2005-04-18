@@ -47,7 +47,7 @@ public class EngBLInventoryCards
 	{
 		try
 		{
-			cardList = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInventoryCards",null);
+			cardList = InvBLCardSearch.getInventoryCards();
 		}
 		catch (Exception ex)
 		{

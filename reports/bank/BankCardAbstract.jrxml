@@ -3,10 +3,11 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="Unnamed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="initialDept" class="java.math.BigDecimal">
 	</parameter>
 	<parameter name="initialCredit" class="java.math.BigDecimal">
@@ -288,7 +289,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EKSTRE TOPLAMI : ]]></text>
+				<text><![CDATA[EKSTRE TOPLAMI :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="266" y="4" width="70" height="12"/>
@@ -343,7 +344,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[GENEL TOPLAM : ]]></text>
+				<text><![CDATA[GENEL TOPLAM :]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="266" y="22" width="70" height="12"/>

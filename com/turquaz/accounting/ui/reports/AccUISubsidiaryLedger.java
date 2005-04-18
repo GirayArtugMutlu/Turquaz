@@ -299,6 +299,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
 			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
+			
+			
 		
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_ACCOUNT_START,account);

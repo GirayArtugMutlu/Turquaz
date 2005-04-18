@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.tx.EngTXCommon;
 
 public class EngBLBankCards
 {
@@ -29,7 +28,7 @@ public class EngBLBankCards
 	{
 		try
 		{
-			currentList = (List) EngTXCommon.doSingleTX(BankBLBankCardSearch.class.getName(),"getBankCards",null);
+			currentList = BankBLBankCardSearch.getBankCards();
 			cardMap.clear();
 			TurqBanksCard cashCard;
 			for (int i = 0; i < currentList.size(); i++)
@@ -44,7 +43,7 @@ public class EngBLBankCards
 		}
 	}
 
-	public static synchronized List getBankCards() throws Exception
+	public static List getBankCards() throws Exception
 	{
 		try
 		{

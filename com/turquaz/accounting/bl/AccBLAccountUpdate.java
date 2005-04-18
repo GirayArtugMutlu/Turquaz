@@ -30,10 +30,6 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 public class AccBLAccountUpdate
 {
-	public AccBLAccountUpdate()
-	{
-	}
-
 	public static void updateAccount(HashMap argMap)
 			throws Exception
 	{
@@ -92,6 +88,7 @@ public class AccBLAccountUpdate
 	public static void deleteAccount(HashMap argMap) throws Exception
 	{
 		EngDALCommon.deleteObject(argMap.get(AccKeys.ACC_ACCOUNT));
+		EngBLAccountingAccounts.RefreshContentAsistantMap();
 	}
 
 }

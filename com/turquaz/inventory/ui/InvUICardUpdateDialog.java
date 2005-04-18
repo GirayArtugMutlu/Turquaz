@@ -455,7 +455,6 @@ public class InvUICardUpdateDialog extends Dialog
 			argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD,invCard);					
 			EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
-			EngBLInventoryCards.RefreshContentAsistantMap();
 			msg = new MessageBox(this.getParent(), SWT.NULL);
 			msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 			msg.open();

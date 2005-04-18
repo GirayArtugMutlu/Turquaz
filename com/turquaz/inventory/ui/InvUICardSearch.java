@@ -31,7 +31,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
@@ -378,7 +377,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD,invCard);					
 					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
-					EngBLInventoryCards.RefreshContentAsistantMap();
+					
 					msg = new MessageBox(this.getShell(), SWT.NULL);
 					msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
 					msg.open();

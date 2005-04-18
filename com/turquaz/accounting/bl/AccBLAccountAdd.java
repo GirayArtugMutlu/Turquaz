@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 
@@ -161,6 +162,7 @@ public class AccBLAccountAdd
 				account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
 			}
 			EngDALCommon.saveObject(account);
+			EngBLAccountingAccounts.RefreshContentAsistantMap();
 			return account;
 		}
 		catch (Exception ex)
