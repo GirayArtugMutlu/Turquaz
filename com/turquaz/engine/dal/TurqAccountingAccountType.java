@@ -9,7 +9,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 /** @author Hibernate CodeGenerator */
 public class TurqAccountingAccountType implements Serializable {
 
-    /** identifier field */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3616728275011973175L;
+
+	/** identifier field */
     private java.lang.Integer id;
 
     /** persistent field */
