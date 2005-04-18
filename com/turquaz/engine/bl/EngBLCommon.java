@@ -306,7 +306,7 @@ public class EngBLCommon
 	public final static int INVENTORY_ACCOUNT_TYPE_DISCOUNT_BUY = 6;
 	public final static int INVENTORY_ACCOUNT_TYPE_DISCOUNT_SELL = 7;
 	public final static int TABLE_ROW_COUNT = 10;
-	public final static int ROUNDING_METHOD = BigDecimal.ROUND_HALF_DOWN;
+	public final static int ROUNDING_METHOD = BigDecimal.ROUND_HALF_UP;
 	private static TurqCurrency baseCurrency = null;
 	private static TurqCurrencyExchangeRate baseCurrencyExchangeRate = null;
 

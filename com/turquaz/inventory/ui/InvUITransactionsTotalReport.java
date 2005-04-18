@@ -567,7 +567,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				BigDecimal balanceAmount = totaltransOverAmountIn.add(totalAmountIn).subtract(totaltransOverAmountOut).subtract(
 						totalAmountOut);
 				BigDecimal balancePrice = (totalAmountIn.doubleValue() == 0) ? new BigDecimal(0) : balanceAmount
-						.multiply(totalPriceIn.divide(totalAmountIn, 2, BigDecimal.ROUND_HALF_DOWN));
+						.multiply(totalPriceIn.divide(totalAmountIn, 2, EngBLCommon.ROUNDING_METHOD));
 				BigDecimal unitPriceTransover = new BigDecimal(0);
 				BigDecimal unitPriceIn = new BigDecimal(0);
 				BigDecimal unitPriceOut = new BigDecimal(0);

@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="InventoryCardAbstract" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -27,6 +27,8 @@
 	<parameter name="formatter" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
 	</parameter>
 	<parameter name="curCardName" class="java.lang.String">
+	</parameter>
+	<parameter name="roundingMethod" class="java.lang.Integer">
 	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="inventory_cards_id" class="java.lang.Integer">
@@ -66,7 +68,7 @@
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalRemainValue" class="java.math.BigDecimal" resetType="Group" resetGroup="invCard">
-		<variableExpression><![CDATA[$V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,BigDecimal.ROUND_HALF_DOWN)) : new BigDecimal(0)))]]></variableExpression>
+		<variableExpression><![CDATA[$V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,$P{roundingMethod}.intValue())) : new BigDecimal(0)))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="grandTotalRemain" class="java.math.BigDecimal" calculation="Sum">
@@ -254,7 +256,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{formatter}.format($V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,BigDecimal.ROUND_HALF_DOWN)) : new BigDecimal(0))))]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{formatter}.format($V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,$P{roundingMethod}.intValue())) : new BigDecimal(0))))]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupFooter>

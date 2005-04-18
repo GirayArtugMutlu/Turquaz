@@ -548,6 +548,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			parameters.put("dateformat", dformat2); //$NON-NLS-1$
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			parameters.put("roundingMethod",new Integer(EngBLCommon.ROUNDING_METHOD));
 			GenerateJasper(list, parameters, (invMainGroup != null));
 		}
 		catch (Exception ex)

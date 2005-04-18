@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -262,10 +263,10 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 					}
 					else
 					{
-						avgPrice = priceIn.divide(amountIn, 2, BigDecimal.ROUND_HALF_DOWN);
+						avgPrice = priceIn.divide(amountIn, 2, EngBLCommon.ROUNDING_METHOD);
 					}
 					balanceAmount = amountIn.subtract(amountOut);
-					totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+					totalPrice = avgPrice.multiply(balanceAmount).setScale(2, EngBLCommon.ROUNDING_METHOD);
 				}
 				else if (reportType == INV_WITH_TRANS)
 				{
@@ -275,16 +276,16 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 						{
 							amountOut = new BigDecimal(0);
 						}
-						avgPrice = priceIn.divide(amountIn, 2, BigDecimal.ROUND_HALF_DOWN);
+						avgPrice = priceIn.divide(amountIn, 2, EngBLCommon.ROUNDING_METHOD);
 						balanceAmount = amountIn.subtract(amountOut);
-						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, EngBLCommon.ROUNDING_METHOD);
 					}
 					else if (amountOut != null)
 					{
 						amountIn = new BigDecimal(0);
 						avgPrice = new BigDecimal(0);
 						balanceAmount = amountIn.subtract(amountOut);
-						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+						totalPrice = avgPrice.multiply(balanceAmount).setScale(2, EngBLCommon.ROUNDING_METHOD);
 					}
 					else
 					{
@@ -300,7 +301,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 					}
 					else
 					{
-						avgPrice = priceIn.divide(amountIn, 2, BigDecimal.ROUND_HALF_DOWN);
+						avgPrice = priceIn.divide(amountIn, 2, EngBLCommon.ROUNDING_METHOD);
 					}
 					if (amountOut == null)
 					{
@@ -309,7 +310,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 					balanceAmount = amountIn.subtract(amountOut);
 					if (balanceAmount.doubleValue() == 0)
 						continue;
-					totalPrice = avgPrice.multiply(balanceAmount).setScale(2, BigDecimal.ROUND_HALF_DOWN);
+					totalPrice = avgPrice.multiply(balanceAmount).setScale(2, EngBLCommon.ROUNDING_METHOD);
 				}
 				tableViewer.addRow(new String[]{invCode, invName, balanceAmount.toString(), curFormat.format(avgPrice),
 						curFormat.format(totalPrice)}, invCode);

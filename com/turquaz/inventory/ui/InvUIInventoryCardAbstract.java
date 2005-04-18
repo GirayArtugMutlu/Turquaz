@@ -461,6 +461,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			parameters.put("curCard", (curCard != null) ? curCard.getCardsCurrentCode() : ""); //$NON-NLS-1$ //$NON-NLS-2$
 			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			parameters.put("roundingMethod",new Integer(EngBLCommon.ROUNDING_METHOD));
 			GenerateJasper(list, parameters);
 		}
 		catch (Exception ex)

@@ -100,7 +100,7 @@ public class CurBLSearchTransaction
 				curTrans.setTransactionsTotalCredit(amount);
 				//      TODO current trans exRate
 				curTrans.setTotalCreditInForeignCurrency(amount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio())
-						.setScale(2, BigDecimal.ROUND_HALF_DOWN));
+						.setScale(2, EngBLCommon.ROUNDING_METHOD));
 				curTrans.setTransactionsTotalDept(new BigDecimal(0));
 				curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
 			}
@@ -111,7 +111,7 @@ public class CurBLSearchTransaction
 				curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
 				//      TODO current trans exRate
 				curTrans.setTotalDeptInForeignCurrency(amount.multiply(EngBLCommon.getBaseCurrencyExchangeRate().getExchangeRatio())
-						.setScale(2, BigDecimal.ROUND_HALF_DOWN));
+						.setScale(2, EngBLCommon.ROUNDING_METHOD));
 				curTrans.setTransactionsTotalDept(amount);
 			}
 			EngDALCommon.updateObject(curTrans);

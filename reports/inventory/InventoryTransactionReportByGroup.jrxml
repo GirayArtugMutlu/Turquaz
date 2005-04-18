@@ -34,6 +34,8 @@
 	</parameter>
 	<parameter name="invSubGroup" class="java.lang.String">
 	</parameter>
+	<parameter name="roundingMethod" class="java.lang.Integer">
+	</parameter>
 	<queryString><![CDATA[$P!{sqlparam}]]></queryString>
 	<field name="inventory_cards_id" class="java.lang.Integer">
 	</field>
@@ -76,7 +78,7 @@
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalRemainValue" class="java.math.BigDecimal" resetType="Group" resetGroup="invGroup">
-		<variableExpression><![CDATA[$V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,BigDecimal.ROUND_HALF_DOWN)) : new BigDecimal(0)))]]></variableExpression>
+		<variableExpression><![CDATA[$V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,$P{roundingMethod}.intValue())) : new BigDecimal(0)))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
 	<variable name="grandTotalRemain" class="java.math.BigDecimal" calculation="Sum">
@@ -250,7 +252,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{formatter}.format($V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,BigDecimal.ROUND_HALF_DOWN)) : new BigDecimal(0))))]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{formatter}.format($V{totalAmountIn}.subtract($V{totalAmountOut}).multiply((($V{totalAmountIn}.doubleValue() > 0) ? ($V{totalPriceIn}.divide($V{totalAmountIn},2,$P{roundingMethod}.intValue())) : new BigDecimal(0))))]]></textFieldExpression>
 			</textField>
 		</band>
 		</groupFooter>

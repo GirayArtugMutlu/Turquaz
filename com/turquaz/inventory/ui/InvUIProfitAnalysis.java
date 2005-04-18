@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.SearchComposite;
@@ -200,7 +201,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 				}
 				if (inAmount != null)
 				{
-					avgPrice = inPrice.divide(inAmount, 2, BigDecimal.ROUND_HALF_UP);
+					avgPrice = inPrice.divide(inAmount, 2, EngBLCommon.ROUNDING_METHOD);
 				}
 				if (outAmount != null)
 				{
