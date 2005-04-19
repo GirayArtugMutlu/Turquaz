@@ -37,10 +37,13 @@ public class TurqModuleComponent implements Serializable {
     private Set turqUserPermissions;
 
     /** persistent field */
+    private Set turqEngineMenus;
+
+    /** persistent field */
     private Set turqGroupPermissions;
 
     /** full constructor */
-    public TurqModuleComponent(java.lang.String componentsName, java.lang.String componentsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModule turqModule, Set turqUserPermissions, Set turqGroupPermissions) {
+    public TurqModuleComponent(java.lang.String componentsName, java.lang.String componentsDescription, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date updateDate, com.turquaz.engine.dal.TurqModule turqModule, Set turqUserPermissions, Set turqEngineMenus, Set turqGroupPermissions) {
         this.componentsName = componentsName;
         this.componentsDescription = componentsDescription;
         this.createdBy = createdBy;
@@ -49,6 +52,7 @@ public class TurqModuleComponent implements Serializable {
         this.updateDate = updateDate;
         this.turqModule = turqModule;
         this.turqUserPermissions = turqUserPermissions;
+        this.turqEngineMenus = turqEngineMenus;
         this.turqGroupPermissions = turqGroupPermissions;
     }
 
@@ -126,6 +130,14 @@ public class TurqModuleComponent implements Serializable {
 
     public void setTurqUserPermissions(java.util.Set turqUserPermissions) {
         this.turqUserPermissions = turqUserPermissions;
+    }
+
+    public java.util.Set getTurqEngineMenus() {
+        return this.turqEngineMenus;
+    }
+
+    public void setTurqEngineMenus(java.util.Set turqEngineMenus) {
+        this.turqEngineMenus = turqEngineMenus;
     }
 
     public java.util.Set getTurqGroupPermissions() {

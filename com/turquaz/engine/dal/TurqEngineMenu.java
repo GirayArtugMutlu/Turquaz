@@ -23,13 +23,17 @@ public class TurqEngineMenu implements Serializable {
     /** persistent field */
     private int menuModuleComponent;
 
+    /** persistent field */
+    private int parentId;
+
     /** full constructor */
-    public TurqEngineMenu(java.lang.Integer id, java.lang.String menuName, java.lang.String menuImage, int menuType, int menuModuleComponent) {
+    public TurqEngineMenu(java.lang.Integer id, java.lang.String menuName, java.lang.String menuImage, int menuType, int menuModuleComponent, int parentId) {
         this.id = id;
         this.menuName = menuName;
         this.menuImage = menuImage;
         this.menuType = menuType;
         this.menuModuleComponent = menuModuleComponent;
+        this.parentId = parentId;
     }
 
     /** default constructor */
@@ -74,6 +78,14 @@ public class TurqEngineMenu implements Serializable {
 
     public void setMenuModuleComponent(int menuModuleComponent) {
         this.menuModuleComponent = menuModuleComponent;
+    }
+
+    public int getParentId() {
+        return this.parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public String toString() {

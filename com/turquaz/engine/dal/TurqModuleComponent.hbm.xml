@@ -83,6 +83,20 @@
             class="com.turquaz.engine.dal.TurqUserPermission"
         />
     </set>
+    <!-- bi-directional one-to-many association to TurqEngineMenu -->
+    <set
+        name="turqEngineMenus"
+        lazy="true"
+        inverse="true"
+		cascade="none"
+    >
+        <key>
+            <column name="id" />
+        </key>
+        <one-to-many 
+            class="com.turquaz.engine.dal.TurqEngineMenu"
+        />
+    </set>
     <!-- bi-directional one-to-many association to TurqGroupPermission -->
     <set
         name="turqGroupPermissions"
