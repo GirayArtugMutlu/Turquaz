@@ -23,16 +23,21 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.ui.EngUIHelpDialog;
+import com.turquaz.engine.ui.EngUIKeyControls;
 import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.EngUIPreferences;
 
 public class MenuManager
 {
+	
+	
 	public static Menu createMainMenu(final Menu menuMain)
 	{
 		createFileMenu(menuMain);
@@ -70,8 +75,15 @@ public class MenuManager
 		}
 		return menuMain;
 	}
+	
+	public static MenuItem mitNew;
+	public static MenuItem mitSave;
+	public static MenuItem mitDelete;
+	public static MenuItem mitSearch;
+	public static MenuItem mitExcel;
+	public static MenuItem mitPrint;
 
-	static void createFileMenu(final Menu menuMain)
+	public static void createFileMenu(final Menu menuMain)
 	{
 		MenuItem mitFile = new MenuItem(menuMain, SWT.CASCADE);
 		mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
@@ -88,7 +100,160 @@ public class MenuManager
 					menuMain.getShell().close();
 				}
 			});
-		}
+			
+			mitNew = new MenuItem(menuFile, SWT.PUSH);
+			TurqKeyEvent newEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.NEW);
+			mitNew.setText(Messages.getString("MenuManager.1")+((newEvent.isActive) ? EngBLKeyEvents.getStringValue(newEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitNew.setAccelerator(newEvent.stateMask | newEvent.keyCode);
+			mitNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif")); //$NON-NLS-1$
+			mitNew.setData(newEvent);
+			if (newEvent.isAvailable)
+			{
+				mitNew.setEnabled(true);
+			}
+			else
+			{
+				mitNew.setEnabled(false);
+			}
+			mitNew.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
+					Composite c = (Composite) EngUIMainFrame.tabfldMain.getSelection().getControl();
+					if (c instanceof SecureComposite)
+					{
+						((SecureComposite) c).newForm();
+					}
+				}
+			});
+			
+			mitSave = new MenuItem(menuFile, SWT.PUSH);
+			TurqKeyEvent saveEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.SAVE);
+			mitSave.setText(Messages.getString("MenuManager.9")+((saveEvent.isActive) ? EngBLKeyEvents.getStringValue(saveEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitSave.setAccelerator(saveEvent.stateMask | saveEvent.keyCode);
+			mitSave.setImage(SWTResourceManager.getImage("icons/save.jpg")); //$NON-NLS-1$
+			mitSave.setData(saveEvent);
+			if (saveEvent.isAvailable)
+			{
+				mitSave.setEnabled(true);
+			}
+			else
+			{
+				mitSave.setEnabled(false);
+			}
+			mitSave.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
+					Composite c = (Composite) EngUIMainFrame.tabfldMain.getSelection().getControl();
+					if (c instanceof SecureComposite)
+					{
+						((SecureComposite) c).save();
+					}
+				}
+			});
+			
+			
+			mitDelete = new MenuItem(menuFile, SWT.PUSH);
+			TurqKeyEvent deleteEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.DELETE);
+			mitDelete.setText(Messages.getString("MenuManager.11")+((deleteEvent.isActive) ? EngBLKeyEvents.getStringValue(deleteEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitDelete.setAccelerator(deleteEvent.stateMask | deleteEvent.keyCode);
+			mitDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
+			mitDelete.setData(deleteEvent);
+			if (deleteEvent.isAvailable)
+			{
+				mitDelete.setEnabled(true);
+			}
+			else
+			{
+				mitDelete.setEnabled(false);
+			}
+			mitDelete.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
+					Composite c = (Composite) EngUIMainFrame.tabfldMain.getSelection().getControl();
+					if (c instanceof SearchComposite)
+					{
+						((SearchComposite) c).delete();
+					}
+				}
+			});
+			
+			mitSearch = new MenuItem(menuFile, SWT.PUSH);
+			TurqKeyEvent searchEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.SEARCH);
+			mitSearch.setText(Messages.getString("MenuManager.13")+((searchEvent.isActive) ? EngBLKeyEvents.getStringValue(searchEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitSearch.setAccelerator(searchEvent.stateMask | searchEvent.keyCode);
+			mitSearch.setImage(SWTResourceManager.getImage("icons/search.jpg")); //$NON-NLS-1$
+			mitSearch.setData(searchEvent);
+			if (searchEvent.isAvailable)
+			{
+				mitSearch.setEnabled(true);
+			}
+			else
+			{
+				mitSearch.setEnabled(false);
+			}
+			mitSearch.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
+					Composite c = (Composite) EngUIMainFrame.tabfldMain.getSelection().getControl();
+					if (c instanceof SearchComposite)
+					{
+						((SearchComposite) c).search();
+					}
+				}
+			});
+			
+			
+			mitExcel = new MenuItem(menuFile, SWT.PUSH);
+			TurqKeyEvent excelEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.EXCEL);
+			mitExcel.setText(Messages.getString("MenuManager.15")+((excelEvent.isActive) ? EngBLKeyEvents.getStringValue(excelEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitExcel.setAccelerator(excelEvent.stateMask | excelEvent.keyCode);
+			mitExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
+			mitExcel.setData(excelEvent);
+			if (excelEvent.isAvailable)
+			{
+				mitExcel.setEnabled(true);
+			}
+			else
+			{
+				mitExcel.setEnabled(false);
+			}
+			mitExcel.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
+					SearchComposite sc = (SearchComposite) EngUIMainFrame.tabfldMain.getSelection().getControl();
+					sc.exportToExcel();
+				}
+			});
+			
+			
+			mitPrint = new MenuItem(menuFile, SWT.PUSH);
+			TurqKeyEvent printEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.PRINT);
+			mitPrint.setText(Messages.getString("MenuManager.17")+ ((printEvent.isActive) ? EngBLKeyEvents.getStringValue(printEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitPrint.setAccelerator(printEvent.stateMask | printEvent.keyCode);
+			mitPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
+			mitPrint.setData(printEvent);
+			if (printEvent.isAvailable)
+			{
+				mitPrint.setEnabled(true);
+			}
+			else
+			{
+				mitPrint.setEnabled(false);
+			}
+			mitPrint.addSelectionListener(new SelectionAdapter()
+			{
+				public void widgetSelected(SelectionEvent evt)
+				{
+					SearchComposite sc = (SearchComposite) EngUIMainFrame.tabfldMain.getSelection().getControl();
+					sc.printTable();
+				}
+			});
+		}		
 	}
 
 	static void createEditMenu(final Menu menuMain)
@@ -194,10 +359,26 @@ public class MenuManager
 				});
 			}
 		}
+		MenuItem shortcuts = new MenuItem(menuEdit, SWT.PUSH);
+		shortcuts.setText(Messages.getString("MenuManager.8")); //$NON-NLS-1$
+		SWTResourceManager.registerResourceUser(shortcuts);
+		shortcuts.addSelectionListener(new SelectionAdapter()
+		{
+			public void widgetSelected(SelectionEvent evt)
+			{
+				new EngUIKeyControls(menuMain.getShell(),SWT.NULL).open();
+			}
+		});
+
+		
+		
+		
 		new MenuItem(menuEdit, SWT.SEPARATOR);
 		MenuItem mitGoToRightTab = new MenuItem(menuEdit, SWT.PUSH);
-		mitGoToRightTab.setText(Messages.getString("MenuManager.1")); //$NON-NLS-1$
-		mitGoToRightTab.setAccelerator(SWT.CTRL | SWT.ARROW_RIGHT);
+		
+		TurqKeyEvent nextTabEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.NEXT_TAB);
+		mitGoToRightTab.setText(Messages.getString("MenuManager.19")+((nextTabEvent.isActive) ? EngBLKeyEvents.getStringValue(nextTabEvent):"")); //$NON-NLS-1$ //$NON-NLS-2$
+		mitGoToRightTab.setAccelerator(nextTabEvent.stateMask | nextTabEvent.keyCode);
 		SWTResourceManager.registerResourceUser(mitGoToRightTab);
 		mitGoToRightTab.setImage(SWTResourceManager.getImage("/icons/forward.gif")); //$NON-NLS-1$
 		mitGoToRightTab.addSelectionListener(new SelectionAdapter()
@@ -219,9 +400,11 @@ public class MenuManager
 				}
 			}
 		});
+		
 		MenuItem mitGoToLeftTab = new MenuItem(menuEdit, SWT.PUSH);
-		mitGoToLeftTab.setText(Messages.getString("MenuManager.3")); //$NON-NLS-1$
-		mitGoToLeftTab.setAccelerator(SWT.CTRL | SWT.ARROW_LEFT);
+		TurqKeyEvent previousTabEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.PREVIOUS_TAB);
+		mitGoToLeftTab.setText(Messages.getString("MenuManager.21")+((previousTabEvent.isActive) ? EngBLKeyEvents.getStringValue(previousTabEvent):"")); //$NON-NLS-1$ //$NON-NLS-2$
+		mitGoToLeftTab.setAccelerator(previousTabEvent.stateMask | previousTabEvent.keyCode);
 		SWTResourceManager.registerResourceUser(mitGoToLeftTab);
 		mitGoToLeftTab.setImage(SWTResourceManager.getImage("/icons/backward.gif")); //$NON-NLS-1$
 		mitGoToLeftTab.addSelectionListener(new SelectionAdapter()

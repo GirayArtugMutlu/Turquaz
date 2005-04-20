@@ -2,9 +2,9 @@
 <!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="CurrentCardAbstract" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+<jasperReport name="CurrentCardAbstract" language="java" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
 	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -84,7 +84,7 @@
 		<variableExpression><![CDATA[($F{transactions_total_credit}==null) ? new BigDecimal(0) : $F{transactions_total_credit}.subtract($F{transactions_total_dept})]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
 	</variable>
-	<variable name="generalInitialBalance" class="java.math.BigDecimal" calculation="Sum" incrementType="Group" incrementGroup="current">
+	<variable name="generalInitialBalance" class="java.math.BigDecimal" incrementType="Group" incrementGroup="current" calculation="Sum">
 		<variableExpression><![CDATA[$V{initialBalance}]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal (0)]]></initialValueExpression>
 	</variable>

@@ -41,7 +41,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.component.TurqKeyEvent;
 
 public class TurquazContentAssistant extends SubjectControlContentAssistant
 {
@@ -54,8 +56,8 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 		{
 			public void verifyKey(VerifyEvent event)
 			{
-				// Check for Ctrl+Spacebar
-				if (event.stateMask == SWT.CTRL && event.character == ' ')
+				TurqKeyEvent turqEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.CONTENT_ASISTANT);
+				if (turqEvent.equals(event))
 				{
 					showPossibleCompletions();
 					event.doit = false;

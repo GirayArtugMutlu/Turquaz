@@ -444,31 +444,33 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 
 	public void postInitGui()
 	{
-		btnOk.setFocus();
-		String username = EngConfiguration.getString("username"); //$NON-NLS-1$
-		String password = EngConfiguration.getString("password"); //$NON-NLS-1$
-		String rememberPassword = EngConfiguration.getString("remember_password"); //$NON-NLS-1$
-		if (username != null && password != null)
+		try
 		{
-			txtPassword.setText(new String(Base64.decode(password.getBytes())));
-			txtUserName.setText(username);
+			btnOk.setFocus();
+			String username = EngConfiguration.getString("username"); //$NON-NLS-1$
+			String password = EngConfiguration.getString("password"); //$NON-NLS-1$
+			String rememberPassword = EngConfiguration.getString("remember_password"); //$NON-NLS-1$
+			if (username != null && password != null)
+			{
+				txtPassword.setText(new String(Base64.decode(password.getBytes())));
+				txtUserName.setText(username);
+			}
+			checkRememberPassword.setSelection(false);
+			if (rememberPassword != null && rememberPassword.equals("true")) { //$NON-NLS-1$
+				checkRememberPassword.setSelection(true);
+			}
+			comboLanguage.add(Messages.getString("EngUIEntryFrame.16")); //$NON-NLS-1$
+			comboLanguage.add(Messages.getString("EngUIEntryFrame.17")); //$NON-NLS-1$
+			comboLanguage.setData(Messages.getString("EngUIEntryFrame.18"), new Integer(1)); //$NON-NLS-1$
+			comboLanguage.setData(Messages.getString("EngUIEntryFrame.19"), new Integer(2)); //$NON-NLS-1$
+			comboLanguage.setText(Messages.getString("EngUIEntryFrame.20")); //$NON-NLS-1$
+			EngDALSessionFactory.init();
+			EngBLCommon.getBaseCurrency();
+			EngBLCommon.getBaseCurrencyExchangeRate();
 		}
-		checkRememberPassword.setSelection(false);
-		if (rememberPassword != null && rememberPassword.equals("true")) { //$NON-NLS-1$
-			checkRememberPassword.setSelection(true);
-		}
-		comboLanguage.add(Messages.getString("EngUIEntryFrame.16")); //$NON-NLS-1$
-		comboLanguage.add(Messages.getString("EngUIEntryFrame.17")); //$NON-NLS-1$
-		comboLanguage.setData(Messages.getString("EngUIEntryFrame.18"), new Integer(1)); //$NON-NLS-1$
-		comboLanguage.setData(Messages.getString("EngUIEntryFrame.19"), new Integer(2)); //$NON-NLS-1$
-		comboLanguage.setText(Messages.getString("EngUIEntryFrame.20")); //$NON-NLS-1$
-		try{
-		EngDALSessionFactory.init();
-		EngBLCommon.getBaseCurrency();
-		EngBLCommon.getBaseCurrencyExchangeRate();
-		}
-		catch(Exception ex){
-			
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 

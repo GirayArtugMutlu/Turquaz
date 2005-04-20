@@ -75,6 +75,7 @@ import com.turquaz.engine.Messages;
 import com.turquaz.engine.backup.EngBackUp;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
+import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.TurqCompany;
@@ -83,6 +84,7 @@ import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.SearchComposite;
 import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.component.TreeFactory;
+import com.turquaz.engine.ui.component.TurqKeyEvent;
 import com.turquaz.engine.ui.component.rssowl.BrowserPanel;
 /**
  * @author  Onsel Armagan
@@ -153,7 +155,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	public static SashForm sashMainVertical;
 	private Composite compMainIn;
 	private Composite compMain;
-	private Menu menuMain;
+	public static Menu menuMain;
 	Menu popupTreeAddFavorites;
 	Menu popupTreeRemoveFavorites;
 	static Map mapList = new HashMap();
@@ -791,6 +793,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
+			
+			EngBLKeyEvents.setDefault();
+			Map keyValues = EngBLKeyEvents.DeserializeKeys();
+			EngBLKeyEvents.SerializeKeys();
+			
 			menuMain = new Menu(getShell(), SWT.BAR);
 			menuMain = MenuManager.createMainMenu(menuMain);
 			getShell().setMenuBar(menuMain);
@@ -1303,21 +1310,33 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			if (tabfldMain.getSelection() == null)
 			{
 				toolExportToExcel.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(false);
 				toolPrint.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(false);
 				toolDelete.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitDelete.getData()).setAvailable(false);
 				toolSearch.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitSearch.getData()).setAvailable(false);
 				toolSave.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 				toolNew.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(false);
 				return;
 			}
 			if (tabfldMain.getSelection().getControl() == null)
 			{
 				toolExportToExcel.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(false);
 				toolPrint.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(false);
 				toolDelete.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitDelete.getData()).setAvailable(false);
 				toolSearch.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitSearch.getData()).setAvailable(false);
 				toolSave.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 				toolNew.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(false);
 				return;
 			}
 			if (tabfldMain.getSelection().getControl() instanceof SecureComposite)
@@ -1328,62 +1347,109 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				if (level == 3)
 				{
 					toolNew.setEnabled(true);
+					((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(true);
 					toolSave.setEnabled(true);
+					((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(true);
 				}
 				else if (level == 2)
 				{
 					toolNew.setEnabled(true);
+					((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(true);
 					toolSave.setEnabled(true);
+					((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(true);
 				}
 				else if (level == 1)
 				{
 					toolNew.setEnabled(true);
+					((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(true);
 					toolSave.setEnabled(false);
+					((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 				}
 				else
 				{
 					toolNew.setEnabled(false);
+					((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(false);
 					toolSave.setEnabled(false);
+					((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 				}
 			}
 			else
 			{
 				toolNew.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(false);
 				toolSave.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 			}
 			if (tabfldMain.getSelection().getControl() instanceof SearchComposite)
 			{
 				toolExportToExcel.setEnabled(true);
+				((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(true);
 				toolPrint.setEnabled(true);
+				((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(true);
 				toolDelete.setEnabled(true);
+				((TurqKeyEvent)MenuManager.mitDelete.getData()).setAvailable(true);
 				toolSearch.setEnabled(true);
+				((TurqKeyEvent)MenuManager.mitSearch.getData()).setAvailable(true);
 			}
 			else
 			{
 				toolExportToExcel.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(false);
 				toolPrint.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(false);
 				toolDelete.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitDelete.getData()).setAvailable(false);
 				toolSearch.setEnabled(false);
+				((TurqKeyEvent)MenuManager.mitSearch.getData()).setAvailable(false);
 			}
 		}
 		catch (ClassCastException ex)
 		{
 			toolNew.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(false);
 			toolSave.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 			toolDelete.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitDelete.getData()).setAvailable(false);
 			toolSearch.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitSearch.getData()).setAvailable(false);
 			toolExportToExcel.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(false);
+			toolPrint.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(false);
 		}
 		catch (Exception ex)
 		{
 			toolNew.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitNew.getData()).setAvailable(false);
 			toolSave.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitSave.getData()).setAvailable(false);
 			toolDelete.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitDelete.getData()).setAvailable(false);
 			toolSearch.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitSearch.getData()).setAvailable(false);
 			toolExportToExcel.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(false);
+			toolPrint.setEnabled(false);
+			((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(false);
 			Logger loger = Logger.getLogger("EngUIMainFrame");
 			loger.error("Exception Caught", ex);
 			ex.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				EngUIMainFrame.menuMain=new Menu(EngUIMainFrame.shell, SWT.BAR);
+				MenuManager.createMainMenu(EngUIMainFrame.menuMain);
+				EngUIMainFrame.shell.setMenuBar(EngUIMainFrame.menuMain);
+			}
+			catch(Exception ex)
+			{
+				Logger loger = Logger.getLogger("EngUIMainFrame");
+				loger.error("Exception Caught", ex);
+				ex.printStackTrace();				
+			}
 		}
 	}
 

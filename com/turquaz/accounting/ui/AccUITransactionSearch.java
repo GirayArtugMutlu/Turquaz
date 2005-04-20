@@ -288,66 +288,70 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-		TableItem items[] = tableTransactions.getSelection();
-		if (items.length > 0)
+		try
 		{
-			ITableRow row = (ITableRow) items[0].getData();
-			TurqAccountingTransaction accTrans = (TurqAccountingTransaction) row.getDBObject();
-			int status = 0;
-			/* Check if it has a journal entry */
-			if (accTrans.getTurqAccountingJournal().getId().intValue() != -1)
+			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
+			TableItem items[] = tableTransactions.getSelection();
+			if (items.length > 0)
 			{
-				status = 1;
-			}
-			/*
-			 * Check if it is entered from accountingmodule
-			 */
-			//1- Muhasebe Modulu
-			else if (accTrans.getTurqModule().getId().intValue() != 1)
-			{
-				status = 2;
-			}
-			if (status == 2)
-			{
-				msg.setMessage(Messages.getString("AccUITransactionSearch.6")); //$NON-NLS-1$
-				msg.open();
-				return;
-			}
-			if (status == 1)
-			{
-				msg.setMessage(Messages.getString("AccUITransactionSearch.9")); //$NON-NLS-1$
-				msg.open();
-				return;
-			}
-			AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
-			MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-			try
-			{
+				ITableRow row = (ITableRow) items[0].getData();
+				Integer transId = (Integer) row.getDBObject();
+				TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
+				accTrans.setId(transId);
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_TRANSACTION, accTrans);
+				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(), "initiliazeTransactionRows",
+						argMap);
+				int status = 0;
+				/* Check if it has a journal entry */
+				if (accTrans.getTurqAccountingJournal().getId().intValue() != -1)
+				{
+					status = 1;
+				}
+				/*
+				 * Check if it is entered from accountingmodule
+				 */
+				//1- Muhasebe Modulu
+				else if (accTrans.getTurqModule().getId().intValue() != 1)
+				{
+					status = 2;
+				}
+				if (status == 2)
+				{
+					msg.setMessage(Messages.getString("AccUITransactionSearch.6")); //$NON-NLS-1$
+					msg.open();
+					return;
+				}
+				if (status == 1)
+				{
+					msg.setMessage(Messages.getString("AccUITransactionSearch.9")); //$NON-NLS-1$
+					msg.open();
+					return;
+				}
+				AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
+				MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 				msg2.setMessage(Messages.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
 				int result = msg2.open();
 				if (result == SWT.OK)
 				{
-							
-					HashMap argMap = new HashMap();
-					argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				    
-					EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"removeAccountingTransaction",argMap);
-					
+					argMap = new HashMap();
+					argMap.put(AccKeys.ACC_TRANSACTION, accTrans);
+					EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),
+							"removeAccountingTransaction", argMap);
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
 					search();
 				}
 			}
-			catch (Exception ex)
-			{
-				MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-				msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
-				msg3.open();
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
-			}
+		}
+		catch (Exception ex)
+		{
+			MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
+			msg3.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
+			msg3.open();
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
+			ex.printStackTrace();
 		}
 	}
 
@@ -373,9 +377,8 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < listSize; i++)
 			{
-				TurqAccountingTransaction accTran = new TurqAccountingTransaction();
 				Object[] accTransValues = (Object[]) result.get(i);
-				accTran.setId((Integer) accTransValues[0]);
+				Integer transId=(Integer) accTransValues[0];
 				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 				BigDecimal total = new BigDecimal(0);
 				if (accTransValues[5] != null)
@@ -387,7 +390,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 						accTransValues[3].toString(), //type
 						accTransValues[6].toString(),//modele name
 						accTransValues[4].toString(), //definition
-						cf.format(total)}, accTran); //$NON-NLS-1$ 
+						cf.format(total)}, transId); //$NON-NLS-1$ 
 			}
 		}
 		catch (Exception ex)
@@ -416,7 +419,8 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			if (selection.length > 0)
 			{
 				ITableRow row = (ITableRow) selection[0].getData();
-				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) row.getDBObject();
+				TurqAccountingTransaction accTrans =new TurqAccountingTransaction();
+				accTrans.setId((Integer) row.getDBObject());
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
