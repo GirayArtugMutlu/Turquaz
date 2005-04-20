@@ -710,7 +710,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				//START >> toolBrowser
 				toolBrowser = new ToolItem(toolbarMainTop, SWT.NONE);
-				toolBrowser.setText("Turquaz Ana Sayfa"); //$NON-NLS-1$
+				toolBrowser.setText("Turquaz Web Sitesi"); //$NON-NLS-1$
 				toolBrowser.setImage(SWTResourceManager.getImage("icons/browserview.gif")); //$NON-NLS-1$
 				toolBrowser.addSelectionListener(new SelectionAdapter()
 				{
