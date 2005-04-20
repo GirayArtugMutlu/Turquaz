@@ -21,19 +21,19 @@ public class TurqEngineMenu implements Serializable {
     private int menuType;
 
     /** persistent field */
-    private int menuModuleComponent;
-
-    /** persistent field */
     private int parentId;
 
+    /** persistent field */
+    private com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent;
+
     /** full constructor */
-    public TurqEngineMenu(java.lang.Integer id, java.lang.String menuName, java.lang.String menuImage, int menuType, int menuModuleComponent, int parentId) {
+    public TurqEngineMenu(java.lang.Integer id, java.lang.String menuName, java.lang.String menuImage, int menuType, int parentId, com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent) {
         this.id = id;
         this.menuName = menuName;
         this.menuImage = menuImage;
         this.menuType = menuType;
-        this.menuModuleComponent = menuModuleComponent;
         this.parentId = parentId;
+        this.turqModuleComponent = turqModuleComponent;
     }
 
     /** default constructor */
@@ -72,20 +72,20 @@ public class TurqEngineMenu implements Serializable {
         this.menuType = menuType;
     }
 
-    public int getMenuModuleComponent() {
-        return this.menuModuleComponent;
-    }
-
-    public void setMenuModuleComponent(int menuModuleComponent) {
-        this.menuModuleComponent = menuModuleComponent;
-    }
-
     public int getParentId() {
         return this.parentId;
     }
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public com.turquaz.engine.dal.TurqModuleComponent getTurqModuleComponent() {
+        return this.turqModuleComponent;
+    }
+
+    public void setTurqModuleComponent(com.turquaz.engine.dal.TurqModuleComponent turqModuleComponent) {
+        this.turqModuleComponent = turqModuleComponent;
     }
 
     public String toString() {

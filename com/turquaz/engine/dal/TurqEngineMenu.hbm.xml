@@ -46,13 +46,6 @@
         length="4"
     />
     <property
-        name="menuModuleComponent"
-        type="int"
-        column="menu_module_component"
-        not-null="true"
-        length="4"
-    />
-    <property
         name="parentId"
         type="int"
         column="parent_id"
@@ -62,6 +55,14 @@
 
     <!-- Associations -->
   
+    <!-- bi-directional many-to-one association to TurqModuleComponent -->
+    <many-to-one
+        name="turqModuleComponent"
+        class="com.turquaz.engine.dal.TurqModuleComponent"
+        not-null="true"
+    >
+        <column name="menu_module_component" />
+    </many-to-one>
 
 </class>
 </hibernate-mapping>

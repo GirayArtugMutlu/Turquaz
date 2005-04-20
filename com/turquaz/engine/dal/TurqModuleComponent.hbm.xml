@@ -91,7 +91,7 @@
 		cascade="none"
     >
         <key>
-            <column name="id" />
+            <column name="menu_module_component" />
         </key>
         <one-to-many 
             class="com.turquaz.engine.dal.TurqEngineMenu"
