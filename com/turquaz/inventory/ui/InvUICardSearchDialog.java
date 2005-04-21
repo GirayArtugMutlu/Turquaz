@@ -1,20 +1,10 @@
 package com.turquaz.inventory.ui;
 
 /************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
 /* ============================================                         */
 /* Copyright (c) 2004 by Turquaz Software Development Group			    */
 /*																		*/
-/* This program is free software. You can redistribute it and/or modify */
-/* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License, or    */
-/* (at your option) any later version.       							*/
-/* 																		*/
-/* This program is distributed in the hope that it will be useful,		*/
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
-/* GNU General Public License for more details.         				*/
-/************************************************************************/
 /**
  * @author  Onsel Armagan
  * @version  $Id$
@@ -25,23 +15,26 @@ import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
-import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
+import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -61,45 +54,71 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private CCombo comboInvGroup;
 	private Table tableSearcResults;
 	private TableColumn tableColumnInvName;
-	private Label label1;
-	private Button btnSearch;
+	private MenuItem menuItemChoose;
+	private MenuItem menuItemSearch;
+	private Menu menu1;
+	private MenuItem menuActions;
+	private Menu SearchMenu;
 	private TableColumn tableColumnAmount;
 	private TableColumn tableColumnInventoryCode;
 	private CLabel lblInvGroup;
 	private Text txtInvCode;
 	private CLabel cLabel2;
 	private Text txtInvName;
-	TurqInventoryCard invCard;
+    String invCardCode ="";
 
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			InvUICardSearchDialog inst = new InvUICardSearchDialog(shell, SWT.NULL);
-			inst.open();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 
 	public InvUICardSearchDialog(Shell parent, int style)
 	{
 		super(parent, style);
 	}
 
-	public TurqInventoryCard open()
+	public String open(String cardCode)
 	{
 		try
 		{
+			
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			
+			{
+				SearchMenu = new Menu(dialogShell, SWT.BAR);
+				dialogShell.setMenuBar(SearchMenu);
+				SearchMenu.setVisible(true);
+				{
+					menuActions = new MenuItem(SearchMenu, SWT.CASCADE);
+					menuActions.setText("\u0130\u015flemler");
+					{
+						menu1 = new Menu(menuActions);
+						menuActions.setMenu(menu1);
+						{
+							menuItemSearch = new MenuItem(menu1, SWT.PUSH);
+							menuItemSearch.setText("Ara");
+							menuItemSearch.setAccelerator(SWT.CR);
+							menuItemSearch
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									search();	
+								
+								}
+								});
+						}
+						{
+							menuItemChoose = new MenuItem(menu1, SWT.PUSH);
+							menuItemChoose.setText("Seç");
+							menuItemChoose.setAccelerator(SWT.F2);
+							menuItemChoose
+								.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									tableSearcResultsMouseDoubleClick();
+								}
+								});
+						}
+					}
+				}
+			}
+			
 			{
 				//Register as a resource user - SWTResourceManager will
 				//handle the obtaining and disposing of resources
@@ -108,15 +127,15 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setText(Messages.getString("InvUICardSearchDialog.0")); //$NON-NLS-1$
 			dialogShell.pack();
-			dialogShell.setSize(486, 418);
+			dialogShell.setSize(501, 420);
 			{
-				compInvCardSearchPanel = new Composite(dialogShell, SWT.NONE);
+				compInvCardSearchPanel = new Composite(dialogShell, SWT.BORDER);
 				GridLayout compInvCardSearchPanelLayout = new GridLayout();
 				compInvCardSearchPanelLayout.numColumns = 2;
 				GridData compInvCardSearchPanelLData = new GridData();
 				compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 				compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-				compInvCardSearchPanelLData.heightHint = 134;
+				compInvCardSearchPanelLData.heightHint = 78;
 				compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 				compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 				{
@@ -150,6 +169,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 					txtInvCodeLData.widthHint = 166;
 					txtInvCodeLData.heightHint = 18;
 					txtInvCode.setLayoutData(txtInvCodeLData);
+					txtInvCode.setText(cardCode);
 				}
 				{
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
@@ -167,34 +187,6 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 					comboInvGroupLData.heightHint = 18;
 					comboInvGroup.setLayoutData(comboInvGroupLData);
 				}
-				{
-					label1 = new Label(compInvCardSearchPanel, SWT.SEPARATOR | SWT.HORIZONTAL);
-					GridData label1LData = new GridData();
-					label1LData.heightHint = 4;
-					label1LData.horizontalAlignment = GridData.FILL;
-					label1LData.horizontalSpan = 2;
-					label1LData.grabExcessHorizontalSpace = true;
-					label1.setLayoutData(label1LData);
-				}
-				{
-					btnSearch = new Button(compInvCardSearchPanel, SWT.PUSH | SWT.CENTER);
-					btnSearch.setText("button1");//$NON-NLS-1$
-					GridData btnSearchLData = new GridData();
-					btnSearch.addMouseListener(new MouseAdapter()
-					{
-						public void mouseUp(MouseEvent evt)
-						{
-							search();
-						}
-					});
-					btnSearch.setImage(SWTResourceManager.getImage("icons/Find24.gif"));//$NON-NLS-1$
-					btnSearchLData.horizontalAlignment = GridData.END;
-					btnSearchLData.grabExcessHorizontalSpace = true;
-					btnSearchLData.horizontalSpan = 2;
-					btnSearchLData.widthHint = 80;
-					btnSearchLData.heightHint = 37;
-					btnSearch.setLayoutData(btnSearchLData);
-				}
 			}
 			{
 				tableSearcResults = new Table(dialogShell, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
@@ -206,7 +198,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					public void mouseDoubleClick(MouseEvent evt)
 					{
-						tableSearcResultsMouseDoubleClick(evt);
+						tableSearcResultsMouseDoubleClick();
 					}
 				});
 				tableSearcResultsLData.verticalAlignment = GridData.FILL;
@@ -226,19 +218,20 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					tableColumnAmount = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnAmount.setText(Messages.getString("InvUICardSearch.5"));//$NON-NLS-1$
+					tableColumnAmount.setText("Miktar");//$NON-NLS-1$
 					tableColumnAmount.setWidth(118);
 				}
 			}
 			dialogShell.layout();
 			dialogShell.open();
+			EngUICommon.centreWindow(dialogShell);
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed())
 			{
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-			return invCard;
+			return invCardCode;
 		}
 		catch (Exception e)
 		{
@@ -247,12 +240,12 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	protected void tableSearcResultsMouseDoubleClick(MouseEvent evt)
+	protected void tableSearcResultsMouseDoubleClick()
 	{
 		TableItem[] selection = tableSearcResults.getSelection();
 		if (selection.length > 0)
 		{
-			invCard = (TurqInventoryCard) selection[0].getData();
+			invCardCode = (String) selection[0].getData();
 			dialogShell.close();
 		}
 	}
@@ -271,12 +264,13 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{
-				TurqInventoryCard card = (TurqInventoryCard) ((Object[]) result.get(i))[1];
-				TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal) ((Object[]) result.get(i))[0];
+	            String cardName = (String) ((Object[]) result.get(i))[2];
+				String cardCode = (String) ((Object[]) result.get(i))[1];
+				TurqViewInventoryTotal invView = (TurqViewInventoryTotal) ((Object[]) result.get(i))[0];
 				item = new TableItem(tableSearcResults, SWT.NULL);
-				item.setData(card);
-				item.setText(new String[]{card.getCardInventoryCode(), card.getCardName(),
-						invView.getTransactionsTotalAmountNow().toString()});
+				item.setData(cardCode);
+				
+				item.setText(new String[]{cardCode, cardName,""});
 			}
 		}
 		catch (Exception ex)

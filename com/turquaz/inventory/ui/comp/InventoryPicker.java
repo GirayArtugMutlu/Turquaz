@@ -47,6 +47,7 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
+import com.turquaz.inventory.ui.InvUICardSearchDialog;
 import com.cloudgarden.resource.SWTResourceManager;
 
 /**
@@ -252,7 +253,8 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 	}
 
 	public void openSearchDialog() {
-		// TODO Auto-generated method stub
 		
+		String cardCode = new InvUICardSearchDialog(getShell(),SWT.NULL).open(text1.getText().trim());
+		text1.setText(cardCode);
 	}
 }
