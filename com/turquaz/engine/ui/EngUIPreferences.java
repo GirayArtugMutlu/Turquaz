@@ -12,12 +12,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -35,19 +34,17 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	private Composite composite1;
 	private CCombo cCombo;
-	private Button btnCurrentCards;
-	private Button btnUpdateCashTrans;
 	private Button btnAutomaticDispatcNote;
-	private Button btnFillBillInEngineSeq;
-	private Button btnJiraBugReport;
-	private Button btnExportInvAccounts;
-	private Button btnExportBankCards;
-	private Button btnUpdateBills;
 	private CLabel lblBillFormat;
 	private DatePicker datePicker;
 	private CLabel lblWorkingDate;
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
+	private Composite compGeneral;
+	private Composite compBill;
+	private CTabItem tabItemBill;
+	private CTabItem cTabItem1;
+	private CTabFolder tabFolder;
 	private ToolBar toolBar1;
 
 	public EngUIPreferences(Shell parent, int style)
@@ -112,24 +109,52 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				composite1.setLayoutData(composite1LData);
 				composite1Layout.numColumns = 2;
 				composite1.setLayout(composite1Layout);
+				//START >>  tabFolder
+				tabFolder = new CTabFolder(composite1, SWT.NONE);
+				//START >>  cTabItem1
+				cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
+				cTabItem1.setText("Genel");
+				//START >>  compGeneral
+				compGeneral = new Composite(tabFolder, SWT.NONE);
+				GridLayout compGeneralLayout = new GridLayout();
+				compGeneralLayout.numColumns = 2;
+				compGeneral.setLayout(compGeneralLayout);
+				cTabItem1.setControl(compGeneral);
 				{
-					lblWorkingDate = new CLabel(composite1, SWT.NONE);
+					lblWorkingDate = new CLabel(compGeneral, SWT.NONE);
 					lblWorkingDate.setText(Messages.getString("EngUIPreferences.4") + //$NON-NLS-1$
-							""); //$NON-NLS-1$
+						""); //$NON-NLS-1$
 				}
 				{
-					datePicker = new DatePicker(composite1, SWT.NONE);
+					datePicker = new DatePicker(compGeneral, SWT.NONE);
 					GridData datePickerLData = new GridData();
 					datePickerLData.widthHint = 157;
 					datePickerLData.heightHint = 23;
 					datePicker.setLayoutData(datePickerLData);
 				}
+				//END <<  compGeneral
+				GridData tabFolderLData = new GridData();
+				tabFolderLData.grabExcessVerticalSpace = true;
+				tabFolderLData.grabExcessHorizontalSpace = true;
+				tabFolderLData.horizontalAlignment = GridData.FILL;
+				tabFolderLData.verticalAlignment = GridData.FILL;
+				tabFolder.setLayoutData(tabFolderLData);
+				//END <<  cTabItem1
+				//START >>  tabItemBill
+				tabItemBill = new CTabItem(tabFolder, SWT.NONE);
+				tabItemBill.setText("Fatura");
+				//START >>  compBill
+				compBill = new Composite(tabFolder, SWT.NONE);
+				GridLayout compBillLayout = new GridLayout();
+				compBillLayout.numColumns = 2;
+				compBill.setLayout(compBillLayout);
+				tabItemBill.setControl(compBill);
 				{
-					lblBillFormat = new CLabel(composite1, SWT.NONE);
+					lblBillFormat = new CLabel(compBill, SWT.NONE);
 					lblBillFormat.setText(Messages.getString("EngUIPreferences.5")); //$NON-NLS-1$
 				}
 				{
-					cCombo = new CCombo(composite1, SWT.NONE);
+					cCombo = new CCombo(compBill, SWT.NONE);
 					GridData cComboLData = new GridData();
 					cCombo.setBackground(SWTResourceManager.getColor(255, 255, 255));
 					cCombo.setEditable(false);
@@ -138,137 +163,17 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 					cCombo.setLayoutData(cComboLData);
 				}
 				//START >>  btnAutomaticDispatcNote
-				btnAutomaticDispatcNote = new Button(composite1, SWT.CHECK | SWT.LEFT);
+				btnAutomaticDispatcNote = new Button(compBill, SWT.CHECK | SWT.LEFT);
 				GridData btnAutomaticDispatcNoteLData = new GridData();
 				btnAutomaticDispatcNoteLData.horizontalSpan = 2;
 				btnAutomaticDispatcNote.setLayoutData(btnAutomaticDispatcNoteLData);
-				btnAutomaticDispatcNote.setText("Fatura kaydedildi\u011finde Otamatik \u0130rsaliye kesilsin mi?");
+				btnAutomaticDispatcNote.setText("Fatura kaydedildi\u011finde otamatik irsaliye kesilsin");
 				btnAutomaticDispatcNote.setSelection(true);
 				//END <<  btnAutomaticDispatcNote
-				//START >> btnUpdateBills
-				btnUpdateBills = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnUpdateBills.setText(Messages.getString("EngUIPreferences.3")); //$NON-NLS-1$
-				btnUpdateBills.setVisible(false);
-				btnUpdateBills.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						EngBLCommon.updateAllBillAccountingTransactions();
-					}
-				});
-				//END << btnUpdateBills
-				//START >> btnCurrentCards
-				btnCurrentCards = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnCurrentCards.setText(Messages.getString("EngUIPreferences.6")); //$NON-NLS-1$
-				btnCurrentCards.setVisible(false);
-				btnCurrentCards.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						try
-						{
-							if (EngUICommon.okToDelete(getParent(), Messages.getString("EngUIPreferences.7"))) //$NON-NLS-1$
-							{
-								EngBLCommon.exportCurrentCardAccs();
-							}
-						}
-						catch (Exception ex)
-						{
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
-						}
-					}
-				});
-				//END << btnCurrentCards
-				//START >> btnExportBankCards
-				btnExportBankCards = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnExportBankCards.setText("Banka Muhasebe Hesaplarini Aktar");
-				GridData btnExportBankCardsLData = new GridData();
-				btnExportBankCardsLData.horizontalSpan = 2;
-				btnExportBankCards.setLayoutData(btnExportBankCardsLData);
-				btnExportBankCards.setVisible(false);
-				btnExportBankCards.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						try
-						{
-							EngBLCommon.exportBankCardAccs();
-						}
-						catch (Exception ex)
-						{
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
-						}
-					}
-				});
-				//END << btnExportBankCards
-				//START >> btnUpdateCashTrans
-				btnUpdateCashTrans = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnUpdateCashTrans.setText("Kasa Hareketlerini Güncelle");
-				GridData btnUpdateCashTransLData = new GridData();
-				btnUpdateCashTransLData.horizontalSpan = 2;
-				btnUpdateCashTrans.setLayoutData(btnUpdateCashTransLData);
-				btnUpdateCashTrans.setVisible(false);
-				btnUpdateCashTrans.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						EngBLCommon.updateAllCashTransactions();
-					}
-				});
-				//END << btnUpdateCashTrans
-				//START >> btnExportInvAccounts
-				btnExportInvAccounts = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnExportInvAccounts.setText("ExportInvAccounts");
-				btnExportInvAccounts.setVisible(false);
-				btnExportInvAccounts.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						try
-						{
-							EngBLCommon.exportInventoryAccounts();
-						}
-						catch (Exception ex)
-						{
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
-						}
-					}
-				});
-				//END << btnExportInvAccounts
-				//START >> btnJiraBugReport
-				btnJiraBugReport = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnJiraBugReport.setText("Jira Bug Report");
-				btnJiraBugReport.setVisible(false);
-				GridData btnJiraBugReportLData = new GridData();
-				btnJiraBugReportLData.widthHint = 86;
-				btnJiraBugReportLData.heightHint = 23;
-				btnJiraBugReport.setLayoutData(btnJiraBugReportLData);
-				btnJiraBugReport.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						btnJiraBugReportMouseUp(evt);
-					}
-				});
-				//END << btnJiraBugReport
-				//START >> btnFillBillInEngineSeq
-				btnFillBillInEngineSeq = new Button(composite1, SWT.PUSH | SWT.CENTER);
-				btnFillBillInEngineSeq.setText("Fill Bill In EngineSeq");
-				btnFillBillInEngineSeq.setVisible(false);
-				btnFillBillInEngineSeq.addMouseListener(new MouseAdapter()
-				{
-					public void mouseUp(MouseEvent evt)
-					{
-						btnFillBillInEngineSeqMouseUp(evt);
-					}
-				});
-				//END << btnFillBillInEngineSeq
+				//END <<  compBill
+				tabFolder.setSelection(0);
+				//END <<  tabItemBill
+				//END <<  tabFolder
 			}
 		
 			postInitGUI();
@@ -320,42 +225,6 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 					}
 				}
 			}
-		}
-		catch (Exception ex)
-		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-		}
-	}
-
-	private void btnJiraBugReportMouseUp(MouseEvent evt)
-	{
-		try
-		{
-			/*
-			 * XmlRpcClient rpcClient = new XmlRpcClient(JIRA_URI + RPC_PATH); // Login and retrieve logon token Vector loginParams = new
-			 * Vector(2); loginParams.add(USER_NAME); loginParams.add(PASSWORD); String loginToken = (String)
-			 * rpcClient.execute("jira1.login", loginParams); // Retrieve projects Vector loginTokenVector = new Vector(1);
-			 * loginTokenVector.add(loginToken); List projects = (List)rpcClient.execute("jira1.getProjects", loginTokenVector); // Print
-			 * projects for (Iterator iterator = projects.iterator(); iterator.hasNext();) { Map project = (Map) iterator.next();
-			 * System.out.println(project.get("name") + " with lead " + project.get("lead")); } // Log out Boolean bool = (Boolean)
-			 * rpcClient.execute("jira1.logout", loginTokenVector); System.out.println("Logout successful: " + bool);
-			 */
-		}
-		catch (Exception ex)
-		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-		}
-	}
-
-	private void btnFillBillInEngineSeqMouseUp(MouseEvent evt)
-	{
-		try
-		{
-			EngBLCommon.insertBillInEngineSeq();
 		}
 		catch (Exception ex)
 		{
