@@ -21,6 +21,11 @@ package com.turquaz.current.ui.comp;
  */
 import java.util.HashMap;
 import org.apache.log4j.Logger;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -36,6 +41,7 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -47,7 +53,7 @@ import com.cloudgarden.resource.SWTResourceManager;
  * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
  * legally for any corporate or commercial purpose. *************************************
  */
-public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
+public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite implements TurquazContentAssistInterface
 {
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -55,6 +61,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
 		SWTResourceManager.registerResourceUser(this);
 	}
 	private String filter = "";
+	private Button btnChoose;
 	private Text text1;
 	private AccountPickerLeaf accountPicker = null;
 	private Integer pickerAccountType = null;
@@ -73,7 +80,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			preInitGUI();
-			this.setSize(new org.eclipse.swt.graphics.Point(397, 22));
+			this.setSize(393, 25);
 			this.setEnabled(true);
 			GridLayout thisLayout = new GridLayout(4, true);
 			this.setLayout(thisLayout);
@@ -83,16 +90,12 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
 				text1.setSize(new org.eclipse.swt.graphics.Point(358, 22));
 				GridData text1LData = new GridData();
 				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
-				text1.addModifyListener(new ModifyListener()
-				{
-					public void modifyText(ModifyEvent evt)
-					{
-						try
-						{
-							setData2(EngBLCurrentCards.getCards(text1.getText().trim()));
-						}
-						catch (Exception ex)
-						{
+				text1.addModifyListener(new ModifyListener() {
+					public void modifyText(ModifyEvent evt) {
+						try {
+							setDBData(EngBLCurrentCards.getCards(text1
+								.getText().trim()));
+						} catch (Exception ex) {
 							Logger loger = Logger.getLogger(this.getClass());
 							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
@@ -104,6 +107,24 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
 				text1LData.grabExcessHorizontalSpace = true;
 				text1LData.grabExcessVerticalSpace = true;
 				text1.setLayoutData(text1LData);
+				text1.addFocusListener(new FocusAdapter() {
+					public void focusLost(FocusEvent evt) {
+						openNewObjectDialog();
+					}
+				});
+			}
+			{
+				btnChoose = new Button(this, SWT.PUSH | SWT.CENTER);
+				GridData btnChooseLData = new GridData();
+				btnChooseLData.verticalAlignment = GridData.FILL;
+				btnChoose.setLayoutData(btnChooseLData);
+				btnChoose.setText("...");
+				btnChoose.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+					
+						openSearchDialog();
+					}
+				});
 			}
 			thisLayout.marginWidth = 0;
 			thisLayout.marginHeight = 0;
@@ -153,8 +174,13 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
 	{
 		super.setData(obj);
 	}
+	
+	public Object getDBData()
+	{
+		return super.getData();
+	}
 
-	public void setData2(Object obj)
+	public void setDBData(Object obj)
 	{
 		super.setData(obj);
 		if (obj == null)
@@ -198,4 +224,15 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite
 		accountPicker = picker;
 		pickerAccountType = Type;
 	}
+
+	public void openNewObjectDialog() {
+		// TODO Auto-generated method stub		
+	}
+	
+	public void openSearchDialog() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

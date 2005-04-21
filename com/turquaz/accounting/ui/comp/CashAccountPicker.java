@@ -21,6 +21,10 @@ package com.turquaz.accounting.ui.comp;
  */
 import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -36,6 +40,7 @@ import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -46,7 +51,7 @@ import com.cloudgarden.resource.SWTResourceManager;
  * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
  * legally for any corporate or commercial purpose. *************************************
  */
-public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
+public class CashAccountPicker extends org.eclipse.swt.widgets.Composite implements TurquazContentAssistInterface
 {
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -54,6 +59,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 		SWTResourceManager.registerResourceUser(this);
 	}
 	private String filter = "";
+	private Button btnSearch;
 	private Text text1;
 
 	public CashAccountPicker(Composite parent, int style)
@@ -79,16 +85,12 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 				text1.setEditable(true);
 				text1.setSize(new org.eclipse.swt.graphics.Point(358, 22));
 				GridData text1LData = new GridData();
-				text1.addModifyListener(new ModifyListener()
-				{
-					public void modifyText(ModifyEvent evt)
-					{
-						try
-						{
-							setData2(EngBLAccountingAccounts.getLeafAccount(text1.getText().trim()));
-						}
-						catch (Exception ex)
-						{
+				text1.addModifyListener(new ModifyListener() {
+					public void modifyText(ModifyEvent evt) {
+						try {
+							setDBData(EngBLAccountingAccounts
+								.getLeafAccount(text1.getText().trim()));
+						} catch (Exception ex) {
 							Logger loger = Logger.getLogger(this.getClass());
 							loger.error("Exception Caught", ex);
 							ex.printStackTrace();
@@ -101,6 +103,23 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 				text1LData.grabExcessHorizontalSpace = true;
 				text1LData.grabExcessVerticalSpace = true;
 				text1.setLayoutData(text1LData);
+				text1.addFocusListener(new FocusAdapter() {
+					public void focusLost(FocusEvent evt) {
+						openNewObjectDialog();
+					}
+				});
+			}
+			{
+				btnSearch = new Button(this, SWT.PUSH | SWT.CENTER);
+				GridData btnSearchLData = new GridData();
+				btnSearchLData.verticalAlignment = GridData.FILL;
+				btnSearch.setLayoutData(btnSearchLData);
+				btnSearch.setText("...");
+				btnSearch.addMouseListener(new MouseAdapter() {
+					public void mouseUp(MouseEvent evt) {
+						openSearchDialog();
+					}
+				});
 			}
 			thisLayout.marginWidth = 0;
 			thisLayout.marginHeight = 0;
@@ -139,7 +158,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			setData2(EngBLAccountingAccounts.getAccount(text1.getText().trim()));
+			setDBData(EngBLAccountingAccounts.getAccount(text1.getText().trim()));
 		}
 		catch (Exception ex)
 		{
@@ -166,7 +185,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 		text1.setText(account.getAccountCode());
 	}
 
-	public void setData2(Object obj)
+	public void setDBData(Object obj)
 	{
 		super.setData(obj);
 	}
@@ -197,5 +216,20 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite
 	public void setFilter(String filter)
 	{
 		this.filter = filter;
+	}
+
+	public Object getDBData() {
+		// TODO Auto-generated method stub
+		return super.getData();
+	}
+
+	public void openNewObjectDialog() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void openSearchDialog() {
+		// TODO Auto-generated method stub
+		
 	}
 }
