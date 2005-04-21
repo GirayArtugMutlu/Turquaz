@@ -12,6 +12,7 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -26,7 +27,6 @@ import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used

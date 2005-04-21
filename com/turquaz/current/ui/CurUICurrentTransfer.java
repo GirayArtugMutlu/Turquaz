@@ -15,8 +15,8 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;

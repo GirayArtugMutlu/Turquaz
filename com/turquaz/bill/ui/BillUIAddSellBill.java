@@ -70,7 +70,7 @@ import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
-import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.InventoryNameCellEditor;

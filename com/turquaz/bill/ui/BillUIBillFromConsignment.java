@@ -68,7 +68,8 @@ import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
-import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.interfaces.SecureComposite;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 

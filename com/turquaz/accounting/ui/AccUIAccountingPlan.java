@@ -48,8 +48,8 @@ import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqViewAccTotal;
+import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.component.SearchComposite;
 import com.cloudgarden.resource.SWTResourceManager;
 
 /**

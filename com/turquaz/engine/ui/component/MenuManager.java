@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.ui.EngUIHelpDialog;
 import com.turquaz.engine.ui.EngUIKeyControls;
 import com.turquaz.engine.ui.EngUIMainFrame;

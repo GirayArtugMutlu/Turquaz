@@ -47,11 +47,11 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
-import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 /**

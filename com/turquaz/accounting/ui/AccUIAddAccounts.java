@@ -47,8 +47,8 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.component.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 

@@ -51,7 +51,8 @@ import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryAccountingType;
 import com.turquaz.engine.dal.TurqInventoryUnit;
-import com.turquaz.engine.ui.component.SecureComposite;
+import com.turquaz.engine.interfaces.SecureComposite;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -49,7 +49,7 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.ui.component.SearchComposite;
+import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.engine.ui.component.DatePicker;

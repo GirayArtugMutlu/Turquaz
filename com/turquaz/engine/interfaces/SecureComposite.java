@@ -1,4 +1,4 @@
-package com.turquaz.engine.ui.component;
+package com.turquaz.engine.interfaces;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */

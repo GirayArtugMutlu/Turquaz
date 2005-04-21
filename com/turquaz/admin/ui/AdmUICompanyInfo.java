@@ -12,9 +12,9 @@ import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.engine.dal.TurqCompany;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUIMainFrame;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used

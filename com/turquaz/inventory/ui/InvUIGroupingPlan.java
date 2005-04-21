@@ -44,9 +44,9 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
-import com.turquaz.engine.ui.component.SearchComposite;
 
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;

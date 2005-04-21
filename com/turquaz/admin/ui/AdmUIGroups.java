@@ -49,10 +49,10 @@ import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
+import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
-import com.turquaz.engine.ui.component.SearchComposite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements SecureComposite, SearchComposite
 {

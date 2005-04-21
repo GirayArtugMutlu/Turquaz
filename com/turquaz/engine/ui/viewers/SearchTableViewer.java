@@ -18,9 +18,9 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.ui.EngUITableColumns;
 import com.turquaz.engine.ui.EngUITableProperties;
-import com.turquaz.engine.ui.component.SearchComposite;
 
 /**
  * @author onsel Window - Preferences - Java - Code Style - Code Templates

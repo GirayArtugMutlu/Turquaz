@@ -39,10 +39,10 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.SWT;
@@ -93,7 +93,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(540, 265);
+			this.setSize(645, 280);
 			{
 				lblCashTransType = new CLabel(this, SWT.NONE);
 				lblCashTransType.setText(Messages.getString("CashUICashCollectTransactionAdd.0")); //$NON-NLS-1$

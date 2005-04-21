@@ -35,10 +35,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used

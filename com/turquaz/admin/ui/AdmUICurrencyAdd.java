@@ -17,8 +17,8 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyAdd;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used

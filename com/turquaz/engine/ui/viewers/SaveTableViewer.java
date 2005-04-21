@@ -23,9 +23,10 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.ui.EngUITableColumns;
 import com.turquaz.engine.ui.EngUITableProperties;
-import com.turquaz.engine.ui.component.SecureComposite;
 
 /**
  * @author onsel 

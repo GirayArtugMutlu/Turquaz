@@ -43,8 +43,8 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupAdd;
+import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.component.SecureComposite;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 
