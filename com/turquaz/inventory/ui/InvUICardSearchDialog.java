@@ -10,6 +10,7 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
@@ -31,12 +32,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
-import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
+
+import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.engine.ui.component.TurqKeyEvent;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.Messages;
+import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
 /**
@@ -51,9 +56,11 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	private Composite compInvCardSearchPanel;
 	private CLabel lblInvName;
-	private CCombo comboInvGroup;
+	private CCombo comboInvMainGroup;
 	private Table tableSearcResults;
 	private TableColumn tableColumnInvName;
+	private CCombo comboSubGroup;
+	private CLabel lblSubGroup;
 	private MenuItem menuItemChoose;
 	private MenuItem menuItemSearch;
 	private Menu menu1;
@@ -94,20 +101,19 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 						menuActions.setMenu(menu1);
 						{
 							menuItemSearch = new MenuItem(menu1, SWT.PUSH);
-							menuItemSearch.setText("Ara");
-							menuItemSearch.setAccelerator(SWT.CR);
-							menuItemSearch
-								.addSelectionListener(new SelectionAdapter() {
+							TurqKeyEvent event=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.SEARCH);
+							menuItemSearch.setAccelerator(event.stateMask | event.keyCode);
+							menuItemSearch.setText("Ara\t"+EngBLKeyEvents.getStringValue(event));
+							menuItemSearch.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
-									search();	
-								
+									search();								
 								}
 								});
 						}
 						{
 							menuItemChoose = new MenuItem(menu1, SWT.PUSH);
-							menuItemChoose.setText("Seç");
-							menuItemChoose.setAccelerator(SWT.F2);
+							menuItemChoose.setText("Seç\tENTER");
+							menuItemChoose.setAccelerator(SWT.CR);
 							menuItemChoose
 								.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent evt) {
@@ -127,65 +133,72 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setText(Messages.getString("InvUICardSearchDialog.0")); //$NON-NLS-1$
 			dialogShell.pack();
-			dialogShell.setSize(501, 420);
+			dialogShell.setSize(681, 480);
 			{
 				compInvCardSearchPanel = new Composite(dialogShell, SWT.BORDER);
 				GridLayout compInvCardSearchPanelLayout = new GridLayout();
-				compInvCardSearchPanelLayout.numColumns = 2;
+				compInvCardSearchPanelLayout.numColumns = 4;
 				GridData compInvCardSearchPanelLData = new GridData();
 				compInvCardSearchPanel.setLayout(compInvCardSearchPanelLayout);
 				compInvCardSearchPanelLData.horizontalAlignment = GridData.FILL;
-				compInvCardSearchPanelLData.heightHint = 78;
+				compInvCardSearchPanelLData.heightHint = 68;
 				compInvCardSearchPanelLData.grabExcessHorizontalSpace = true;
 				compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
-				{
-					lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvName.setText(Messages.getString("InvUICardSearch.0"));//$NON-NLS-1$
-					lblInvName.setSize(new org.eclipse.swt.graphics.Point(114, 18));
-					GridData lblInvNameLData = new GridData();
-					lblInvNameLData.widthHint = 114;
-					lblInvNameLData.heightHint = 18;
-					lblInvName.setLayoutData(lblInvNameLData);
-				}
-				{
-					txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
-					GridData txtInvNameLData = new GridData();
-					txtInvNameLData.widthHint = 166;
-					txtInvNameLData.heightHint = 18;
-					txtInvName.setLayoutData(txtInvNameLData);
-				}
 				{
 					cLabel2 = new CLabel(compInvCardSearchPanel, SWT.NONE);
 					cLabel2.setText(Messages.getString("InvUICardSearch.1"));//$NON-NLS-1$
 					cLabel2.setSize(new org.eclipse.swt.graphics.Point(97, 17));
-					GridData cLabel2LData = new GridData();
-					cLabel2LData.widthHint = 97;
-					cLabel2LData.heightHint = 17;
-					cLabel2.setLayoutData(cLabel2LData);
 				}
 				{
 					txtInvCode = new Text(compInvCardSearchPanel, SWT.NONE);
 					GridData txtInvCodeLData = new GridData();
-					txtInvCodeLData.widthHint = 166;
-					txtInvCodeLData.heightHint = 18;
+					txtInvCodeLData.widthHint = 201;
+					txtInvCodeLData.heightHint = 17;
 					txtInvCode.setLayoutData(txtInvCodeLData);
 					txtInvCode.setText(cardCode);
 				}
 				{
-					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvGroup.setText(Messages.getString("InvUICardSearch.2"));//$NON-NLS-1$
-					lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(110, 17));
-					GridData lblInvGroupLData = new GridData();
-					lblInvGroupLData.widthHint = 110;
-					lblInvGroupLData.heightHint = 17;
-					lblInvGroup.setLayoutData(lblInvGroupLData);
+					lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblInvName.setText(Messages.getString("InvUICardSearch.0"));//$NON-NLS-1$
+					lblInvName.setSize(new org.eclipse.swt.graphics.Point(114, 18));
 				}
 				{
-					comboInvGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+					txtInvName = new Text(compInvCardSearchPanel, SWT.NONE);
+					GridData txtInvNameLData = new GridData();
+					txtInvNameLData.widthHint = 218;
+					txtInvNameLData.heightHint = 17;
+					txtInvName.setLayoutData(txtInvNameLData);
+				}
+				{
+					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblInvGroup.setText("Stok Ana Grubu");//$NON-NLS-1$
+					lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(110, 17));
+				}
+				{
+					comboInvMainGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
 					GridData comboInvGroupLData = new GridData();
-					comboInvGroupLData.widthHint = 98;
-					comboInvGroupLData.heightHint = 18;
-					comboInvGroup.setLayoutData(comboInvGroupLData);
+					comboInvGroupLData.widthHint = 116;
+					comboInvGroupLData.heightHint = 17;
+					comboInvMainGroup.setLayoutData(comboInvGroupLData);
+					comboInvMainGroup
+						.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+							
+						comboWidgetSelected();
+						
+						}
+						});
+				}
+				{
+					lblSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
+					lblSubGroup.setText("Alt Grup");
+				}
+				{
+					GridData comboSubGroupLData = new GridData();
+					comboSubGroupLData.widthHint = 121;
+					comboSubGroupLData.heightHint = 14;
+					comboSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
+					comboSubGroup.setLayoutData(comboSubGroupLData);
 				}
 			}
 			{
@@ -222,6 +235,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnAmount.setWidth(118);
 				}
 			}
+			fillComboGroup();
 			dialogShell.layout();
 			dialogShell.open();
 			EngUICommon.centreWindow(dialogShell);
@@ -239,7 +253,45 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			return null;
 		}
 	}
-
+	public void comboWidgetSelected()
+	{
+		comboSubGroup.removeAll();
+		if (comboInvMainGroup.getSelectionIndex() == -1)
+			return;
+		TurqInventoryGroup invMainGr = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
+		if (invMainGr != null)
+		{
+			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
+			while (it.hasNext())
+			{
+				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
+				comboSubGroup.add(invGr.getGroupsName());
+				comboSubGroup.setData(invGr.getGroupsName(), invGr);
+			}
+			if (comboSubGroup.getItemCount() > 0)
+				comboSubGroup.setText(comboSubGroup.getItem(0));
+		}
+	}
+	public void fillComboGroup()
+	{
+		try
+		{
+			List groupList =(List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			comboInvMainGroup.add("");
+			for (int k = 0; k < groupList.size(); k++)
+			{
+				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
+				comboInvMainGroup.add(gr.getGroupsName());
+				comboInvMainGroup.setData(gr.getGroupsName(), gr);
+			}
+		}
+		catch (Exception ex)
+		{
+			Logger loger = Logger.getLogger(this.getClass());
+			loger.error("Exception Caught", ex);
+			ex.printStackTrace();
+		}
+	}
 	protected void tableSearcResultsMouseDoubleClick()
 	{
 		TableItem[] selection = tableSearcResults.getSelection();
@@ -258,7 +310,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_NAME,txtInvName.getText().trim());
 			argMap.put(InvKeys.INV_CARD_CODE, txtInvCode.getText().trim());
-			argMap.put(InvKeys.INV_GROUP,comboInvGroup.getData(comboInvGroup.getText()));
+			argMap.put(InvKeys.INV_GROUP,comboSubGroup.getData(comboSubGroup.getText()));
 			List result = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
 			TableItem item;
 			int listSize = result.size();

@@ -46,6 +46,7 @@ public class EngBLKeyEvents
 	public static String EXCEL="Excel"; //$NON-NLS-1$
 	public static String PRINT="Print";	 //$NON-NLS-1$
 	
+	
 	public static String[] KEY_CONTROLS=new String[]{
 			CONTENT_ASISTANT,
 			NEXT_TAB,
