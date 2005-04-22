@@ -86,7 +86,7 @@ public class SearchDialogMenu extends org.eclipse.swt.widgets.Composite {
 			{
 				menuActions = new Menu(getShell(), SWT.BAR);
 				getShell().setMenuBar(menuActions);
-				menuActions.setVisible(false);
+				
 				
 				{
 					menuItem1 = new MenuItem(menuActions, SWT.CASCADE);
@@ -130,7 +130,7 @@ public class SearchDialogMenu extends org.eclipse.swt.widgets.Composite {
 				}
 			}
 			this.setLayout(new GridLayout());
-			this.setSize(509, 32);
+			this.setSize(505, 33);
 			{
 				GridData toolBar1LData = new GridData();
 				toolBar1LData.grabExcessHorizontalSpace = true;
@@ -142,12 +142,27 @@ public class SearchDialogMenu extends org.eclipse.swt.widgets.Composite {
 				{
 					toolSearch = new ToolItem(toolBar1, SWT.NONE);
 					toolSearch.setImage(SWTResourceManager.getImage("icons/search.gif"));
+					toolSearch.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+						
+							search();
+							
+						
+						}
+					});
 				}
 				{
 					toolChoose = new ToolItem(toolBar1, SWT.NONE);
 					toolChoose.setImage(SWTResourceManager.getImage("icons/Ok16.gif"));
+					toolChoose.addSelectionListener(new SelectionAdapter() {
+						public void widgetSelected(SelectionEvent evt) {
+						
+							choose();
+						}
+					});
 				}
 			}
+			menuActions.setVisible(false);
 			this.layout();
 		} catch (Exception e) {
 			e.printStackTrace();
