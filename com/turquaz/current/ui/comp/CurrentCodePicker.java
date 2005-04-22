@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
+import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
@@ -230,7 +231,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 	}
 	
 	public void openSearchDialog() {
-		// TODO Auto-generated method stub
+		new CurUICurrentCardSearchDialog(getShell(),SWT.NULL).open();
 		
 	}
 

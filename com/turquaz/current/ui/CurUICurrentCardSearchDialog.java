@@ -34,16 +34,17 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import com.turquaz.current.CurKeys;
+import com.turquaz.engine.ui.component.SearchDialogMenu;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.tx.EngTXCommon;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
+import com.turquaz.engine.ui.EngUICommon;
+
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -52,7 +53,7 @@ import org.eclipse.swt.events.KeyEvent;
  * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
  * legally for any corporate or commercial purpose. *************************************
  */
-public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
+public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog implements SearchDialogInterface
 {
 	private Shell dialogShell;
 	private Composite compCurrentCardSearch;
@@ -66,26 +67,13 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
 	private CLabel lblCurrentCode;
-	private Button btnSearch;
+	private SearchDialogMenu searchDialogMenu1;
 	Object returnData = null;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
 	 */
-	public static void main(String[] args)
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			CurUICurrentCardSearchDialog inst = new CurUICurrentCardSearchDialog(shell, SWT.NULL);
-			inst.open();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+
 
 	public CurUICurrentCardSearchDialog(Shell parent, int style)
 	{
@@ -99,15 +87,24 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.pack();
-			dialogShell.setSize(439, 375);
+			
+			dialogShell.setSize(572, 374);
+			{
+				GridData searchDialogMenu1LData = new GridData();
+				searchDialogMenu1LData.heightHint = 35;
+				searchDialogMenu1LData.grabExcessHorizontalSpace = true;
+				searchDialogMenu1LData.horizontalAlignment = GridData.FILL;
+				searchDialogMenu1 = new SearchDialogMenu(dialogShell, SWT.NONE,this);
+				searchDialogMenu1.setLayoutData(searchDialogMenu1LData);
+			}	
+			
 			{
 				compCurrentCardSearch = new Composite(dialogShell, SWT.NONE);
 				GridLayout compCurrentCardSearchLayout = new GridLayout();
 				compCurrentCardSearchLayout.numColumns = 2;
 				GridData compCurrentCardSearchLData = new GridData();
 				compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
-				compCurrentCardSearchLData.heightHint = 129;
+				compCurrentCardSearchLData.heightHint = 85;
 				compCurrentCardSearchLData.grabExcessHorizontalSpace = true;
 				compCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
 				compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
@@ -120,14 +117,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					txtCurrentCode = new Text(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
-					txtCurrentCode.addKeyListener(new KeyAdapter()
-					{
-						public void keyReleased(KeyEvent evt)
-						{
-							if (evt.keyCode == SWT.CR)
-								search();
-						}
-					});
+					
 					txtCurrentCodeLData.widthHint = 234;
 					txtCurrentCodeLData.heightHint = 15;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
@@ -141,14 +131,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					txtCurrentName = new Text(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentNameLData = new GridData();
-					txtCurrentName.addKeyListener(new KeyAdapter()
-					{
-						public void keyReleased(KeyEvent evt)
-						{
-							if (evt.keyCode == SWT.CR)
-								search();
-						}
-					});
+					
 					txtCurrentName.setSize(234, 15);
 					txtCurrentNameLData.widthHint = 234;
 					txtCurrentNameLData.heightHint = 15;
@@ -165,24 +148,9 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					comboTurqGroupName = new CCombo(compCurrentCardSearch, SWT.NONE);
 					GridData comboTurqGroupNameLData = new GridData();
-					comboTurqGroupNameLData.widthHint = 50;
-					comboTurqGroupNameLData.heightHint = 9;
+					comboTurqGroupNameLData.widthHint = 112;
+					comboTurqGroupNameLData.heightHint = 10;
 					comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
-				}
-				{
-					btnSearch = new Button(compCurrentCardSearch, SWT.PUSH | SWT.CENTER);
-					btnSearch.setText(Messages.getString("CurUICurrentCardSearchDialog.0")); //$NON-NLS-1$
-					GridData btnSearchLData = new GridData();
-					btnSearch.addMouseListener(new MouseAdapter()
-					{
-						public void mouseUp(MouseEvent evt)
-						{
-							search();
-						}
-					});
-					btnSearchLData.widthHint = 90;
-					btnSearchLData.heightHint = 34;
-					btnSearch.setLayoutData(btnSearchLData);
 				}
 			}
 			{
@@ -195,11 +163,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					public void mouseDoubleClick(MouseEvent evt)
 					{
-						if (tableCurrentCardSearch.getSelection().length > 0)
-						{
-							returnData = tableCurrentCardSearch.getSelection()[0].getData();
-							dialogShell.close();
-						}
+						choose();
 					}
 				});
 				tableCurrentCardSearchLData.verticalAlignment = GridData.FILL;
@@ -220,7 +184,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					tableColumnContactName = new TableColumn(tableCurrentCardSearch, SWT.NONE);
 					tableColumnContactName.setText(Messages.getString("CurUICurrentCardSearch.5")); //$NON-NLS-1$
-					tableColumnContactName.setWidth(120);
+					tableColumnContactName.setWidth(198);
 				}
 			}
 			postInitGui();
@@ -241,10 +205,20 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
+	public void choose()
+	{
+		
+		if (tableCurrentCardSearch.getSelection().length > 0)
+		{
+			returnData = tableCurrentCardSearch.getSelection()[0].getData();
+			dialogShell.close();
+		}
+	}
 	public void search()
 	{
 		try
 		{
+			System.out.println("qeadfdaf");
 			tableCurrentCardSearch.removeAll();
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
@@ -284,6 +258,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
+			EngUICommon.centreWindow(dialogShell);
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
 			List groups = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
