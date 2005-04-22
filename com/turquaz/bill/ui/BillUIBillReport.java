@@ -22,7 +22,6 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -31,7 +30,6 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -743,16 +741,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 		tableViewer = new SearchTableViewer(tableBills, columnTypes, true);
 	}
 
-	public void currentCardChoose()
-	{
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(), SWT.NULL).open();
-		if (data != null)
-		{
-			TurqCurrentCard curCard = (TurqCurrentCard) data;
-			txtCurCardStart.setText(curCard.getCardsCurrentCode() + " - " + curCard.getCardsName()); //$NON-NLS-1$
-			txtCurCardStart.setData(curCard);
-		}
-	}
+	
 
 	public void fillRegisteredGroup()
 	{

@@ -35,12 +35,10 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -337,16 +335,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		createTableViewer();
 	}
 
-	public void currentCardChoose()
-	{
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(), SWT.NULL).open();
-		if (data != null)
-		{
-			TurqCurrentCard curCard = (TurqCurrentCard) data;
-			txtCurCard.setText(curCard.getCardsCurrentCode() + " - " + curCard.getCardsName()); //$NON-NLS-1$
-			txtCurCard.setData(curCard);
-		}
-	}
+	
 
 	public void save()
 	{

@@ -203,8 +203,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 					HashMap argMap = new HashMap();
 					argMap.put(EngKeys.CURRENT_CARD, obj);
 					argMap.put(EngKeys.TYPE,pickerAccountType);
-					
-					
+									
 					accountPicker
 							.setData(EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap));
 				    
@@ -231,8 +230,8 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 	}
 	
 	public void openSearchDialog() {
-		new CurUICurrentCardSearchDialog(getShell(),SWT.NULL).open();
-		
+	String currentCode = (String)new CurUICurrentCardSearchDialog(getShell(),SWT.NULL,0).open();
+		text1.setText(currentCode);
 	}
 
 

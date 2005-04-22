@@ -113,7 +113,10 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 				shellBounds.height -= MENU_HEIGHT;
 			shell.setSize(shellBounds.width, shellBounds.height);
 		}
+		EngUICommon.centreWindow(shell);
 		shell.open();
+		
+		
 		while (!shell.isDisposed())
 		{
 			if (!display.readAndDispatch())
@@ -288,6 +291,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			this.layout();
 			preInitGui();
 			postInitGui();
+			
 		}
 		catch (Exception e)
 		{
@@ -446,6 +450,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
+			
 			btnOk.setFocus();
 			String username = EngConfiguration.getString("username"); //$NON-NLS-1$
 			String password = EngConfiguration.getString("password"); //$NON-NLS-1$

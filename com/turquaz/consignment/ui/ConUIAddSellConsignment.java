@@ -56,11 +56,9 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
@@ -854,16 +852,7 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 		}
 	}
 
-	public void btnChooseMouseUp()
-	{
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(), SWT.NULL).open();
-		if (data != null)
-		{
-			TurqCurrentCard curCard = (TurqCurrentCard) data;
-			txtCurrentCard.setText(curCard.getCardsCurrentCode() + " - " + curCard.getCardsName()); //$NON-NLS-1$
-			txtCurrentCard.setData(curCard);
-		}
-	}
+	
 
 	public boolean verifyFields()
 	{

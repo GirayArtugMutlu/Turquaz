@@ -16,12 +16,10 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
-import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -295,16 +293,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		tableViewer = new SearchTableViewer(tableBills, columnTypes, true);
 	}
 
-	public void currentCardChoose()
-	{
-		Object data = new CurUICurrentCardSearchDialog(this.getShell(), SWT.NULL).open();
-		if (data != null)
-		{
-			TurqCurrentCard curCard = (TurqCurrentCard) data;
-			txtCurCard.setText(curCard.getCardsCurrentCode() + " - " + curCard.getCardsName()); //$NON-NLS-1$
-			txtCurCard.setData(curCard);
-		}
-	}
+	
 
 	public void save()
 	{

@@ -15,9 +15,9 @@ package com.turquaz.current.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseAdapter;
@@ -36,11 +36,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.ui.component.SearchDialogMenu;
+import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentContact;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -58,7 +58,6 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	private Composite compCurrentCardSearch;
 	private Text txtCurrentCode;
-	private TableColumn tableColumnContactName;
 	private TableColumn tableColumnCurrentName;
 	private TableColumn tableColumnCurrentCode;
 	private Table tableCurrentCardSearch;
@@ -67,17 +66,22 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private Text txtCurrentName;
 	private CLabel lblCurrentName;
 	private CLabel lblCurrentCode;
+	private TableColumn tableColumnBalance;
+	private TableColumn tableColumnCredit;
+	private TableColumn tableColumnDept;
 	private SearchDialogMenu searchDialogMenu1;
 	Object returnData = null;
+	int type = 0;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
 	 */
 
 
-	public CurUICurrentCardSearchDialog(Shell parent, int style)
+	public CurUICurrentCardSearchDialog(Shell parent, int style,int type)
 	{
 		super(parent, style);
+		this.type = type;
 	}
 
 	public Object open()
@@ -88,7 +92,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 			dialogShell.setLayout(new GridLayout());
 			
-			dialogShell.setSize(572, 374);
+			dialogShell.setSize(607, 383);
 			{
 				GridData searchDialogMenu1LData = new GridData();
 				searchDialogMenu1LData.heightHint = 35;
@@ -118,8 +122,8 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 					txtCurrentCode = new Text(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentCodeLData = new GridData();
 					
-					txtCurrentCodeLData.widthHint = 234;
-					txtCurrentCodeLData.heightHint = 15;
+					txtCurrentCodeLData.widthHint = 150;
+					txtCurrentCodeLData.heightHint = 17;
 					txtCurrentCode.setLayoutData(txtCurrentCodeLData);
 				}
 				{
@@ -131,10 +135,9 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					txtCurrentName = new Text(compCurrentCardSearch, SWT.NONE);
 					GridData txtCurrentNameLData = new GridData();
-					
-					txtCurrentName.setSize(234, 15);
-					txtCurrentNameLData.widthHint = 234;
-					txtCurrentNameLData.heightHint = 15;
+									
+					txtCurrentNameLData.widthHint = 150;
+					txtCurrentNameLData.heightHint = 17;
 					txtCurrentName.setLayoutData(txtCurrentNameLData);
 				}
 				{
@@ -154,7 +157,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 			}
 			{
-				tableCurrentCardSearch = new Table(dialogShell, SWT.FULL_SELECTION | SWT.H_SCROLL);
+				tableCurrentCardSearch = new Table(dialogShell, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.BORDER);
 				tableCurrentCardSearch.setHeaderVisible(true);
 				tableCurrentCardSearch.setLinesVisible(true);
 				tableCurrentCardSearch.setSize(new org.eclipse.swt.graphics.Point(409, 168));
@@ -182,9 +185,25 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 					tableColumnCurrentName.setWidth(120);
 				}
 				{
-					tableColumnContactName = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-					tableColumnContactName.setText(Messages.getString("CurUICurrentCardSearch.5")); //$NON-NLS-1$
-					tableColumnContactName.setWidth(198);
+					tableColumnDept = new TableColumn(
+						tableCurrentCardSearch,
+						SWT.NONE);
+					tableColumnDept.setText("Toplam Borç");
+					tableColumnDept.setWidth(104);
+				}
+				{
+					tableColumnCredit = new TableColumn(
+						tableCurrentCardSearch,
+						SWT.NONE);
+					tableColumnCredit.setText("Toplam alacak");
+					tableColumnCredit.setWidth(100);
+				}
+				{
+					tableColumnBalance = new TableColumn(
+						tableCurrentCardSearch,
+						SWT.NONE);
+					tableColumnBalance.setText("Bakiye");
+					tableColumnBalance.setWidth(119);
 				}
 			}
 			postInitGui();
@@ -218,7 +237,8 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			System.out.println("qeadfdaf");
+			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+			
 			tableCurrentCardSearch.removeAll();
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
@@ -230,17 +250,35 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			
 			for (int k = 0; k < listCurrentCards.size(); k++)
 			{
-				TurqCurrentCard aCurrentCard = (TurqCurrentCard) ((Object[]) listCurrentCards.get(k))[1];
+				TurqViewCurrentAmountTotal curView = (TurqViewCurrentAmountTotal) ((Object[]) listCurrentCards.get(k))[0];
 				TableItem item = new TableItem(tableCurrentCardSearch, SWT.NULL);
-				item.setData(aCurrentCard);
-				String contactName = ""; //$NON-NLS-1$
-				Set contacts = aCurrentCard.getTurqCurrentContacts();
-				if (contacts.size() > 0)
+				String cardCode = (String)((Object[]) listCurrentCards.get(k))[1]; //$NON-NLS-1$
+			    String cardName = (String)((Object[]) listCurrentCards.get(k))[2]; //$NON-NLS-1$
+			    if(type==0)
 				{
-					Object curContact[] = contacts.toArray();
-					contactName = ((TurqCurrentContact) curContact[0]).getContactsName();
+				item.setData(cardCode);
 				}
-				item.setText(new String[]{aCurrentCard.getCardsCurrentCode(), aCurrentCard.getCardsName(), contactName});
+			    else
+				{
+					item.setData(cardName+" {"+cardCode+"}");
+				}
+				BigDecimal totalDept = new BigDecimal(0);
+				BigDecimal totalCredit = new BigDecimal(0);
+				BigDecimal balance = new BigDecimal(0);
+				if(curView.getTransactionsTotalDept()!=null)
+				{
+					totalDept = curView.getTransactionsTotalDept();
+				}
+				if(curView.getTransactionsTotalCredit() != null)
+				{
+					totalCredit = curView.getTransactionsTotalCredit();
+				}
+				if(curView.getTransactionsBalanceNow()!=null)
+				{
+					balance =curView.getTransactionsBalanceNow();
+				}
+				
+				item.setText(new String[]{cardCode,cardName,cf.format(totalDept),cf.format(totalCredit),cf.format(balance)});
 			}
 		}
 		catch (Exception ex)
