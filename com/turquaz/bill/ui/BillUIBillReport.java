@@ -840,7 +840,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
 			tableViewer.addRow(new String[]{"","", "", "", "", "", "", ""}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
-			tableViewer.addRow(new String[]{"","", "", "", Messages.getString("BillUIBillReport.14"), cf.format(total), cf.format(VAT), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+			tableViewer.addRow(new String[]{"","", "", "", "TOPLAM", cf.format(total), cf.format(VAT), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 					cf.format(SpecialVAT)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			currentIndex = 0;
 			if (list.size() > 0)

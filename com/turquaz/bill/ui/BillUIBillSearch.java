@@ -324,6 +324,9 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			List list =(List)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"searchBill",argMap);
 			Object[] bill;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+			BigDecimal generalTotalAmount=new BigDecimal(0);
+			BigDecimal generalVATAmount=new BigDecimal(0);
+			BigDecimal generalSpecVATAmount=new BigDecimal(0);
 			for (int i = 0; i < list.size(); i++)
 			{
 				bill = (Object[]) list.get(i);
@@ -337,9 +340,17 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				BigDecimal vatAmount = (BigDecimal) bill[6];
 				BigDecimal specVatAmount = (BigDecimal) bill[7];
 				String currency=(String)bill[8];
+				BigDecimal netTotalAmount=totalAmount.add(vatAmount).add(specVatAmount).subtract(discountAmount);
+				
+				generalTotalAmount=generalTotalAmount.add(netTotalAmount);
+				generalVATAmount=generalVATAmount.add(vatAmount);
+				generalSpecVATAmount=generalSpecVATAmount.add(specVatAmount);
+				
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(billDate), billDocNo, curCardCode, curCardName,currency,
-						cf.format(totalAmount.add(vatAmount).add(specVatAmount).subtract(discountAmount)), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
+						cf.format(netTotalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
+			tableViewer.addRow(new String[]{"","","","","","","",""},null);
+			tableViewer.addRow(new String[]{"","","","","TOPLAM",cf.format(generalTotalAmount),cf.format(generalVATAmount),cf.format(generalSpecVATAmount)},null);
 		}
 		catch (Exception ex)
 		{
