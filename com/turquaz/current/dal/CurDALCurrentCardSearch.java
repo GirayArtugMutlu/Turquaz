@@ -243,6 +243,7 @@ public class CurDALCurrentCardSearch
 		}
 	}
 
+	//TODO this method should be written
 	public static TurqAccountingAccount getCurrentAccountingAccount(TurqCurrentCard curCard, Integer type) throws Exception
 	{
 		try

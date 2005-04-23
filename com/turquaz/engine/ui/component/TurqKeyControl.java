@@ -16,6 +16,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.ui.EngUIKeyControls;
 
@@ -38,6 +40,7 @@ public class TurqKeyControl extends org.eclipse.swt.widgets.Composite {
 	private Text txtEventKey;
 	private TurqKeyEvent keyEvent;
 	private String eventName;
+	private VerifyListener verifyListener=null;
 
 	public String getEventName()
 	{
@@ -109,11 +112,22 @@ public class TurqKeyControl extends org.eclipse.swt.widgets.Composite {
 			//START >>  txtEventKey
 			txtEventKey = new Text(this, SWT.NONE);
 			GridData txtEventKeyLData = new GridData();
+			verifyListener=new VerifyListener()
+			{
+				public void verifyText(VerifyEvent evt) {
+					evt.doit=false;
+				}
+			};
+			txtEventKey.addVerifyListener(verifyListener);
 			txtEventKey.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
-					TurqKeyEvent event=new TurqKeyEvent(evt.stateMask,evt.keyCode,true,keyEvent.isAvailable);
-					validateOthers(event,eventName);
-					setData(event);							
+					TurqKeyEvent event = new TurqKeyEvent(
+						evt.stateMask,
+						evt.keyCode,
+						true,
+						keyEvent.isAvailable);
+					validateOthers(event, eventName);
+					setData(event);
 				}
 			});
 			txtEventKeyLData.grabExcessVerticalSpace = true;
@@ -172,7 +186,9 @@ public class TurqKeyControl extends org.eclipse.swt.widgets.Composite {
 		keyEvent.setController(this);
 		EngUIKeyControls.tempKeyValues.put(eventName,keyEvent);
 		String string=EngBLKeyEvents.getStringValue(event);
+		txtEventKey.removeVerifyListener(verifyListener);
 		txtEventKey.setText(string);
+		txtEventKey.addVerifyListener(verifyListener);
 		if (!keyEvent.isActive)
 		{
 			setBackGroundPassive();

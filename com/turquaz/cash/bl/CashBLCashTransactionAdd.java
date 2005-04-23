@@ -183,8 +183,8 @@ public class CashBLCashTransactionAdd
 			cashTrans.setDocumentNo(document_no);
 			cashTrans.setCreatedBy(System.getProperty("user"));
 			cashTrans.setUpdatedBy(System.getProperty("user"));
-			cashTrans.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			cashTrans.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			cashTrans.setLastModified(cal.getTime());
+			cashTrans.setCreationDate(cal.getTime());
 			/*
 			 * Create cash Transaction Rows
 			 */
@@ -192,8 +192,8 @@ public class CashBLCashTransactionAdd
 			cashTransRow.setTurqCashCard(cashCard);
 			cashTransRow.setCreatedBy(System.getProperty("user"));
 			cashTransRow.setUpdatedBy(System.getProperty("user"));
-			cashTransRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
-			cashTransRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
+			cashTransRow.setLastModified(cal.getTime());
+			cashTransRow.setCreationDate(cal.getTime());
 			cashTransRow.setTransactionDefinition(definition);
 			cashTransRow.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(current,
 					EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
