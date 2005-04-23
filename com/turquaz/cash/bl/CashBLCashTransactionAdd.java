@@ -195,8 +195,10 @@ public class CashBLCashTransactionAdd
 			cashTransRow.setLastModified(cal.getTime());
 			cashTransRow.setCreationDate(cal.getTime());
 			cashTransRow.setTransactionDefinition(definition);
-			cashTransRow.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(current,
-					EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
+			
+			TurqAccountingAccount account = new TurqAccountingAccount();
+			account.setId(new Integer(-1));
+			cashTransRow.setTurqAccountingAccount(account);
 			TurqAccountingAccount cashAccount = cashCard.getTurqAccountingAccount();
 			TurqAccountingAccount currentAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(current,
 					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);

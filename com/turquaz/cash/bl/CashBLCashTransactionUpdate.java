@@ -172,11 +172,14 @@ public class CashBLCashTransactionUpdate
 			cashTransRow.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			cashTransRow.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			cashTransRow.setTransactionDefinition(definition);
-			cashTransRow.setTurqAccountingAccount(CurBLCurrentCardSearch.getCurrentAccountingAccount(current,
-					EngBLCommon.CURRENT_ACC_TYPE_GENERAL));
 			TurqAccountingAccount cashAccount = cashCard.getTurqAccountingAccount();
 			TurqAccountingAccount currentAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(current,
 					EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+			TurqAccountingAccount account = new TurqAccountingAccount();
+			account.setId(new Integer(-1));
+			cashTransRow.setTurqAccountingAccount(account);
+			
+			
 			String currentTransDefinition = "";
 			int accTransType = 0;
 			boolean currentTransType = false; // Credit or Debit
