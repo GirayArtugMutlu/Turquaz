@@ -292,7 +292,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(1327, 549);
+			this.setSize(995, 550);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -319,7 +319,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 154;
+							compInfoPanelLData.heightHint = 180;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -328,26 +328,24 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblCurrentCard = new CLabel(compInfoPanel, SWT.LEFT);
 								lblCurrentCard.setText(Messages.getString("BillUIAddBill.3")); //$NON-NLS-1$
 								GridData lblCurrentCardLData1 = new GridData();
-								lblCurrentCardLData1.widthHint = 90;
-								lblCurrentCardLData1.heightHint = 19;
 								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
 								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
 							}
 							{
-								txtCurrentCard = new CurrentPicker(compInfoPanel, SWT.NONE);
+								txtCurrentCard = new CurrentPicker(
+									compInfoPanel,
+									SWT.NONE);
 								GridData txtCurrentCardLData = new GridData();
-								txtCurrentCard.setBackground(SWTResourceManager.getColor(255, 255, 255));
-								txtCurrentCardLData.widthHint = 157;
+								txtCurrentCard.setBackground(SWTResourceManager
+									.getColor(255, 255, 255));
+								txtCurrentCardLData.widthHint = 390;
 								txtCurrentCardLData.heightHint = 17;
+								txtCurrentCardLData.horizontalSpan = 3;
 								txtCurrentCard.setLayoutData(txtCurrentCardLData);
 							}
 							{
 								lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
 								lblDocumentNo.setText(Messages.getString("BillUIAddBill.5")); //$NON-NLS-1$
-								GridData lblDocumentNoLData = new GridData();
-								lblDocumentNoLData.widthHint = 90;
-								lblDocumentNoLData.heightHint = 17;
-								lblDocumentNo.setLayoutData(lblDocumentNoLData);
 							}
 							{
 								txtDocumentNo = new Text(compInfoPanel, SWT.NONE);
@@ -360,10 +358,6 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDate.setText(Messages.getString("BillUIAddBuyBill.4")); //$NON-NLS-1$
-								GridData lblDateLData = new GridData();
-								lblDateLData.widthHint = 90;
-								lblDateLData.heightHint = 22;
-								lblDate.setLayoutData(lblDateLData);
 							}
 							{
 								dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -373,41 +367,45 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 							}
 							{
-								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblDueDate.setText(Messages.getString("BillUIAddBuyBill.18")); //$NON-NLS-1$
-								GridData lblDueDateLData = new GridData();
-								lblDueDateLData.widthHint = 90;
-								lblDueDateLData.heightHint = 21;
-								lblDueDate.setLayoutData(lblDueDateLData);
+								lblConsDocumentNo = new CLabel(
+									compInfoPanel,
+									SWT.LEFT);
+								lblConsDocumentNo.setText(Messages
+									.getString("BillUIAddBill.6")); //$NON-NLS-1$
 							}
 							{
-								dateDueDate = new DatePicker(compInfoPanel, SWT.NONE);
+								txtConsignmentDocumentNo = new Text(
+									compInfoPanel,
+									SWT.NONE);
+								GridData txtBillDocumentNoLData = new GridData();
+								txtConsignmentDocumentNo.setTextLimit(50);
+								txtBillDocumentNoLData.widthHint = 150;
+								txtBillDocumentNoLData.heightHint = 17;
+								txtConsignmentDocumentNo
+									.setLayoutData(txtBillDocumentNoLData);
+								txtConsignmentDocumentNo
+									.setBackground(SWTResourceManager.getColor(
+										255,
+										255,
+										255));
+							}
+							//START >>  lblConsDate
+							lblConsDate = new CLabel(compInfoPanel, SWT.NONE);
+							lblConsDate.setText("\u0130rsaliye Tarihi");
+							//END <<  lblConsDate
+							{
+								dateDueDate = new DatePicker(
+									compInfoPanel,
+									SWT.NONE);
 								GridData dateDueDateLData = new GridData();
 								dateDueDateLData.widthHint = 157;
 								dateDueDateLData.heightHint = 23;
 								dateDueDate.setLayoutData(dateDueDateLData);
 							}
 							{
-								lblConsDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
-								lblConsDocumentNo.setText(Messages.getString("BillUIAddBill.6")); //$NON-NLS-1$
-								GridData lblBillDocumentNoLData = new GridData();
-								lblBillDocumentNoLData.widthHint = 90;
-								lblBillDocumentNoLData.heightHint = 16;
-								lblConsDocumentNo.setLayoutData(lblBillDocumentNoLData);
+								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
+								lblDueDate.setText(Messages.getString("BillUIAddBuyBill.18")); //$NON-NLS-1$
 							}
-							{
-								txtConsignmentDocumentNo = new Text(compInfoPanel, SWT.NONE);
-								GridData txtBillDocumentNoLData = new GridData();
-								txtConsignmentDocumentNo.setTextLimit(50);
-								txtBillDocumentNoLData.widthHint = 150;
-								txtBillDocumentNoLData.heightHint = 17;
-								txtConsignmentDocumentNo.setLayoutData(txtBillDocumentNoLData);
-								txtConsignmentDocumentNo.setBackground(SWTResourceManager.getColor(255,255,255));
-							}
-							//START >>  lblConsDate
-							lblConsDate = new CLabel(compInfoPanel, SWT.NONE);
-							lblConsDate.setText("\u0130rsaliye Tarihi");
-							//END <<  lblConsDate
 							//START >>  datePickerConsDate
 							GridData datePickerConsDateLData = new GridData();
 							datePickerConsDateLData.heightHint = 23;
@@ -418,10 +416,6 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							{
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 								lblWareHouse.setText(Messages.getString("BillUIAddBuyBill.13")); //$NON-NLS-1$
-								GridData lblWareHouseLData = new GridData();
-								lblWareHouseLData.widthHint = 90;
-								lblWareHouseLData.heightHint = 19;
-								lblWareHouse.setLayoutData(lblWareHouseLData);
 							}
 							{
 								comboWareHouse = new CCombo(compInfoPanel, SWT.NONE);
@@ -433,24 +427,19 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							//START >> lblCurrency
 							lblCurrency = new CLabel(compInfoPanel, SWT.NONE);
 							lblCurrency.setText(Messages.getString("BillUIAddBuyBill.15")); //$NON-NLS-1$
-							GridData lblCurrencyLData = new GridData();
-							lblCurrencyLData.widthHint = 90;
-							lblCurrencyLData.heightHint = 20;
-							lblCurrency.setLayoutData(lblCurrencyLData);
 							//END << lblCurrency
 							//START >> comboCurrencyType
 							comboCurrencyType = new CCombo(compInfoPanel, SWT.NONE);
 							GridData comboCurrencyTypeLData = new GridData();
 							comboCurrencyTypeLData.widthHint = 135;
 							comboCurrencyTypeLData.heightHint = 17;
+							comboCurrencyTypeLData.horizontalSpan = 3;
 							comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
 							//END << comboCurrencyType
 							{
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDefinition.setText(Messages.getString("BillUIAddBill.11")); //$NON-NLS-1$
 								GridData lblDefinitionLData = new GridData();
-								lblDefinitionLData.widthHint = 90;
-								lblDefinitionLData.heightHint = 20;
 								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
 								lblDefinition.setLayoutData(lblDefinitionLData);
 							}
@@ -458,10 +447,10 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								txtDefinition = new Text(compInfoPanel, SWT.WRAP | SWT.V_SCROLL);
 								GridData txtDefinitionLData = new GridData();
 								txtDefinition.setTextLimit(250);
-								txtDefinitionLData.heightHint = 31;
+								txtDefinitionLData.heightHint = 37;
 								txtDefinitionLData.grabExcessHorizontalSpace = true;
+								txtDefinitionLData.widthHint = 377;
 								txtDefinitionLData.horizontalSpan = 3;
-								txtDefinitionLData.widthHint = 391;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
 						}

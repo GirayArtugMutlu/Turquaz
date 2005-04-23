@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.EngUIMainFrame;
 
 /**
@@ -80,6 +81,7 @@ public class BrowserPanel extends Composite
 	public BrowserPanel(Composite parent, boolean showControls, boolean showNewTabControl)
 	{
 		super(parent, SWT.NULL);
+		try{		
 		this.showControls = showControls;
 		this.showNewTabControl = showNewTabControl;
 		/** Display browser with controls */
@@ -88,6 +90,13 @@ public class BrowserPanel extends Composite
 		/** Display browser without controls */
 		else
 			initComponentsNoControls();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			EngUICommon.showMessageBox(getShell(),ex.toString(),SWT.ICON_ERROR);
+			
+		}
 	}
 
 	/** Init the browser */
