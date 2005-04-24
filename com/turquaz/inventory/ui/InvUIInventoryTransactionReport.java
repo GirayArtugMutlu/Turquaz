@@ -731,7 +731,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			}
 			tableViewer.addRow(new String[]{"", "", "", "", "", "", "", "", ""}, null);
 			tableViewer
-					.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalAmountIn), "", "", cf.format(totalAmountOut), ""}, null);
+					.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalPriceIn), "", "", cf.format(totalPriceOut), ""}, null);
 			if (list.size() > 0)
 				GenerateJasper(list, type);
 		}
