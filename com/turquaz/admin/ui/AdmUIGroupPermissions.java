@@ -266,14 +266,14 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 	{
 		try
 		{
-			List groupList =(List)EngTXCommon.doSingleTX(AdmBLGroups.class.getName(),"getGroups",null);
+			List groupList =(List)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null);
 			for (int i = 0; i < groupList.size(); i++)
 			{
 				TurqGroup group = (TurqGroup) groupList.get(i);
 				comboGroups.setData(group.getGroupsName(), group);
 				comboGroups.add(group.getGroupsName());
 			}
-			List moduleList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
+			List moduleList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
 			for (int i = 0; i < moduleList.size(); i++)
 			{
 				TurqModule module = (TurqModule) moduleList.get(i);
@@ -281,7 +281,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 				comboModules.add(module.getModuleDescription());
 			}
 			
-			List permissionLevels=(List)EngTXCommon.doSingleTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
+			List permissionLevels=(List)EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
 			for (int i=0; i<permissionLevels.size(); i++)
 			{
 				TurqUserPermissionLevel perLevel=(TurqUserPermissionLevel)permissionLevels.get(i);
@@ -328,7 +328,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(AdmKeys.ADM_MODULE_ID,new Integer(module_id));
-			List compList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
+			List compList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
 			for (int i = 0; i < compList.size(); i++)
 			{
 				TurqModuleComponent group = (TurqModuleComponent) compList.get(i);
@@ -349,7 +349,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		try
 		{
 			tableGroupPermissions.removeAll();
-			List groupPermList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getGroupPermissions",null);
+			List groupPermList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getGroupPermissions",null);
 			TableItem item;
 			String groupname;
 			String module;

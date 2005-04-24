@@ -318,7 +318,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 								
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT,parent);				
-				List accTrans = (List) EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
+				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
 				if (accTrans.size() > 0)
 				{
@@ -362,7 +362,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT,parent);				
-				List accTrans = (List) EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
+				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
 				
 				if (accTrans.size() > 0)

@@ -365,7 +365,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			argMap.put(AccKeys.ACC_START_DATE,datePickerStart.getDate());
 			argMap.put(AccKeys.ACC_END_DATE,datePickerEnd.getDate());
 			
-			List allAccounts =(List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
+			List allAccounts =(List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
 			TurqAccountingAccount account;
 			Integer parentId, accountId;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();

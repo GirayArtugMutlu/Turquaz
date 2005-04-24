@@ -221,7 +221,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			tableTreeAccountingPlan.removeAll();
 			
 			
-			List mainBranches =(List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithSum",null) ;
+			List mainBranches =(List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithSum",null) ;
 			TurqAccountingAccount account;
 			TurqViewAccTotal accView;
 			
@@ -346,7 +346,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			argMap.put(AccKeys.ACC_CODE_CRITERIA,codeCriteria);
 			argMap.put(AccKeys.ACC_PARENT_ID,new Integer(parent_id));
 		
-			List mainBranches =(List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
+			List mainBranches =(List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
 			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)
@@ -413,7 +413,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT,account);				
-				List accTrans = (List) EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
+				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
 				if (accTrans.size() > 0)
 				{
@@ -425,7 +425,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				
 				argMap = new HashMap();
 		        argMap.put(AccKeys.ACC_PARENT_ACCOUNT,account);	        
-				List subAccs =(List)EngTXCommon.doSingleTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",argMap);
+				List subAccs =(List)EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",argMap);
 				
 				
 				if (subAccs.size() > 0)
@@ -444,7 +444,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 					
 					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
 					msg.open();
-					EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
+					EngTXCommon.doSelectTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 
 					fillTree(-1, ""); //$NON-NLS-1$
 				}

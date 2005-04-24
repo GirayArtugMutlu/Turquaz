@@ -262,7 +262,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			CCombo comboCurrency = compBankCard.getComboCurrency();
 			comboCurrency.removeAll();
-			List currencies = (List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -328,7 +328,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK,bankCard);
-				Boolean hasTx=(Boolean)EngTXCommon.doSingleTX(BankBLBankCardUpdate.class.getName(),"hasTransaction",argMap);
+				Boolean hasTx=(Boolean)EngTXCommon.doSelectTX(BankBLBankCardUpdate.class.getName(),"hasTransaction",argMap);
 				if (!hasTx.booleanValue())
 				{
 					updated = true;

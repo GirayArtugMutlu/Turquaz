@@ -803,7 +803,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			getShell().setMenuBar(menuMain);
 			postInitGUI();
 			//		initialize accounts
-			EngTXCommon.doSingleTX(EngBLAccountingAccounts.class.getName(), "getAccounts", null);
+			EngTXCommon.doSelectTX(EngBLAccountingAccounts.class.getName(), "getAccounts", null);
 		}
 		catch (Exception e)
 		{
@@ -832,7 +832,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			
-			EngTXCommon.doSingleTX(EngBLPermissions.class.getName(), "init", null);
+			EngTXCommon.doSelectTX(EngBLPermissions.class.getName(), "init", null);
 			//Add popup menu to add favorites
 			popupTreeAddFavorites = new Menu(getShell(), SWT.POP_UP);
 			final MenuItem item = new MenuItem(popupTreeAddFavorites, SWT.PUSH);
@@ -984,7 +984,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		tabfldMain.setSelectionForeground(display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND));
 		try
 		{
-			EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(), "getInventoryCards", null);
+			EngTXCommon.doSelectTX(EngBLInventoryCards.class.getName(), "getInventoryCards", null);
 		}
 		catch (Exception ex)
 		{
@@ -1174,7 +1174,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0, 0, 800, 580);
 			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
-			TurqCompany company = (TurqCompany) EngTXCommon.doSingleTX(AdmBLCompanyInfo.class.getName(), "getCompany", null);
+			TurqCompany company = (TurqCompany) EngTXCommon.doSelectTX(AdmBLCompanyInfo.class.getName(), "getCompany", null);
 			shell.setText("Turquaz - " + company.getCompanyName()); //$NON-NLS-1$
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener()

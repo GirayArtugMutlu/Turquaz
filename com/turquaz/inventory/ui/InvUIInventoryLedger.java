@@ -215,7 +215,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			HashMap argMap=new HashMap();
 			argMap.put(EngKeys.DATE,datePicker.getDate());
 			argMap.put(InvKeys.INV_CARD_CODE,txtInvCode.getText().trim());
-			List list = (List)EngTXCommon.doSingleTX(InvBLInventoryLedger.class.getName(),"getInventoryLedger",argMap);
+			List list = (List)EngTXCommon.doSelectTX(InvBLInventoryLedger.class.getName(),"getInventoryLedger",argMap);
 			Object[] result;
 			String invCode = ""; //$NON-NLS-1$
 			String invName = ""; //$NON-NLS-1$

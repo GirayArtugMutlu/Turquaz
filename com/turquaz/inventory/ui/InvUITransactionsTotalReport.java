@@ -415,7 +415,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			List groupList = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null); //$NON-NLS-1$
+			List groupList = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null); //$NON-NLS-1$
 			comboInvMainGroup.add(""); //$NON-NLS-1$
 			for (int k = 0; k < groupList.size(); k++)
 			{
@@ -467,14 +467,14 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_CARD_ID,cardId);
-				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
+				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 				if (msg.open() == SWT.NO)
 					return;
 				// if the inventory card contains transactions
 				argMap=new HashMap();
 				argMap.put(InvKeys.INV_CARD,invCard);
-				Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap); //$NON-NLS-1$
+				Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap); //$NON-NLS-1$
 				if (hasTX.booleanValue())
 				{
 					MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
@@ -526,8 +526,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			argMap.put(InvKeys.INV_SUB_GROUP,invSubGroup);
 			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
 			
-			//List result =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCardsAdvanced",argMap); //$NON-NLS-1$
-			List result=(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getTransactionTotalReport",argMap);
+			List result=(List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getTransactionTotalReport",argMap);
 			int listSize = result.size();
 			int currentGroupId=-2;
 			Integer groupId=new Integer(-2);
@@ -695,7 +694,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
+					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
 					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
 					if (updated)
 						search();

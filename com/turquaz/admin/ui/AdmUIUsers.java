@@ -214,7 +214,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		try
 		{
 			tableViewer.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(AdmBLUsers.class.getName(),"getUsers",null);
+			List list = (List)EngTXCommon.doSelectTX(AdmBLUsers.class.getName(),"getUsers",null);
 			TurqUser user;
 			for (int i = 0; i < list.size(); i++)
 			{

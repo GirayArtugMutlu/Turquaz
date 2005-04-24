@@ -364,7 +364,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());	
 			
 			
-			List list =(List)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"searchConsignment",argMap);
+			List list =(List)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"searchConsignment",argMap);
 			Object[] cons;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < list.size(); i++)
@@ -418,7 +418,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			{
 				HashMap argMap=new HashMap();
 				argMap.put(ConsKeys.CONS_ID,consId);
-				TurqConsignment cons =(TurqConsignment)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"initiliazeConsignmentById",argMap);
+				TurqConsignment cons =(TurqConsignment)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"initiliazeConsignmentById",argMap);
 				if (cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
 				{
 					MessageBox msg2 = new MessageBox(this.getShell(), SWT.CANCEL | SWT.OK);
@@ -478,7 +478,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(ConsKeys.CONS_ID,consId);
-					TurqConsignment cons =(TurqConsignment)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"getConsignmentByConsId",argMap);
+					TurqConsignment cons =(TurqConsignment)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"getConsignmentByConsId",argMap);
 					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					if (updated)
 						search();

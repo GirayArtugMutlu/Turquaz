@@ -155,7 +155,7 @@ public class CashUICashCollectTransactionUpdate extends Dialog
 			
 			HashMap argMap = new HashMap();
 			argMap.put(EngKeys.ENG_SEQ,cashTrans.getTurqEngineSequence());
-			TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CashBLCashTransactionUpdate.class.getName(),"getCurrentCard",argMap);
+			TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CashBLCashTransactionUpdate.class.getName(),"getCurrentCard",argMap);
 			if (curCard != null)
 			{
 				compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}");

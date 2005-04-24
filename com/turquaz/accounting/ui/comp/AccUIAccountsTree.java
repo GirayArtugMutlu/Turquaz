@@ -48,7 +48,7 @@ public class AccUIAccountsTree
 			argMap.put(AccKeys.ACC_CODE_CRITERIA,codeCrit);
 			argMap.put(AccKeys.ACC_PARENT_ID,new Integer(parent));
 		
-			List mainBranches =(List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
+			List mainBranches =(List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
 			
 			
 			TurqAccountingAccount account;
@@ -80,7 +80,7 @@ public class AccUIAccountsTree
 			argMap.put(AccKeys.ACC_CODE_CRITERIA,codeCriteria);
 			argMap.put(AccKeys.ACC_PARENT_ID,new Integer(parent_id));
 		
-			List mainBranches =(List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
+			List mainBranches =(List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
 			
 			TurqAccountingAccount account;
 			for (int i = 0; i < mainBranches.size(); i++)

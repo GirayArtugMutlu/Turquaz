@@ -260,7 +260,7 @@ public class InvUICardUpdateDialog extends Dialog
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_ID,invCard.getId());
-			List invAccounts =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInvAccountingAccs",argMap);
+			List invAccounts =(List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInvAccountingAccs",argMap);
 			for (int k = 0; k < invAccounts.size(); k++)
 			{
 				TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) invAccounts.get(k);
@@ -417,7 +417,7 @@ public class InvUICardUpdateDialog extends Dialog
 				argMap.put(InvKeys.INV_CARD_ACCOUNTS,compInvUICard.getInvAccounts());
 				
 				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"updateInventoryCard",argMap);
-				EngTXCommon.doSingleTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
+				EngTXCommon.doSelectTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
 				MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 				msg.setMessage(Messages.getString("InvUICardUpdateDialog.5")); //$NON-NLS-1$
 				msg.open();
@@ -443,7 +443,7 @@ public class InvUICardUpdateDialog extends Dialog
 			// if the inventory card contains transactions
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD,invCard);
-			Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
+			Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
 			if (hasTX.booleanValue())
 			{
 				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_WARNING);

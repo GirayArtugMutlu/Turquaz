@@ -110,7 +110,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getInitialTransactions",null);
+			List list =(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getInitialTransactions",null);
 			TurqCurrentTransaction curTrans;
 			for (int i = 0; i < list.size(); i++)
 			{

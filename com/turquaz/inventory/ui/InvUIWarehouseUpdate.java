@@ -270,7 +270,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_WAREHOUSE,warehouse);
 				
-				Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLWarehouseUpdate.class.getName(),"hasTransactions",argMap);
+				Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLWarehouseUpdate.class.getName(),"hasTransactions",argMap);
 				if (hasTX.booleanValue())
 				{
 					msg.setMessage("Warehouse card contains transactions and \ncan not be deleted. Delete transactions first. "); //$NON-NLS-1$

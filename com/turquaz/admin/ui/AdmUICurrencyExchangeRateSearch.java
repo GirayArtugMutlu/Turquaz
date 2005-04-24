@@ -146,7 +146,7 @@ public class AdmUICurrencyExchangeRateSearch extends org.eclipse.swt.widgets.Com
 	{
 		try
 		{
-			List exchangeRates =(List)EngTXCommon.doSingleTX(AdmBLCurrencyExchangeRateAdd.class.getName(),"getCurrencyExchangeRates",null);
+			List exchangeRates =(List)EngTXCommon.doSelectTX(AdmBLCurrencyExchangeRateAdd.class.getName(),"getCurrencyExchangeRates",null);
 			TableItem item;
 			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();

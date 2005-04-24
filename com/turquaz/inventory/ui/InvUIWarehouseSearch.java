@@ -243,7 +243,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_WAREHOUSE_NAME,txtWarehouseName.getText().trim());
 			argMap.put(InvKeys.INV_WAREHOUSE_CITY,txtCity.getText().trim());
-			List result = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"searchWarehouse",argMap );
+			List result = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"searchWarehouse",argMap );
 			for (int i = 0; i < result.size(); i++)
 			{
 				warehouse = (TurqInventoryWarehous) result.get(i);

@@ -349,7 +349,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 		{
 			comboCurrency.removeAll();
 			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.16")); //$NON-NLS-1$
-			List currencies = (List) EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			List currencies = (List) EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

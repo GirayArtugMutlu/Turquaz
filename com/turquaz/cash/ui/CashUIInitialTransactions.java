@@ -201,7 +201,7 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"getInitialTransactions",null); //$NON-NLS-1$
+			List list =(List)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"getInitialTransactions",null); //$NON-NLS-1$
 			TurqCashTransactionRow curTrans;
 			for (int i = 0; i < list.size(); i++)
 			{

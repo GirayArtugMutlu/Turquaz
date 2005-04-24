@@ -975,7 +975,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		try
 		{
 			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-			currencyList = (List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			currencyList = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 		}
 		catch (Exception ex)
 		{
@@ -1008,7 +1008,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List allTypes = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
+			List allTypes = (List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
 			for (int k = 0; k < allTypes.size(); k++)
 			{
 				TurqInventoryAccountingType type = (TurqInventoryAccountingType) allTypes.get(k);
@@ -1182,7 +1182,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
 		try
 		{
-			List unitLst = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
+			List unitLst = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
 			TableItem item = null;
 			TurqInventoryUnit trqInvUnit;
 			for (int i = 0; i < unitLst.size(); i++)

@@ -202,7 +202,7 @@ public class InvUIOtherTransactionIn extends org.eclipse.swt.widgets.Composite i
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
+			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{

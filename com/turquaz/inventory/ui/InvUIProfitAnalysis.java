@@ -158,7 +158,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			tableViewer.removeAll();
-			List ls = (List)EngTXCommon.doSingleTX(InvBLProfitAnalysis.class.getName(),"getTransactionTotals",null);
+			List ls = (List)EngTXCommon.doSelectTX(InvBLProfitAnalysis.class.getName(),"getTransactionTotals",null);
 			BigDecimal amountNow;
 			BigDecimal avgPrice;
 			BigDecimal amountOut;

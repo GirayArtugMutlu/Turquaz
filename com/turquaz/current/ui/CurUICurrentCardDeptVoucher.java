@@ -256,7 +256,7 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null); //$NON-NLS-1$
+			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null); //$NON-NLS-1$
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

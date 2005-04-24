@@ -163,7 +163,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 			
 			HashMap argMap = new HashMap();
 			argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-			EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
+			EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
 			
 			
 			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
@@ -186,7 +186,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 				 argMap = new HashMap();
 				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
 				
-				EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
+				EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
 				Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
 				while (it2.hasNext())
 				{

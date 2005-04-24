@@ -145,14 +145,14 @@ public class AccBLTransactionSearch
 	public static List getTransactions(HashMap argMap )
 			throws Exception
 	{
-		Object firstAccount = argMap.get(AccKeys.ACC_ACCOUNT_START);
-		Object secondAccount = argMap.get(AccKeys.ACC_ACCOUNT_END);
+		TurqAccountingAccount firstAccount =(TurqAccountingAccount) argMap.get(AccKeys.ACC_ACCOUNT_START);
+		TurqAccountingAccount secondAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT_END);
 		Boolean initialAccounts = (Boolean)argMap.get(AccKeys.ACC_INITIAL_TRANS);
 		Date startDate = (Date)argMap.get(AccKeys.ACC_START_DATE);
 		Date endDate = (Date)argMap.get(AccKeys.ACC_END_DATE);
 		
 		
-			return AccDALTransactionSearch.getTransactions(firstAccount, secondAccount, initialAccounts.booleanValue(), startDate, endDate);
+		return AccDALTransactionSearch.getTransactions(firstAccount, secondAccount, initialAccounts.booleanValue(), startDate, endDate);
 		
 	}
 

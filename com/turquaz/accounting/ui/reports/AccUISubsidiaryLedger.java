@@ -306,7 +306,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 			argMap.put(AccKeys.ACC_ACCOUNT_START,account);
 			argMap.put(AccKeys.ACC_ACCOUNT_END,account2);
 			argMap.put(AccKeys.ACC_START_DATE,dateStartDate.getDate());
-			List balances = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrentBalances",argMap);
+			List balances = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrentBalances",argMap);
 			
 			HashMap balanceList = new HashMap();
 			for (int k = 0; k < balances.size(); k++)

@@ -348,7 +348,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			comboCurrency.removeAll();
-			List currencies = (List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			TurqCurrency currency;
 			for (int i = 0; i < currencies.size(); i++)
 			{
@@ -374,7 +374,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			comboWareHouses.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
+			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{

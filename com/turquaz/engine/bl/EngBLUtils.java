@@ -376,7 +376,7 @@ public class EngBLUtils
 			argMap.put(EngKeys.CURRENT_CARD,curCard);
 
 			
-			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
+			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
 			
 			
 			
@@ -448,7 +448,7 @@ public class EngBLUtils
 			argMap.put(EngKeys.CURRENT_CARD,curCard);
 
 			
-			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
+			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
 			
 			
 			

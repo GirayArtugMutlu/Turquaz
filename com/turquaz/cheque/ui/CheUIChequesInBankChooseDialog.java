@@ -173,7 +173,7 @@ public class CheUIChequesInBankChooseDialog extends org.eclipse.swt.widgets.Dial
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getChequesInBank",null);
+			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getChequesInBank",null);
 			TurqChequeCheque cheque;
 			TableItem item;
 			Object result[];

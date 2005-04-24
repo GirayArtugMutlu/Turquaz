@@ -1013,7 +1013,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		try
 		{
 			HashMap groupMap = new HashMap();
-			List list = (List)EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null); //$NON-NLS-1$
+			List list = (List)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null); //$NON-NLS-1$
 			TurqCurrentGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
 			{

@@ -320,7 +320,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
 				argMap.put(EngKeys.DATE_START, dateStartDate.getDate());
 				argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
-				List list =(List)EngTXCommon.doSingleTX(ConBLSearchConsignment.class.getName(),"chooseConsignment",argMap);
+				List list =(List)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"chooseConsignment",argMap);
 				Object cons[];
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 				TableItem item;

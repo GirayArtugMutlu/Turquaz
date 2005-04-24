@@ -205,7 +205,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 					argMap.put(EngKeys.TYPE,pickerAccountType);
 									
 					accountPicker
-							.setData(EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap));
+							.setData(EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap));
 				    
 				
 				}

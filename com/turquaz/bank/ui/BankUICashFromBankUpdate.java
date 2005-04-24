@@ -162,7 +162,7 @@ public class BankUICashFromBankUpdate extends org.eclipse.swt.widgets.Dialog
 					HashMap argMap = new HashMap();
 					argMap.put(CashKeys.CASH_TRANSACTION,curTrans);
 					
-					EngTXCommon.doSingleTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
+					EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
 					Iterator it3 = curTrans.getTurqCashTransactionRows().iterator();
 					TurqCashCard curCard = null;
 					;

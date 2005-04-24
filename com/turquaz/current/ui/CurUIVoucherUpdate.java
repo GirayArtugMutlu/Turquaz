@@ -179,14 +179,14 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
 			
-			EngTXCommon.doSingleTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
+			EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
 			Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
 			if (it.hasNext())
 			{
 				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
 				 argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
+				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
 				while (accIt.hasNext())
@@ -196,7 +196,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 					argMap.put(EngKeys.CURRENT_CARD, curTrans.getTurqCurrentCard());
 					argMap.put(EngKeys.TYPE,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 					
-					Object curAccount = EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap);
+					Object curAccount = EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap);
 				    
 					TurqAccountingTransactionColumn accRow = (TurqAccountingTransactionColumn) accIt.next();
 					if (!accRow.getTurqAccountingAccount().equals(curAccount))

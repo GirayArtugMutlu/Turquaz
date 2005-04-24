@@ -114,7 +114,7 @@ public class EngBLCurrentCards
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(CurKeys.CUR_CURRENT_CODE,currentCode);
-			return (TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCard",argMap);
+			return (TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCard",argMap);
 		}
 		catch (Exception ex)
 		{

@@ -575,11 +575,11 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					boolean updated = false;
 					HashMap argMap=new HashMap();
 					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
+					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 					argMap=new HashMap();
 					argMap.put(EngKeys.ENG_SEQ,seq);
-					TurqBill bill =(TurqBill)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getBill",argMap);
+					TurqBill bill =(TurqBill)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getBill",argMap);
 					if (bill != null)
 					{
 						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
@@ -588,7 +588,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					{
 						argMap=new HashMap();
 						argMap.put(EngKeys.ENG_SEQ,seq);
-						TurqConsignment cons = (TurqConsignment)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
+						TurqConsignment cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
 						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					}
 					if (updated)
@@ -616,7 +616,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			dateStartDate.setDate(cal.getTime());
-			List groupList = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List groupList = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			comboInvMainGroup.add(""); //$NON-NLS-1$
 			for (int k = 0; k < groupList.size(); k++)
 			{

@@ -181,7 +181,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			tableAccountingTransaction.removeAll();
-			List result = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getUnsavedTransactions",null);
+			List result = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getUnsavedTransactions",null);
 			TableItem item;
 			int listSize = result.size();
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();

@@ -161,7 +161,7 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
+				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initializeTransactionRows",argMap);
 				
 				Iterator it2 = accTrans.getTurqAccountingTransactionColumns().iterator();
 				while (it2.hasNext())

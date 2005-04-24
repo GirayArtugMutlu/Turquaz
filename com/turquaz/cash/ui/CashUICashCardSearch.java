@@ -198,7 +198,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_ACCOUNT, accountPicker.getData());
 			argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
-			List ls =(List)EngTXCommon.doSingleTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
+			List ls =(List)EngTXCommon.doSelectTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
 			TurqCashCard card;
 			for (int i = 0; i < ls.size(); i++)
 			{

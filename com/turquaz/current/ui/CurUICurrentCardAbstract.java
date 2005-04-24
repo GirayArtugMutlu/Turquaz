@@ -285,7 +285,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 			argMap.put(EngKeys.MIN_VALUE,txtTransAmount.getBigDecimalValue());			
 			
-			List list=(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurrentCardAbstract",argMap);
+			List list=(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentCardAbstract",argMap);
 			Map parameters = new HashMap();
 			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			parameters.put("startDate", dformat2.format(datePickerStartDate.getDate())); //$NON-NLS-1$
@@ -304,7 +304,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
 			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
 			
-			List balances =(List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurrentBalances",argMap);
+			List balances =(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentBalances",argMap);
 			if (currentCard2 == null)
 			{
 				parameters.put("showGeneralTotal", new Boolean(true));

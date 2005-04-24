@@ -199,7 +199,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 					HashMap argMap=new HashMap();
 					argMap.put(BankKeys.BANK,obj);
 					argMap.put(EngKeys.TYPE,pickerAccountType);
-					accountPicker.setData((TurqAccountingAccount)EngTXCommon.doSingleTX(BankBLBankCardSearch.class.getName(),"getAccountingAccount",argMap));
+					accountPicker.setData((TurqAccountingAccount)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"getAccountingAccount",argMap));
 				}
 				catch (Exception ex)
 				{

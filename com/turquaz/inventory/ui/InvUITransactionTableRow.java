@@ -203,7 +203,7 @@ public class InvUITransactionTableRow implements ITableRow
 			TurqInventoryCard invCard = invTrans.getTurqInventoryCard();
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD,invCard);
-			EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
+			EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
 			//Birimleri doldur
 			List unit_list = new ArrayList();
 			Set set = invCard.getTurqInventoryCardUnits();
@@ -249,7 +249,7 @@ public class InvUITransactionTableRow implements ITableRow
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD,invCard);
-			EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
+			EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
 			//KDV Yuzdesi
 			//TODO invCard->getCardVat should be decimal
 			invTrans.setVatRate(new BigDecimal(invCard.getCardVat()));

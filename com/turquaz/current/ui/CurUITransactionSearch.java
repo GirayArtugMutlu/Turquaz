@@ -287,7 +287,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSingleTX(CurBLCurrentTransactionAdd.class.getName(),"getCurrentTransactionTypes",null);
+			List list =(List)EngTXCommon.doSelectTX(CurBLCurrentTransactionAdd.class.getName(),"getCurrentTransactionTypes",null);
 		
 			
 			TurqCurrentTransactionType type;
@@ -333,7 +333,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			
 			
-			List results = (List)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"searchCurrentTransaction",argMap); 
+			List results = (List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"searchCurrentTransaction",argMap); 
 			Object[] transaction;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < results.size(); i++)
@@ -402,7 +402,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					
 					HashMap argMap = new HashMap();
 					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqCurrentTransaction trans = (TurqCurrentTransaction)EngTXCommon.doSingleTX(CurBLSearchTransaction.class.getName(),"getCurTransByTransId",argMap);
+					TurqCurrentTransaction trans = (TurqCurrentTransaction)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurTransByTransId",argMap);
 					//nakit hareketi ise izin ver
 					
 					argMap = new HashMap();
@@ -415,7 +415,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BANK)
 					{
-						Integer bankTransId =(Integer) EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getBankTransaction",argMap);
+						Integer bankTransId =(Integer) EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBankTransaction",argMap);
 						if (bankTransId != null)
 						{
 							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId, getShell());
@@ -423,7 +423,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BILL)
 					{
-						Integer bankTransId = (Integer)EngTXCommon.doSingleTX( EngBLCommon.class.getName(),"getBillofCurrentTrans",argMap);
+						Integer bankTransId = (Integer)EngTXCommon.doSelectTX( EngBLCommon.class.getName(),"getBillofCurrentTrans",argMap);
 						if (bankTransId != null)
 						{
 							updated = BillUIBillSearch.updateBill(bankTransId, getShell());
@@ -431,7 +431,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_CHEQUE)
 					{
-						Integer bankTransId =(Integer)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCheqeuTransaction",argMap);
+						Integer bankTransId =(Integer)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCheqeuTransaction",argMap);
 						if (bankTransId != null)
 						{
 							updated = CheUIChequeRollSearch.rollUpdate(bankTransId, getShell());
@@ -439,7 +439,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_CASH)
 					{
-						Integer bankTransId = (Integer)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCashTransaction",argMap);
+						Integer bankTransId = (Integer)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCashTransaction",argMap);
 						if (bankTransId != null)
 						{
 							updated = CashUICashTransactionSearch.updateCashTransaction(bankTransId, getShell());

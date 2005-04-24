@@ -124,7 +124,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 			argMap.put(AccKeys.ACC_START_DATE,datePickerBeginDate.getDate());
 			argMap.put(AccKeys.ACC_END_DATE,datePickerEndDate.getDate());
 		
-			List transColumns = (List)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getTransactionColumns",argMap);
+			List transColumns = (List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getTransactionColumns",argMap);
 			BigDecimal totalCredit = new BigDecimal(0);
 			BigDecimal totalDept = new BigDecimal(0);
 			for (int k = 0; k < transColumns.size(); k++)

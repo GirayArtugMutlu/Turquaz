@@ -163,7 +163,7 @@ public class CheUIReturnFromBankRollUpdate extends org.eclipse.swt.widgets.Dialo
 
 			HashMap argMap = new HashMap();
 			argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-			EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
+			EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
 			
 			
 			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());

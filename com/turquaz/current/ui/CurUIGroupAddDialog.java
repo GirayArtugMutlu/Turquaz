@@ -284,7 +284,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
+			List list = (List)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
 			TurqCurrentGroup curGroup;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)

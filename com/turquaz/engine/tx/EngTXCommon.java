@@ -20,7 +20,7 @@ import net.sf.hibernate.Transaction;
  */
 public class EngTXCommon
 {
-	public static Object doSingleTX(String myClass, String myMethod, HashMap argMap)throws Exception
+	public static Object doSelectTX(String myClass, String myMethod, HashMap argMap)throws Exception
 	{
 		Session session=null;
 		Transaction tx=null;
@@ -43,10 +43,6 @@ public class EngTXCommon
 		}
 		catch(Exception ex)
 		{
-			if (tx != null)
-			{
-				tx.rollback();
-			}
 			throw ex;
 		}
 		finally

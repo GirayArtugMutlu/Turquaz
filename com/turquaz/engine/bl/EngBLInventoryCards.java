@@ -102,7 +102,7 @@ public class EngBLInventoryCards
 			argMap.put(InvKeys.INV_CARD_NAME,cardName);
 			
 			
-			return  (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInventoryCardFromName",argMap);
+			return  (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInventoryCardFromName",argMap);
 		}
 		catch (Exception ex)
 		{
@@ -116,7 +116,7 @@ public class EngBLInventoryCards
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_CODE,invCode);
-			return (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getInventoryCard",argMap);
+			return (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInventoryCard",argMap);
 		}
 		catch (Exception ex)
 		{

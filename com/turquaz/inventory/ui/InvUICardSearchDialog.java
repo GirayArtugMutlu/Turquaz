@@ -276,7 +276,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			List groupList =(List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List groupList =(List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			comboInvMainGroup.add("");
 			for (int k = 0; k < groupList.size(); k++)
 			{
@@ -311,7 +311,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(InvKeys.INV_CARD_NAME,txtInvName.getText().trim());
 			argMap.put(InvKeys.INV_CARD_CODE, txtInvCode.getText().trim());
 			argMap.put(InvKeys.INV_GROUP,comboSubGroup.getData(comboSubGroup.getText()));
-			List result = (List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
+			List result = (List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
 			TableItem item;
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)

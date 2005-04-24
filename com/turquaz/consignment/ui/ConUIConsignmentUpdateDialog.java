@@ -157,7 +157,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 										dialogShell.close();
 										HashMap argMap=new HashMap();
 										argMap.put(ConsKeys.CONS,consignment);
-										EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"PrintConsignment",argMap);
+										EngTXCommon.doSelectTX(EngBLUtils.class.getName(),"PrintConsignment",argMap);
 										
 									}
 									catch(Exception ex)
@@ -217,7 +217,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(ConsKeys.CONS,consignment);
-			EngTXCommon.doSingleTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignment",argMap);
+			EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignment",argMap);
 			
 			TurqCurrentCard curCard = consignment.getTurqCurrentCard();
 			compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$

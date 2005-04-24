@@ -271,7 +271,7 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
+			List list = (List)EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
 			TurqConsignmentGroup curGroup;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)

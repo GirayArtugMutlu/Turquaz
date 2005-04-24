@@ -288,7 +288,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
+			List list = (List)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
 			TurqBillGroup curGroup;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)

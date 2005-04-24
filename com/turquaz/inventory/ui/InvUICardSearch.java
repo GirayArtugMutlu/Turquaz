@@ -325,7 +325,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			List groupList =(List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List groupList =(List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			comboInvMainGroup.add("");
 			for (int k = 0; k < groupList.size(); k++)
 			{
@@ -359,14 +359,14 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
+					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
 					msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
 					if (msg.open() == SWT.NO)
 						return;
 					// if the inventory card contains transactions
 					argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD,invCard);
-					Boolean hasTX=(Boolean)EngTXCommon.doSingleTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
+					Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
 					if (hasTX.booleanValue())
 					{
 						MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
@@ -409,7 +409,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 			argMap.put(InvKeys.INV_CARD_NAME,txtInvName.getText().trim());
 			argMap.put(InvKeys.INV_CARD_CODE, txtInvCode.getText().trim());
 			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
-			List result =(List)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
+			List result =(List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
 			int listSize = result.size();
 			for (int i = 0; i < listSize; i++)
 			{
@@ -487,7 +487,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
+					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
 					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
 					if (updated)
 						search();

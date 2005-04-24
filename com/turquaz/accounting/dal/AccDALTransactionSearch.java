@@ -34,10 +34,6 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 public class AccDALTransactionSearch
 {
-	public AccDALTransactionSearch()
-	{
-	}
-
 	public static List getTransactionTypes() throws Exception
 	{
 		try
@@ -378,7 +374,7 @@ public class AccDALTransactionSearch
 		}
 	}
 
-	public static List getTransactions(Object firstAccount, Object secondAccount, boolean initialAccounts, Date startDate, Date endDate)
+	public static List getTransactions(TurqAccountingAccount firstAccount, TurqAccountingAccount secondAccount, boolean initialAccounts, Date startDate, Date endDate)
 			throws Exception
 	{
 		try
@@ -387,7 +383,8 @@ public class AccDALTransactionSearch
 			String query = "select accounts, sum(transColumns.rowsDeptInBaseCurrency),"
 					+ " sum(transColumns.rowsCreditInBaseCurrency) from TurqAccountingAccount accounts,"
 					+ " TurqAccountingTransaction as accTrans," + " TurqAccountingTransactionColumn as transColumns"
-					+ " where transColumns.turqAccountingTransaction=accTrans" + " and accounts=transColumns.turqAccountingAccount";
+					+ " where transColumns.turqAccountingTransaction=accTrans" + " and accounts=transColumns.turqAccountingAccount"
+					+ " and accTrans.transactionsDate >= :startDate and accTrans.transactionsDate <= :endDate";
 			if (firstAccount != null && secondAccount != null)
 			{
 				TurqAccountingAccount first = (TurqAccountingAccount) firstAccount;
@@ -397,21 +394,7 @@ public class AccDALTransactionSearch
 			}
 			else if (firstAccount != null)
 			{
-				TurqAccountingAccount first = (TurqAccountingAccount) firstAccount;
-				query += " and accounts.accountCode ='" + first.getAccountCode() + "'";
-			}
-			else if (secondAccount != null)
-			{
-				TurqAccountingAccount second = (TurqAccountingAccount) secondAccount;
-				query += " and accounts.accountCode ='" + second.getAccountCode() + "'";
-			}
-			if (startDate != null)
-			{
-				query += " and accTrans.transactionsDate >= :startDate";
-			}
-			if (endDate != null)
-			{
-				query += " and accTrans.transactionsDate <= :endDate";
+				query += " and accounts.accountCode ='" + firstAccount.getAccountCode() + "'";
 			}
 			if (!initialAccounts)
 			{
@@ -422,16 +405,10 @@ public class AccDALTransactionSearch
 					+ " accounts.turqAccountingAccountByTopAccount," + " accounts.turqAccountingAccountClass,"
 					+ " accounts.turqAccountingAccountType" + " order by accounts.turqAccountingAccountByTopAccount.id";
 			Query q = session.createQuery(query);
-			if (startDate != null)
-			{
-				java.sql.Date sqlDate = new java.sql.Date(startDate.getTime());
-				q.setParameter("startDate", sqlDate);
-			}
-			if (endDate != null)
-			{
-				java.sql.Date sqlDate = new java.sql.Date(endDate.getTime());
-				q.setParameter("endDate", sqlDate);
-			}
+
+			q.setParameter("startDate", startDate);
+			q.setParameter("endDate",endDate);
+
 			List list = q.list();
 			return list;
 		}

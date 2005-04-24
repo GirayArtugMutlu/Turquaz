@@ -337,7 +337,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK,bankCard);
 				argMap.put(EngKeys.DATE_END,dateStartDate.getDate());
-				List deferred =(List)EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"getDeferredTotal",argMap);
+				List deferred =(List)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getDeferredTotal",argMap);
 				Map parameters = new HashMap();
 				SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 				parameters.put("reportDate", dateFormatter.format(Calendar.getInstance().getTime()));
@@ -390,7 +390,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 				argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 				
-				List ls =(List)EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"getTransactions",argMap);
+				List ls =(List)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getTransactions",argMap);
 				BigDecimal credit;
 				BigDecimal dept;
 				for (int i = 0; i < ls.size(); i++)

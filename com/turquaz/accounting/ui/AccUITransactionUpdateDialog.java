@@ -165,7 +165,7 @@ public class AccUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							dialogShell.close();
 							HashMap argMap=new HashMap();
 							argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-							EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"PrintTransaction",argMap);
+							EngTXCommon.doSelectTX(EngBLUtils.class.getName(),"PrintTransaction",argMap);
 							
 						}
 						catch(Exception ex)

@@ -219,7 +219,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSingleTX(BankBLTransactionSearch.class.getName(),"getBankInitialTransactions",null);
+			List list =(List)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getBankInitialTransactions",null);
 			TurqBanksTransaction curTrans;
 			for (int i = 0; i < list.size(); i++)
 			{

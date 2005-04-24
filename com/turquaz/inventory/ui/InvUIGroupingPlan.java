@@ -208,7 +208,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 		try
 		{
 			tableTreeGroups.removeAll();
-			List ls = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List ls = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			TableTreeItem item;
 			TableTreeItem subItem;
 			TurqInventoryGroup invGroup;

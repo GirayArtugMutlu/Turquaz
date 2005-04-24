@@ -359,7 +359,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
 				argMap.put(EngKeys.TYPE,new Integer(i));
 				
-				List balanceList = (List)EngTXCommon.doSingleTX(CurBLCurrentCardUpdate.class.getName(),"getCurrentTransactionBalances",argMap);
+				List balanceList = (List)EngTXCommon.doSelectTX(CurBLCurrentCardUpdate.class.getName(),"getCurrentTransactionBalances",argMap);
 				
 				Object sums[] =(Object[]) balanceList.get(0);
 				
@@ -407,7 +407,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			HashMap argMap = new HashMap();
 			argMap.put(EngKeys.CURRENT_CARD,currentCard);
 			
-			List curCardTrans = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
+			List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 			
 			
 			
@@ -449,7 +449,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_CURRENT_CODE,compCurCardAdd.getTxtCurrentCode().getText().trim());
 			
-			Boolean isCurrentCodePresent = (Boolean) EngTXCommon.doSingleTX(CurBLCurrentCardAdd.class.getName(),"isCurrentCodePresent",argMap);
+			Boolean isCurrentCodePresent = (Boolean) EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"isCurrentCodePresent",argMap);
 			
 			
 			

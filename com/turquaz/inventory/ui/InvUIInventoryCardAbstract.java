@@ -322,11 +322,11 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
+					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
 					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
 					argMap=new HashMap();
 					argMap.put(EngKeys.ENG_SEQ,seq);
-					TurqConsignment cons = (TurqConsignment)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
+					TurqConsignment cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
 					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
 					if (updated)
 						search();
@@ -375,7 +375,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			
-			List list = (List)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"searchTransactionsRange",argMap);
+			List list = (List)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"searchTransactionsRange",argMap);
 			TurqInventoryTransaction transactions;
 			for (int i = 0; i < list.size(); i++)
 			{

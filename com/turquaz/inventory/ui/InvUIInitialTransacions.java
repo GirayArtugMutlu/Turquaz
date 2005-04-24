@@ -159,7 +159,7 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List ls = (List)EngTXCommon.doSingleTX(InvBLSearchTransaction.class.getName(),"getInitialTransactions",null);
+			List ls = (List)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInitialTransactions",null);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				InvUIInitialTransactionTableRow tableRow = new InvUIInitialTransactionTableRow();

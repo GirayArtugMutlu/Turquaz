@@ -169,7 +169,7 @@ public class EngBLAccountingAccounts
 			
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
-			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getLeafAccount",argMap);
+			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getLeafAccount",argMap);
 			return account;
 		}
 		catch (Exception ex)
@@ -184,7 +184,7 @@ public class EngBLAccountingAccounts
 		{
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
-			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSingleTX(AccBLAccountAdd.class.getName(),"getAllAccounts",argMap);
+			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccounts",argMap);
 			return account;
 		}
 		catch (Exception ex)

@@ -200,7 +200,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		try
 		{
 			tableGroups.removeAll();
-			List list =(List)EngTXCommon.doSingleTX(AdmBLGroups.class.getName(),"getGroups",null); //$NON-NLS-1$
+			List list =(List)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null); //$NON-NLS-1$
 			TurqGroup group;
 			TableItem item;
 			for (int i = 0; i < list.size(); i++)

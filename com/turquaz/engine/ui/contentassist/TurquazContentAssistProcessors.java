@@ -84,7 +84,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 			this.contentType = type;
 			HashMap argMap=new HashMap();
 			argMap.put(EngKeys.TYPE,new Integer(type));
-			EngTXCommon.doSingleTX(this.getClass().getName(),"fillProposalArray",argMap);
+			EngTXCommon.doSelectTX(this.getClass().getName(),"fillProposalArray",argMap);
 		}
 		catch(Exception ex)
 		{
@@ -102,6 +102,8 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 	 */
 	public static void fillProposalArray(HashMap argMap) throws Exception
 	{
+		try
+		{
 		int type=((Integer)argMap.get(EngKeys.TYPE)).intValue();
 		List proposed = new ArrayList();
 		if (type == 0)
@@ -147,6 +149,12 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
 		{
 			fillInvCardModuleArray();
+		}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			throw ex;
 		}
 	}
 	

@@ -313,7 +313,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 			tableTransactionColumns.setEnabled(true);
 			this.layout();
 			
-			accTrans = (TurqAccountingTransaction)EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"getInitialTransaction",null);
+			accTrans = (TurqAccountingTransaction)EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"getInitialTransaction",null);
 			
 			postInitGUI();
 		}
@@ -367,7 +367,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
+				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
 				Iterator it = transactionRows.iterator();

@@ -341,7 +341,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			argMap.put(AccKeys.ACC_START_DATE,startCal.getTime());
 			argMap.put(AccKeys.ACC_END_DATE,endCal.getTime());
 			
-			List allAccounts =(List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
+			List allAccounts =(List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
 			
 			
 			

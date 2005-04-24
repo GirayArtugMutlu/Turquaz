@@ -410,7 +410,7 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 			
 			HashMap argMap = new HashMap();
 			argMap.put(CheKeys.CHE_CHEQUE,cheque);
-			List history = (List)EngTXCommon.doSingleTX(CheBLSearchCheques.class.getName(),"getChequeHistory",argMap);
+			List history = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"getChequeHistory",argMap);
 			TableItem item;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			for (int k = 0; k < history.size(); k++)

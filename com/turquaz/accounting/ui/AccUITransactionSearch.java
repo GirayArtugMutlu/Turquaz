@@ -300,7 +300,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				accTrans.setId(transId);
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION, accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(), "initiliazeTransactionRows",
+				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(), "initiliazeTransactionRows",
 						argMap);
 				int status = 0;
 				/* Check if it has a journal entry */
@@ -370,7 +370,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			argMap.put(AccKeys.ACC_IS_PAYMENT,new Boolean(btnPayment.getSelection()));
 			
 			
-			List result = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"searchAccTransaction",argMap);
+			List result = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"searchAccTransaction",argMap);
 		
 			
 			int listSize = result.size();
@@ -424,7 +424,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSingleTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
+				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				int type = accTrans.getTurqAccountingTransactionType().getId().intValue();
 				boolean updated;

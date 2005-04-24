@@ -160,7 +160,7 @@ public class CheUIChequeCollectFromBankUpdate extends org.eclipse.swt.widgets.Di
 			
 			HashMap argMap = new HashMap();
 			argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-			EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
+			EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
 			
 			
 			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());

@@ -213,7 +213,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		try
 		{
 			comboRollType.add(Messages.getString("CheUIChequeRollSearch.9")); //$NON-NLS-1$
-			List ls =(List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getTransactionTypes",null);
+			List ls =(List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getTransactionTypes",null);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				TurqChequeTransactionType type = (TurqChequeTransactionType) ls.get(i);
@@ -267,7 +267,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				HashMap argMap = new HashMap();
 				argMap.put(EngKeys.TRANS_ID,rollId);
 				
-				TurqChequeRoll roll = (TurqChequeRoll)EngTXCommon.doSingleTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRollById",argMap);
+				TurqChequeRoll roll = (TurqChequeRoll)EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRollById",argMap);
 				
 				
 				if (roll.getTurqChequeTransactionType().getId().intValue() == EngBLCommon.CHEQUE_TRANS_IN.intValue())
@@ -360,7 +360,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(CheKeys.CHE_TRANS_TYPE,comboRollType.getData(comboRollType.getText().trim()));
 			
-			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"searchChequeRoll",argMap );
+			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"searchChequeRoll",argMap );
 			Object[] roll;
 			String owner = ""; //$NON-NLS-1$
 			BigDecimal total = new BigDecimal(0);

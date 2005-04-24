@@ -728,7 +728,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
+			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{
@@ -768,7 +768,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		try
 		{
 			//Fill Group Table
-			List list = (List)EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
+			List list = (List)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
 			HashMap groupMap = new HashMap();
 			TurqBillGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
@@ -806,7 +806,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSingleTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -1037,7 +1037,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD,invCard);
-			TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal)EngTXCommon.doSingleTX(InvBLCardSearch.class.getName(),"getView",argMap);
+			TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getView",argMap);
 			int Now = (invView.getTransactionsTotalAmountNow() == null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
 			int Max = invCard.getCardMaximumAmount();
 			int Min = invCard.getCardMinimumAmount();

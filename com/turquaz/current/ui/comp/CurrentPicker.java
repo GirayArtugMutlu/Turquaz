@@ -210,7 +210,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 					
 					
 					accountPicker
-							.setData(EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap));
+							.setData(EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap));
 				    
 				}
 				catch (Exception ex)

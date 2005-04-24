@@ -176,7 +176,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls =(List)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getChequesGivenToCurrent",null);
+			List ls =(List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getChequesGivenToCurrent",null);
 			TurqChequeCheque cheque;
 			TableItem item;
 			String currentName;
@@ -190,7 +190,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE,cheque);
 								
-				TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CheBLSearchChequeRoll.class.getName(),"getCurrentCardOfCustomerCheque",argMap);
+				TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getCurrentCardOfCustomerCheque",argMap);
 				
 				item.setText(new String[]{cheque.getChequesPortfolioNo(),
 						curCard.getCardsName(),

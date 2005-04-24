@@ -246,7 +246,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(CurKeys.CUR_GROUP, comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			
 			
-			List listCurrentCards = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
+			List listCurrentCards = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
 			
 			for (int k = 0; k < listCurrentCards.size(); k++)
 			{
@@ -299,7 +299,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			EngUICommon.centreWindow(dialogShell);
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
+			List groups = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
 			
 			for (int k = 0; k < groups.size(); k++)
 			{

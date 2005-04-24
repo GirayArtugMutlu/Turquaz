@@ -328,7 +328,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
 		    argMap.put(BankKeys.BANK,bankPicker.getTurqBank());
 			
-			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
+			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
 			
 			String status = ""; //$NON-NLS-1$
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
@@ -401,7 +401,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 					HashMap argMap = new HashMap();
 					argMap.put(CheKeys.CHE_CHEQUE,cheqId);
 					
-					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSingleTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
+					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSelectTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
 					
 					boolean isUpdated = new CheUIOwnChequeUpdate(getShell(), SWT.NULL, cheque).open();
 					if (isUpdated)

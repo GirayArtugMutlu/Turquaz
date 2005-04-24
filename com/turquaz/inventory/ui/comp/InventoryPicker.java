@@ -211,7 +211,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 					TurqInventoryUnit unit = null;
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD,invCard);
-					List ls = (List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getInventoryUnits",argMap);
+					List ls = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getInventoryUnits",argMap);
 					for (int i = 0; i < ls.size(); i++)
 					{
 						unit = (TurqInventoryUnit) ls.get(i);

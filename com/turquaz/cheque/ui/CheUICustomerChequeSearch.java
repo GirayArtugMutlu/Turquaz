@@ -346,7 +346,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
 			
 			
-			List ls = (List)EngTXCommon.doSingleTX(CheBLSearchCheques.class.getName(),"searchCheque",argMap);
+			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchCheque",argMap);
 		
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
@@ -421,7 +421,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 					HashMap argMap = new HashMap();
 					argMap.put(CheKeys.CHE_CHEQUE,cheqId);
 					
-					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSingleTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
+					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSelectTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
 					
 					boolean isUpdated = new CheUICustomerChequeUpdate(getShell(), SWT.NULL, cheque).open();
 					if (isUpdated)

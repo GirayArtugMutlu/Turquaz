@@ -109,7 +109,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 	{
 		try
 		{
-			company =(TurqCompany)EngTXCommon.doSingleTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
+			company =(TurqCompany)EngTXCommon.doSelectTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
 			txtCompanyName.setText(company.getCompanyName());
 			txtCompanyAddress.setText(company.getCompanyAddress());
 			txtCompanyFax.setText(company.getCompanyFax());

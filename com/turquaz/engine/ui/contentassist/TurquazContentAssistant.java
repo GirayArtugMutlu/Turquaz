@@ -132,7 +132,7 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 	{
 		HashMap argMap=new HashMap();
 		argMap.put(EngKeys.TYPE,new Integer(type));
-		EngTXCommon.doSingleTX(TurquazContentAssistProcessors.class.getName(),"fillProposalArray",argMap);
+		EngTXCommon.doSelectTX(TurquazContentAssistProcessors.class.getName(),"fillProposalArray",argMap);
 	}
 
 	public SubjectControlContentAssistant createContentAssistant()

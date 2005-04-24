@@ -307,7 +307,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			cal.set(cal.get(Calendar.YEAR),0,1);
 			dateStartDate.setDate(cal.getTime());
 			
-			List groups = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
+			List groups = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
 						
 			for (int k = 0; k < groups.size(); k++)
 			{
@@ -354,13 +354,13 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 					
 					HashMap argMap = new HashMap();
 					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
+					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
 					
 					
 					argMap = new HashMap();
 					argMap.put(EngKeys.CURRENT_CARD,currentCard);
 					
-					List curCardTrans = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
+					List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 					
 					if (curCardTrans.size() > 0)
 					{
@@ -410,7 +410,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.IS_CREDIT,new Boolean(false));
 			
-			List listCurrentCards = (List)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCardBalanceList",argMap);
+			List listCurrentCards = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCardBalanceList",argMap);
 			
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat(2);
@@ -501,7 +501,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 				{
 					HashMap argMap = new HashMap();
 					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
+					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
 					boolean updated = new CurUICurrentCardUpdate(this.getShell(), SWT.NULL, currentCard).open();
 					if (updated)
 						search();
@@ -538,7 +538,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 				{
 					HashMap argMap = new HashMap();
 					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSingleTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
+					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
 					new CurUICurrentCardTransactions(getShell(), SWT.NONE, currentCard).open();
 				}
 			}

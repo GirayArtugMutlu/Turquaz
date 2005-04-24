@@ -321,7 +321,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			
-			List list =(List)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"searchBill",argMap);
+			List list =(List)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"searchBill",argMap);
 			Object[] bill;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal generalTotalAmount=new BigDecimal(0);
@@ -378,8 +378,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(BillKeys.BILL_ID,billId);
-					TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
-					Boolean canUpdateBill=(Boolean)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+					TurqBill bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
+					Boolean canUpdateBill=(Boolean)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
 					if (canUpdateBill.booleanValue())
 					{
 						//delete Consignment Group
@@ -429,7 +429,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(BillKeys.BILL_ID,billId);
-			TurqBill bill = (TurqBill)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
+			TurqBill bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
 			boolean updated = new BillUIBillUpdateDialog(shell, SWT.NULL, bill).open();
 			if (updated)
 				return true;

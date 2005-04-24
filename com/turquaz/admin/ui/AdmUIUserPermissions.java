@@ -220,21 +220,21 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	{
 		try
 		{
-			List userList =(List)EngTXCommon.doSingleTX(AdmBLUsers.class.getName(),"getUsers",null);
+			List userList =(List)EngTXCommon.doSelectTX(AdmBLUsers.class.getName(),"getUsers",null);
 			for (int i = 0; i < userList.size(); i++)
 			{
 				TurqUser user = (TurqUser) userList.get(i);
 				comboUsers.setData(user.getUsername(), user);
 				comboUsers.add(user.getUsername());
 			}
-			List moduleList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
+			List moduleList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
 			for (int i = 0; i < moduleList.size(); i++)
 			{
 				TurqModule module = (TurqModule) moduleList.get(i);
 				comboModules.setData(module.getModuleDescription(), module);
 				comboModules.add(module.getModuleDescription());
 			}
-			List permissionLevels=(List)EngTXCommon.doSingleTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
+			List permissionLevels=(List)EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
 			for (int i=0; i<permissionLevels.size(); i++)
 			{
 				TurqUserPermissionLevel perLevel=(TurqUserPermissionLevel)permissionLevels.get(i);
@@ -282,7 +282,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(AdmKeys.ADM_MODULE_ID,new Integer(module_id));
-			List compList =(List)EngTXCommon.doSingleTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
+			List compList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
 			for (int i = 0; i < compList.size(); i++)
 			{
 				TurqModuleComponent modComp = (TurqModuleComponent) compList.get(i);
@@ -303,7 +303,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		try
 		{
 			tableUserPermissions.removeAll();
-			List userPermList =(List)EngTXCommon.doSingleTX(AdmBLUserPermissions.class.getName(),"getUserPermissions",null);
+			List userPermList =(List)EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"getUserPermissions",null);
 			TableItem item;
 			String username;
 			String module;
@@ -378,7 +378,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				argMap.put(AdmKeys.ADM_MODULE_COMP,comboModuleComponents.getData(comboModuleComponents.getText()));
 				argMap.put(AdmKeys.ADM_LEVEL,comboPermissionLevel.getData(comboPermissionLevel.getText()));
 				
-				EngTXCommon.doSingleTX(AdmBLUserPermissions.class.getName(),"saveUserPermission",argMap);
+				EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"saveUserPermission",argMap);
 				newForm();
 				fillTableUserPermissions();
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);

@@ -172,7 +172,7 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 			registeredGroups = new HashMap();
 			TableItem item;
 			TurqInventoryGroup group;
-			List ls =(List)EngTXCommon.doSingleTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			List ls =(List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				group = (TurqInventoryGroup) ls.get(i);

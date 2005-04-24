@@ -790,7 +790,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		try
 		{
 			//Fill Group Table
-			List list = (List)EngTXCommon.doSingleTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
+			List list = (List)EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
 			HashMap groupMap = new HashMap();
 			TurqConsignmentGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
@@ -831,7 +831,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSingleTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
+			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
 			TurqInventoryWarehous warehouse;
 			for (int i = 0; i < list.size(); i++)
 			{

@@ -235,7 +235,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		try
 		{
 			HashMap groupMap = new HashMap();
-			List list =(List)EngTXCommon.doSingleTX(AdmBLGroups.class.getName(),"getGroups",null);
+			List list =(List)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null);
 			TurqGroup group;
 			for (int i = 0; i < list.size(); i++)
 			{

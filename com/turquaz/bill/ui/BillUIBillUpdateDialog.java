@@ -129,7 +129,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL,bill);
 								argMap.put(BillKeys.BILL_BALANCE,new Boolean(answer));
-								EngTXCommon.doSingleTX(EngBLUtils.class.getName(),"printBill",argMap);
+								EngTXCommon.doSelectTX(EngBLUtils.class.getName(),"printBill",argMap);
 							}
 							catch(Exception ex)
 							{
@@ -188,7 +188,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				return;
 			HashMap argMap=new HashMap();
 			argMap.put(BillKeys.BILL_ID,bill.getId());
-			Boolean canUpdateBill=(Boolean)EngTXCommon.doSingleTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+			Boolean canUpdateBill=(Boolean)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
 			if (!canUpdateBill.booleanValue())
 			{
 				toolDelete.setEnabled(false);

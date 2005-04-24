@@ -620,7 +620,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			//Fill Group Table
-			List list = (List)EngTXCommon.doSingleTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
+			List list = (List)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
 			HashMap groupMap = new HashMap();
 			TurqBillGroup curGroup;
 			for (int i = 0; i < list.size(); i++)
@@ -723,7 +723,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 					argMap = new HashMap();
 					argMap.put(BillKeys.BILL, bill);
 					argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));
-					EngTXCommon.doSingleTX(EngBLUtils.class.getName(), "printBill", argMap);
+					EngTXCommon.doSelectTX(EngBLUtils.class.getName(), "printBill", argMap);
 				}	
 				
 				
@@ -797,7 +797,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		  		Integer consId=(Integer)consList.get(i);
 		  	    HashMap argMap=new HashMap();
 		  	    argMap.put(ConsKeys.CONS_ID,consId);
-		  		cons = (TurqConsignment)EngTXCommon.doSingleTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignmentById",argMap);
+		  		cons = (TurqConsignment)EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignmentById",argMap);
 				dateConsDate.setDate(cons.getConsignmentsDate());
 				
 				Set invTransactions = cons.getTurqEngineSequence().getTurqInventoryTransactions();

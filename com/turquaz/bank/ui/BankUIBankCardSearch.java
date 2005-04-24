@@ -290,7 +290,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 		{
 			comboCurrency.removeAll();
 			comboCurrency.setText(""); //$NON-NLS-1$
-			List currencies =(List)EngTXCommon.doSingleTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			List currencies =(List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -371,7 +371,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 				Integer bankId = (Integer) row.getDBObject();
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK_ID,bankId);
-				TurqBanksCard card =(TurqBanksCard)EngTXCommon.doSingleTX(BankBLBankCardSearch.class.getName(),"initializeBankCardById",argMap);
+				TurqBanksCard card =(TurqBanksCard)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"initializeBankCardById",argMap);
 				boolean updated = new BankUIBankCardUpdate(this.getShell(), SWT.NULL, card).open();
 				if (updated)
 					search();
