@@ -70,7 +70,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnDept;
 	private SearchDialogMenu searchDialogMenu1;
-	Object returnData = null;
+	Object returnData = "";
 	int type = 0;
 
 	/**
@@ -108,7 +108,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				compCurrentCardSearchLayout.numColumns = 2;
 				GridData compCurrentCardSearchLData = new GridData();
 				compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
-				compCurrentCardSearchLData.heightHint = 85;
+				compCurrentCardSearchLData.heightHint = 92;
 				compCurrentCardSearchLData.grabExcessHorizontalSpace = true;
 				compCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
 				compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
