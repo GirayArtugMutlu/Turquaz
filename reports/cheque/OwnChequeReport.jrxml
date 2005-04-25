@@ -2,9 +2,9 @@
 <!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="OwnChequeReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+<jasperReport name="OwnChequeReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
@@ -36,6 +36,8 @@
 	<field name="bank_code" class="java.lang.String">
 	</field>
 	<field name="cheques_no" class="java.lang.String">
+	</field>
+	<field name="transaction_typs_name" class="java.lang.String">
 	</field>
 	<variable name="totalAmount" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{cheques_amount}]]></variableExpression>
@@ -192,7 +194,7 @@
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Çek Numarası]]></text>
+				<text><![CDATA[Çek No]]></text>
 			</staticText>
 			<line>
 				<reportElement positionType="Float" x="132" y="80" width="1" height="20"/>
@@ -251,9 +253,9 @@
 			<textField>
 				<reportElement positionType="Float" x="420" y="1" width="61" height="12"/>
 				<textElement verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Ciro Edildi"]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{transaction_typs_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="483" y="1" width="70" height="12"/>

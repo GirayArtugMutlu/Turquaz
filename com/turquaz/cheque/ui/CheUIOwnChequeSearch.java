@@ -32,7 +32,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -358,16 +357,21 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			
 			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
 			
-			String status = ""; //$NON-NLS-1$
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
 			for (int i = 0; i < ls.size(); i++)
 			{
 				Object result[] = (Object[]) ls.get(i);
-				if (result[4].equals(EngBLCommon.CHEQUE_TRANS_OUT_CURRENT))
+				String status = (String)result[4];
+				/*
+				if (((Integer)result[4]).equals(EngBLCommon.CHEQUE_TRANS_OUT_CURRENT))
 				{
 					status = EngBLCommon.CHEQUE_TRANS_OUT_CURRENT_STRING;
 				}
+				else if (((Integer)result[4]).equals(EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE))
+				{
+					status = EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING;
+				}*/
 				Integer id = (Integer) result[0];
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(result[1]), result[6].toString(), result[7].toString(),
 						result[2].toString(), DatePicker.formatter.format(result[3]), status, cf.format(result[5])}, id);
@@ -400,7 +404,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			parameters.put("dueDateEnd", sdf.format(datePickerEndDueDate.getDate()));
 			parameters.put("dateFormatter", sdf);
 			parameters.put("currenyFormatter", cf);
-			String[] fields = new String[]{"id", "cheque_rolls_date", "cards_name", "cheques_due_date", "cheque_transaction_types_id",
+			String[] fields = new String[]{"id", "cheque_rolls_date", "cards_name", "cheques_due_date", "transaction_typs_name",
 					"cheques_amount", "bank_code", "cheques_no"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = JasperCompileManager.compileReport("reports/cheque/OwnChequeReport.jrxml");

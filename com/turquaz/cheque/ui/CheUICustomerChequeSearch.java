@@ -394,13 +394,14 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			BigDecimal total = new BigDecimal(0);
 			for (int i = 0; i < ls.size(); i++)
 			{
-				String status = ""; //$NON-NLS-1$
+				
 				Object result[] = (Object[]) ls.get(i);
-				Map statusMap = EngBLCommon.getChequeTransMapWithIntegerKey();
+				String status = (String)result[7];
+				/*Map statusMap = EngBLCommon.getChequeTransMapWithIntegerKey();
 				if (statusMap.containsKey(result[5]))
 				{
 					status = statusMap.get(result[5]).toString();
-				}
+				}*/
 				Integer id = (Integer) result[0];
 				tableViewer.addRow(new String[]{result[1].toString(), DatePicker.formatter.format(result[2]), result[3].toString(),
 						DatePicker.formatter.format(result[4]), status, cf.format(result[6])}, id);
