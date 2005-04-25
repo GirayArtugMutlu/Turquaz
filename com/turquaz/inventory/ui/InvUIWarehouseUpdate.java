@@ -20,13 +20,13 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -187,7 +187,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 
@@ -247,10 +247,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(Messages.getString("InvUIWarehouseUpdate.4")); //$NON-NLS-1$
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 		msg.open();
 	}
@@ -285,11 +282,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(Messages.getString("InvUIWarehouseUpdate.7")); //$NON-NLS-1$
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

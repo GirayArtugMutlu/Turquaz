@@ -5,13 +5,10 @@
  */
 package com.turquaz.inventory.ui;
 
-/**
- * @author Cem Window - Preferences - Java - Code Style - Code Templates
- */
-import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryAccountingType;
@@ -138,9 +135,8 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+
+                    EngBLLogger.log(this.getClass(),ex);;
 				}
 				break;
 		}

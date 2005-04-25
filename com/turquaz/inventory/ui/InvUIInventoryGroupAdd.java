@@ -1,7 +1,6 @@
 package com.turquaz.inventory.ui;
 
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -10,6 +9,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -131,7 +132,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -172,10 +174,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -195,10 +195,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -218,10 +216,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
