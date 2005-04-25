@@ -1186,7 +1186,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 						saveFavoritesTree();
 						saveProperties();
 						EngUITableProperties.saveToFile();
-						EngBackUp.backUp();
+						EngBackUp.backUp("");
 						System.exit(0);
 					}
 					else

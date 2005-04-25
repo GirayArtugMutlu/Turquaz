@@ -24,16 +24,15 @@ import com.turquaz.engine.EngConfiguration;
  */
 public class EngBackUp
 {
-	public static void backUp()
+	public static void backUp(String directory)
 	{
 		if(EngConfiguration.getString("dbType").startsWith("Turquaz"))
 		{
-			backUpHSQLDB();
+			backUpHSQLDB(directory);
 		}
 	}
-	private static void backUpHSQLDB()
-	{	
-		
+	private static void backUpHSQLDB(String directoryName)
+	{			
 		
 		try{
 			
@@ -45,7 +44,7 @@ public class EngBackUp
 		String date = formatter.format(cal.getTime());
 		
 		
-		String backUpDir = "database/backup/"+date+"/";
+		String backUpDir = "database/backup/"+directoryName+"/"+date+"/";
 		String scriptZip = backUpDir+"turquaz.zip";
 		String scriptFile = "database/turquaz.script";
 		String logFile = "database/turquaz.log";

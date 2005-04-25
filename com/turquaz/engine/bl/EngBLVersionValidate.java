@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.sql.Statement;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.backup.EngBackUp;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqSetting;
@@ -35,6 +36,7 @@ public class EngBLVersionValidate
 	{
 		try
 		{
+			EngBackUp.backUp("update");
 			updateVersion();
 			return new Boolean(true);
 		}
