@@ -20,7 +20,6 @@ package com.turquaz.cash.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -34,6 +33,7 @@ import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -131,7 +131,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -163,11 +163,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 		}
 		catch (Exception ex)
 		{
-			msg.setMessage(ex.getMessage());
-			msg.open();
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 

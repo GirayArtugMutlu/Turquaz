@@ -17,7 +17,6 @@ package com.turquaz.cash.ui;
 /************************************************************************/
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -28,6 +27,7 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -157,7 +157,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -209,9 +209,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 

@@ -22,7 +22,6 @@ package com.turquaz.cash.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.MessageBox;
 import com.turquaz.accounting.AccKeys;
@@ -38,6 +37,7 @@ import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
@@ -181,7 +181,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -209,9 +210,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -250,11 +250,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage("Hata Olustu!");
-			msg.open();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -309,9 +306,8 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return false;
 		}
 	}

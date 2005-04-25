@@ -3,7 +3,6 @@ package com.turquaz.cash.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -18,9 +17,9 @@ import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
@@ -114,7 +113,7 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -181,9 +180,7 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex); //$NON-NLS-1$
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex,getShell());
 				}
 			}
 
@@ -214,10 +211,7 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
-		}
+            EngBLLogger.log(this.getClass(),ex,getShell());
+        }
 	}
 }
