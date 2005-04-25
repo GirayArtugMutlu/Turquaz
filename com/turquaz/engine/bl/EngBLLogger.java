@@ -19,10 +19,11 @@ public class EngBLLogger {
 	{
 		
 		MessageBox msg = new MessageBox(shell, SWT.NULL);
-		msg.setMessage(ex.getMessage());
+		msg.setMessage(ex.toString());
 		msg.open();
 	
 		Logger loger = Logger.getLogger(cls);
+        
 		loger.error("Exception Caught", ex);
 		ex.printStackTrace();
 		
