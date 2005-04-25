@@ -11,9 +11,9 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -242,7 +242,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -301,11 +301,8 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
-		}
+            EngBLLogger.log(this.getClass(),ex,getShell());
+         }
 	}
 
 	public boolean verifyFields()
@@ -478,11 +475,8 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
-		}
+            EngBLLogger.log(this.getClass(),ex,getShell());
+        }
 	}
 
 	public void GenerateJasper(List list, Map parameters)
@@ -499,9 +493,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 }

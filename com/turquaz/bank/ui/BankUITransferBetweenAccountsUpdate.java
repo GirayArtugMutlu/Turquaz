@@ -2,7 +2,6 @@ package com.turquaz.bank.ui;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
@@ -13,6 +12,7 @@ import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -125,7 +125,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return false;
 		}
 	}
@@ -183,10 +183,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getParent(), ex.getMessage().toString(), SWT.ICON_ERROR);
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -206,10 +203,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getParent(), ex.getMessage().toString(), SWT.ICON_ERROR);
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

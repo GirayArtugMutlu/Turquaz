@@ -22,7 +22,6 @@ package com.turquaz.bank.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bank.ui.comp.BankCardPicker;
@@ -32,6 +31,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
@@ -187,7 +187,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -215,9 +215,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -274,9 +272,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return false;
 		}
 	}
@@ -307,11 +303,8 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
-		}
+            EngBLLogger.log(this.getClass(),ex,getShell());
+	    }
 	}
 
 	public CurrencyText getCurAmount()

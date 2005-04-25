@@ -3,7 +3,6 @@ package com.turquaz.bank.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -18,9 +17,9 @@ import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.ITableRowListViewer;
@@ -128,7 +127,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -199,9 +198,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex,getShell());
 				}
 			}
 
@@ -232,10 +229,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
-		}
+            EngBLLogger.log(this.getClass(),ex,getShell());
+         }
 	}
 }
