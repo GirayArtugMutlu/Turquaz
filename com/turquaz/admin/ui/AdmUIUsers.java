@@ -21,7 +21,6 @@ package com.turquaz.admin.ui;
  */
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -43,6 +42,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -134,9 +134,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		}
 		catch(Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();			
+            EngBLLogger.log(this.getClass(),ex,getShell());			
 		}
 	}
 
@@ -197,9 +195,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 	
@@ -224,9 +220,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 	

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -20,6 +19,7 @@ import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
@@ -138,7 +138,7 @@ public class AdmUICurrencyExchangeRateSearch extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -164,9 +164,7 @@ public class AdmUICurrencyExchangeRateSearch extends org.eclipse.swt.widgets.Com
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 }

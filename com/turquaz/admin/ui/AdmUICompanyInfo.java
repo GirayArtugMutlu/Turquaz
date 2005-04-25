@@ -1,7 +1,6 @@
 package com.turquaz.admin.ui;
 
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
@@ -11,6 +10,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -101,7 +101,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -117,9 +117,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -147,11 +145,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage("Hata Olustu!");
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 }

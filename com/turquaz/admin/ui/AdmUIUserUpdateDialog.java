@@ -2,7 +2,6 @@ package com.turquaz.admin.ui;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -12,6 +11,7 @@ import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserGroup;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -129,7 +129,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return true;
 		}
 	}
@@ -169,9 +169,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -197,9 +195,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

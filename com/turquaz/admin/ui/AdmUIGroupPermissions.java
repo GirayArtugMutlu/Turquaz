@@ -21,7 +21,6 @@ package com.turquaz.admin.ui;
  */
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -51,6 +50,7 @@ import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.admin.bl.AdmBLUserPermissions;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqGroupPermission;
@@ -258,7 +258,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -292,9 +292,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -338,9 +336,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -392,9 +388,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -451,9 +445,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -480,11 +472,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg2.setMessage("Hata Olustu!");
-			msg2.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 

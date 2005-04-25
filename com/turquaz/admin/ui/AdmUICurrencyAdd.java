@@ -1,7 +1,6 @@
 package com.turquaz.admin.ui;
 
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -17,6 +16,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyAdd;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 
@@ -132,7 +132,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -177,11 +177,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(Messages.getString("AdmUICurrencyAdd.8")); //$NON-NLS-1$
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
