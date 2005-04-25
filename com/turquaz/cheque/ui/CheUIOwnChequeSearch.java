@@ -32,8 +32,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
+import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -404,6 +407,24 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			parameters.put("dueDateEnd", sdf.format(datePickerEndDueDate.getDate()));
 			parameters.put("dateFormatter", sdf);
 			parameters.put("currenyFormatter", cf);
+			TurqCurrentCard curCard=(TurqCurrentCard)currentPicker.getData();
+			if (curCard==null)
+			{
+				parameters.put("currentCard", EngBLCommon.COMMON_ALL_STRING);
+			}
+			else
+			{				
+				parameters.put("currentCard",curCard.getCardsName());
+			}
+			TurqBanksCard bankCard= (TurqBanksCard)bankPicker.getData();
+			if (bankCard == null)
+			{
+				parameters.put("bankCard", EngBLCommon.COMMON_ALL_STRING);
+			}
+			else
+			{
+				parameters.put("bankCard", bankCard.getBankName());
+			}
 			String[] fields = new String[]{"id", "cheque_rolls_date", "cards_name", "cheques_due_date", "transaction_typs_name",
 					"cheques_amount", "bank_code", "cheques_no"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);

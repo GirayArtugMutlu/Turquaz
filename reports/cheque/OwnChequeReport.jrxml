@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="OwnChequeReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
@@ -22,6 +22,10 @@
 	<parameter name="dateFormatter" class="java.text.SimpleDateFormat">
 	</parameter>
 	<parameter name="currenyFormatter" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
+	</parameter>
+	<parameter name="currentCard" class="java.lang.String">
+	</parameter>
+	<parameter name="bankCard" class="java.lang.String">
 	</parameter>
 	<field name="id" class="java.lang.Integer">
 	</field>
@@ -99,7 +103,7 @@
 				<graphicElement/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" x="6" y="7" width="94" height="19"/>
+				<reportElement positionType="Float" x="5" y="6" width="94" height="19"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -200,6 +204,34 @@
 				<reportElement positionType="Float" x="132" y="80" width="1" height="20"/>
 				<graphicElement/>
 			</line>
+			<staticText>
+				<reportElement positionType="Float" x="5" y="29" width="66" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cari Kart : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="5" y="43" width="66" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Banka Kartı : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="72" y="29" width="240" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentCard}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="72" y="43" width="240" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{bankCard}]]></textFieldExpression>
+			</textField>
 		</band>
 		</groupHeader>
 		<groupFooter>

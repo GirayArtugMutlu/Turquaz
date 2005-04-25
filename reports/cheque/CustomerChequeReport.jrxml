@@ -3,8 +3,8 @@
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
 <jasperReport name="CustomerChequeReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
-	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
 	<property name="com.jasperassistant.designer.Grid" value="false"/>
@@ -22,6 +22,10 @@
 	<parameter name="dateFormatter" class="java.text.SimpleDateFormat">
 	</parameter>
 	<parameter name="currenyFormatter" class="com.turquaz.engine.ui.component.TurkishCurrencyFormat">
+	</parameter>
+	<parameter name="currentCard" class="java.lang.String">
+	</parameter>
+	<parameter name="status" class="java.lang.String">
 	</parameter>
 	<field name="id" class="java.lang.Integer">
 	</field>
@@ -187,6 +191,34 @@
 				</textElement>
 				<text><![CDATA[Son İşlem]]></text>
 			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="6" y="31" width="63" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cari Kart : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="6" y="46" width="63" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Çek Durumu : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="69" y="31" width="242" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{currentCard}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="69" y="46" width="242" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{status}]]></textFieldExpression>
+			</textField>
 		</band>
 		</groupHeader>
 		<groupFooter>

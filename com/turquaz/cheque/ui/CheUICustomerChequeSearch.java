@@ -33,6 +33,7 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import com.turquaz.engine.dal.TurqCurrentCard;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -140,6 +141,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			comboStatusLData.heightHint = 17;
 			comboStatus.setLayoutData(comboStatusLData);
 			comboStatus.setText(Messages.getString("CheUICustomerChequeSearch.2")); //$NON-NLS-1$
+			//TODO bunlar db den cekilmeli. EngBLCommondaki Map iptal edilmeli..
 			comboStatus.add(Messages.getString("CheUICustomerChequeSearch.3")); //$NON-NLS-1$
 			Iterator it = EngBLCommon.getChequeStatusMapWithStringKey().keySet().iterator();
 			while (it.hasNext())
@@ -434,6 +436,26 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			parameters.put("dueDateEnd", sdf.format(datePickerEndDueDate.getDate()));
 			parameters.put("dateFormatter", sdf);
 			parameters.put("currenyFormatter", cf);
+			TurqCurrentCard curCard=(TurqCurrentCard)currentPicker.getData();
+			if (curCard == null)
+			{
+				parameters.put("currentCard", "Hepsi");
+			}
+			else
+			{
+				parameters.put("currentCard", curCard.getCardsName());
+			}
+			
+			Map map = EngBLCommon.getChequeStatusMapWithStringKey();
+			if (map.containsKey(comboStatus.getText()))
+			{
+				parameters.put("status",comboStatus.getText());
+			}
+			else
+			{
+				parameters.put("status", EngBLCommon.COMMON_ALL_STRING);
+			}
+			
 			String[] fields = new String[]{"id", "cheques_portfolio_no", "cheque_rolls_date", "cards_name", "cheques_due_date",
 					"cheque_transaction_types_id", "cheques_amount", "transaction_typs_name"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
