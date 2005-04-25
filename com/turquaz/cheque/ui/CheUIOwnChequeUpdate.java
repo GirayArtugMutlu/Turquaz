@@ -22,7 +22,6 @@ package com.turquaz.cheque.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.cheque.CheKeys;
@@ -30,6 +29,7 @@ import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -243,9 +243,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error(this, e);
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return isUpdated;
 		}
 	}
@@ -324,9 +322,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -351,9 +347,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

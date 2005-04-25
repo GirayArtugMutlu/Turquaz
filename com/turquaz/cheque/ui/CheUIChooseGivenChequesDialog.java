@@ -2,7 +2,6 @@ package com.turquaz.cheque.ui;
 
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableItem;
@@ -12,6 +11,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -149,7 +149,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return selectedCheques;
 		}
 	}
@@ -200,10 +200,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getParent(), "Hata Olu?tu!", SWT.ICON_ERROR);
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 

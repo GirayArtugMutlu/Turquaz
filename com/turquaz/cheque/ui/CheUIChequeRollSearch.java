@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
@@ -40,12 +39,12 @@ import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
-import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -204,7 +203,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -226,10 +225,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage().toString(), SWT.ICON_ERROR);
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -250,9 +246,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -392,10 +386,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 }

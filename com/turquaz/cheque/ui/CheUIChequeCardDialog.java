@@ -3,6 +3,7 @@ package com.turquaz.cheque.ui;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Table;
 import com.turquaz.cheque.Messages;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Composite;
@@ -52,23 +53,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 	private CTabItem tabItemChequeInfo;
 	private CTabFolder cTabFolder1;
 
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			CheUIChequeCardDialog inst = new CheUIChequeCardDialog(shell, SWT.NULL);
-			inst.open();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 
 	public CheUIChequeCardDialog(Shell parent, int style)
 	{
@@ -205,7 +190,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 }

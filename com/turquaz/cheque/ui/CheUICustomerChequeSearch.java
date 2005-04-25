@@ -11,7 +11,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CTabFolder;
@@ -31,6 +30,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -322,7 +322,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -416,9 +417,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -466,9 +466,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -495,9 +494,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 }

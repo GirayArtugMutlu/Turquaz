@@ -22,12 +22,12 @@ package com.turquaz.cheque.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.cheque.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -275,7 +275,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return null;
 		}
 	}
@@ -320,9 +320,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -363,9 +361,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 			return false;
 		}
 	}
@@ -400,7 +396,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			catch (Exception ex)
 			{
-				ex.printStackTrace();
+                EngBLLogger.log(this.getClass(),ex);
 			}
 			cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());
 			TurqBanksCard bankCard = new TurqBanksCard();
