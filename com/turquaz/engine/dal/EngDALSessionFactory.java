@@ -16,9 +16,10 @@
 package com.turquaz.engine.dal;
 
 import java.util.Properties;
-import org.apache.log4j.Logger;
 import org.eclipse.core.internal.preferences.Base64;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.bl.EngBLLogger;
+
 import net.sf.hibernate.Session;
 import net.sf.hibernate.SessionFactory;
 import net.sf.hibernate.cfg.Configuration;
@@ -78,9 +79,7 @@ public class EngDALSessionFactory
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 

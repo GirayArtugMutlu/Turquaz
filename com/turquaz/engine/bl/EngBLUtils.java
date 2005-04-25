@@ -31,7 +31,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -156,9 +155,7 @@ public class EngBLUtils
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLUtils.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLUtils.class,ex);
 		}
 	}
 
@@ -409,9 +406,7 @@ public class EngBLUtils
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLUtils.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLUtils.class,ex);
 		}
 	}
 
@@ -476,9 +471,7 @@ public class EngBLUtils
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLUtils.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLUtils.class,ex);
 		}
 	}
 
@@ -511,9 +504,7 @@ public class EngBLUtils
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLUtils.class.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLUtils.class,ex);
 		}
 	}
 

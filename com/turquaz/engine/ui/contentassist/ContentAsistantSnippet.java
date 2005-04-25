@@ -35,6 +35,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 
+import com.turquaz.engine.bl.EngBLLogger;
+
 public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite
 {
 	private Menu menu1;
@@ -138,7 +140,7 @@ public class ContentAsistantSnippet extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 

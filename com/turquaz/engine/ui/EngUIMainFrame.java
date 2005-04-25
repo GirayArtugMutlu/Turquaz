@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Cursor;
@@ -76,6 +75,7 @@ import com.turquaz.engine.backup.EngBackUp;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.TurqCompany;
@@ -807,7 +807,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -924,7 +924,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -988,9 +988,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -1153,9 +1151,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -1207,7 +1203,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(EngUIMainFrame.class,e);
 		}
 	}
 
@@ -1279,9 +1275,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger("EngUIMainFrame");
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
+                EngBLLogger.log(EngUIMainFrame.class,ex);
 			}
 		}
 		//Button tus = new Button(tabfldMain,1);
@@ -1432,9 +1426,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			((TurqKeyEvent)MenuManager.mitExcel.getData()).setAvailable(false);
 			toolPrint.setEnabled(false);
 			((TurqKeyEvent)MenuManager.mitPrint.getData()).setAvailable(false);
-			Logger loger = Logger.getLogger("EngUIMainFrame");
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngUIMainFrame.class,ex);
 		}
 		finally
 		{
@@ -1446,9 +1438,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			}
 			catch(Exception ex)
 			{
-				Logger loger = Logger.getLogger("EngUIMainFrame");
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();				
+                EngBLLogger.log(EngUIMainFrame.class,ex);				
 			}
 		}
 	}
@@ -1652,9 +1642,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger("EngUIMainFrame");
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngUIMainFrame.class,ex);
 		}
 	}
 
@@ -1680,9 +1668,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger("EngUIMainFrame");
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngUIMainFrame.class,ex);
 		}
 		finally
 		{

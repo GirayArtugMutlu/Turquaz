@@ -42,6 +42,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLInventoryGroups;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -88,7 +89,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -153,7 +154,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+           
 			throw ex;
 		}
 	}
@@ -387,9 +388,8 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
-			if (ex.getMessage() != null)
-				System.out.println(ex.getMessage());
+            EngBLLogger.log(this.getClass(),ex);
+			
 		}
 	}
 

@@ -189,7 +189,6 @@ public class CurBLCurrentTransactionAdd
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
 			throw ex;
 		}
 		

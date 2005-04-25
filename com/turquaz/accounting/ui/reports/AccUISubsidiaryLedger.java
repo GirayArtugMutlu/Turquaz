@@ -364,7 +364,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 		 * String[]{"","",Messages.getString("AccUISubsidiaryLedger.25"),df.format(totalDept),df.format(totalCredit), //$NON-NLS-1$
 		 * //$NON-NLS-2$ //$NON-NLS-3$ (balance.compareTo(new BigDecimal(0)) <0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
 		 * //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); //$NON-NLS-1$ } catch (Exception ex) {
-		 * Logger loger = Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStackTrace(); }
+		 * Logger loger = Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStacfckTrace(); }
 		 */
 	}
 

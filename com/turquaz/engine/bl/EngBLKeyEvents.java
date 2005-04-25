@@ -121,7 +121,7 @@ public class EngBLKeyEvents
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLKeyEvents.class,ex);
 			return null;
 		}
 	}

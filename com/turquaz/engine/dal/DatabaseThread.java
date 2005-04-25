@@ -2,9 +2,9 @@ package com.turquaz.engine.dal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import org.apache.log4j.Logger;
 import org.hsqldb.Server;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.bl.EngBLLogger;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -56,9 +56,7 @@ public class DatabaseThread extends Thread
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 }

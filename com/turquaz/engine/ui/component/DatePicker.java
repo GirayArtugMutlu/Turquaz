@@ -21,11 +21,12 @@ package com.turquaz.engine.ui.component;
  */
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.bl.EngBLLogger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -103,9 +104,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite
 						}
 						catch (Exception ex)
 						{
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex);;
 						}
 					}
 				});
@@ -142,7 +141,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -166,9 +165,7 @@ public class DatePicker extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 			return null;
 		}
 	}

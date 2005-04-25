@@ -25,7 +25,6 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 import org.eclipse.core.internal.preferences.Base64;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.layout.FillLayout;
@@ -50,6 +49,7 @@ import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLVersionValidate;
 import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -295,7 +295,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -368,9 +368,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 		this.getShell().dispose();
 		
@@ -395,7 +393,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -421,9 +419,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 			msg.setMessage(ex.getMessage());
 			msg.open();
 		}
@@ -475,7 +471,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -506,9 +502,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 }

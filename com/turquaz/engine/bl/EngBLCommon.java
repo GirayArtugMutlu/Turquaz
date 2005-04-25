@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -322,9 +321,7 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLCommon.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLCommon.class,ex);
 			return null;
 		}
 	}
@@ -386,7 +383,7 @@ public class EngBLCommon
 				}
 				catch (Exception ex)
 				{
-					ex.printStackTrace();
+                    EngBLLogger.log(EngBLCommon.class,ex);
 				}
 			}
 					return baseCurrencyExchangeRate;
@@ -543,9 +540,7 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLCommon.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLCommon.class,ex);
 		}
 	}
 
@@ -566,9 +561,7 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLCommon.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLCommon.class,ex);
 			if (tx != null)
 				tx.rollback();
 		}
@@ -618,9 +611,7 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLCommon.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLCommon.class,ex);
 			if (tx != null)
 				tx.rollback();
 		}
@@ -635,7 +626,7 @@ public class EngBLCommon
 		 * into turq_bank_accounting_accounts values(" + result[0] + "," + result[0] + "," + result[1] //$NON-NLS-1$ //$NON-NLS-2$
 		 * //$NON-NLS-3$ + "," + 0 + "," + "'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		 * stmt.execute(query); } tx.commit(); session.flush(); session.close(); } catch (Exception ex) { Logger loger =
-		 * Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStackTrace(); tx.rollback(); }
+		 * Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStacxkTrace(); tx.rollback(); }
 		 */
 	}
 
@@ -661,9 +652,7 @@ public class EngBLCommon
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(EngBLCommon.class);
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLCommon.class,ex);
 		}
 	}
 }

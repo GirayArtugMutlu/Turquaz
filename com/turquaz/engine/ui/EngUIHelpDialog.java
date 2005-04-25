@@ -4,6 +4,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.component.Hyperlink;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,23 +25,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 	private CLabel lblVarsion;
 	private Hyperlink hyperlinkTurquaz;
 
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			EngUIHelpDialog inst = new EngUIHelpDialog(shell, SWT.NULL);
-			inst.open();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 
 	public EngUIHelpDialog(Shell parent, int style)
 	{
@@ -135,7 +120,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 

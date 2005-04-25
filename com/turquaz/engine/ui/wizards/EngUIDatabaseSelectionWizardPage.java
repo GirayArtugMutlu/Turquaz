@@ -20,7 +20,6 @@ package com.turquaz.engine.ui.wizards;
  * @version $Id$
  */
 import java.sql.ResultSet;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -35,6 +34,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
 
 public class EngUIDatabaseSelectionWizardPage extends WizardPage
@@ -127,9 +127,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex);
 				}
 			}
 		}
@@ -149,9 +147,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 			return false;
 		}
 	}

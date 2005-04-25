@@ -20,7 +20,6 @@ package com.turquaz.current.ui.comp;
  * @version  $Id$
  */
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Button;
@@ -42,6 +41,7 @@ import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -98,9 +98,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 								.getCurrentCardForContentAssist(text1.getText()
 									.trim()));
 						} catch (Exception ex) {
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex);
 						}
 					}
 				});
@@ -145,7 +143,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -215,9 +213,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex);
 				}
 			}
 		}

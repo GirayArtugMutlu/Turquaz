@@ -53,7 +53,7 @@ public class Emailer
 	      Transport.send( message );
 	    }
 	    catch (MessagingException ex){
-	    	ex.printStackTrace();
+            EngBLLogger.log(Emailer.class,ex);
 	      System.err.println("Cannot send email. " + ex);
 	    }
 	  }

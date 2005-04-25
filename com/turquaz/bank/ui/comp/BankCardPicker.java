@@ -20,7 +20,6 @@ package com.turquaz.bank.ui.comp;
  * @version  $Id$
  */
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -42,6 +41,7 @@ import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
@@ -98,9 +98,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 							setDBData(EngBLBankCards.getCard(text1.getText()
 								.trim()));
 						} catch (Exception ex) {
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex);
 						}
 					}
 				});
@@ -146,7 +144,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -203,9 +201,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex);
 				}
 			}
 		}

@@ -13,13 +13,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
+
+import com.turquaz.engine.bl.EngBLLogger;
 
 /**
  * @author onsel 
@@ -130,9 +131,7 @@ public class EngUITableProperties
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger("EngUITableProperties");
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(EngUITableProperties.class,ex);
 		}
 	}
 }

@@ -21,9 +21,10 @@ package com.turquaz.engine.ui.viewers;
  */
 import java.math.BigDecimal;
 import java.util.Date;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
+
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.component.DatePicker;
 
 public class TurquazTableSorter extends ViewerSorter
@@ -128,9 +129,7 @@ public class TurquazTableSorter extends ViewerSorter
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 			return 0;
 		}
 	}

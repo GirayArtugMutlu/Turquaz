@@ -1,25 +1,5 @@
 package com.turquaz.accounting.ui.comp;
 
-/************************************************************************/
-/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
-/* ============================================                         */
-/* Copyright (c) 2004 by Turquaz Software Development Group			    */
-/*																		*/
-/* This program is free software. You can redistribute it and/or modify */
-/* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License, or    */
-/* (at your option) any later version.       							*/
-/* 																		*/
-/* This program is distributed in the hope that it will be useful,		*/
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of		*/
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
-/* GNU General Public License for more details.         				*/
-/************************************************************************/
-/**
- * @author  Cem Dayanik
- * @version  $Id$
- */
-import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -41,6 +21,7 @@ import com.turquaz.accounting.ui.AccUISearchAccountsDialog;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -94,9 +75,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 							setDBData(EngBLAccountingAccounts
 								.getAllAccounts(text1.getText().trim()));
 						} catch (Exception ex) {
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex);
 						}
 					}
 				});
@@ -140,7 +119,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -164,9 +143,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 

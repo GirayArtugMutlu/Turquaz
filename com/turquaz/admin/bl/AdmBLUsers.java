@@ -67,7 +67,7 @@ public class AdmBLUsers
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+			throw ex;
 		}
 	}
 	private static void deleteGroupPermissions(TurqGroup user)throws Exception

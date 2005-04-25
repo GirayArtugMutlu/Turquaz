@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
@@ -18,6 +17,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.ui.EngUITableColumns;
 import com.turquaz.engine.ui.EngUITableProperties;
@@ -140,18 +140,14 @@ public class SearchTableViewer
 					}
 					catch (Exception ex)
 					{
-						Logger loger = Logger.getLogger(this.getClass());
-						loger.error("Exception Caught", ex);
-						ex.printStackTrace();
+                        EngBLLogger.log(this.getClass(),ex);
 					}
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -180,9 +176,7 @@ public class SearchTableViewer
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 }

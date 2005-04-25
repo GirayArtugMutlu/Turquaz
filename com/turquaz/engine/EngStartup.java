@@ -27,6 +27,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.EngUIEntryFrame;
 import java.net.*;
 
@@ -63,7 +65,7 @@ public class EngStartup {
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+            EngBLLogger.log(EngStartup.class,ex);
 		}
 	}
 

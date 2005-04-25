@@ -41,7 +41,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.turquaz.engine.Messages;
-import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.EngUIMainFrame;
 
 /**
@@ -93,8 +93,7 @@ public class BrowserPanel extends Composite
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
-			EngUICommon.showMessageBox(getShell(),ex.toString(),SWT.ICON_ERROR);
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			
 		}
 	}

@@ -14,7 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.bl.EngBLLogger;
 
 /**
  * @author onsel
@@ -92,7 +95,7 @@ public class EngBackUp
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(EngBackUp.class,ex);
 		}
 		
 	}

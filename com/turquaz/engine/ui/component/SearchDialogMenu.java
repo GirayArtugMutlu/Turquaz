@@ -14,6 +14,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MenuItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 
 import org.eclipse.swt.graphics.Rectangle;
@@ -165,7 +166,7 @@ public class SearchDialogMenu extends org.eclipse.swt.widgets.Composite {
 			menuActions.setVisible(false);
 			this.layout();
 		} catch (Exception e) {
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 	public void choose()

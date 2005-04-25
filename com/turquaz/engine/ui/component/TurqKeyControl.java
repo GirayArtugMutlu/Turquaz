@@ -19,6 +19,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.EngUIKeyControls;
 
 
@@ -138,7 +139,7 @@ public class TurqKeyControl extends org.eclipse.swt.widgets.Composite {
 			//END <<  txtEventKey
 			this.layout();
 		} catch (Exception e) {
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 	
@@ -176,7 +177,7 @@ public class TurqKeyControl extends org.eclipse.swt.widgets.Composite {
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 	

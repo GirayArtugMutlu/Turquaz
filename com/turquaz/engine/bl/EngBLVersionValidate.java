@@ -42,7 +42,7 @@ public class EngBLVersionValidate
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(EngBLVersionValidate.class,ex);
 			return new Boolean(false);
 		}
 	}

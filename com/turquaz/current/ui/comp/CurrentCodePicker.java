@@ -20,7 +20,6 @@ package com.turquaz.current.ui.comp;
  * @version  $Id$
  */
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -42,6 +41,7 @@ import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -97,9 +97,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 							setDBData(EngBLCurrentCards.getCards(text1
 								.getText().trim()));
 						} catch (Exception ex) {
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex);
 						}
 					}
 				});
@@ -144,7 +142,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -211,9 +209,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex);
 				}
 			}
 		}

@@ -26,6 +26,8 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccUIAccountsTree;
+import com.turquaz.engine.bl.EngBLLogger;
+
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Tree;
@@ -97,7 +99,7 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return null;
 		}
 	}
@@ -123,25 +125,7 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 		accountTree = treeFactory.fillTree(-1, "", accountTree);
 	}
 
-	/**
-	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
-	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
-	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
-	 */
-	public static void showGUI()
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			AccUIDialogInventoryCodeChoose inst = new AccUIDialogInventoryCodeChoose(shell, SWT.NULL);
-			inst.open();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 
 	/** Auto-generated event handler method */
 	protected void accountTreeMouseDoubleClick(MouseEvent evt)
@@ -192,7 +176,7 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 }

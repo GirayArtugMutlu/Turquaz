@@ -41,7 +41,7 @@ public class EngBLXmlParser
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 

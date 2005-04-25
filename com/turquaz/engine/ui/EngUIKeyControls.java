@@ -16,6 +16,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.component.TurqKeyEvent;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridLayout;
@@ -65,20 +66,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 	private Composite compControls;
 	public static Map tempKeyValues;
 
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Dialog inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		try {
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			EngUIKeyControls inst = new EngUIKeyControls(shell, SWT.NULL);
-			inst.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	public EngUIKeyControls(Shell parent, int style) {
 		super(parent, style);
@@ -139,7 +127,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 					}
 					catch(Exception ex)
 					{
-						ex.printStackTrace();
+                        EngBLLogger.log(this.getClass(),ex);
 					}
 				}
 			});
@@ -266,7 +254,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 					display.sleep();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 	
@@ -311,7 +299,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 }

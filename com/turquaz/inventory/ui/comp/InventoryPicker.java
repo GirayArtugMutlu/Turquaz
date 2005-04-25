@@ -21,7 +21,6 @@ package com.turquaz.inventory.ui.comp;
  */
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -36,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
@@ -99,9 +99,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 							setDBData(EngBLInventoryCards.getInvCard(text1
 								.getText().trim()));
 						} catch (Exception ex) {
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex);
 						}
 					}
 				});
@@ -146,7 +144,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e);
 		}
 	}
 
@@ -225,9 +223,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex);
 				}
 			}
 		}

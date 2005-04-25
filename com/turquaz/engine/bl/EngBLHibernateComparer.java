@@ -8,7 +8,6 @@ package com.turquaz.engine.bl;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;
-import org.apache.log4j.Logger;
 
 /**
  * @author Cem 
@@ -34,9 +33,7 @@ public class EngBLHibernateComparer implements Comparator
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 	}
 
@@ -49,9 +46,7 @@ public class EngBLHibernateComparer implements Comparator
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex);
 		}
 		return 1;
 	}
