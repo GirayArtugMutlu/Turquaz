@@ -229,7 +229,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog im
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
         }
         return returnData;
     }

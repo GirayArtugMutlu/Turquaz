@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -49,6 +48,7 @@ import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -204,7 +204,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return true;
 		}
 	}
@@ -320,11 +320,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.7")); //$NON-NLS-1$
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -352,11 +348,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
-				msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.10")); //$NON-NLS-1$
-				msg.open();
+                EngBLLogger.log(this.getClass(),ex,getParent());
 			}
 		}
 	}

@@ -30,6 +30,8 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CCombo;
+
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -234,7 +236,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 

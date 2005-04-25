@@ -22,10 +22,8 @@ package com.turquaz.accounting.ui;
  import org.eclipse.swt.custom.CTabFolder;
  import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -36,6 +34,8 @@ import com.turquaz.accounting.Messages;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -192,7 +192,7 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -236,33 +236,7 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 		clearFields();
 	}
 
-	/**
-	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
-	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
-	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
-	 */
-	public static void showGUI()
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			AccUIAddAccounts inst = new AccUIAddAccounts(shell, SWT.NULL);
-			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0, 0, 435, 204);
-			shell.setSize(shellBounds.width, shellBounds.height);
-			shell.open();
-			while (!shell.isDisposed())
-			{
-				if (!display.readAndDispatch())
-					display.sleep();
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+
 
 	/** Auto-generated event handler method */
 	protected void txtParentAccountMouseUp(MouseEvent evt)

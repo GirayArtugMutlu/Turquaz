@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
@@ -115,7 +116,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 
@@ -171,7 +172,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return null;
 		}
 	}
@@ -202,25 +203,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	/**
-	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
-	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
-	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
-	 */
-	public static void showGUI()
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			AccUISearchAccountsDialog inst = new AccUISearchAccountsDialog(shell, SWT.NULL);
-			inst.open();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+
 
 	/** Auto-generated event handler method */
 	protected void accountTreeMouseDoubleClick()

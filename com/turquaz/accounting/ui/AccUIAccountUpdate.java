@@ -21,7 +21,6 @@ package com.turquaz.accounting.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -31,6 +30,7 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -226,9 +226,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error(this, e);
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return false;
 		}
 	}
@@ -289,9 +287,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -318,9 +314,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -347,9 +341,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

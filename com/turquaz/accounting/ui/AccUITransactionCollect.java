@@ -25,12 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseEvent;
@@ -46,6 +42,7 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -264,7 +261,7 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -306,9 +303,7 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -442,9 +437,7 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return false;
 		}
 	}
@@ -486,11 +479,7 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
-				msg.setMessage(Messages.getString("AccUITransactionCollect.19")); //$NON-NLS-1$
-				msg.open();
+                EngBLLogger.log(this.getClass(),ex,getShell());
 			}
 		}
 	}
@@ -550,34 +539,7 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 	{
 	}
 
-	/**
-	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
-	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
-	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
-	 */
-	public static void showGUI()
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			AccUITransactionCollect inst = new AccUITransactionCollect(shell, SWT.NULL);
-			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0, 0, 520, 452);
-			shell.setSize(shellBounds.width, shellBounds.height);
-			shell.open();
-			while (!shell.isDisposed())
-			{
-				if (!display.readAndDispatch())
-					display.sleep();
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
+	
 	/** Auto-generated event handler method */
 	protected void btnAddTransactionRowMouseUp(MouseEvent evt)
 	{

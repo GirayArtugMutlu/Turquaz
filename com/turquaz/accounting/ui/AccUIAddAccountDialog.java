@@ -19,13 +19,14 @@ package com.turquaz.accounting.ui;
  * @author  Huseyin Ergun
  * @version  $Id$
  */
-import org.apache.log4j.Logger;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import org.eclipse.swt.layout.GridData;
@@ -37,13 +38,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private AccUIAddAccounts compAccountCard;
@@ -136,7 +130,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 
@@ -213,7 +207,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return null;
 		}
 	}
@@ -265,9 +259,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }
