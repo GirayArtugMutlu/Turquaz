@@ -130,8 +130,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				{
 					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 174;
-					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.widthHint = 150;
+					txtCurCardLData.heightHint = 17;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
 				{
@@ -145,9 +145,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				}
 				{
 					comboTransactionGroup = new CCombo(composite1, SWT.NONE);
-					comboTransactionGroup.setSize(new org.eclipse.swt.graphics.Point(117, 17));
 					GridData comboTransactionGroupLData = new GridData();
-					comboTransactionGroupLData.widthHint = 95;
+					comboTransactionGroupLData.widthHint = 120;
 					comboTransactionGroupLData.heightHint = 17;
 					comboTransactionGroup.setLayoutData(comboTransactionGroupLData);
 				}
@@ -161,9 +160,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				}
 				{
 					dateStartDate = new DatePicker(composite1, SWT.NONE);
-					dateStartDate.setSize(new org.eclipse.swt.graphics.Point(145, 22));
 					GridData dateStartDateLData = new GridData();
-					dateStartDateLData.widthHint = 145;
+					dateStartDateLData.widthHint = 150;
 					dateStartDateLData.heightHint = 22;
 					dateStartDate.setLayoutData(dateStartDateLData);
 				}
@@ -179,7 +177,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					dateEndDate = new DatePicker(composite1, SWT.NONE);
 					dateEndDate.setSize(new org.eclipse.swt.graphics.Point(142, 22));
 					GridData dateEndDateLData = new GridData();
-					dateEndDateLData.widthHint = 142;
+					dateEndDateLData.widthHint = 150;
 					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
 				}
@@ -188,10 +186,11 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					lblDefinition.setText(Messages.getString("CurUITransactionSearch.10")); //$NON-NLS-1$
 				}
 				{
-					txtDefinition = new Text(composite1, SWT.NONE);
+					txtDefinition = new Text(composite1, SWT.WRAP | SWT.V_SCROLL);
 					GridData txtDefinitionLData = new GridData();
-					txtDefinitionLData.widthHint = 170;
-					txtDefinitionLData.heightHint = 18;
+					txtDefinitionLData.widthHint = 385;
+					txtDefinitionLData.heightHint = 19;
+					txtDefinitionLData.horizontalSpan = 3;
 					txtDefinition.setLayoutData(txtDefinitionLData);
 				}
 			}
