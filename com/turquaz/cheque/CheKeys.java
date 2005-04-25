@@ -24,5 +24,6 @@ public class CheKeys
 	public final static String CHE_END_ENTER_DATE ="chequeEndEnterDate";
 	public final static String CHE_END_DUE_DATE ="chequeEndDueDate";
 	public final static String CHE_CHEQUE_ROLL ="chequeRoll";
+	public final static String CHE_SORT="chequeSort";
 	
 }

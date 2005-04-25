@@ -23,6 +23,8 @@ import org.eclipse.swt.custom.CTabFolder;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.custom.CTabItem;
 import com.turquaz.bank.BankKeys;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Button;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -68,6 +70,9 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 	private CLabel lblEnterDateEnd;
 	private DatePicker datePickerStartEnterDate;
 	private CLabel lblEnterDate;
+	private Button radioDueDate;
+	private Button radioDate;
+	private Group groupReport;
 	private ViewerComposite viewer;
 	private TableColumn tableColumnCurrentCard;
 	private DatePicker datePickerEndDueDate;
@@ -104,7 +109,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			compSearchPanle = new Composite(this, SWT.NONE);
 			GridLayout compSearchPanleLayout = new GridLayout();
 			GridData compSearchPanleLData = new GridData();
-			compSearchPanleLData.heightHint = 114;
+			compSearchPanleLData.heightHint = 146;
 			compSearchPanleLData.grabExcessHorizontalSpace = true;
 			compSearchPanleLData.horizontalAlignment = GridData.FILL;
 			compSearchPanle.setLayoutData(compSearchPanleLData);
@@ -117,8 +122,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >> currentPicker
 			currentPicker = new CurrentPicker(compSearchPanle, SWT.NONE);
 			GridData currentPickerLData = new GridData();
-			currentPickerLData.widthHint = 348;
-			currentPickerLData.heightHint = 18;
+			currentPickerLData.widthHint = 200;
+			currentPickerLData.heightHint = 17;
 			currentPickerLData.horizontalSpan = 3;
 			currentPicker.setLayoutData(currentPickerLData);
 			//END << currentPicker
@@ -129,8 +134,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >> bankPicker
 			bankPicker = new BankCardPicker(compSearchPanle, SWT.NONE);
 			GridData bankPickerLData = new GridData();
-			bankPickerLData.widthHint = 238;
-			bankPickerLData.heightHint = 18;
+			bankPickerLData.widthHint = 200;
+			bankPickerLData.heightHint = 17;
 			bankPickerLData.horizontalSpan = 3;
 			bankPicker.setLayoutData(bankPickerLData);
 			//END << bankPicker
@@ -141,8 +146,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >> datePickerStartDueDate
 			datePickerStartDueDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerLData = new GridData();
-			datePickerLData.widthHint = 137;
-			datePickerLData.heightHint = 20;
+			datePickerLData.widthHint = 150;
+			datePickerLData.heightHint = 22;
 			datePickerStartDueDate.setLayoutData(datePickerLData);
 			datePickerStartDueDate.setFirstDayOfYear();
 			//END << datePickerStartDueDate
@@ -153,8 +158,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >> datePickerEndDueDate
 			datePickerEndDueDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerEndLData = new GridData();
-			datePickerEndLData.widthHint = 118;
-			datePickerEndLData.heightHint = 20;
+			datePickerEndLData.widthHint = 150;
+			datePickerEndLData.heightHint = 22;
 			datePickerEndDueDate.setLayoutData(datePickerEndLData);
 			datePickerEndDueDate.setLastDayOfYear();
 			//END << datePickerEndDueDate
@@ -165,8 +170,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >> datePickerStartEnterDate
 			datePickerStartEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerStartEnterDateLData = new GridData();
-			datePickerStartEnterDateLData.widthHint = 137;
-			datePickerStartEnterDateLData.heightHint = 20;
+			datePickerStartEnterDateLData.widthHint = 150;
+			datePickerStartEnterDateLData.heightHint = 22;
 			datePickerStartEnterDate.setLayoutData(datePickerStartEnterDateLData);
 			datePickerStartEnterDate.setFirstDayOfYear();
 			//END << datePickerStartEnterDate
@@ -177,11 +182,33 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//START >> datePickerEndEnterDate
 			datePickerEndEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerEndEnterDateLData = new GridData();
-			datePickerEndEnterDateLData.widthHint = 116;
-			datePickerEndEnterDateLData.heightHint = 21;
+			datePickerEndEnterDateLData.widthHint = 150;
+			datePickerEndEnterDateLData.heightHint = 22;
 			datePickerEndEnterDate.setLayoutData(datePickerEndEnterDateLData);
 			datePickerEndEnterDate.setLastDayOfYear();
 			//END << datePickerEndEnterDate
+			//START >>  groupReport
+			groupReport = new Group(compSearchPanle, SWT.NONE);
+			GridLayout groupReportLayout = new GridLayout();
+			GridData groupReportLData = new GridData();
+			groupReportLData.widthHint = 288;
+			groupReportLData.heightHint = 21;
+			groupReportLData.horizontalSpan = 3;
+			groupReport.setLayoutData(groupReportLData);
+			groupReportLayout.makeColumnsEqualWidth = true;
+			groupReportLayout.numColumns = 2;
+			groupReport.setLayout(groupReportLayout);
+			groupReport.setText("Rapor Seçenekleri");
+			//START >>  radioDate
+			radioDate = new Button(groupReport, SWT.RADIO | SWT.LEFT);
+			radioDate.setText("Tarihe Göre S\u0131rala");
+			radioDate.setSelection(true);
+			//END <<  radioDate
+			//START >>  radioDueDate
+			radioDueDate = new Button(groupReport, SWT.RADIO | SWT.LEFT);
+			radioDueDate.setText("Vadeye Göre S\u0131rala");
+			//END <<  radioDueDate
+			//END <<  groupReport
 			//END << compSearchPanle
 			//START >> tabFolder
 			tabFolder = new CTabFolder(this, SWT.NONE);
@@ -244,9 +271,9 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//END << tableCheques
 			GridData tabFolderLData = new GridData();
 			tabFolderLData.grabExcessHorizontalSpace = true;
-			tabFolderLData.grabExcessVerticalSpace = true;
 			tabFolderLData.horizontalAlignment = GridData.FILL;
 			tabFolderLData.verticalAlignment = GridData.FILL;
+			tabFolderLData.grabExcessVerticalSpace = true;
 			tabFolder.setLayoutData(tabFolderLData);
 			//END << cTabItem1
 			//START >> tabItemReport
@@ -327,6 +354,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			argMap.put(CheKeys.CHE_START_DUE_DATE,datePickerStartDueDate.getDate());
 			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
 		    argMap.put(BankKeys.BANK,bankPicker.getTurqBank());
+		    argMap.put(BankKeys.BANK_SORT_BY_DATE,new Boolean(radioDate.getSelection()));
 			
 			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
 			

@@ -33,6 +33,8 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeCheque;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -57,6 +59,10 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 {
 	private Composite compSearchPanle;
 	private Text txtPortFoyNo;
+	private Button radioPortFoy;
+	private Button radioDueDate;
+	private Button radioDate;
+	private Group groupReport;
 	private ViewerComposite viewer;
 	private Composite compReport;
 	private CTabItem tabItemReport;
@@ -106,7 +112,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			compSearchPanle = new Composite(this, SWT.NONE);
 			GridLayout compSearchPanleLayout = new GridLayout();
 			GridData compSearchPanleLData = new GridData();
-			compSearchPanleLData.heightHint = 112;
+			compSearchPanleLData.heightHint = 152;
 			compSearchPanleLData.grabExcessHorizontalSpace = true;
 			compSearchPanleLData.horizontalAlignment = GridData.FILL;
 			compSearchPanle.setLayoutData(compSearchPanleLData);
@@ -119,8 +125,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> txtPortFoyNo
 			txtPortFoyNo = new Text(compSearchPanle, SWT.NONE);
 			GridData txtPortFoyNoLData = new GridData();
-			txtPortFoyNoLData.widthHint = 155;
-			txtPortFoyNoLData.heightHint = 16;
+			txtPortFoyNoLData.widthHint = 150;
+			txtPortFoyNoLData.heightHint = 17;
 			txtPortFoyNo.setLayoutData(txtPortFoyNoLData);
 			//END << txtPortFoyNo
 			//START >> lblStaus
@@ -130,7 +136,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> comboStatus
 			comboStatus = new CCombo(compSearchPanle, SWT.NONE);
 			GridData comboStatusLData = new GridData();
-			comboStatusLData.widthHint = 96;
+			comboStatusLData.widthHint = 150;
 			comboStatusLData.heightHint = 17;
 			comboStatus.setLayoutData(comboStatusLData);
 			comboStatus.setText(Messages.getString("CheUICustomerChequeSearch.2")); //$NON-NLS-1$
@@ -148,8 +154,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> currentPicker
 			currentPicker = new CurrentPicker(compSearchPanle, SWT.NONE);
 			GridData currentPickerLData = new GridData();
-			currentPickerLData.widthHint = 348;
-			currentPickerLData.heightHint = 16;
+			currentPickerLData.widthHint = 405;
+			currentPickerLData.heightHint = 17;
 			currentPickerLData.horizontalSpan = 3;
 			currentPicker.setLayoutData(currentPickerLData);
 			//END << currentPicker
@@ -160,8 +166,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> datePickerStartDueDate
 			datePickerStartDueDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerLData = new GridData();
-			datePickerLData.widthHint = 137;
-			datePickerLData.heightHint = 20;
+			datePickerLData.widthHint = 150;
+			datePickerLData.heightHint = 22;
 			datePickerStartDueDate.setLayoutData(datePickerLData);
 			datePickerStartDueDate.setFirstDayOfYear();
 			//END << datePickerStartDueDate
@@ -172,8 +178,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> datePickerEndDueDate
 			datePickerEndDueDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerEndLData = new GridData();
-			datePickerEndLData.widthHint = 118;
-			datePickerEndLData.heightHint = 20;
+			datePickerEndLData.widthHint = 150;
+			datePickerEndLData.heightHint = 22;
 			datePickerEndDueDate.setLayoutData(datePickerEndLData);
 			//END << datePickerEndDueDate
 			//START >> lblEnterDate
@@ -183,8 +189,8 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> datePickerStartEnterDate
 			datePickerStartEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerStartEnterDateLData = new GridData();
-			datePickerStartEnterDateLData.widthHint = 137;
-			datePickerStartEnterDateLData.heightHint = 20;
+			datePickerStartEnterDateLData.widthHint = 150;
+			datePickerStartEnterDateLData.heightHint = 22;
 			datePickerStartEnterDate.setLayoutData(datePickerStartEnterDateLData);
 			datePickerStartEnterDate.setFirstDayOfYear();
 			//END << datePickerStartEnterDate
@@ -195,10 +201,36 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			//START >> datePickerEndEnterDate
 			datePickerEndEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
 			GridData datePickerEndEnterDateLData = new GridData();
-			datePickerEndEnterDateLData.widthHint = 116;
-			datePickerEndEnterDateLData.heightHint = 21;
+			datePickerEndEnterDateLData.widthHint = 150;
+			datePickerEndEnterDateLData.heightHint = 22;
 			datePickerEndEnterDate.setLayoutData(datePickerEndEnterDateLData);
 			//END << datePickerEndEnterDate
+			//START >>  groupReport
+			groupReport = new Group(compSearchPanle, SWT.NONE);
+			GridLayout groupReportLayout = new GridLayout();
+			GridData groupReportLData = new GridData();
+			groupReportLData.widthHint = 457;
+			groupReportLData.heightHint = 20;
+			groupReportLData.horizontalSpan = 4;
+			groupReport.setLayoutData(groupReportLData);
+			groupReportLayout.makeColumnsEqualWidth = true;
+			groupReportLayout.numColumns = 3;
+			groupReport.setLayout(groupReportLayout);
+			groupReport.setText("Rapor Seçenekleri");
+			//START >>  radioDate
+			radioDate = new Button(groupReport, SWT.RADIO | SWT.LEFT);
+			radioDate.setText("Tarihe Göre S\u0131rala");
+			radioDate.setSelection(true);
+			//END <<  radioDate
+			//START >>  radioDueDate
+			radioDueDate = new Button(groupReport, SWT.RADIO | SWT.LEFT);
+			radioDueDate.setText("Vadeye Göre S\u0131rala");
+			//END <<  radioDueDate
+			//START >>  radioPortFoy
+			radioPortFoy = new Button(groupReport, SWT.RADIO | SWT.LEFT);
+			radioPortFoy.setText("Portföy No'ya Göre S\u0131rala");
+			//END <<  radioPortFoy
+			//END <<  groupReport
 			//END << compSearchPanle
 			//START >> tabFolder
 			tabFolder = new CTabFolder(this, SWT.NONE);
@@ -344,7 +376,16 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());
 			argMap.put(CheKeys.CHE_START_DUE_DATE,datePickerStartDueDate.getDate());
 			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
-			
+			Integer sorting=new Integer(0);
+			if (radioDueDate.getSelection())
+			{
+				sorting=new Integer(1);
+			}
+			else if (radioPortFoy.getSelection())
+			{
+				sorting=new Integer(2);
+			}
+			argMap.put(CheKeys.CHE_SORT,sorting);		
 			
 			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchCheque",argMap);
 		
