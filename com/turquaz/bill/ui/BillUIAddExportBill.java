@@ -8,6 +8,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.engine.bl.EngBLLogger;
+
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
  * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
@@ -72,7 +74,7 @@ public class BillUIAddExportBill extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 }

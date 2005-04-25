@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -62,6 +61,7 @@ import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
@@ -605,7 +605,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -632,9 +632,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 	public void calculateTotals()
@@ -732,11 +730,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -844,10 +838,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
-				EngUICommon.showMessageBox(getShell(), ex.getMessage(), SWT.ICON_ERROR);
+                EngBLLogger.log(this.getClass(),ex,getShell());
 			}
 		}
 		

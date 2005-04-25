@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import net.sf.hibernate.HibernateException;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -49,6 +48,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.current.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.tx.EngTXCommon;
 
@@ -262,7 +262,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 
@@ -301,9 +301,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -338,11 +336,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			btnGroupAdd.setEnabled(true);
 			txtGroupName.setText(""); //$NON-NLS-1$
 			txtDescription.setText(""); //$NON-NLS-1$
-			msg2.setMessage(Messages.getString("CurUIGroupAddDialog.13")); //$NON-NLS-1$
-			msg2.open();
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -381,11 +375,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			btnGroupAdd.setEnabled(true);
 			txtGroupName.setText(""); //$NON-NLS-1$
 			txtDescription.setText(""); //$NON-NLS-1$
-			msg.setMessage(Messages.getString("CurUIGroupAddDialog.22")); //$NON-NLS-1$
-			msg.open();
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -419,17 +409,11 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (HibernateException ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setText(Messages.getString("CurUIGroupAddDialog.28")); //$NON-NLS-1$
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 

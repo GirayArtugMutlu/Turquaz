@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -18,6 +17,7 @@ import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -264,7 +264,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -354,9 +354,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -412,9 +410,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -452,9 +448,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 

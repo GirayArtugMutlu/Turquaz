@@ -10,6 +10,7 @@ import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
@@ -22,7 +23,6 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -133,7 +133,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 							}
 							catch(Exception ex)
 							{
-								ex.printStackTrace();
+                                EngBLLogger.log(this.getClass(),ex,getParent());
 							}
 						}
 					});
@@ -173,7 +173,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return true;
 		}
 	}
@@ -221,9 +221,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -316,12 +314,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			msg = new MessageBox(this.getParent(), SWT.ICON_ERROR);
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 			this.dialogShell.close();
 		}
 	}
@@ -352,11 +345,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }
