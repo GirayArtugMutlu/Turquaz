@@ -119,21 +119,23 @@ public class InvBLSaveTransaction
 				EngBLCommon.ROUNDING_METHOD);
 		invTrans.setDiscountAmount(discountAmount);
 		BigDecimal totalPriceAfterDiscount = totalPriceInBase.subtract(discountAmount);
-		if (invTrans.getTurqInventoryCard().isSpecVatForEach())
+        BigDecimal vatSpecialAmount = new BigDecimal(0);
+        if (invTrans.getTurqInventoryCard().isSpecVatForEach())
 		{
 			BigDecimal vatSpecialUnitPriceInBase = invTrans.getVatSpecialUnitPriceInForeignCurrency().multiply(
 					exchangeRate.getExchangeRatio()).setScale(2, EngBLCommon.ROUNDING_METHOD);
 			invTrans.setVatSpecialUnitPrice(vatSpecialUnitPriceInBase);
-			invTrans.setVatSpecialAmount(vatSpecialUnitPriceInBase.multiply(amount).setScale(2, EngBLCommon.ROUNDING_METHOD));
+            vatSpecialAmount = vatSpecialUnitPriceInBase.multiply(amount).setScale(2, EngBLCommon.ROUNDING_METHOD);
+            invTrans.setVatSpecialAmount(vatSpecialAmount);
 		}
 		else
 		{
 			invTrans.setVatSpecialUnitPrice(new BigDecimal(0));
-			BigDecimal vatSpecialAmount = totalPriceAfterDiscount.multiply(invTrans.getVatSpecialRate()).divide(new BigDecimal(100), 2,
+			vatSpecialAmount = totalPriceAfterDiscount.multiply(invTrans.getVatSpecialRate()).divide(new BigDecimal(100), 2,
 					EngBLCommon.ROUNDING_METHOD);
 			invTrans.setVatSpecialAmount(vatSpecialAmount);
 		}
-		BigDecimal vatAmount = totalPriceAfterDiscount.multiply(invTrans.getVatRate()).divide(new BigDecimal(100), 2,
+		BigDecimal vatAmount = totalPriceAfterDiscount.add(vatSpecialAmount).multiply(invTrans.getVatRate()).divide(new BigDecimal(100), 2,
 				EngBLCommon.ROUNDING_METHOD);
 		invTrans.setVatAmount(vatAmount);
 		BigDecimal cumilativePrice = totalPriceAfterDiscount.add(vatAmount).add(invTrans.getVatSpecialAmount());
