@@ -18,7 +18,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -39,6 +38,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -261,7 +261,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -289,9 +289,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -339,12 +337,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -392,9 +385,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return false;
 		}
 	}

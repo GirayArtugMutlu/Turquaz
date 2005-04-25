@@ -18,11 +18,9 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -39,6 +37,7 @@ import com.turquaz.engine.ui.component.SearchDialogMenu;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
@@ -219,7 +218,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return returnData;
 		}
 	}
@@ -283,12 +282,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -310,12 +304,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

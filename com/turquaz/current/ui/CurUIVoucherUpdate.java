@@ -3,7 +3,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -16,6 +15,7 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -150,7 +150,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return true;
 		}
 	}
@@ -208,9 +208,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -253,9 +251,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
+                EngBLLogger.log(this.getClass(),ex,getParent());
 			}
 		}
 	}
@@ -276,9 +272,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

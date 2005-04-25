@@ -27,14 +27,10 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
@@ -51,6 +47,7 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
@@ -286,7 +283,8 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -319,12 +317,8 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -386,11 +380,8 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg.setMessage(ex.getMessage());
-			msg.open();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -443,12 +434,8 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -460,33 +447,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 	{
 	}
 
-	/**
-	 * This static method creates a new instance of this class and shows it inside a new Shell. It is a convenience method for showing the
-	 * GUI, but it can be copied and used as a basis for your own code. * It is auto-generated code - the body of this method will be
-	 * re-generated after any changes are made to the GUI. However, if you delete this method it will not be re-created.
-	 */
-	public static void showGUI()
-	{
-		try
-		{
-			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
-			CurUICurrentCardSearch inst = new CurUICurrentCardSearch(shell, SWT.NULL);
-			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
-			Rectangle shellBounds = shell.computeTrim(0, 0, 435, 318);
-			shell.setSize(shellBounds.width, shellBounds.height);
-			shell.open();
-			while (!shell.isDisposed())
-			{
-				if (!display.readAndDispatch())
-					display.sleep();
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 
 	/** Auto-generated event handler method */
 	protected void tableCurrentCardSearchMouseDoubleClick(MouseEvent evt)
@@ -509,9 +470,8 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
+
+                EngBLLogger.log(this.getClass(),ex,getShell());
 			}
 		}
 	}
@@ -544,9 +504,8 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			}
 			catch (Exception ex)
 			{
-				Logger loger = Logger.getLogger(this.getClass());
-				loger.error("Exception Caught", ex);
-				ex.printStackTrace();
+
+                EngBLLogger.log(this.getClass(),ex,getShell());
 			}
 		}
 	}

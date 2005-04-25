@@ -2,7 +2,6 @@ package com.turquaz.current.ui;
 
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -10,6 +9,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -166,7 +166,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 
@@ -196,9 +196,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

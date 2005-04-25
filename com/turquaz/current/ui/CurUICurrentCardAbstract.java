@@ -24,7 +24,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -48,6 +47,7 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -233,7 +233,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -328,9 +329,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -349,9 +349,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 	

@@ -22,7 +22,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -43,6 +42,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -133,9 +133,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 						}
 						catch (Exception ex)
 						{
-							Logger loger = Logger.getLogger(this.getClass());
-							loger.error("Exception Caught", ex);
-							ex.printStackTrace();
+                            EngBLLogger.log(this.getClass(),ex,getShell());
 						}
 					}
 				});
@@ -258,7 +256,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -297,9 +295,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -360,9 +356,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return false;
 		}
 	}
@@ -406,12 +400,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 

@@ -3,7 +3,6 @@ package com.turquaz.current.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -20,6 +19,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
@@ -96,7 +96,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -123,9 +123,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -190,9 +188,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 				}
 				catch (Exception ex)
 				{
-					Logger loger = Logger.getLogger(this.getClass());
-					loger.error("Exception Caught", ex);
-					ex.printStackTrace();
+                    EngBLLogger.log(this.getClass(),ex,getShell());
 				}
 			}
 

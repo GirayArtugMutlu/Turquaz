@@ -3,7 +3,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -15,6 +14,7 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.custom.CLabel;
@@ -216,7 +216,7 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 			}
 			this.layout();
 		} catch(Exception e) {
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -262,9 +262,7 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return false;
 		}
 	}
@@ -301,12 +299,7 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 	public void save() {

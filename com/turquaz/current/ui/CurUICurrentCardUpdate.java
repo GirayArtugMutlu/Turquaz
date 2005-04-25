@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridLayout;
@@ -43,6 +42,7 @@ import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -223,7 +223,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 			return true;
 		}
 	}
@@ -320,12 +320,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -432,12 +427,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			MessageBox msg3 = new MessageBox(this.getParent(), SWT.ICON_WARNING);
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
-			msg3.setMessage(ex.getMessage());
-			msg3.open();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -508,9 +498,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex);
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 }

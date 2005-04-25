@@ -25,7 +25,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
@@ -43,6 +42,7 @@ import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
@@ -994,7 +994,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
 
@@ -1024,9 +1025,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -1046,9 +1046,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return null;
 		}
 	}
@@ -1070,9 +1069,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return null;
 		}
 	}
@@ -1088,9 +1086,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			return null;
 		}
 	}
@@ -1204,9 +1201,8 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			ex.printStackTrace();
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
 			
 		}
 	}

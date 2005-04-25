@@ -15,6 +15,7 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.current.ui.CurUICurrentTransfer;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -137,7 +138,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 			}
 			return isUpdated;
 		} catch (Exception e) {
-			e.printStackTrace();
+            EngBLLogger.log(this.getClass(),e,getParent());
 		return false; 
 		}
 	}
@@ -176,7 +177,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 		
 		
@@ -200,7 +201,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 		
 	}
@@ -222,7 +223,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace();
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 		
 	}
