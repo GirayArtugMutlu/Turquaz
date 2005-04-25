@@ -729,9 +729,30 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						cf.format(priceIn), cf.format(unitPriceIn), cf.format(outAmount) + "", //$NON-NLS-1$
 						cf.format(priceOut), cf.format(unitPriceOut)}, transId);
 			}
+			boolean writeAmounts=false;
+			if (list.size()> 0)
+			{
+				Object[] result = (Object[]) list.get(0);
+				String invCode1 = (String) result[5];
+				result = (Object[]) list.get(list.size()-1);
+				String invCode2 = (String) result[5];
+				if ( invCode1.equals(invCode2))
+				{
+					writeAmounts=true;
+				}
+			}
+			
 			tableViewer.addRow(new String[]{"", "", "", "", "", "", "", "", ""}, null);
-			tableViewer
-					.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalPriceIn), "", "", cf.format(totalPriceOut), ""}, null);
+			if (writeAmounts)
+			{
+				BigDecimal unitPriceIn=(totalAmountIn.doubleValue()== 0) ? new BigDecimal(0) : totalPriceIn.divide(totalAmountIn,2,EngBLCommon.ROUNDING_METHOD);
+				BigDecimal unitPriceOut=(totalAmountOut.doubleValue()== 0) ? new BigDecimal(0) : totalPriceOut.divide(totalAmountOut,2,EngBLCommon.ROUNDING_METHOD);
+				tableViewer.addRow(new String[]{"", "", "TOPLAM", cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut), cf.format(totalPriceOut), cf.format(unitPriceOut)}, null);
+			}
+			else
+			{
+				tableViewer.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalPriceIn), "", "", cf.format(totalPriceOut), ""}, null);
+			}			
 			if (list.size() > 0)
 				GenerateJasper(list, type);
 		}
