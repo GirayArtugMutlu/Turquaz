@@ -17,6 +17,7 @@ package com.turquaz.consignment.ui;
 /************************************************************************/
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +90,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 		super(parent, style);
 	}
 
-	public Object[] open()
+	public Object[] open(Date billDate)
 	{
 		try
 		{
@@ -125,8 +126,8 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				{
 					txtCurCard = new CurrentPicker(composite1, SWT.NONE);
 					GridData txtCurCardLData = new GridData();
-					txtCurCardLData.widthHint = 208;
-					txtCurCardLData.heightHint = 20;
+					txtCurCardLData.widthHint = 391;
+					txtCurCardLData.heightHint = 19;
 					txtCurCardLData.horizontalSpan = 3;
 					txtCurCard.setLayoutData(txtCurCardLData);
 				}
@@ -144,6 +145,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					dateStartDateLData.widthHint = 141;
 					dateStartDateLData.heightHint = 22;
 					dateStartDate.setLayoutData(dateStartDateLData);
+					dateStartDate.setEnabled(false);
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
@@ -159,6 +161,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					dateEndDateLData.widthHint = 140;
 					dateEndDateLData.heightHint = 22;
 					dateEndDate.setLayoutData(dateEndDateLData);
+					dateEndDate.setEnabled(false);
 				}
 				{
 					lblSeperator = new Label(composite1, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -272,7 +275,11 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 			}
 			
-			dateStartDate.setFirstDayOfYear();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(billDate);
+            cal.add(Calendar.DATE,-7);
+			dateStartDate.setDate(cal.getTime());
+            dateEndDate.setData(billDate);
 			composite1.layout();
 			dialogShell.layout();
 			EngUICommon.centreWindow(dialogShell);

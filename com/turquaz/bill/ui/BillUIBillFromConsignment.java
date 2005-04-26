@@ -767,7 +767,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 
 	public void chooseConsignmentMouseUp()
 	{
-		Object[] result = new ConUIConsignmentSearchDialog(this.getShell(), SWT.NULL).open();
+		Object[] result = new ConUIConsignmentSearchDialog(this.getShell(), SWT.NULL).open(dateBillDate.getDate());
 		if(result[0]==null||result[1]==null)
 		{
 			return;
