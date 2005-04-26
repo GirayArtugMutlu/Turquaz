@@ -628,16 +628,6 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		}
 	}
 
-	/*
-	 * public void currentCardChoose() { Object data = new CurUICurrentCardSearchDialog(this.getShell(), SWT.NULL).open(); if (data !=
-	 * null) { TurqCurrentCard curCard = (TurqCurrentCard) data; txtCurrentCard.setText(curCard.getCardsCurrentCode() + " - " //$NON-NLS-1$ +
-	 * curCard.getCardsName()); txtCurrentCard.setData(curCard); } }
-	 */
-	/*
-	 * public void inventoryCardChoose() { Object data = new InvUICardSearchDialog(this.getShell(), SWT.NULL).open(); if (data != null) {
-	 * TurqInventoryCard invCard = (TurqInventoryCard) data; txtInvCardStart.setText(invCard.getCardInventoryCode() + " - " //$NON-NLS-1$ +
-	 * invCard.getCardName()); txtInvCardStart.setData(invCard); } }
-	 */
 	public void save()
 	{
 	}
@@ -676,8 +666,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			{
 				argMap.put(InvKeys.INV_CARD_CODE_START,"");
 				argMap.put(InvKeys.INV_CARD_CODE_END,"");
-				argMap.put(InvKeys.INV_CARD_NAME_START,txtCurCardStart.getData());
-				argMap.put(InvKeys.INV_CARD_NAME_END,txtCurCardEnd.getData());
+				argMap.put(InvKeys.INV_CARD_NAME_START,txtInvNameStart.getText().trim());
+				argMap.put(InvKeys.INV_CARD_NAME_END,txtInvNameEnd.getText().trim());
 			}
 			List list =(List)EngTXCommon.doTransactionTX(InvBLSearchTransaction.class.getName(),"searchTransactionsAdvanced",argMap);
 			TurqInventoryTransaction transactions;

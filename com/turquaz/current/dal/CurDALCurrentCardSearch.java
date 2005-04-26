@@ -56,8 +56,16 @@ public class CurDALCurrentCardSearch
 			{
 				query += " left join  currentCard.turqCurrentCardsGroups as gr ";
 			}
-			query += " where currentCard.id=currentView.currentCardsId" + " and currentCard.cardsCurrentCode like '" + currentCode
-					+ "%'" + " and currentCard.cardsName like '" + currentName + "%'" + " and currentCard.id <> -1";
+			query += " where currentCard.id=currentView.currentCardsId";
+			if (!currentCode.equals(""))
+			{
+				query += " and currentCard.cardsCurrentCode like '" +currentCode+ "%'";
+			}
+			if (!currentName.equals(""))
+			{
+				query += " and currentCard.cardsName like '" + currentName + "%'";
+			}
+			query += " and currentCard.id <> -1";
 			if (cardGroup != null)
 			{
 				//query +=" and :cardGroup in (Select gr.turqCurrentGroup from gr)";

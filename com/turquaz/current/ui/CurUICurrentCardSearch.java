@@ -37,6 +37,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.CurKeys;
+import org.eclipse.swt.widgets.Button;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
@@ -76,6 +77,8 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		SWTResourceManager.registerResourceUser(this);
 	}
 	private MenuItem item;
+	private Button radioCurrentName;
+	private Button radioCurrentCode;
 	private Menu popup;
 	private TableColumn tableColumnBalance;
 	private TableColumn tableColumnTotalDept;
@@ -112,11 +115,12 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			//START >> compCurrentCardSearch
 			compCurrentCardSearch = new Composite(this, SWT.NONE);
 			GridLayout compCurrentCardSearchLayout = new GridLayout();
-			compCurrentCardSearchLayout.numColumns = 2;
+			compCurrentCardSearchLayout.numColumns = 3;
 			GridData compCurrentCardSearchLData = new GridData();
 			compCurrentCardSearch.setLayout(compCurrentCardSearchLayout);
-			compCurrentCardSearchLData.widthHint = 380;
-			compCurrentCardSearchLData.heightHint = 90;
+			compCurrentCardSearchLData.heightHint = 77;
+			compCurrentCardSearchLData.grabExcessHorizontalSpace = true;
+			compCurrentCardSearchLData.horizontalAlignment = GridData.FILL;
 			compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
 			//START >> lblCurrentCode
 			lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
@@ -131,6 +135,11 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			txtCurrentCodeLData.heightHint = 17;
 			txtCurrentCode.setLayoutData(txtCurrentCodeLData);
 			//END << txtCurrentCode
+			//START >>  radioCurrentCode
+			radioCurrentCode = new Button(compCurrentCardSearch, SWT.RADIO | SWT.LEFT);
+			radioCurrentCode.setText("Koda Göre Ara");
+			radioCurrentCode.setSelection(true);
+			//END <<  radioCurrentCode
 			//START >> lblCurrentName
 			lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
 			lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1"));
@@ -148,10 +157,14 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 						search();
 				}
 			});
-			txtCurrentNameLData.widthHint = 238;
-			txtCurrentNameLData.heightHint = 19;
+			txtCurrentNameLData.widthHint = 235;
+			txtCurrentNameLData.heightHint = 17;
 			txtCurrentName.setLayoutData(txtCurrentNameLData);
 			//END << txtCurrentName
+			//START >>  radioCurrentName
+			radioCurrentName = new Button(compCurrentCardSearch, SWT.RADIO | SWT.LEFT);
+			radioCurrentName.setText("Ünvana Göre Ara");
+			//END <<  radioCurrentName
 			//START >> lblTurqGroupName
 			lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
 			lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2"));
@@ -253,6 +266,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
+			txtCurrentCode.setTxtCurrentName(txtCurrentName);
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
 			
@@ -343,8 +357,16 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			tableViewer.removeAll();
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
-			argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
+			if (radioCurrentCode.getSelection())
+			{
+				argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
+				argMap.put(CurKeys.CUR_CURRENT_NAME,"");
+			}
+			else
+			{
+				argMap.put(CurKeys.CUR_CURRENT_CODE,"");
+				argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
+			}	
 			argMap.put(CurKeys.CUR_GROUP, comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			
 			
