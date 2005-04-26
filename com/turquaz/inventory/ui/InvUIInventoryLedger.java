@@ -330,7 +330,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableInventories);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

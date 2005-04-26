@@ -345,7 +345,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableBankCards);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	/** Auto-generated event handler method */

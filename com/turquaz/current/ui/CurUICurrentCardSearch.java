@@ -444,7 +444,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCurrentCardSearch);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

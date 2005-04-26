@@ -515,7 +515,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableTransactions);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

@@ -272,7 +272,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableAbstract);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

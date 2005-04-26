@@ -265,7 +265,7 @@ public class CashUICashCardDailyAbstract extends org.eclipse.swt.widgets.Composi
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCashTrans);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

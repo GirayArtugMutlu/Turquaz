@@ -293,7 +293,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableInvUIWarehouses);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

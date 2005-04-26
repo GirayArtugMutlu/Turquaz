@@ -931,7 +931,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableBills);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void tableMouseDoubleClick()

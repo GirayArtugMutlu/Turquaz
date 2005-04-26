@@ -333,7 +333,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableChequeRolls);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

@@ -449,6 +449,6 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableTransactions);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 }

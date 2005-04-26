@@ -124,7 +124,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCashTrans);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void GenerateJasper(List list, List deferred)

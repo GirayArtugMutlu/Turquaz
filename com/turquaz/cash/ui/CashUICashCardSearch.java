@@ -182,7 +182,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCashCards);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

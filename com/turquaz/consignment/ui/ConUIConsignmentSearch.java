@@ -456,7 +456,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableConsignments);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 	ConBLUpdateConsignment blUpdate = new ConBLUpdateConsignment();
 

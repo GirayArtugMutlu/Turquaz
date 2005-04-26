@@ -231,7 +231,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCashTransactions);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

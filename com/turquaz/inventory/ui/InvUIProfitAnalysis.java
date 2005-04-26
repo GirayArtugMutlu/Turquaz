@@ -235,7 +235,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableInvTotals);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

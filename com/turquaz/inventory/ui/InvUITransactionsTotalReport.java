@@ -689,7 +689,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableSearcResults);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

@@ -74,6 +74,10 @@ public class SearchTableViewer
 		setPopupMenu();
 	}
 
+    public int[] getColumnTypes()
+    {
+        return columnTypes;
+    }
 	public void addRow(String[] txt, Object data)
 	{
 		rowList.addTask(new SearchTableRow(txt, data));
@@ -108,6 +112,10 @@ public class SearchTableViewer
 			}
 		});
 	}
+    public Table getTable()
+    {
+        return viewer.getTable();
+    }
 
 	public void setColumnWidths()
 	{

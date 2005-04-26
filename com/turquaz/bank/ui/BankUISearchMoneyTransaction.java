@@ -224,7 +224,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableMoneyTrans);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

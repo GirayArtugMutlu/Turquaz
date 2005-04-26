@@ -351,7 +351,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableCheques);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()

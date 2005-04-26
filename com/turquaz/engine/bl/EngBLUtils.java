@@ -25,8 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -69,6 +67,9 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.SWTPTable;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
+import com.turquaz.engine.ui.viewers.SearchTableViewer;
+import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PDocument;
 import de.kupzog.ktools.kprint.boxes.PHLine;
@@ -86,12 +87,85 @@ public class EngBLUtils
 {
 	public static String logoURL;
 
-	public static void Export2Excel(Table table)
+    public static void Export2Excel(Table table)
+    {
+        try
+        {
+            TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
+            FileDialog dialog = new FileDialog(table.getShell(), SWT.SAVE);
+            dialog.setFilterNames(new String[]{"Excel File", "(*.xls)"}); //$NON-NLS-1$ //$NON-NLS-2$
+            dialog.setFilterExtensions(new String[]{"*.xls"}); //Windows wild cards //$NON-NLS-1$
+            dialog.setFileName("Rapor"); //$NON-NLS-1$
+            String filepath = dialog.open();
+            if (filepath != null)
+            {
+                short rownum;
+                //           create a new file
+                FileOutputStream out = new FileOutputStream(filepath);
+                //           create a new workbook
+                HSSFWorkbook wb = new HSSFWorkbook();
+                //           create a new sheet
+                HSSFSheet s = wb.createSheet();
+                //           declare a row object reference
+                HSSFRow r = null;
+                //           declare a cell object reference
+                HSSFCell c = null;
+                //          
+                //           set the sheet name in Unicode
+                wb.setSheetName(0, "Sheet1", //$NON-NLS-1$
+                        HSSFWorkbook.ENCODING_COMPRESSED_UNICODE);
+                //           in case of compressed Unicode
+                //           wb.setSheetName(0, "HSSF Test", HSSFWorkbook.ENCODING_COMPRESSED_UNICODE );
+                //           create a sheet with 30 rows (0-29)
+                TableItem items[] = table.getItems();
+                int colCount = table.getColumnCount();
+                
+                
+                
+                r = s.createRow(1);
+                
+                for(short j=0;j<colCount;j++)
+                {
+                    String cell_value = table.getColumn(j).getText();
+                    c = r.createCell(j);
+                    c.setEncoding(HSSFCell.ENCODING_UTF_16);
+                    c.setCellValue(cell_value);           
+                    
+                }
+                  
+                
+                
+                
+                for (int i = 2; i <= items.length+1; i++)
+                {
+                    // create a row
+                    r = s.createRow(i);
+                    for (short j = 0; j < colCount; j++)
+                    {
+                        String cell_value = items[i - 2].getText(j);
+                        c = r.createCell(j);
+                        // set the cell's string value
+                        c.setEncoding(HSSFCell.ENCODING_UTF_16);
+                              
+                            c.setCellValue(cell_value);
+                       
+                    }
+                }
+                wb.write(out);
+                out.close();
+            }
+        }
+        catch (Exception ex)
+        {
+            EngBLLogger.log(EngBLUtils.class,ex);
+        }
+    }
+	public static void Export2Excel(SearchTableViewer viewer)
 	{
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			FileDialog dialog = new FileDialog(table.getShell(), SWT.SAVE);
+			FileDialog dialog = new FileDialog(viewer.getTable().getShell(), SWT.SAVE);
 			dialog.setFilterNames(new String[]{"Excel File", "(*.xls)"}); //$NON-NLS-1$ //$NON-NLS-2$
 			dialog.setFilterExtensions(new String[]{"*.xls"}); //Windows wild cards //$NON-NLS-1$
 			dialog.setFileName("Rapor"); //$NON-NLS-1$
@@ -116,36 +190,52 @@ public class EngBLUtils
 				//			 in case of compressed Unicode
 				//			 wb.setSheetName(0, "HSSF Test", HSSFWorkbook.ENCODING_COMPRESSED_UNICODE );
 				//			 create a sheet with 30 rows (0-29)
-				TableItem items[] = table.getItems();
-				int colCount = table.getColumnCount();
-				for (int i = 1; i <= items.length; i++)
+				TableItem items[] = viewer.getTable().getItems();
+				int colCount = viewer.getTable().getColumnCount();
+                
+                
+                
+                r = s.createRow(1);
+                
+                for(short j=0;j<colCount;j++)
+                {
+                    String cell_value = viewer.getTable().getColumn(j).getText();
+                    c = r.createCell(j);
+                    c.setEncoding(HSSFCell.ENCODING_UTF_16);
+                    c.setCellValue(cell_value);           
+                    
+                }
+                  
+                
+                
+                
+				for (int i = 2; i <= items.length+1; i++)
 				{
 					// create a row
 					r = s.createRow(i);
 					for (short j = 0; j < colCount; j++)
 					{
-						String cell_value = items[i - 1].getText(j);
+						String cell_value = items[i - 2].getText(j);
 						c = r.createCell(j);
 						// set the cell's string value
 						c.setEncoding(HSSFCell.ENCODING_UTF_16);
-						Pattern alphabet = Pattern.compile("[A-Za-z]+"); //$NON-NLS-1$
-						Matcher matcher = alphabet.matcher(cell_value);
-						if (matcher.find())
+                        
+                      
+						if (viewer.getColumnTypes()[j]==TurquazTableSorter.COLUMN_TYPE_DECIMAL)
 						{
-							c.setCellValue(cell_value);
+                            try{
+                            double dc = (cf.parse(cell_value)).doubleValue();
+                            c.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+                            c.setCellValue(dc);
+                            }
+                            catch(Exception ex)
+                            {
+                                c.setCellValue(cell_value);
+                            }
 						}
 						else
 						{
-							try
-							{
-								double dc = (cf.parse(cell_value)).doubleValue();
-								c.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
-								c.setCellValue(dc);
-							}
-							catch (Exception ex)
-							{
-								c.setCellValue(cell_value);
-							}
+							c.setCellValue(cell_value);
 						}
 					}
 				}

@@ -21,6 +21,7 @@ package com.turquaz.accounting.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
@@ -53,6 +55,7 @@ import com.turquaz.engine.ui.viewers.TurquazContentProvider;
 import com.turquaz.engine.ui.viewers.TurquazLabelProvider;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.TableCursor;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
@@ -370,7 +373,10 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
 				
 				Set transactionRows = accTrans.getTurqAccountingTransactionColumns();
-				Iterator it = transactionRows.iterator();
+				ArrayList ls = new ArrayList(transactionRows);
+                Collections.sort(ls,new EngBLHibernateComparer());
+                
+                Iterator it = ls.iterator();
 				TurqAccountingTransactionColumn transRow;
 				TableItem item;
 				while (it.hasNext())
@@ -542,6 +548,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				
 				msg.setMessage(Messages.getString("AccUITransactionUpdateDialog.2")); //$NON-NLS-1$
 				msg.open();
+                newForm();
 			}
 		}
 		catch (Exception ex)
@@ -619,6 +626,12 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 
 	public void newForm()
 	{
+        AccUIInitialTransaction curCard = new AccUIInitialTransaction(this.getParent(), this.getStyle());
+        CTabFolder tabfld = (CTabFolder) this.getParent();
+        tabfld.getSelection().setControl(curCard);
+        this.dispose();
+        
+        
 	}
 
 	public void search()

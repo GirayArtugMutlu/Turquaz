@@ -769,7 +769,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 
 	public void exportToExcel()
 	{
-		EngBLUtils.Export2Excel(tableInvTransactions);
+		EngBLUtils.Export2Excel(tableViewer);
 	}
 
 	public void printTable()
