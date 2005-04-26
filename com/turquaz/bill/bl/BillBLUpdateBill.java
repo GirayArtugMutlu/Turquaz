@@ -169,9 +169,10 @@ public class BillBLUpdateBill
 			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);			
+			Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
 			
 			int result[] = new int[2];
-			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted.booleanValue(), dueDate, type.intValue(), true, exchangeRate);
+			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted.booleanValue(), dueDate, type.intValue(), true, exchangeRate,billCheck);
 			result[0] = updateInventoryTransactions(bill, invTransactions);
 			updateBillGroups(bill, billGroups);
 			//Update Transactions
@@ -225,8 +226,10 @@ public class BillBLUpdateBill
 	}
 
 	private static void updateBillInfo(TurqBill bill, TurqCurrentCard curCard, Date billDate, String definition, String billDocNo,
-			boolean isPrinted, Date dueDate, int type, boolean isOpen, TurqCurrencyExchangeRate exRate) throws Exception
+			boolean isPrinted, Date dueDate, int type, boolean isOpen, TurqCurrencyExchangeRate exRate, Integer billCheck) throws Exception
 	{
+		
+		BillBLAddBill.checkBillDocNo(billDocNo,billCheck,type,curCard.getId(),bill.getId());
 		bill.setBillDocumentNo(billDocNo);
 		bill.setBillsDate(billDate);
 		bill.setBillsDefinition(definition);

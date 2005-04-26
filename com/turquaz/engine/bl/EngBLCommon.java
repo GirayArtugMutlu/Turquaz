@@ -33,6 +33,7 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
+import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -225,7 +226,14 @@ public class EngBLCommon
 	public final static String CHEQUE_STATUS_BOUNCED_STRING = Messages.getString("EngBLCommon.17"); //$NON-NLS-1$
 
 
+	public final static String BILL_CONFIG_CHECK_BILL_NO="checkBillNo";
+	public final static String BILL_CONFIG_CHECK_BUY_BILL="checkBuyBill";
+	public final static String BILL_CONFIG_CHECK_SELL_BILL="checkSellBill";
+
+	public final static int CHECK_BUY_BILL=1;
+	public final static int CHECK_SELL_BILL=2;
 	
+	public final static String EX_BILL_DOC_NO="Bill document no is already defined!";
 	
 	public static Map getChequeStatusMapWithStringKey()
 	{
@@ -454,6 +462,41 @@ public class EngBLCommon
 		
 		return new Boolean(EngDALCommon.checkUserPass(user, pass));
 		
+	}
+	
+	public static Integer getBillCheckStatus()
+	{
+		String checkBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
+		if (checkBill != null)
+		{
+			boolean check=new Boolean(checkBill).booleanValue();
+			if (check)
+			{
+				boolean checkBuy=false;
+				boolean checkSell=false;
+				String checkBuyBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
+				if (checkBuyBill != null)
+				{
+					checkBuy=new Boolean(checkBuyBill).booleanValue();
+				}		
+				String checkSellBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
+				if (checkSellBill != null)
+				{
+					checkSell=new Boolean(checkSellBill).booleanValue();
+				}
+				int result=0;
+				if (checkBuy)
+				{
+					result |= EngBLCommon.CHECK_BUY_BILL;
+				}
+				if (checkSell)
+				{
+					result |= EngBLCommon.CHECK_SELL_BILL;
+				}
+				return new Integer(result);
+			}	
+		}
+		return new Integer(0);	
 	}
 
 	public static void delete(Object obj) throws Exception

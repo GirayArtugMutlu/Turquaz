@@ -43,6 +43,8 @@ public class EngTXCommon
 		}
 		catch(Exception ex)
 		{
+			if (tx != null)
+				tx.rollback();
 			throw ex;
 		}
 		finally
@@ -77,7 +79,8 @@ public class EngTXCommon
 		}
 		catch(Exception ex)
 		{
-			if (tx != null){
+			if (tx != null)
+			{
 				tx.rollback();
 			}
 			throw ex;

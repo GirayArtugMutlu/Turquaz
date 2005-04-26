@@ -707,7 +707,8 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
-
+				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
+				
 				TurqBill bill = (TurqBill)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromCons",argMap);
 				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
 				msg.open();

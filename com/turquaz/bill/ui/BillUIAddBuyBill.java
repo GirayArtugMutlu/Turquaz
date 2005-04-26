@@ -1087,6 +1087,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(EngConfiguration.automaticDispatcNote()));
 				argMap.put(ConsKeys.CONS_DOC_NO,txtConsignmentDocumentNo.getText());
 				argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
+				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
+				
 				Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
 				if(result.intValue()!=1)
 				{

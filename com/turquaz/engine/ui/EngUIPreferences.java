@@ -11,11 +11,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.Messages;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -41,6 +43,11 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private Composite compGeneral;
+	private Button checkSellBills;
+	private Button checkBuyBills;
+	private Button radioBillNoCheck;
+	private Button radioBillNoNotCheck;
+	private Group groupBillNoCheck;
 	private Composite compBill;
 	private CTabItem tabItemBill;
 	private CTabItem cTabItem1;
@@ -80,7 +87,10 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 						{
 							EngConfiguration.setCurrentDate(datePicker.getDate());
 							EngConfiguration.setString("invoice_template", cCombo.getText().trim()); //$NON-NLS-1$
-							EngConfiguration.setString("automatic.dispatch.note",btnAutomaticDispatcNote.getSelection()+"");
+							EngConfiguration.setString("automatic.dispatch.note",String.valueOf(btnAutomaticDispatcNote.getSelection()));
+							EngConfiguration.setString(EngBLCommon.BILL_CONFIG_CHECK_BILL_NO,String.valueOf(radioBillNoCheck.getSelection()));
+							EngConfiguration.setString(EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL, String.valueOf(checkBuyBills.getSelection()));
+							EngConfiguration.setString(EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL, String.valueOf(checkSellBills.getSelection()));
 							dialogShell.close();
 						}
 					});
@@ -145,10 +155,10 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				tabItemBill.setText("Fatura");
 				//START >>  compBill
 				compBill = new Composite(tabFolder, SWT.NONE);
+				tabItemBill.setControl(compBill);
 				GridLayout compBillLayout = new GridLayout();
 				compBillLayout.numColumns = 2;
 				compBill.setLayout(compBillLayout);
-				tabItemBill.setControl(compBill);
 				{
 					lblBillFormat = new CLabel(compBill, SWT.NONE);
 					lblBillFormat.setText(Messages.getString("EngUIPreferences.5")); //$NON-NLS-1$
@@ -170,6 +180,51 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				btnAutomaticDispatcNote.setText("Fatura kaydedildi\u011finde otamatik irsaliye kesilsin");
 				btnAutomaticDispatcNote.setSelection(true);
 				//END <<  btnAutomaticDispatcNote
+				//START >>  groupBillNoCheck
+				groupBillNoCheck = new Group(compBill, SWT.NONE);
+				GridLayout groupBillNoCheckLayout = new GridLayout();
+				GridData groupBillNoCheckLData = new GridData();
+				groupBillNoCheckLData.widthHint = 236;
+				groupBillNoCheckLData.heightHint = 87;
+				groupBillNoCheckLData.horizontalSpan = 2;
+				groupBillNoCheck.setLayoutData(groupBillNoCheckLData);
+				groupBillNoCheckLayout.makeColumnsEqualWidth = true;
+				groupBillNoCheck.setLayout(groupBillNoCheckLayout);
+				groupBillNoCheck.setText("Fatura No Kontrolü");
+				//START >>  radioBillNoNotCheck
+				radioBillNoNotCheck = new Button(groupBillNoCheck, SWT.RADIO | SWT.LEFT);
+				radioBillNoNotCheck.setText("Kontrol etme");
+				radioBillNoNotCheck.setSelection(true);
+				radioBillNoNotCheck.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						checkBuyBills.setEnabled(false);
+						checkSellBills.setEnabled(false);
+					}
+				});
+				//END <<  radioBillNoNotCheck
+				//START >>  radioBillNoCheck
+				radioBillNoCheck = new Button(groupBillNoCheck, SWT.RADIO | SWT.LEFT);
+				radioBillNoCheck.setText("Kontrol et");
+				radioBillNoCheck.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						checkBuyBills.setEnabled(true);
+						checkSellBills.setEnabled(true);
+					}
+				});
+				//END <<  radioBillNoCheck
+				//START >>  checkBuyBills
+				checkBuyBills = new Button(groupBillNoCheck, SWT.CHECK | SWT.LEFT);
+				checkBuyBills.setText("Al\u0131\u015f Faturalar\u0131 - Ayn\u0131 Cari");
+				checkBuyBills.setEnabled(false);
+				checkBuyBills.setSelection(true);
+				//END <<  checkBuyBills
+				//START >>  checkSellBills
+				checkSellBills = new Button(groupBillNoCheck, SWT.CHECK | SWT.LEFT);
+				checkSellBills.setText("Sat\u0131\u015f faturalar\u0131");
+				checkSellBills.setEnabled(false);
+				checkSellBills.setSelection(true);
+				//END <<  checkSellBills
+				//END <<  groupBillNoCheck
 				//END <<  compBill
 				tabFolder.setSelection(0);
 				//END <<  tabItemBill
@@ -191,13 +246,64 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
             EngBLLogger.log(this.getClass(),e);
 		}
 	}
-	public void postInitGUI(){
+	private void postInitGUI(){
+		configureBill();
+	
+	}
+	
+	private void configureBill()
+	{
 		fillBillTypeCombo();
-		btnAutomaticDispatcNote.setSelection(EngConfiguration.automaticDispatcNote());
-		
+		String dispatch=EngConfiguration.getString("automatic.dispatch.note");
+		if (dispatch != null)
+		{
+			btnAutomaticDispatcNote.setSelection(new Boolean(dispatch).booleanValue());
+		}	
+		else
+		{
+			btnAutomaticDispatcNote.setSelection(true);
+		}
+		String checkBillNo=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
+		if (checkBillNo != null)
+		{		
+			boolean check=new Boolean(checkBillNo).booleanValue();
+			radioBillNoNotCheck.setSelection(!check);
+			radioBillNoCheck.setSelection(check);
+			
+			if (check)
+			{
+				checkBuyBills.setEnabled(true);
+				checkSellBills.setEnabled(true);
+			}
+		}	
+		else
+		{
+			radioBillNoNotCheck.setSelection(true);
+			radioBillNoCheck.setSelection(false);
+			checkBuyBills.setEnabled(false);
+			checkSellBills.setEnabled(false);
+		}
+		String checkBuyBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
+		if (checkBuyBill != null)
+		{
+			checkBuyBills.setSelection(new Boolean(checkBuyBill).booleanValue());
+		}
+		else
+		{
+			checkBuyBills.setSelection(false);
+		}
+		String checkSellBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
+		if (checkSellBill != null)
+		{
+			checkSellBills.setSelection(new Boolean(checkSellBill).booleanValue());
+		}
+		else
+		{
+			checkSellBills.setSelection(false);
+		}
 	}
 
-	public void fillBillTypeCombo()
+	private void fillBillTypeCombo()
 	{
 		try
 		{

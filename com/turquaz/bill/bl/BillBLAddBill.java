@@ -11,6 +11,7 @@ import java.util.Map;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.BillKeys;
+import com.turquaz.bill.dal.BillDALAddBill;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
@@ -29,6 +30,7 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.exceptions.TurquazException;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -56,8 +58,9 @@ public class BillBLAddBill
 		List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 		List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
 		Boolean saveCons = (Boolean)argMap.get(BillKeys.BILL_SAVE_CONS);
+		Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
 		
-		registerBill(bill,billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
+		registerBill(bill,billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,billCheck);
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
 		TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
 		billInEng.setTurqEngineSequence(engSeq);
@@ -73,8 +76,7 @@ public class BillBLAddBill
 		}
 		
 		int result = saveAccountingTransaction(bill);
-		return new Integer(result);
-		
+		return new Integer(result);		
 	}
 
 	private static void saveBillGroups(Integer billId, List billGroups) throws Exception
@@ -88,7 +90,7 @@ public class BillBLAddBill
 
 	/** ************************************************************************* */
 	//B?ll from consignment
-	public static TurqBill saveBillFromCons(HashMap argMap) throws Exception
+	public static TurqBill saveBillFromCons(HashMap argMap) throws TurquazException,Exception
 	{
 		try
 		{			
@@ -104,9 +106,11 @@ public class BillBLAddBill
 			BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
 			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
+			Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
+
 			// Save Bill
 			TurqBill  bill  = new TurqBill();
-			registerBill(bill,docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate);
+			registerBill(bill,docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,billCheck);
 			//Then Save Bill Groups
 			for (int i = 0; i < consList.size(); i++)
 			{
@@ -142,11 +146,11 @@ public class BillBLAddBill
 	 * @throws Exception
 	 */
 	private static TurqBill registerBill(TurqBill bill,String docNo, String definition, boolean isPrinted, Date billsDate, int type, Date dueDate,
-			TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate) throws Exception
+			TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate,Integer billCheck) throws Exception
 	{
 		try
 		{
-			
+			checkBillDocNo(docNo,billCheck,type,curCard.getId(),null);
 			bill.setBillsDate(billsDate);
 			bill.setBillsDefinition(definition);
 			bill.setBillsPrinted(isPrinted);
@@ -168,6 +172,45 @@ public class BillBLAddBill
 		catch (Exception ex)
 		{
 			throw ex;
+		}
+	}
+	
+	public static void checkBillDocNo(String docNo,Integer billCheck,int type,Integer curCardId, Integer billId) throws Exception
+	{
+		int billCheckValue=billCheck.intValue();
+		boolean checkBuyBill=false;
+		boolean checkSellBill=false;
+		if ( (billCheckValue & EngBLCommon.CHECK_BUY_BILL) != 0)
+		{
+			checkBuyBill=true;
+		}
+		if ( (billCheckValue & EngBLCommon.CHECK_SELL_BILL) != 0)
+		{
+			checkSellBill=true;
+		}
+		if (type==EngBLCommon.COMMON_BUY_INT)
+		{
+			if (checkBuyBill)
+			{
+				boolean existBillNo=BillDALAddBill.existBillNo(docNo,curCardId,type,billId);
+				if (existBillNo)
+				{
+					throw new TurquazException(EngBLCommon.EX_BILL_DOC_NO);
+				}
+				System.out.println("buy"+existBillNo);
+			}
+		}
+		else
+		{
+			if (checkSellBill)
+			{
+				boolean existBillNo=BillDALAddBill.existBillNo(docNo,type,billId);
+				if (existBillNo)
+				{
+					throw new TurquazException(EngBLCommon.EX_BILL_DOC_NO);
+				}	
+				System.out.println("sell"+existBillNo);
+			}
 		}
 	}
 
