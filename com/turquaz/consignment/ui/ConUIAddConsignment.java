@@ -188,6 +188,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	{
 		return txtTotalVat;
 	}
+    
 	{
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
@@ -211,6 +212,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	private TableColumn tableColumn1;
 	private Text txtBillDocumentNo;
 	private CLabel lblInventoryPrice;
+	private Text datePickerBillDate;
+	private CLabel lblBillDate;
 	private CTabItem tabItemInfo;
 	private TableColumn tableColumnAmountAfterDiscount;
 	private TableColumn tableColumnDiscountRate;
@@ -310,7 +313,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 						GridData compInfoPanelLData = new GridData();
 						compInfoPanelLData.horizontalSpan = 2;
 						compInfoPanelLData.horizontalAlignment = GridData.FILL;
-						compInfoPanelLData.heightHint = 116;
+						compInfoPanelLData.heightHint = 147;
 						compInfoPanelLData.grabExcessHorizontalSpace = true;
 						compInfoPanel.setLayoutData(compInfoPanelLData);
 						compInfoPanelLayout.numColumns = 4;
@@ -320,8 +323,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							lblCurrentCard.setText(Messages.getString("ConUIAddConsignment.1")); //$NON-NLS-1$
 							GridData lblCurrentCardLData1 = new GridData();
 							lblCurrentCard.setSize(88, 19);
-							lblCurrentCardLData1.widthHint = 88;
-							lblCurrentCardLData1.heightHint = 19;
 							lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
 							lblCurrentCard.setLayoutData(lblCurrentCardLData1);
 						}
@@ -329,17 +330,15 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							txtCurrentCard = new CurrentPicker(compInfoPanel, SWT.NONE);
 							GridData txtCurrentCardLData = new GridData();
 							txtCurrentCard.setBackground(SWTResourceManager.getColor(255, 255, 255));
-							txtCurrentCardLData.widthHint = 157;
-							txtCurrentCardLData.heightHint = 17;
+							txtCurrentCardLData.heightHint = 19;
+							txtCurrentCardLData.horizontalSpan = 3;
+							txtCurrentCardLData.grabExcessHorizontalSpace = true;
+							txtCurrentCardLData.widthHint = 471;
 							txtCurrentCard.setLayoutData(txtCurrentCardLData);
 						}
 						{
 							lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
 							lblDocumentNo.setText(Messages.getString("ConUIAddConsignment.3")); //$NON-NLS-1$
-							GridData lblDocumentNoLData = new GridData();
-							lblDocumentNoLData.widthHint = 63;
-							lblDocumentNoLData.heightHint = 15;
-							lblDocumentNo.setLayoutData(lblDocumentNoLData);
 						}
 						{
 							txtDocumentNo = new Text(compInfoPanel, SWT.NONE);
@@ -349,29 +348,8 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							txtDocumentNo.setLayoutData(txtDocumentNoLData);
 						}
 						{
-							lblBillDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
-							lblBillDocumentNo.setText(Messages.getString("ConUIAddConsignment.4")); //$NON-NLS-1$
-							GridData lblBillDocumentNoLData = new GridData();
-							lblBillDocumentNoLData.widthHint = 109;
-							lblBillDocumentNoLData.heightHint = 19;
-							lblBillDocumentNo.setLayoutData(lblBillDocumentNoLData);
-						}
-						{
-							txtBillDocumentNo = new Text(compInfoPanel, SWT.NONE);
-							GridData txtBillDocumentNoLData = new GridData();
-							txtBillDocumentNoLData.widthHint = 150;
-							txtBillDocumentNoLData.heightHint = 17;
-							txtBillDocumentNo.setLayoutData(txtBillDocumentNoLData);
-							txtBillDocumentNo.setEditable(false);
-							txtBillDocumentNo.setBackground(SWTResourceManager.getColor(255, 255, 255));
-						}
-						{
 							lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-							lblDate.setText(Messages.getString("ConUIAddConsignment.5")); //$NON-NLS-1$
-							GridData lblDateLData = new GridData();
-							lblDateLData.widthHint = 52;
-							lblDateLData.heightHint = 20;
-							lblDate.setLayoutData(lblDateLData);
+							lblDate.setText("\u0130rsaliyeTarihi"); //$NON-NLS-1$
 						}
 						{
 							dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -379,9 +357,35 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							dateConsignmentDate.setBackground(SWTResourceManager.getColor(255, 255, 255));
 							dateConsignmentDate.setFont(SWTResourceManager.getFont("Nimbus Sans L", 10, 1, false, false)); //$NON-NLS-1$
 							dateConsignmentDateLData.widthHint = 157;
-							dateConsignmentDateLData.heightHint = 23;
+							dateConsignmentDateLData.heightHint = 20;
 							dateConsignmentDate.setLayoutData(dateConsignmentDateLData);
 						}
+                        {
+                            lblBillDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
+                            lblBillDocumentNo.setText(Messages.getString("ConUIAddConsignment.4")); //$NON-NLS-1$
+                        }
+                        {
+                            txtBillDocumentNo = new Text(compInfoPanel, SWT.NONE);
+                            GridData txtBillDocumentNoLData = new GridData();
+                            txtBillDocumentNoLData.widthHint = 150;
+                            txtBillDocumentNoLData.heightHint = 17;
+                            txtBillDocumentNo.setLayoutData(txtBillDocumentNoLData);
+                            txtBillDocumentNo.setEditable(false);
+                            txtBillDocumentNo.setBackground(SWTResourceManager.getColor(255, 255, 255));
+                        }
+                        {
+                            lblBillDate = new CLabel(compInfoPanel, SWT.NONE);
+                            lblBillDate.setText("Fatura Tarihi");
+                        }
+                        {
+                        	GridData datePickerBillDateLData = new GridData();
+                        	datePickerBillDateLData.heightHint = 20;
+                        	datePickerBillDateLData.widthHint = 149;
+                            datePickerBillDate = new Text(compInfoPanel, SWT.NONE);
+                            datePickerBillDate.setLayoutData(datePickerBillDateLData);
+                            datePickerBillDate.setEnabled(false);
+                            datePickerBillDate.setBackground(SWTResourceManager.getColor(255,255, 255));
+                        }
 						{
 							lblType = new CLabel(compInfoPanel, SWT.LEFT);
 							lblType.setText(Messages.getString("ConUIAddConsignment.6")); //$NON-NLS-1$
@@ -401,10 +405,6 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 						{
 							lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
 							lblWareHouse.setText(Messages.getString("ConUIAddConsignment.38")); //$NON-NLS-1$
-							GridData lblWareHouseLData = new GridData();
-							lblWareHouseLData.widthHint = 48;
-							lblWareHouseLData.heightHint = 19;
-							lblWareHouse.setLayoutData(lblWareHouseLData);
 						}
 						{
 							comboWareHouse = new CCombo(compInfoPanel, SWT.NONE);
@@ -417,16 +417,14 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 							lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
 							lblDefinition.setText(Messages.getString("ConUIAddConsignment.9")); //$NON-NLS-1$
 							GridData lblDefinitionLData = new GridData();
-							lblDefinitionLData.widthHint = 108;
-							lblDefinitionLData.heightHint = 20;
 							lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
 							lblDefinition.setLayoutData(lblDefinitionLData);
 						}
 						{
 							txtDefinition = new Text(compInfoPanel, SWT.WRAP | SWT.V_SCROLL);
 							GridData txtDefinitionLData = new GridData();
-							txtDefinitionLData.widthHint = 365;
-							txtDefinitionLData.heightHint = 24;
+							txtDefinitionLData.widthHint = 386;
+							txtDefinitionLData.heightHint = 23;
 							txtDefinitionLData.horizontalSpan = 3;
 							txtDefinition.setLayoutData(txtDefinitionLData);
 						}
@@ -532,7 +530,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 						composite1LData1.grabExcessHorizontalSpace = true;
 						composite1LData1.horizontalSpan = 2;
 						composite1LData1.horizontalAlignment = GridData.FILL;
-						composite1LData1.heightHint = 118;
+						composite1LData1.heightHint = 107;
 						compTotalsPanel.setLayoutData(composite1LData1);
 						composite1Layout1.numColumns = 4;
 						compTotalsPanel.setLayout(composite1Layout1);
@@ -1022,4 +1020,10 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		decSpecialVat.setText(totalSpecVAT);
 		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
 	}
+
+    public Text getDatePickerBillDate()
+    {
+        return datePickerBillDate;
+    }
+    
 }

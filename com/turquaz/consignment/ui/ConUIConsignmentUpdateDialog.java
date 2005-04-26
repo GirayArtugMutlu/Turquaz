@@ -33,6 +33,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
+import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -239,6 +240,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
 				compAddConsignment.getTxtBillDocumentNo().setText(billEng.getTurqBill().getBillDocumentNo());
+                compAddConsignment.getDatePickerBillDate().setText(DatePicker.formatter.format(billEng.getTurqBill().getBillsDate()));
 			}
 			
 			
