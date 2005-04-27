@@ -33,15 +33,15 @@ import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 public class CurBLCurrentCardSearch
 {
 
+	/*CurUICurrentCardSearch, CurUICurCardBalanceReport*/
 	public static List searchCurrentCard(HashMap argMap) throws Exception
 	{
 		
 		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
 		String currentName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
 		TurqCurrentGroup currentGroup = (TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
-		
-		
-			return CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroup);
+			
+		return CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroup);
 		
 	}
 	

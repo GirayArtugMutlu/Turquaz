@@ -15,60 +15,69 @@ package com.turquaz.current.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
-/**
- * @author  Onsel Armagan
- * @version  $Id$
- */
+
+
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.layout.GridData;
-import com.turquaz.current.ui.comp.CurrentCodePicker;
-import com.cloudgarden.resource.SWTResourceManager;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.SWT;
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.CurKeys;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.custom.CTabFolder;
+import com.jasperassistant.designer.viewer.ViewerComposite;
+import org.eclipse.swt.custom.CTabItem;
 import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
+import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
-
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
+
 
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
-public class CurUICurrentCardSearch extends Composite implements SearchComposite
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
+public class CurUICurCardBalanceReport extends Composite implements SearchComposite
 {
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -76,6 +85,11 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 		SWTResourceManager.registerResourceUser(this);
 	}
 	private MenuItem item;
+	private ViewerComposite viewer;
+	private Composite compReport;
+	private CTabItem tabItemReport;
+	private CTabItem cTabItem1;
+	private CTabFolder tabFolder;
 	private TableColumn tableColumnCreditBalance;
 	private Button radioCurrentName;
 	private Button radioCurrentCode;
@@ -95,7 +109,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 	private Composite compCurrentCardSearch;
 	private SearchTableViewer tableViewer = null;
 
-	public CurUICurrentCardSearch(Composite parent, int style)
+	public CurUICurCardBalanceReport(Composite parent, int style)
 	{
 		super(parent, style);
 		initGUI();
@@ -182,15 +196,19 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			comboTurqGroupName.setLayoutData(comboTurqGroupNameLData);
 			//END << comboTurqGroupName
 			//END << compCurrentCardSearch
+			//START >>  tabFolder
+			tabFolder = new CTabFolder(this, SWT.NONE);
+			//START >>  cTabItem1
+			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
+			cTabItem1.setText("Arama Sonucu");
 			//START >> tableCurrentCardSearch
-			tableCurrentCardSearch = new Table(this, SWT.FULL_SELECTION | SWT.H_SCROLL);
+			tableCurrentCardSearch = new Table(tabFolder, SWT.FULL_SELECTION | SWT.H_SCROLL);
+			cTabItem1.setControl(tableCurrentCardSearch);
 			tableCurrentCardSearch.setHeaderVisible(true);
 			tableCurrentCardSearch.setLinesVisible(true);
 			GridData tableCurrentCardSearchLData = new GridData();
-			tableCurrentCardSearch.addMouseListener(new MouseAdapter()
-			{
-				public void mouseDoubleClick(MouseEvent evt)
-				{
+			tableCurrentCardSearch.addMouseListener(new MouseAdapter() {
+				public void mouseDoubleClick(MouseEvent evt) {
 					tableCurrentCardSearchMouseDoubleClick(evt);
 				}
 			});
@@ -230,10 +248,8 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			//START >> item
 			item = new MenuItem(popup, SWT.PUSH);
 			item.setText("Cari kart hareketlerini getir");
-			item.addSelectionListener(new SelectionAdapter()
-			{
-				public void widgetSelected(SelectionEvent evt)
-				{
+			item.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
 					itemWidgetSelected(evt);
 				}
 			});
@@ -245,6 +261,35 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			tableColumnCreditBalance.setWidth(80);
 			//END <<  tableColumnCreditBalance
 			//END << tableCurrentCardSearch
+			GridData tabFolderLData = new GridData();
+			tabFolderLData.grabExcessVerticalSpace = true;
+			tabFolderLData.grabExcessHorizontalSpace = true;
+			tabFolderLData.horizontalAlignment = GridData.FILL;
+			tabFolderLData.verticalAlignment = GridData.FILL;
+			tabFolder.setLayoutData(tabFolderLData);
+			//END <<  cTabItem1
+			//START >>  tabItemReport
+			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
+			tabItemReport.setText("Rapor");
+			//START >>  compReport
+			compReport = new Composite(tabFolder, SWT.NONE);
+			GridLayout compReportLayout = new GridLayout();
+			compReportLayout.makeColumnsEqualWidth = true;
+			compReport.setLayout(compReportLayout);
+			tabItemReport.setControl(compReport);
+			//START >>  viewer
+			viewer = new ViewerComposite(compReport, SWT.NONE);
+			GridData viewerLData = new GridData();
+			viewerLData.grabExcessHorizontalSpace = true;
+			viewerLData.grabExcessVerticalSpace = true;
+			viewerLData.horizontalAlignment = GridData.FILL;
+			viewerLData.verticalAlignment = GridData.FILL;
+			viewer.setLayoutData(viewerLData);
+			//END <<  viewer
+			//END <<  compReport
+			tabFolder.setSelection(0);
+			//END <<  tabItemReport
+			//END <<  tabFolder
 			thisLayout.marginWidth = 5;
 			thisLayout.marginHeight = 5;
 			thisLayout.numColumns = 1;
@@ -405,7 +450,6 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 					creditBalance=balance;
 					deptBalance=new BigDecimal(0);
 				}
-				
 				tableViewer.addRow(new String[]{curCode, curName, cf.format(totalDept), cf.format(totalCredit), cf.format(deptBalance.abs()),
 						cf.format(creditBalance)},
 						cardId);

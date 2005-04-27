@@ -19,6 +19,7 @@ package com.turquaz.accounting.dal;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.sql.Statement;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -387,10 +388,8 @@ public class AccDALTransactionSearch
 					+ " and accTrans.transactionsDate >= :startDate and accTrans.transactionsDate <= :endDate";
 			if (firstAccount != null && secondAccount != null)
 			{
-				TurqAccountingAccount first = (TurqAccountingAccount) firstAccount;
-				TurqAccountingAccount second = (TurqAccountingAccount) secondAccount;
-				query += " and accounts.accountCode >='" + first.getAccountCode() + "'" + "and accounts.accountCode <='"
-						+ second.getAccountCode() + "'";
+				query += " and accounts.accountCode >='" + firstAccount.getAccountCode() + "'" + "and accounts.accountCode <='"
+						+ secondAccount.getAccountCode() + "'";
 			}
 			else if (firstAccount != null)
 			{
