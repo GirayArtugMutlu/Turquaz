@@ -102,7 +102,7 @@ public class InvUICardUpdateDialog extends Dialog
 		{
 			preInitGUI();
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setText(Messages.getString("InvUICardUpdateDialog.10")); //$NON-NLS-1$
 			{
 				toolBarTop = new ToolBar(dialogShell, SWT.SHADOW_OUT);

@@ -53,7 +53,7 @@ public class MsgBox
 	public MsgBox(Display d, String title, String message, String buttons)
 	{
 		this.d = d;
-		this.s = new Shell(d, SWT.TITLE | SWT.APPLICATION_MODAL);
+		this.s = new Shell(d, SWT.TITLE | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 		this.s.setText(title);
 		additionalControl = null;
 		ende = false;

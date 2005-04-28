@@ -87,7 +87,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			
 			{
 				SearchMenu = new Menu(dialogShell, SWT.BAR);

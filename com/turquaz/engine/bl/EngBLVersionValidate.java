@@ -220,4 +220,58 @@ public class EngBLVersionValidate
 		EngDALCommon.updateObject(setting);	
 	
 	}
+    public static void HSQLDBupdateVersion074(TurqSetting setting)throws Exception
+    {
+        Session session = EngDALSessionFactory.getSession();
+        Statement stmt = session.connection().createStatement();
+        try{
+            String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
+                          "INSERT INTO turq_inventory_accounting_types VALUES (9, 'Return Sell', 'Satistan Iade Muhasebe Hesabi');" +
+                          "INSERT INTO turq_inventory_accounting_types VALUES (11, 'Return Sell VAT', 'Satistan Iade KDV Hesabi');" +
+                          "INSERT INTO turq_inventory_accounting_types VALUES (10, 'Return Buy VAT', 'Alistan Iade KDV Hesabi');" +
+                          "INSERT INTO turq_inventory_accounting_types VALUES (12, 'Return Buy Special VAT', 'Alistan Iade OTV Hesabi');" +
+                          "INSERT INTO turq_inventory_accounting_types VALUES (13, 'Return Sell Special VAT', 'Satistan Iade OTV Hesabi');" +
+                          "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
+                          "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" ;
+
+            stmt.execute(query);
+        }
+        catch(Exception ex)
+        {
+            
+        }
+        
+        setting.setDatabaseVersion("0.7.5");
+        EngDALCommon.updateObject(setting); 
+    
+    }
+    
+    public static void PGupdateVersion074(TurqSetting setting)throws Exception
+    {
+        Session session = EngDALSessionFactory.getSession();
+        Statement stmt = session.connection().createStatement();
+        try{
+            String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
+            "INSERT INTO turq_inventory_accounting_types VALUES (9, 'Return Sell', 'Satistan Iade Muhasebe Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (11, 'Return Sell VAT', 'Satistan Iade KDV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (10, 'Return Buy VAT', 'Alistan Iade KDV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (12, 'Return Buy Special VAT', 'Alistan Iade OTV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (13, 'Return Sell Special VAT', 'Satistan Iade OTV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" ;
+        
+            
+            stmt.execute(query);
+        
+        
+        }
+        catch(Exception ex)
+        {
+            
+        }
+        
+        setting.setDatabaseVersion("0.7.5");
+        EngDALCommon.updateObject(setting); 
+    
+    }
 }

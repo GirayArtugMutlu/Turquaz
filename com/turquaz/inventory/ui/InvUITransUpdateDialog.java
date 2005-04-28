@@ -53,7 +53,7 @@ public class InvUITransUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			preInitGUI();
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setText(getText());
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304, 208));
 			GridLayout dialogShellLayout = new GridLayout(1, true);

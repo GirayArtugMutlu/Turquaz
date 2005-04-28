@@ -37,7 +37,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setText(Messages.getString("EngUIHelpDialog.0")); //$NON-NLS-1$
 			dialogShell.setSize(319, 192);

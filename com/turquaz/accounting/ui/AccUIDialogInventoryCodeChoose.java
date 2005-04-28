@@ -66,7 +66,7 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 		{
 			preInitGUI();
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setText(getText());
 			accountTree = new Tree(dialogShell, SWT.NULL);
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304, 208));
@@ -144,7 +144,7 @@ public class AccUIDialogInventoryCodeChoose extends org.eclipse.swt.widgets.Dial
 		{
 			preInitGUI();
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setText(getText());
 			accountTree = new Tree(dialogShell, SWT.NULL);
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(304, 208));
