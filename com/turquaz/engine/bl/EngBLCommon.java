@@ -50,8 +50,8 @@ import com.turquaz.inventory.dal.InvDALCardSearch;
 public class EngBLCommon
 {
 	
-	public static String VERSION = "0.7.3 Beta 4";
-	public static String DATABASE_VERSION="0.7.4";
+	public static String VERSION = "0.7.3 Beta 4"; //$NON-NLS-1$
+	public static String DATABASE_VERSION="0.7.4"; //$NON-NLS-1$
 	
 	public static int BILL_ERR_TOO_MANY_CONS = -1;
 	public static int BILL_SAVED_SUCCESFULLY = 1;
@@ -60,9 +60,17 @@ public class EngBLCommon
 	public final static int COMMON_BUY_INT = 0;
 	public final static int COMMON_SELL_INT = 1;
 	public final static int COMMON_ALL_INT = 2;
-	public final static String COMMON_BUY_STRING = Messages.getString("EngBLCommon.0"); //$NON-NLS-1$
+	public final static int COMMON_RETURN_BUY_INT = 3;
+    public final static int COMMON_RETURN_SELL_INT = 4;
+    
+    
+    public final static String COMMON_BUY_STRING = Messages.getString("EngBLCommon.0"); //$NON-NLS-1$
 	public final static String COMMON_SELL_STRING = Messages.getString("EngBLCommon.1"); //$NON-NLS-1$
 	public final static String COMMON_ALL_STRING = Messages.getString("EngBLCommon.2"); //$NON-NLS-1$
+    public final static String COMMON_RETURN_BUY_STRING = Messages.getString("EngBLCommon.8");  //$NON-NLS-1$
+    public final static String COMMON_RETURN_SELL_STRING = Messages.getString("EngBLCommon.21");  //$NON-NLS-1$
+      
+    
 	public final static int COMMON_DEPT = 0;
 	public final static int COMMON_CREDIT = 1;
 	public final static String COMMON_DEPT_STRING = Messages.getString("EngBLCommon.3"); //$NON-NLS-1$
@@ -192,7 +200,7 @@ public class EngBLCommon
 	public final static String CHEQUE_TRANS_OUT_BANK_STRING = Messages.getString("EngBLCommon.7"); //$NON-NLS-1$
 	public final static Integer CHEQUE_TRANS_COLLECT_FROM_BANK = new Integer(3); //Bankadan
 	// Cek
-	public final static String CHEQUE_TRANS_COLLECT_FROM_BANK_STRING = Messages.getString("EngBLCommon.8"); // Tahsilati
+	public final static String CHEQUE_TRANS_COLLECT_FROM_BANK_STRING = Messages.getString("EngBLCommon.8"); // Tahsilati //$NON-NLS-1$
 	// //$NON-NLS-1$
 	public final static Integer CHEQUE_TRANS_COLLECT_FROM_CURRENT = new Integer(4); //Elden
 	// cek
@@ -206,7 +214,7 @@ public class EngBLCommon
 	public final static String CHEQUE_TRANS_RETURN_TO_CURRENT_STRING = Messages.getString("EngBLCommon.11"); //$NON-NLS-1$
 	public final static Integer CHEQUE_TRANS_RETURN_FROM_CURRENT = new Integer(7);
 	public final static String CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING = Messages.getString("EngBLCommon.18"); //$NON-NLS-1$
-	public final static String CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING ="Firma Çeki Tahsilat?";
+	public final static String CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING ="Firma Çeki Tahsilat?"; //$NON-NLS-1$
 	public final static Integer CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE =new Integer(8);	
 	
 	
@@ -226,14 +234,14 @@ public class EngBLCommon
 	public final static String CHEQUE_STATUS_BOUNCED_STRING = Messages.getString("EngBLCommon.17"); //$NON-NLS-1$
 
 
-	public final static String BILL_CONFIG_CHECK_BILL_NO="checkBillNo";
-	public final static String BILL_CONFIG_CHECK_BUY_BILL="checkBuyBill";
-	public final static String BILL_CONFIG_CHECK_SELL_BILL="checkSellBill";
+	public final static String BILL_CONFIG_CHECK_BILL_NO="checkBillNo"; //$NON-NLS-1$
+	public final static String BILL_CONFIG_CHECK_BUY_BILL="checkBuyBill"; //$NON-NLS-1$
+	public final static String BILL_CONFIG_CHECK_SELL_BILL="checkSellBill"; //$NON-NLS-1$
 
 	public final static int CHECK_BUY_BILL=1;
 	public final static int CHECK_SELL_BILL=2;
 	
-	public final static String EX_BILL_DOC_NO="Bill document no is already defined!";
+	public final static String EX_BILL_DOC_NO="Bill document no is already defined!"; //$NON-NLS-1$
 	
 	public static Map getChequeStatusMapWithStringKey()
 	{
@@ -302,8 +310,10 @@ public class EngBLCommon
 	public final static int CONSIGNMENT_TRANS_TYPE_BUY = 0;
 	public final static int CONSIGNMENT_TRANS_TYPE_SELL = 1;
 	public final static int CONSIGNMENT_TRANS_TYPE_ALL = 2;
-	public final static int INVENTORY_TRANS_INITIAL = 0;
+	
+    public final static int INVENTORY_TRANS_INITIAL = 0;
 	public final static int INVENTORY_TRANS_CONSIGNMENT = 1;
+        
 	public final static int INVENTORY_ACCOUNT_TYPE_BUY = 0;
 	public final static int INVENTORY_ACCOUNT_TYPE_SELL = 1;
 	public final static int INVENTORY_ACCOUNT_TYPE_VAT_BUY = 2;
@@ -312,6 +322,16 @@ public class EngBLCommon
 	public final static int INVENTORY_ACCOUNT_TYPE_SPEC_VAT_SELL = 5;
 	public final static int INVENTORY_ACCOUNT_TYPE_DISCOUNT_BUY = 6;
 	public final static int INVENTORY_ACCOUNT_TYPE_DISCOUNT_SELL = 7;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_BUY = 8;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_SELL = 9;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_VAT_BUY = 10;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_VAT_SELL = 11;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_SPEC_VAT_BUY = 12;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_SPEC_VAT_SELL = 13;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_DISCOUNT_BUY = 14;
+    public final static int INVENTORY_ACCOUNT_TYPE_RETURN_DISCOUNT_SELL = 15;
+    
+    
 	public final static int TABLE_ROW_COUNT = 10;
 	public final static int ROUNDING_METHOD = BigDecimal.ROUND_HALF_UP;
 	private static TurqCurrency baseCurrency = null;
@@ -323,7 +343,7 @@ public class EngBLCommon
 		{
 			if (baseCurrency == null)
 			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getBaseCurrency",null);
+				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
 			}
 				return baseCurrency;
 		}
@@ -387,7 +407,7 @@ public class EngBLCommon
 			if (baseCurrencyExchangeRate == null){
 				try
 				{
-					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getBaseCurrencyExchangeRate",null);
+					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
 				}
 				catch (Exception ex)
 				{
@@ -427,7 +447,7 @@ public class EngBLCommon
 			Session session = EngDALSessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			Statement stmt = session.connection().createStatement();
-			String query = "Select id,engine_sequences_id from turq_bills";
+			String query = "Select id,engine_sequences_id from turq_bills"; //$NON-NLS-1$
 			ResultSet result = stmt.executeQuery(query);
 			Statement stmt2 = session.connection().createStatement();
 			int k = 0;
@@ -435,7 +455,7 @@ public class EngBLCommon
 			{
 				int id = result.getInt(1);
 				int engineSeq = result.getInt(2);
-				query = "Insert into turq_bill_in_engine_sequences values (" + k + "," + engineSeq + "," + id + ")";
+				query = "Insert into turq_bill_in_engine_sequences values (" + k + "," + engineSeq + "," + id + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				stmt2.execute(query);
 				k++;
 			}
@@ -618,34 +638,34 @@ public class EngBLCommon
 			List ls = InvDALCardSearch.getInventoryCardsAndAccounts();
 			Session session = EngDALSessionFactory.getSession();
 			Statement stmt = session.connection().createStatement();
-			String query = "";
+			String query = ""; //$NON-NLS-1$
 			int i = 0;
 			int key = 0;
 			for (i = 0; i < ls.size(); i++)
 			{
 				Object results[] = (Object[]) ls.get(i);
-				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[1] + "," + 0
-						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[1] + "," + 0 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						+ ",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
 				stmt.execute(query);
 				key++;
-				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[2] + "," + 1
-						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[2] + "," + 1 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						+ ",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
 				stmt.execute(query);
 				key++;
-				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[3] + "," + 2
-						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[3] + "," + 2 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						+ ",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
 				stmt.execute(query);
 				key++;
-				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[4] + "," + 3
-						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[4] + "," + 3 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						+ ",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
 				stmt.execute(query);
 				key++;
-				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[5] + "," + 4
-						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				query = "insert into turq_inventory_accounting_accounts values(" + key + "," + results[0] + "," + results[5] + "," + 4 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						+ ",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
 				stmt.execute(query);
 				key++;
-				query = "insert into turq_inventory_accounting_accounts  values(" + key + "," + results[0] + "," + results[6] + "," + 5
-						+ ",'admin','2005-01-01','admin','2005-01-01')";
+				query = "insert into turq_inventory_accounting_accounts  values(" + key + "," + results[0] + "," + results[6] + "," + 5 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						+ ",'admin','2005-01-01','admin','2005-01-01')"; //$NON-NLS-1$
 				stmt.execute(query);
 				key++;
 			}
