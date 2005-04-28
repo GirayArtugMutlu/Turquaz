@@ -41,10 +41,6 @@ import com.turquaz.engine.dal.TurqModule;
 
 public class AccBLTransactionAdd
 {
-	public AccBLTransactionAdd()
-	{
-	}
-
 	//Muhasebe fisi kalemlerini kaydet
 	public static void saveAccTransactionRows(Map deptAccounts, Map creditAccounts, Integer transId, boolean isSumRows, String definition,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception
@@ -113,6 +109,15 @@ public class AccBLTransactionAdd
 	}
 	
 	
+	public static void saveAccTransactionRows(List transColumns, Integer transId, TurqCurrencyExchangeRate exchangeRate) throws Exception
+	{
+		for(int k=0; k<transColumns.size(); k++)
+		{
+			TurqAccountingTransactionColumn transCol = (TurqAccountingTransactionColumn)transColumns.get(k);
+			registerAccTransactionRow(transCol, transId, exchangeRate);
+		}
+	}
+	
 	public static void saveAccountingTransactionRow(HashMap argMap)throws Exception
 	{
 		TurqAccountingTransactionColumn transRow = (TurqAccountingTransactionColumn)argMap.get(AccKeys.ACC_TRANS_ROW);
@@ -163,12 +168,70 @@ public class AccBLTransactionAdd
 		Integer seqId = (Integer)argMap.get(AccKeys.ACC_SEQUENCE_ID);
 		String definition = (String)argMap.get(AccKeys.ACC_DEFINITION);
 		TurqCurrencyExchangeRate exRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
-		Map creditAccount = (Map)argMap.get(AccKeys.ACC_CREDIT_ACCOUNT_MAP);
-		Map deptAccount = (Map)argMap.get(AccKeys.ACC_DEPT_ACCOUNT_MAP);
-		Boolean sumRows = (Boolean)argMap.get(AccKeys.ACC_SUM_ROWS);
+		List transColumns=(List)argMap.get(AccKeys.ACC_TRANSACTIONS);
 		
-		saveAccTransaction(date, documentNo,type.intValue(),moduleId.intValue(),seqId,definition,exRate,creditAccount,deptAccount,sumRows.booleanValue());
+		saveAccTransaction(date, documentNo,type.intValue(),moduleId.intValue(),seqId,definition,exRate,transColumns);
 		
+	}
+	
+	private static boolean saveAccTransaction(Date date, String documentNo, int type, int moduleId,
+			Integer docSeqId, String definition, TurqCurrencyExchangeRate exchangeRate, List transColumns)
+			throws Exception
+	{
+		try
+		{
+			if (transColumns.size() == 0)
+			{
+				return false;
+			}
+			TurqEngineSequence docSeq = new TurqEngineSequence();
+			if (docSeqId == null)
+			{
+				TurqModule module = new TurqModule();
+				module.setId(new Integer(EngBLCommon.MODULE_ACCOUNTING));
+				docSeq.setTurqModule(module);
+				EngDALCommon.saveObject(docSeq);
+			}
+			else
+			{
+				docSeq.setId(docSeqId);
+			}
+			TurqAccountingTransaction trans = new TurqAccountingTransaction();
+			trans.setTurqEngineSequence(docSeq);
+			trans.setTransactionDocumentNo(documentNo);
+			trans.setTransactionDescription(definition);
+			trans.setTransactionsDate(date);
+			/**
+			 * TODO Will Change in next version
+			 */
+			trans.setTurqCurrencyExchangeRate(exchangeRate);
+			//Hangi modulde kaydedildigi
+			TurqModule module = new TurqModule();
+			module.setId(new Integer(moduleId));
+			trans.setTurqModule(module);
+			//Muhasebelestirilmemis.. o zaman yevmiye kaydi -1
+			TurqAccountingJournal journal = new TurqAccountingJournal();
+			journal.setId(new Integer(-1));
+			trans.setTurqAccountingJournal(journal);
+			//Fis tip
+			TurqAccountingTransactionType transType = new TurqAccountingTransactionType();
+			transType.setId(new Integer(type));
+			trans.setTurqAccountingTransactionType(transType);
+			trans.setCreatedBy(System.getProperty("user"));
+			trans.setUpdatedBy(System.getProperty("user"));
+			Calendar cal = Calendar.getInstance();
+			trans.setLastModified(cal.getTime());
+			trans.setCreationDate(cal.getTime());
+			trans.setTransactionDescription(definition);
+			EngDALCommon.saveObject(trans);
+			//TODO Should return boolean
+			saveAccTransactionRows(transColumns, trans.getId(), exchangeRate);
+			return true;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
 	}
 
 	public static boolean saveAccTransaction(Date date, String documentNo, int type, int moduleId, Integer docSeqId, String definition,
@@ -225,6 +288,31 @@ public class AccBLTransactionAdd
 			//TODO Should return boolean
 			saveAccTransactionRows(deptAccounts, creditAccounts, trans.getId(), isSumRows, definition, exchangeRate);
 			return true;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+	
+	public void prepareAccountingMaps(List transColumns, Map creditAccounts, Map deptAccounts)
+			throws Exception
+	{
+		try
+		{
+			for (int i = 0; i < transColumns.size(); i++)
+			{
+				TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) transColumns
+						.get(i);
+				if (transColumn.getCreditAmount().doubleValue() > 0)
+				{
+					creditAccounts.put(new Integer(i), transColumn);
+				}
+				else
+				{
+					deptAccounts.put(new Integer(i), transColumn);
+				}
+			}
 		}
 		catch (Exception ex)
 		{

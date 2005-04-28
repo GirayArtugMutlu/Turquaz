@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -43,7 +42,6 @@ import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -457,11 +455,7 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 			{
 				/**
 				 * 0 -Tahsil Fisi 1- Tediye Fisi 2- Mahsup Fisi
-				 */
-				Map creditAccounts = new HashMap();
-				Map deptAccounts = new HashMap();
-				prepareAccountingMaps(creditAccounts, deptAccounts);
-				
+				 */				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANS_DATE,datePickerTransactionDate.getDate());
 				argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
@@ -470,14 +464,9 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 				argMap.put(AccKeys.ACC_SEQUENCE_ID,null);
 				argMap.put(AccKeys.ACC_DEFINITION,txtTransDefinition.getText().trim());
 				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
-				argMap.put(AccKeys.ACC_CREDIT_ACCOUNT_MAP,creditAccounts);
-				argMap.put(AccKeys.ACC_DEPT_ACCOUNT_MAP,deptAccounts);
-				argMap.put(AccKeys.ACC_SUM_ROWS,new Boolean(false));
+				argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
 				
-				EngTXCommon.doTransactionTX(AccBLTransactionAdd.class.getName(),"saveAccTransactionFromUI",argMap);
-				
-				
-				
+				EngTXCommon.doTransactionTX(AccBLTransactionAdd.class.getName(),"saveAccTransactionFromUI",argMap);			
 				
 				msg.setMessage(Messages.getString("AccUITransactionCollect.18")); //$NON-NLS-1$
 				msg.open();
@@ -497,39 +486,20 @@ public class AccUITransactionCollect extends Composite implements SecureComposit
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();
 	}
-
-	public void prepareAccountingMaps(Map creditAccounts, Map deptAccounts) throws Exception
+	
+	public List getTransactionColumns()
 	{
-		try
+		List transColumns=new ArrayList();		
+		TableItem items[] = tableTransactionRows.getItems();
+		for (int i = 0; i < items.length; i++)
 		{
-			creditAccounts.clear();
-			deptAccounts.clear();
-			calculateTotalDept();
-			List deptList = new ArrayList();
-			deptList.add(totalDept);
-			deptAccounts.put(((TurqAccountingAccount) comboDeptor.getData()).getId(), deptList);
-			TableItem items[] = tableTransactionRows.getItems();
-			//Save the table rows
-			for (int i = 0; i < items.length; i++)
+			AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i].getData();
+			if (row.okToSave())
 			{
-				AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i].getData();
-				if (row.okToSave())
-				{
-					TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) row.getDBObject();
-					List ls = (List) creditAccounts.get(transColumn.getTurqAccountingAccount().getId());
-					if (ls == null)
-					{
-						ls = new ArrayList();
-					}
-					ls.add(transColumn.getCreditAmount());
-					creditAccounts.put(transColumn.getTurqAccountingAccount().getId(), ls);
-				}
+				transColumns.add(row.getDBObject());
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		}		
+		return transColumns;
 	}
 
 	public void search()

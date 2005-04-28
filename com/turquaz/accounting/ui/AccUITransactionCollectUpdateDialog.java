@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -292,11 +291,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		{
 			if (compTransactionCollect.verifyFields())
 			{
-				updated = true;
-				Map creditAccounts = new HashMap();
-				Map deptAccounts = new HashMap();
-				compTransactionCollect.prepareAccountingMaps(creditAccounts, deptAccounts);
-				
+				updated = true;			
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
@@ -304,14 +299,9 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 				argMap.put(AccKeys.ACC_TRANS_DATE, compTransactionCollect.getDatePickerTransactionDate().getDate());
 				argMap.put(AccKeys.ACC_DEFINITION,compTransactionCollect.getTxtTransDefinition().getText().trim());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
-				argMap.put(AccKeys.ACC_DEPT_ACCOUNT_MAP,deptAccounts);
-				argMap.put(AccKeys.ACC_CREDIT_ACCOUNT_MAP,creditAccounts);
-				argMap.put(AccKeys.ACC_SUM_ROWS,new Boolean(false));
+				argMap.put(AccKeys.ACC_TRANSACTIONS,compTransactionCollect.getTransactionColumns());
 				
-				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);
-				
-				
-				
+				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);			
 				
 				msg.setMessage(Messages.getString("AccUITransactionCollectUpdateDialog.6")); //$NON-NLS-1$
 				msg.open();

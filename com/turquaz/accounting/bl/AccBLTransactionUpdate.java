@@ -19,11 +19,11 @@ package com.turquaz.accounting.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionUpdate;
@@ -33,36 +33,30 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 public class AccBLTransactionUpdate
-{
-	
+{	
 
 	public static void updateTransaction(HashMap argMap) throws Exception
 	{
-		
-		TurqAccountingTransaction transaction = (TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
-		String docNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
-		 Object transDate = argMap.get(AccKeys.ACC_TRANS_DATE);
-		 String definition = (String)argMap.get(AccKeys.ACC_DEFINITION);
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE); 
-		 Map creditAccounts = (Map)argMap.get(AccKeys.ACC_CREDIT_ACCOUNT_MAP);
-		 Map deptAccounts = (Map)argMap.get(AccKeys.ACC_DEPT_ACCOUNT_MAP);
-		 boolean isSumRows = ((Boolean)argMap.get(AccKeys.ACC_SUM_ROWS)).booleanValue();
-		
-		
-		Date date = new Date(((java.util.Date) transDate).getTime());
-		transaction.setTransactionsDate(date);
-		transaction.setTransactionDocumentNo(docNo);
-		transaction.setTransactionDescription(definition);
-		transaction.setTurqCurrencyExchangeRate(exchangeRate);
-		transaction.setUpdatedBy(System.getProperty("user"));
-		Calendar cal = Calendar.getInstance();
-		transaction.setLastModified(cal.getTime());
 		try
 		{
+			TurqAccountingTransaction transaction = (TurqAccountingTransaction) argMap
+					.get(AccKeys.ACC_TRANSACTION);
+			String docNo = (String) argMap.get(AccKeys.ACC_DOCUMENT_NO);
+			Date transDate =(Date) argMap.get(AccKeys.ACC_TRANS_DATE);
+			String definition = (String) argMap.get(AccKeys.ACC_DEFINITION);
+			TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate) argMap
+					.get(EngKeys.EXCHANGE_RATE);
+			List transColumns = (List) argMap.get(AccKeys.ACC_TRANSACTIONS);
+			transaction.setTransactionsDate(transDate);
+			transaction.setTransactionDocumentNo(docNo);
+			transaction.setTransactionDescription(definition);
+			transaction.setTurqCurrencyExchangeRate(exchangeRate);
+			transaction.setUpdatedBy(System.getProperty("user"));
+			Calendar cal = Calendar.getInstance();
+			transaction.setLastModified(cal.getTime());
 			EngDALCommon.updateObject(transaction);
 			deleteTransactionRows(transaction);
-			AccBLTransactionAdd.saveAccTransactionRows(deptAccounts, creditAccounts, transaction.getId(), isSumRows, definition,
-					exchangeRate);
+			AccBLTransactionAdd.saveAccTransactionRows(transColumns, transaction.getId(), exchangeRate);
 		}
 		catch (Exception ex)
 		{

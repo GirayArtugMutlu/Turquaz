@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 import org.eclipse.jface.viewers.CellEditor;
@@ -534,9 +533,6 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 			if (verifyFields())
 			{
 				//TODO acc trans exRate
-				Map creditAccounts = new HashMap();
-				Map deptAccounts = new HashMap();
-				prepareAccountingMaps(creditAccounts, deptAccounts);
 			
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
@@ -544,9 +540,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				argMap.put(AccKeys.ACC_TRANS_DATE, dateTransactionDate.getDate());
 				argMap.put(AccKeys.ACC_DEFINITION,	txtTransDefinition.getText().trim());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
-				argMap.put(AccKeys.ACC_DEPT_ACCOUNT_MAP,deptAccounts);
-				argMap.put(AccKeys.ACC_CREDIT_ACCOUNT_MAP,creditAccounts);
-				argMap.put(AccKeys.ACC_SUM_ROWS,new Boolean(false));
+				argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);
 				
@@ -560,47 +554,20 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
-
-	public void prepareAccountingMaps(Map creditAccounts, Map deptAccounts) throws Exception
+	
+	public List getTransactionColumns()
 	{
-		creditAccounts.clear();
-		deptAccounts.clear();
-		try
+		List transcolumns=new ArrayList();
+		TableItem items[] = tableTransactionColumns.getItems();
+		for (int i = 0; i < items.length; i++)
 		{
-			TableItem items[] = tableTransactionColumns.getItems();
-			for (int i = 0; i < items.length; i++)
+			AccUITransactionAddTableRow row = (AccUITransactionAddTableRow) items[i].getData();
+			if (row.okToSave())
 			{
-				AccUITransactionAddTableRow row = (AccUITransactionAddTableRow) items[i].getData();
-				if (row.okToSave())
-				{
-					TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) row.getDBObject();
-					if (transColumn.getCreditAmount().doubleValue() > 0)
-					{
-						List ls = (List) creditAccounts.get(transColumn.getTurqAccountingAccount().getId());
-						if (ls == null)
-						{
-							ls = new ArrayList();
-						}
-						ls.add(transColumn.getCreditAmount());
-						creditAccounts.put(transColumn.getTurqAccountingAccount().getId(), ls);
-					}
-					else
-					{
-						List ls = (List) deptAccounts.get(transColumn.getTurqAccountingAccount().getId());
-						if (ls == null)
-						{
-							ls = new ArrayList();
-						}
-						ls.add(transColumn.getDeptAmount());
-						deptAccounts.put(transColumn.getTurqAccountingAccount().getId(), ls);
-					}
-				}
+				transcolumns.add(row.getDBObject());
 			}
 		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		return transcolumns;
 	}
 
 	void calculateTotalDeptAndCredit()
