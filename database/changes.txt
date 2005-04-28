@@ -1142,3 +1142,5 @@ INSERT INTO turq_inventory_accounting_types VALUES (13, 'Return Sell Special VAT
 INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');
 INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');
 
+INSERT INTO turq_current_transaction_types VALUES (8, 'Coklu Borc', 'admin', '2004-10-18', 'admin', '2004-10-18');
+INSERT INTO turq_current_transaction_types VALUES (9, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');
