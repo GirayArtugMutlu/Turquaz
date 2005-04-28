@@ -15,6 +15,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -23,6 +24,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.ui.EngUITableColumns;
@@ -37,6 +39,7 @@ public class SaveTableViewer
 	TableViewer viewer = null;
 	int columnTypes[] = null;
 	int defaultWidths[] = null;
+    Listener listeners[] = null;
 
 	public SaveTableViewer(Table table, CellEditor[] editors)
 	{
@@ -242,4 +245,62 @@ public class SaveTableViewer
             EngBLLogger.log(this.getClass(),ex);
 		}
 	}
+ 
+    public void addSortingSupport(int columnTypes[])
+    {
+        TableColumn columns[] = viewer.getTable().getColumns();
+        listeners = new SaveTableColumnListener[columns.length];
+        for (int i = 0; i < columns.length; i++)
+        {
+            Listener listener = new SaveTableColumnListener(viewer, i, columnTypes[i]);
+            columns[i].addListener(SWT.Selection,listener);
+            listeners[i] = listener;
+             
+        } 
+    }
+    public void removeSortingSupport()
+    {
+        if(listeners==null)
+        {
+            return;
+        }
+        TableColumn columns[] = viewer.getTable().getColumns();
+        for (int i = 0; i < columns.length; i++)
+        {
+            columns[i].removeListener(SWT.Selection, listeners[i]);
+             
+        }
+    }
+}
+
+class SaveTableColumnListener implements Listener
+{
+    int columnIndex;
+    int columnType;
+    TableViewer viewer;
+    private TurquazTableSorter tableSorter = null;
+    public static Image ascendingImage = SWTResourceManager.getImage("gfx/up_arrow.gif");
+    public static Image descendingImage = SWTResourceManager.getImage("gfx/down_arrow.gif");
+
+    public SaveTableColumnListener(TableViewer viewer, int columnIndex, int columnType)
+    {
+        this.columnIndex = columnIndex;
+        this.columnType = columnType;
+        this.viewer = viewer;
+        tableSorter = new TurquazTableSorter(columnIndex, columnType);
+    }
+
+    public void handleEvent(Event e)
+    {
+        boolean sortStyle = !tableSorter.getAscending();
+        tableSorter.setAscending(sortStyle);
+        TableColumn[] columns = viewer.getTable().getColumns();
+        for (int k = 0; k < columns.length; k++)
+        {
+            columns[k].setImage(null);
+        }
+        columns[columnIndex].setImage(sortStyle ? ascendingImage : descendingImage);
+        viewer.setSorter(tableSorter);
+        viewer.refresh();
+    }
 }
