@@ -45,10 +45,14 @@ import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
+import com.turquaz.current.CurKeys;
+import org.eclipse.swt.custom.CCombo;
 import com.turquaz.current.Messages;
+import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
@@ -65,10 +69,13 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private CLabel lblCurrentCard;
 	private CurrentCodePicker txtCurrentCard;
 	private DatePicker datePickerEndDate;
-	private ViewerComposite viewer;
 	private CurrencyText txtTransAmount;
 	private CLabel lblAmount;
 	private Text txtDefinition;
+	private ViewerComposite viewer;
+	private CLabel lvlCurrentGroup;
+	private CCombo comboCurGroup;
+	private Composite compReport;
 	private CLabel lblDefinition;
 	private CLabel lblEndDate;
 	private DatePicker datePickerStartDate;
@@ -136,7 +143,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				GridData compSearchLData = new GridData();
 				compSearchLData.grabExcessHorizontalSpace = true;
 				compSearchLData.horizontalAlignment = GridData.FILL;
-				compSearchLData.heightHint = 87;
+				compSearchLData.heightHint = 111;
 				compSearch.setLayoutData(compSearchLData);
 				compSearchLayout.numColumns = 4;
 				compSearch.setLayout(compSearchLayout);
@@ -196,6 +203,17 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 					datePickerEndDateLData.heightHint = 23;
 					datePickerEndDate.setLayoutData(datePickerEndDateLData);
 				}
+				//START >>  lvlCurrentGroup
+				lvlCurrentGroup = new CLabel(compSearch, SWT.NONE);
+				lvlCurrentGroup.setText("Cari Grup");
+				//END <<  lvlCurrentGroup
+				//START >>  comboCurGroup
+				comboCurGroup = new CCombo(compSearch, SWT.NONE);
+				GridData comboCurGroupLData = new GridData();
+				comboCurGroupLData.widthHint = 135;
+				comboCurGroupLData.heightHint = 17;
+				comboCurGroup.setLayoutData(comboCurGroupLData);
+				//END <<  comboCurGroup
 				//START >> lblAmount
 				lblAmount = new CLabel(compSearch, SWT.NONE);
 				lblAmount.setText("Miktar - En az");
@@ -214,20 +232,33 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				{
 					txtDefinition = new Text(compSearch, SWT.WRAP | SWT.V_SCROLL);
 					GridData txtDefinitionLData = new GridData();
-					txtDefinitionLData.widthHint = 270;
-					txtDefinitionLData.heightHint = 23;
+					txtDefinitionLData.widthHint = 379;
+					txtDefinitionLData.heightHint = 21;
+					txtDefinitionLData.horizontalSpan = 3;
 					txtDefinition.setLayoutData(txtDefinitionLData);
 				}
 			}
-			{
-				viewer = new ViewerComposite(this, SWT.NONE);
-				GridData viewerLData = new GridData();
-				viewerLData.grabExcessHorizontalSpace = true;
-				viewerLData.horizontalAlignment = GridData.FILL;
-				viewerLData.grabExcessVerticalSpace = true;
-				viewerLData.verticalAlignment = GridData.FILL;
-				viewer.setLayoutData(viewerLData);
-			}
+			//START >>  compReport
+			compReport = new Composite(this, SWT.NONE);
+			GridLayout compReportLayout = new GridLayout();
+			GridData compReportLData = new GridData();
+			compReportLData.horizontalAlignment = GridData.FILL;
+			compReportLData.verticalAlignment = GridData.FILL;
+			compReportLData.grabExcessHorizontalSpace = true;
+			compReportLData.grabExcessVerticalSpace = true;
+			compReport.setLayoutData(compReportLData);
+			compReportLayout.makeColumnsEqualWidth = true;
+			compReport.setLayout(compReportLayout);
+			//START >>  viewer
+			viewer = new ViewerComposite(compReport, SWT.NONE);
+			GridData viewerLData = new GridData();
+			viewerLData.horizontalAlignment = GridData.FILL;
+			viewerLData.verticalAlignment = GridData.FILL;
+			viewerLData.grabExcessVerticalSpace = true;
+			viewerLData.grabExcessHorizontalSpace = true;
+			viewer.setLayoutData(viewerLData);
+			//END <<  viewer
+			//END <<  compReport
 			postInitGui();
 			this.layout();
 		}
@@ -240,9 +271,24 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 
 	public void postInitGui()
 	{
-		//datePickerStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
-		cal.set(cal.get(Calendar.YEAR), 0, 1);
-		datePickerStartDate.setDate(cal.getTime());
+		try
+		{
+			cal.set(cal.get(Calendar.YEAR), 0, 1);
+			datePickerStartDate.setDate(cal.getTime());
+			List groups = (List) EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),
+					"getTurqCurrentGroups", null);
+			comboCurGroup.add("");
+			for (int k = 0; k < groups.size(); k++)
+			{
+				TurqCurrentGroup group = (TurqCurrentGroup) groups.get(k);
+				comboCurGroup.add(group.getGroupsName());
+				comboCurGroup.setData(group.getGroupsName(), group);
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	public void exportToExcel()
@@ -284,7 +330,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
-			argMap.put(EngKeys.MIN_VALUE,txtTransAmount.getBigDecimalValue());			
+			argMap.put(EngKeys.MIN_VALUE,txtTransAmount.getBigDecimalValue());	
+			argMap.put(CurKeys.CUR_GROUP, comboCurGroup.getData(comboCurGroup.getText()));
 			
 			List list=(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentCardAbstract",argMap);
 			Map parameters = new HashMap();

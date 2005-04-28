@@ -33,6 +33,7 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
@@ -170,7 +171,9 @@ public class CurBLSearchTransaction
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);
 			BigDecimal minAmount=(BigDecimal)argMap.get(EngKeys.MIN_VALUE);	
-			return CurDALSearchTransaction.getCurrentCardAbstract(curCardStart,curCardEnd, startDate, endDate, definition,minAmount);
+			TurqCurrentGroup curGroup=(TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
+			
+			return CurDALSearchTransaction.getCurrentCardAbstract(curCardStart,curCardEnd, startDate, endDate, definition,minAmount,curGroup);
 		}
 		catch (Exception ex)
 		{

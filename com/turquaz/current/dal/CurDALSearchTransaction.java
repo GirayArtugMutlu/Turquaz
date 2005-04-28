@@ -32,6 +32,7 @@ import net.sf.hibernate.Session;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
@@ -206,7 +207,7 @@ public class CurDALSearchTransaction
 	
 	public static List getCurrentCardAbstract(TurqCurrentCard curCardStart,TurqCurrentCard curCardEnd, 
 			Date startDate, Date endDate, String definition,
-			BigDecimal minAmount) throws Exception
+			BigDecimal minAmount, TurqCurrentGroup curGroup ) throws Exception
 	{
 		try
 		{
@@ -218,14 +219,20 @@ public class CurDALSearchTransaction
 			" curTransTable.transaction_type_name,curTransTable.transactions_date," +
 			" curTransTable.transactions_document_no,curTransTable.transactions_total_credit," +
 			" curTransTable.transactions_total_dept,curTransTable.id,curTransTable.transactions_definition" +
-			" from turq_view_current_amount_total curView, turq_current_cards curCard" +
-			" left join (Select curTransType.transaction_type_name, curTrans.transactions_date," +
+			" from turq_view_current_amount_total curView,";
+			if (curGroup != null)
+			{
+				query += " turq_current_cards_groups curCardGr,";
+			}
+			query += " turq_current_cards curCard left join" +
+			" (Select curTransType.transaction_type_name, curTrans.transactions_date," +
 			" curTrans.transactions_document_no,curTrans.transactions_total_credit," +
 			" curTrans.transactions_total_dept, curTrans.id, curTrans.transactions_definition," +
 			" curTrans.current_cards_id " +
 			" from turq_current_transactions curTrans," +
 			" turq_current_transaction_types curTransType " +
 			" where curTrans.current_transaction_types_id=curTransType.id";
+
 			
 			if (!definition.trim().equals(""))
 			{
@@ -235,6 +242,11 @@ public class CurDALSearchTransaction
 			" and curTrans.transactions_date <= '"+df.format(endDate)+ "')" +
 			" curTransTable ON curTransTable.current_cards_id=curCard.id" +
 			" where curCard.id=curView.current_cards_id";
+			
+			if (curGroup != null)
+			{
+				query += " and curCardGr.current_cards_id=curCard.id and curCardGr.current_groups_id="+curGroup.getId().intValue();
+			}
 			
 			if (curCardStart != null && curCardEnd != null)
 			{
