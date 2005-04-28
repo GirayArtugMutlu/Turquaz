@@ -39,6 +39,7 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLKeyEvents;
@@ -48,10 +49,12 @@ import com.turquaz.engine.ui.component.TurqKeyEvent;
 public class TurquazContentAssistant extends SubjectControlContentAssistant
 {
 	TurquazContentAssistProcessors processor = null;
+    TextContentAssistSubjectAdapter adapter = null;
 
-	public TurquazContentAssistant(TextContentAssistSubjectAdapter adapter, int type)
+	public TurquazContentAssistant(TextContentAssistSubjectAdapter adapte, int type)
 	{
-		super();		
+		super();	
+        this.adapter = adapte;
 		adapter.appendVerifyKeyListener(new VerifyKeyListener()
 		{
 			public void verifyKey(VerifyEvent event)
@@ -60,7 +63,7 @@ public class TurquazContentAssistant extends SubjectControlContentAssistant
 				if (turqEvent.equals(event))
 				{
 					showPossibleCompletions();
-					event.doit = false;
+                    event.doit = false;
 				}
 			}
 		});

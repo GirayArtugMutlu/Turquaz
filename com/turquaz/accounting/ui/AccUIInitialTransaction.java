@@ -409,13 +409,17 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 		tableViewer.setColumnProperties(columnNames);
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
-		editors[0] = new AccountingCellEditor(tableTransactionColumns);
+		editors[0] = new AccountingCellEditor(tableTransactionColumns,ACCOUNT_CODE);
 		editors[1] = new TextCellEditor(tableTransactionColumns);
 		editors[2] = new TextCellEditor(tableTransactionColumns);
 		editors[3] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		editors[4] = new CurrencyCellEditor(tableTransactionColumns, 2);
+        
+       
 		// Assign the cell editors to the viewer
 		tableViewer.setCellEditors(editors);
+        ((AccountingCellEditor)editors[0]).setTableViewer(tableViewer);
+        
 		TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer, rowList);
 		tableViewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
 		tableViewer.setContentProvider(contentProvider);

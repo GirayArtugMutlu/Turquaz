@@ -75,6 +75,47 @@ public class SaveTableViewer
 		 */
 		setPopupMenu();
 	}
+    public SaveTableViewer(Table table)
+    {
+        viewer = new TableViewer(table);
+        viewer.setUseHashlookup(true);
+        TableColumn columns[] = table.getColumns();
+        List columnList = new ArrayList();
+        String columnNames[] = new String[columns.length];
+        defaultWidths = new int[columns.length];
+        for (int i = 0; i < columns.length; i++)
+        {
+            defaultWidths[i] = columns[i].getWidth();
+            columnNames[i] = columns[i].getText();
+            columnList.add(columns[i].getText());
+            columns[i].addControlListener(new ControlAdapter()
+            {
+                public void controlResized(ControlEvent e)
+                {
+                    saveColumnWidths();
+                }
+            });
+        }
+     
+        viewer.setColumnProperties(columnNames);
+        TurquazContentProvider contentProvider = new TurquazContentProvider(viewer, rowList);
+        viewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
+        viewer.setContentProvider(contentProvider);
+        viewer.setLabelProvider(new TurquazLabelProvider());
+        viewer.setInput(rowList);
+        /**
+         * Set Column Widths
+         */
+        setColumnWidths();
+        /**
+         * Settable Menu
+         */
+        setPopupMenu();
+    }
+    public void setEditors(CellEditor editors[])
+    {
+        viewer.setCellEditors(editors);
+    }
 
 	public void addRow(ITableRow row)
 	{

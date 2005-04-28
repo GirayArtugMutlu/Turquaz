@@ -380,15 +380,17 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		columnList.add(DEPT);
 		columnList.add(CREDIT);
 		//     Create the cell editors
+       
 		CellEditor[] editors = new CellEditor[columnNames.length];
-		editors[0] = new AccountingCellEditor(tableTransactionColumns);
+		editors[0] = new AccountingCellEditor(tableTransactionColumns,ACCOUNT_CODE);
 		editors[1] = new TextCellEditor(tableTransactionColumns);
 		editors[2] = new TextCellEditor(tableTransactionColumns);
 		editors[3] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		editors[4] = new CurrencyCellEditor(tableTransactionColumns, 2);
 		// Assign the cell editors to the viewer
-		tableViewer = new SaveTableViewer(tableTransactionColumns, editors);
-		// create a TableCursor to navigate around the table
+        tableViewer = new SaveTableViewer(tableTransactionColumns,editors);
+        ((AccountingCellEditor)editors[0]).setTableViewer(tableViewer.getViewer());
+        // create a TableCursor to navigate around the table
 		cursor = new TableSpreadsheetCursor(tableTransactionColumns, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
 		tableViewer.addChangeListener(new ITableRowListViewer()

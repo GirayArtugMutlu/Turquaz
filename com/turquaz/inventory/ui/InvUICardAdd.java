@@ -1006,9 +1006,12 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		//     Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		editors[0] = new TextCellEditor(tableInvAccounts);
-		editors[1] = new AccountingCellEditor(tableInvAccounts);
+		editors[1] = new AccountingCellEditor(tableInvAccounts,ACC_CODE);
 		// Assign the cell editors to the viewer
 		tableViewer.setCellEditors(editors);
+        ((AccountingCellEditor)editors[1]).setTableViewer(tableViewer);
+        
+        
 		TurquazContentProvider contentProvider = new TurquazContentProvider(tableViewer, rowList);
 		tableViewer.setCellModifier(new TurquazCellModifier(columnList, contentProvider));
 		tableViewer.setContentProvider(contentProvider);
