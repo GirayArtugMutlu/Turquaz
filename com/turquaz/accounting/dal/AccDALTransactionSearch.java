@@ -19,7 +19,6 @@ package com.turquaz.accounting.dal;
  * @author Onsel Armagan
  * @version $Id$
  */
-import java.sql.Statement;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;

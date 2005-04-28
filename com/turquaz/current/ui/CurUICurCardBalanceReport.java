@@ -19,8 +19,14 @@ package com.turquaz.current.ui;
 
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -58,6 +64,7 @@ import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
@@ -466,6 +473,34 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 				tableViewer.addRow(new String[]{"", "TOPLAM", cf.format(generalDept), cf.format(generalCredit),
 						"",cf.format(generalBalance)}, null);
 			}
+			if (listCurrentCards.size() > 0)
+			{
+				generateJasper(listCurrentCards);
+			}
+		}
+		catch (Exception ex)
+		{
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
+		}
+	}
+	
+	private void generateJasper(List list)
+	{
+		try
+		{
+			Map parameters=new HashMap();
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
+			parameters.put("currencyFormat", cf);
+			parameters.put("dateFormat", sdf);
+			
+			String[] fields = new String[]{"card_id", "card_inventory_code", "card_name",
+					"total_credit","total_dept","card_balance"};
+			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/current/CurrentCardBalanceReport.jrxml");
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+			viewer.getReportViewer().setDocument(jasperPrint);
 		}
 		catch (Exception ex)
 		{
