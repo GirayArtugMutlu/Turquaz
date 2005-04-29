@@ -1,7 +1,10 @@
 package com.turquaz.bill.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.Messages;
@@ -10,6 +13,7 @@ import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -229,8 +233,9 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		compAddBill.tableViewer.removeAll();
 		TableItem item;
-		TurqInventoryTransaction invTrans;
+		
 		Iterator it = bill.getTurqBillInEngineSequences().iterator();
+		List transColumns= new ArrayList();
 		while (it.hasNext())
 		{
 			TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
@@ -245,11 +250,17 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			Iterator it3 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 			while (it3.hasNext())
 			{
-				invTrans = (TurqInventoryTransaction) it3.next();
-				InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
-				row.setDBObject(invTrans);
-				compAddBill.tableViewer.addRow(row);
+				transColumns.add(it3.next());
 			}
+		}
+		Collections.sort(transColumns,new EngBLHibernateComparer());
+		TurqInventoryTransaction invTrans;
+		for(int k=0; k<transColumns.size(); k++)
+		{
+			invTrans=(TurqInventoryTransaction)transColumns.get(k);
+			InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
+			row.setDBObject(invTrans);
+			compAddBill.tableViewer.addRow(row);
 		}
 		compAddBill.calculateTotals();
 	}
