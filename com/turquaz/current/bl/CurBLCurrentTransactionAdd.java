@@ -35,6 +35,7 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -148,7 +149,55 @@ public class CurBLCurrentTransactionAdd
 			  }
 			 }
 
-	
+    public static Integer saveMultipleOtherTransaction(HashMap argMap)throws Exception
+    {
+    
+        TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+        List transColumns = (List)argMap.get(AccKeys.ACC_TRANSACTIONS);       
+        Date transDate = (Date)argMap.get(EngKeys.DATE);
+        String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+        Boolean isCredit = (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);
+        BigDecimal amount = (BigDecimal)argMap.get(CurKeys.CUR_TRANS_AMOUNT);
+        String definition = (String)argMap.get(EngKeys.DEFINITION);
+        Integer type = (Integer)argMap.get(EngKeys.TYPE);
+        TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+        
+        TurqCurrentTransaction curTrans = saveCurrentTransaction(curCard, transDate, documentNo, isCredit.booleanValue(), amount, new BigDecimal(0),
+                type.intValue(), null, definition, exchangeRate);
+        
+       Map creditMap = new HashMap();
+       Map deptMap = new HashMap();
+       
+       TurqAccountingAccount currentAccountingAccount=CurBLCurrentCardSearch.getCurrentAccountingAccount(curCard, EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+        
+       if(currentAccountingAccount!=null)
+       {
+        if(isCredit.booleanValue())
+        {
+            TurqAccountingTransactionColumn counterCol=new TurqAccountingTransactionColumn();
+            counterCol.setCreditAmount(amount);
+            counterCol.setDeptAmount(new BigDecimal(0));
+            counterCol.setTransactionDefinition(definition);
+            counterCol.setTurqAccountingAccount(currentAccountingAccount);
+            transColumns.add(counterCol);            
+        }
+        else
+        {
+            TurqAccountingTransactionColumn counterCol=new TurqAccountingTransactionColumn();
+            counterCol.setCreditAmount(new BigDecimal(0));
+            counterCol.setDeptAmount(amount);
+            counterCol.setTransactionDefinition(definition);
+            counterCol.setTurqAccountingAccount(currentAccountingAccount);
+            transColumns.add(counterCol);             
+        } 
+        
+        AccBLTransactionAdd.saveAccTransaction(transDate, documentNo,EngBLCommon.ACCOUNTING_TRANS_GENERAL,EngBLCommon.MODULE_CURRENT,curTrans.getTurqEngineSequence().getId(),definition,exchangeRate,transColumns);
+        return new Integer(1);
+        
+       }
+        return new Integer(0); 
+       
+    }	
 	public static TurqCurrentTransaction saveOtherCurrentTransaction(HashMap argMap) throws Exception
 	{
 		

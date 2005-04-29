@@ -174,7 +174,7 @@ public class AccBLTransactionAdd
 		
 	}
 	
-	private static boolean saveAccTransaction(Date date, String documentNo, int type, int moduleId,
+	public static boolean saveAccTransaction(Date date, String documentNo, int type, int moduleId,
 			Integer docSeqId, String definition, TurqCurrencyExchangeRate exchangeRate, List transColumns)
 			throws Exception
 	{

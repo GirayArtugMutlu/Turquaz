@@ -119,6 +119,10 @@ public class EngBLCommon
 	public final static int CURRENT_TRANS_OTHERS = 7; //Diger Borc
 	
 	public final static int CURRENT_TRANS_BETWEEN_ACCOUNTS = 8; //Virman
+    
+    public final static int CURRENT_TRANS_MULTIPLE_DEPT = 9; //Coklu borc
+    
+    public final static int CURRENT_TRANS_MULTIPLE_CREDIT = 10; //Coklu Alacak
 	
 	// Alacaklar
 	public final static Integer CURRENT_ACC_TYPE_GENERAL = new Integer(0); // Cari

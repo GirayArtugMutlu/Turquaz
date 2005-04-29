@@ -226,14 +226,15 @@ public class EngBLVersionValidate
         Statement stmt = session.connection().createStatement();
         try{
             String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
-                          "INSERT INTO turq_inventory_accounting_types VALUES (9, 'Return Sell', 'Satistan Iade Muhasebe Hesabi');" +
-                          "INSERT INTO turq_inventory_accounting_types VALUES (11, 'Return Sell VAT', 'Satistan Iade KDV Hesabi');" +
-                          "INSERT INTO turq_inventory_accounting_types VALUES (10, 'Return Buy VAT', 'Alistan Iade KDV Hesabi');" +
-                          "INSERT INTO turq_inventory_accounting_types VALUES (12, 'Return Buy Special VAT', 'Alistan Iade OTV Hesabi');" +
-                          "INSERT INTO turq_inventory_accounting_types VALUES (13, 'Return Sell Special VAT', 'Satistan Iade OTV Hesabi');" +
-                          "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
-                          "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" ;
-
+            "INSERT INTO turq_inventory_accounting_types VALUES (9, 'Return Sell', 'Satistan Iade Muhasebe Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (11, 'Return Sell VAT', 'Satistan Iade KDV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (10, 'Return Buy VAT', 'Alistan Iade KDV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (12, 'Return Buy Special VAT', 'Alistan Iade OTV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (13, 'Return Sell Special VAT', 'Satistan Iade OTV Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
+            "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" +
+            "INSERT INTO turq_current_transaction_types VALUES (9, 'Coklu Borc', 'admin', '2004-10-18', 'admin', '2004-10-18');"+
+            "INSERT INTO turq_current_transaction_types VALUES (10, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');";
             stmt.execute(query);
         }
         catch(Exception ex)
@@ -258,8 +259,9 @@ public class EngBLVersionValidate
             "INSERT INTO turq_inventory_accounting_types VALUES (12, 'Return Buy Special VAT', 'Alistan Iade OTV Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (13, 'Return Sell Special VAT', 'Satistan Iade OTV Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
-            "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" ;
-        
+            "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" +
+            "INSERT INTO turq_current_transaction_types VALUES (9, 'Coklu Borc', 'admin', '2004-10-18', 'admin', '2004-10-18');"+
+            "INSERT INTO turq_current_transaction_types VALUES (10, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');";
             
             stmt.execute(query);
         

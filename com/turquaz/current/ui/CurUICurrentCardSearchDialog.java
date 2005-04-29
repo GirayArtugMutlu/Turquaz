@@ -39,7 +39,6 @@ import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentGroup;
-import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -249,9 +248,9 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			
 			for (int k = 0; k < listCurrentCards.size(); k++)
 			{
-				TurqViewCurrentAmountTotal curView = (TurqViewCurrentAmountTotal) ((Object[]) listCurrentCards.get(k))[0];
 				TableItem item = new TableItem(tableCurrentCardSearch, SWT.NULL);
-				String cardCode = (String)((Object[]) listCurrentCards.get(k))[1]; //$NON-NLS-1$
+			    Object result[] = (Object[])listCurrentCards.get(k);
+                String cardCode = (String)((Object[]) listCurrentCards.get(k))[1]; //$NON-NLS-1$
 			    String cardName = (String)((Object[]) listCurrentCards.get(k))[2]; //$NON-NLS-1$
 			    if(type==0)
 				{
@@ -264,17 +263,17 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				BigDecimal totalDept = new BigDecimal(0);
 				BigDecimal totalCredit = new BigDecimal(0);
 				BigDecimal balance = new BigDecimal(0);
-				if(curView.getTransactionsTotalDept()!=null)
+				if(result[4]!=null)
 				{
-					totalDept = curView.getTransactionsTotalDept();
+					totalDept = (BigDecimal)result[4];
 				}
-				if(curView.getTransactionsTotalCredit() != null)
+				if(result[3] != null)
 				{
-					totalCredit = curView.getTransactionsTotalCredit();
+					totalCredit = (BigDecimal)result[3];
 				}
-				if(curView.getTransactionsBalanceNow()!=null)
+				if(result[5] != null)
 				{
-					balance =curView.getTransactionsBalanceNow();
+					balance =(BigDecimal)result[5];
 				}
 				
 				item.setText(new String[]{cardCode,cardName,cf.format(totalDept),cf.format(totalCredit),cf.format(balance)});
