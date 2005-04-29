@@ -195,7 +195,7 @@ public class BillBLAddBill
 				boolean existBillNo=BillDALAddBill.existBillNo(docNo,curCardId,type,billId);
 				if (existBillNo)
 				{
-					throw new TurquazException(EngBLCommon.EX_BILL_DOC_NO);
+					throw new TurquazException(TurquazException.EX_BILL_DOC_NO);
 				}
 				System.out.println("buy"+existBillNo);
 			}
@@ -207,7 +207,7 @@ public class BillBLAddBill
 				boolean existBillNo=BillDALAddBill.existBillNo(docNo,type,billId);
 				if (existBillNo)
 				{
-					throw new TurquazException(EngBLCommon.EX_BILL_DOC_NO);
+					throw new TurquazException(TurquazException.EX_BILL_DOC_NO);
 				}	
 				System.out.println("sell"+existBillNo);
 			}

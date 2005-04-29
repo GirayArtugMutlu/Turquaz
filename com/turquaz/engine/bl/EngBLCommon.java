@@ -241,8 +241,6 @@ public class EngBLCommon
 	public final static int CHECK_BUY_BILL=1;
 	public final static int CHECK_SELL_BILL=2;
 	
-	public final static String EX_BILL_DOC_NO="Bill document no is already defined!"; //$NON-NLS-1$
-	
 	public static Map getChequeStatusMapWithStringKey()
 	{
 		Map map = new HashMap();

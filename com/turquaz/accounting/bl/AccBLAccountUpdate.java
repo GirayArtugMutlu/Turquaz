@@ -27,6 +27,7 @@ import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.exceptions.TurquazException;
 
 public class AccBLAccountUpdate
 {
@@ -38,7 +39,12 @@ public class AccBLAccountUpdate
 			String accountName = (String) argMap.get(AccKeys.ACC_ACCOUNT_NAME);
 			String accountCode = (String) argMap.get(AccKeys.ACC_ACCOUNT_CODE);
 			TurqAccountingAccount parentAccount = (TurqAccountingAccount) argMap.get(AccKeys.ACC_PARENT_ACCOUNT);
-			
+			boolean isSub=isSubAccountOf(account,parentAccount);
+			System.out.println(isSub);
+			 if (isSub)
+			 {
+			 	throw new TurquazException(TurquazException.EX_ACC_SUB_ACC);
+			 }
 			
 			String accCode = account.getAccountCode();			
 			account.setAccountName(accountName);
@@ -64,6 +70,22 @@ public class AccBLAccountUpdate
 		{
 			throw ex;
 		}
+	}
+	
+	private static boolean isSubAccountOf(TurqAccountingAccount parent, TurqAccountingAccount account)
+	{
+		int parentId=parent.getId().intValue();
+		TurqAccountingAccount parentAcc=account.getTurqAccountingAccountByParentAccount();
+		Integer parentAccId=parentAcc.getId();
+		while (parentAccId.intValue() != -1)
+		{
+			if (parentAccId.intValue()==parentId)
+				return true;
+			parentAcc=parentAcc.getTurqAccountingAccountByParentAccount();
+			parentAccId=parentAcc.getId();
+			System.out.println("here");
+		}
+		return false;
 	}
 
 

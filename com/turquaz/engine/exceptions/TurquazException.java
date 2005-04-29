@@ -6,6 +6,8 @@
  */
 package com.turquaz.engine.exceptions;
 
+import com.turquaz.engine.Messages;
+
 /**
  * @author Cem
  *
@@ -15,6 +17,9 @@ package com.turquaz.engine.exceptions;
 public class TurquazException extends Exception
 {
 
+	public final static String EX_BILL_DOC_NO=Messages.getString("TurquazException.0");  //$NON-NLS-1$
+	public final static String EX_ACC_SUB_ACC=Messages.getString("TurquazException.1"); //$NON-NLS-1$
+	
 	public TurquazException()
 	{
 		super();
