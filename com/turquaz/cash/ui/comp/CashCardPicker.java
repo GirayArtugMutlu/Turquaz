@@ -15,6 +15,9 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.bank.ui.BankUIBankCardSearchDialog;
+import com.turquaz.cash.ui.CashUICashCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -182,7 +185,8 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite implements
 	}
 
 	public void openSearchDialog() {
-		// TODO Auto-generated method stub
+		String Code = new CashUICashCardSearchDialog(this.getShell(), SWT.NULL).open(text1.getText().trim());
+		text1.setText(Code);
 		
 	}
 	

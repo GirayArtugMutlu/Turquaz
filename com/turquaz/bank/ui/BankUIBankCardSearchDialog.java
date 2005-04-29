@@ -48,7 +48,7 @@ public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 	public String open(String searchCriteria) {
 		try {
 			Shell parent = getParent();
-			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 
 				{
 					//Register as a resource user - SWTResourceManager will
