@@ -294,12 +294,7 @@ class SaveTableColumnListener implements Listener
     {
         boolean sortStyle = !tableSorter.getAscending();
         tableSorter.setAscending(sortStyle);
-        TableColumn[] columns = viewer.getTable().getColumns();
-        for (int k = 0; k < columns.length; k++)
-        {
-            columns[k].setImage(null);
-        }
-        columns[columnIndex].setImage(sortStyle ? ascendingImage : descendingImage);
+  
         viewer.setSorter(tableSorter);
         viewer.refresh();
     }

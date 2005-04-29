@@ -61,8 +61,8 @@ public class TurquazTableSorter extends ViewerSorter
 			ITableRow row1;
 			ITableRow row2;
 			if (ascending)
-			{
-				row1 = (ITableRow) arg1;
+			{   
+                row1 = (ITableRow) arg1;
 				row2 = (ITableRow) arg2;
 				if (row1.getDBObject() == null && row2.getDBObject() == null)
 					return 0;
