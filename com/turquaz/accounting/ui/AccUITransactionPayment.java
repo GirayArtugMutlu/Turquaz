@@ -306,13 +306,7 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 			{
 			}
 		});
-		
-		int columnTypes[] = new int[4];
-		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
-		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
-		tableViewer.addSortingSupport(columnTypes);
+
 	}
 
 	public void fillCurrencyCombo()
@@ -448,6 +442,13 @@ public class AccUITransactionPayment extends Composite implements SecureComposit
 				tableViewer.editElement(cursor.getRow().getData(), cursor.getColumn());
 			}
 		});
+		
+		int columnTypes[] = new int[4];
+		columnTypes[0] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[1] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[2] = TurquazTableSorter.COLUMN_TYPE_STRING;
+		columnTypes[3] = TurquazTableSorter.COLUMN_TYPE_DECIMAL;
+		tableViewer.addSortingSupport(columnTypes);
 	}
 
 	public void save()
