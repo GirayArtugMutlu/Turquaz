@@ -47,7 +47,7 @@ public class BankDALBankCardSearch
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select bankCard.id," + " bankCard.bankName, bankCard.bankBranchName,"
 					+ " bankCard.bankAccountNo,turqCur.currenciesAbbreviation,"
-					+ " bankCard.bankDefinition from TurqBanksCard as bankCard," + " bankCard.turqCurrency as turqCur where" + //$NON-NLS-1$
+					+ " bankCard.bankDefinition , bankCard.bankCode from TurqBanksCard as bankCard," + " bankCard.turqCurrency as turqCur where" + //$NON-NLS-1$
 					" bankCard.bankName like '" + bankName + "%' and bankCard.bankBranchName like '" + bankBranchName + "%' " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					" and bankCard.bankAccountNo like '" + bankAccountNo + "%'" + " and bankCard.id <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
 			if (currency != null)
@@ -68,6 +68,28 @@ public class BankDALBankCardSearch
 			throw ex;
 		}
 	}
+	public static List searchBankCardsWithCode(String bankName, String bankCode)
+	throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select bankCard.id, bankCard.bankCode, bankCard.bankName, bankCard.bankBranchName,"
+			+ " bankCard.bankAccountNo,turqCur.currenciesAbbreviation,"
+			+ " bankCard.bankDefinition  from TurqBanksCard as bankCard , bankCard.turqCurrency as turqCur where" + //$NON-NLS-1$
+			" bankCard.bankName like '" + bankName + "%' and bankCard.bankCode like '" + bankCode + "%' " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			" and bankCard.id <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
+	
+			Query q = session.createQuery(query);
+			List list = q.list();
+	
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+}
 
 	public static TurqBanksCard initializeBankCardById(Integer bankId) throws Exception
 	{

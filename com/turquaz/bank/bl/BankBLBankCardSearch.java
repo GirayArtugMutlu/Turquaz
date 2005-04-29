@@ -46,6 +46,20 @@ public class BankBLBankCardSearch
 			throw ex;
 		}
 	}
+	public static List searchBankCardsWithCode(HashMap argMap)
+	throws Exception
+{
+try
+{
+	String bankName=(String)argMap.get(BankKeys.BANK_NAME);
+	String bankCode=(String)argMap.get(BankKeys.BANK_CODE);
+	return BankDALBankCardSearch.searchBankCardsWithCode(bankName, bankCode);
+}
+catch (Exception ex)
+{
+	throw ex;
+}
+}
 
 	public static List getBankCards() throws Exception
 	{

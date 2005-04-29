@@ -196,10 +196,6 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					lblAccStart = new CLabel(compAdvanced, SWT.NONE);
 					lblAccStart.setText(Messages.getString("AccUIAccountingAdvancedBalance.10")); //$NON-NLS-1$
-					GridData lblAccStartLData = new GridData();
-					lblAccStartLData.widthHint = 85;
-					lblAccStartLData.heightHint = 19;
-					lblAccStart.setLayoutData(lblAccStartLData);
 				}
 				{
 					accountPickerStart = new AccountPicker(compAdvanced, SWT.NONE);
@@ -211,10 +207,6 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					lblAccEnd = new CLabel(compAdvanced, SWT.NONE);
 					lblAccEnd.setText(Messages.getString("AccUIAccountingAdvancedBalance.11")); //$NON-NLS-1$
-					GridData lblAccEndLData = new GridData();
-					lblAccEndLData.widthHint = 60;
-					lblAccEndLData.heightHint = 19;
-					lblAccEnd.setLayoutData(lblAccEndLData);
 				}
 				{
 					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);

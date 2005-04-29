@@ -19,6 +19,9 @@ package com.turquaz.engine.ui.component;
  * @author Huseyin Ergun
  * @version $Id$
  */
+
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -29,8 +32,12 @@ import org.eclipse.swt.widgets.MenuItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLKeyEvents;
+import com.turquaz.engine.bl.EngBLMenu;
+import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.dal.TurqEngineMenu;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUIHelpDialog;
 import com.turquaz.engine.ui.EngUIKeyControls;
 import com.turquaz.engine.ui.EngUIMainFrame;
@@ -44,6 +51,7 @@ public class MenuManager
 	{
 		createFileMenu(menuMain);
 		createEditMenu(menuMain);
+		
 		MenuItem mitAccounting = new MenuItem(menuMain, SWT.CASCADE);
 		mitAccounting.setText(Messages.getString("MenuManager.2")); //$NON-NLS-1$
 		mitAccounting = MenuFactory.createAccountingMenu(mitAccounting);
@@ -256,6 +264,51 @@ public class MenuManager
 				}
 			});
 		}		
+	}
+	
+	static void createAllMenu (final Menu menuMain)
+	{
+		try{
+
+		List list = (List)EngTXCommon.doTransactionTX(EngBLMenu.class.getName(),"getAllMenu",null);
+		
+		MenuItem mitData = new MenuItem(menuMain, SWT.CASCADE);
+		
+		Menu menuData = new Menu(mitData);
+		mitData.setMenu(menuData);
+		MenuItem mit ;
+		MenuItem sps;
+		// sps = new MenuItem(menuAcc, SWT.SEPARATOR);
+		
+		
+		TurqEngineMenu engMenu = new TurqEngineMenu();
+		
+		for (int i = 0; i < list.size(); i ++)
+		{
+			engMenu = (TurqEngineMenu)list.get(i);
+			if (engMenu.getMenuType() == 0)
+			{
+				mitData.setText(engMenu.getMenuName());
+			}
+			else if (engMenu.getMenuType() == 2)
+			{
+				sps = new MenuItem(menuData, SWT.SEPARATOR);
+			}
+			else if (engMenu.getMenuType() == 3 && EngBLPermissions.getPermission(engMenu.getTurqModuleComponent().getComponentsName())>0)
+			{
+				mit = new MenuItem(menuData, SWT.PUSH);
+				mit.setText(engMenu.getMenuName()); 
+				mit.setData(engMenu.getTurqModuleComponent().getComponentsName());
+				mit.addSelectionListener(new MenuSelectionAdapter());
+			}
+			
+			
+		}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	static void createEditMenu(final Menu menuMain)

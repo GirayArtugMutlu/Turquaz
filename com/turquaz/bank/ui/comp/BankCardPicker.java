@@ -19,6 +19,7 @@ package com.turquaz.bank.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+
 import java.util.HashMap;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -38,6 +39,7 @@ import com.turquaz.bank.BankKeys;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
+import com.turquaz.bank.ui.BankUIBankCardSearchDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -236,8 +238,9 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 	}
 
 	public void openSearchDialog() {
-		// TODO Auto-generated method stub
 		
+		String Code = new BankUIBankCardSearchDialog(this.getShell(), SWT.NULL).open(text1.getText().trim());
+		text1.setText(Code);
 	}
 	
 }

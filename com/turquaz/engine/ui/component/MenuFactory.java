@@ -110,6 +110,7 @@ import com.turquaz.engine.Messages;
  */
 public class MenuFactory
 {
+
 	public static MenuItem createFinanceMenu(MenuItem menuItem)
 	{
 		Menu menuFinance = new Menu(menuItem);
