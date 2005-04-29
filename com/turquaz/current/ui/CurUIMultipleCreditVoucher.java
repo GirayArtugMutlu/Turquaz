@@ -303,7 +303,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
     {
         try
         {
-            List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+            List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null); //$NON-NLS-1$
             for (int k = 0; k < currencies.size(); k++)
             {
                 TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -348,7 +348,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
             }
             else if (comboCreditor.getData() == null)
             {
-                msg.setMessage("Lütfen Cari Kart Seçiniz!"); 
+                msg.setMessage(Messages.getString("CurUIMultipleCreditVoucher.1"));  //$NON-NLS-1$
                 msg.open();
                 return false;
             }
@@ -447,7 +447,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
                 argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_MULTIPLE_CREDIT));
                 argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
                 
-               Integer result =(Integer)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveMultipleOtherTransaction",argMap);         
+               Integer result =(Integer)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveMultipleOtherTransaction",argMap);          //$NON-NLS-1$
                 
                if(result.intValue()==1)
                {
@@ -456,7 +456,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
                }
                else if(result.intValue()==-1)
                {
-                   msg.setMessage("Cari Kart Muhasebe Hesabý Tanýmlanmadýðý için \nMuhasebe entegrasyonu gerçekleþmedi!");
+                   msg.setMessage(Messages.getString("CurUIMultipleCreditVoucher.3")); //$NON-NLS-1$
                    msg.open();
                }
                 clearFields();
