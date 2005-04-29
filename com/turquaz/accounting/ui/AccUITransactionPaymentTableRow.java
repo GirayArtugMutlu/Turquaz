@@ -26,7 +26,6 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 		transRow.setTransactionDefinition("");
 		transRow.setCreditAmount(new BigDecimal(0));
 		transRow.setDeptAmount(new BigDecimal(0));
-		transRow.setTransactionDefinition("");
 	}
 
 	public void setRowIndex(int a)
