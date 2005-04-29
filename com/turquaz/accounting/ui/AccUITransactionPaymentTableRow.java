@@ -175,7 +175,13 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 
 	public Object getDBObject()
 	{
-		return transRow;
+        if(okToSave())
+        {
+            return transRow;
+        }
+        else
+            return null;
+	
 	}
 
 	public void setDBObject(Object transRow)
