@@ -267,7 +267,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 		for (int k = 0; k < transRows.size(); k++)
 		{
 			transRow = (TurqAccountingTransactionColumn) transRows.get(k);
-			if (!transRow.getCreditAmount().toString().equals("0")) { //$NON-NLS-1$
+			if (transRow.getCreditAmount().doubleValue()>0) { //$NON-NLS-1$
 				ITableRow row = new AccUITransactionCollectTableRow(compTransactionCollect.tableViewer.getRowList());
 				row.setDBObject(transRow);
 				compTransactionCollect.tableViewer.addRow(row);

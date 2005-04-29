@@ -100,7 +100,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
     private CLabel lblDate;
     private Text txtDocumentNo;
     private CLabel lbldocumentNo;
-    private CurrentPicker comboCreditor;
+    private CurrentPicker currentPicker;
     private CLabel lblCreditor;
 
     /**
@@ -143,12 +143,12 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             lblCreditor.setText("Cari Kart"); //$NON-NLS-1$
             //END <<  lblCreditor
             //START >>  comboCreditor
-            comboCreditor = new CurrentPicker(this, SWT.NONE);
+            currentPicker = new CurrentPicker(this, SWT.NONE);
             GridData comboCreditorLData = new GridData();
             comboCreditorLData.widthHint = 370;
             comboCreditorLData.heightHint = 15;
             comboCreditorLData.horizontalSpan = 3;
-            comboCreditor.setLayoutData(comboCreditorLData);
+            currentPicker.setLayoutData(comboCreditorLData);
             //END <<  comboCreditor
             //START >>  lbldocumentNo
             lbldocumentNo = new CLabel(this, SWT.NONE);
@@ -346,7 +346,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                 msg.open();
                 return false;
             }
-            else if (comboCreditor.getData() == null)
+            else if (currentPicker.getData() == null)
             {
                 msg.setMessage(Messages.getString("CurUIMultipleDeptVoucher.2"));  //$NON-NLS-1$
                 msg.open();
@@ -430,6 +430,11 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
 
     public void save()
     {
+        saveTrans();
+        newForm();
+    }
+    public void saveTrans()
+    {
         if (verifyFields())
         {
             MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -437,7 +442,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             {               
                 
                 HashMap argMap = new HashMap();
-                argMap.put(EngKeys.CURRENT_CARD,comboCreditor.getData());
+                argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
                 argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
                 argMap.put(EngKeys.DATE,datePickerTransactionDate.getDate());
                 argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
@@ -459,7 +464,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                    msg.setMessage(Messages.getString("CurUIMultipleDeptVoucher.4")); //$NON-NLS-1$
                    msg.open();
                }
-                clearFields();
+               
             }
             catch (Exception ex)
             {
@@ -583,4 +588,11 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
     {
         this.txtDefinition = txtDefinition;
     }
+
+    public CurrentPicker getCurrentPicker()
+    {
+        return currentPicker;
+    }
+    
+    
 }

@@ -100,7 +100,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
     private CLabel lblDate;
     private Text txtDocumentNo;
     private CLabel lbldocumentNo;
-    private CurrentPicker comboCreditor;
+    private CurrentPicker currentPicker;
     private CLabel lblCreditor;
 
     /**
@@ -142,14 +142,14 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
             lblCreditor = new CLabel(this, SWT.NONE);
             lblCreditor.setText("Cari Kart"); //$NON-NLS-1$
             //END <<  lblCreditor
-            //START >>  comboCreditor
-            comboCreditor = new CurrentPicker(this, SWT.NONE);
+            //START >>  currentPicker
+            currentPicker = new CurrentPicker(this, SWT.NONE);
             GridData comboCreditorLData = new GridData();
             comboCreditorLData.widthHint = 370;
             comboCreditorLData.heightHint = 15;
             comboCreditorLData.horizontalSpan = 3;
-            comboCreditor.setLayoutData(comboCreditorLData);
-            //END <<  comboCreditor
+            currentPicker.setLayoutData(comboCreditorLData);
+            //END <<  currentPicker
             //START >>  lbldocumentNo
             lbldocumentNo = new CLabel(this, SWT.NONE);
             lbldocumentNo.setText("Belge No"); //$NON-NLS-1$
@@ -346,7 +346,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
                 msg.open();
                 return false;
             }
-            else if (comboCreditor.getData() == null)
+            else if (currentPicker.getData() == null)
             {
                 msg.setMessage(Messages.getString("CurUIMultipleCreditVoucher.1"));  //$NON-NLS-1$
                 msg.open();
@@ -427,8 +427,13 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
         // Assign the cell editors to the viewer
         // create a TableCursor to navigate around the table
     }
-
     public void save()
+    {
+            saveTrans();
+            clearFields();
+        
+    }
+    public void saveTrans()
     {
         if (verifyFields())
         {
@@ -437,7 +442,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
             {               
                 
                 HashMap argMap = new HashMap();
-                argMap.put(EngKeys.CURRENT_CARD,comboCreditor.getData());
+                argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
                 argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
                 argMap.put(EngKeys.DATE,datePickerTransactionDate.getDate());
                 argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
@@ -458,8 +463,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
                {
                    msg.setMessage(Messages.getString("CurUIMultipleCreditVoucher.3")); //$NON-NLS-1$
                    msg.open();
-               }
-                clearFields();
+               }               
             }
             catch (Exception ex)
             {
@@ -515,8 +519,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
         totalCredit = new BigDecimal(0);
         for (int i = 0; i < items.length; i++)
         {
-            TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn) ((AccUITransactionPaymentTableRow) items[i]
-                    .getData()).getDBObject();
+            TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn) ((AccUITransactionPaymentTableRow) items[i].getData()).getDBObject();
             if (column != null && ((AccUITransactionPaymentTableRow) items[i].getData()).okToSave())
             {
                 totalCredit = totalCredit.add(column.getDeptAmount());
@@ -583,4 +586,11 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
     {
         this.txtDefinition = txtDefinition;
     }
+
+    public CurrentPicker getCurrentPicker()
+    {
+        return currentPicker;
+    }
+    
+    
 }
