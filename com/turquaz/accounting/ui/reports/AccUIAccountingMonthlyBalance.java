@@ -49,7 +49,6 @@ import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -65,6 +64,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 {
 	private TableColumn tableColumnTotalCredit;
 	private TableColumn tableColumnRemain;
+	private Button checkOnlyTransactions;
 	private Button radioUseRemainder;
 	private Button radioUseMainAccounts;
 	private Group groupRemainder;
@@ -87,6 +87,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			Messages.getString("AccUIAccountingMonthlyBalance.7"), Messages.getString("AccUIAccountingMonthlyBalance.8"), Messages.getString("AccUIAccountingMonthlyBalance.10"), Messages.getString("AccUIAccountingMonthlyBalance.11"), Messages.getString("AccUIAccountingMonthlyBalance.12")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	private Calendar cal = Calendar.getInstance();
 	private Map treeItems;
+	private Map accountsMap;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -151,7 +152,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				compAdvancedLData1.verticalAlignment = GridData.FILL;
 				compAdvancedLData1.horizontalSpan = 3;
 				compAdvanced.setLayoutData(compAdvancedLData1);
-				compAdvancedLayout.numColumns = 4;
+				compAdvancedLayout.numColumns = 5;
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
 					lblMonth = new CLabel(compAdvanced, SWT.NONE);
@@ -166,7 +167,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					GridData comboMonthLData = new GridData();
 					comboMonthLData.widthHint = 89;
 					comboMonthLData.heightHint = 16;
-					comboMonthLData.horizontalSpan = 3;
+					comboMonthLData.horizontalSpan = 4;
 					comboMonth.setLayoutData(comboMonthLData);
 				}
 				{
@@ -178,14 +179,12 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					GridData accountPickerStartLData = new GridData();
 					accountPickerStartLData.widthHint = 248;
 					accountPickerStartLData.heightHint = 18;
-					accountPickerStartLData.horizontalSpan = 3;
+					accountPickerStartLData.horizontalSpan = 4;
 					accountPickerStart.setLayoutData(accountPickerStartLData);
 				}
 				{
 					lblAccEnd = new CLabel(compAdvanced, SWT.NONE);
 					lblAccEnd.setText(Messages.getString("AccUIAccountingMonthlyBalance.16")); //$NON-NLS-1$
-					GridData lblAccEndLData = new GridData();
-					lblAccEnd.setLayoutData(lblAccEndLData);
 				}
 				{
 					accountPickerEnd = new AccountPickerLeaf(compAdvanced, SWT.NONE);
@@ -225,7 +224,6 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
 					checkSubAccounts.setText(Messages.getString("AccUIAccountingMonthlyBalance.13")); //$NON-NLS-1$
 					GridData checkSubAccountsLData = new GridData();
-					checkSubAccountsLData.horizontalSpan = 2;
 					checkSubAccountsLData.widthHint = 116;
 					checkSubAccountsLData.heightHint = 16;
 					checkSubAccounts.setLayoutData(checkSubAccountsLData);
@@ -242,6 +240,14 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 						}
 					});
 				}
+				//START >>  checkOnlyTransactions
+				checkOnlyTransactions = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
+				checkOnlyTransactions.setText("Sadece hareket görenleri göster");
+				GridData checkOnlyTransactionsLData = new GridData();
+				checkOnlyTransactionsLData.widthHint = 175;
+				checkOnlyTransactionsLData.heightHint = 16;
+				checkOnlyTransactions.setLayoutData(checkOnlyTransactionsLData);
+				//END <<  checkOnlyTransactions
 			}
 			{
 				compTable = new Composite(this, SWT.NONE);
@@ -342,28 +348,48 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			
 			List allAccounts =(List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
 			
-			
-			
-			
-			
-			TurqAccountingAccount account;
 			Integer parentId, accountId;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal totalCredit = new BigDecimal(0);
 			BigDecimal totalDept = new BigDecimal(0);
 			BigDecimal totalDeptRemain = new BigDecimal(0);
 			BigDecimal totalCreditRemain = new BigDecimal(0);
+			Object[] accountInfo;
 			boolean useMainAccountsRemain = radioUseMainAccounts.getSelection();
+			
+			accountsMap=new HashMap();
+			
+			for (int k=0; k<allAccounts.size(); k++)
+			{
+				accountInfo=(Object[])allAccounts.get(k);
+				accountsMap.put(accountInfo[0],accountInfo);
+			}
+			
+			boolean showOnlyTrans=checkOnlyTransactions.getSelection();
 			for (int i = 0; i < allAccounts.size(); i++)
 			{
-				account = (TurqAccountingAccount) ((Object[]) allAccounts.get(i))[0];
-				BigDecimal transDept = (BigDecimal) ((Object[]) allAccounts.get(i))[1];
-				BigDecimal transCredit = (BigDecimal) ((Object[]) allAccounts.get(i))[2];
+				accountInfo=(Object[])allAccounts.get(i);
+				accountId=(Integer)accountInfo[0];
+				if (accountId.intValue() == -1)
+					continue;				
+				String accountCode=(String)accountInfo[1];
+				String accountName=(String)accountInfo[2];
+				parentId=(Integer)accountInfo[3];
+				Integer topAccountId=(Integer)accountInfo[4];
+				BigDecimal transDept=(accountInfo[5]==null) ? new BigDecimal(0) : (BigDecimal)accountInfo[5];
+				BigDecimal transCredit=(accountInfo[6]==null) ? new BigDecimal(0) : (BigDecimal)accountInfo[6];
+				
+				
+				if (showOnlyTrans)
+				{
+					if (transDept.doubleValue()==0 && transCredit.doubleValue()==0)
+						continue;
+				}
+				
 				totalCredit = totalCredit.add(transCredit);
 				totalDept = totalDept.add(transDept);
-				parentId = account.getTurqAccountingAccountByParentAccount().getId();
-				accountId = account.getId();
-				LocateAccountToTable(account);
+				
+				LocateAccountToTable(accountInfo);
 				TableTreeItem accountItem = (TableTreeItem) treeItems.get(accountId);
 				BigDecimal dept = cf.getBigDecimal(accountItem.getText(2));
 				BigDecimal credit = cf.getBigDecimal(accountItem.getText(3));
@@ -379,11 +405,12 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					else if (remaining.doubleValue() > 0)
 						totalCreditRemain = totalCreditRemain.add(remaining);
 				}
-				accountItem.setText(4, (remaining.doubleValue() <= 0) ? cf.format(remaining.abs()) : ""); //$NON-NLS-1$
-				accountItem.setText(5, (remaining.doubleValue() > 0) ? cf.format(remaining) : ""); //$NON-NLS-1$
-				TurqAccountingAccount parentAcc = account.getTurqAccountingAccountByParentAccount();
+				accountItem.setText(4, (remaining.doubleValue() <= 0) ? cf.format(remaining.abs()) : "0,00"); //$NON-NLS-1$
+				accountItem.setText(5, (remaining.doubleValue() > 0) ? cf.format(remaining) : "0,00"); //$NON-NLS-1$
+				
 				while (parentId.intValue() != -1)
 				{
+					Object[] parentInfo = (Object[])accountsMap.get(parentId);
 					accountItem = (TableTreeItem) treeItems.get(parentId);
 					dept = cf.getBigDecimal(accountItem.getText(2));
 					credit = cf.getBigDecimal(accountItem.getText(3));
@@ -420,11 +447,10 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					else
 					{
 						newremaining = credit.subtract(dept);
-						accountItem.setText(4, (newremaining.doubleValue() <= 0) ? cf.format(newremaining.abs()) : ""); //$NON-NLS-1$
-						accountItem.setText(5, (newremaining.doubleValue() > 0) ? cf.format(newremaining) : ""); //$NON-NLS-1$
+						accountItem.setText(4, (newremaining.doubleValue() <= 0) ? cf.format(newremaining.abs()) : "0,00"); //$NON-NLS-1$
+						accountItem.setText(5, (newremaining.doubleValue() > 0) ? cf.format(newremaining) : "0,00"); //$NON-NLS-1$
 					}
-					parentAcc = parentAcc.getTurqAccountingAccountByParentAccount();
-					parentId = parentAcc.getId();
+					parentId =(Integer) parentInfo[3];
 				}
 			}
 			if (useMainAccountsRemain)
@@ -445,9 +471,9 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 						totalCreditRemain = totalCreditRemain.add(initRemain);
 				}
 			}
-			TableTreeItem dummy = new TableTreeItem(tableTreeAccounts, SWT.NULL);
+			new TableTreeItem(tableTreeAccounts, SWT.NULL);
 			TableTreeItem totals = new TableTreeItem(tableTreeAccounts, SWT.RIGHT);
-			totals.setText(1, Messages.getString("AccUIAccountingMonthlyBalance.26")); //$NON-NLS-1$
+			totals.setText(1, Messages.getString("AccUIAccountingAdvancedBalance.19")); //$NON-NLS-1$
 			totals.setText(2, cf.format(totalDept));
 			totals.setText(3, cf.format(totalCredit));
 			totals.setText(4, cf.format(totalDeptRemain.abs()));
@@ -468,55 +494,61 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 		}
 	}
 
-	private void LocateAccountToTable(TurqAccountingAccount account)
+	private void LocateAccountToTable(Object[] accountInfo)throws Exception
 	{
-		if (!treeItems.containsKey(account.getId()))
-		{
-			Integer parentId = account.getTurqAccountingAccountByParentAccount().getId();
+		
+		Integer accountId=(Integer)accountInfo[0];
+		Integer topAccountId=(Integer)accountInfo[4];
+		BigDecimal transDept=(accountInfo[5]==null) ? new BigDecimal(0) : (BigDecimal)accountInfo[5];
+		BigDecimal transCredit=(accountInfo[6]==null) ? new BigDecimal(0) : (BigDecimal)accountInfo[6];
+		
+		if (!treeItems.containsKey(accountId))
+		{			
+			String accountCode=(String)accountInfo[1];
+			String accountName=(String)accountInfo[2];
+			Integer parentId=(Integer)accountInfo[3];
 			if (parentId.intValue() != -1)
 			{
-				TurqAccountingAccount parentAcc = account.getTurqAccountingAccountByParentAccount();
-				LocateAccountToTable(parentAcc);
+				Object[] parentInfo =(Object[])accountsMap.get(parentId);
+				LocateAccountToTable(parentInfo);
 				TableTreeItem parentItem = (TableTreeItem) treeItems.get(parentId);
-				int k;
-				String accCode = account.getAccountCode();
+				int k;				
 				TableTreeItem parentItems[] = parentItem.getItems();
 				for (k = 0; k < parentItems.length; k++)
 				{
 					TableTreeItem pItem = parentItems[k];
-					if (accCode.compareTo(pItem.getText(0)) < 0)
+					if (accountCode.compareTo(pItem.getText(0)) < 0)
 						break;
 				}
 				TableTreeItem item = new TableTreeItem(parentItem, SWT.NULL, k);
-				item.setText(0, account.getAccountCode());
-				item.setText(1, account.getAccountName());
+				item.setText(0, accountCode);
+				item.setText(1, accountName);
 				item.setText(2, "0.00"); //$NON-NLS-1$
 				item.setText(3, "0.00"); //$NON-NLS-1$
 				item.setText(4, "0.00"); //$NON-NLS-1$
 				item.setText(5, "0.00"); //$NON-NLS-1$
-				item.setData(account);
-				treeItems.put(account.getId(), item);
+				item.setData(accountInfo);
+				treeItems.put(accountId, item);
 			}
 			else
 			{
 				TableTreeItem parentItems[] = tableTreeAccounts.getItems();
 				int k;
-				String accCode = account.getAccountCode();
 				for (k = 0; k < parentItems.length; k++)
 				{
 					TableTreeItem pItem = parentItems[k];
-					if (accCode.compareTo(pItem.getText(0)) < 0)
+					if (accountCode.compareTo(pItem.getText(0)) < 0)
 						break;
 				}
 				TableTreeItem item = new TableTreeItem(tableTreeAccounts, SWT.NULL, k);
-				item.setText(0, account.getAccountCode());
-				item.setText(1, account.getAccountName());
+				item.setText(0, accountCode);
+				item.setText(1, accountName);
 				item.setText(2, "0.00"); //$NON-NLS-1$
 				item.setText(3, "0.00"); //$NON-NLS-1$
 				item.setText(4, "0.00"); //$NON-NLS-1$
 				item.setText(5, "0.00"); //$NON-NLS-1$
-				item.setData(account);
-				treeItems.put(account.getId(), item);
+				item.setData(accountInfo);
+				treeItems.put(accountId, item);
 			}
 		}
 	}

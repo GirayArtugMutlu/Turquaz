@@ -142,6 +142,7 @@ public class AccBLTransactionSearch
 		
 	}
 
+	/*AccUIAccountingAdvancedBalance*/
 	public static List getTransactions(HashMap argMap )
 			throws Exception
 	{
@@ -152,7 +153,7 @@ public class AccBLTransactionSearch
 		Date endDate = (Date)argMap.get(AccKeys.ACC_END_DATE);
 		
 		
-		return AccDALTransactionSearch.getTransactions(firstAccount, secondAccount, initialAccounts.booleanValue(), startDate, endDate);
+		return AccDALTransactionSearch.getTransactions2(firstAccount, secondAccount, initialAccounts.booleanValue(), startDate, endDate);
 		
 	}
 

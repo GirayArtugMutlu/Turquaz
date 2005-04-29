@@ -19,6 +19,10 @@ package com.turquaz.accounting.dal;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -409,6 +413,65 @@ public class AccDALTransactionSearch
 
 			List list = q.list();
 			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getTransactions2(TurqAccountingAccount firstAccount,
+			TurqAccountingAccount secondAccount, boolean initialAccounts, Date startDate, Date endDate)
+			throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			Statement statement = session.connection().createStatement();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String query = "select accounts.id , accounts.account_code, accounts.account_name, " +
+					" accounts.parent_account, accounts.top_account,"
+					+ " accountSums.dept, accountSums.credit from turq_accounting_accounts accounts"
+					+ " left join (Select transColumns.accounting_accounts_id, "
+					+ " sum(transColumns.rows_dept_in_base_currency) as dept," 
+					+ " sum(transColumns.rows_credit_in_base_currency) as credit"
+					+ " from turq_accounting_transactions as accTrans,"
+					+ " turq_accounting_transaction_columns as transColumns"
+					+ " where transColumns.accounting_transactions_id=accTrans.id "
+					+ " and accTrans.transactions_date >= '"
+					+ df.format(startDate)+ "'"
+					+ " and accTrans.transactions_date <= '"+ df.format(endDate)+ "'";
+			if (!initialAccounts)
+			{
+				query += " and accTrans.accounting_transaction_types_id <>" + new Integer(3);
+			}
+			query +=" group by transColumns.accounting_accounts_id) " +
+					" accountSums ON accountSums.accounting_accounts_id=accounts.id";
+			if (firstAccount != null && secondAccount != null)
+			{
+				query += " and accounts.account_code >='" + firstAccount.getAccountCode() + "'"
+						+ " and accounts.account_code <='" + secondAccount.getAccountCode() + "'";
+			}
+			else if (firstAccount != null)
+			{
+				query += " and accounts.account_code ='" + firstAccount.getAccountCode() + "'";
+			}
+			query += " order by accounts.top_account";
+			ResultSet rs = statement.executeQuery(query);
+			List result = new ArrayList();
+			while (rs.next())
+			{
+				Object[] obj = new Object[7];
+				obj[0] = rs.getObject(1);
+				obj[1] = rs.getObject(2);
+				obj[2] = rs.getObject(3);
+				obj[3] = rs.getObject(4);
+				obj[4] = rs.getObject(5);
+				obj[5] = rs.getObject(6);
+				obj[6] = rs.getObject(7);
+				result.add(obj);
+			}
+			return result;
 		}
 		catch (Exception ex)
 		{
