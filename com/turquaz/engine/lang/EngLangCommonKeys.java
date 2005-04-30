@@ -1,5 +1,5 @@
 
-package com.turquaz.engine;
+package com.turquaz.engine.lang;
 
 
 public class EngLangCommonKeys {

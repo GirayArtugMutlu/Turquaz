@@ -1,17 +1,7 @@
-/*
- * Created on Mar 30, 2005
- *
- * 
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.accounting;
 
-/**
- * @author onsel
- *
- * 
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 public class AccKeys
 {
 	public final static String ACC_PARENT_ID = "parentId";
