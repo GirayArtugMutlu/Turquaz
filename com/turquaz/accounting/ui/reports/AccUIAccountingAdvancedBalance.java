@@ -64,6 +64,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 {
 	private TableColumn tableColumnTotalCredit;
 	private Button radioUseRemainder;
+	private Composite compOptions;
 	private Button checkOnlyTransactions;
 	private Label label1;
 	private Button radioUseMainAccounts;
@@ -89,6 +90,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	private TableColumn tableColumnAccountCode;
 	private Map treeItems;
 	private Map accountsMap;
+	private TurkishCurrencyFormat cf=new TurkishCurrencyFormat();
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -143,7 +145,6 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		{
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
-			thisLayout.numColumns = 3;
 			thisLayout.makeColumnsEqualWidth = true;
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.marginHeight = 0;
@@ -157,7 +158,6 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				GridData compAdvancedLData1 = new GridData();
 				compAdvancedLData1.horizontalAlignment = GridData.FILL;
 				compAdvancedLData1.verticalAlignment = GridData.FILL;
-				compAdvancedLData1.horizontalSpan = 3;
 				compAdvanced.setLayoutData(compAdvancedLData1);
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
@@ -174,7 +174,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					cal.set(cal.get(Calendar.YEAR), 0, 1);
 					datePickerStart.setDate(cal.getTime());
 					GridData datePickerStartLData = new GridData();
-					datePickerStartLData.widthHint = 130;
+					datePickerStartLData.widthHint = 150;
 					datePickerStartLData.heightHint = 22;
 					datePickerStart.setLayoutData(datePickerStartLData);
 				}
@@ -189,7 +189,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					datePickerEnd = new DatePicker(compAdvanced, SWT.NONE);
 					GridData datePickerEndLData = new GridData();
-					datePickerEndLData.widthHint = 130;
+					datePickerEndLData.widthHint = 150;
 					datePickerEndLData.heightHint = 22;
 					datePickerEnd.setLayoutData(datePickerEndLData);
 				}
@@ -200,7 +200,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					accountPickerStart = new AccountPicker(compAdvanced, SWT.NONE);
 					GridData accountPickerStartLData = new GridData();
-					accountPickerStartLData.widthHint = 128;
+					accountPickerStartLData.widthHint = 150;
 					accountPickerStartLData.heightHint = 17;
 					accountPickerStart.setLayoutData(accountPickerStartLData);
 				}
@@ -211,7 +211,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				{
 					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);
 					GridData accountPickerEndLData = new GridData();
-					accountPickerEndLData.widthHint = 129;
+					accountPickerEndLData.widthHint = 150;
 					accountPickerEndLData.heightHint = 17;
 					accountPickerEnd.setLayoutData(accountPickerEndLData);
 				}
@@ -224,67 +224,77 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				label1LData.horizontalSpan = 4;
 				label1.setLayoutData(label1LData);
 				//END << label1
-				//START >> groupRemainder
-				groupRemainder = new Group(compAdvanced, SWT.NONE);
-				GridLayout groupRemainderLayout = new GridLayout();
-				GridData groupRemainderLData = new GridData();
-				groupRemainderLData.widthHint = 153;
-				groupRemainderLData.heightHint = 44;
-				groupRemainderLData.verticalSpan = 2;
-				groupRemainderLData.horizontalSpan = 2;
-				groupRemainder.setLayoutData(groupRemainderLData);
-				groupRemainderLayout.horizontalSpacing = 4;
-				groupRemainder.setLayout(groupRemainderLayout);
-				groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14")); //$NON-NLS-1$
-				//START >> radioUseMainAccounts
-				radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-				radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15")); //$NON-NLS-1$
-				radioUseMainAccounts.setSelection(true);
-				//END << radioUseMainAccounts
-				//START >> radioUseRemainder
-				radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-				radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16")); //$NON-NLS-1$
-				GridData radioUseRemainderLData = new GridData();
-				radioUseRemainderLData.widthHint = 103;
-				radioUseRemainderLData.heightHint = 13;
-				radioUseRemainder.setLayoutData(radioUseRemainderLData);
-				//END << radioUseRemainder
-				//END << groupRemainder
-				{
-					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-					checkSubAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.0")); //$NON-NLS-1$
-					GridData checkSubAccountsLData = new GridData();
-					checkSubAccounts.setLayoutData(checkSubAccountsLData);
-					checkSubAccounts.addSelectionListener(new SelectionAdapter()
-					{
-						public void widgetSelected(SelectionEvent evt)
-						{
-							boolean expand = checkSubAccounts.getSelection();
-							TableTreeItem[] subItems = tableTreeAccounts.getItems();
-							for (int k = 0; k < subItems.length; k++)
-							{
-								expandTree(subItems[k], expand);
-							}
-						}
-					});
-				}
-				{
-					checkInitialAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-					checkInitialAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.1")); //$NON-NLS-1$
-					GridData checkInitialAccountsLData = new GridData();
-					checkInitialAccounts.setLayoutData(checkInitialAccountsLData);
-				}
-				{
-					checkFinalAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-					checkFinalAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
-					GridData checkFinalAccountsLData = new GridData();
-					checkFinalAccounts.setLayoutData(checkFinalAccountsLData);
-				}
-				//START >>  checkOnlyTransactions
-				checkOnlyTransactions = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-				checkOnlyTransactions.setText("Sadece hareket görenleri göster");
-				//END <<  checkOnlyTransactions
 			}
+			//START >>  compOptions
+			compOptions = new Composite(this, SWT.NONE);
+			GridLayout compOptionsLayout = new GridLayout();
+			GridData compOptionsLData = new GridData();
+			compOptionsLData.grabExcessHorizontalSpace = true;
+			compOptionsLData.horizontalAlignment = GridData.FILL;
+			compOptionsLData.verticalAlignment = GridData.FILL;
+			compOptions.setLayoutData(compOptionsLData);
+			compOptionsLayout.numColumns = 3;
+			compOptions.setLayout(compOptionsLayout);
+			//START >> groupRemainder
+			groupRemainder = new Group(compOptions, SWT.NONE);
+			GridLayout groupRemainderLayout = new GridLayout();
+			GridData groupRemainderLData = new GridData();
+			groupRemainderLData.widthHint = 153;
+			groupRemainderLData.heightHint = 44;
+			groupRemainderLData.verticalSpan = 2;
+			groupRemainder.setLayoutData(groupRemainderLData);
+			groupRemainderLayout.horizontalSpacing = 1;
+			groupRemainderLayout.marginHeight = 0;
+			groupRemainder.setLayout(groupRemainderLayout);
+			groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14")); //$NON-NLS-1$
+			//START >> radioUseMainAccounts
+			radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
+			radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15")); //$NON-NLS-1$
+			radioUseMainAccounts.setSelection(true);
+			//END << radioUseMainAccounts
+			//START >> radioUseRemainder
+			radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
+			radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16")); //$NON-NLS-1$
+			GridData radioUseRemainderLData = new GridData();
+			radioUseRemainderLData.widthHint = 103;
+			radioUseRemainderLData.heightHint = 13;
+			radioUseRemainder.setLayoutData(radioUseRemainderLData);
+			//END << radioUseRemainder
+			//END << groupRemainder
+			{
+				checkSubAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
+				checkSubAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.0")); //$NON-NLS-1$
+				GridData checkSubAccountsLData = new GridData();
+				checkSubAccountsLData.heightHint = 33;
+				checkSubAccounts.setLayoutData(checkSubAccountsLData);
+				checkSubAccounts.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						boolean expand = checkSubAccounts.getSelection();
+						TableTreeItem[] subItems = tableTreeAccounts.getItems();
+						for (int k = 0; k < subItems.length; k++) {
+							expandTree(subItems[k], expand);
+						}
+					}
+				});
+			}
+			{
+				checkInitialAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
+				checkInitialAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.1")); //$NON-NLS-1$
+				GridData checkInitialAccountsLData = new GridData();
+				checkInitialAccountsLData.heightHint = 26;
+				checkInitialAccounts.setLayoutData(checkInitialAccountsLData);
+			}
+			{
+				checkFinalAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
+				checkFinalAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
+				GridData checkFinalAccountsLData = new GridData();
+				checkFinalAccounts.setLayoutData(checkFinalAccountsLData);
+			}
+			//START >>  checkOnlyTransactions
+			checkOnlyTransactions = new Button(compOptions, SWT.CHECK | SWT.LEFT);
+			checkOnlyTransactions.setText("Sadece hareket görenleri göster");
+			//END <<  checkOnlyTransactions
+			//END <<  compOptions
 			{
 				compTable = new Composite(this, SWT.NONE);
 				GridLayout compTableLayout = new GridLayout();
@@ -340,151 +350,17 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				}
 			}
 			this.layout();
+			PostInitGui();
 		}
 		catch (Exception e)
 		{
             EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
-
-
-	/*public void search2()
-	{
-		try
-		{
-			tableTreeAccounts.removeAll();
-			treeItems = new HashMap();
-			
-			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_ACCOUNT_START,accountPickerStart.getData());
-			argMap.put(AccKeys.ACC_ACCOUNT_END, accountPickerEnd.getData());
-			argMap.put(AccKeys.ACC_INITIAL_TRANS,new Boolean(checkInitialAccounts.getSelection()));
-			argMap.put(AccKeys.ACC_START_DATE,datePickerStart.getDate());
-			argMap.put(AccKeys.ACC_END_DATE,datePickerEnd.getDate());
-			
-			List allAccounts =(List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getTransactions",argMap);
-			TurqAccountingAccount account;
-			Integer parentId, accountId;
-			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			BigDecimal totalCredit = new BigDecimal(0);
-			BigDecimal totalDept = new BigDecimal(0);
-			BigDecimal totalDeptRemain = new BigDecimal(0);
-			BigDecimal totalCreditRemain = new BigDecimal(0);
-			boolean useMainAccountsRemain = radioUseMainAccounts.getSelection();
-			for (int i = 0; i < allAccounts.size(); i++)
-			{
-				account = (TurqAccountingAccount) ((Object[]) allAccounts.get(i))[0];
-				BigDecimal transDept = (BigDecimal) ((Object[]) allAccounts.get(i))[1];
-				BigDecimal transCredit = (BigDecimal) ((Object[]) allAccounts.get(i))[2];
-				totalCredit = totalCredit.add(transCredit);
-				totalDept = totalDept.add(transDept);
-				parentId = account.getTurqAccountingAccountByParentAccount().getId();
-				accountId = account.getId();
-				LocateAccountToTable(account);
-				TableTreeItem accountItem = (TableTreeItem) treeItems.get(accountId);
-				BigDecimal dept = cf.getBigDecimal(accountItem.getText(2));
-				BigDecimal credit = cf.getBigDecimal(accountItem.getText(3));
-				dept = dept.add(transDept);
-				credit = credit.add(transCredit);
-				accountItem.setText(2, cf.format(dept));
-				accountItem.setText(3, cf.format(credit));
-				BigDecimal remaining = transCredit.subtract(transDept);
-				if (!useMainAccountsRemain)
-				{
-					if (remaining.doubleValue() < 0)
-						totalDeptRemain = totalDeptRemain.add(remaining);
-					else if (remaining.doubleValue() > 0)
-						totalCreditRemain = totalCreditRemain.add(remaining);
-				}
-				accountItem.setText(4, (remaining.doubleValue() <= 0) ? cf.format(remaining.abs()) : ""); //$NON-NLS-1$
-				accountItem.setText(5, (remaining.doubleValue() > 0) ? cf.format(remaining) : ""); //$NON-NLS-1$
-				TurqAccountingAccount parentAcc = account.getTurqAccountingAccountByParentAccount();
-				while (parentId.intValue() != -1)
-				{
-					accountItem = (TableTreeItem) treeItems.get(parentId);
-					dept = cf.getBigDecimal(accountItem.getText(2));
-					credit = cf.getBigDecimal(accountItem.getText(3));
-					dept = dept.add(transDept);
-					credit = credit.add(transCredit);
-					accountItem.setText(2, cf.format(dept));
-					accountItem.setText(3, cf.format(credit));
-					BigDecimal newremaining;
-					if (!useMainAccountsRemain)
-					{
-						String remainDept = accountItem.getText(4);
-						String remainCredit = accountItem.getText(5);
-						BigDecimal initDept;
-						BigDecimal initCredit;
-						if (remainDept != null && !remainDept.equals("")) //$NON-NLS-1$
-						{
-							initDept = cf.getBigDecimal(remainDept);
-							if (remaining.doubleValue() < 0)
-								initDept = initDept.add(remaining.abs());
-						}
-						else
-							initDept = remaining;
-						if (remainCredit != null && !remainCredit.equals("")) //$NON-NLS-1$
-						{
-							initCredit = cf.getBigDecimal(remainCredit);
-							if (remaining.doubleValue() > 0)
-								initCredit = initCredit.add(remaining);
-						}
-						else
-							initCredit = new BigDecimal(0);
-						accountItem.setText(4, cf.format(initDept)); //$NON-NLS-1$
-						accountItem.setText(5, cf.format(initCredit)); //$NON-NLS-1$
-					}
-					else
-					{
-						newremaining = credit.subtract(dept);
-						accountItem.setText(4, (newremaining.doubleValue() <= 0) ? cf.format(newremaining.abs()) : ""); //$NON-NLS-1$
-						accountItem.setText(5, (newremaining.doubleValue() > 0) ? cf.format(newremaining) : ""); //$NON-NLS-1$
-					}
-					parentAcc = parentAcc.getTurqAccountingAccountByParentAccount();
-					parentId = parentAcc.getId();
-				}
-			}
-			if (useMainAccountsRemain)
-			{
-				TableTreeItem[] allitems = tableTreeAccounts.getItems();
-				for (int k = 0; k < allitems.length; k++)
-				{
-					TableTreeItem titem = allitems[k];
-					String remain = titem.getText(4);
-					BigDecimal initRemain;
-					if (remain != null && !remain.equals("")) //$NON-NLS-1$
-						initRemain = cf.getBigDecimal(remain).negate();
-					else
-						initRemain = cf.getBigDecimal(titem.getText(5));
-					if (initRemain.doubleValue() <= 0)
-						totalDeptRemain = totalDeptRemain.add(initRemain);
-					else
-						totalCreditRemain = totalCreditRemain.add(initRemain);
-				}
-			}
-			new TableTreeItem(tableTreeAccounts, SWT.NULL);
-			TableTreeItem totals = new TableTreeItem(tableTreeAccounts, SWT.RIGHT);
-			totals.setText(1, Messages.getString("AccUIAccountingAdvancedBalance.19")); //$NON-NLS-1$
-			totals.setText(2, cf.format(totalDept));
-			totals.setText(3, cf.format(totalCredit));
-			totals.setText(4, cf.format(totalDeptRemain.abs()));
-			totals.setText(5, cf.format(totalCreditRemain));
-			boolean expand = checkSubAccounts.getSelection();
-			if (expand)
-			{
-				TableTreeItem[] subItems = tableTreeAccounts.getItems();
-				for (int k = 0; k < subItems.length; k++)
-				{
-					expandTree(subItems[k], expand);
-				}
-			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
-		}
-	}*/
 	
+	private void PostInitGui()
+	{
+	}
 	
 	public void search()
 	{
@@ -518,7 +394,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				accountInfo=(Object[])allAccounts.get(k);
 				accountsMap.put(accountInfo[0],accountInfo);
 			}
-			
+
 			boolean showOnlyTrans=checkOnlyTransactions.getSelection();
 			for (int i = 0; i < allAccounts.size(); i++)
 			{
@@ -666,7 +542,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				Object[] parentInfo =(Object[])accountsMap.get(parentId);
 				LocateAccountToTable(parentInfo);
 				TableTreeItem parentItem = (TableTreeItem) treeItems.get(parentId);
-				int k;				
+				int k=0;				
 				TableTreeItem parentItems[] = parentItem.getItems();
 				for (k = 0; k < parentItems.length; k++)
 				{
@@ -674,6 +550,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					if (accountCode.compareTo(pItem.getText(0)) < 0)
 						break;
 				}
+
 				TableTreeItem item = new TableTreeItem(parentItem, SWT.NULL, k);
 				item.setText(0, accountCode);
 				item.setText(1, accountName);
@@ -687,7 +564,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			else
 			{
 				TableTreeItem parentItems[] = tableTreeAccounts.getItems();
-				int k;
+				int k=0;
 				for (k = 0; k < parentItems.length; k++)
 				{
 					TableTreeItem pItem = parentItems[k];
@@ -704,6 +581,36 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				item.setData(accountInfo);
 				treeItems.put(accountId, item);
 			}
+		}
+	}
+	
+	public void sortTree(int columnIndex)
+	{
+		TableTreeItem[] items=tableTreeAccounts.getItems();
+		sortItems(items);
+		TableTreeItem item;
+		tableTreeAccounts.removeAll();
+		for(int k=0; k<items.length; k++)
+		{
+			item=new TableTreeItem(tableTreeAccounts, SWT.NULL);
+			sortSubTree(columnIndex, items[k]);
+		}
+	}
+	
+	public void sortItems(TableTreeItem[] items)
+	{
+		
+	}
+	
+	public void sortSubTree(int columnIndex,TableTreeItem parent)
+	{
+		TableTreeItem[] items=parent.getItems();
+		sortItems(items);
+		TableTreeItem item;
+		for(int k=0; k<items.length; k++)
+		{
+			item=new TableTreeItem(parent, SWT.NULL);
+			sortSubTree(columnIndex,items[k]);
 		}
 	}
 
