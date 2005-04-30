@@ -12,6 +12,12 @@ public class EngLangCommonKeys {
 	public final static String STR_TOTAL = "Toplam";
 	public final static String STR_DESCRIPTION = "Açýklama";
 	
+	
+	public final static String STR_CURRENCY_UNIT="Para Birimi";
+	public final static String STR_EXCHANGE="Kur";
+	public final static String STR_EXCHANGE_RATE="Kur Oran?";
+	
+	
 	public final static String STR_CURRENCY = "Para Birimi";
 	public final static String STR_MONTHS_JANUARY = "Ocak";
 	public final static String STR_MONTHS_FEBRUARY = "Þubat";
@@ -31,5 +37,6 @@ public class EngLangCommonKeys {
 	public final static String MSG_DELETED_SUCCESS = "Baþarýyla Silindi!";
 	public final static String MSG_DELETE_REALLY = "Silmek istediðinizden emin misiniz?";
 	public final static String MSG_UNKNOWN_ERROR_REPORT_ERROR_LOG = "Bilinmeyen bir hata oluþtu. error.log dosyasýndan eriþilebilir.";
+	
 	
 }
