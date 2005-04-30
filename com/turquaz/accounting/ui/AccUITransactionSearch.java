@@ -36,13 +36,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -56,13 +57,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class AccUITransactionSearch extends Composite implements SearchComposite
 {
 	{
@@ -121,7 +115,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					lblDocumentNoLData.widthHint = 99;
 					lblDocumentNoLData.heightHint = 24;
 					lblDocumentNo.setLayoutData(lblDocumentNoLData);
-					lblDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
+					lblDocumentNo.setText(AccLangKeys.STR_VOUCHER_NO); 
 					lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(99, 24));
 				}
 				{
@@ -144,20 +138,20 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				groupTransTypes.setLayoutData(groupTransTypesLData);
 				groupTransTypesLayout.makeColumnsEqualWidth = true;
 				groupTransTypes.setLayout(groupTransTypesLayout);
-				groupTransTypes.setText(Messages.getString("AccUITransactionSearch.2")); //$NON-NLS-1$
+				groupTransTypes.setText(AccLangKeys.STR_VOUCHER_TYPE); 
 				//START >> btnAccTrans
 				btnAccTrans = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
-				btnAccTrans.setText(Messages.getString("AccUITransactionSearch.12")); //$NON-NLS-1$
+				btnAccTrans.setText(AccLangKeys.STR_JOURNAL_VOUCHER); 
 				btnAccTrans.setSelection(true);
 				//END << btnAccTrans
 				//START >> btnCollect
 				btnCollect = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
-				btnCollect.setText(Messages.getString("AccUITransactionSearch.13")); //$NON-NLS-1$
+				btnCollect.setText(AccLangKeys.STR_COLLECT_VOUCHER); 
 				btnCollect.setSelection(true);
 				//END << btnCollect
 				//START >> btnPayment
 				btnPayment = new Button(groupTransTypes, SWT.CHECK | SWT.LEFT);
-				btnPayment.setText(Messages.getString("AccUITransactionSearch.14")); //$NON-NLS-1$
+				btnPayment.setText(AccLangKeys.STR_PAYMENT_VOUCHER); 
 				btnPayment.setSelection(true);
 				//END << btnPayment
 				//END << groupTransTypes
@@ -165,7 +159,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					lblStartDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDate.setLayoutData(lblStartDateLData);
-					lblStartDate.setText(Messages.getString("AccUITransactionSearch.3")); //$NON-NLS-1$
+					lblStartDate.setText(AccLangKeys.STR_START_DATE); 
 				}
 				{
 					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
@@ -180,7 +174,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					lblEndDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDate.setLayoutData(lblEndDateLData);
-					lblEndDate.setText(Messages.getString("AccUITransactionSearch.4")); //$NON-NLS-1$
+					lblEndDate.setText(AccLangKeys.STR_END_DATE); 
 				}
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
@@ -195,19 +189,19 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			tableTransactions = new Table(this, SWT.MULTI | SWT.FULL_SELECTION);
 			{
 				tableColumnDate = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnDate.setText(Messages.getString("AccUITransactionSearch.7")); //$NON-NLS-1$
+				tableColumnDate.setText(EngLangCommonKeys.STR_DATE);
 				tableColumnDate.setWidth(118);
 			}
 			tableColumnDocumentNo = new TableColumn(tableTransactions, SWT.NULL);
 			tableColumnTransType = new TableColumn(tableTransactions, SWT.NULL);
 			//START >> tableColumnModuleName
 			tableColumnModuleName = new TableColumn(tableTransactions, SWT.NONE);
-			tableColumnModuleName.setText(Messages.getString("AccUITransactionSearch.15")); //$NON-NLS-1$
+			tableColumnModuleName.setText(AccLangKeys.STR_TRANSACTION_MODULE); 
 			tableColumnModuleName.setWidth(80);
 			//END << tableColumnModuleName
 			{
 				tableColumnDefinition = new TableColumn(tableTransactions, SWT.NONE);
-				tableColumnDefinition.setText(Messages.getString("AccUITransactionSearch.5")); //$NON-NLS-1$
+				tableColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); 
 				tableColumnDefinition.setWidth(150);
 			}
 			tableColumnTotalAmount = new TableColumn(tableTransactions, SWT.RIGHT);
@@ -227,11 +221,11 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					tableTransactionsMouseDoubleClick(evt);
 				}
 			});
-			tableColumnTransType.setText(Messages.getString("AccUITransactionSearch.1")); //$NON-NLS-1$
+			tableColumnTransType.setText(AccLangKeys.STR_VOUCHER_TYPE); 
 			tableColumnTransType.setWidth(130);
-			tableColumnDocumentNo.setText(Messages.getString("AccUITransactionSearch.0")); //$NON-NLS-1$
+			tableColumnDocumentNo.setText(AccLangKeys.STR_DOCUMENT_NO);
 			tableColumnDocumentNo.setWidth(126);
-			tableColumnTotalAmount.setText(Messages.getString("AccUITransactionSearch.8")); //$NON-NLS-1$
+			tableColumnTotalAmount.setText(AccLangKeys.STR_TOTAL_PRICE); 
 			tableColumnTotalAmount.setWidth(118);
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -318,19 +312,19 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				}
 				if (status == 2)
 				{
-					msg.setMessage(Messages.getString("AccUITransactionSearch.6")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_NOT_DELETE_VOUCHER_FROM_HERE); 
 					msg.open();
 					return;
 				}
 				if (status == 1)
 				{
-					msg.setMessage(Messages.getString("AccUITransactionSearch.9")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_HAS_JOURNAL_ID_CANNOT_DELETE); 
 					msg.open();
 					return;
 				}
 				AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
 				MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-				msg2.setMessage(Messages.getString("AccUITransactionSearch.10")); //$NON-NLS-1$
+				msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY);
 				int result = msg2.open();
 				if (result == SWT.OK)
 				{
@@ -338,7 +332,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					argMap.put(AccKeys.ACC_TRANSACTION, accTrans);
 					EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),
 							"removeAccountingTransaction", argMap);
-					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
+					msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS);
 					msg.open();
 					search();
 				}
@@ -400,7 +394,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableTransactions, Messages.getString("AccUITransactionSearch.11")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableTransactions, AccLangKeys.STR_ACCOUNT_VOUCHERS); 
 	}
 
 	/** Auto-generated event handler method */

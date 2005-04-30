@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -57,17 +58,6 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountSearch;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
- * which is free for non-commercial use. If Jigloo is being used commercially
- * (ie, by a corporation, company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo. Please visit
- * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
- * licensing terms. ************************************* A COMMERCIAL LICENSE
- * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
- * used legally for any corporate or commercial purpose.
- * *************************************
- */
 public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog implements SearchDialogInterface
 {
     private Shell dialogShell;
@@ -155,7 +145,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog im
                 composite1.setLayout(composite1Layout);
                 {
                     lblAccountCode = new CLabel(composite1, SWT.NONE);
-                    lblAccountCode.setText("Hesap Kodu");
+                    lblAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE);
                 }
                 {
                     GridData txtAccountCodeLData = new GridData();
@@ -166,7 +156,7 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog im
                 }
                 {
                     lblAccountName = new CLabel(composite1, SWT.NONE);
-                    lblAccountName.setText("Hesap Ad\u0131");
+                    lblAccountName.setText(AccLangKeys.STR_ACCOUNT_NAME);
                 }
                 {
                     GridData txtAccountNameLData = new GridData();
@@ -195,27 +185,27 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog im
                 });
                 {
                     tableColumnAccCode = new TableColumn(tableResults, SWT.NONE);
-                    tableColumnAccCode.setText("Hesap Kodu");
+                    tableColumnAccCode.setText(AccLangKeys.STR_ACCOUNT_CODE);
                     tableColumnAccCode.setWidth(100);
                 }
                 {
                     tableColumnAccountName = new TableColumn(tableResults, SWT.NONE);
-                    tableColumnAccountName.setText("Hesap Ad\u0131");
+                    tableColumnAccountName.setText(AccLangKeys.STR_ACCOUNT_NAME);
                     tableColumnAccountName.setWidth(111);
                 }
                 {
                     tableColumnDept = new TableColumn(tableResults, SWT.NONE);
-                    tableColumnDept.setText("Toplam Borç");
+                    tableColumnDept.setText(AccLangKeys.STR_TOTAL_DEBIT);
                     tableColumnDept.setWidth(115);
                 }
                 {
                     tableColumnCredit = new TableColumn(tableResults, SWT.NONE);
-                    tableColumnCredit.setText("Toplam Alacak");
+                    tableColumnCredit.setText(AccLangKeys.STR_TOTAL_CREDIT);
                     tableColumnCredit.setWidth(100);
                 }
                 {
                     tableColumnBalance = new TableColumn(tableResults, SWT.NONE);
-                    tableColumnBalance.setText("Bakiye");
+                    tableColumnBalance.setText(AccLangKeys.STR_BALANCE);
                     tableColumnBalance.setWidth(100);
                 }
             }

@@ -37,24 +37,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
@@ -136,7 +129,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 			if (!totalDept.equals(totalCredit))
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("AccUIAccountingBalance.1")); //$NON-NLS-1$
+				msg.setMessage(AccLangKeys.MSG_OPENING_VOUCHER_NOT_SAME_CREDIT_DEBIT); 
 				msg.open();
 			}
 			Map parameters = new HashMap();
@@ -191,7 +184,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 			this.setSize(543, 194);
 			{
 				lblDateRange = new CLabel(this, SWT.NONE);
-				lblDateRange.setText(Messages.getString("AccUIAccountingBalance.0")); //$NON-NLS-1$
+				lblDateRange.setText(AccLangKeys.STR_SELECT_DATE_RANGE); 
 			}
 			{
 				datePickerBeginDate = new DatePicker(this, SWT.NONE);
@@ -209,11 +202,11 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				btnIcon = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnIcon.setText(Messages.getString("AccUIAccountingBalance.26")); //$NON-NLS-1$
+				btnIcon.setText(AccLangKeys.STR_CHOOSE_LOGO); 
 				GridData btnIconLData = new GridData();
 				btnIconLData.horizontalAlignment = GridData.END;
 				btnIconLData.horizontalSpan = 2;
-				btnIcon.setText(Messages.getString("AccUIAccountingBalance.29")); //$NON-NLS-1$
+				btnIcon.setText(AccLangKeys.STR_CHOOSE_LOGO); 
 				GridData btnIconLData1 = new GridData();
 				btnIconLData1.widthHint = 102;
 				btnIconLData1.heightHint = 30;
@@ -228,7 +221,7 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				btnShow = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnShow.setText(Messages.getString("AccUIAccountingBalance.30")); //$NON-NLS-1$
+				btnShow.setText(AccLangKeys.STR_SHOW_REPORT); 
 				GridData btnShowLData = new GridData();
 				btnShowLData.widthHint = 117;
 				btnShowLData.heightHint = 30;
@@ -243,10 +236,10 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 			}
 			File file = new File(EngConfiguration.logoURL);
 			if (file.exists())
-				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.27") + EngConfiguration.logoURL); //$NON-NLS-1$
+				this.lblLogoURL.setText(AccLangKeys.STR_LOGO+ EngConfiguration.logoURL); //$NON-NLS-1$
 			else
 			{
-				this.lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.28")); //$NON-NLS-1$
+				this.lblLogoURL.setText(AccLangKeys.STR_LOGO); //$NON-NLS-1$
 				EngConfiguration.logoURL = ""; //$NON-NLS-1$
 			}
 			this.layout();
@@ -262,12 +255,12 @@ public class AccUIAccountingBalance extends org.eclipse.swt.widgets.Composite
 		FileDialog dialog = new FileDialog(this.getShell(), SWT.OK);
 		dialog.setFilterNames(new String[]{"Image Files (*.jpg;*.jpeg;*.bmp;*.png)", "*.jpg;*.jpeg;*.bmp;*.png"}); //$NON-NLS-1$ //$NON-NLS-2$
 		dialog.setFilterExtensions(new String[]{"*.jpg;*.jpeg;*.bmp;*.png"}); //Windows wild cards //$NON-NLS-1$
-		dialog.setText(Messages.getString("AccUIAccountingBalance.35")); //$NON-NLS-1$
+		dialog.setText(AccLangKeys.STR_LOGO); //$NON-NLS-1$
 		String filepath = dialog.open();
 		if (filepath != null)
 		{
 			EngConfiguration.logoURL = filepath;
-			lblLogoURL.setText(Messages.getString("AccUIAccountingBalance.36") + filepath); //$NON-NLS-1$
+			lblLogoURL.setText(AccLangKeys.STR_LOGO + filepath); //$NON-NLS-1$
 		}
 	}
 }

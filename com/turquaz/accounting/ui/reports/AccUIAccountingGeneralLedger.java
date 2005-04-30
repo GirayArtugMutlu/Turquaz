@@ -26,23 +26,16 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Button;
-import com.turquaz.accounting.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.layout.GridData;
 import com.jasperassistant.designer.viewer.ViewerComposite;
@@ -92,7 +85,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			compOptions.setLayout(compOptionsLayout);
 			//START >> lblStartDate
 			lblStartDate = new CLabel(compOptions, SWT.NONE);
-			lblStartDate.setText(Messages.getString("AccUIAccountingGeneralLedger.0")); //$NON-NLS-1$
+			lblStartDate.setText(AccLangKeys.STR_START_DATE); 
 			//END << lblStartDate
 			//START >> datePickerBeginDate
 			datePickerBeginDate = new DatePicker(compOptions, SWT.NONE);
@@ -107,7 +100,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			//END << datePickerBeginDate
 			//START >> lblEndDate
 			lblEndDate = new CLabel(compOptions, SWT.NONE);
-			lblEndDate.setText(Messages.getString("AccUIAccountingGeneralLedger.3")); //$NON-NLS-1$
+			lblEndDate.setText(AccLangKeys.STR_END_DATE); //$NON-NLS-1$
 			GridData lblEndDateLData = new GridData();
 			lblEndDateLData.widthHint = 75;
 			lblEndDateLData.heightHint = 16;
@@ -122,7 +115,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			//END << datePickerEndDate
 			//START >> lblAccountStart
 			lblAccountStart = new CLabel(compOptions, SWT.NONE);
-			lblAccountStart.setText(Messages.getString("AccUIAccountingGeneralLedger.4")); //$NON-NLS-1$
+			lblAccountStart.setText(AccLangKeys.STR_ACC_CODE_START); 
 			//END << lblAccountStart
 			//START >> txtAccountStart
 			txtAccountStart = new AccountPicker(compOptions, SWT.NONE);
@@ -133,7 +126,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			//END << txtAccountStart
 			//START >> lblAccountEnd
 			lblAccountEnd = new CLabel(compOptions, SWT.NONE);
-			lblAccountEnd.setText(Messages.getString("AccUIAccountingGeneralLedger.5")); //$NON-NLS-1$
+			lblAccountEnd.setText(AccLangKeys.STR_ACC_CODE_END); 
 			//END << lblAccountEnd
 			//START >> txtAccountEnd
 			txtAccountEnd = new AccountPicker(compOptions, SWT.NONE);
@@ -144,7 +137,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			//END << txtAccountEnd
 			//START >> checkApproved
 			checkApproved = new Button(compOptions, SWT.CHECK | SWT.LEFT);
-			checkApproved.setText(Messages.getString("AccUIAccountingGeneralLedger.2")); //$NON-NLS-1$
+			checkApproved.setText(AccLangKeys.STR_SHOW_ONLY_APPROVED); 
 			GridData checkApprovedLData = new GridData();
 			checkApprovedLData.widthHint = 182;
 			checkApprovedLData.heightHint = 12;
@@ -153,7 +146,7 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 			//END << checkApproved
 			//START >> btnShow
 			btnShow = new Button(compOptions, SWT.PUSH | SWT.CENTER);
-			btnShow.setText(Messages.getString("AccUIAccountingGeneralLedger.1")); //$NON-NLS-1$
+			btnShow.setText(AccLangKeys.STR_SHOW_REPORT); 
 			GridData btnShowLData = new GridData();
 			btnShow.addMouseListener(new MouseAdapter()
 			{

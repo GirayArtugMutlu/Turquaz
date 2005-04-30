@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.custom.CLabel;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CCombo;
@@ -34,6 +33,8 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
@@ -46,13 +47,7 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Button btnOk;
@@ -112,7 +107,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			lblAccountLData.widthHint = 59;
 			lblAccountLData.heightHint = 18;
 			lblAccount.setLayoutData(lblAccountLData);
-			lblAccount.setText(Messages.getString("AccUITransactionRowAddDialog.0")); //$NON-NLS-1$
+			lblAccount.setText(AccLangKeys.STR_ACCOUNT); 
 			GridData accountPickerLData = new GridData();
 			accountPickerLData.widthHint = 204;
 			accountPickerLData.heightHint = 20;
@@ -122,7 +117,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			lbDeptOrCreditLData.widthHint = 76;
 			lbDeptOrCreditLData.heightHint = 18;
 			lbDeptOrCredit.setLayoutData(lbDeptOrCreditLData);
-			lbDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.1")); //$NON-NLS-1$
+			lbDeptOrCredit.setText(AccLangKeys.STR_DEBIT_CREDIT); 
 			GridData comboDeptOrCreditLData = new GridData();
 			comboDeptOrCreditLData.verticalAlignment = GridData.CENTER;
 			comboDeptOrCreditLData.horizontalAlignment = GridData.BEGINNING;
@@ -134,21 +129,21 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			comboDeptOrCreditLData.grabExcessHorizontalSpace = false;
 			comboDeptOrCreditLData.grabExcessVerticalSpace = false;
 			comboDeptOrCredit.setLayoutData(comboDeptOrCreditLData);
-			comboDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.6")); //$NON-NLS-1$
+			comboDeptOrCredit.setText(AccLangKeys.STR_DEBIT); 
 			comboDeptOrCredit.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			comboDeptOrCredit.setSize(new org.eclipse.swt.graphics.Point(71, 17));
 			GridData lblAmountLData = new GridData();
 			lblAmountLData.widthHint = 62;
 			lblAmountLData.heightHint = 19;
 			lblAmount.setLayoutData(lblAmountLData);
-			lblAmount.setText(Messages.getString("AccUITransactionRowAddDialog.3")); //$NON-NLS-1$
+			lblAmount.setText(AccLangKeys.STR_AMOUNT); 
 			GridData decTextAmountLData = new GridData();
 			decTextAmountLData.widthHint = 155;
 			decTextAmountLData.heightHint = 19;
 			decTextAmount.setLayoutData(decTextAmountLData);
 			{
 				lblTransactionDefinition = new CLabel(dialogShell, SWT.NONE);
-				lblTransactionDefinition.setText(Messages.getString("AccUITransactionRowAddDialog.2")); //$NON-NLS-1$
+				lblTransactionDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); 
 			}
 			{
 				txtTransactionDefinition = new Text(dialogShell, SWT.MULTI | SWT.V_SCROLL);
@@ -189,7 +184,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 					btnOkLData.widthHint = 62;
 					btnOkLData.heightHint = 34;
 					btnOk.setLayoutData(btnOkLData);
-					btnOk.setText(Messages.getString("AccUITransactionRowAddDialog.5")); //$NON-NLS-1$
+					btnOk.setText(EngLangCommonKeys.STR_OK); 
 					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif")); //$NON-NLS-1$
 					btnOk.addMouseListener(new MouseAdapter()
 					{
@@ -207,7 +202,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 					btnCancelLData.verticalSpan = 2;
 					btnCancelLData.grabExcessVerticalSpace = true;
 					btnCancel.setLayoutData(btnCancelLData);
-					btnCancel.setText(Messages.getString("AccUITransactionRowAddDialog.4")); //$NON-NLS-1$
+					btnCancel.setText(EngLangCommonKeys.STR_CANCEL); 
 					btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif")); //$NON-NLS-1$
 					btnCancel.addMouseListener(new MouseAdapter()
 					{
@@ -257,19 +252,19 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 		transactionRow = null;
 		if (transactionType == 2)
 		{
-			comboDeptOrCredit.add(Messages.getString("AccUITransactionRowAddDialog.6")); //$NON-NLS-1$
-			comboDeptOrCredit.add(Messages.getString("AccUITransactionRowAddDialog.7")); //$NON-NLS-1$
-			comboDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.6")); //$NON-NLS-1$
+			comboDeptOrCredit.add(AccLangKeys.STR_DEBIT);
+			comboDeptOrCredit.add(AccLangKeys.STR_CREDIT); //$NON-NLS-1$
+			comboDeptOrCredit.setText(AccLangKeys.STR_DEBIT); 
 		}
 		else if (transactionType == 1)
 		{
-			comboDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.6")); //$NON-NLS-1$
-			comboDeptOrCredit.add(Messages.getString("AccUITransactionRowAddDialog.10")); //$NON-NLS-1$
+			comboDeptOrCredit.setText(AccLangKeys.STR_DEBIT); 
+			comboDeptOrCredit.add(AccLangKeys.STR_DEBIT); 
 		}
 		else if (transactionType == 0)
 		{
-			comboDeptOrCredit.setText(Messages.getString("AccUITransactionRowAddDialog.7")); //$NON-NLS-1$
-			comboDeptOrCredit.add(Messages.getString("AccUITransactionRowAddDialog.7")); //$NON-NLS-1$
+			comboDeptOrCredit.setText(AccLangKeys.STR_CREDIT); 
+			comboDeptOrCredit.add(AccLangKeys.STR_CREDIT); 
 		}
 	}
 
@@ -284,13 +279,13 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 		if (accountPicker.getData() == null)
 		{
-			msg.setMessage(Messages.getString("AccUITransactionRowAddDialog.13")); //$NON-NLS-1$
+			msg.setMessage(AccLangKeys.MSG_SELECT_ACCOUNT_FIRST); 
 			msg.open();
 			accountPicker.setFocus();
 			return false;
 		}
 		else if (decTextAmount.getBigDecimalValue().toString().equals("0")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("AccUITransactionRowAddDialog.15")); //$NON-NLS-1$
+			msg.setMessage(AccLangKeys.MSG_ENTER_AMOUNT); 
 			msg.open();
 			decTextAmount.setFocus();
 			return false;
@@ -306,7 +301,7 @@ public class AccUITransactionRowAddDialog extends org.eclipse.swt.widgets.Dialog
 			transactionRow = new TurqAccountingTransactionColumn();
 			transactionRow.setTurqAccountingAccount((TurqAccountingAccount) accountPicker.getData());
 			transactionRow.setTransactionDefinition(txtTransactionDefinition.getText().trim());
-			if (comboDeptOrCredit.getText().equals(Messages.getString("AccUITransactionRowAddDialog.6"))) { //$NON-NLS-1$
+			if (comboDeptOrCredit.getText().equals(AccLangKeys.STR_DEBIT)) { 
 				transactionRow.setCreditAmount(new BigDecimal(0));
 				transactionRow.setDeptAmount(decTextAmount.getBigDecimalValue());
 			}

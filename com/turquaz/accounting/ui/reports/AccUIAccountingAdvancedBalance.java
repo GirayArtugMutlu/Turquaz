@@ -31,13 +31,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.widgets.Group;
 import com.turquaz.accounting.ui.comp.AccountPicker;
 import org.eclipse.swt.widgets.Button;
@@ -46,11 +39,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -162,7 +155,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
 					lblStartDate = new CLabel(compAdvanced, SWT.NONE);
-					lblStartDate.setText(Messages.getString("AccUIAccountingAdvancedBalance.3")); //$NON-NLS-1$
+					lblStartDate.setText(AccLangKeys.STR_START_DATE); 
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 79;
 					lblStartDateLData.heightHint = 19;
@@ -180,7 +173,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				}
 				{
 					lblEndDate = new Label(compAdvanced, SWT.NONE);
-					lblEndDate.setText(Messages.getString("AccUIAccountingAdvancedBalance.4")); //$NON-NLS-1$
+					lblEndDate.setText(AccLangKeys.STR_END_DATE); 
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 48;
 					lblEndDateLData.heightHint = 13;
@@ -195,7 +188,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				}
 				{
 					lblAccStart = new CLabel(compAdvanced, SWT.NONE);
-					lblAccStart.setText(Messages.getString("AccUIAccountingAdvancedBalance.10")); //$NON-NLS-1$
+					lblAccStart.setText(AccLangKeys.STR_START_ACCOUNT); 
 				}
 				{
 					accountPickerStart = new AccountPicker(compAdvanced, SWT.NONE);
@@ -206,7 +199,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 				}
 				{
 					lblAccEnd = new CLabel(compAdvanced, SWT.NONE);
-					lblAccEnd.setText(Messages.getString("AccUIAccountingAdvancedBalance.11")); //$NON-NLS-1$
+					lblAccEnd.setText(AccLangKeys.STR_END_ACCOUNT); 
 				}
 				{
 					accountPickerEnd = new AccountPicker(compAdvanced, SWT.NONE);
@@ -246,15 +239,15 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			groupRemainderLayout.horizontalSpacing = 1;
 			groupRemainderLayout.marginHeight = 0;
 			groupRemainder.setLayout(groupRemainderLayout);
-			groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14")); //$NON-NLS-1$
+			groupRemainder.setText(AccLangKeys.STR_BALANCE_CALC_METHOD); 
 			//START >> radioUseMainAccounts
 			radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-			radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15")); //$NON-NLS-1$
+			radioUseMainAccounts.setText(AccLangKeys.STR_DIFF_LEDGER_ACCOUNTS); 
 			radioUseMainAccounts.setSelection(true);
 			//END << radioUseMainAccounts
 			//START >> radioUseRemainder
 			radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-			radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16")); //$NON-NLS-1$
+			radioUseRemainder.setText(AccLangKeys.STR_BALANCE_SUMS); //$NON-NLS-1$
 			GridData radioUseRemainderLData = new GridData();
 			radioUseRemainderLData.widthHint = 103;
 			radioUseRemainderLData.heightHint = 13;
@@ -263,7 +256,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			//END << groupRemainder
 			{
 				checkSubAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
-				checkSubAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.0")); //$NON-NLS-1$
+				checkSubAccounts.setText(AccLangKeys.STR_TOTAL); //$NON-NLS-1$
 				GridData checkSubAccountsLData = new GridData();
 				checkSubAccountsLData.heightHint = 33;
 				checkSubAccounts.setLayoutData(checkSubAccountsLData);
@@ -279,20 +272,20 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			}
 			{
 				checkInitialAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
-				checkInitialAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.1")); //$NON-NLS-1$
+				checkInitialAccounts.setText(AccLangKeys.STR_INCLUDE_OPENING_VOUCHER); 
 				GridData checkInitialAccountsLData = new GridData();
 				checkInitialAccountsLData.heightHint = 26;
 				checkInitialAccounts.setLayoutData(checkInitialAccountsLData);
 			}
 			{
 				checkFinalAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
-				checkFinalAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.2")); //$NON-NLS-1$
+				checkFinalAccounts.setText(AccLangKeys.STR_INCLUDE_CLOSING_VOUCHER); 
 				GridData checkFinalAccountsLData = new GridData();
 				checkFinalAccounts.setLayoutData(checkFinalAccountsLData);
 			}
 			//START >>  checkOnlyTransactions
 			checkOnlyTransactions = new Button(compOptions, SWT.CHECK | SWT.LEFT);
-			checkOnlyTransactions.setText("Sadece hareket görenleri göster");
+			checkOnlyTransactions.setText(AccLangKeys.STR_SHOW_ONLY_WITH_TRANSACTIONS);
 			//END <<  checkOnlyTransactions
 			//END <<  compOptions
 			{
@@ -312,22 +305,22 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					GridData tableTreeAccountsLData = new GridData();
 					{
 						tableColumnAccountCode = new TableColumn(tableTreeAccounts.getTable(), SWT.NONE);
-						tableColumnAccountCode.setText(Messages.getString("AccUIAccountingAdvancedBalance.5")); //$NON-NLS-1$
+						tableColumnAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE);
 						tableColumnAccountCode.setWidth(80);
 					}
 					{
 						tableColumnAccountName = new TableColumn(tableTreeAccounts.getTable(), SWT.NONE);
-						tableColumnAccountName.setText(Messages.getString("AccUIAccountingAdvancedBalance.6")); //$NON-NLS-1$
+						tableColumnAccountName.setText(AccLangKeys.STR_ACCOUNT_NAME); 
 						tableColumnAccountName.setWidth(150);
 					}
 					{
 						tableColumnTotalDept = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnTotalDept.setText(Messages.getString("AccUIAccountingAdvancedBalance.7")); //$NON-NLS-1$
+						tableColumnTotalDept.setText(AccLangKeys.STR_TOTAL_DEBIT); 
 						tableColumnTotalDept.setWidth(110);
 					}
 					{
 						tableColumnTotalCredit = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnTotalCredit.setText(Messages.getString("AccUIAccountingAdvancedBalance.8")); //$NON-NLS-1$
+						tableColumnTotalCredit.setText(AccLangKeys.STR_TOTAL_CREDIT); 
 						tableColumnTotalCredit.setWidth(110);
 					}
 					tableTreeAccountsLData.grabExcessHorizontalSpace = true;
@@ -339,12 +332,12 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 					tableTreeAccounts.getTable().setHeaderVisible(true);
 					{
 						tableColumnRemain = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnRemain.setText(Messages.getString("AccUIAccountingAdvancedBalance.12")); //$NON-NLS-1$
+						tableColumnRemain.setText(AccLangKeys.STR_BALANCE_DEBIT); 
 						tableColumnRemain.setWidth(110);
 					}
 					{
 						tableColumnCreditRemaining = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnCreditRemaining.setText(Messages.getString("AccUIAccountingAdvancedBalance.13")); //$NON-NLS-1$
+						tableColumnCreditRemaining.setText(AccLangKeys.STR_BALANCE_CREDIT); 
 						tableColumnCreditRemaining.setWidth(110);
 					}
 				}
@@ -503,7 +496,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			}
 			new TableTreeItem(tableTreeAccounts, SWT.NULL);
 			TableTreeItem totals = new TableTreeItem(tableTreeAccounts, SWT.RIGHT);
-			totals.setText(1, Messages.getString("AccUIAccountingAdvancedBalance.19")); //$NON-NLS-1$
+			totals.setText(1, AccLangKeys.STR_TOTAL); 
 			totals.setText(2, cf.format(totalDept));
 			totals.setText(3, cf.format(totalCredit));
 			totals.setText(4, cf.format(totalDeptRemain.abs()));
@@ -633,7 +626,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 		props.put("start_date", DatePicker.formatter.format(datePickerStart.getDate())); //$NON-NLS-1$
 		props.put("end_date", DatePicker.formatter.format(datePickerEnd.getDate())); //$NON-NLS-1$
 		props.put("report_date", DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
-		EngBLUtils.printAccountingBalance(tableTreeAccounts.getTable(), Messages.getString("AccUIAccountingAdvancedBalance.23"), props); //$NON-NLS-1$
+		EngBLUtils.printAccountingBalance(tableTreeAccounts.getTable(), AccLangKeys.STR_TRIAL_BALANCE_WITH_DATE_RANGE, props); //$NON-NLS-1$
 	}
 
 	public void exportToExcel()

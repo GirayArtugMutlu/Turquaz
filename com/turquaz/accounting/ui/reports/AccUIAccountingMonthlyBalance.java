@@ -31,13 +31,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.layout.GridData;
@@ -45,11 +38,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -83,8 +77,8 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 	private TableColumn tableColumnAccountName;
 	private TableColumn tableColumnAccountCode;
 	private static String[] months = {
-			Messages.getString("AccUIAccountingMonthlyBalance.0"), Messages.getString("AccUIAccountingMonthlyBalance.1"), Messages.getString("AccUIAccountingMonthlyBalance.2"), Messages.getString("AccUIAccountingMonthlyBalance.3"), Messages.getString("AccUIAccountingMonthlyBalance.4"), Messages.getString("AccUIAccountingMonthlyBalance.5"), Messages.getString("AccUIAccountingMonthlyBalance.6"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
-			Messages.getString("AccUIAccountingMonthlyBalance.7"), Messages.getString("AccUIAccountingMonthlyBalance.8"), Messages.getString("AccUIAccountingMonthlyBalance.10"), Messages.getString("AccUIAccountingMonthlyBalance.11"), Messages.getString("AccUIAccountingMonthlyBalance.12")}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+			EngLangCommonKeys.STR_MONTHS_JANUARY, EngLangCommonKeys.STR_MONTHS_FEBRUARY, EngLangCommonKeys.STR_MONTHS_MARCH, EngLangCommonKeys.STR_MONTHS_APRIL, EngLangCommonKeys.STR_MONTHS_MAY, EngLangCommonKeys.STR_MONTHS_JUNE, EngLangCommonKeys.STR_MONTHS_JULY, 
+			EngLangCommonKeys.STR_MONTHS_AUGUST, EngLangCommonKeys.STR_MONTHS_SEPTEMBER, EngLangCommonKeys.STR_MONTHS_OCTOBER, EngLangCommonKeys.STR_MONTHS_NOVEMBER, EngLangCommonKeys.STR_MONTHS_DECEMBER}; 
 	private Calendar cal = Calendar.getInstance();
 	private Map treeItems;
 	private Map accountsMap;
@@ -156,7 +150,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				compAdvanced.setLayout(compAdvancedLayout);
 				{
 					lblMonth = new CLabel(compAdvanced, SWT.NONE);
-					lblMonth.setText(Messages.getString("AccUIAccountingMonthlyBalance.14")); //$NON-NLS-1$
+					lblMonth.setText(AccLangKeys.STR_SELECT_MONTH); 
 					GridData lblMonthLData = new GridData();
 					lblMonthLData.widthHint = 68;
 					lblMonthLData.heightHint = 16;
@@ -172,7 +166,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				}
 				{
 					lblAccStart = new CLabel(compAdvanced, SWT.NONE);
-					lblAccStart.setText(Messages.getString("AccUIAccountingMonthlyBalance.15")); //$NON-NLS-1$
+					lblAccStart.setText(AccLangKeys.STR_START_ACCOUNT); 
 				}
 				{
 					accountPickerStart = new AccountPickerLeaf(compAdvanced, SWT.NONE);
@@ -184,7 +178,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				}
 				{
 					lblAccEnd = new CLabel(compAdvanced, SWT.NONE);
-					lblAccEnd.setText(Messages.getString("AccUIAccountingMonthlyBalance.16")); //$NON-NLS-1$
+					lblAccEnd.setText(AccLangKeys.STR_END_ACCOUNT); 
 				}
 				{
 					accountPickerEnd = new AccountPickerLeaf(compAdvanced, SWT.NONE);
@@ -199,7 +193,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				GridLayout groupRemainderLayout = new GridLayout();
 				groupRemainderLayout.numColumns = 4;
 				groupRemainderLayout.horizontalSpacing = 4;
-				groupRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.14")); //$NON-NLS-1$
+				groupRemainder.setText(AccLangKeys.STR_BALANCE_CALC_METHOD); 
 				GridData groupRemainderLData = new GridData();
 				groupRemainder.setLayout(groupRemainderLayout);
 				groupRemainderLData.widthHint = 256;
@@ -208,12 +202,12 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				groupRemainder.setLayoutData(groupRemainderLData);
 				//START >> radioUseMainAccounts
 				radioUseMainAccounts = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-				radioUseMainAccounts.setText(Messages.getString("AccUIAccountingAdvancedBalance.15")); //$NON-NLS-1$
+				radioUseMainAccounts.setText(AccLangKeys.STR_DIFF_LEDGER_ACCOUNTS); 
 				radioUseMainAccounts.setSelection(true);
 				//END << radioUseMainAccounts
 				//START >> radioUseRemainder
 				radioUseRemainder = new Button(groupRemainder, SWT.RADIO | SWT.LEFT);
-				radioUseRemainder.setText(Messages.getString("AccUIAccountingAdvancedBalance.16")); //$NON-NLS-1$
+				radioUseRemainder.setText(AccLangKeys.STR_BALANCE_SUMS); 
 				GridData radioUseRemainderLData = new GridData();
 				radioUseRemainderLData.widthHint = 103;
 				radioUseRemainderLData.heightHint = 13;
@@ -222,7 +216,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				//END << groupRemainder
 				{
 					checkSubAccounts = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-					checkSubAccounts.setText(Messages.getString("AccUIAccountingMonthlyBalance.13")); //$NON-NLS-1$
+					checkSubAccounts.setText(AccLangKeys.STR_SHOW_SUBSIDIARY_ACCOUNTS); 
 					GridData checkSubAccountsLData = new GridData();
 					checkSubAccountsLData.widthHint = 116;
 					checkSubAccountsLData.heightHint = 16;
@@ -242,7 +236,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 				}
 				//START >>  checkOnlyTransactions
 				checkOnlyTransactions = new Button(compAdvanced, SWT.CHECK | SWT.LEFT);
-				checkOnlyTransactions.setText("Sadece hareket görenleri göster");
+				checkOnlyTransactions.setText(AccLangKeys.STR_SHOW_ONLY_WITH_TRANSACTIONS);
 				GridData checkOnlyTransactionsLData = new GridData();
 				checkOnlyTransactionsLData.widthHint = 175;
 				checkOnlyTransactionsLData.heightHint = 16;
@@ -266,22 +260,22 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					GridData tableTreeAccountsLData = new GridData();
 					{
 						tableColumnAccountCode = new TableColumn(tableTreeAccounts.getTable(), SWT.NONE);
-						tableColumnAccountCode.setText(Messages.getString("AccUIAccountingMonthlyBalance.17")); //$NON-NLS-1$
+						tableColumnAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE); 
 						tableColumnAccountCode.setWidth(100);
 					}
 					{
 						tableColumnAccountName = new TableColumn(tableTreeAccounts.getTable(), SWT.NONE);
-						tableColumnAccountName.setText(Messages.getString("AccUIAccountingMonthlyBalance.18")); //$NON-NLS-1$
+						tableColumnAccountName.setText(AccLangKeys.STR_ACCOUNT_NAME); 
 						tableColumnAccountName.setWidth(150);
 					}
 					{
 						tableColumnTotalDept = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnTotalDept.setText(Messages.getString("AccUIAccountingMonthlyBalance.19")); //$NON-NLS-1$
+						tableColumnTotalDept.setText(AccLangKeys.STR_TOTAL_DEBIT); 
 						tableColumnTotalDept.setWidth(85);
 					}
 					{
 						tableColumnTotalCredit = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnTotalCredit.setText(Messages.getString("AccUIAccountingMonthlyBalance.20")); //$NON-NLS-1$
+						tableColumnTotalCredit.setText(AccLangKeys.STR_TOTAL_CREDIT); 
 						tableColumnTotalCredit.setWidth(85);
 					}
 					tableTreeAccountsLData.grabExcessHorizontalSpace = true;
@@ -293,12 +287,12 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 					tableTreeAccounts.getTable().setHeaderVisible(true);
 					{
 						tableColumnRemain = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnRemain.setText(Messages.getString("AccUIAccountingMonthlyBalance.21")); //$NON-NLS-1$
+						tableColumnRemain.setText(AccLangKeys.STR_BALANCE_DEBIT);
 						tableColumnRemain.setWidth(85);
 					}
 					{
 						tableColumnCreditRemaining = new TableColumn(tableTreeAccounts.getTable(), SWT.RIGHT);
-						tableColumnCreditRemaining.setText(Messages.getString("AccUIAccountingMonthlyBalance.22")); //$NON-NLS-1$
+						tableColumnCreditRemaining.setText(AccLangKeys.STR_BALANCE_CREDIT); 
 						tableColumnCreditRemaining.setWidth(85);
 					}
 				}
@@ -473,7 +467,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 			}
 			new TableTreeItem(tableTreeAccounts, SWT.NULL);
 			TableTreeItem totals = new TableTreeItem(tableTreeAccounts, SWT.RIGHT);
-			totals.setText(1, Messages.getString("AccUIAccountingAdvancedBalance.19")); //$NON-NLS-1$
+			totals.setText(1, AccLangKeys.STR_TOTAL); 
 			totals.setText(2, cf.format(totalDept));
 			totals.setText(3, cf.format(totalCredit));
 			totals.setText(4, cf.format(totalDeptRemain.abs()));
@@ -572,7 +566,7 @@ public class AccUIAccountingMonthlyBalance extends org.eclipse.swt.widgets.Compo
 		props.put("report_date", DatePicker.formatter.format(cal.getTime())); //$NON-NLS-1$
 		props.put("month", comboMonth.getText()); //$NON-NLS-1$
 		EngBLUtils.printMonthlyAccountingBalance(tableTreeAccounts.getTable(),
-				Messages.getString("AccUIAccountingMonthlyBalance.27"), props); //$NON-NLS-1$
+				AccLangKeys.STR_MONTHLY_TRIAL_BALANCE, props);
 	}
 
 	public void exportToExcel()

@@ -36,12 +36,12 @@ import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -51,13 +51,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 {
 	{
@@ -111,7 +105,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 					lblDocumentNoLData.widthHint = 121;
 					lblDocumentNoLData.heightHint = 21;
 					lblAccNo.setLayoutData(lblDocumentNoLData);
-					lblAccNo.setText(Messages.getString("AccUISubsidiaryLedger.0")); //$NON-NLS-1$
+					lblAccNo.setText(AccLangKeys.STR_ACC_CODE_START); 
 				}
 				{
 					txtAccount = new AccountPickerLeaf(compAccTransactionSearch, SWT.NONE);
@@ -122,7 +116,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 				}
 				{
 					lblAccountCode2 = new CLabel(compAccTransactionSearch, SWT.NONE);
-					lblAccountCode2.setText(Messages.getString("AccUISubsidiaryLedger.12")); //$NON-NLS-1$
+					lblAccountCode2.setText(AccLangKeys.STR_ACC_CODE_END); 
 				}
 				{
 					txtAccount2 = new AccountPickerLeaf(compAccTransactionSearch, SWT.NONE);
@@ -135,7 +129,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 					lblStartDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDate.setLayoutData(lblStartDateLData);
-					lblStartDate.setText(Messages.getString("AccUISubsidiaryLedger.1")); //$NON-NLS-1$
+					lblStartDate.setText(AccLangKeys.STR_START_DATE); 
 				}
 				{
 					dateStartDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
@@ -152,7 +146,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 					lblEndDate = new CLabel(compAccTransactionSearch, SWT.NONE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDate.setLayoutData(lblEndDateLData);
-					lblEndDate.setText(Messages.getString("AccUISubsidiaryLedger.2")); //$NON-NLS-1$
+					lblEndDate.setText(AccLangKeys.STR_END_DATE); 
 				}
 				{
 					dateEndDate = new DatePicker(compAccTransactionSearch, SWT.NONE);
@@ -224,7 +218,7 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 			account2 = null;
 			if (txtAccount.getData() == null && txtAccount2.getData() == null)
 			{
-				msg.setMessage(Messages.getString("AccUISubsidiaryLedger.3")); //$NON-NLS-1$
+				msg.setMessage(AccLangKeys.MSG_SELECT_AT_LEAST_ONE_ACCOUNT_FIRST); 
 				msg.open();
 				txtAccount.setFocus();
 				return;

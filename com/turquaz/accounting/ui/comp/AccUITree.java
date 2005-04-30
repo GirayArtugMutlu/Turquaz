@@ -23,13 +23,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.ui.AccUIAccountingPlan;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.accounting.ui.AccUITransactionAdd;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.accounting.ui.AccUITransactionSearch;
+import com.turquaz.engine.lang.AccLangKeys;
 
 public class AccUITree extends Tree
 {
@@ -37,24 +37,24 @@ public class AccUITree extends Tree
 	{
 		super(comp, style);
 		TreeItem root = new TreeItem(this, SWT.NULL);
-		root.setText(Messages.getString("AccUITree.0")); //$NON-NLS-1$
+		root.setText(AccLangKeys.STR_ACCOUNTING); 
 		TreeItem item = new TreeItem(root, SWT.NULL);
-		item.setText(Messages.getString("AccUITree.1")); //$NON-NLS-1$
+		item.setText(AccLangKeys.STR_NEW_ACCOUNT);
 		item.setData(AccUIAddAccounts.class.getName());
 		item = new TreeItem(root, SWT.NULL);
-		item.setText(Messages.getString("AccUITree.2")); //$NON-NLS-1$
+		item.setText(AccLangKeys.STR_ACCOUNT_LEDGER); 
 		item.setData(AccUIAccountingPlan.class.getName());
 		item = new TreeItem(root, SWT.NULL);
-		item.setText(Messages.getString("AccUITree.3")); //$NON-NLS-1$
+		item.setText(AccLangKeys.STR_ADD_VOUCHER); 
 		item.setData(AccUITransactionAdd.class.getName());
 		item = new TreeItem(root, SWT.NULL);
-		item.setText(Messages.getString("AccUITree.4")); //$NON-NLS-1$
+		item.setText(AccLangKeys.STR_ADD_COLLECT_VOUCHER); 
 		item.setData(AccUITransactionCollect.class.getName());
 		item = new TreeItem(root, SWT.NULL);
-		item.setText(Messages.getString("AccUITree.5")); //$NON-NLS-1$
+		item.setText(AccLangKeys.STR_ADD_PAYMENT_VOUCHER); 
 		item.setData(AccUITransactionPayment.class.getName());
 		item = new TreeItem(root, SWT.NULL);
-		item.setText(Messages.getString("AccUITree.6")); //$NON-NLS-1$
+		item.setText(AccLangKeys.STR_SEARCH_VOUCHER); 
 		item.setData(AccUITransactionSearch.class.getName());
 	}
 }

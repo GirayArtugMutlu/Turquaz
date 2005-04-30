@@ -40,7 +40,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
@@ -51,19 +50,14 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private AccUITransactionPayment compTransactionPayment;
@@ -99,7 +93,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.1")); //$NON-NLS-1$
+			dialogShell.setText(AccLangKeys.STR_UPDATE_PAYMENT_VOUCHER);
 			coolBar1 = new CoolBar(dialogShell, SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1, SWT.NULL);
 			toolBar1 = new ToolBar(coolBar1, SWT.NULL);
@@ -122,7 +116,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			coolItem1.setSize(42, 52);
 			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(42, 52));
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(42, 52));
-			toolUpdate.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); 
 			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter()
 			{
@@ -134,10 +128,10 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass()
 					.getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
-			toolDelete.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.2")); //$NON-NLS-1$
+			toolDelete.setText(EngLangCommonKeys.STR_DELETE); 
 			{
 				toolCancel = new ToolItem(toolBar1, SWT.NONE);
-				toolCancel.setText(Messages.getString("AccUITransactionPaymentUpdateDialog.3")); //$NON-NLS-1$
+				toolCancel.setText(EngLangCommonKeys.STR_CANCEL); 
 				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 				toolCancel.addSelectionListener(new SelectionAdapter()
 				{
@@ -297,7 +291,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);			
 				
-				msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.6")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); 
 				msg.open();
 				dialogShell.close();
 			}
@@ -313,7 +307,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	{
 		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 		MessageBox msg2 = new MessageBox(this.getParent(), SWT.YES | SWT.NO);
-		msg2.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.8")); //$NON-NLS-1$
+		msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); 
 		int answer = msg2.open();
 		if (answer == SWT.YES)
 		{
@@ -324,7 +318,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
 				EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"removeAccountingTransaction",argMap);
 				
-				msg.setMessage(Messages.getString("AccUITransactionPaymentUpdateDialog.9")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
 				msg.open();
 				this.dialogShell.dispose();
 			}

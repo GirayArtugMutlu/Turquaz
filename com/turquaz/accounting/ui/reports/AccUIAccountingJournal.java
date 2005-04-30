@@ -43,6 +43,7 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.accounting.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.widgets.Button;
@@ -119,7 +120,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 			this.setLayout(thisLayout);
 			this.setSize(513, 331);
 			lblDateRange = new CLabel(this, SWT.NONE);
-			lblDateRange.setText(Messages.getString("AccUIAccountingJournal.0")); //$NON-NLS-1$
+			lblDateRange.setText(AccLangKeys.STR_SELECT_DATE_RANGE); 
 			{
 				datePickerBeginDate = new DatePicker(this, SWT.NONE);
 				GridData datePickerBeginDateLData = new GridData();
@@ -140,7 +141,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				checkApproved = new Button(this, SWT.CHECK | SWT.LEFT);
-				checkApproved.setText(Messages.getString("AccUIAccountingJournal.4")); //$NON-NLS-1$
+				checkApproved.setText(AccLangKeys.STR_SHOW_ONLY_APPROVED); 
 			}
 			{
 				btnReports = new Button(this, SWT.PUSH | SWT.CENTER);
@@ -148,7 +149,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 				btnReportsLData.widthHint = 157;
 				btnReportsLData.heightHint = 23;
 				btnReportsLData.verticalAlignment = GridData.BEGINNING;
-				btnReports.setText(Messages.getString("AccUIAccountingJournal.1")); //$NON-NLS-1$
+				btnReports.setText(AccLangKeys.STR_SHOW_REPORT); 
 				btnReports.addMouseListener(new MouseAdapter()
 				{
 					public void mouseDown(MouseEvent evt)

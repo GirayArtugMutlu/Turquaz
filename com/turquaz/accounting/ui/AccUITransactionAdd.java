@@ -35,6 +35,8 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CCombo;
@@ -55,7 +57,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import org.eclipse.swt.events.MouseEvent;
@@ -64,13 +65,7 @@ import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AccUITransactionAdd extends Composite implements SecureComposite
 {
 	{
@@ -138,11 +133,11 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	private CLabel lblDocumentNo;
 	BigDecimal totalDept;
 	//	 Set the table column property names
-	private final String ACCOUNT_CODE = Messages.getString("AccUITransactionAdd.3"); //$NON-NLS-1$
-	private final String ACCOUNT_NAME = Messages.getString("AccUITransactionAdd.4"); //$NON-NLS-1$
-	private final String DEFINITION = Messages.getString("AccUITransactionAdd.5"); //$NON-NLS-1$
-	private final String DEPT = Messages.getString("AccUITransactionAdd.6"); //$NON-NLS-1$
-	private final String CREDIT = Messages.getString("AccUITransactionAdd.7"); //$NON-NLS-1$
+	private final String ACCOUNT_CODE = AccLangKeys.STR_ACCOUNT_CODE; 
+	private final String ACCOUNT_NAME = AccLangKeys.STR_ACCOUNT_NAME; 
+	private final String DEFINITION = EngLangCommonKeys.STR_DESCRIPTION;
+	private final String DEPT = AccLangKeys.STR_DEBIT; 
+	private final String CREDIT = AccLangKeys.STR_CREDIT; 
 	public TableSpreadsheetCursor cursor;
 	private List columnList = new ArrayList();
 	private TableItem tableItemBalance;
@@ -175,7 +170,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			this.setLayout(thisLayout);
 			{
 				lblDocumentNo = new CLabel(this, SWT.NONE);
-				lblDocumentNo.setText(Messages.getString("AccUITransactionAdd.0")); //$NON-NLS-1$
+				lblDocumentNo.setText(AccLangKeys.STR_VOUCHER_NO);
 				lblDocumentNo.setSize(new org.eclipse.swt.graphics.Point(70, 19));
 				GridData lblDocumentNoLData = new GridData();
 				lblDocumentNoLData.verticalAlignment = GridData.BEGINNING;
@@ -193,7 +188,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			}
 			{
 				lblDate = new CLabel(this, SWT.NONE);
-				lblDate.setText(Messages.getString("AccUITransactionAdd.1")); //$NON-NLS-1$
+				lblDate.setText(EngLangCommonKeys.STR_DATE); 
 				GridData lblDateLData = new GridData();
 				lblDateLData.verticalAlignment = GridData.BEGINNING;
 				lblDateLData.widthHint = 70;
@@ -210,7 +205,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			}
 			{
 				lblTransactionDefinition = new CLabel(this, SWT.NONE);
-				lblTransactionDefinition.setText(Messages.getString("AccUITransactionAdd.2")); //$NON-NLS-1$
+				lblTransactionDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); 
 				GridData lblTransactionDefinitionLData = new GridData();
 				lblTransactionDefinitionLData.widthHint = 62;
 				lblTransactionDefinitionLData.heightHint = 19;
@@ -239,7 +234,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			}
 			//START >> lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText(Messages.getString("AccUITransactionAdd.9")); //$NON-NLS-1$
+			lblCurrency.setText(AccLangKeys.STR_CURRENCY_TYPE); 
 			//END << lblCurrency
 			//START >> comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -301,23 +296,23 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				}
 				{
 					tableColumnAmount = new TableColumn(table1, SWT.RIGHT);
-					tableColumnAmount.setText(Messages.getString("AccUITransactionAdd.22")); //$NON-NLS-1$
+					tableColumnAmount.setText(AccLangKeys.STR_PRICE); 
 					tableColumnAmount.setWidth(100);
 				}
 				{
 					tableItemDept = new TableItem(table1, SWT.NONE);
-					tableItemDept.setText(Messages.getString("AccUITransactionAdd.23")); //$NON-NLS-1$
+					tableItemDept.setText(AccLangKeys.STR_DEBIT); 
 				}
 				{
 					tableItemCredit = new TableItem(table1, SWT.NONE);
-					tableItemCredit.setText(Messages.getString("AccUITransactionAdd.24")); //$NON-NLS-1$
+					tableItemCredit.setText(AccLangKeys.STR_CREDIT); 
 				}
 				{
 					tableItemSpace = new TableItem(table1, SWT.NONE);
 				}
 				{
 					tableItemBalance = new TableItem(table1, SWT.NONE);
-					tableItemBalance.setText(Messages.getString("AccUITransactionAdd.25")); //$NON-NLS-1$
+					tableItemBalance.setText(AccLangKeys.STR_BALANCE);
 				}
 			}
 			thisLayout.numColumns = 4;
@@ -433,7 +428,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	public boolean okToDelete()
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-		msg.setMessage(Messages.getString("AccUITransactionAdd.8")); //$NON-NLS-1$
+		msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); 
 		if (msg.open() == SWT.OK)
 		{
 			return true;
@@ -452,32 +447,32 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			calculateTotalDeptAndCredit();
 			if (totalCredit.doubleValue() <= 0)
 			{
-				msg.setMessage(Messages.getString("AccUITransactionAdd.15")); //$NON-NLS-1$
+				msg.setMessage(AccLangKeys.MSG_VOUCHER_AMOUNT_NOT_ZERO); 
 				msg.open();
 				return false;
 			}
 			if (totalCredit.doubleValue() != totalDept.doubleValue())
 			{
-				msg.setMessage(Messages.getString("AccUITransactionAdd.12")); //$NON-NLS-1$	
+				msg.setMessage(AccLangKeys.MSG_TOTAL_CREDIT_SHOULD_EQUAL_DEBIT); 	
 				msg.open();
 				return false;
 			}
 			else if (tableTransactionColumns.getItems().length == 0)
 			{
-				msg.setMessage(Messages.getString("AccUITransactionAdd.13")); //$NON-NLS-1$	
+				msg.setMessage(AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); 
 				msg.open();
 				return false;
 			}
 			else if (dateTransactionDate.getData() == null)
 			{
-				msg.setMessage(Messages.getString("AccUITransactionAdd.14")); //$NON-NLS-1$	
+				msg.setMessage(AccLangKeys.MSG_ENTER_VOUCHER_DATE); 
 				msg.open();
 				dateTransactionDate.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage(Messages.getString("AccUITransactionAdd.10")); //$NON-NLS-1$
+				msg.setMessage(AccLangKeys.MSG_SELECT_CURRENY_TYPE); 
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
@@ -487,7 +482,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransactionDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage(Messages.getString("AccUITransactionAdd.11")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_DEFINE_RELATED_CURRENCY); 
 					msg.open();
 					return false;
 				}
@@ -548,7 +543,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				EngTXCommon.doTransactionTX(AccBLTransactionAdd.class.getName(),"saveAccTransactionFromUI",argMap);
 				
 				
-				msg.setMessage(Messages.getString("AccUITransactionAdd.16")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
 				msg.open();
 				clearFields();
 			}
@@ -575,9 +570,9 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				totalDept = totalDept.add(column.getDeptAmount());
 			}
 		}
-		tableItemDept.setText(new String[]{Messages.getString("AccUITransactionAdd.19"), df.format(totalDept)}); //$NON-NLS-1$
-		tableItemCredit.setText(new String[]{Messages.getString("AccUITransactionAdd.20"), df.format(totalCredit)}); //$NON-NLS-1$
-		tableItemBalance.setText(new String[]{Messages.getString("AccUITransactionAdd.21"), df.format(totalCredit.subtract(totalDept))}); //$NON-NLS-1$
+		tableItemDept.setText(new String[]{AccLangKeys.STR_DEBIT, df.format(totalDept)}); //$NON-NLS-1$
+		tableItemCredit.setText(new String[]{AccLangKeys.STR_CREDIT, df.format(totalCredit)}); //$NON-NLS-1$
+		tableItemBalance.setText(new String[]{AccLangKeys.STR_BALANCE, df.format(totalCredit.subtract(totalDept))}); //$NON-NLS-1$
 	}
 
 	public void delete()
