@@ -36,6 +36,7 @@ public class EngLangCommonKeys {
 	public final static String STR_DETAILS="Ayr?nt?lar";
 	public final static String STR_UNITS="Birimler";
 	public final static String STR_GROUPS="Gruplar";
+    public final static String STR_GROUP_NAME="Grup Adý";
 	
 	public final static String MSG_SAVED_SUCCESS = "Baþarýyla Kaydedildi!";
 	public final static String MSG_UPDATED_SUCCESS = "Baþarýyla Güncellendi!";
