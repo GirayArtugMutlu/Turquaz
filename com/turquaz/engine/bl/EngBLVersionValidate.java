@@ -234,7 +234,11 @@ public class EngBLVersionValidate
             "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" +
             "INSERT INTO turq_current_transaction_types VALUES (9, 'Coklu Borc', 'admin', '2004-10-18', 'admin', '2004-10-18');"+
-            "INSERT INTO turq_current_transaction_types VALUES (10, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');";
+            "INSERT INTO turq_current_transaction_types VALUES (10, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');"+
+            "INSERT INTO turq_module_components VALUES (98, 4, 'com.turquaz.current.ui.CurUICurCardBalanceReport', 'Cari Kart Mizani', 'admin', '2005-04-27', 'admin', '2005-04-27');"+
+            "INSERT INTO turq_module_components VALUES (99, 4, 'com.turquaz.current.ui.CurUIMultipleCreditVoucher', 'Coklu Alacak Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+            "INSERT INTO turq_module_components VALUES (100, 4, 'com.turquaz.current.ui.CurUIMultipleDeptVoucher', 'Coklu Borc Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+            
             stmt.execute(query);
         }
         catch(Exception ex)
@@ -261,7 +265,11 @@ public class EngBLVersionValidate
             "INSERT INTO turq_inventory_accounting_types VALUES (14, 'Return Buy Discount', 'Alistan Iade Indirim Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (15, 'Return Sell Discount', 'Satistan Iade Indirim Hesabi');" +
             "INSERT INTO turq_current_transaction_types VALUES (9, 'Coklu Borc', 'admin', '2004-10-18', 'admin', '2004-10-18');"+
-            "INSERT INTO turq_current_transaction_types VALUES (10, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');";
+            "INSERT INTO turq_current_transaction_types VALUES (10, 'Coklu Alacak', 'admin', '2004-10-18', 'admin', '2004-10-18');"+
+            "INSERT INTO turq_module_components VALUES (98, 4, 'com.turquaz.current.ui.CurUICurCardBalanceReport', 'Cari Kart Mizani', 'admin', '2005-04-27', 'admin', '2005-04-27');"+
+            "INSERT INTO turq_module_components VALUES (99, 4, 'com.turquaz.current.ui.CurUIMultipleCreditVoucher', 'Coklu Alacak Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+            "INSERT INTO turq_module_components VALUES (100, 4, 'com.turquaz.current.ui.CurUIMultipleDeptVoucher', 'Coklu Borc Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+
             
             stmt.execute(query);
         

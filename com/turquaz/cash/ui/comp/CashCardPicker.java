@@ -16,7 +16,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 
-import com.turquaz.bank.ui.BankUIBankCardSearchDialog;
 import com.turquaz.cash.ui.CashUICashCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
