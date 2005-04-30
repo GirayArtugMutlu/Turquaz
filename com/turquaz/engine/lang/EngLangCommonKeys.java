@@ -4,10 +4,12 @@ package com.turquaz.engine.lang;
 
 public class EngLangCommonKeys {
 
-	public final static String STR_UPDATE = "&Güncelle";
-	public final static String STR_DELETE = "&Sil";
-	public final static String STR_SAVE = "&Kaydet";
-	public final static String STR_CANCEL = "&Ýptal";
+	
+	public final static String STR_OPERATIONS="??lemler";
+	public final static String STR_UPDATE = "Güncelle";
+	public final static String STR_DELETE = "Sil";
+	public final static String STR_SAVE = "Kaydet";
+	public final static String STR_CANCEL = "Ýptal";
 	public final static String STR_DATE = "Tarih";
 	public final static String STR_TOTAL = "Toplam";
 	public final static String STR_DESCRIPTION = "Açýklama";
