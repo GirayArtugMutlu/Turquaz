@@ -32,11 +32,18 @@ public class EngLangCommonKeys {
 	public final static String STR_MONTHS_NOVEMBER = "Kasým";
 	public final static String STR_MONTHS_DECEMBER = "Aralýk";
 	
+	public final static String STR_GENERAL_INFO="Genel Bilgi";
+	public final static String STR_DETAILS="Ayr?nt?lar";
+	public final static String STR_UNITS="Birimler";
+	public final static String STR_ACCOUNTING_CODES="Muhasebe Kodlar?";
+	
 	public final static String MSG_SAVED_SUCCESS = "Baþarýyla Kaydedildi!";
 	public final static String MSG_UPDATED_SUCCESS = "Baþarýyla Güncellendi!";
 	public final static String MSG_DELETED_SUCCESS = "Baþarýyla Silindi!";
 	public final static String MSG_DELETE_REALLY = "Silmek istediðinizden emin misiniz?";
 	public final static String MSG_UNKNOWN_ERROR_REPORT_ERROR_LOG = "Bilinmeyen bir hata oluþtu. error.log dosyasýndan eriþilebilir.";
+	
+	
 	
 	
 }
