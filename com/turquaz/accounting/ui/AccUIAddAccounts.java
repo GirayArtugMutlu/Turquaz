@@ -36,7 +36,6 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseEvent;
@@ -46,17 +45,13 @@ import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AccUIAddAccounts extends Composite implements SecureComposite
 {
 	{
@@ -134,7 +129,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				lblParentAccount = new CLabel(compAccounting, SWT.NONE);
 				GridData cLabel2LData = new GridData();
-				lblParentAccount.setText(Messages.getString("AccUIAddAccounts.2")); //$NON-NLS-1$
+				lblParentAccount.setText(AccLangKeys.STR_PARENT_ACCOUNT); 
 				lblParentAccount.setLayoutData(cLabel2LData);
 			}
 			{
@@ -146,9 +141,9 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 							txtParentAccount.setData(EngBLAccountingAccounts.getAccount(txtParentAccount.getText().trim()));
 							if (txtParentAccount.getData() != null) {
 								if (((TurqAccountingAccount) txtParentAccount.getData()).getId().intValue() != -1)
-									txtAccAccountCode.setText(txtParentAccount.getText().trim() + " "); //$NON-NLS-1$
+									txtAccAccountCode.setText(txtParentAccount.getText().trim() + " "); 
 							} else {
-								txtAccAccountCode.setText(""); //$NON-NLS-1$
+								txtAccAccountCode.setText(""); 
 							}
 						} catch (Exception ex) {
                             EngBLLogger.log(this.getClass(),ex,getShell());
@@ -164,7 +159,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				lblAccountCode = new CLabel(compAccounting, SWT.NONE);
 				lblAccountCode.setSize(new org.eclipse.swt.graphics.Point(83, 17));
 				GridData cLabel1LData = new GridData();
-				lblAccountCode.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
+				lblAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE); 
 				cLabel1LData.widthHint = 83;
 				cLabel1LData.heightHint = 17;
 				lblAccountCode.setLayoutData(cLabel1LData);
@@ -240,8 +235,8 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			boolean valid = false;
-			if (txtAccAccountCode.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("AccUIAddAccounts.4")); //$NON-NLS-1$
+			if (txtAccAccountCode.getText().trim().equals("")) { 
+				msg.setMessage(AccLangKeys.MSG_PLEASE_FILL_ACCOUNT_CODE); 
 				msg.open();
 				this.txtAccAccountCode.setFocus();
 				return false;
@@ -251,7 +246,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				if (!update)
 				{
-					msg.setMessage(Messages.getString("AccUIAddAccounts.3")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_NOT_ENTER_EXISTING_ACCOUNT_CODE); 
 					msg.open();
 					txtAccAccountCode.setFocus();
 					return false;
@@ -260,7 +255,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				{
 					if (toUpdate != null && !acc.getId().equals(toUpdate.getId()))
 					{
-						msg.setMessage(Messages.getString("AccUIAddAccounts.7")); //$NON-NLS-1$
+						msg.setMessage(AccLangKeys.MSG_NOT_ENTER_EXISTING_ACCOUNT_CODE);
 						msg.open();
 						txtAccAccountCode.setFocus();
 						return false;
@@ -269,7 +264,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			}
 			else if (txtParentAccount.getData() == null)
 			{
-				msg.setMessage(Messages.getString("AccUIAddAccounts.5")); //$NON-NLS-1$
+				msg.setMessage(AccLangKeys.MSG_PLEASE_ENTER_PARENT_ACCOUNT); 
 				msg.open();
 				this.txtParentAccount.setFocus();
 				return false;
@@ -279,9 +274,9 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
 				{
-					msg.setMessage(Messages.getString("AccUIAddAccounts.9")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_ACCOUNT_CODE_SHOULD_START_WITH_PARENT_ACCOUNT); 
 					msg.open();
-					txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" ")); //$NON-NLS-1$
+					txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" ")); 
 					txtAccAccountCode.setFocus();
 					txtAccAccountCode.setSelection(txtParentAccount.getText().trim().length() + 1);
 					return false;
@@ -318,7 +313,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				
 				if (accTrans.size() > 0)
 				{
-					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_NOT_ENTER_SUBSIDIARY_ACCOUNT_PARENT_HAS_TRANSACTION); 
 					msg.open();
 					return null;
 				}
@@ -332,7 +327,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);
 				
 				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
-				msg.setMessage(Messages.getString("AccUIAddAccounts.8")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
 				msg.open();
 				clearFields();
 				return account;
@@ -362,7 +357,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				
 				if (accTrans.size() > 0)
 				{
-					msg.setMessage(Messages.getString("AccUIAddAccounts.6")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_NOT_ENTER_SUBSIDIARY_ACCOUNT_PARENT_HAS_TRANSACTION); 
 					msg.open();
 					return;
 				}

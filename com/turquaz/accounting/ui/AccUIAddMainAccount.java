@@ -30,7 +30,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
-import com.turquaz.accounting.Messages;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -38,16 +37,11 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AccUIAddMainAccount extends Composite implements SecureComposite
 {
 	{
@@ -118,7 +112,7 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 				lblAccountCode = new CLabel(compAcc, SWT.NONE);
 				lblAccountCode.setSize(new org.eclipse.swt.graphics.Point(83, 17));
 				GridData cLabel1LData = new GridData();
-				lblAccountCode.setText(Messages.getString("AccUIAddAccounts.0")); //$NON-NLS-1$
+				lblAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE);
 				cLabel1LData.widthHint = 83;
 				cLabel1LData.heightHint = 17;
 				lblAccountCode.setLayoutData(cLabel1LData);
@@ -132,7 +126,7 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 			}
 			//START >> lblAccountName
 			lblAccountName = new CLabel(compAcc, SWT.NONE);
-			lblAccountName.setText("Hesap Ad\u0131");
+			lblAccountName.setText(AccLangKeys.STR_ACCOUNT_NAME);
 			//END << lblAccountName
 			{
 				txtAccAcountName = new Text(compAcc, SWT.NONE);
@@ -143,7 +137,7 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 			}
 			//START >> lblAccountClass
 			lblAccountClass = new CLabel(compAcc, SWT.NONE);
-			lblAccountClass.setText("Hesap S\u0131n\u0131f\u0131");
+			lblAccountClass.setText(AccLangKeys.STR_ACCOUNT_CLASS);
 			//END << lblAccountClass
 			//START >> txtAccountClass
 			txtAccountClass = new Text(compAcc, SWT.NONE);
@@ -154,7 +148,7 @@ public class AccUIAddMainAccount extends Composite implements SecureComposite
 			//END << txtAccountClass
 			//START >> lblAccountGroup
 			lblAccountGroup = new CLabel(compAcc, SWT.NONE);
-			lblAccountGroup.setText("Hesap Grubu");
+			lblAccountGroup.setText(AccLangKeys.STR_ACCOUNT_GROUP);
 			//END << lblAccountGroup
 			//START >> txtAccountGroup
 			txtAccountGroup = new Text(compAcc, SWT.NONE);

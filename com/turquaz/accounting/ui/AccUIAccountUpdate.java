@@ -27,12 +27,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.layout.GridData;
@@ -48,13 +49,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -97,7 +91,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("AccUIAccountUpdate.3")); //$NON-NLS-1$
+			dialogShell.setText(EngLangCommonKeys.STR_DELETE); 
 			dialogShell.setSize(487, 336);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShellLayout.marginWidth = 5;
@@ -112,8 +106,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				{
 					toolUpdate = new ToolItem(toolBarTop, SWT.NONE);
 					toolUpdate.setEnabled(true);
-					toolUpdate.setText(Messages.getString("AccUIAccountUpdate.0")); //$NON-NLS-1$
-					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); 
+					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); 
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
 						public void widgetSelected(SelectionEvent evt)
@@ -125,8 +119,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				{
 					toolDelete = new ToolItem(toolBarTop, SWT.NONE);
 					toolDelete.setEnabled(true);
-					toolDelete.setText(Messages.getString("AccUIAccountUpdate.6")); //$NON-NLS-1$
-					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE); 
+					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); 
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
 						public void widgetSelected(SelectionEvent evt)
@@ -137,8 +131,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBarTop, SWT.NONE);
-					toolCancel.setText(Messages.getString("AccUIAccountUpdate.10")); //$NON-NLS-1$
-					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); 
+					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); 
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
 						public void widgetSelected(SelectionEvent evt)
@@ -168,7 +162,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				groupAccountBalanceLData.grabExcessHorizontalSpace = true;
 				groupAccountBalanceLData.grabExcessVerticalSpace = true;
 				groupAccountBalance.setLayoutData(groupAccountBalanceLData);
-				groupAccountBalance.setText(Messages.getString("AccUIAccountUpdate.7")); //$NON-NLS-1$
+				groupAccountBalance.setText(AccLangKeys.STR_BALANCES); 
 				groupAccountBalance.setSize(new org.eclipse.swt.graphics.Point(471, 111));
 				groupAccountBalance.setLayout(groupAccountBalanceLayout);
 				{
@@ -187,12 +181,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 					}
 					{
 						tableColumnDebit = new TableColumn(tableAccBalance, SWT.RIGHT);
-						tableColumnDebit.setText(Messages.getString("AccUIAccountUpdate.1")); //$NON-NLS-1$
+						tableColumnDebit.setText(AccLangKeys.STR_DEBIT); 
 						tableColumnDebit.setWidth(90);
 					}
 					{
 						tableColCredit = new TableColumn(tableAccBalance, SWT.RIGHT);
-						tableColCredit.setText(Messages.getString("AccUIAccountUpdate.2")); //$NON-NLS-1$
+						tableColCredit.setText(AccLangKeys.STR_CREDIT); 
 						tableColCredit.setWidth(90);
 					}
 					{
@@ -200,12 +194,12 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 					}
 					{
 						tableColumnDeptRemain = new TableColumn(tableAccBalance, SWT.RIGHT);
-						tableColumnDeptRemain.setText(Messages.getString("AccUIAccountUpdate.5")); //$NON-NLS-1$
+						tableColumnDeptRemain.setText(AccLangKeys.STR_BALANCE_DEBIT); 
 						tableColumnDeptRemain.setWidth(90);
 					}
 					{
 						tableColumnCreditRemain = new TableColumn(tableAccBalance, SWT.RIGHT);
-						tableColumnCreditRemain.setText(Messages.getString("AccUIAccountUpdate.8")); //$NON-NLS-1$
+						tableColumnCreditRemain.setText(AccLangKeys.STR_DEBIT_RECEIVE); 
 						tableColumnCreditRemain.setWidth(90);
 					}
 				}
@@ -274,7 +268,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			BigDecimal credit = totals[0];
 			BigDecimal dept = totals[1];
 			BigDecimal balance = credit.subtract(dept);
-			tableItemTotal.setText(new String[]{Messages.getString("AccUIAccountUpdate.4"), //$NON-NLS-1$
+			tableItemTotal.setText(new String[]{EngLangCommonKeys.STR_TOTAL, 
 					cf.format(dept), cf.format(credit), (balance.doubleValue() <= 0) ? cf.format(balance.abs()) : "0", //$NON-NLS-1$
 					(balance.doubleValue() > 0) ? cf.format(balance) : "0"}); //$NON-NLS-1$
 			/*
@@ -306,7 +300,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,compAccountCard.getTxtParentAccount().getData());
 				
 				EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"updateAccount",argMap);						
-				msg.setMessage(Messages.getString("AccUIAccountUpdate.14")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); 
 				msg.open();
 				updateOccured = true;
 				this.dialogShell.close();
@@ -325,14 +319,14 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 		MessageBox msg2 = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
 		try
 		{
-			msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
+			msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); 
 			int result = msg2.open();
 			if (result == SWT.OK)
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT,account);
 				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);				
-				msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
 				msg.open();
 				updateOccured = true;
 				this.dialogShell.close();

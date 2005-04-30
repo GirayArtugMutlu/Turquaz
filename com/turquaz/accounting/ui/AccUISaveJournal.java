@@ -16,6 +16,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -25,19 +28,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 {
 	private Table tableAccountingTransaction;
@@ -117,33 +113,33 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 				tableAccountingTransaction.setLayoutData(tableAccountingTransactionLData);
 				{
 					tableColumnTransType = new TableColumn(tableAccountingTransaction, SWT.NONE);
-					tableColumnTransType.setText(Messages.getString("AccUISaveJournal.0")); //$NON-NLS-1$
+					tableColumnTransType.setText(AccLangKeys.STR_VOUCHER_TYPE); 
 					tableColumnTransType.setWidth(105);
 				}
 				{
 					tableColumnDocumentNo = new TableColumn(tableAccountingTransaction, SWT.NONE);
-					tableColumnDocumentNo.setText(Messages.getString("AccUISaveJournal.1")); //$NON-NLS-1$
+					tableColumnDocumentNo.setText(AccLangKeys.STR_DOCUMENT_NO); 
 					tableColumnDocumentNo.setWidth(108);
 				}
 				{
 					tableColumnDate = new TableColumn(tableAccountingTransaction, SWT.NONE);
-					tableColumnDate.setText(Messages.getString("AccUISaveJournal.2")); //$NON-NLS-1$
+					tableColumnDate.setText(EngLangCommonKeys.STR_DATE); 
 					tableColumnDate.setWidth(107);
 				}
 				{
 					tableColumnTotalAmount = new TableColumn(tableAccountingTransaction, SWT.RIGHT);
-					tableColumnTotalAmount.setText(Messages.getString("AccUISaveJournal.3")); //$NON-NLS-1$
+					tableColumnTotalAmount.setText(AccLangKeys.STR_TOTAL_AMOUNT_YTL);
 					tableColumnTotalAmount.setWidth(103);
 				}
 				{
 					tableColumnDefinition = new TableColumn(tableAccountingTransaction, SWT.NONE);
-					tableColumnDefinition.setText(Messages.getString("AccUISaveJournal.4")); //$NON-NLS-1$
+					tableColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); 
 					tableColumnDefinition.setWidth(100);
 				}
 			}
 			{
 				lblJournalDate = new CLabel(this, SWT.NONE);
-				lblJournalDate.setText(Messages.getString("AccUISaveJournal.6")); //$NON-NLS-1$
+				lblJournalDate.setText(AccLangKeys.STR_JOURNAL_DATE);
 				GridData lblJournalDateLData = new GridData();
 				lblJournalDateLData.widthHint = 92;
 				lblJournalDateLData.heightHint = 19;
@@ -158,7 +154,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				btnSaveJournal = new Button(this, SWT.PUSH | SWT.CENTER);
-				btnSaveJournal.setText(Messages.getString("AccUISaveJournal.5")); //$NON-NLS-1$
+				btnSaveJournal.setText(AccLangKeys.STR_ADD_JOURNAL_ID); 
 				btnSaveJournal.addMouseListener(new MouseAdapter()
 				{
 					public void mouseUp(MouseEvent evt)
@@ -214,7 +210,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-			msg.setMessage(Messages.getString("AccUISaveJournal.7")); //$NON-NLS-1$
+			msg.setMessage(AccLangKeys.MSG_NOT_DELETE_VOUCHER_WITH_JOURNAL_ID); 
 			int result = msg.open();
 			if (result == SWT.OK)
 			{

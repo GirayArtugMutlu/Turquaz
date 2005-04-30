@@ -24,11 +24,13 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolItem;
@@ -68,7 +70,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
 			GridLayout dialogShellLayout = new GridLayout(1, true);
-			dialogShell.setText(Messages.getString("AccUIAddAccountDialog.1")); //$NON-NLS-1$
+			dialogShell.setText(AccLangKeys.STR_ADD_NEW_ACCOUNT);
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.marginWidth = 5;
 			dialogShellLayout.marginHeight = 5;
@@ -85,8 +87,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolSave = new ToolItem(toolBar1, SWT.NONE);
-					toolSave.setText(Messages.getString("AccUIAddAccountDialog.0")); //$NON-NLS-1$
-					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_SAVE); 
+					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); 
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
 						public void widgetSelected(SelectionEvent evt)
@@ -97,8 +99,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("AccUIAddAccountDialog.2")); //$NON-NLS-1$
-					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); 
+					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); 
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
 						public void widgetSelected(SelectionEvent evt)
@@ -163,8 +165,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				{
 					toolSave = new ToolItem(toolBar1, SWT.NONE);
-					toolSave.setText(Messages.getString("AccUIAddAccountDialog.0")); //$NON-NLS-1$
-					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_SAVE); 
+					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); 
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
 						public void widgetSelected(SelectionEvent evt)
@@ -175,7 +177,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("AccUIAddAccountDialog.2")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); 
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{

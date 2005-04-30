@@ -38,7 +38,6 @@ import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.MouseAdapter;
@@ -50,7 +49,9 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.lang.*;
 import com.cloudgarden.resource.SWTResourceManager;
+
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -130,7 +131,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			//Add popup menu to delete account
 			popup = new Menu(getShell(), SWT.POP_UP);
 			MenuItem item = new MenuItem(popup, SWT.PUSH);
-			item.setText(Messages.getString("AccUIAccountingPlan.2")); //$NON-NLS-1$
+			item.setText(EngLangCommonKeys.STR_DELETE);
 			item.addListener(SWT.Selection, new Listener()
 			{
 				public void handleEvent(Event e)
@@ -139,7 +140,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				}
 			});
 			item = new MenuItem(popup, SWT.PUSH);
-			item.setText(Messages.getString("AccUIAccountingPlan.3")); //$NON-NLS-1$
+			item.setText(AccLangKeys.STR_NEW_ACCOUNT); 
 			item.addListener(SWT.Selection, new Listener()
 			{
 				public void handleEvent(Event e)
@@ -189,10 +190,10 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			tableTreeAccountingPlan.getTable().setHeaderVisible(true);
 			tableTreeAccountingPlan.setMenu(popup);
 			final TableColumn col = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
-			col.setText(Messages.getString("AccUIAccountingPlan.0")); //$NON-NLS-1$
+			col.setText(AccLangKeys.STR_ACCOUNT_CODE); 
 			col.setWidth(200);
 			final TableColumn col2 = new TableColumn(tableTreeAccountingPlan.getTable(), SWT.LEFT);
-			col2.setText(Messages.getString("AccUIAccountingPlan.1")); //$NON-NLS-1$
+			col2.setText(AccLangKeys.STR_ACCOUNT_NAME); 
 			col2.setWidth(200);
 			fillTree(-1, ""); //$NON-NLS-1$
 		}
@@ -392,7 +393,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableTreeAccountingPlan.getTable(), Messages.getString("AccUIAccountingPlan.4")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableTreeAccountingPlan.getTable(), AccLangKeys.STR_ACCOUNTING_PLAN);
 	}
 
 	public void delete()
@@ -413,7 +414,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				
 				if (accTrans.size() > 0)
 				{
-					msg.setMessage(Messages.getString("AccUIAccountingPlan.6")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_NOT_DELETE_ACCOUNT_WITH_TRANSACTION); 
 					msg.open();
 					return;
 				}
@@ -426,11 +427,11 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				
 				if (subAccs.size() > 0)
 				{
-					msg.setMessage(Messages.getString("AccUIAccountingPlan.5")); //$NON-NLS-1$
+					msg.setMessage(AccLangKeys.MSG_NOT_DELETE_ACCOUNT_WITH_SUBSIDIARY); 
 					msg.open();
 					return;
 				}
-				msg2.setMessage(Messages.getString("AccUIAccountUpdate.15")); //$NON-NLS-1$
+				msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); 
 				int result = msg2.open();
 				if (result == SWT.OK)
 				{
@@ -438,7 +439,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 					argMap.put(AccKeys.ACC_ACCOUNT,account);
 					EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
 					
-					msg.setMessage(Messages.getString("AccUIAccountUpdate.16")); //$NON-NLS-1$
+					msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
 					msg.open();
 					EngTXCommon.doSelectTX(EngBLAccountingAccounts.class.getName(),"RefreshContentAsistantMap",null);
 
