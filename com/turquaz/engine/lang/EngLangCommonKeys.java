@@ -6,17 +6,17 @@ public class EngLangCommonKeys {
 
 	public final static String STR_UPDATE = "&Güncelle";
 	public final static String STR_DELETE = "&Sil";
-	public final static String STR_SAVE = "Kaydet";
+	public final static String STR_SAVE = "&Kaydet";
 	public final static String STR_CANCEL = "&Ýptal";
 	public final static String STR_DATE = "Tarih";
 	public final static String STR_TOTAL = "Toplam";
 	public final static String STR_DESCRIPTION = "Açýklama";
 	
 	
-	public final static String STR_CURRENCY_UNIT="Para Birimi";
 	public final static String STR_EXCHANGE="Kur";
 	public final static String STR_EXCHANGE_RATE="Kur Oran?";
-	
+    public final static String STR_CURRENCY_ABBR="Para Birimi Kýsaltmasý";
+    public final static String STR_CURRENCY_COUNTRY ="Ülke";
 	
 	public final static String STR_CURRENCY = "Para Birimi";
 	public final static String STR_MONTHS_JANUARY = "Ocak";
