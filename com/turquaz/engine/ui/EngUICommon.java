@@ -4,7 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import com.turquaz.engine.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 public class EngUICommon
 {
@@ -25,7 +25,7 @@ public class EngUICommon
 	public static boolean okToDelete(Shell parent)
 	{
 		MessageBox msg2 = new MessageBox(parent, SWT.YES | SWT.NO | SWT.ICON_QUESTION);
-		msg2.setMessage(Messages.getString("EngUICommon.1")); //$NON-NLS-1$
+		msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY);
 		if (msg2.open() == SWT.YES)
 		{
 			return true;
@@ -53,7 +53,21 @@ public class EngUICommon
 	public static void showSavedSuccesfullyMessage(Shell parent)
 	{
 		MessageBox msg2 = new MessageBox(parent, SWT.ICON_INFORMATION);
-		msg2.setMessage(Messages.getString("EngUICommon.0")); //$NON-NLS-1$
+		msg2.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
+		msg2.open();
+	}
+	
+	public static void showDeletedSuccesfullyMessage(Shell parent)
+	{
+		MessageBox msg2 = new MessageBox(parent, SWT.ICON_INFORMATION);
+		msg2.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
+		msg2.open();
+	}
+	
+	public static void showUpdatedSuccesfullyMessage(Shell parent)
+	{
+		MessageBox msg2 = new MessageBox(parent, SWT.ICON_INFORMATION);
+		msg2.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); 
 		msg2.open();
 	}
 
