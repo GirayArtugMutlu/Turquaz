@@ -17,9 +17,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 
@@ -118,17 +118,17 @@ public class AdmUICurrencyExchangeRateSearch extends org.eclipse.swt.widgets.Com
 			tableExchange.setLayoutData(tableExchangeLData);
 			//START >> tableColumnDate
 			tableColumnDate = new TableColumn(tableExchange, SWT.NONE);
-			tableColumnDate.setText(Messages.getString("AdmUICurrencyExchangeRateSearch.0")); //$NON-NLS-1$
+			tableColumnDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
 			tableColumnDate.setWidth(100);
 			//END << tableColumnDate
 			//START >> tableColumnExchangeCurrencyAbbr
 			tableColumnExchangeCurrencyAbbr = new TableColumn(tableExchange, SWT.NONE);
-			tableColumnExchangeCurrencyAbbr.setText(Messages.getString("AdmUICurrencyExchangeRateSearch.1")); //$NON-NLS-1$
+			tableColumnExchangeCurrencyAbbr.setText(EngLangCommonKeys.STR_CURRENCY_ABBR); //$NON-NLS-1$
 			tableColumnExchangeCurrencyAbbr.setWidth(100);
 			//END << tableColumnExchangeCurrencyAbbr
 			//START >> tableColumnExchangeRatio
 			tableColumnExchangeRatio = new TableColumn(tableExchange, SWT.NONE);
-			tableColumnExchangeRatio.setText(Messages.getString("AdmUICurrencyExchangeRateSearch.2")); //$NON-NLS-1$
+			tableColumnExchangeRatio.setText(EngLangCommonKeys.STR_EXCHANGE_RATE); //$NON-NLS-1$
 			tableColumnExchangeRatio.setWidth(100);
 			//END << tableColumnExchangeRatio
 			//END << tableExchange

@@ -40,13 +40,14 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -121,7 +122,7 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		TableItem[] selection=tableUsers.getSelection();
 		if (selection.length > 0)
 		{
-			boolean delete=EngUICommon.okToDelete(this.getShell(),Messages.getString("AdmUIUsers.3")); //$NON-NLS-1$
+			boolean delete=EngUICommon.okToDelete(this.getShell()); //$NON-NLS-1$
 			if (delete)
 			{
 				TurqUser user=(TurqUser)((ITableRow) selection[0].getData()).getDBObject();
@@ -176,17 +177,17 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 				tableUsers.setLayoutData(tableUsersLData);
 				{
 					tableColumnUsername = new TableColumn(tableUsers, SWT.NONE);
-					tableColumnUsername.setText(Messages.getString("AdmUIUsers.0")); //$NON-NLS-1$
+					tableColumnUsername.setText(AdmLangKeys.STR_USERNAME); //$NON-NLS-1$
 					tableColumnUsername.setWidth(112);
 				}
 				{
 					tableColumnRealName = new TableColumn(tableUsers, SWT.NONE);
-					tableColumnRealName.setText(Messages.getString("AdmUIUsers.1")); //$NON-NLS-1$
+					tableColumnRealName.setText(AdmLangKeys.STR_REAL_NAME); //$NON-NLS-1$
 					tableColumnRealName.setWidth(150);
 				}
 				{
 					tableColumnDescription = new TableColumn(tableUsers, SWT.NONE);
-					tableColumnDescription.setText(Messages.getString("AdmUIUsers.2")); //$NON-NLS-1$
+					tableColumnDescription.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 					tableColumnDescription.setWidth(200);
 				}
 			}
@@ -251,6 +252,6 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableUsers, Messages.getString("AdmUIUsers.7")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableUsers, AdmLangKeys.STR_USERS); //$NON-NLS-1$
 	}
 }

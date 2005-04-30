@@ -14,10 +14,11 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyAdd;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 
 /**
@@ -97,7 +98,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			this.setSize(467, 176);
 			//START >> lblCurrencyName
 			lblCurrencyName = new CLabel(this, SWT.NONE);
-			lblCurrencyName.setText(Messages.getString("AdmUICurrencyAdd.0")); //$NON-NLS-1$
+			lblCurrencyName.setText(EngLangCommonKeys.STR_CURRENCY); //$NON-NLS-1$
 			//END << lblCurrencyName
 			//START >> txtCurrencyName
 			txtCurrencyName = new Text(this, SWT.NONE);
@@ -108,7 +109,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			//END << txtCurrencyName
 			//START >> lblCurrencyAbbr
 			lblCurrencyAbbr = new CLabel(this, SWT.NONE);
-			lblCurrencyAbbr.setText(Messages.getString("AdmUICurrencyAdd.1")); //$NON-NLS-1$
+			lblCurrencyAbbr.setText(EngLangCommonKeys.STR_CURRENCY_ABBR); //$NON-NLS-1$
 			//END << lblCurrencyAbbr
 			//START >> txtCurrencyAbbr
 			txtCurrencyAbbr = new Text(this, SWT.NONE);
@@ -119,7 +120,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 			//END << txtCurrencyAbbr
 			//START >> lblCurrencyCountry
 			lblCurrencyCountry = new CLabel(this, SWT.NONE);
-			lblCurrencyCountry.setText(Messages.getString("AdmUICurrencyAdd.2")); //$NON-NLS-1$
+			lblCurrencyCountry.setText(EngLangCommonKeys.STR_CURRENCY_COUNTRY); //$NON-NLS-1$
 			//END << lblCurrencyCountry
 			//START >> txtCurrencyCountry
 			txtCurrencyCountry = new Text(this, SWT.NONE);
@@ -141,14 +142,14 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (txtCurrencyName.getText().equals("")) //$NON-NLS-1$
 		{
-			msg.setMessage(Messages.getString("AdmUICurrencyAdd.4")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_FILL_CURRENCY); //$NON-NLS-1$
 			msg.open();
 			txtCurrencyName.setFocus();
 			return false;
 		}
 		else if (txtCurrencyAbbr.getText().equals("")) //$NON-NLS-1$
 		{
-			msg.setMessage(Messages.getString("AdmUICurrencyAdd.6")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_FILL_CURRENCY_ABBR); //$NON-NLS-1$
 			msg.open();
 			txtCurrencyAbbr.setFocus();
 			return false;
@@ -170,7 +171,7 @@ public class AdmUICurrencyAdd extends org.eclipse.swt.widgets.Composite implemen
 				argMap.put(AdmKeys.ADM_CURRENCY_COUNTRY,txtCurrencyCountry.getText().trim());
 				
 				EngTXCommon.doTransactionTX(AdmBLCurrencyAdd.class.getName(),"saveCurrency",argMap);
-				msg.setMessage(Messages.getString("AdmUICurrencyAdd.7")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				newForm();
 			}

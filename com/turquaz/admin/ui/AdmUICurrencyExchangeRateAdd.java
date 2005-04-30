@@ -13,13 +13,14 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
@@ -109,11 +110,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			this.setSize(495, 205);
 			//START >> lvlExchangeDate
 			lvlExchangeDate = new CLabel(this, SWT.NONE);
-			lvlExchangeDate.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.0")); //$NON-NLS-1$
-			GridData lvlExchangeDateLData = new GridData();
-			lvlExchangeDateLData.widthHint = 95;
-			lvlExchangeDateLData.heightHint = 22;
-			lvlExchangeDate.setLayoutData(lvlExchangeDateLData);
+			lvlExchangeDate.setText(EngLangCommonKeys.STR_DATE); 
 			//END << lvlExchangeDate
 			//START >> dateExchangeDate
 			dateExchangeDate = new DatePicker(this, SWT.NONE);
@@ -124,7 +121,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			//END << dateExchangeDate
 			//START >> lblBaseCurrency
 			lblBaseCurrency = new CLabel(this, SWT.NONE);
-			lblBaseCurrency.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.1")); //$NON-NLS-1$
+			lblBaseCurrency.setText(AdmLangKeys.STR_BASE_CURRENCY); //$NON-NLS-1$
 			//END << lblBaseCurrency
 			//START >> txtBaseCurrency
 			txtBaseCurrency = new Text(this, SWT.NONE);
@@ -136,7 +133,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			//END << txtBaseCurrency
 			//START >> lblExchangeCurrency
 			lblExchangeCurrency = new CLabel(this, SWT.NONE);
-			lblExchangeCurrency.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.2")); //$NON-NLS-1$
+			lblExchangeCurrency.setText(AdmLangKeys.STR_EXCHANGED_CURRENCY); 
 			//END << lblExchangeCurrency
 			//START >> comboExchangeCurrency
 			comboExchangeCurrency = new CCombo(this, SWT.NONE);
@@ -147,7 +144,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			//END << comboExchangeCurrency
 			//START >> lvlExchangeRatio
 			lvlExchangeRatio = new CLabel(this, SWT.NONE);
-			lvlExchangeRatio.setText(Messages.getString("AdmUICurrencyExchangeRateAdd.3")); //$NON-NLS-1$
+			lvlExchangeRatio.setText(EngLangCommonKeys.STR_EXCHANGE_RATE); //$NON-NLS-1$
 			//END << lvlExchangeRatio
 			//START >> txtExchangeRatio
 			txtExchangeRatio = new CurrencyTextAdvanced(this, SWT.NONE, 4);
@@ -204,14 +201,14 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (comboExchangeCurrency.getData(comboExchangeCurrency.getText()) == null)
 		{
-			msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.4")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_CHOOSE_CURRENCY); //$NON-NLS-1$
 			msg.open();
 			comboExchangeCurrency.setFocus();
 			return false;
 		}
 		else if (txtExchangeRatio.getBigDecimalValue().doubleValue() <= 0)
 		{
-			msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.6")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_NOT_EXCHANGE_RATE_GREATER_THAN_ZERO); //$NON-NLS-1$
 			msg.open();
 			txtExchangeRatio.setFocus();
 			return false;
@@ -233,7 +230,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 				argMap.put(EngKeys.EXCHANGE_DATE,dateExchangeDate.getDate());
 				
 				EngTXCommon.doTransactionTX(AdmBLCurrencyExchangeRateAdd.class.getName(),"saveExchangeRate",argMap);
-				msg.setMessage(Messages.getString("AdmUICurrencyExchangeRateAdd.7")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
 				msg.open();
 				newForm();
 			}

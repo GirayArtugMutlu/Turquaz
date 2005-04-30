@@ -39,7 +39,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupPermissions;
 import com.turquaz.admin.bl.AdmBLUserPermissions;
 import com.turquaz.admin.bl.AdmBLUsers;
@@ -53,7 +52,11 @@ import com.turquaz.engine.dal.TurqUserPermission;
 import com.turquaz.engine.dal.TurqUserPermissionLevel;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -106,7 +109,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				composite1.setLayout(composite1Layout);
 				{
 					lblUsers = new CLabel(composite1, SWT.NONE);
-					lblUsers.setText(Messages.getString("AdmUIUserPermissions.0")); //$NON-NLS-1$
+					lblUsers.setText(AdmLangKeys.STR_USERS); //$NON-NLS-1$
 					GridData lblUsersLData = new GridData();
 					lblUsersLData.widthHint = 74;
 					lblUsersLData.heightHint = 17;
@@ -123,7 +126,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				}
 				{
 					lblModules = new CLabel(composite1, SWT.NONE);
-					lblModules.setText(Messages.getString("AdmUIUserPermissions.1")); //$NON-NLS-1$
+					lblModules.setText(AdmLangKeys.STR_MODULES); //$NON-NLS-1$
 					GridData lblModulesLData = new GridData();
 					lblModulesLData.widthHint = 67;
 					lblModulesLData.heightHint = 17;
@@ -147,7 +150,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				}
 				{
 					lblModuleComponents = new CLabel(composite1, SWT.NONE);
-					lblModuleComponents.setText(Messages.getString("AdmUIUserPermissions.2")); //$NON-NLS-1$
+					lblModuleComponents.setText(AdmLangKeys.STR_MODULE_COMPONENTS); //$NON-NLS-1$
 					GridData lblModuleComponentsLData = new GridData();
 					lblModuleComponentsLData.widthHint = 128;
 					lblModuleComponentsLData.heightHint = 18;
@@ -164,7 +167,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				}
 				{
 					lblPermissionLevel = new CLabel(composite1, SWT.NONE);
-					lblPermissionLevel.setText(Messages.getString("AdmUIUserPermissions.3")); //$NON-NLS-1$
+					lblPermissionLevel.setText(AdmLangKeys.STR_PERMISION_LEVEL); //$NON-NLS-1$
 				}
 				{
 					comboPermissionLevel = new CCombo(composite1, SWT.NONE);
@@ -188,22 +191,22 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				tableUserPermissions.setLayoutData(table1LData);
 				{
 					tableColumnUser = new TableColumn(tableUserPermissions, SWT.NONE);
-					tableColumnUser.setText(Messages.getString("AdmUIUserPermissions.4")); //$NON-NLS-1$
+					tableColumnUser.setText(AdmLangKeys.STR_USERNAME); //$NON-NLS-1$
 					tableColumnUser.setWidth(100);
 				}
 				{
 					tableColumnModule = new TableColumn(tableUserPermissions, SWT.NONE);
-					tableColumnModule.setText(Messages.getString("AdmUIUserPermissions.5")); //$NON-NLS-1$
+					tableColumnModule.setText(AdmLangKeys.STR_MODULE); //$NON-NLS-1$
 					tableColumnModule.setWidth(109);
 				}
 				{
 					tableColumnModuleComponent = new TableColumn(tableUserPermissions, SWT.NONE);
-					tableColumnModuleComponent.setText(Messages.getString("AdmUIUserPermissions.6")); //$NON-NLS-1$
+					tableColumnModuleComponent.setText(AdmLangKeys.STR_MODULE_COMPONENT); //$NON-NLS-1$
 					tableColumnModuleComponent.setWidth(120);
 				}
 				{
 					tableColumnPermissionLevel = new TableColumn(tableUserPermissions, SWT.NONE);
-					tableColumnPermissionLevel.setText(Messages.getString("AdmUIUserPermissions.7")); //$NON-NLS-1$
+					tableColumnPermissionLevel.setText(AdmLangKeys.STR_PERMISION_LEVEL); //$NON-NLS-1$
 					tableColumnPermissionLevel.setWidth(120);
 				}
 			}
@@ -334,25 +337,25 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (comboUsers.getData(comboUsers.getText()) == null)
 		{
-			msg.setMessage(Messages.getString("AdmUIUserPermissions.20")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_CHOOSE_USER); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		else if (comboModules.getData(comboModules.getText()) == null)
 		{
-			msg.setMessage(Messages.getString("AdmUIUserPermissions.21")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_CHOOSE_MODULE); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		else if (comboModuleComponents.getData(comboModuleComponents.getText()) == null)
 		{
-			msg.setMessage(Messages.getString("AdmUIUserPermissions.22")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_CHOOSE_MODULE_COMPONENT); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
 		else if (comboPermissionLevel.getData(comboPermissionLevel.getText()) == null)
 		{
-			msg.setMessage(Messages.getString("AdmUIUserPermissions.23")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_CHOOSE_PERMISSION_LEVEL); //$NON-NLS-1$
 			msg.open();
 			return false;
 		}
@@ -375,9 +378,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 				EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"saveUserPermission",argMap);
 				newForm();
 				fillTableUserPermissions();
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("AdmUIUserPermissions.24")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 			}
 		}
 		catch (Exception ex)
@@ -402,7 +403,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 		MessageBox msg2 = new MessageBox(this.getShell(), SWT.NULL);
-		msg.setMessage(Messages.getString("AdmUIUserPermissions.29")); //$NON-NLS-1$
+		msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); //$NON-NLS-1$
 		try
 		{
 			if (msg.open() == SWT.OK)
@@ -414,7 +415,7 @@ public class AdmUIUserPermissions extends org.eclipse.swt.widgets.Composite impl
 					argMap.put(AdmKeys.ADM_PERMISSION,items[0].getData());
 					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 					fillTableUserPermissions();
-					msg2.setMessage(Messages.getString("AdmUIUserPermissions.30")); //$NON-NLS-1$
+					msg2.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 					msg2.open();
 				}
 			}

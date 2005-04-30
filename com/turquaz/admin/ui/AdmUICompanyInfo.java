@@ -8,11 +8,12 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUIMainFrame;
 
@@ -51,7 +52,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			this.setSize(568, 322);
 			{
 				lblCompanyName = new CLabel(this, SWT.NONE);
-				lblCompanyName.setText(Messages.getString("AdmUICompanyInfo.0")); //$NON-NLS-1$
+				lblCompanyName.setText(AdmLangKeys.STR_COMPANY_NAME);
 			}
 			{
 				txtCompanyName = new Text(this, SWT.NONE);
@@ -62,7 +63,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			}
 			{
 				lblCompanyAddress = new CLabel(this, SWT.NONE);
-				lblCompanyAddress.setText(Messages.getString("AdmUICompanyInfo.1")); //$NON-NLS-1$
+				lblCompanyAddress.setText(AdmLangKeys.STR_COMPANY_ADDRESS); 
 				GridData lblCompanyAddressLData = new GridData();
 				lblCompanyAddressLData.verticalAlignment = GridData.BEGINNING;
 				lblCompanyAddress.setLayoutData(lblCompanyAddressLData);
@@ -76,7 +77,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			}
 			{
 				lblCompanyPhone = new CLabel(this, SWT.NONE);
-				lblCompanyPhone.setText(Messages.getString("AdmUICompanyInfo.2")); //$NON-NLS-1$
+				lblCompanyPhone.setText(AdmLangKeys.STR_TELEPHONE); //$NON-NLS-1$
 			}
 			{
 				txtCompanyPhone = new Text(this, SWT.NONE);
@@ -87,7 +88,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			}
 			{
 				lblCompanyFax = new CLabel(this, SWT.NONE);
-				lblCompanyFax.setText(Messages.getString("AdmUICompanyInfo.3")); //$NON-NLS-1$
+				lblCompanyFax.setText(AdmLangKeys.STR_FAX); //$NON-NLS-1$
 			}
 			{
 				txtCompanyFax = new Text(this, SWT.NONE);
@@ -140,7 +141,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 			
 			EngTXCommon.doTransactionTX(AdmBLCompanyInfo.class.getName(),"updateCompany",argMap);
 			EngUIMainFrame.shell.setText("Turquaz - " + txtCompanyName.getText().trim());
-			msg.setMessage(Messages.getString("AdmUICompanyInfo.4")); //$NON-NLS-1$
+			msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
 			msg.open();
 		}
 		catch (Exception ex)

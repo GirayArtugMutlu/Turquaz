@@ -40,11 +40,14 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroupAdd;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
+
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 
@@ -113,7 +116,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			this.setSize(438, 170);
 			{
 				lblAdmGroupName = new CLabel(this, SWT.NONE);
-				lblAdmGroupName.setText(Messages.getString("AdmUIGroupAdd.0")); //$NON-NLS-1$
+				lblAdmGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME); //$NON-NLS-1$
 				GridData lblAdmGroupNameLData = new GridData();
 				lblAdmGroupNameLData.widthHint = 65;
 				lblAdmGroupNameLData.heightHint = 19;
@@ -128,7 +131,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 			}
 			{
 				lblAdmGroupDesc = new CLabel(this, SWT.NONE);
-				lblAdmGroupDesc.setText(Messages.getString("AdmUIGroupAdd.1")); //$NON-NLS-1$
+				lblAdmGroupDesc.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 				GridData lblAdmGroupDescLData = new GridData();
 				lblAdmGroupDescLData.verticalAlignment = GridData.BEGINNING;
 				lblAdmGroupDescLData.widthHint = 113;
@@ -166,7 +169,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (txtAdmGroupName.getText().trim().length() == 0)
 		{
-			msg.setMessage(Messages.getString("AdmUIGroupAdd.2")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_FILL_GROUP_NAME);
 			msg.open();
 			txtAdmGroupName.setFocus();
 			return false;
@@ -176,7 +179,7 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 
 	public void save()
 	{
-		MessageBox messageBox = new MessageBox(this.getShell(), SWT.NULL);
+		
 		if (verifyFields())
 		{
 			try
@@ -186,8 +189,8 @@ public class AdmUIGroupAdd extends org.eclipse.swt.widgets.Composite implements 
 				argMap.put(AdmKeys.ADM_GROUP_DESCRIPTION,txtAdmGroupDesc.getText().trim());
 				
 				EngTXCommon.doTransactionTX(AdmBLGroupAdd.class.getName(),"saveGroup",argMap);
-				messageBox.setMessage(Messages.getString("AdmUIGroupAdd.3")); //$NON-NLS-1$
-				messageBox.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
+                
 				newForm();
 			}
 			catch (Exception ex)

@@ -7,13 +7,13 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.dal.TurqUserGroup;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.widgets.ToolItem;
@@ -68,8 +68,8 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			//START >> toolUpdate
 			toolUpdate = new ToolItem(toolBarTop, SWT.NONE);
 			toolUpdate.setEnabled(true);
-			toolUpdate.setText(Messages.getString("AdmUIUserUpdateDialog.0")); //$NON-NLS-1$
-			toolUpdate.setImage(SWTResourceManager.getImage(Messages.getString("AdmUIUserUpdateDialog.3"))); //$NON-NLS-1$
+			toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); //$NON-NLS-1$
+			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -80,8 +80,8 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			//END << toolUpdate
 			//START >> toolDelete
 			toolDelete = new ToolItem(toolBarTop, SWT.NONE);
-			toolDelete.setText(Messages.getString("AdmUIUserUpdateDialog.2")); //$NON-NLS-1$
-			toolDelete.setImage(SWTResourceManager.getImage(Messages.getString("AdmUIUserUpdateDialog.1"))); //$NON-NLS-1$
+			toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
+			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			toolDelete.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -92,8 +92,8 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			//END << toolDelete
 			//START >> toolCancel
 			toolCancel = new ToolItem(toolBarTop, SWT.NONE);
-			toolCancel.setText(Messages.getString("AdmUIUserUpdateDialog.4")); //$NON-NLS-1$
-			toolCancel.setImage(SWTResourceManager.getImage(Messages.getString("AdmUIUserUpdateDialog.5"))); //$NON-NLS-1$
+			toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
+			toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 			toolCancel.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -156,14 +156,14 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			boolean delete = EngUICommon.okToDelete(this.getParent(), Messages.getString("AdmUIUserUpdateDialog.6")); //$NON-NLS-1$
+			boolean delete = EngUICommon.okToDelete(this.getParent()); //$NON-NLS-1$
 			if (delete)
 			{
 				updated = true;
 				HashMap argMap=new HashMap();
 				argMap.put(AdmKeys.ADM_USER,user);
 				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteUser",argMap);
-				EngUICommon.showMessageBox(this.getParent(),Messages.getString("AdmUIUserUpdateDialog.7")); //$NON-NLS-1$
+				EngUICommon.showMessageBox(this.getParent(),EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				this.dialogShell.close();
 			}
 		}
@@ -189,7 +189,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AdmKeys.ADM_USER_GROUPS,compUserAdd.getUserGroups());
 				
 				EngTXCommon.doTransactionTX(AdmBLUserUpdate.class.getName(),"updateUser",argMap);
-				EngUICommon.showMessageBox(this.getParent(),Messages.getString("AdmUIUserUpdateDialog.8")); //$NON-NLS-1$
+				EngUICommon.showMessageBox(this.getParent(),EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
 				dialogShell.close();
 			}
 		}

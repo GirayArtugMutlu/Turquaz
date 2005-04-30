@@ -21,7 +21,6 @@ package com.turquaz.admin.ui;
  */
 import java.util.HashMap;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -44,7 +43,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -52,6 +50,7 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 
@@ -121,13 +120,13 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 				TurqGroup group=(TurqGroup)selection[0].getData();
 				if (group != null)
 				{
-					boolean delete = EngUICommon.okToDelete(this.getShell(), Messages.getString("AdmUIGroupUpdateDialog.0"));  //$NON-NLS-1$
+					boolean delete = EngUICommon.okToDelete(this.getShell());  //$NON-NLS-1$
 					if (delete)
 					{
 						HashMap argMap=new HashMap();
 						argMap.put(AdmKeys.ADM_GROUP,group);
 						EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteGroup",argMap); //$NON-NLS-1$
-						EngUICommon.showMessageBox(this.getShell(),Messages.getString("AdmUIUserUpdateDialog.7")); //$NON-NLS-1$
+						EngUICommon.showMessageBox(this.getShell(),EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						fillTable();
 					}					
 				}
@@ -136,10 +135,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		}
 		catch (Exception ex)
 		{
-			Logger loger = Logger.getLogger(this.getClass());
-			loger.error("Exception Caught", ex); //$NON-NLS-1$
-			EngUICommon.showMessageBox(getShell(),Messages.getString("AdmUIGroupUpdateDialog.1"),SWT.ICON_WARNING); //$NON-NLS-1$
-		
+			EngBLLogger.log(getClass(),ex,getShell());
 		}
 	}
 
@@ -178,12 +174,12 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 				});
 				{
 					tableColumnGroupname = new TableColumn(tableGroups, SWT.NONE);
-					tableColumnGroupname.setText(Messages.getString("AdmUIGroups.0")); //$NON-NLS-1$
+					tableColumnGroupname.setText(EngLangCommonKeys.STR_GROUP_NAME); //$NON-NLS-1$
 					tableColumnGroupname.setWidth(112);
 				}
 				{
 					tableColumnDescription = new TableColumn(tableGroups, SWT.NONE);
-					tableColumnDescription.setText(Messages.getString("AdmUIGroups.1")); //$NON-NLS-1$
+					tableColumnDescription.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 					tableColumnDescription.setWidth(200);
 				}
 			}
@@ -225,7 +221,7 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableGroups, Messages.getString("AdmUIGroups.4")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableGroups, EngLangCommonKeys.STR_GROUPS); //$NON-NLS-1$
 	}
 	
 	private void tableGroupsMouseDoubleClick(MouseEvent evt) {

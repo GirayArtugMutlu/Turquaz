@@ -41,13 +41,14 @@ import org.eclipse.swt.SWT;
  */
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.admin.AdmKeys;
-import com.turquaz.admin.Messages;
 import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.admin.bl.AdmBLUserAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AdmLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.custom.CLabel;
@@ -121,7 +122,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 			{
 				lblUsername = new CLabel(this, SWT.NONE);
 				GridData lblUsernameLData = new GridData();
-				lblUsername.setText(Messages.getString("AdmUIUserAdd.0")); //$NON-NLS-1$
+				lblUsername.setText(AdmLangKeys.STR_USERNAME); //$NON-NLS-1$
 				lblUsernameLData.widthHint = 104;
 				lblUsernameLData.heightHint = 20;
 				lblUsername.setLayoutData(lblUsernameLData);
@@ -135,7 +136,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 			}
 			{
 				lblPassWord = new CLabel(this, SWT.NONE);
-				lblPassWord.setText(Messages.getString("AdmUIUserAdd.1")); //$NON-NLS-1$
+				lblPassWord.setText(AdmLangKeys.STR_PASSWORD); //$NON-NLS-1$
 			}
 			{
 				txtPassword = new Text(this, SWT.PASSWORD);
@@ -146,7 +147,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 			}
 			{
 				lblReTypePassword = new CLabel(this, SWT.NONE);
-				lblReTypePassword.setText(Messages.getString("AdmUIUserAdd.2")); //$NON-NLS-1$
+				lblReTypePassword.setText(AdmLangKeys.STR_RE_PASSWORD); //$NON-NLS-1$
 				GridData lblReTypePasswordLData = new GridData();
 				lblReTypePasswordLData.widthHint = 114;
 				lblReTypePasswordLData.heightHint = 19;
@@ -161,7 +162,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 			}
 			{
 				lblRealName = new CLabel(this, SWT.NONE);
-				lblRealName.setText(Messages.getString("AdmUIUserAdd.3")); //$NON-NLS-1$
+				lblRealName.setText(AdmLangKeys.STR_REAL_NAME); //$NON-NLS-1$
 				GridData lblRealNameLData = new GridData();
 				lblRealNameLData.widthHint = 90;
 				lblRealNameLData.heightHint = 17;
@@ -176,7 +177,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 			}
 			{
 				lblDescription = new CLabel(this, SWT.NONE);
-				lblDescription.setText(Messages.getString("AdmUIUserAdd.4")); //$NON-NLS-1$
+				lblDescription.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 				GridData lblDescriptionLData = new GridData();
 				lblDescriptionLData.widthHint = 107;
 				lblDescriptionLData.heightHint = 17;
@@ -203,7 +204,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 			}
 			{
 				lblGroups = new CLabel(this, SWT.NONE);
-				lblGroups.setText(Messages.getString("AdmUIUserAdd.5")); //$NON-NLS-1$
+				lblGroups.setText(EngLangCommonKeys.STR_GROUPS); //$NON-NLS-1$
 				GridData lblGroupsLData = new GridData();
 				lblGroupsLData.widthHint = 105;
 				lblGroupsLData.heightHint = 34;
@@ -255,14 +256,14 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (txtUsername.getText().trim().length() == 0)
 		{
-			msg.setMessage(Messages.getString("AdmUIUserAdd.6")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PLEASE_ENTER_USERNAME); //$NON-NLS-1$
 			msg.open();
 			txtUsername.setFocus();
 			return false;
 		}
 		else if (!txtPassword.getText().equals(txtRePassword.getText()))
 		{
-			msg.setMessage(Messages.getString("AdmUIUserAdd.7")); //$NON-NLS-1$
+			msg.setMessage(AdmLangKeys.MSG_PASSWORD_MUST_BE_SAME); //$NON-NLS-1$
 			msg.open();
 			txtPassword.setText(""); //$NON-NLS-1$
 			txtRePassword.setText(""); //$NON-NLS-1$
@@ -286,7 +287,7 @@ public class AdmUIUserAdd extends Composite implements SecureComposite
 				argMap.put(AdmKeys.ADM_USER_GROUPS,getUserGroups());
 				
 				EngTXCommon.doTransactionTX(AdmBLUserAdd.class.getName(),"saveUser",argMap);
-				EngUICommon.showMessageBox(this.getShell(),Messages.getString("AdmUIUserAdd.11")); //$NON-NLS-1$
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
 		}
