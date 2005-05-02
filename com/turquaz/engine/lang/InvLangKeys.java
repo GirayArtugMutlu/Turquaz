@@ -19,6 +19,9 @@ public class InvLangKeys
 	public final static String TITLE_INV_SUB_GROUP_ADD="Stok Alt Grubu Ekleme";
 	public final static String TITLE_INV_GROUPS="Stok Gruplar?";
 	
+	
+	public final static String STR_INV_LEDGER="Envanter Listesi";
+	
 
 	public final static String STR_INV_CODE="Stok Kodu";
 	public final static String STR_INV_NAME="Stok Ad?";
@@ -36,13 +39,25 @@ public class InvLangKeys
 	public final static String STR_COEFFICIENT="Katsay?";
 	public final static String STR_PRICE_TYPE="Fiyat Tipi";
 	public final static String STR_TOTALPRICE="Tutar";
+	public final static String STR_INV_CARD="Stok Kart?";
 	public final static String STR_INV_CARD_START="Stok Kart? - Ba?lang?ç";
 	public final static String STR_INV_CARD_END="Stok Kart? - Biti?";
-	public final static String STR_CURRENT_CARD="Cari Kart";
+	public final static String STR_INV_CODE_START="Stok Kodu - Ba?lang?ç";
+	public final static String STR_INV_CODE_END="Stok Kodu - Biti?";
+	public final static String STR_INV_NAME_START="Stok Ad? - Ba?lang?ç";
+	public final static String STR_INV_NAME_END="Stok Ad? - Biti?";
 	public final static String STR_INV_TRANSACTIONS="Stok Hareketleri";
 	public final static String STR_MAIN_GROUP="Ana Grup";
+	public final static String STR_FILTER="Filtre";
+	public final static String STR_ALL_INV="Bütün Stoklar";
+	public final static String STR_HAS_TRANSACTIONS="Hareketliler";
+	public final static String STR_HAS_BALANCE="Bakiyeliler";
+	public final static String STR_LAST_AMOUNT="Son Miktar";
+	public final static String STR_AVERAGE_PRICE="Ort. Fiyat";
+	public final static String STR_TOTAL_PRICE="Toplam Tutar";
 	
-	
+	public final static String STR_SEARCH_BY_CODE="Koda Göre Ara";
+	public final static String STR_SEARCH_BY_NAME="Ada Göre Ara";
 	
 	public final static String STR_ACCOUNTING_TYPE="Muhasebe Tipi";
 	
@@ -56,6 +71,8 @@ public class InvLangKeys
 	public final static String STR_INV_CARDS="Stok Kartlar?";
 	public final static String STR_INV_GROUPS="Stok Gruplar?";
 	public final static String STR_NEW_SUB_GROUP="Yeni Alt Grup";
+	public final static String STR_WAREHOUSE="Depo";
+	public final static String STR_UNIT="Birim";
 	
 	
 	public final static String MSG_ENTER_INV_CODE="Stok kodu girmelisiniz!";
@@ -71,6 +88,9 @@ public class InvLangKeys
 	public final static String STR_PRICE_OUT="Ç?k?? Tutar?";
 	public final static String STR_BALANCE_AMOUNT="Bakiye Miktar?";
 	public final static String STR_BALANCE_PRICE="Bakiye Tutar?";
+	public final static String STR_UNIT_PRICE_IN="Gir. Birim Fiyat?";
+	public final static String STR_UNIT_PRICE_OUT="Ç?k. Birim Fiyat?";
+	
 	
 	public final static String MSG_INV_CARD_HAS_TRANSACTION="Bu stok kart? stok hareket görmü?\n?lk önce hareketleri silmeniz gerekir!";
 	public final static String MSG_ENTER_GROUP_NAME="Lütfen grup ad? giriniz!";
