@@ -26,11 +26,11 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLProfitAnalysis;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.SWT;
@@ -86,42 +86,42 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 				tableInvTotals.setLayoutData(tableInvTotalsLData);
 				{
 					tableColumnInvCard = new TableColumn(tableInvTotals, SWT.NONE);
-					tableColumnInvCard.setText(Messages.getString("InvUIProfitAnalysis.0")); //$NON-NLS-1$
+					tableColumnInvCard.setText(InvLangKeys.STR_INV_CODE);
 					tableColumnInvCard.setWidth(100);
 				}
 				//START >> tableColumnInvCardName
 				tableColumnInvCardName = new TableColumn(tableInvTotals, SWT.NONE);
-				tableColumnInvCardName.setText("Stok Cinsi");
+				tableColumnInvCardName.setText(InvLangKeys.STR_INV_NAME);
 				tableColumnInvCardName.setWidth(100);
 				//END << tableColumnInvCardName
 				{
 					tableColumnTotalAmount = new TableColumn(tableInvTotals, SWT.RIGHT);
-					tableColumnTotalAmount.setText(Messages.getString("InvUIProfitAnalysis.1")); //$NON-NLS-1$
+					tableColumnTotalAmount.setText(InvLangKeys.STR_AMOUNT_IN);
 					tableColumnTotalAmount.setWidth(73);
 				}
 				{
 					tableColumnAvgPrice = new TableColumn(tableInvTotals, SWT.RIGHT);
-					tableColumnAvgPrice.setText(Messages.getString("InvUIProfitAnalysis.2")); //$NON-NLS-1$
+					tableColumnAvgPrice.setText(InvLangKeys.STR_AVERAGE_PRICE_IN);
 					tableColumnAvgPrice.setWidth(97);
 				}
 				{
 					tableColumnTotalAmountOut = new TableColumn(tableInvTotals, SWT.RIGHT);
-					tableColumnTotalAmountOut.setText(Messages.getString("InvUIProfitAnalysis.3")); //$NON-NLS-1$
+					tableColumnTotalAmountOut.setText(InvLangKeys.STR_SELL_AMOUNT);
 					tableColumnTotalAmountOut.setWidth(77);
 				}
 				{
 					tableColumnCostOut = new TableColumn(tableInvTotals, SWT.RIGHT);
-					tableColumnCostOut.setText(Messages.getString("InvUIProfitAnalysis.4")); //$NON-NLS-1$
+					tableColumnCostOut.setText(InvLangKeys.STR_SELL_COST);
 					tableColumnCostOut.setWidth(82);
 				}
 				{
 					tableColumnPriceOut = new TableColumn(tableInvTotals, SWT.RIGHT);
-					tableColumnPriceOut.setText(Messages.getString("InvUIProfitAnalysis.5")); //$NON-NLS-1$
+					tableColumnPriceOut.setText(InvLangKeys.STR_SELL_TOTALPRICE);
 					tableColumnPriceOut.setWidth(75);
 				}
 				{
 					tableColumnProfit = new TableColumn(tableInvTotals, SWT.RIGHT);
-					tableColumnProfit.setText(Messages.getString("InvUIProfitAnalysis.6")); //$NON-NLS-1$
+					tableColumnProfit.setText(InvLangKeys.STR_PROFIT_ABBR);
 					tableColumnProfit.setWidth(75);
 				}
 			}
@@ -240,6 +240,6 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableInvTotals, Messages.getString("InvUIProfitAnalysis.7")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableInvTotals, InvLangKeys.STR_PROFIT_ANALYSIS); 
 	}
 }

@@ -18,7 +18,8 @@ public class InvLangKeys
 	public final static String TITLE_INV_CARD_UPDATE="Stok Kart? Güncelleme";
 	public final static String TITLE_INV_SUB_GROUP_ADD="Stok Alt Grubu Ekleme";
 	public final static String TITLE_INV_GROUPS="Stok Gruplar?";
-	
+	public final static String TITLE_INV_UNITS="Stok Birimleri";
+	public final static String TITLE_WAREHOUSE_UPDATE="Depo Güncelleme";
 	
 	public final static String STR_INV_LEDGER="Envanter Listesi";
 	
@@ -56,9 +57,10 @@ public class InvLangKeys
 	public final static String STR_AVERAGE_PRICE="Ort. Fiyat";
 	public final static String STR_TOTAL_PRICE="Toplam Tutar";
 	
-
+	public final static String STR_INITIAL_TRANSACTION="Aç?l?? Hareketi";
 	
-	
+	public final static String STR_WAREHOUSE_CODE="Depo Kodu";
+	public final static String STR_WAREHOUSE_NAME="Depo Ad?";
 	
 	public final static String STR_SEARCH_BY_CODE="Koda Göre Ara";
 	public final static String STR_SEARCH_BY_NAME="Ada Göre Ara";
@@ -102,12 +104,17 @@ public class InvLangKeys
 	public final static String STR_TRANSOVER_PRICE="Devir Tutar?";
 	public final static String STR_TRANSOVER_UNIT_PRICE="Devir Bir. Fiyat?";
 	public final static String STR_BALANCE_UNIT_PRICE="Bak. Birim Fiyat?";
+	public final static String STR_WAREHOUSES="Depolar";
 	
 	
 	public final static String MSG_INV_CARD_HAS_TRANSACTION="Bu stok kart? stok hareket görmü?\n?lk önce hareketleri silmeniz gerekir!";
 	public final static String MSG_ENTER_GROUP_NAME="Lütfen grup ad? giriniz!";
 	public final static String MSG_SELECT_INV_CARD="Lütfen stok kart? seçiniz!";
 	public final static String MSG_ENTER_AMOUNT="Lütfen miktar giriniz!";
+	public final static String MSG_ENTER_UNIT_NAME="Lütfen birim ad?n? doldurunuz!";
+	public final static String MSG_NOT_ENTER_UNIT_NAME_ALREADY_EXIST="Daha önce varolan bir birim ad? giremezsiniz!";
+	public final static String MSG_ENTER_WAREHOUSE_NAME="Lütfen depo ad?n? giriniz!";
+	public final static String MSG_WAREHOUSE_HAS_TRANSACTION="Bu depo hareket görmü?\n?lk önce onlar? silmeniz gerekir!";
 	
 	
 	

@@ -21,10 +21,10 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 /**
@@ -117,13 +117,12 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 				tableParentGroups.setLayoutData(listParentGroupsLData);
 				{
 					tableColumnParentGroups = new TableColumn(tableParentGroups, SWT.NONE);
-					tableColumnParentGroups.setText(Messages.getString("InvUIInventoryGroups.0")); //$NON-NLS-1$
+					tableColumnParentGroups.setText(InvLangKeys.STR_MAIN_GROUPS);
 					tableColumnParentGroups.setWidth(147);
 				}
 			}
 			{
 				label1 = new Label(this, SWT.SEPARATOR);
-				label1.setText("label1"); //$NON-NLS-1$
 				GridData label1LData = new GridData();
 				label1LData.verticalAlignment = GridData.FILL;
 				label1LData.widthHint = 28;
@@ -153,7 +152,7 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 				tableSubGroups.setLayoutData(tableSubGroupsLData);
 				{
 					tableColumnSubGroups = new TableColumn(tableSubGroups, SWT.NONE);
-					tableColumnSubGroups.setText(Messages.getString("InvUIInventoryGroups.2")); //$NON-NLS-1$
+					tableColumnSubGroups.setText(InvLangKeys.STR_SUB_GROUPS);
 					tableColumnSubGroups.setWidth(189);
 				}
 			}

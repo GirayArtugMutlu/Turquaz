@@ -13,10 +13,11 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.ui.comp.InvMainGroupPicker;
 import org.eclipse.swt.widgets.Text;
@@ -95,7 +96,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 			this.setSize(493, 216);
 			{
 				lblMainGroup = new CLabel(this, SWT.NONE);
-				lblMainGroup.setText(Messages.getString("InvUIInventoryGroupAdd.0")); //$NON-NLS-1$
+				lblMainGroup.setText(InvLangKeys.STR_MAIN_GROUP);
 				lblMainGroup.setVisible(false);
 			}
 			{
@@ -108,7 +109,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 			}
 			{
 				lblGroupName = new CLabel(this, SWT.NONE);
-				lblGroupName.setText(Messages.getString("InvUIInventoryGroupAdd.1")); //$NON-NLS-1$
+				lblGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME);
 			}
 			{
 				txtGroupName = new Text(this, SWT.NONE);
@@ -119,7 +120,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 			}
 			{
 				lblDefinition = new CLabel(this, SWT.NONE);
-				lblDefinition.setText(Messages.getString("InvUIInventoryGroupAdd.2")); //$NON-NLS-1$
+				lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			}
 			{
 				txtDefinition = new Text(this, SWT.NONE);
@@ -139,8 +140,9 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 
 	public boolean verifyFields()
 	{
-		if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-			EngUICommon.showMessageBox(getShell(), Messages.getString("InvUIInventoryGroupAdd.4"), SWT.ICON_WARNING); //$NON-NLS-1$
+		if (txtGroupName.getText().trim().equals("")) 
+		{ 
+			EngUICommon.showMessageBox(getShell(), InvLangKeys.MSG_ENTER_GROUP_NAME, SWT.ICON_WARNING);
 			txtGroupName.setFocus();
 			return false;
 		}

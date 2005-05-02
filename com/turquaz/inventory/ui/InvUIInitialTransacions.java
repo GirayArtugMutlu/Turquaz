@@ -35,6 +35,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -43,6 +45,21 @@ import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 {
 	private Table tableInitialTransactions;
@@ -121,22 +138,22 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 			tableInitialTransactions.setLayoutData(tableInitialTransactionsLData);
 			//START >> tableColumnInvCode
 			tableColumnInvCode = new TableColumn(tableInitialTransactions, SWT.NONE);
-			tableColumnInvCode.setText("Stok Kodu");
+			tableColumnInvCode.setText(InvLangKeys.STR_INV_CODE);
 			tableColumnInvCode.setWidth(106);
 			//END << tableColumnInvCode
 			//START >> tableColumnInvName
 			tableColumnInvName = new TableColumn(tableInitialTransactions, SWT.NONE);
-			tableColumnInvName.setText("Stok Ad\u0131");
+			tableColumnInvName.setText(InvLangKeys.STR_INV_NAME);
 			tableColumnInvName.setWidth(105);
 			//END << tableColumnInvName
 			//START >> tableColumnAmount
 			tableColumnAmount = new TableColumn(tableInitialTransactions, SWT.NONE);
-			tableColumnAmount.setText("Miktar");
+			tableColumnAmount.setText(EngLangCommonKeys.STR_AMOUNT);
 			tableColumnAmount.setWidth(104);
 			//END << tableColumnAmount
 			//START >> tableColumnPrice
 			tableColumnPrice = new TableColumn(tableInitialTransactions, SWT.NONE);
-			tableColumnPrice.setText("Tutar\u0131");
+			tableColumnPrice.setText(InvLangKeys.STR_TOTALPRICE);
 			tableColumnPrice.setWidth(106);
 			//END << tableColumnPrice
 			//END << tableInitialTransactions

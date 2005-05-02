@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -34,13 +33,14 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.inventory.bl.InvBLCardAdd;
@@ -77,9 +77,9 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	private CCombo comboInvSubGroup;
 	private CCombo comboInvMainGroup;
 	private CLabel lblInvGroup;
-	private TableColumn tableColumnInvName;
+	private TableColumn tableColumnInvCode;
 	private TableColumn tableColumnAmountIn;
-	private TableColumn tableColumnInventoryCode;
+	private TableColumn tableColumnInvName;
 	private TableColumn tableColumnAmountOut;
 	private TableColumn tableColumnBalanceAmountIn;
 	private TableColumn tableColumnBalanceAmountOut;
@@ -131,7 +131,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 						cLabel2LData.widthHint = 97;
 						cLabel2LData.heightHint = 17;
 						lblInvCode.setLayoutData(cLabel2LData);
-						lblInvCode.setText(Messages.getString("InvUICardSearch.1")); //$NON-NLS-1$
+						lblInvCode.setText(InvLangKeys.STR_INV_CODE);
 						lblInvCode.setSize(new org.eclipse.swt.graphics.Point(97, 17));
 					}
 					{
@@ -144,7 +144,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					}
 					{
 						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvName.setText(Messages.getString("InvUICardSearch.0")); //$NON-NLS-1$
+						lblInvName.setText(InvLangKeys.STR_INV_NAME);
 						lblInvName.setSize(100, 18);
 						GridData lblInvNameLData = new GridData();
 						lblInvNameLData.widthHint = 100;
@@ -168,7 +168,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					}
 					//START >> lblInvGroup
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvGroup.setText("Stok Ana Grup");
+					lblInvGroup.setText(InvLangKeys.STR_INV_MAIN_GROUP);
 					GridData lblInvGroupLData = new GridData();
 					lblInvGroupLData.widthHint = 85;
 					lblInvGroupLData.heightHint = 19;
@@ -190,7 +190,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					//END << comboInvMainGroup
 					//START >> lblInvSubGroup
 					lblInvSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvSubGroup.setText("Stok Alt Grup");
+					lblInvSubGroup.setText(InvLangKeys.STR_INV_SUB_GROUP);
 					//END << lblInvSubGroup
 					//START >> comboInvSubGroup
 					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
@@ -219,43 +219,43 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					tableSearcResultsLData.grabExcessVerticalSpace = true;
 					tableSearcResults.setLayoutData(tableSearcResultsLData);
 					{
-						tableColumnInvName = new TableColumn(tableSearcResults, SWT.NONE);
-						tableColumnInvName.setText(Messages.getString("InvUICardSearch.3")); //$NON-NLS-1$
-						tableColumnInvName.setWidth(69);
+						tableColumnInvCode = new TableColumn(tableSearcResults, SWT.NONE);
+						tableColumnInvCode.setText(InvLangKeys.STR_INV_CODE);
+						tableColumnInvCode.setWidth(69);
 					}
 					{
-						tableColumnInventoryCode = new TableColumn(tableSearcResults, SWT.NONE);
-						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4")); //$NON-NLS-1$
-						tableColumnInventoryCode.setWidth(107);
+						tableColumnInvName = new TableColumn(tableSearcResults, SWT.NONE);
+						tableColumnInvName.setText(InvLangKeys.STR_INV_NAME);
+						tableColumnInvName.setWidth(107);
 					}
 					{
 						tableColumnAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
+						tableColumnAmountIn.setText(InvLangKeys.STR_AMOUNT_IN);
 						tableColumnAmountIn.setWidth(60);
 					}
 					{
 						tableColumnAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7")); //$NON-NLS-1$
+						tableColumnAmountOut.setText(InvLangKeys.STR_AMOUNT_OUT);
 						tableColumnAmountOut.setWidth(60);
 					}
 					{
 						tableColumnBalanceAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnBalanceAmountIn.setText(Messages.getString("InvUICardSearch.8")); //$NON-NLS-1$
+						tableColumnBalanceAmountIn.setText(InvLangKeys.STR_BALANCE_AMOUNT_IN);
 						tableColumnBalanceAmountIn.setWidth(69);
 					}
 					{
 						tableColumnBalanceAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnBalanceAmountOut.setText(Messages.getString("InvUICardSearch.9")); //$NON-NLS-1$
+						tableColumnBalanceAmountOut.setText(InvLangKeys.STR_BALANCE_AMOUNT_OUT);
 						tableColumnBalanceAmountOut.setWidth(71);
 					}
 					{
 						tableColumnPriceIn = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10")); //$NON-NLS-1$
+						tableColumnPriceIn.setText(InvLangKeys.STR_PRICE_IN);
 						tableColumnPriceIn.setWidth(75);
 					}
 					{
 						tableColumnPriceOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11")); //$NON-NLS-1$
+						tableColumnPriceOut.setText(InvLangKeys.STR_PRICE_OUT);
 						tableColumnPriceOut.setWidth(76);
 					}
 				}
@@ -344,7 +344,6 @@ public class InvUICardSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
 		try
 		{
 			TableItem items[] = tableSearcResults.getSelection();
@@ -356,27 +355,24 @@ public class InvUICardSearch extends Composite implements SearchComposite
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD_ID,cardId);
 					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
-					msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
-					if (msg.open() == SWT.NO)
+					boolean okToDelete=EngUICommon.okToDelete(getShell());
+					if (!okToDelete)
 						return;
+					
 					// if the inventory card contains transactions
 					argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD,invCard);
 					Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
 					if (hasTX.booleanValue())
 					{
-						MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-						msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
-						msg2.open();
+						EngUICommon.showMessageBox(getShell(),InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION,SWT.ICON_WARNING);
 						return;
 					}
 					argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD,invCard);					
 					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
 					
-					msg = new MessageBox(this.getShell(), SWT.NULL);
-					msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showDeletedSuccesfullyMessage(getShell());
 					search();
 				}
 			}
@@ -470,6 +466,6 @@ public class InvUICardSearch extends Composite implements SearchComposite
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableSearcResults, Messages.getString("InvUICardSearch.6")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableSearcResults, InvLangKeys.STR_INV_CARDS);
 	}
 }

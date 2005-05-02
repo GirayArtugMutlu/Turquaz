@@ -43,9 +43,9 @@ import com.turquaz.engine.dal.TurqInventoryTransactionType;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.dal.InvDALCardAdd;
 
 public class InvBLCardAdd
@@ -232,7 +232,7 @@ public class InvBLCardAdd
 			EngDALCommon.saveObject(seq);
 			invTrans.setTurqEngineSequence(seq);
 			invTrans.setTransactionsDate(DatePicker.getFirstDayOfYear());
-			invTrans.setDefinition(Messages.getString("InvBLCardAdd.0")); //$NON-NLS-1$
+			invTrans.setDefinition(InvLangKeys.STR_INITIAL_TRANSACTION);
 			invTrans.setDocumentNo(""); //$NON-NLS-1$
 			invTrans.setAmountIn(new BigDecimal(0));
 			invTrans.setAmountOut(new BigDecimal(0));

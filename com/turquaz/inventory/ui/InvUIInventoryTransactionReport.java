@@ -48,6 +48,9 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -63,7 +66,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -168,7 +170,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				compRadio.setLayout(compRadioLayout);
 				{
 					lblInvCard = new CLabel(compRadio, SWT.NONE);
-					lblInvCard.setText(Messages.getString("InvUIInventoryTransactionReport.0")); //$NON-NLS-1$
+					lblInvCard.setText(InvLangKeys.STR_INV_CODE_START);
 				}
 				{
 					txtInvCardStart = new InventoryPicker(compRadio, SWT.NONE);
@@ -179,7 +181,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				//START >> lblInvCardEnd
 				lblInvCardEnd = new CLabel(compRadio, SWT.NONE);
-				lblInvCardEnd.setText(Messages.getString("InvUIInventoryTransactionReport.1")); //$NON-NLS-1$
+				lblInvCardEnd.setText(InvLangKeys.STR_INV_CODE_END);
 				GridData lblInvCardEndLData = new GridData();
 				lblInvCardEndLData.widthHint = 106;
 				lblInvCardEndLData.heightHint = 18;
@@ -194,12 +196,12 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				//END << txtInvCardEnd
 				//START >> radioInvCode
 				radioInvCode = new Button(compRadio, SWT.RADIO | SWT.LEFT);
-				radioInvCode.setText(Messages.getString("InvUIInventoryTransactionReport.8")); //$NON-NLS-1$
+				radioInvCode.setText(InvLangKeys.STR_SEARCH_BY_CODE);
 				radioInvCode.setSelection(true);
 				//END << radioInvCode
 				{
 					lblInvName = new CLabel(compRadio, SWT.NONE);
-					lblInvName.setText(Messages.getString("InvUIInventoryTransactionReport.9")); //$NON-NLS-1$
+					lblInvName.setText(InvLangKeys.STR_INV_NAME_START);
 				}
 				{
 					txtInvNameStart = new Text(compRadio, SWT.NONE);
@@ -210,7 +212,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				//START >> lblInvNameEnd
 				lblInvNameEnd = new CLabel(compRadio, SWT.NONE);
-				lblInvNameEnd.setText(Messages.getString("InvUIInventoryTransactionReport.11")); //$NON-NLS-1$
+				lblInvNameEnd.setText(InvLangKeys.STR_INV_NAME_END);
 				//END << lblInvNameEnd
 				//START >> txtInvNameEnd
 				txtInvNameEnd = new Text(compRadio, SWT.NONE);
@@ -221,12 +223,12 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				//END << txtInvNameEnd
 				//START >> radioInvName
 				radioInvName = new Button(compRadio, SWT.RADIO | SWT.LEFT);
-				radioInvName.setText(Messages.getString("InvUIInventoryTransactionReport.15")); //$NON-NLS-1$
+				radioInvName.setText(InvLangKeys.STR_SEARCH_BY_NAME);
 				//END << radioInvName
 				//END << compRadio
 				{
 					lblCurrentCard = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("InvUIInventoryTransactionReport.2")); //$NON-NLS-1$
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD_START);
 				}
 				{
 					txtCurCardStart = new CurrentCodePicker(compInvTransactionSearch, SWT.NONE);
@@ -237,7 +239,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				{
 					lblCurCarEnd = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblCurCarEnd.setText(Messages.getString("InvUIInventoryTransactionReport.3")); //$NON-NLS-1$
+					lblCurCarEnd.setText(CurLangKeys.STR_CUR_CARD_END);
 				}
 				{
 					txtCurCardEnd = new CurrentCodePicker(compInvTransactionSearch, SWT.NONE);
@@ -248,7 +250,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				{
 					lblStartDate = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblStartDate.setText(Messages.getString("InvUIInventoryTransactionReport.4")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -263,7 +265,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				{
 					lblEndDate = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblEndDate.setText(Messages.getString("InvUIInventoryTransactionReport.5")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 105;
 					lblEndDateLData.heightHint = 19;
@@ -278,7 +280,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				{
 					lblInvGroup = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvGroup.setText(Messages.getString("InvUIInventoryTransactionReport.17")); //$NON-NLS-1$
+					lblInvGroup.setText(InvLangKeys.STR_INV_MAIN_GROUP);
 					GridData lblInvGroupLData = new GridData();
 					lblInvGroupLData.widthHint = 85;
 					lblInvGroupLData.heightHint = 19;
@@ -300,7 +302,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				//START >> lblInvSubGroup
 				lblInvSubGroup = new CLabel(compInvTransactionSearch, SWT.NONE);
-				lblInvSubGroup.setText(Messages.getString("InvUIInventoryTransactionReport.18")); //$NON-NLS-1$
+				lblInvSubGroup.setText(InvLangKeys.STR_INV_SUB_GROUP);
 				//END << lblInvSubGroup
 				//START >> comboInvSubGroup
 				comboInvSubGroup = new CCombo(compInvTransactionSearch, SWT.NONE);
@@ -311,7 +313,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				//END << comboInvSubGroup
 				{
 					lblType = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblType.setText(Messages.getString("InvUIInventoryTransactionReport.6")); //$NON-NLS-1$
+					lblType.setText(EngLangCommonKeys.STR_TYPE);
 					GridData lblTypeLData = new GridData();
 					lblTypeLData.widthHint = 74;
 					lblTypeLData.heightHint = 21;
@@ -320,7 +322,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				{
 					comboTransactionsType = new CCombo(compInvTransactionSearch, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboTransactionsType.setText(Messages.getString("InvUIInventoryTransactionReport.7")); //$NON-NLS-1$
+					comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
 					comboConsignmentTypeLData.widthHint = 134;
 					comboConsignmentTypeLData.heightHint = 17;
 					comboTransactionsType.setLayoutData(comboConsignmentTypeLData);
@@ -330,7 +332,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			tabFolder = new CTabFolder(this, SWT.NONE);
 			//START >> tabItemSearch
 			tabItemSearch = new CTabItem(tabFolder, SWT.NONE);
-			tabItemSearch.setText(Messages.getString("InvUIInventoryTransactionReport.22")); //$NON-NLS-1$
+			tabItemSearch.setText(EngLangCommonKeys.STR_SEARCH_RESULT);
 			{
 				tableInvTransactions = new Table(tabFolder, SWT.FULL_SELECTION);
 				tabItemSearch.setControl(tableInvTransactions);
@@ -351,47 +353,47 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				tableInvTransactions.setLayoutData(tableConsignmentsLData);
 				{
 					tableColumnTransactionDate = new TableColumn(tableInvTransactions, SWT.NONE);
-					tableColumnTransactionDate.setText(Messages.getString("InvUIInventoryTransactionReport.10")); //$NON-NLS-1$
+					tableColumnTransactionDate.setText(EngLangCommonKeys.STR_DATE);
 					tableColumnTransactionDate.setWidth(88);
 				}
 				{
 					tableColumnInventoryCode = new TableColumn(tableInvTransactions, SWT.NONE);
-					tableColumnInventoryCode.setText(Messages.getString("InvUIInventoryTransactionReport.23")); //$NON-NLS-1$
+					tableColumnInventoryCode.setText(InvLangKeys.STR_INV_CODE);
 					tableColumnInventoryCode.setWidth(109);
 				}
 				{
 					tableColumnInventoryName = new TableColumn(tableInvTransactions, SWT.NONE);
-					tableColumnInventoryName.setText(Messages.getString("InvUIInventoryTransactionReport.24")); //$NON-NLS-1$
+					tableColumnInventoryName.setText(InvLangKeys.STR_INV_NAME);
 					tableColumnInventoryName.setWidth(100);
 				}
 				{
 					tableColumnTotalAmountIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
-					tableColumnTotalAmountIn.setText(Messages.getString("InvUIInventoryTransactionReport.12")); //$NON-NLS-1$
+					tableColumnTotalAmountIn.setText(InvLangKeys.STR_AMOUNT_IN);
 					tableColumnTotalAmountIn.setWidth(100);
 				}
 				{
 					tableColumnTotalPriceIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
-					tableColumnTotalPriceIn.setText(Messages.getString("InvUIInventoryTransactionReport.14")); //$NON-NLS-1$
+					tableColumnTotalPriceIn.setText(InvLangKeys.STR_PRICE_IN);
 					tableColumnTotalPriceIn.setWidth(100);
 				}
 				//START >> tableColumnUnitPriceIn
 				tableColumnUnitPriceIn = new TableColumn(tableInvTransactions, SWT.RIGHT);
-				tableColumnUnitPriceIn.setText("Gir. Birim Fiyat");
+				tableColumnUnitPriceIn.setText(InvLangKeys.STR_UNIT_PRICE_IN);
 				tableColumnUnitPriceIn.setWidth(100);
 				//END << tableColumnUnitPriceIn
 				{
 					tableColumnTotalAmountOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
-					tableColumnTotalAmountOut.setText(Messages.getString("InvUIInventoryTransactionReport.13")); //$NON-NLS-1$
+					tableColumnTotalAmountOut.setText(InvLangKeys.STR_AMOUNT_OUT);
 					tableColumnTotalAmountOut.setWidth(100);
 				}
 				{
 					tableColumnTotalPriceOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
-					tableColumnTotalPriceOut.setText(Messages.getString("InvUIInventoryTransactionReport.16")); //$NON-NLS-1$
+					tableColumnTotalPriceOut.setText(InvLangKeys.STR_PRICE_OUT);
 					tableColumnTotalPriceOut.setWidth(100);
 				}
 				//START >> tableColumnUnitPriceOut
 				tableColumnUnitPriceOut = new TableColumn(tableInvTransactions, SWT.RIGHT);
-				tableColumnUnitPriceOut.setText("Ç\u0131k. Birim Fiyat");
+				tableColumnUnitPriceOut.setText(InvLangKeys.STR_UNIT_PRICE_OUT);
 				tableColumnUnitPriceOut.setWidth(100);
 				//END << tableColumnUnitPriceOut
 			}
@@ -404,7 +406,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			//END << tabItemSearch
 			//START >> tabItemReport
 			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
-			tabItemReport.setText(Messages.getString("InvUIInventoryTransactionReport.25")); //$NON-NLS-1$
+			tabItemReport.setText(EngLangCommonKeys.STR_REPORT);
 			//START >> viewer
 			viewer = new ViewerComposite(tabFolder, SWT.NONE);
 			tabItemReport.setControl(viewer);
@@ -444,12 +446,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			if (useGroup)
 			{
 				jasperReport = JasperCompileManager.compileReport("reports/inventory/InventoryTransactionReportByGroup.jrxml");
-				//jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryTransactionReportByGroup.jasper"); //$NON-NLS-1$
 			}
 			else
 			{
 				jasperReport = JasperCompileManager.compileReport("reports/inventory/InventoryTransactionReport.jrxml");
-				//jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryTransactionReport.jasper"); //$NON-NLS-1$
 			}
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
@@ -476,7 +476,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			}
 			else
 			{
-				parameters.put("type", Messages.getString("InvUIInventoryTransactionReport.32")); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("type", EngBLCommon.COMMON_ALL_STRING);
 			}
 			TurqInventoryGroup invMainGroup = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
 			TurqInventoryGroup invSubGroup = (TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText());
@@ -489,13 +489,13 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				else
 				{
-					parameters.put("invSubGroup", Messages.getString("InvUIInventoryTransactionReport.26")); //$NON-NLS-1$ //$NON-NLS-2$
+					parameters.put("invSubGroup", EngBLCommon.COMMON_ALL_STRING); //$NON-NLS-1$
 				}
 			}
 			else
 			{
-				parameters.put("invMainGroup", Messages.getString("InvUIInventoryTransactionReport.21")); //$NON-NLS-1$ //$NON-NLS-2$
-				parameters.put("invSubGroup", Messages.getString("InvUIInventoryTransactionReport.20")); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invMainGroup", EngBLCommon.COMMON_ALL_STRING); //$NON-NLS-1$ 
+				parameters.put("invSubGroup", EngBLCommon.COMMON_ALL_STRING); //$NON-NLS-1$ 
 			}
 			TurqCurrentCard curCardStart = (TurqCurrentCard) txtCurCardStart.getData();
 			TurqCurrentCard curCardEnd = (TurqCurrentCard) txtCurCardEnd.getData();
@@ -727,11 +727,11 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			{
 				BigDecimal unitPriceIn=(totalAmountIn.doubleValue()== 0) ? new BigDecimal(0) : totalPriceIn.divide(totalAmountIn,2,EngBLCommon.ROUNDING_METHOD);
 				BigDecimal unitPriceOut=(totalAmountOut.doubleValue()== 0) ? new BigDecimal(0) : totalPriceOut.divide(totalAmountOut,2,EngBLCommon.ROUNDING_METHOD);
-				tableViewer.addRow(new String[]{"", "", "TOPLAM", cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut), cf.format(totalPriceOut), cf.format(unitPriceOut)}, null);
+				tableViewer.addRow(new String[]{"", "", EngLangCommonKeys.STR_TOTAL_CAPITAL, cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut), cf.format(totalPriceOut), cf.format(unitPriceOut)}, null);
 			}
 			else
 			{
-				tableViewer.addRow(new String[]{"", "", "TOPLAM", "", cf.format(totalPriceIn), "", "", cf.format(totalPriceOut), ""}, null);
+				tableViewer.addRow(new String[]{"", "", EngLangCommonKeys.STR_TOTAL_CAPITAL, "", cf.format(totalPriceIn), "", "", cf.format(totalPriceOut), ""}, null);
 			}			
 			if (list.size() > 0)
 				GenerateJasper(list, type);

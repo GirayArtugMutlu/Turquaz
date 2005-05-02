@@ -20,7 +20,6 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -30,9 +29,11 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseAdd;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
@@ -115,7 +116,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			preInitGUI();
 			{
 				lblWarehouseCode = new CLabel(this, SWT.NONE);
-				lblWarehouseCode.setText("Depo Kodu");
+				lblWarehouseCode.setText(InvLangKeys.STR_WAREHOUSE_CODE);
 			}
 			{
 				txtWarehouseCode = new Text(this, SWT.NONE);
@@ -162,7 +163,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblWarehouseNameLData.grabExcessHorizontalSpace = false;
 			lblWarehouseNameLData.grabExcessVerticalSpace = false;
 			lblWarehouseName.setLayoutData(lblWarehouseNameLData);
-			lblWarehouseName.setText(Messages.getString("InvUIWarehouseAdd.0")); //$NON-NLS-1$
+			lblWarehouseName.setText(InvLangKeys.STR_WAREHOUSE_NAME);
 			GridData txtWarehouseNameLData = new GridData();
 			txtWarehouseNameLData.horizontalAlignment = GridData.FILL;
 			txtWarehouseNameLData.heightHint = 18;
@@ -179,7 +180,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblWarehouseAdresLData.grabExcessHorizontalSpace = false;
 			lblWarehouseAdresLData.grabExcessVerticalSpace = false;
 			lblWarehouseAdres.setLayoutData(lblWarehouseAdresLData);
-			lblWarehouseAdres.setText(Messages.getString("InvUIWarehouseAdd.1")); //$NON-NLS-1$
+			lblWarehouseAdres.setText(EngLangCommonKeys.STR_ADDRESS);
 			GridData lblWareHouseCityLData = new GridData();
 			lblWareHouseCityLData.verticalAlignment = GridData.CENTER;
 			lblWareHouseCityLData.horizontalAlignment = GridData.BEGINNING;
@@ -191,7 +192,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblWareHouseCityLData.grabExcessHorizontalSpace = false;
 			lblWareHouseCityLData.grabExcessVerticalSpace = false;
 			lblWareHouseCity.setLayoutData(lblWareHouseCityLData);
-			lblWareHouseCity.setText(Messages.getString("InvUIWarehouseAdd.2")); //$NON-NLS-1$
+			lblWareHouseCity.setText(EngLangCommonKeys.STR_CITY);
 			GridData txtWarehouseCityLData = new GridData();
 			txtWarehouseCityLData.verticalAlignment = GridData.CENTER;
 			txtWarehouseCityLData.horizontalAlignment = GridData.BEGINNING;
@@ -216,7 +217,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblWarehouseTelephoneLData.grabExcessHorizontalSpace = false;
 			lblWarehouseTelephoneLData.grabExcessVerticalSpace = false;
 			lblWarehouseTelephone.setLayoutData(lblWarehouseTelephoneLData);
-			lblWarehouseTelephone.setText(Messages.getString("InvUIWarehouseAdd.3")); //$NON-NLS-1$
+			lblWarehouseTelephone.setText(EngLangCommonKeys.STR_TELEPHONE);
 			lblWarehouseTelephone.setSize(new org.eclipse.swt.graphics.Point(56, 19));
 			GridData txtTelephoneLData = new GridData();
 			txtTelephoneLData.verticalAlignment = GridData.CENTER;
@@ -241,7 +242,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 			lblDescriptionLData.grabExcessHorizontalSpace = false;
 			lblDescriptionLData.grabExcessVerticalSpace = false;
 			lblDescription.setLayoutData(lblDescriptionLData);
-			lblDescription.setText(Messages.getString("InvUIWarehouseAdd.4")); //$NON-NLS-1$
+			lblDescription.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			GridData txtWarehouseDescriptionLData = new GridData();
 			txtWarehouseDescription.addVerifyListener(new VerifyListener()
 			{
@@ -295,10 +296,8 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 
 	boolean verifyFields()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (txtWarehouseName.getText().trim().equals("")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("InvUIWarehouseAdd.6")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(), InvLangKeys.MSG_ENTER_WAREHOUSE_NAME,SWT.ICON_WARNING);
 			txtWarehouseName.setFocus();
 			return false;
 		}
@@ -334,9 +333,7 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 				argMap.put(InvKeys.INV_WAREHOUSE_CITY,txtWarehouseCity.getText().trim());
 				
 				EngTXCommon.doTransactionTX(InvBLWarehouseAdd.class.getName(),"saveWarehouse",argMap);
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("InvUIWarehouseAdd.12")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				clearFields();
 			}
 		}

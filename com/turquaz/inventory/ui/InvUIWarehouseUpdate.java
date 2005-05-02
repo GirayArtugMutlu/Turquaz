@@ -29,12 +29,13 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.CoolItem;
@@ -87,7 +88,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("InvUIWarehouseUpdate.1")); //$NON-NLS-1$
+			dialogShell.setText(InvLangKeys.TITLE_WAREHOUSE_UPDATE);
 			coolBarInvUIWarehouse = new CoolBar(dialogShell, SWT.NULL);
 			coolWarehouseUpdate = new CoolItem(coolBarInvUIWarehouse, SWT.NULL);
 			toolWarehouseUpdate = new ToolBar(coolBarInvUIWarehouse, SWT.NULL);
@@ -110,7 +111,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 			coolWarehouseUpdate.setSize(new org.eclipse.swt.graphics.Point(87, 38));
 			coolWarehouseUpdate.setPreferredSize(new org.eclipse.swt.graphics.Point(87, 38));
 			coolWarehouseUpdate.setMinimumSize(new org.eclipse.swt.graphics.Point(87, 38));
-			toolUpdate.setText(Messages.getString("InvUIWarehouseUpdate.0")); //$NON-NLS-1$
+			toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 			final org.eclipse.swt.graphics.Image toolUpdateýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass()
 					.getClassLoader().getResourceAsStream("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.setImage(toolUpdateýmage);
@@ -121,13 +122,13 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 					toolUpdateWidgetSelected(evt);
 				}
 			});
-			toolDelete.setText(Messages.getString("InvUIWarehouseUpdate.2")); //$NON-NLS-1$
+			toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass()
 					.getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			{
 				toolCancel = new ToolItem(toolWarehouseUpdate, SWT.NONE);
-				toolCancel.setText(Messages.getString("InvUIWarehouseUpdate.8")); //$NON-NLS-1$
+				toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 				toolCancel.addSelectionListener(new SelectionAdapter()
 				{
@@ -227,7 +228,6 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void toolUpdateWidgetSelected(SelectionEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 		try
 		{
 			if (!compInvUIWarehouse.verifyFields())
@@ -243,25 +243,21 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 			argMap.put(InvKeys.INV_WAREHOUSE_CITY,compInvUIWarehouse.getTxtWarehouseCity().getText().trim());
 			
 			EngTXCommon.doTransactionTX(InvBLWarehouseUpdate.class.getName(),"updateWarehouse",argMap);
-			msg.setMessage(Messages.getString("InvUIWarehouseUpdate.3")); //$NON-NLS-1$
+			EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 		}
 		catch (Exception ex)
 		{
             EngBLLogger.log(this.getClass(),ex,getParent());
 		}
-		msg.open();
 	}
 
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt)
 	{
-		MessageBox msg2 = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
-		MessageBox msg = new MessageBox(this.getParent());
 		try
 		{
-			msg2.setMessage(Messages.getString("InvUIWarehouseUpdate.5")); //$NON-NLS-1$
-			int result = msg2.open();
-			if (result == SWT.OK)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				// if the warehouse card contains transactions
 				HashMap argMap=new HashMap();
@@ -270,13 +266,11 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 				Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLWarehouseUpdate.class.getName(),"hasTransactions",argMap);
 				if (hasTX.booleanValue())
 				{
-					msg.setMessage("Warehouse card contains transactions and \ncan not be deleted. Delete transactions first. "); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_WAREHOUSE_HAS_TRANSACTION,SWT.ICON_WARNING);
 					return;
 				}
 				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
-				msg.setMessage(Messages.getString("InvUIWarehouseUpdate.6")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				this.dialogShell.dispose();
 			}
 		}

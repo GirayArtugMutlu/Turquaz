@@ -31,7 +31,8 @@ import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryGroup;
-import com.turquaz.inventory.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolItem;
@@ -80,7 +81,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("InvUIGroupAddDialog.7")); //$NON-NLS-1$
+			dialogShell.setText(InvLangKeys.TITLE_INV_SUB_GROUP_ADD);
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433, 229));
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -98,7 +99,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 433, 229);
-			dialogShell.setSize(475, 331);
+			dialogShell.setSize(467, 230);
 			{
 				toolBar = new ToolBar(dialogShell, SWT.NONE);
 				GridData toolBarLData = new GridData();
@@ -107,7 +108,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar.setLayoutData(toolBarLData);
 				{
 					toolSave = new ToolItem(toolBar, SWT.NONE);
-					toolSave.setText(Messages.getString("InvUIGroupAddDialog.0")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_SAVE);
 					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
@@ -119,7 +120,7 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar, SWT.NONE);
-					toolCancel.setText(Messages.getString("InvUIGroupAddDialog.2")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{

@@ -32,10 +32,12 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryPrice;
-import com.turquaz.inventory.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -92,17 +94,17 @@ public class InvUIPriceChooseDialog extends org.eclipse.swt.widgets.Dialog
 				tableInvPrices.setLayoutData(tableInvPricesLData);
 				{
 					tableColumnPriceType = new TableColumn(tableInvPrices, SWT.NONE);
-					tableColumnPriceType.setText(Messages.getString("InvUIPriceChooseDialog.0")); //$NON-NLS-1$
+					tableColumnPriceType.setText(InvLangKeys.STR_PRICE_TYPE);
 					tableColumnPriceType.setWidth(78);
 				}
 				{
 					tableColumnAmount = new TableColumn(tableInvPrices, SWT.NONE);
-					tableColumnAmount.setText(Messages.getString("InvUIPriceChooseDialog.1")); //$NON-NLS-1$
+					tableColumnAmount.setText(EngLangCommonKeys.STR_AMOUNT);
 					tableColumnAmount.setWidth(100);
 				}
 				{
 					tableColumnCurrency = new TableColumn(tableInvPrices, SWT.NONE);
-					tableColumnCurrency.setText(Messages.getString("InvUIPriceChooseDialog.2")); //$NON-NLS-1$
+					tableColumnCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 					tableColumnCurrency.setWidth(87);
 				}
 			}
@@ -136,13 +138,14 @@ public class InvUIPriceChooseDialog extends org.eclipse.swt.widgets.Dialog
 			price = (TurqInventoryPrice) it.next();
 			item = new TableItem(tableInvPrices, SWT.NULL);
 			String type = ""; //$NON-NLS-1$
+			//XXX CHANNNNGE HEREEEE
 			if (price.isPricesType())
 			{
-				type = Messages.getString("InvUIPriceChooseDialog.4"); //$NON-NLS-1$
+				type = EngBLCommon.COMMON_BUY_STRING;
 			}
 			else
 			{
-				type = Messages.getString("InvUIPriceChooseDialog.5"); //$NON-NLS-1$
+				type = EngBLCommon.COMMON_SELL_STRING;
 			}
 			item.setText(new String[]{type, price.getPricesAmount().toString(), price.getTurqCurrency().getCurrenciesAbbreviation()});
 			item.setData(price);

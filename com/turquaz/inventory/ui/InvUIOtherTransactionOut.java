@@ -13,6 +13,8 @@ import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -25,6 +27,21 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
 import org.eclipse.swt.SWT;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
 	private CLabel lblInvCard;
@@ -58,7 +75,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			this.setSize(520, 231);
 			//START >> lblDocNo
 			lblDocNo = new CLabel(this, SWT.NONE);
-			lblDocNo.setText("Belge No");
+			lblDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 			//END << lblDocNo
 			//START >> txtDocNo
 			txtDocNo = new Text(this, SWT.NONE);
@@ -69,7 +86,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			//END << txtDocNo
 			//START >> lblInvCard
 			lblInvCard = new CLabel(this, SWT.NONE);
-			lblInvCard.setText("Stok Kart\u0131");
+			lblInvCard.setText(InvLangKeys.STR_INV_CARD);
 			GridData lblInvCardLData = new GridData();
 			lblInvCardLData.widthHint = 63;
 			lblInvCardLData.heightHint = 19;
@@ -84,7 +101,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			//END << inventoryPicker
 			//START >> lblTransDate
 			lblTransDate = new CLabel(this, SWT.NONE);
-			lblTransDate.setText("Tarih");
+			lblTransDate.setText(EngLangCommonKeys.STR_DATE);
 			//END << lblTransDate
 			//START >> datePicker
 			datePicker = new DatePicker(this, SWT.NONE);
@@ -95,7 +112,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			//END << datePicker
 			//START >> lblAmount
 			lblAmount = new CLabel(this, SWT.NONE);
-			lblAmount.setText("Giri\u015f Miktar\u0131");
+			lblAmount.setText(InvLangKeys.STR_AMOUNT_IN);
 			//END << lblAmount
 			//START >> txtAmount
 			txtAmount = new CurrencyText(this, SWT.NONE);
@@ -106,7 +123,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			//END << txtAmount
 			//START >> lblUnit
 			lblUnit = new CLabel(this, SWT.NONE);
-			lblUnit.setText("Birimi");
+			lblUnit.setText(EngLangCommonKeys.STR_UNIT);
 			GridData lblUnitLData = new GridData();
 			lblUnit.setLayoutData(lblUnitLData);
 			//END << lblUnit
@@ -119,7 +136,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			//END << comboUnits
 			//START >> lblDefintion
 			lblDefintion = new CLabel(this, SWT.NONE);
-			lblDefintion.setText("Aç\u0131klama");
+			lblDefintion.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			GridData lblDefintionLData = new GridData();
 			lblDefintionLData.verticalAlignment = GridData.BEGINNING;
 			lblDefintion.setLayoutData(lblDefintionLData);
@@ -133,7 +150,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			//END << txtDefinition
 			//START >> lblWareHouse
 			lblWareHouse = new CLabel(this, SWT.NONE);
-			lblWareHouse.setText("Depo");
+			lblWareHouse.setText(InvLangKeys.STR_WAREHOUSE);
 			//END << lblWareHouse
 			//START >> comboWareHouse
 			comboWareHouse = new CCombo(this, SWT.NONE);
@@ -182,13 +199,13 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 	{
 		if (inventoryPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), "Lütfen Stok Kart? Seçiniz.!");
+			EngUICommon.showMessageBox(getShell(), InvLangKeys.MSG_SELECT_INV_CARD);
 			inventoryPicker.setFocus();
 			return false;
 		}
 		if (!(txtAmount.getBigDecimalValue().doubleValue() > 0))
 		{
-			EngUICommon.showMessageBox(getShell(), "Lütfen Miktar Giriniz!");
+			EngUICommon.showMessageBox(getShell(), InvLangKeys.MSG_ENTER_AMOUNT);
 			txtAmount.setFocus();
 			return false;
 		}

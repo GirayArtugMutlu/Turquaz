@@ -40,6 +40,8 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 
@@ -47,10 +49,24 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	private TableTree tableTreeGroups;
@@ -90,12 +106,12 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 				});
 				{
 					tableColumnGroupName = new TableColumn(tableTreeGroups.getTable(), SWT.NONE);
-					tableColumnGroupName.setText(Messages.getString("InvUIGroupingPlan.0")); //$NON-NLS-1$
+					tableColumnGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME);
 					tableColumnGroupName.setWidth(150);
 				}
 				{
 					tableColumnGrupDefinition = new TableColumn(tableTreeGroups.getTable(), SWT.NONE);
-					tableColumnGrupDefinition.setText(Messages.getString("InvUIGroupingPlan.1")); //$NON-NLS-1$
+					tableColumnGrupDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 					tableColumnGrupDefinition.setWidth(150);
 				}
 			}
@@ -119,7 +135,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 		//Add popup menu to delete account
 		popup = new Menu(getShell(), SWT.POP_UP);
 		MenuItem item = new MenuItem(popup, SWT.PUSH);
-		item.setText(Messages.getString("InvUIGroupingPlan.2")); //$NON-NLS-1$
+		item.setText(InvLangKeys.STR_NEW_SUB_GROUP);
 		item.addListener(SWT.Selection, new Listener()
 		{
 			public void handleEvent(Event e)
@@ -214,13 +230,13 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 		try
 		{			
 			TurqInventoryGroup mainGroup = (TurqInventoryGroup) items[0].getData();
-			
-			if(EngUICommon.okToDelete(getShell(),Messages.getString("InvUIGroupUpdateDialog.1"))) //$NON-NLS-1$
+			boolean okToDelte=EngUICommon.okToDelete(getShell());
+			if(okToDelte)
 			{ 
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
 				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap); //$NON-NLS-1$
-				EngUICommon.showMessageBox(getShell(),Messages.getString("InvUIGroupUpdateDialog.6"),SWT.ICON_INFORMATION); 
+				EngUICommon.showDeletedSuccesfullyMessage(getShell());
 				search();
 
 			}
@@ -234,7 +250,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 	}
 	public void printTable ()
 	{
-		EngBLUtils.printTable(tableTreeGroups.getTable(), "Stok Gruplarý"); 
+		EngBLUtils.printTable(tableTreeGroups.getTable(), InvLangKeys.STR_INV_GROUPS); 
 
 	}
 	public void exportToExcel ()

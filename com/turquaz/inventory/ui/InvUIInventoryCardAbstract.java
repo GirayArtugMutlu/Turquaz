@@ -44,6 +44,9 @@ import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -61,7 +64,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -132,7 +134,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				compInvTransactionSearch.setLayout(composite1Layout);
 				{
 					lblInvCard = new Label(compInvTransactionSearch, SWT.NONE);
-					lblInvCard.setText(Messages.getString("InvUIInventoryCardAbstract.0")); //$NON-NLS-1$
+					lblInvCard.setText(InvLangKeys.STR_INV_CARD_START);
 					GridData lblInvCardLData = new GridData();
 					lblInvCardLData.widthHint = 126;
 					lblInvCardLData.heightHint = 15;
@@ -147,7 +149,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				{
 					lblInvCardEnd = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblInvCardEnd.setText(Messages.getString("InvUIInventoryCardAbstract.1")); //$NON-NLS-1$
+					lblInvCardEnd.setText(InvLangKeys.STR_INV_CARD_END);
 				}
 				{
 					txtInvCardEnd = new InventoryPicker(compInvTransactionSearch, SWT.NONE);
@@ -158,7 +160,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				{
 					lblCurrentCard = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("InvUITransactionSearch.1")); //$NON-NLS-1$
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 				}
 				{
 					txtCurCard = new CurrentPicker(compInvTransactionSearch, SWT.NONE);
@@ -169,7 +171,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				{
 					lblType = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblType.setText(Messages.getString("InvUITransactionSearch.4")); //$NON-NLS-1$
+					lblType.setText(EngLangCommonKeys.STR_TYPE);
 					GridData lblTypeLData = new GridData();
 					lblTypeLData.widthHint = 74;
 					lblTypeLData.heightHint = 21;
@@ -184,7 +186,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				{
 					lblStartDate = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblStartDate.setText(Messages.getString("InvUITransactionSearch.2")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -199,7 +201,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				{
 					lblEndDate = new CLabel(compInvTransactionSearch, SWT.NONE);
-					lblEndDate.setText(Messages.getString("InvUITransactionSearch.3")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 105;
 					lblEndDateLData.heightHint = 19;
@@ -224,12 +226,12 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				tabFolderReport.setLayoutData(tabFolderReportLData);
 				{
 					tabItemTable = new CTabItem(tabFolderReport, SWT.NONE);
-					tabItemTable.setText(Messages.getString("InvUIInventoryCardAbstract.2")); //$NON-NLS-1$
+					tabItemTable.setText(EngLangCommonKeys.STR_SEARCH_RESULT);
 					{
 						tableTransactions = new Table(tabFolderReport, SWT.FULL_SELECTION);
 						tabItemTable.setControl(tableTransactions);
 						GridData tableConsignmentsLData = new GridData();
-						tabFolderReport.setSelection(tabItemTable);
+						tabFolderReport.setSelection(0);
 						tableTransactions.addMouseListener(new MouseAdapter()
 						{
 							public void mouseDoubleClick(MouseEvent evt)
@@ -246,54 +248,54 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 						tableTransactions.setLayoutData(tableConsignmentsLData);
 						{
 							tableColumnTransactionDate = new TableColumn(tableTransactions, SWT.NONE);
-							tableColumnTransactionDate.setText(Messages.getString("InvUITransactionSearch.6")); //$NON-NLS-1$
+							tableColumnTransactionDate.setText(EngLangCommonKeys.STR_DATE);
 							tableColumnTransactionDate.setWidth(88);
 						}
 						{
 							tableColumnInventoryCode = new TableColumn(tableTransactions, SWT.NONE);
-							tableColumnInventoryCode.setText(Messages.getString("InvUITransactionSearch.8")); //$NON-NLS-1$
+							tableColumnInventoryCode.setText(InvLangKeys.STR_INV_CODE);
 							tableColumnInventoryCode.setWidth(108);
 						}
 						//START >> tableColumnInventoryName
 						tableColumnInventoryName = new TableColumn(tableTransactions, SWT.NONE);
-						tableColumnInventoryName.setText(Messages.getString("InvUIInventoryCardAbstract.3")); //$NON-NLS-1$
+						tableColumnInventoryName.setText(InvLangKeys.STR_INV_NAME);
 						tableColumnInventoryName.setWidth(100);
 						//END << tableColumnInventoryName
 						{
 							tableColumnTotalAmountIn = new TableColumn(tableTransactions, SWT.RIGHT);
-							tableColumnTotalAmountIn.setText(Messages.getString("InvUITransactionSearch.7")); //$NON-NLS-1$
+							tableColumnTotalAmountIn.setText(InvLangKeys.STR_AMOUNT_IN);
 							tableColumnTotalAmountIn.setWidth(100);
 						}
 						{
 							tableColumnTotalPriceIn = new TableColumn(tableTransactions, SWT.RIGHT);
-							tableColumnTotalPriceIn.setText(Messages.getString("InvUITransactionSearch.9")); //$NON-NLS-1$
+							tableColumnTotalPriceIn.setText(InvLangKeys.STR_PRICE_IN);
 							tableColumnTotalPriceIn.setWidth(100);
 						}
 						{
 							tableColumnTotalAmountOut = new TableColumn(tableTransactions, SWT.RIGHT);
-							tableColumnTotalAmountOut.setText(Messages.getString("InvUITransactionSearch.10")); //$NON-NLS-1$
+							tableColumnTotalAmountOut.setText(InvLangKeys.STR_AMOUNT_OUT);
 							tableColumnTotalAmountOut.setWidth(100);
 						}
 						{
 							tableColumnTotalPriceOut = new TableColumn(tableTransactions, SWT.RIGHT);
-							tableColumnTotalPriceOut.setText(Messages.getString("InvUITransactionSearch.11")); //$NON-NLS-1$
+							tableColumnTotalPriceOut.setText(InvLangKeys.STR_PRICE_OUT);
 							tableColumnTotalPriceOut.setWidth(100);
 						}
 						//START >> tableColumnRemainAmount
 						tableColumnRemainAmount = new TableColumn(tableTransactions, SWT.RIGHT);
-						tableColumnRemainAmount.setText("Bak. Mik.");
+						tableColumnRemainAmount.setText(InvLangKeys.STR_BALANCE_AMOUNT);
 						tableColumnRemainAmount.setWidth(100);
 						//END << tableColumnRemainAmount
 						//START >> tableColumnRemainPrice
 						tableColumnRemainPrice = new TableColumn(tableTransactions, SWT.RIGHT);
-						tableColumnRemainPrice.setText("Bak. Tutar\u0131");
+						tableColumnRemainPrice.setText(InvLangKeys.STR_BALANCE_PRICE);
 						tableColumnRemainPrice.setWidth(100);
 						//END << tableColumnRemainPrice
 					}
 				}
 				{
 					tabItemReport = new CTabItem(tabFolderReport, SWT.NONE);
-					tabItemReport.setText(Messages.getString("InvUIInventoryCardAbstract.4")); //$NON-NLS-1$
+					tabItemReport.setText(EngLangCommonKeys.STR_REPORT);
 					{
 						viewer = new ViewerComposite(tabFolderReport, SWT.NONE);
 						tabItemReport.setControl(viewer);
@@ -478,7 +480,6 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 					"inventory_cards_id", "bill_document_no"};
 			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = JasperCompileManager.compileReport("reports/inventory/InventoryCardAbstract.jrxml");
-			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/inventory/InventoryCardAbstract.jasper"); //$NON-NLS-1$
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}
@@ -520,6 +521,6 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableTransactions, Messages.getString("InvUITransactionSearch.15")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableTransactions, InvLangKeys.STR_INV_TRANSACTIONS);
 	}
 }

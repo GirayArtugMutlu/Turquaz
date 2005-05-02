@@ -36,11 +36,12 @@ import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TurqKeyEvent;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
@@ -95,7 +96,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				SearchMenu.setVisible(true);
 				{
 					menuActions = new MenuItem(SearchMenu, SWT.CASCADE);
-					menuActions.setText("\u0130\u015flemler");
+					menuActions.setText(EngLangCommonKeys.STR_OPERATIONS);
 					{
 						menu1 = new Menu(menuActions);
 						menuActions.setMenu(menu1);
@@ -131,7 +132,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.setText(Messages.getString("InvUICardSearchDialog.0")); //$NON-NLS-1$
+			dialogShell.setText(InvLangKeys.TITLE_INV_CARD_SEARCH);
 			dialogShell.pack();
 			dialogShell.setSize(681, 480);
 			{
@@ -146,7 +147,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				compInvCardSearchPanel.setLayoutData(compInvCardSearchPanelLData);
 				{
 					cLabel2 = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					cLabel2.setText(Messages.getString("InvUICardSearch.1"));//$NON-NLS-1$
+					cLabel2.setText(InvLangKeys.STR_INV_CODE);
 					cLabel2.setSize(new org.eclipse.swt.graphics.Point(97, 17));
 				}
 				{
@@ -159,7 +160,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvName.setText(Messages.getString("InvUICardSearch.0"));//$NON-NLS-1$
+					lblInvName.setText(InvLangKeys.STR_INV_NAME);
 					lblInvName.setSize(new org.eclipse.swt.graphics.Point(114, 18));
 				}
 				{
@@ -171,7 +172,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvGroup.setText("Stok Ana Grubu");//$NON-NLS-1$
+					lblInvGroup.setText(InvLangKeys.STR_INV_MAIN_GROUP);
 					lblInvGroup.setSize(new org.eclipse.swt.graphics.Point(110, 17));
 				}
 				{
@@ -191,7 +192,7 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblSubGroup.setText("Alt Grup");
+					lblSubGroup.setText(InvLangKeys.STR_INV_SUB_GROUP);
 				}
 				{
 					GridData comboSubGroupLData = new GridData();
@@ -221,17 +222,17 @@ public class InvUICardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				tableSearcResults.setLayoutData(tableSearcResultsLData);
 				{
 					tableColumnInvName = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnInvName.setText(Messages.getString("InvUICardSearch.0"));//$NON-NLS-1$
+					tableColumnInvName.setText(InvLangKeys.STR_INV_NAME);
 					tableColumnInvName.setWidth(115);
 				}
 				{
 					tableColumnInventoryCode = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.1"));//$NON-NLS-1$
+					tableColumnInventoryCode.setText(InvLangKeys.STR_INV_CODE);
 					tableColumnInventoryCode.setWidth(107);
 				}
 				{
 					tableColumnAmount = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnAmount.setText("Miktar");//$NON-NLS-1$
+					tableColumnAmount.setText(EngLangCommonKeys.STR_AMOUNT);
 					tableColumnAmount.setWidth(118);
 				}
 			}

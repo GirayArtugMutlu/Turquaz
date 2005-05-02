@@ -32,10 +32,11 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolItem;
@@ -83,7 +84,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("InvUIGroupAddDialog.7")); //$NON-NLS-1$
+			dialogShell.setText(InvLangKeys.TITLE_INV_GROUPS);
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433, 229));
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -110,7 +111,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar.setLayoutData(toolBarLData);
 				{
 					toolSave = new ToolItem(toolBar, SWT.NONE);
-					toolSave.setText(Messages.getString("InvUIGroupUpdateDialog.0")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_UPDATE);
 					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
@@ -122,7 +123,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolDelete = new ToolItem(toolBar, SWT.NONE);
-					toolDelete.setText(Messages.getString("InvUIGroupUpdateDialog.2")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -134,7 +135,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar, SWT.NONE);
-					toolCancel.setText(Messages.getString("InvUIGroupUpdateDialog.4")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -205,13 +206,15 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{			
-			if(EngUICommon.okToDelete(getParent(),Messages.getString("InvUIGroupUpdateDialog.1"))) //$NON-NLS-1$
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if(okToDelete)
 			{ 
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
 				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap); //$NON-NLS-1$
-				EngUICommon.showMessageBox(getParent(),Messages.getString("InvUIGroupUpdateDialog.6"),SWT.ICON_INFORMATION); //$NON-NLS-1$
-				isUpdated = true; dialogShell.close();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
+				isUpdated = true; 
+				dialogShell.close();
 			}
 			
 		}

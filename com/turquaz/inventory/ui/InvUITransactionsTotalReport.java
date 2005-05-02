@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -35,13 +34,16 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -76,7 +78,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
 	private Composite compInvCardSearch;
 	private CLabel lblInvName;
-	private TableColumn tableColumnInvName;
+	private TableColumn tableColumnInvCode;
 	private CurrentCodePicker txtCurCardEnd;
 	private CLabel lblCurCarEnd;
 	private CurrentCodePicker txtCurCardStart;
@@ -100,7 +102,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private CLabel lblInvCodeEnd;
 	private InventoryPicker txtInvCodeEnd;
 	private TableColumn tableColumnAmountIn;
-	private TableColumn tableColumnInventoryCode;
+	private TableColumn tableColumnInvName;
 	private TableColumn tableColumnAmountOut;
 	private TableColumn tableColumnBalanceAmountIn;
 	private TableColumn tableColumnBalanceAmountOut;
@@ -151,7 +153,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						cLabel2LData.widthHint = 123;
 						cLabel2LData.heightHint = 17;
 						lblInvCode.setLayoutData(cLabel2LData);
-						lblInvCode.setText(Messages.getString("InvUITransactionsTotalReport.0")); //$NON-NLS-1$
+						lblInvCode.setText(InvLangKeys.STR_INV_CODE_START);
 					}
 					{
 						txtInvCodeStart = new InventoryPicker(compInvCardSearchPanel, SWT.NONE);
@@ -162,7 +164,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					{
 						lblInvCodeEnd = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvCodeEnd.setText(Messages.getString("InvUITransactionsTotalReport.1")); //$NON-NLS-1$
+						lblInvCodeEnd.setText(InvLangKeys.STR_INV_CODE_END);
 					}
 					{
 						txtInvCodeEnd = new InventoryPicker(compInvCardSearchPanel, SWT.NONE);
@@ -173,7 +175,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					{
 						lblInvName = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvName.setText(Messages.getString("InvUITransactionsTotalReport.4")); //$NON-NLS-1$
+						lblInvName.setText(InvLangKeys.STR_INV_NAME_START);
 						GridData lblInvNameLData = new GridData();
 						lblInvNameLData.widthHint = 118;
 						lblInvNameLData.heightHint = 16;
@@ -196,7 +198,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					{
 						lblInvNameEnd = new CLabel(compInvCardSearchPanel, SWT.NONE);
-						lblInvNameEnd.setText(Messages.getString("InvUITransactionsTotalReport.5")); //$NON-NLS-1$
+						lblInvNameEnd.setText(InvLangKeys.STR_INV_NAME_END);
 					}
 					{
 						txtInvNameEnd = new Text(compInvCardSearchPanel, SWT.NONE);
@@ -207,7 +209,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					}
 					//START >>  lblCurrentCard
 					lblCurrentCard = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("InvUIInventoryTransactionReport.2"));
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD_START);
 					//END <<  lblCurrentCard
 					//START >>  txtCurCardStart
 					txtCurCardStart = new CurrentCodePicker(compInvCardSearchPanel, SWT.NONE);
@@ -218,7 +220,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					//END <<  txtCurCardStart
 					//START >>  lblCurCarEnd
 					lblCurCarEnd = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblCurCarEnd.setText(Messages.getString("InvUIInventoryTransactionReport.3"));
+					lblCurCarEnd.setText(CurLangKeys.STR_CUR_CARD_END);
 					//END <<  lblCurCarEnd
 					//START >>  txtCurCardEnd
 					txtCurCardEnd = new CurrentCodePicker(compInvCardSearchPanel, SWT.NONE);
@@ -229,7 +231,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					//END <<  txtCurCardEnd
 					//START >>  lblStartDate
 					lblStartDate = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblStartDate.setText(Messages.getString("InvUIInventoryTransactionReport.4"));
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -244,7 +246,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					//END <<  dateStartDate
 					//START >>  lblEndDate
 					lblEndDate = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblEndDate.setText(Messages.getString("InvUIInventoryTransactionReport.5"));
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 105;
 					lblEndDateLData.heightHint = 19;
@@ -259,7 +261,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					//END <<  dateEndDate
 					//START >> lblInvGroup
 					lblInvGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvGroup.setText(Messages.getString("InvUITransactionsTotalReport.2")); //$NON-NLS-1$
+					lblInvGroup.setText(InvLangKeys.STR_INV_MAIN_GROUP);
 					GridData lblInvGroupLData = new GridData();
 					lblInvGroupLData.widthHint = 85;
 					lblInvGroupLData.heightHint = 19;
@@ -281,7 +283,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					//END << comboInvMainGroup
 					//START >> lblInvSubGroup
 					lblInvSubGroup = new CLabel(compInvCardSearchPanel, SWT.NONE);
-					lblInvSubGroup.setText(Messages.getString("InvUITransactionsTotalReport.10")); //$NON-NLS-1$
+					lblInvSubGroup.setText(InvLangKeys.STR_INV_SUB_GROUP);
 					//END << lblInvSubGroup
 					//START >> comboInvSubGroup
 					comboInvSubGroup = new CCombo(compInvCardSearchPanel, SWT.NONE);
@@ -309,73 +311,73 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					tableSearcResultsLData.grabExcessVerticalSpace = true;
 					tableSearcResults.setLayoutData(tableSearcResultsLData);
 					{
-						tableColumnInvName = new TableColumn(tableSearcResults, SWT.NONE);
-						tableColumnInvName.setText(Messages.getString("InvUITransactionsTotalReport.3")); //$NON-NLS-1$
-						tableColumnInvName.setWidth(69);
+						tableColumnInvCode = new TableColumn(tableSearcResults, SWT.NONE);
+						tableColumnInvCode.setText(InvLangKeys.STR_INV_CODE);
+						tableColumnInvCode.setWidth(69);
 					}
 					{
-						tableColumnInventoryCode = new TableColumn(tableSearcResults, SWT.NONE);
-						tableColumnInventoryCode.setText(Messages.getString("InvUICardSearch.4")); //$NON-NLS-1$
-						tableColumnInventoryCode.setWidth(50);
+						tableColumnInvName = new TableColumn(tableSearcResults, SWT.NONE);
+						tableColumnInvName.setText(InvLangKeys.STR_INV_NAME);
+						tableColumnInvName.setWidth(50);
 					}
 					{
 						tableColumnTransOverAmount = new TableColumn(tableSearcResults, SWT.NONE);
-						tableColumnTransOverAmount.setText(Messages.getString("InvUITransactionsTotalReport.6")); //$NON-NLS-1$
+						tableColumnTransOverAmount.setText(InvLangKeys.STR_TRANSOVER_AMOUNT);
 						tableColumnTransOverAmount.setWidth(50);
 					}
 					{
 						tableColumnTransOverPrice = new TableColumn(tableSearcResults, SWT.NONE);
-						tableColumnTransOverPrice.setText(Messages.getString("InvUITransactionsTotalReport.7")); //$NON-NLS-1$
+						tableColumnTransOverPrice.setText(InvLangKeys.STR_TRANSOVER_PRICE);
 						tableColumnTransOverPrice.setWidth(60);
 					}
 					//START >> tableColumnUnitPriceTransOver
 					tableColumnUnitPriceTransOver = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnUnitPriceTransOver.setText(Messages.getString("InvUITransactionsTotalReport.11")); //$NON-NLS-1$
+					tableColumnUnitPriceTransOver.setText(InvLangKeys.STR_TRANSOVER_UNIT_PRICE);
 					tableColumnUnitPriceTransOver.setWidth(50);
 					//END << tableColumnUnitPriceTransOver
 					{
 						tableColumnAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnAmountIn.setText(Messages.getString("InvUICardSearch.5")); //$NON-NLS-1$
+						tableColumnAmountIn.setText(InvLangKeys.STR_AMOUNT_IN);
 						tableColumnAmountIn.setWidth(60);
 					}
 					{
 						tableColumnPriceIn = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnPriceIn.setText(Messages.getString("InvUICardSearch.10")); //$NON-NLS-1$
+						tableColumnPriceIn.setText(InvLangKeys.STR_PRICE_IN);
 						tableColumnPriceIn.setWidth(75);
 					}
 					//START >> tableColumnUnitPriceIn
 					tableColumnUnitPriceIn = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnUnitPriceIn.setText(Messages.getString("InvUITransactionsTotalReport.12")); //$NON-NLS-1$
+					tableColumnUnitPriceIn.setText(InvLangKeys.STR_UNIT_PRICE_IN);
 					tableColumnUnitPriceIn.setWidth(50);
 					//END << tableColumnUnitPriceIn
 					{
 						tableColumnAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnAmountOut.setText(Messages.getString("InvUICardSearch.7")); //$NON-NLS-1$
+						tableColumnAmountOut.setText(InvLangKeys.STR_AMOUNT_OUT);
 						tableColumnAmountOut.setWidth(60);
 					}
 					{
 						tableColumnPriceOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnPriceOut.setText(Messages.getString("InvUICardSearch.11")); //$NON-NLS-1$
+						tableColumnPriceOut.setText(InvLangKeys.STR_PRICE_OUT);
 						tableColumnPriceOut.setWidth(76);
 					}
 					//START >> tableColumnUnitPriceOut
 					tableColumnUnitPriceOut = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnUnitPriceOut.setText(Messages.getString("InvUITransactionsTotalReport.13")); //$NON-NLS-1$
+					tableColumnUnitPriceOut.setText(InvLangKeys.STR_UNIT_PRICE_OUT);
 					tableColumnUnitPriceOut.setWidth(50);
 					//END << tableColumnUnitPriceOut
 					{
 						tableColumnBalanceAmountIn = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnBalanceAmountIn.setText(Messages.getString("InvUITransactionsTotalReport.8")); //$NON-NLS-1$
+						tableColumnBalanceAmountIn.setText(InvLangKeys.STR_BALANCE_AMOUNT_IN);
 						tableColumnBalanceAmountIn.setWidth(69);
 					}
 					{
 						tableColumnBalanceAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnBalanceAmountOut.setText(Messages.getString("InvUITransactionsTotalReport.9")); //$NON-NLS-1$
+						tableColumnBalanceAmountOut.setText(InvLangKeys.STR_BALANCE_AMOUNT_OUT);
 						tableColumnBalanceAmountOut.setWidth(71);
 					}
 					//START >>  tableColumnBalanceUnitPrice
 					tableColumnBalanceUnitPrice = new TableColumn(tableSearcResults, SWT.NONE);
-					tableColumnBalanceUnitPrice.setText(Messages.getString("InvUITransactionsTotalReport.14")); //$NON-NLS-1$
+					tableColumnBalanceUnitPrice.setText(InvLangKeys.STR_BALANCE_UNIT_PRICE);
 					tableColumnBalanceUnitPrice.setWidth(80);
 					//END <<  tableColumnBalanceUnitPrice
 				}
@@ -453,37 +455,34 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
 		try
 		{
 			TableItem items[] = tableSearcResults.getSelection();
 			if (items.length > 0)
 			{
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
-				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_CARD_ID,cardId);
-				TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
-				msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
-				if (msg.open() == SWT.NO)
-					return;
-				// if the inventory card contains transactions
-				argMap=new HashMap();
-				argMap.put(InvKeys.INV_CARD,invCard);
-				Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap); //$NON-NLS-1$
-				if (hasTX.booleanValue())
+				
+				boolean okToDelete=EngUICommon.okToDelete(getShell());
+				if (okToDelete)
 				{
-					MessageBox msg2 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-					msg2.setMessage("Inventory card contains transactions and \ncan not be deleted. Delete them first. "); //$NON-NLS-1$
-					msg2.open();
-					return;
+					HashMap argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD_ID,cardId);
+					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
+					// if the inventory card contains transactions
+					argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD,invCard);
+					Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap); //$NON-NLS-1$
+					if (hasTX.booleanValue())
+					{
+						EngUICommon.showMessageBox(getShell(),InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION,SWT.ICON_WARNING);
+						return;
+					}
+					argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD,invCard);					
+					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap); //$NON-NLS-1$
+					EngUICommon.showDeletedSuccesfullyMessage(getShell());
+					search();
 				}
-				argMap=new HashMap();
-				argMap.put(InvKeys.INV_CARD,invCard);					
-				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap); //$NON-NLS-1$
-				msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
-				msg.open();
-				search();
 			}
 		}
 		catch (Exception ex)
@@ -589,7 +588,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					{
 						if (giveTotal)
 						{
-							tableViewer.addRow(new String[]{"","","TOPLAM",cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
+							tableViewer.addRow(new String[]{"","",EngLangCommonKeys.STR_TOTAL_CAPITAL,cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
 							tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);
 						}
 						TOTAL_TRANSOVER_PRICE=new BigDecimal(0);
@@ -624,14 +623,14 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				{
 					if (i==listSize-1)
 					{
-						tableViewer.addRow(new String[]{"","","TOPLAM",cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
+						tableViewer.addRow(new String[]{"","",EngLangCommonKeys.STR_TOTAL_CAPITAL,cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
 						tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);					
 					}
 				}
 				
 			}
 			tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);
-			tableViewer.addRow(new String[]{"","","GENEL TOPLAM",cf.format(GENERAL_TOTAL_TRANSOVER_PRICE),"","",cf.format(GENERAL_TOTAL_PRICE_IN),"","",cf.format(GENERAL_TOTAL_PRICE_OUT),"","",cf.format(GENERAL_TOTAL_BALANCE),""},null);
+			tableViewer.addRow(new String[]{"","",EngLangCommonKeys.STR_GENERAL_TOTAL_CAPITAL,cf.format(GENERAL_TOTAL_TRANSOVER_PRICE),"","",cf.format(GENERAL_TOTAL_PRICE_IN),"","",cf.format(GENERAL_TOTAL_PRICE_OUT),"","",cf.format(GENERAL_TOTAL_BALANCE),""},null);
 			
 			
 		}

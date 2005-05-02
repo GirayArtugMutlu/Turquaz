@@ -38,6 +38,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
@@ -45,7 +47,6 @@ import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -109,7 +110,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 				composite1.setLayoutData(composite1LData);
 				{
 					lblWarehouseName = new CLabel(composite1, SWT.NONE);
-					lblWarehouseName.setText(Messages.getString("InvUIWarehouseSearch.0"));
+					lblWarehouseName.setText(InvLangKeys.STR_WAREHOUSE_NAME);
 					lblWarehouseName.setSize(new org.eclipse.swt.graphics.Point(105, 20));
 					GridData lblWarehouseNameLData = new GridData();
 					lblWarehouseNameLData.widthHint = 105;
@@ -134,7 +135,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 				}
 				{
 					lblWarehouseCity = new CLabel(composite1, SWT.NONE);
-					lblWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1"));
+					lblWarehouseCity.setText(EngLangCommonKeys.STR_CITY);
 					GridData lblWarehouseCityLData = new GridData();
 					lblWarehouseCity.setLayoutData(lblWarehouseCityLData);
 				}
@@ -175,27 +176,27 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 				tableInvUIWarehouses.setLayoutData(tableInvUIWarehousesLData);
 				{
 					tableColumnCode = new TableColumn(tableInvUIWarehouses, SWT.NONE);
-					tableColumnCode.setText("Depo Kodu");
+					tableColumnCode.setText(InvLangKeys.STR_WAREHOUSE_CODE);
 					tableColumnCode.setWidth(84);
 				}
 				{
 					tableColumnName = new TableColumn(tableInvUIWarehouses, SWT.NONE);
-					tableColumnName.setText(Messages.getString("InvUIWarehouseSearch.0")); //$NON-NLS-1$
+					tableColumnName.setText(InvLangKeys.STR_WAREHOUSE_NAME);
 					tableColumnName.setWidth(161);
 				}
 				{
 					tableColumnWarehouseCity = new TableColumn(tableInvUIWarehouses, SWT.NONE);
-					tableColumnWarehouseCity.setText(Messages.getString("InvUIWarehouseSearch.1"));
+					tableColumnWarehouseCity.setText(EngLangCommonKeys.STR_CITY);
 					tableColumnWarehouseCity.setWidth(100);
 				}
 				{
 					tableColumnTelephone = new TableColumn(tableInvUIWarehouses, SWT.NONE);
-					tableColumnTelephone.setText(Messages.getString("InvUIWarehouseSearch.4"));
+					tableColumnTelephone.setText(EngLangCommonKeys.STR_TELEPHONE);
 					tableColumnTelephone.setWidth(100);
 				}
 				{
 					tableColumnDescription = new TableColumn(tableInvUIWarehouses, SWT.NONE);
-					tableColumnDescription.setText(Messages.getString("InvUIWarehouseSearch.5"));
+					tableColumnDescription.setText(EngLangCommonKeys.STR_DESCRIPTION);
 					tableColumnDescription.setWidth(150);
 				}
 			}
@@ -298,6 +299,6 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableInvUIWarehouses, "Depolar");
+		EngBLUtils.printTable(tableInvUIWarehouses, InvLangKeys.STR_WAREHOUSES);
 	}
 }

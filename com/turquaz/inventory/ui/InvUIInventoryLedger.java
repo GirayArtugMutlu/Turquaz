@@ -10,13 +10,14 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLInventoryLedger;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
@@ -87,7 +88,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				compFilter.setLayout(compFilterLayout);
 				{
 					lblDate = new CLabel(compFilter, SWT.NONE);
-					lblDate.setText("Tarih"); //$NON-NLS-1$
+					lblDate.setText(EngLangCommonKeys.STR_DATE);
 					GridData lblDateLData = new GridData();
 					lblDateLData.widthHint = 51;
 					lblDate.setLayoutData(lblDateLData);
@@ -112,24 +113,24 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 					groupInv.setLayoutData(groupInvLData);
 					groupInvLayout.makeColumnsEqualWidth = true;
 					groupInv.setLayout(groupInvLayout);
-					groupInv.setText("Filtre");
+					groupInv.setText(InvLangKeys.STR_FILTER);
 					{
 						btnAll = new Button(groupInv, SWT.RADIO | SWT.LEFT);
-						btnAll.setText("Bütün Stoklar");
+						btnAll.setText(InvLangKeys.STR_ALL_INV);
 						btnAll.setSelection(true);
 					}
 					{
 						btnWithTrans = new Button(groupInv, SWT.RADIO | SWT.LEFT);
-						btnWithTrans.setText("Hareketliler");
+						btnWithTrans.setText(InvLangKeys.STR_HAS_TRANSACTIONS);
 					}
 					{
 						btnWithBalance = new Button(groupInv, SWT.RADIO | SWT.LEFT);
-						btnWithBalance.setText("Bakiyeliler");
+						btnWithBalance.setText(InvLangKeys.STR_HAS_BALANCE);
 					}
 				}
 				{
 					lblInvCode = new CLabel(compFilter, SWT.NONE);
-					lblInvCode.setText("Stok Kodu");
+					lblInvCode.setText(InvLangKeys.STR_INV_CODE);
 					GridData lblInvCodeLData = new GridData();
 					lblInvCodeLData.widthHint = 54;
 					lblInvCodeLData.heightHint = 19;
@@ -157,27 +158,27 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				tableInventories.setLayoutData(table1LData);
 				{
 					tableColumnInvCode = new TableColumn(tableInventories, SWT.NONE);
-					tableColumnInvCode.setText(Messages.getString("InvUIInventoryLedger.0")); //$NON-NLS-1$
+					tableColumnInvCode.setText(InvLangKeys.STR_INV_CODE);
 					tableColumnInvCode.setWidth(87);
 				}
 				{
 					tableColumnInvName = new TableColumn(tableInventories, SWT.NONE);
-					tableColumnInvName.setText(Messages.getString("InvUIInventoryLedger.1")); //$NON-NLS-1$
+					tableColumnInvName.setText(InvLangKeys.STR_INV_NAME);
 					tableColumnInvName.setWidth(88);
 				}
 				{
 					tableColumnLastAmount = new TableColumn(tableInventories, SWT.RIGHT);
-					tableColumnLastAmount.setText(Messages.getString("InvUIInventoryLedger.2")); //$NON-NLS-1$
+					tableColumnLastAmount.setText(InvLangKeys.STR_LAST_AMOUNT);
 					tableColumnLastAmount.setWidth(100);
 				}
 				{
 					tableColumnAvgPrice = new TableColumn(tableInventories, SWT.RIGHT);
-					tableColumnAvgPrice.setText(Messages.getString("InvUIInventoryLedger.3")); //$NON-NLS-1$
+					tableColumnAvgPrice.setText(InvLangKeys.STR_AVERAGE_PRICE);
 					tableColumnAvgPrice.setWidth(100);
 				}
 				{
 					tableColumnTotalPrice = new TableColumn(tableInventories, SWT.RIGHT);
-					tableColumnTotalPrice.setText(Messages.getString("InvUIInventoryLedger.4")); //$NON-NLS-1$
+					tableColumnTotalPrice.setText(InvLangKeys.STR_TOTAL_PRICE);
 					tableColumnTotalPrice.setWidth(100);
 				}
 			}
@@ -335,6 +336,6 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableInventories, Messages.getString("InvUIInventoryLedger.5")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableInventories, InvLangKeys.STR_INV_LEDGER);
 	}
 }

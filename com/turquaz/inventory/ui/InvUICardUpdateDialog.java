@@ -34,7 +34,6 @@ import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
@@ -42,13 +41,12 @@ import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Dialog;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
-import com.turquaz.engine.bl.EngBLInventoryCards;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
@@ -57,7 +55,10 @@ import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -103,7 +104,7 @@ public class InvUICardUpdateDialog extends Dialog
 			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
-			dialogShell.setText(Messages.getString("InvUICardUpdateDialog.10")); //$NON-NLS-1$
+			dialogShell.setText(InvLangKeys.TITLE_INV_CARD_UPDATE);
 			{
 				toolBarTop = new ToolBar(dialogShell, SWT.SHADOW_OUT);
 				GridData toolBarTopLData = new GridData();
@@ -116,7 +117,7 @@ public class InvUICardUpdateDialog extends Dialog
 			compMain = new Composite(dialogShell, SWT.NULL);
 			compInvUICard = new InvUICardAdd(compMain, SWT.NULL);
 			dialogShell.setSize(634, 368);
-			toolUpdate.setText(Messages.getString("InvUICardUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter()
 			{
@@ -125,12 +126,11 @@ public class InvUICardUpdateDialog extends Dialog
 					toolUpdateWidgetSelected(evt);
 				}
 			});
-			toolDelete.setText(Messages.getString("InvUICardUpdateDialog.9")); //$NON-NLS-1$
-			toolDelete.setToolTipText(Messages.getString("InvUICardUpdateDialog.1")); //$NON-NLS-1$
+			toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			{
 				toolCancel = new ToolItem(toolBarTop, SWT.NONE);
-				toolCancel.setText(Messages.getString("InvUICardUpdateDialog.2")); //$NON-NLS-1$
+				toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 				toolCancel.addSelectionListener(new SelectionAdapter()
 				{
@@ -296,10 +296,12 @@ public class InvUICardUpdateDialog extends Dialog
 			{
 				invPrice = (TurqInventoryPrice) it.next();
 				InvUIPrice price = new InvUIPrice();
-				price.priceType = Messages.getString("InvUICardUpdateDialog.3"); //$NON-NLS-1$
+				//XXX SATIS STRINGI
+				price.priceType = EngBLCommon.COMMON_SELL_STRING;
 				if (invPrice.isPricesType())
 				{
-					price.priceType = Messages.getString("InvUICardUpdateDialog.4"); //$NON-NLS-1$
+					//XXX ALISSS STRINGI
+					price.priceType = EngBLCommon.COMMON_BUY_STRING;
 				}
 				price.amount = invPrice.getPricesAmount().toString();
 				price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
@@ -409,10 +411,8 @@ public class InvUICardUpdateDialog extends Dialog
 				argMap.put(InvKeys.INV_CARD_ACCOUNTS,compInvUICard.getInvAccounts());
 				
 				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"updateInventoryCard",argMap);
-				EngTXCommon.doSelectTX(EngBLInventoryCards.class.getName(),"RefreshContentAsistantMap",null);
-				MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-				msg.setMessage(Messages.getString("InvUICardUpdateDialog.5")); //$NON-NLS-1$
-				msg.open();
+				
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				this.dialogShell.close();
 			}
 		}
@@ -424,11 +424,10 @@ public class InvUICardUpdateDialog extends Dialog
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.YES | SWT.NO);
 		try
 		{
-			msg.setMessage(Messages.getString("InvUICardUpdateDialog.7")); //$NON-NLS-1$
-			if (msg.open() == SWT.NO)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (!okToDelete)
 				return;
 			// if the inventory card contains transactions
 			HashMap argMap=new HashMap();
@@ -436,18 +435,14 @@ public class InvUICardUpdateDialog extends Dialog
 			Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
 			if (hasTX.booleanValue())
 			{
-				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_WARNING);
-				msg2.setMessage(Messages.getString("InvUICardUpdateDialog.8")); //$NON-NLS-1$
-				msg2.open();
+				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION,SWT.ICON_WARNING);
 				return;
 			}
 			updated = true;
 			argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD,invCard);					
 			EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
-			msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(Messages.getString("InvUICardUpdateDialog.6")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showDeletedSuccesfullyMessage(getParent());
 			this.dialogShell.dispose();
 		}
 		catch (Exception ex)

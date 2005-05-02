@@ -22,7 +22,6 @@ package com.turquaz.inventory.ui;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import net.sf.hibernate.HibernateException;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.events.DisposeEvent;
@@ -33,7 +32,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
@@ -45,9 +43,11 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardUpdate;
 /**
@@ -95,7 +95,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("InvUIUnitAddDialog.10")); //$NON-NLS-1$
+			dialogShell.setText(InvLangKeys.TITLE_INV_UNITS);
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(252, 229));
 			GridData tableInvUnitsLData = new GridData();
 			GridLayout dialogShellLayout = new GridLayout(1, true);
@@ -124,7 +124,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 					cLabel1LData.widthHint = 56;
 					cLabel1LData.heightHint = 20;
 					cLabel1.setLayoutData(cLabel1LData);
-					cLabel1.setText(Messages.getString("InvUIUnitAddDialog.1")); //$NON-NLS-1$
+					cLabel1.setText(EngLangCommonKeys.STR_UNIT_NAME);
 					cLabel1.setSize(new org.eclipse.swt.graphics.Point(56, 20));
 				}
 				{
@@ -159,7 +159,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 					btnDeleteLData.widthHint = 50;
 					btnDeleteLData.heightHint = 30;
 					btnDelete.setLayoutData(btnDeleteLData);
-					btnDelete.setText(Messages.getString("InvUIUnitAddDialog.2")); //$NON-NLS-1$
+					btnDelete.setText(EngLangCommonKeys.STR_DELETE);
 					btnDelete.setSize(new org.eclipse.swt.graphics.Point(50, 30));
 					btnDelete.setEnabled(false);
 				}
@@ -177,7 +177,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 					btnUpdateLData.widthHint = 50;
 					btnUpdateLData.heightHint = 30;
 					btnUpdate.setLayoutData(btnUpdateLData);
-					btnUpdate.setText(Messages.getString("InvUIUnitAddDialog.3")); //$NON-NLS-1$
+					btnUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					btnUpdate.setSize(new org.eclipse.swt.graphics.Point(50, 30));
 					btnUpdate.setEnabled(false);
 				}
@@ -194,14 +194,14 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 					btnUnitAddLData.widthHint = 42;
 					btnUnitAddLData.heightHint = 27;
 					btnUnitAdd.setLayoutData(btnUnitAddLData);
-					btnUnitAdd.setText(Messages.getString("InvUIUnitAddDialog.4")); //$NON-NLS-1$
+					btnUnitAdd.setText(EngLangCommonKeys.STR_ADD);
 					btnUnitAdd.setSize(new org.eclipse.swt.graphics.Point(42, 27));
 				}
 				composite1.layout();
 			}
 			tableInvUnits = new Table(dialogShell, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 			tableColumnName = new TableColumn(tableInvUnits, SWT.NULL);
-			tableColumnName.setText(Messages.getString("InvUIUnitAddDialog.0")); //$NON-NLS-1$
+			tableColumnName.setText(EngLangCommonKeys.STR_UNIT_NAME);
 			tableColumnName.setWidth(200);
 			tableInvUnitsLData = new GridData();
 			tableInvUnitsLData.verticalAlignment = GridData.FILL;
@@ -296,23 +296,20 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void btnDeleteMouseUp(MouseEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
-		MessageBox msg2 = new MessageBox(this.getParent());
 		try
 		{
-			msg.setMessage(Messages.getString("InvUIUnitAddDialog.5")); //$NON-NLS-1$
-			int result = msg.open();
-			if (result == SWT.OK)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_UNIT,txtUnitName.getData());
+				//XXX check if there exist a transaction with this unit!!
 				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);
 				txtUnitName.setText(""); //$NON-NLS-1$
-				msg2.setMessage(Messages.getString("InvUIUnitAddDialog.7")); //$NON-NLS-1$
-				msg2.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				fillTable();
 			}
 		}
@@ -322,21 +319,18 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			btnUpdate.setEnabled(false);
 			btnUnitAdd.setEnabled(true);
 			txtUnitName.setText(""); //$NON-NLS-1$
-			msg2.setMessage(Messages.getString("InvUIUnitAddDialog.9")); //$NON-NLS-1$
-			msg2.open();
-            EngBLLogger.log(this.getClass(),ex);
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnUpdateMouseUp(MouseEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent());
 		try
 		{
-			if (txtUnitName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("InvUIUnitAddDialog.11")); //$NON-NLS-1$
-				msg.open();
+			if (txtUnitName.getText().trim().equals("")) 
+			{ 
+				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_ENTER_UNIT_NAME,SWT.ICON_WARNING);
 				txtUnitName.setFocus();
 				return;
 			}
@@ -356,8 +350,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				if (exist)
 				{
-					msg.setMessage(Messages.getString("InvUIUnitAddDialog.6")); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_NOT_ENTER_UNIT_NAME_ALREADY_EXIST);
 					return;
 				}
 				HashMap argMap=new HashMap();
@@ -368,8 +361,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);
 				txtUnitName.setText(""); //$NON-NLS-1$
-				msg.setMessage(Messages.getString("InvUIUnitAddDialog.14")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				fillTable();
 			}
 		}
@@ -379,21 +371,17 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			btnUpdate.setEnabled(false);
 			btnUnitAdd.setEnabled(true);
 			txtUnitName.setText(""); //$NON-NLS-1$
-			msg.setMessage(Messages.getString("InvUIUnitAddDialog.16")); //$NON-NLS-1$
-			msg.open();
-            EngBLLogger.log(this.getClass(),ex);
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
 	/** Auto-generated event handler method */
 	protected void btnUnitAddMouseUp()
 	{
-		MessageBox msg = new MessageBox(this.getParent());
 		try
 		{
 			if (txtUnitName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("InvUIUnitAddDialog.18")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_ENTER_UNIT_NAME,SWT.ICON_WARNING);
 				txtUnitName.setFocus();
 				return;
 			}
@@ -411,28 +399,20 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			if (exist)
 			{
-				msg.setMessage(Messages.getString("InvUIUnitAddDialog.8")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_NOT_ENTER_UNIT_NAME_ALREADY_EXIST,SWT.ICON_WARNING);
 				return;
 			}
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_UNIT_NAME,txtUnitName.getText().trim());
 			EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveUnit",argMap);
-			msg.setMessage(Messages.getString("InvUIUnitAddDialog.19")); //$NON-NLS-1$
 			txtUnitName.setText(""); //$NON-NLS-1$
+			EngUICommon.showSavedSuccesfullyMessage(getParent());
 			fillTable();
-			msg.open();
 			txtUnitName.setFocus();
-		}
-		catch (HibernateException ex)
-		{
-            EngBLLogger.log(this.getClass(),ex);
-			msg.setText(Messages.getString("InvUIUnitAddDialog.21")); //$NON-NLS-1$
-			msg.open();
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex);;
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
