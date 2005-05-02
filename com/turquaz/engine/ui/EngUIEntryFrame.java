@@ -468,6 +468,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			EngDALSessionFactory.init();
 			EngBLCommon.getBaseCurrency();
 			EngBLCommon.getBaseCurrencyExchangeRate();
+            //checkRememberPassword.setVisible(false);
+            
 		}
 		catch (Exception ex)
 		{

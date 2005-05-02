@@ -86,8 +86,11 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
 			dialogShell.setText(Messages.getString("BillUIBillUpdateDialog.6")); //$NON-NLS-1$
-			dialogShell.setLayout(new GridLayout());
-			
+			GridLayout dialogShellLayout = new GridLayout();
+			dialogShell.setLayout(dialogShellLayout);
+			dialogShellLayout.horizontalSpacing = 4;
+			dialogShellLayout.marginHeight = 4;
+
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				GridData toolBar1LData = new GridData();
@@ -163,7 +166,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				compAddBill.setLayoutData(compBillUIAddDialogLData);
 			}
 			dialogShell.layout();
-			dialogShell.pack();
 			dialogShell.setSize(690, 562);
 			postInitGui();
 			dialogShell.open();

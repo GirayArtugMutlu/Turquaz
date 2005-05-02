@@ -225,9 +225,10 @@ public class EngBLUtils
 						{
                             try{
                             double dc = (cf.parse(cell_value)).doubleValue();
+                            
                             c.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
                             c.setCellValue(dc);
-                            }
+                             }
                             catch(Exception ex)
                             {
                                 c.setCellValue(cell_value);

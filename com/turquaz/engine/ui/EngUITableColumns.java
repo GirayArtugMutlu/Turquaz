@@ -45,9 +45,7 @@ public class EngUITableColumns extends org.eclipse.swt.widgets.Dialog
 			}
 			GridLayout dialogShellLayout = new GridLayout();
 			dialogShell.setLayout(dialogShellLayout);
-			dialogShell.layout();
-			dialogShell.pack();
-			dialogShell.setSize(253, 294);
+			
 			//START >> tableTableColumns
 			tableTableColumns = new Table(dialogShell, SWT.CHECK | SWT.V_SCROLL | SWT.BORDER);
 			GridData table1LData = new GridData();
@@ -106,6 +104,9 @@ public class EngUITableColumns extends org.eclipse.swt.widgets.Dialog
 			//END << btnCancel
 			//END << composite1
 			postInitGui(table);
+            dialogShell.layout();
+            dialogShell.pack();
+            dialogShell.setSize(253, 294);
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed())

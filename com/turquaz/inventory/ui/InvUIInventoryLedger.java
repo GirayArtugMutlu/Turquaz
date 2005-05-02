@@ -314,7 +314,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 						continue;
 					totalPrice = avgPrice.multiply(balanceAmount).setScale(2, EngBLCommon.ROUNDING_METHOD);
 				}
-				tableViewer.addRow(new String[]{invCode, invName, balanceAmount.toString(), curFormat.format(avgPrice),
+				tableViewer.addRow(new String[]{invCode, invName,curFormat.format(balanceAmount), curFormat.format(avgPrice),
 						curFormat.format(totalPrice)}, invCode);
 			}
 		}
