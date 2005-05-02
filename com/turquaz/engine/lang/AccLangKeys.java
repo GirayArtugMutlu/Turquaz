@@ -35,6 +35,7 @@ public class AccLangKeys {
 	public final static String STR_ACCOUNT_NAME  = "Hesap Adý";
 	public final static String STR_ACCOUNT_VOUCHERS  = "Muhasebe Fiþleri";
 	public final static String STR_ACCOUNTING  = "Muhasebe";
+	public final static String STR_ACCOUNTING_ACCOUNT="Muhasebe Hesab?";
 	public final static String STR_ACCOUNTING_CODES="Muhasebe Kodlar?";
 	public final static String STR_ACCOUNTING_PLAN  = "Muhasebe Planý";
 	public final static String STR_ACCOUNTING_TYPE="Muhasebe Tipi";
