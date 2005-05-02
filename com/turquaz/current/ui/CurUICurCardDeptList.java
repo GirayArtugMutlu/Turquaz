@@ -43,7 +43,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.ui.component.DatePicker;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.engine.EngKeys;
@@ -52,6 +51,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -133,7 +134,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
 			//START >> lblCurrentCode
 			lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
-			lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0"));
+			lblCurrentCode.setText(CurLangKeys.STR_CUR_CODE);
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCode.setLayoutData(lblCurrentCodeLData);
 			//END << lblCurrentCode
@@ -146,7 +147,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			//END << txtCurrentCode
 			//START >> lblCurrentName
 			lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
-			lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1"));
+			lblCurrentName.setText(CurLangKeys.STR_CUR_NAME);
 			GridData lblCurrentNameLData = new GridData();
 			lblCurrentName.setLayoutData(lblCurrentNameLData);
 			//END << lblCurrentName
@@ -167,7 +168,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			//END << txtCurrentName
 			//START >> lblTurqGroupName
 			lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
-			lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2"));
+			lblTurqGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME);
 			GridData lblTurqGroupNameLData = new GridData();
 			lblTurqGroupNameLData.widthHint = 80;
 			lblTurqGroupNameLData.heightHint = 20;
@@ -233,27 +234,27 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			tableCurrentCardSearch.setLayoutData(tableCurrentCardSearchLData);
 			//START >> tableColumnCurrentCode
 			tableColumnCurrentCode = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-			tableColumnCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0"));
+			tableColumnCurrentCode.setText(CurLangKeys.STR_CUR_CODE);
 			tableColumnCurrentCode.setWidth(123);
 			//END << tableColumnCurrentCode
 			//START >> tableColumnCurrentName
 			tableColumnCurrentName = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-			tableColumnCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1"));
+			tableColumnCurrentName.setText(CurLangKeys.STR_CUR_NAME);
 			tableColumnCurrentName.setWidth(124);
 			//END << tableColumnCurrentName
 			//START >> tableColumnTotalCredit
 			tableColumnTotalCredit = new TableColumn(tableCurrentCardSearch, SWT.RIGHT);
-			tableColumnTotalCredit.setText("Toplam Borç");
+			tableColumnTotalCredit.setText(EngLangCommonKeys.STR_TOTAL_DEPT);
 			tableColumnTotalCredit.setWidth(120);
 			//END << tableColumnTotalCredit
 			//START >> tableColumnTotalDept
 			tableColumnTotalDept = new TableColumn(tableCurrentCardSearch, SWT.RIGHT);
-			tableColumnTotalDept.setText("Toplam Alacak");
+			tableColumnTotalDept.setText(EngLangCommonKeys.STR_TOTAL_CREDIT);
 			tableColumnTotalDept.setWidth(120);
 			//END << tableColumnTotalDept
 			//START >> tableColumnBalance
 			tableColumnBalance = new TableColumn(tableCurrentCardSearch, SWT.RIGHT);
-			tableColumnBalance.setText("Borç Bakiye");
+			tableColumnBalance.setText(EngLangCommonKeys.STR_BALANCE_DEPT);
 			tableColumnBalance.setWidth(101);
 			//END << tableColumnBalance
 			//START >> popup
@@ -358,11 +359,11 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 					
 					if (curCardTrans.size() > 0)
 					{
-						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+						msg.setMessage(CurLangKeys.MSG_CUR_CARD_HAS_TRANSACTIONS); //$NON-NLS-1$
 						msg.open();
 						return;
 					}
-					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+					msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); //$NON-NLS-1$
 					int result = msg.open();
 					if (result == SWT.OK)
 					{
@@ -371,7 +372,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 						argMap.put(EngKeys.CURRENT_CARD,currentCard);
 						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
 					
-						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+						msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						msg.open();
 					}
 					search();
@@ -483,7 +484,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCurrentCardSearch, Messages.getString("CurUICurrentCardSearch.4")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCurrentCardSearch, CurLangKeys.STR_CUR_DEPT_LIST); //$NON-NLS-1$
 	}
 
 	private void itemWidgetSelected(SelectionEvent evt)

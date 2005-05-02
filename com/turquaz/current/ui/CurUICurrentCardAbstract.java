@@ -47,13 +47,14 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.CurKeys;
 import org.eclipse.swt.custom.CCombo;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -149,7 +150,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				compSearch.setLayout(compSearchLayout);
 				{
 					lblCurrentCard = new CLabel(compSearch, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("CurUICurrentCardAbstract.0")); //$NON-NLS-1$
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD_START); //$NON-NLS-1$
 					GridData lblCurrentCardLData = new GridData();
 					lblCurrentCardLData.widthHint = 120;
 					lblCurrentCardLData.heightHint = 18;
@@ -164,7 +165,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				}
 				{
 					lblCurCard2 = new CLabel(compSearch, SWT.NONE);
-					lblCurCard2.setText(Messages.getString("CurUICurrentCardAbstract.3")); //$NON-NLS-1$
+					lblCurCard2.setText(CurLangKeys.STR_CUR_CARD_END); //$NON-NLS-1$
 				}
 				{
 					txtCurrentCard2 = new CurrentCodePicker(compSearch, SWT.NONE);
@@ -175,7 +176,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				}
 				{
 					lblStartDate = new CLabel(compSearch, SWT.NONE);
-					lblStartDate.setText(Messages.getString("CurUICurrentCardAbstract.1")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE); //$NON-NLS-1$
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 96;
 					lblStartDateLData.heightHint = 18;
@@ -190,7 +191,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				}
 				{
 					lblEndDate = new CLabel(compSearch, SWT.NONE);
-					lblEndDate.setText(Messages.getString("CurUICurrentCardAbstract.2")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE); //$NON-NLS-1$
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 77;
 					lblEndDateLData.heightHint = 20;
@@ -227,7 +228,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 				//END << txtTransAmount
 				{
 					lblDefinition = new CLabel(compSearch, SWT.NONE);
-					lblDefinition.setText(Messages.getString("CurUICurrentCardAbstract.5")); //$NON-NLS-1$
+					lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 				}
 				{
 					txtDefinition = new Text(compSearch, SWT.WRAP | SWT.V_SCROLL);

@@ -52,7 +52,6 @@ import com.turquaz.current.CurKeys;
 import org.eclipse.swt.custom.CTabFolder;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 import org.eclipse.swt.custom.CTabItem;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
@@ -62,6 +61,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
@@ -145,7 +146,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 			compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
 			//START >> lblCurrentCode
 			lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
-			lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0"));
+			lblCurrentCode.setText(CurLangKeys.STR_CUR_CODE);
 			GridData lblCurrentCodeLData = new GridData();
 			lblCurrentCode.setLayoutData(lblCurrentCodeLData);
 			//END << lblCurrentCode
@@ -163,7 +164,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 			//END <<  radioCurrentCode
 			//START >> lblCurrentName
 			lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
-			lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1"));
+			lblCurrentName.setText(CurLangKeys.STR_CUR_NAME);
 			GridData lblCurrentNameLData = new GridData();
 			lblCurrentName.setLayoutData(lblCurrentNameLData);
 			//END << lblCurrentName
@@ -188,7 +189,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 			//END <<  radioCurrentName
 			//START >> lblTurqGroupName
 			lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
-			lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2"));
+			lblTurqGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME);
 			GridData lblTurqGroupNameLData = new GridData();
 			lblTurqGroupNameLData.widthHint = 91;
 			lblTurqGroupNameLData.heightHint = 21;
@@ -226,12 +227,12 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 			tableCurrentCardSearch.setLayoutData(tableCurrentCardSearchLData);
 			//START >> tableColumnCurrentCode
 			tableColumnCurrentCode = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-			tableColumnCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0"));
+			tableColumnCurrentCode.setText(CurLangKeys.STR_CUR_CODE);
 			tableColumnCurrentCode.setWidth(123);
 			//END << tableColumnCurrentCode
 			//START >> tableColumnCurrentName
 			tableColumnCurrentName = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-			tableColumnCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1"));
+			tableColumnCurrentName.setText(CurLangKeys.STR_CUR_NAME);
 			tableColumnCurrentName.setWidth(124);
 			//END << tableColumnCurrentName
 			//START >> tableColumnTotalCredit
@@ -381,11 +382,11 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 					
 					if (curCardTrans.size() > 0)
 					{
-						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+						msg.setMessage(CurLangKeys.MSG_CUR_CARD_HAS_TRANSACTIONS); //$NON-NLS-1$
 						msg.open();
 						return;
 					}
-					msg.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+					msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); //$NON-NLS-1$
 					int result = msg.open();
 					if (result == SWT.OK)
 					{
@@ -393,7 +394,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 						 argMap = new HashMap();
 						argMap.put(EngKeys.CURRENT_CARD,currentCard);
 						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
-						msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+						msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						msg.open();
 					}
 					search();
@@ -553,7 +554,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCurrentCardSearch, Messages.getString("CurUICurrentCardSearch.4")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCurrentCardSearch, CurLangKeys.STR_CUR_BALANCE); //$NON-NLS-1$
 	}
 
 	private void itemWidgetSelected(SelectionEvent evt)
