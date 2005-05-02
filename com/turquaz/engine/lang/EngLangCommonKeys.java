@@ -10,6 +10,9 @@ public class EngLangCommonKeys {
 	public final static String MSG_SAVED_SUCCESS = "Baþarýyla Kaydedildi!";
 	public final static String MSG_UNKNOWN_ERROR_REPORT_ERROR_LOG = "Bilinmeyen bir hata oluþtu. error.log dosyasýndan eriþilebilir.";
 	public final static String MSG_UPDATED_SUCCESS = "Baþarýyla Güncellendi!";
+	public final static String MSG_SELECT_CURRENCY="Lütfen para birimi seçiniz!";
+	public final static String MSG_DEFINE_DAILY_EXCHANGE_RATE="Günlük kur oran? tan?mlamal?s?n?z!";
+	
 	public final static String STR_ADD="Ekle";
 	
 	public final static String STR_ADDRESS="Adres";
