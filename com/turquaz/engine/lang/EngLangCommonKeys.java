@@ -34,6 +34,10 @@ public class EngLangCommonKeys {
 	
 	public final static String STR_EXCHANGE="Kur";
 	public final static String STR_EXCHANGE_RATE="Kur Oran?";
+    
+    public final static String STR_ACCOUNTING_ACCOUNTS = "Muhasebe Hesaplarý";
+    public final static String STR_ACCOUNTING_ACCOUNT = "Muhasebe Hesabý";
+    public final static String STR_UPDATE_GROUPS = "Gruplarý Güncelle";
 	
 	public final static String STR_GENERAL_INFO="Genel Bilgi";
 	public final static String STR_GENERAL_TOTAL_CAPITAL="GENEL TOPLAM";
@@ -52,6 +56,8 @@ public class EngLangCommonKeys {
 	public final static String STR_MONTHS_OCTOBER = "Ekim";
 	public final static String STR_MONTHS_SEPTEMBER = "Eylül";
 	public final static String STR_OK = "Tamam";
+    public final static String STR_EXPORT_TO_EXCEL = "Excele Aktar";
+   
 
 	
 	public final static String STR_OPERATIONS="??lemler";
