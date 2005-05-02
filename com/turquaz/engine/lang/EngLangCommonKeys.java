@@ -20,6 +20,7 @@ public class EngLangCommonKeys {
 	public final static String STR_CANCEL = "Ýptal";
 	public final static String STR_CITY="?ehir";
 	public final static String STR_CREDIT="Alacak";
+	public final static String STR_TOTALPRICE="Tutar";
 	
 	public final static String STR_CURRENCY = "Para Birimi";
     public final static String STR_CURRENCY_ABBR="Para Birimi Kýsaltmasý";
