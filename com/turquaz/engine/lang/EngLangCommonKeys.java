@@ -64,6 +64,10 @@ public class EngLangCommonKeys {
 	public final static String STR_UNIT_NAME="Birim Ad?";
 	public final static String STR_ADD="Ekle";
 	
+	public final static String STR_ADDRESS="Adres";
+	public final static String STR_CITY="?ehir";
+	public final static String STR_TELEPHONE="Telefon";
+	
 	
 	
 	
