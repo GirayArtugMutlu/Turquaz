@@ -18,12 +18,14 @@ public class EngLangCommonKeys {
     public final static String STR_BALANCE_DEPT =  "Borç Bakiye";
 	public final static String STR_CANCEL = "Ýptal";
 	public final static String STR_CITY="?ehir";
+	public final static String STR_CREDIT="Alacak";
 	
 	public final static String STR_CURRENCY = "Para Birimi";
     public final static String STR_CURRENCY_ABBR="Para Birimi Kýsaltmasý";
     public final static String STR_CURRENCY_COUNTRY ="Ülke";
 	public final static String STR_DATE = "Tarih";
 	public final static String STR_DELETE = "Sil";
+	public final static String STR_DEPT="Borç";
 	public final static String STR_DESCRIPTION = "Açýklama";
 	public final static String STR_DETAILS="Ayr?nt?lar";
     public final static String STR_DOCUMENT_NO="Belge No";

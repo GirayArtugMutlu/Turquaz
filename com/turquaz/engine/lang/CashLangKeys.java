@@ -14,4 +14,10 @@ package com.turquaz.engine.lang;
  */
 public class CashLangKeys
 {
+	public final static String STR_CASH_CARD="Kasa Kart?";
+	public final static String STR_CASH_CARD_INFO="Kasa Kart? Bilgileri";
+	public final static String STR_CASH_CODE="Kasa Kodu";
+	
+	public final static String MSG_ENTER_CASH_CODE="Lütfen kasa kodunu giriniz!";
+	public final static String MSG_SELECT_ACCOUNTING_ACCOUNT="Lütfen muhasebe hesab?n? seçiniz!";
 }
