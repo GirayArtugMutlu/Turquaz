@@ -11,7 +11,7 @@ public class CurLangKeys
     public final static String STR_CUR_BALANCE = "Cari Mizan";
     public final static String STR_CUR_CREDIT_LIST ="Alacaklý Listesi";
     public final static String STR_CUR_DEPT_LIST ="Borçlu Listesi";
-    
+    public final static String MSG_SELECT_CUR_CARD="Lütfen cari kart seçiniz!";
     
     public final static String MSG_CUR_CARD_HAS_TRANSACTIONS = "Bu Cari Kart Hareket Görmüþ. \nÖnce Bu Hareketleri Silmeniz gerekir!";
     
