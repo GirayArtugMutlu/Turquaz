@@ -16,6 +16,11 @@ public class EngLangCommonKeys {
 	public final static String STR_OK = "Tamam";
 	public final static String STR_PRINT = "Yazdýr";
 	public final static String STR_AMOUNT="Miktar";
+	public final static String STR_TYPE="Tipi";
+	public final static String STR_START_DATE="Ba?lang?ç Tarihi";
+	public final static String STR_END_DATE="Biti? Tarihi";
+	public final static String STR_SEARCH_RESULT="Arama Sonucu";
+	public final static String STR_REPORT="Rapor";
 	
 	public final static String STR_EXCHANGE="Kur";
 	public final static String STR_EXCHANGE_RATE="Kur Oran?";
