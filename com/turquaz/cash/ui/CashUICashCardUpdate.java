@@ -19,17 +19,18 @@ import java.util.HashMap;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.CoolItem;
@@ -87,7 +88,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 			}
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
-			dialogShell.setText(Messages.getString("CashUICashCardUpdate.5")); //$NON-NLS-1$
+			dialogShell.setText(CashLangKeys.TITLE_CASH_CARD_UPDATE);
 			dialogShell.setSize(563, 228);
 			{
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
@@ -106,7 +107,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 						coolItem1.setControl(toolBar1);
 						{
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText(Messages.getString("CashUICashCardUpdate.0")); //$NON-NLS-1$
+							toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate.addSelectionListener(new SelectionAdapter()
 							{
@@ -118,7 +119,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
-							toolDelete.setText(Messages.getString("CashUICashCardUpdate.2")); //$NON-NLS-1$
+							toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 							toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 							toolDelete.addSelectionListener(new SelectionAdapter()
 							{
@@ -130,7 +131,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolCancel = new ToolItem(toolBar1, SWT.NONE);
-							toolCancel.setText(Messages.getString("CashUICashCardUpdate.4")); //$NON-NLS-1$
+							toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 							toolCancel.addSelectionListener(new SelectionAdapter()
 							{
@@ -174,18 +175,18 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 
 	public void toolDeleteSelected()
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 		try
 		{
-			HashMap argMap = new HashMap();
-			
-			argMap.put(CashKeys.CASH_CARD,cashCard);
-			
-			EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"deleteCashCard",argMap);
-		
-			msg.setMessage(Messages.getString("CashUICashCardUpdate.1")); //$NON-NLS-1$
-			msg.open();
-			dialogShell.close();
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
+			{
+				//TODO check there exist transaction with this cash card
+				HashMap argMap = new HashMap();
+				argMap.put(CashKeys.CASH_CARD, cashCard);
+				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(), "deleteCashCard", argMap);
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
+				dialogShell.close();
+			}
 		}
 		catch (Exception ex)
 		{
@@ -201,22 +202,18 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 
 	public void toolUpdateSelected()
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 		try
 		{
 			if (compCashCard.verifyFields())
-			{
-				
+			{				
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD,cashCard);
 				argMap.put(CashKeys.CASH_CARD_NAME,compCashCard.getTxtCardCode().getText().trim());
 				argMap.put(EngKeys.DEFINITION,compCashCard.getTxtDefinition().getText().trim());
-				argMap.put(AccKeys.ACC_ACCOUNT,compCashCard.getAccountPicker().getData());
-				
+				argMap.put(AccKeys.ACC_ACCOUNT,compCashCard.getAccountPicker().getData());				
 				
 				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"updateCashCard",argMap);
-				msg.setMessage(Messages.getString("CashUICashCardUpdate.3")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}
 		}

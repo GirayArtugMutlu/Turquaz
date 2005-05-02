@@ -25,9 +25,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.SWT;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardAdd;
-import org.eclipse.swt.widgets.MessageBox;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.comp.CashAccountPicker;
 import org.eclipse.swt.widgets.Text;
@@ -36,7 +34,11 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
 
@@ -77,7 +79,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 			TabFolderCardInfo = new CTabFolder(this, SWT.NONE);
 			//START >>  cTabItem1
 			cTabItem1 = new CTabItem(TabFolderCardInfo, SWT.NONE);
-			cTabItem1.setText("Kasa Kart\u0131 Bilgileri");
+			cTabItem1.setText(CashLangKeys.STR_CASH_CARD_INFO);
 			//START >>  compCardInfo
 			compCardInfo = new Composite(TabFolderCardInfo, SWT.NONE);
 			GridLayout compCardInfoLayout = new GridLayout();
@@ -86,7 +88,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 			cTabItem1.setControl(compCardInfo);
 			{
 				lblCardName = new CLabel(compCardInfo, SWT.NONE);
-				lblCardName.setText(Messages.getString("CashUICashCardAdd.0")); //$NON-NLS-1$
+				lblCardName.setText(CashLangKeys.STR_CASH_CODE);
 			}
 			{
 				txtCardCode = new Text(compCardInfo, SWT.NONE);
@@ -97,7 +99,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 			}
 			{
 				lblAccountingCode = new CLabel(compCardInfo, SWT.NONE);
-				lblAccountingCode.setText(Messages.getString("CashUICashCardAdd.2")); //$NON-NLS-1$
+				lblAccountingCode.setText(AccLangKeys.STR_ACCOUNTING_ACCOUNT);
 			}
 			{
 				accountPicker = new CashAccountPicker(compCardInfo, SWT.NONE);
@@ -108,7 +110,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 			}
 			{
 				lblCardDefinition = new CLabel(compCardInfo, SWT.NONE);
-				lblCardDefinition.setText(Messages.getString("CashUICashCardAdd.1")); //$NON-NLS-1$
+				lblCardDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			}
 			{
 				txtDefinition = new Text(compCardInfo, SWT.WRAP | SWT.V_SCROLL);
@@ -145,7 +147,6 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 
 	public void save()
 	{
-		MessageBox msg = new MessageBox(getShell(), SWT.NULL);
 		try
 		{
 			if (verifyFields())
@@ -156,8 +157,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
 				argMap.put(AccKeys.ACC_ACCOUNT,(TurqAccountingAccount) accountPicker.getData());
 				EngTXCommon.doTransactionTX(CashBLCashCardAdd.class.getName(),"saveCashCard",argMap);	
-				msg.setMessage(Messages.getString("CashUICashCardAdd.3")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
 		}
@@ -169,17 +169,15 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 
 	public boolean verifyFields()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-		if (txtCardCode.getText().trim().equals("")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("CashUICashCardAdd.5")); //$NON-NLS-1$
-			msg.open();
+		if (txtCardCode.getText().trim().equals(""))
+		{ 
+			EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_ENTER_CASH_CODE,SWT.ICON_WARNING);
 			txtCardCode.setFocus();
 			return false;
 		}
 		else if (accountPicker.getData() == null)
 		{
-			msg.setMessage(Messages.getString("CashUICashCardAdd.6")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
 			accountPicker.setFocus();
 			return false;
 		}

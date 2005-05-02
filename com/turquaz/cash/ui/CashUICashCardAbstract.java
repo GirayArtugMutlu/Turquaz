@@ -32,7 +32,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridLayout;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
 import com.turquaz.engine.EngKeys;
@@ -42,6 +41,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -183,7 +184,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				compSearchPanel.setLayout(compSearchPanelLayout);
 				{
 					lblCashCard = new CLabel(compSearchPanel, SWT.NONE);
-					lblCashCard.setText(Messages.getString("CashUICashCardAbstract.0")); //$NON-NLS-1$
+					lblCashCard.setText(CashLangKeys.STR_CASH_CARD);
 				}
 				{
 					cashCardPicker = new CashCardPicker(compSearchPanel, SWT.NONE);
@@ -194,7 +195,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblStartDate.setText(Messages.getString("CashUICashCardAbstract.1")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 				}
 				{
 					datePicker = new DatePicker(compSearchPanel, SWT.NONE);
@@ -205,7 +206,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblEndDate.setText(Messages.getString("CashUICashCardAbstract.2")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 				}
 				{
 					datePickerEndDate = new DatePicker(compSearchPanel, SWT.NONE);
@@ -219,7 +220,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 			tabFolder = new CTabFolder(this, SWT.NONE);
 			//START >> cTabItem1
 			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
-			cTabItem1.setText("Arama Sonucu");
+			cTabItem1.setText(EngLangCommonKeys.STR_SEARCH_RESULT);
 			{
 				tableCashTrans = new Table(tabFolder, SWT.FULL_SELECTION);
 				cTabItem1.setControl(tableCashTrans);
@@ -240,32 +241,32 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				tableCashTrans.setLayoutData(tableCashTransLData);
 				{
 					tableColumnDate = new TableColumn(tableCashTrans, SWT.NONE);
-					tableColumnDate.setText(Messages.getString("CashUICashCardAbstract.3")); //$NON-NLS-1$
+					tableColumnDate.setText(EngLangCommonKeys.STR_DATE);
 					tableColumnDate.setWidth(67);
 				}
 				{
 					tableColumnCashCode = new TableColumn(tableCashTrans, SWT.NONE);
-					tableColumnCashCode.setText(Messages.getString("CashUICashCardAbstract.4")); //$NON-NLS-1$
+					tableColumnCashCode.setText(CashLangKeys.STR_CASH_CODE);
 					tableColumnCashCode.setWidth(70);
 				}
 				//START >> tableColumnType
 				tableColumnType = new TableColumn(tableCashTrans, SWT.NONE);
-				tableColumnType.setText("Tipi");
+				tableColumnType.setText(EngLangCommonKeys.STR_TYPE);
 				tableColumnType.setWidth(60);
 				//END << tableColumnType
 				{
 					tableColumnDefinition = new TableColumn(tableCashTrans, SWT.NONE);
-					tableColumnDefinition.setText(Messages.getString("CashUICashCardAbstract.5")); //$NON-NLS-1$
+					tableColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 					tableColumnDefinition.setWidth(183);
 				}
 				{
 					tableColumnCollect = new TableColumn(tableCashTrans, SWT.RIGHT);
-					tableColumnCollect.setText(Messages.getString("CashUICashCardAbstract.6")); //$NON-NLS-1$
+					tableColumnCollect.setText(EngLangCommonKeys.STR_DEPT);
 					tableColumnCollect.setWidth(100);
 				}
 				{
 					tableColumnPayment = new TableColumn(tableCashTrans, SWT.RIGHT);
-					tableColumnPayment.setText(Messages.getString("CashUICashCardAbstract.7")); //$NON-NLS-1$
+					tableColumnPayment.setText(EngLangCommonKeys.STR_CREDIT);
 					tableColumnPayment.setWidth(100);
 				}
 			}
@@ -278,7 +279,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 			//END << cTabItem1
 			//START >> tabItemReport
 			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
-			tabItemReport.setText("Rapor");
+			tabItemReport.setText(EngLangCommonKeys.STR_REPORT);
 			//START >> compReport
 			compReport = new Composite(tabFolder, SWT.NONE);
 			GridLayout compReportLayout = new GridLayout();
@@ -317,7 +318,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCashTrans, Messages.getString("CashUICashCardAbstract.9")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCashTrans, CashLangKeys.TITLE_CASH_CARD_ABSTRACT);
 	}
 
 	public void search()
@@ -375,23 +376,23 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 					total_credit = total_credit.add(credit);
 				}
 				tableViewer.addRow(new String[]{"", "", "", "", "", ""}, null);
-				tableViewer.addRow(new String[]{"", "", "", Messages.getString("CashUICashCardAbstract.18"), //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"", "", "", CashLangKeys.STR_CASH_TOTAL,
 						cf.format(total_dept), cf.format(total_credit)}, null);
-				tableViewer.addRow(new String[]{"", "", "", Messages.getString("CashUICashCardAbstract.21"), //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"", "", "", EngLangCommonKeys.STR_TRANSOVER_CAPITAL,
 						cf.format(deferred_dept), cf.format(deferred_credit)}, null);
 				BigDecimal finalDept = deferred_dept.add(total_dept);
 				BigDecimal finalCredit = deferred_credit.add(total_credit);
-				tableViewer.addRow(new String[]{"", "", "", Messages.getString("CashUICashCardAbstract.24"), //$NON-NLS-1$
+				tableViewer.addRow(new String[]{"", "", "", EngLangCommonKeys.STR_TOTAL_CAPITAL,
 						cf.format(finalDept), cf.format(finalCredit)}, null);
 				BigDecimal finalBalance = finalCredit.subtract(finalDept);
 				if (finalBalance.doubleValue() > 0)
 					tableViewer.addRow(new String[]{
-							"", "", "", Messages.getString("CashUICashCardDailyAbstract.16"), "", cf.format(finalBalance)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+							"", "", "", EngLangCommonKeys.STR_BALANCE_CAPITAL, "", cf.format(finalBalance)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				else
 					tableViewer
 							.addRow(
 									new String[]{
-											"", "", "", Messages.getString("CashUICashCardDailyAbstract.20"), cf.format(finalBalance.abs()), ""}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+											"", "", "", EngLangCommonKeys.STR_BALANCE_CAPITAL, cf.format(finalBalance.abs()), ""}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				GenerateJasper(ls, deferred);
 			}
 		}
@@ -421,7 +422,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 				
 				if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 				{
-					EngUICommon.showMessageBox(this.getShell(), Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
+					EngUICommon.showMessageBox(this.getShell(), CashLangKeys.MSG_ONLY_CASH_TRANSACTIONS_ARE_ALLOWED_TO_EDIT);
 					return;
 				}
 				boolean updated = false;
@@ -459,7 +460,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 	{
 		if (cashCardPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), Messages.getString("CashUICashCardAbstract.8")); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), CashLangKeys.MSG_SELECT_CASH_CARD, SWT.ICON_WARNING);
 			cashCardPicker.setFocus();
 			return false;
 		}

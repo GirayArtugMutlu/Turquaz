@@ -25,12 +25,14 @@ import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
@@ -97,7 +99,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 				composite1.setLayout(composite1Layout);
 				{
 					lblCardCode = new CLabel(composite1, SWT.NONE);
-					lblCardCode.setText(Messages.getString("CashUICashCardSearch.0")); //$NON-NLS-1$
+					lblCardCode.setText(CashLangKeys.STR_CASH_CARD);
 				}
 				{
 					txtCardCode = new Text(composite1, SWT.NONE);
@@ -108,7 +110,8 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 				}
 				{
 					lblAccountCode = new CLabel(composite1, SWT.NONE);
-					lblAccountCode.setText(Messages.getString("CashUICashCardSearch.1")); //$NON-NLS-1$
+					lblAccountCode.setText(AccLangKeys.STR_ACCOUNTING_ACCOUNT);
+					lblAccountCode.setSize(-1, 19);
 				}
 				{
 					accountPicker = new AccountPickerLeaf(composite1, SWT.NONE);
@@ -137,17 +140,17 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 				tableCashCards.setLayoutData(tableCashCardsLData);
 				{
 					tableColumnCashCode = new TableColumn(tableCashCards, SWT.NONE);
-					tableColumnCashCode.setText(Messages.getString("CashUICashCardSearch.2")); //$NON-NLS-1$
+					tableColumnCashCode.setText(CashLangKeys.STR_CASH_CODE);
 					tableColumnCashCode.setWidth(101);
 				}
 				{
 					tableColumnDefinition = new TableColumn(tableCashCards, SWT.NONE);
-					tableColumnDefinition.setText(Messages.getString("CashUICashCardSearch.3")); //$NON-NLS-1$
+					tableColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 					tableColumnDefinition.setWidth(100);
 				}
 				{
 					tableColumnAccount = new TableColumn(tableCashCards, SWT.NONE);
-					tableColumnAccount.setText(Messages.getString("CashUICashCardSearch.4")); //$NON-NLS-1$
+					tableColumnAccount.setText(AccLangKeys.STR_ACCOUNTING_ACCOUNT);
 					tableColumnAccount.setWidth(125);
 				}
 			}
@@ -187,7 +190,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCashCards, Messages.getString("CashUICashCardSearch.5")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCashCards, CashLangKeys.STR_CASH_CARDS);
 	}
 
 	public void search()
