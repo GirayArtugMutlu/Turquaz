@@ -13,6 +13,7 @@ public class EngLangCommonKeys {
 	public final static String STR_DATE = "Tarih";
 	public final static String STR_TOTAL = "Toplam";
 	public final static String STR_TOTAL_CAPITAL="TOPLAM";
+	public final static String STR_GENERAL_TOTAL_CAPITAL="GENEL TOPLAM";
 	public final static String STR_DESCRIPTION = "Açýklama";
 	public final static String STR_OK = "Tamam";
 	public final static String STR_PRINT = "Yazdýr";

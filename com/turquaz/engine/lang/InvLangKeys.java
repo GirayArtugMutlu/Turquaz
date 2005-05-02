@@ -56,6 +56,10 @@ public class InvLangKeys
 	public final static String STR_AVERAGE_PRICE="Ort. Fiyat";
 	public final static String STR_TOTAL_PRICE="Toplam Tutar";
 	
+
+	
+	
+	
 	public final static String STR_SEARCH_BY_CODE="Koda Göre Ara";
 	public final static String STR_SEARCH_BY_NAME="Ada Göre Ara";
 	
@@ -78,7 +82,7 @@ public class InvLangKeys
 	public final static String MSG_ENTER_INV_CODE="Stok kodu girmelisiniz!";
 	public final static String MSG_ENTER_INV_NAME="Stok ad? girmelisiniz!";
 	public final static String MSG_NOT_ENTER_INV_CODE_ALREADY_EXIST="Önceden varolan bir stok kodu giremezsiniz!";
-	public final static String MSG_CHOOSE_BASE_UNIT="Temel birim seçmelisiniz!";
+	public final static String MSG_SELECT_BASE_UNIT="Temel birim seçmelisiniz!";
 	
 	public final static String STR_AMOUNT_IN="Giri? Miktar?";
 	public final static String STR_AMOUNT_OUT="Çk?? Miktar?";
@@ -90,10 +94,23 @@ public class InvLangKeys
 	public final static String STR_BALANCE_PRICE="Bakiye Tutar?";
 	public final static String STR_UNIT_PRICE_IN="Gir. Birim Fiyat?";
 	public final static String STR_UNIT_PRICE_OUT="Ç?k. Birim Fiyat?";
+	public final static String STR_AVERAGE_PRICE_IN="Al?? Fiyat? (Ort.)";
+	public final static String STR_SELL_COST="Sat?? Maliyeti";
+	public final static String STR_SELL_TOTALPRICE="Sat?? Tutar?";
+	public final static String STR_SELL_AMOUNT="Sat?? Miktar?";
+	public final static String STR_PROFIT_ABBR="K/Z";
+	public final static String STR_PROFIT_ANALYSIS="Kar-Zarar Analizi";
+	
+	public final static String STR_TRANSOVER_AMOUNT="Devir Mik.";
+	public final static String STR_TRANSOVER_PRICE="Devir Tutar?";
+	public final static String STR_TRANSOVER_UNIT_PRICE="Devir Bir. Fiyat?";
+	public final static String STR_BALANCE_UNIT_PRICE="Bak. Birim Fiyat?";
 	
 	
 	public final static String MSG_INV_CARD_HAS_TRANSACTION="Bu stok kart? stok hareket görmü?\n?lk önce hareketleri silmeniz gerekir!";
 	public final static String MSG_ENTER_GROUP_NAME="Lütfen grup ad? giriniz!";
+	public final static String MSG_SELECT_INV_CARD="Lütfen stok kart? seçiniz!";
+	public final static String MSG_ENTER_AMOUNT="Lütfen miktar giriniz!";
 	
 	
 	
