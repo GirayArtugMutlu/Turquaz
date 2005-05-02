@@ -55,6 +55,9 @@ public class EngLangCommonKeys {
 	public final static String MSG_DELETED_SUCCESS = "Baþarýyla Silindi!";
 	public final static String MSG_DELETE_REALLY = "Silmek istediðinizden emin misiniz?";
 	public final static String MSG_UNKNOWN_ERROR_REPORT_ERROR_LOG = "Bilinmeyen bir hata oluþtu. error.log dosyasýndan eriþilebilir.";
+	public final static String STR_UNIT="Birim";
+	public final static String STR_UNIT_NAME="Birim Ad?";
+	public final static String STR_ADD="Ekle";
 	
 	
 	

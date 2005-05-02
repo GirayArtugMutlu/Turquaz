@@ -76,9 +76,6 @@ public class InvLangKeys
 	public final static String STR_INV_GROUPS="Stok Gruplar?";
 	public final static String STR_NEW_SUB_GROUP="Yeni Alt Grup";
 	public final static String STR_WAREHOUSE="Depo";
-	public final static String STR_UNIT="Birim";
-	
-	
 	public final static String MSG_ENTER_INV_CODE="Stok kodu girmelisiniz!";
 	public final static String MSG_ENTER_INV_NAME="Stok ad? girmelisiniz!";
 	public final static String MSG_NOT_ENTER_INV_CODE_ALREADY_EXIST="Önceden varolan bir stok kodu giremezsiniz!";
