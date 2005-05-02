@@ -16,7 +16,8 @@ public class InvLangKeys
 {
 	public final static String TITLE_INV_CARD_SEARCH="Stok Kart? Arama";
 	public final static String TITLE_INV_CARD_UPDATE="Stok Kart? Güncelleme";
-	
+	public final static String TITLE_INV_SUB_GROUP_ADD="Stok Alt Grubu Ekleme";
+	public final static String TITLE_INV_GROUPS="Stok Gruplar?";
 	
 
 	public final static String STR_INV_CODE="Stok Kodu";
@@ -35,6 +36,13 @@ public class InvLangKeys
 	public final static String STR_COEFFICIENT="Katsay?";
 	public final static String STR_PRICE_TYPE="Fiyat Tipi";
 	public final static String STR_TOTALPRICE="Tutar";
+	public final static String STR_INV_CARD_START="Stok Kart? - Ba?lang?ç";
+	public final static String STR_INV_CARD_END="Stok Kart? - Biti?";
+	public final static String STR_CURRENT_CARD="Cari Kart";
+	public final static String STR_INV_TRANSACTIONS="Stok Hareketleri";
+	public final static String STR_MAIN_GROUP="Ana Grup";
+	
+	
 	
 	public final static String STR_ACCOUNTING_TYPE="Muhasebe Tipi";
 	
@@ -46,6 +54,8 @@ public class InvLangKeys
 	public final static String STR_INV_MAIN_GROUP="Stok Ana Grup";
 	public final static String STR_INV_SUB_GROUP="Stok Alt Grup";
 	public final static String STR_INV_CARDS="Stok Kartlar?";
+	public final static String STR_INV_GROUPS="Stok Gruplar?";
+	public final static String STR_NEW_SUB_GROUP="Yeni Alt Grup";
 	
 	
 	public final static String MSG_ENTER_INV_CODE="Stok kodu girmelisiniz!";
@@ -56,11 +66,14 @@ public class InvLangKeys
 	public final static String STR_AMOUNT_IN="Giri? Miktar?";
 	public final static String STR_AMOUNT_OUT="Çk?? Miktar?";
 	public final static String STR_BALANCE_AMOUNT_IN="Bakiye Giri?";
-	public final static String STR_BALANCE_AMOUNT_OUT="Bakite Ç?k??";
+	public final static String STR_BALANCE_AMOUNT_OUT="Bakiye Ç?k??";
 	public final static String STR_PRICE_IN="Giri? Tutar?";
 	public final static String STR_PRICE_OUT="Ç?k?? Tutar?";
+	public final static String STR_BALANCE_AMOUNT="Bakiye Miktar?";
+	public final static String STR_BALANCE_PRICE="Bakiye Tutar?";
 	
 	public final static String MSG_INV_CARD_HAS_TRANSACTION="Bu stok kart? stok hareket görmü?\n?lk önce hareketleri silmeniz gerekir!";
+	public final static String MSG_ENTER_GROUP_NAME="Lütfen grup ad? giriniz!";
 	
 	
 	
