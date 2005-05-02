@@ -64,6 +64,7 @@ public class EngLangCommonKeys {
 	public final static String STR_TOTAL_CAPITAL="TOPLAM";
     public final static String STR_TOTAL_CREDIT="Toplama Alacak";
     public final static String STR_TOTAL_DEPT = "Toplam Borç";
+    public final static String STR_TRANSOVER_CAPITAL="DEVREDEN";
 	public final static String STR_TYPE="Tipi";
 	public final static String STR_UNIT="Birim";
 	public final static String STR_UNIT_NAME="Birim Ad?";
