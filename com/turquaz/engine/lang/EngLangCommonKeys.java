@@ -23,6 +23,11 @@ public class EngLangCommonKeys {
 	public final static String STR_END_DATE="Biti? Tarihi";
 	public final static String STR_SEARCH_RESULT="Arama Sonucu";
 	public final static String STR_REPORT="Rapor";
+    public final static String STR_TOTAL_CREDIT="Toplama Alacak";
+    public final static String STR_TOTAL_DEPT = "Toplam Borç";
+    public final static String STR_BALANCE = "Bakiye";
+    public final static String STR_BALANCE_CREDIT ="Alacak Bakiye";
+    public final static String STR_BALANCE_DEPT =  "Borç Bakiye";
 	
 	public final static String STR_EXCHANGE="Kur";
 	public final static String STR_EXCHANGE_RATE="Kur Oran?";
