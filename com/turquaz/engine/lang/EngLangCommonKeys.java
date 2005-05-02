@@ -14,6 +14,7 @@ public class EngLangCommonKeys {
 	public final static String STR_ADDRESS="Adres";
 	public final static String STR_AMOUNT="Miktar";
     public final static String STR_BALANCE = "Bakiye";
+    public final static String STR_BALANCE_CAPITAL="BAK?YE";
     public final static String STR_BALANCE_CREDIT ="Alacak Bakiye";
     public final static String STR_BALANCE_DEPT =  "Borç Bakiye";
 	public final static String STR_CANCEL = "Ýptal";

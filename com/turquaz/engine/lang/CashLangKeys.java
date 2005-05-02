@@ -18,6 +18,13 @@ public class CashLangKeys
 	public final static String STR_CASH_CARD_INFO="Kasa Kart? Bilgileri";
 	public final static String STR_CASH_CODE="Kasa Kodu";
 	
+	
 	public final static String MSG_ENTER_CASH_CODE="Lütfen kasa kodunu giriniz!";
 	public final static String MSG_SELECT_ACCOUNTING_ACCOUNT="Lütfen muhasebe hesab?n? seçiniz!";
+	public final static String MSG_SELECT_CASH_CARD="Lütfen kasa kart? seçiniz!";
+	public final static String MSG_ONLY_CASH_TRANSACTIONS_ARE_ALLOWED_TO_EDIT="Sadece kasa hareketlerini bu modülden güncelleyebilirsiniz!";
+
+	public final static String TITLE_CASH_CARD_ABSTRACT="Kasa Kart? Ekstresi";
+	public final static String STR_CASH_TOTAL="Kasa Yekünü";
+
 }
