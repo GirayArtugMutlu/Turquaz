@@ -15,4 +15,5 @@ package com.turquaz.engine.lang;
 public class BillLangKeys
 {
 	public final static String STR_BILL_DOC_NO="Fatura Belge No";
+	public final static String STR_BILL_DATE="Fatura Tarihi";
 }
