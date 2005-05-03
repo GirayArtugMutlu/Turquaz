@@ -14,6 +14,7 @@ public class EngLangCommonKeys {
 	public final static String MSG_DEFINE_DAILY_EXCHANGE_RATE="Günlük kur oran? tan?mlamal?s?n?z!";
 	
 	public final static String STR_ADD="Ekle";
+    public final static String STR_ALL ="Hepsi";
 	
 	public final static String STR_ADDRESS="Adres";
 	public final static String STR_AMOUNT="Miktar";
