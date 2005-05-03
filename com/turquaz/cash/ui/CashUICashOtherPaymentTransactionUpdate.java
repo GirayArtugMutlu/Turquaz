@@ -21,13 +21,14 @@ import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -35,7 +36,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -78,12 +78,12 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 			}
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setSize(633, 353);
-			dialogShell.setText(Messages.getString("CashUICashOtherPaymentTransactionUpdate.0")); //$NON-NLS-1$
+			dialogShell.setText(CashLangKeys.TITLE_OTHER_PAYMENT_UPDATE);
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				{
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-					toolUpdate.setText(Messages.getString("CashUICashCollectTransactionUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -93,7 +93,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 				}
 				{
 					tooldelete = new ToolItem(toolBar1, SWT.NONE);
-					tooldelete.setText(Messages.getString("CashUICashCollectTransactionUpdate.2")); //$NON-NLS-1$
+					tooldelete.setText(EngLangCommonKeys.STR_DELETE);
 					tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 					tooldelete.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -103,7 +103,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("CashUICashCollectTransactionUpdate.4")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -173,10 +173,8 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-			msg.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.1")); //$NON-NLS-1$
-			int answer = msg.open();
-			if (answer == SWT.YES)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				updated = true;
 				
@@ -184,11 +182,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"deleteCashTrans",argMap);
-				
-				
-				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
-				msg2.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.3")); //$NON-NLS-1$
-				msg2.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}
 		}
@@ -202,7 +196,6 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 			if (compTransAdd.verifyFields())
 			{
 				updated = true;
@@ -217,10 +210,9 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 				argMap.put(AccKeys.ACC_ACCOUNT,compTransAdd.getTxtAccountingAccount().getTurqAccountingAccount());
 							
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateOtherTrans",argMap);
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
+				dialogShell.close();
 			}
-			msg.setMessage(Messages.getString("CashUICashCollectTransactionUpdate.5")); //$NON-NLS-1$
-			msg.open();
-			dialogShell.close();
 		}
 		catch (Exception ex)
 		{

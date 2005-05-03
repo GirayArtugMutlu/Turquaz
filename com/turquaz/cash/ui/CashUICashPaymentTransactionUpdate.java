@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -26,10 +25,11 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -74,7 +74,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("CashUICashPaymentTransactionUpdate.0")); //$NON-NLS-1$
+			dialogShell.setText(CashLangKeys.TITLE_PAYMENT_TRANSACTION_UPDATE);
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.setImage(SWTResourceManager.getImage("icons/Editor16.gif")); //$NON-NLS-1$
 			dialogShell.layout();
@@ -87,7 +87,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-					toolUpdate.setText(Messages.getString("CashUICashPaymentTransactionUpdate.1")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -97,7 +97,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				}
 				{
 					tooldelete = new ToolItem(toolBar1, SWT.NONE);
-					tooldelete.setText(Messages.getString("CashUICashPaymentTransactionUpdate.3")); //$NON-NLS-1$
+					tooldelete.setText(EngLangCommonKeys.STR_DELETE);
 					tooldelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 					tooldelete.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -107,7 +107,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("CashUICashPaymentTransactionUpdate.5")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -189,20 +189,15 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-			msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.7")); //$NON-NLS-1$
-			int answer = msg.open();
-			if (answer == SWT.YES)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				updated = true;
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"deleteCashTrans",argMap);
-				
-				MessageBox msg2 = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
-				msg2.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.8")); //$NON-NLS-1$
-				msg2.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}
 		}
@@ -216,11 +211,9 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
 			if (compTransAdd.verifyFields())
 			{
-				updated = true;
-				
+				updated = true;				
 
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD,compTransAdd.getTxtCashCard().getData());
@@ -234,9 +227,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateCashTrans",argMap );
-			
-				msg.setMessage(Messages.getString("CashUICashPaymentTransactionUpdate.9")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}
 		}

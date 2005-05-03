@@ -633,7 +633,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			compInvCardPrices.layout();
 			//START >> tabItemAccounting
 			tabItemAccounting = new CTabItem(tabfldInvCardAdd, SWT.NONE);
-			tabItemAccounting.setText(InvLangKeys.STR_ACCOUNTING_CODES);
+			tabItemAccounting.setText(AccLangKeys.STR_ACCOUNTING_CODES);
 			//START >> compAccounting
 			compAccounting = new Composite(tabfldInvCardAdd, SWT.NONE);
 			GridLayout compAccountingLayout = new GridLayout();
@@ -652,7 +652,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			tableInvAccounts.setLayoutData(tableInvAccountsLData);
 			//START >> tableColumnAccType
 			tableColumnAccType = new TableColumn(tableInvAccounts, SWT.NONE);
-			tableColumnAccType.setText(InvLangKeys.STR_ACCOUNTING_TYPE);
+			tableColumnAccType.setText(AccLangKeys.STR_ACCOUNTING_TYPE);
 			tableColumnAccType.setWidth(200);
 			//END << tableColumnAccType
 			//START >> tableColumnInvAccount

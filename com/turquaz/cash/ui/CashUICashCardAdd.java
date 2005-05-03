@@ -177,7 +177,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 		}
 		else if (accountPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
+			EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
 			accountPicker.setFocus();
 			return false;
 		}

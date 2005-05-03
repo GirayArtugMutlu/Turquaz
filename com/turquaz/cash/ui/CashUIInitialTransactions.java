@@ -13,12 +13,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -47,10 +48,10 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 	private TableColumn tableColumnDept;
 	private TableColumn tableColumnCredit;
 	private TableColumn tableColumnBankCode;
-	final static String CASH_CODE = Messages.getString("CashUIInitialTransactions.0")  ; //$NON-NLS-1$
-	final static String CASH_NAME = Messages.getString("CashUIInitialTransactions.1"); //$NON-NLS-1$
-	final static String CASH_DEPT = Messages.getString("CashUIInitialTransactions.2"); //$NON-NLS-1$
-	final static String CASH_CREDIT =Messages.getString("CashUIInitialTransactions.3"); //$NON-NLS-1$
+	final static String CASH_CODE = CashLangKeys.STR_CASH_CODE;
+	final static String CASH_NAME = CashLangKeys.STR_CASH_NAME;
+	final static String CASH_DEPT = EngLangCommonKeys.STR_DEPT;
+	final static String CASH_CREDIT = EngLangCommonKeys.STR_CREDIT;
 	TableCursor cursor;
 	TableRowList rowList = new TableRowList();
 	private List columnList = new ArrayList();

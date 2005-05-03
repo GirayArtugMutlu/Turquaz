@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -31,7 +30,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -39,7 +37,10 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
@@ -110,7 +111,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			this.setSize(540, 267);
 			{
 				lblDocumentNo = new CLabel(this, SWT.NONE);
-				lblDocumentNo.setText(Messages.getString("CashUICashCollectTransactionAdd.2")); //$NON-NLS-1$
+				lblDocumentNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 			}
 			{
 				txtDocumentNo = new Text(this, SWT.NONE);
@@ -121,7 +122,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			}
 			{
 				lblDate = new CLabel(this, SWT.NONE);
-				lblDate.setText(Messages.getString("CashUICashCollectTransactionAdd.3")); //$NON-NLS-1$
+				lblDate.setText(EngLangCommonKeys.STR_DATE);
 			}
 			{
 				datePicker = new DatePicker(this, SWT.NONE);
@@ -132,7 +133,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			}
 			{
 				lblCashCard = new CLabel(this, SWT.NONE);
-				lblCashCard.setText(Messages.getString("CashUICashTransferBetweenCards.0")); //$NON-NLS-1$
+				lblCashCard.setText(CashLangKeys.STR_DEBTOR_CASH_CARD);
 			}
 			{
 				txtCashCardWithDept = new CashCardPicker(this, SWT.NONE);
@@ -143,7 +144,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			}
 			{
 				lblCurrentCard = new CLabel(this, SWT.NONE);
-				lblCurrentCard.setText(Messages.getString("CashUICashTransferBetweenCards.1")); //$NON-NLS-1$
+				lblCurrentCard.setText(CashLangKeys.STR_CREDITOR_CASH_CARD);
 			}
 			{
 				txtCashCardWithCredit = new CashCardPicker(this, SWT.NONE);
@@ -154,7 +155,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			}
 			{
 				lblTotalAmount = new CLabel(this, SWT.NONE);
-				lblTotalAmount.setText(Messages.getString("CashUICashCollectTransactionAdd.6")); //$NON-NLS-1$
+				lblTotalAmount.setText(EngLangCommonKeys.STR_TOTALPRICE);
 				GridData lblTotalAmountLData = new GridData();
 				lblTotalAmountLData.widthHint = 42;
 				lblTotalAmountLData.heightHint = 19;
@@ -169,7 +170,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			}
 			//START >> lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText("Para Birimi");
+			lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 			//END << lblCurrency
 			//START >> comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -180,7 +181,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			//END << comboCurrencyType
 			{
 				lblDefinition = new CLabel(this, SWT.NONE);
-				lblDefinition.setText(Messages.getString("CashUICashCollectTransactionAdd.7")); //$NON-NLS-1$
+				lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			}
 			{
 				txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
@@ -238,7 +239,6 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 
 	public void save()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
 			if (verifyFields())
@@ -255,9 +255,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 				argMap.put(EngKeys.EXCHANGE_RATE, exchangeRate);
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionAdd.class.getName(),"saveTransferBetweenAccounts",argMap);
-			
-				msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.1")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
 		}
@@ -272,32 +270,27 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCashCardWithDept.getData() == null)
 			{
-				msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.2")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_DEBTOR_CASH_CARD,SWT.ICON_WARNING);
 				txtCashCardWithDept.setFocus();
 				return false;
 			}
 			else if (txtCashCardWithCredit.getData() == null)
 			{
-				msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.3")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CREDITOR_CASH_CARD,SWT.ICON_WARNING);
 				txtCashCardWithCredit.setFocus();
 				return false;
 			}
 			else if (curTextTotalAmount.getBigDecimalValue().equals(new BigDecimal(0)))
 			{
-				msg.setMessage(Messages.getString("CashUICashPaymentTransactionAdd.4")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AMOUNT,SWT.ICON_WARNING);
 				curTextTotalAmount.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage("Para birimi seçmelisiniz!");
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
 				comboCurrencyType.setFocus();
 				return false;
 			}
@@ -306,8 +299,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePicker.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage("Günlük de?i?im oran? tan?mlamal?s?n?z!");
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
 					return false;
 				}
 			}

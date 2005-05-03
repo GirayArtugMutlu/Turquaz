@@ -267,7 +267,7 @@ public class CashUICashOtherCollectTransaction extends org.eclipse.swt.widgets.C
 			}
 			else if (txtAccountingAccount.getData() == null)
 			{
-				EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
+				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
 				txtAccountingAccount.setFocus();
 				return false;
 			}

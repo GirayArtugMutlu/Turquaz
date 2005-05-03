@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.Messages;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -37,6 +36,8 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -105,7 +106,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				compSearchPanel.setLayout(compSearchPanelLayout);
 				{
 					lblCashCard = new CLabel(compSearchPanel, SWT.NONE);
-					lblCashCard.setText(Messages.getString("CashUICashTransactionSearch.0")); //$NON-NLS-1$
+					lblCashCard.setText(CashLangKeys.STR_CASH_CARD);
 					GridData lblCashCardLData = new GridData();
 					lblCashCardLData.widthHint = 59;
 					lblCashCardLData.heightHint = 18;
@@ -120,7 +121,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				}
 				{
 					lblDefinition = new CLabel(compSearchPanel, SWT.NONE);
-					lblDefinition.setText(Messages.getString("CashUICashTransactionSearch.9")); //$NON-NLS-1$
+					lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 				}
 				{
 					txtDefinition = new Text(compSearchPanel, SWT.NONE);
@@ -131,7 +132,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				}
 				{
 					lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblStartDate.setText(Messages.getString("CashUICashTransactionSearch.1")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 				}
 				{
 					datePickerStart = new DatePicker(compSearchPanel, SWT.NONE);
@@ -142,7 +143,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				}
 				{
 					lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblEndDate.setText(Messages.getString("CashUICashTransactionSearch.2")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 				}
 				{
 					datePickerEnd = new DatePicker(compSearchPanel, SWT.NONE);
@@ -171,27 +172,27 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 				tableCashTransactions.setLayoutData(tableCashTransactionsLData);
 				{
 					tableColumnDate = new TableColumn(tableCashTransactions, SWT.NONE);
-					tableColumnDate.setText(Messages.getString("CashUICashTransactionSearch.3")); //$NON-NLS-1$
+					tableColumnDate.setText(EngLangCommonKeys.STR_DATE);
 					tableColumnDate.setWidth(95);
 				}
 				{
 					tableColumnDefinition = new TableColumn(tableCashTransactions, SWT.NONE);
-					tableColumnDefinition.setText(Messages.getString("CashUICashTransactionSearch.10")); //$NON-NLS-1$
+					tableColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 					tableColumnDefinition.setWidth(120);
 				}
 				{
 					tableColumnType = new TableColumn(tableCashTransactions, SWT.NONE);
-					tableColumnType.setText(Messages.getString("CashUICashTransactionSearch.5")); //$NON-NLS-1$
+					tableColumnType.setText(EngLangCommonKeys.STR_TYPE);
 					tableColumnType.setWidth(95);
 				}
 				{
 					tableColumnDept = new TableColumn(tableCashTransactions, SWT.RIGHT);
 					tableColumnDept.setWidth(103);
-					tableColumnDept.setText(Messages.getString("CashUICashTransactionSearch.4")); //$NON-NLS-1$
+					tableColumnDept.setText(EngLangCommonKeys.STR_DEPT);
 				}
 				//START >>  tableColumnCredit
 				tableColumnCredit = new TableColumn(tableCashTransactions, SWT.RIGHT);
-				tableColumnCredit.setText(Messages.getString("CashUICashTransactionSearch.6")); //$NON-NLS-1$
+				tableColumnCredit.setText(EngLangCommonKeys.STR_CREDIT);
 				tableColumnCredit.setWidth(100);
 				//END <<  tableColumnCredit
 			}
@@ -207,7 +208,6 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	public void postInitGUI()
 	{
-		//datePickerStart.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		datePickerStart.setDate(cal.getTime());
 		createTableViewer();
@@ -236,7 +236,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCashTransactions, Messages.getString("CashUICashTransactionSearch.8")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCashTransactions, CashLangKeys.STR_CASH_TRANSACTIONS);
 	}
 
 	public void search()
@@ -250,11 +250,9 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			argMap.put(EngKeys.DATE_START,datePickerStart.getDate());
 			argMap.put(EngKeys.DATE_END,datePickerEnd.getDate());
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
-			
-			
+				
 			List list =(List)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"searchCashTransactions",argMap); //$NON-NLS-1$
-			
-			
+				
 			Object[] row;
 			BigDecimal deptAmount = new BigDecimal(0);
 			BigDecimal creditAmount = new BigDecimal(0);
@@ -297,7 +295,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		TurqCashTransaction cashTrans =(TurqCashTransaction)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"initializeCashTransaction",argMap); //$NON-NLS-1$
 		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
 		{
-			EngUICommon.showMessageBox(shell, Messages.getString("CashUICashTransactionSearch.7")); //$NON-NLS-1$
+			EngUICommon.showMessageBox(shell, CashLangKeys.MSG_ONLY_CASH_TRANSACTIONS_ARE_ALLOWED_TO_EDIT,SWT.ICON_INFORMATION);
 			return false;
 		}
 		boolean updated = false;
