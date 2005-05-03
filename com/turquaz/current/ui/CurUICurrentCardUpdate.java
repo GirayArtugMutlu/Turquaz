@@ -34,10 +34,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
+import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
@@ -48,6 +48,8 @@ import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
 import com.turquaz.engine.dal.TurqCurrentCardsPhone;
+import com.turquaz.engine.dal.TurqCurrentTransactionType;
+
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
@@ -58,6 +60,8 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.engine.dal.TurqCurrentContact;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -112,7 +116,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("CurUICurrentCardUpdate.1")); //$NON-NLS-1$
+			dialogShell.setText(CurLangKeys.TITLE_CUR_CARD_UPDATE); //$NON-NLS-1$
 			{
 				toolBarTop = new ToolBar(dialogShell, SWT.NONE);
 				GridData toolBarTopLData = new GridData();
@@ -122,7 +126,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				{
 					toolUpdate = new ToolItem(toolBarTop, SWT.NONE);
 					toolUpdate.setEnabled(true);
-					toolUpdate.setText(Messages.getString("CurUICurrentCardUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); //$NON-NLS-1$
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
@@ -135,7 +139,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				{
 					toolDelete = new ToolItem(toolBarTop, SWT.NONE);
 					toolDelete.setEnabled(true);
-					toolDelete.setText(Messages.getString("CurUICurrentCardUpdate.16")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -147,7 +151,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBarTop, SWT.NONE);
-					toolCancel.setText(Messages.getString("CurUICurrentCardUpdate.19")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -182,24 +186,24 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			cTabFolder1.setLayoutData(cTabFolder1LData);
 			cTabFolder1.setSize(new org.eclipse.swt.graphics.Point(678, 381));
 			cTabItem1.setControl(compCurCardAdd);
-			cTabItem1.setText(Messages.getString("CurUICurrentCardUpdate.2")); //$NON-NLS-1$
+			cTabItem1.setText(CurLangKeys.STR_CUR_CARD_INFO); //$NON-NLS-1$
 			compCurCardAdd.setSize(new org.eclipse.swt.graphics.Point(586, 374));
 			compCurCardAdd.setEnabled(true);
 			compCurCardAdd.layout();
 			cTabItem2.setControl(tableCurrentBalances);
-			cTabItem2.setText(Messages.getString("CurUICurrentCardUpdate.3")); //$NON-NLS-1$
+			cTabItem2.setText(CurLangKeys.STR_CUR_CARD_BALANCES); //$NON-NLS-1$
 			tableCurrentBalances.setHeaderVisible(true);
 			tableCurrentBalances.setLinesVisible(true);
 			tableCurrentBalances.setSize(new org.eclipse.swt.graphics.Point(662, 365));
-			tableColumnTransactionType.setText(Messages.getString("CurUICurrentCardUpdate.4")); //$NON-NLS-1$
+			tableColumnTransactionType.setText(CurLangKeys.STR_TRANSACTION_GROUP); //$NON-NLS-1$
 			tableColumnTransactionType.setWidth(100);
-			tableColumnTotalCredit.setText(Messages.getString("CurUICurrentCardUpdate.5")); //$NON-NLS-1$
+			tableColumnTotalCredit.setText(EngLangCommonKeys.STR_TOTAL_CREDIT); //$NON-NLS-1$
 			tableColumnTotalCredit.setWidth(100);
-			tableColumnTotalDept.setText(Messages.getString("CurUICurrentCardUpdate.6")); //$NON-NLS-1$
+			tableColumnTotalDept.setText(EngLangCommonKeys.STR_TOTAL_DEPT); //$NON-NLS-1$
 			tableColumnTotalDept.setWidth(127);
-			tableColumnBalanceCredit.setText(Messages.getString("CurUICurrentCardUpdate.7")); //$NON-NLS-1$
+			tableColumnBalanceCredit.setText(EngLangCommonKeys.STR_BALANCE_CREDIT); //$NON-NLS-1$
 			tableColumnBalanceCredit.setWidth(137);
-			tableColumnBalanceDept.setText(Messages.getString("CurUICurrentCardUpdate.8")); //$NON-NLS-1$
+			tableColumnBalanceDept.setText(EngLangCommonKeys.STR_BALANCE_DEPT); //$NON-NLS-1$
 			tableColumnBalanceDept.setWidth(133);
 			cTabFolder1.setSelection(0);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
@@ -339,20 +343,18 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			TableItem item;
-			String type[] = new String[5];
-			type[0] = Messages.getString("CurUICurrentCardUpdate.10"); //$NON-NLS-1$
-			type[1] = Messages.getString("CurUICurrentCardUpdate.11"); //$NON-NLS-1$
-			type[2] = Messages.getString("CurUICurrentCardUpdate.12"); //$NON-NLS-1$
-			type[3] = Messages.getString("CurUICurrentCardUpdate.13"); //$NON-NLS-1$
-			type[4] = Messages.getString("CurUICurrentCardUpdate.14"); //$NON-NLS-1$
-			BigDecimal totalCredit = new BigDecimal(0);
+			
+            List list =(List)EngTXCommon.doSelectTX(CurBLCurrentTransactionAdd.class.getName(),"getCurrentTransactionTypes",null);
+            
+            BigDecimal totalCredit = new BigDecimal(0);
 			BigDecimal totalDept = new BigDecimal(0);
-			for (int i = 1; i < 6; i++)
+            Iterator it = list.iterator();
+			while(it.hasNext())
 			{
-				
+				TurqCurrentTransactionType transType = (TurqCurrentTransactionType)it.next();
 				HashMap argMap = new HashMap();
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
-				argMap.put(EngKeys.TYPE,new Integer(i));
+				argMap.put(EngKeys.TYPE,transType.getId());
 				
 				List balanceList = (List)EngTXCommon.doSelectTX(CurBLCurrentCardUpdate.class.getName(),"getCurrentTransactionBalances",argMap);
 				
@@ -369,18 +371,18 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 					totalDept = totalDept.add(debt);
 					if (credit.compareTo(debt) == 1)
 					{
-						item.setText(new String[]{type[i - 1], credit.toString(), debt.toString(), credit.subtract(debt).toString(),
+						item.setText(new String[]{transType.getTransactionTypeName(), credit.toString(), debt.toString(), credit.subtract(debt).toString(),
 								"0"}); //$NON-NLS-1$
 					}
 					else
 					{
-						item.setText(new String[]{type[i - 1], credit.toString(), debt.toString(),
+						item.setText(new String[]{transType.getTransactionTypeName(), credit.toString(), debt.toString(),
 								"0", debt.subtract(credit).toString()}); //$NON-NLS-1$
 					}
 				}
 				else
 				{
-					item.setText(new String[]{type[i - 1], "0", "0", "0", "0"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+					item.setText(new String[]{transType.getTransactionTypeName(), "0", "0", "0", "0"}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				}
 			}
 		}
@@ -408,11 +410,11 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			
 			if (curCardTrans.size() > 0)
 			{
-				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.15")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_CUR_CARD_HAS_TRANSACTIONS); //$NON-NLS-1$
 				msg.open();
 				return;
 			}
-			msg2.setMessage(Messages.getString("CurUICurrentCardUpdate.21")); //$NON-NLS-1$
+			msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); //$NON-NLS-1$
 			int result = msg2.open();
 			if (result == SWT.OK)
 			{
@@ -420,7 +422,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap = new HashMap();
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
-				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.22")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
 			}
@@ -433,8 +435,8 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 
 	public boolean verifyFields() throws Exception
 	{
-		try
-		{
+        
+     try{
 			
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_CURRENT_CODE,compCurCardAdd.getTxtCurrentCode().getText().trim());
@@ -451,7 +453,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			else if ((!currentCard.getCardsCurrentCode().equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))
 					&& isCurrentCodePresent.booleanValue())
 			{
-				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.23")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_CURRENT_CODE_ALREADY_EXIST); //$NON-NLS-1$
 				msg.open();
 				return false;
 			}
@@ -491,7 +493,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.CURRENT_CARD,currentCard);
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"updateCurrentCard",argMap);
-				msg.setMessage(Messages.getString("CurUICurrentCardUpdate.26")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
 			}

@@ -43,11 +43,12 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentGroup;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyAdapter;
@@ -96,7 +97,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("CurUIGroupAddDialog.5")); //$NON-NLS-1$
+			dialogShell.setText(CurLangKeys.TITLE_CUR_GROUPS_UPDATE); //$NON-NLS-1$
 			dialogShell.setSize(new org.eclipse.swt.graphics.Point(433, 229));
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -113,7 +114,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				compGroupAddDialog.setLayoutData(compGroupAddDialogLData);
 				{
 					lblGroupName = new CLabel(compGroupAddDialog, SWT.NONE);
-					lblGroupName.setText(Messages.getString("CurUIGroupAddDialog.0"));//$NON-NLS-1$
+					lblGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME);//$NON-NLS-1$
 					lblGroupName.setSize(new org.eclipse.swt.graphics.Point(56, 20));
 					GridData lblGroupNameLData = new GridData();
 					lblGroupNameLData.horizontalAlignment = GridData.END;
@@ -145,7 +146,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 					lblDescriptionLData.widthHint = 72;
 					lblDescriptionLData.heightHint = 23;
 					lblDescription.setLayoutData(lblDescriptionLData);
-					lblDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
+					lblDescription.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 				}
 				{
 					txtDescription = new Text(compGroupAddDialog, SWT.SINGLE | SWT.BORDER);
@@ -157,7 +158,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					btnDelete = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
-					btnDelete.setText(Messages.getString("CurUIGroupAddDialog.2"));//$NON-NLS-1$
+					btnDelete.setText(EngLangCommonKeys.STR_DELETE);//$NON-NLS-1$
 					GridData btnDeleteLData = new GridData();
 					btnDelete.addMouseListener(new MouseAdapter()
 					{
@@ -174,7 +175,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					btnUpdate = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
-					btnUpdate.setText(Messages.getString("CurUIGroupAddDialog.3"));//$NON-NLS-1$
+					btnUpdate.setText(EngLangCommonKeys.STR_UPDATE);//$NON-NLS-1$
 					GridData btnUpdateLData = new GridData();
 					btnUpdate.addMouseListener(new MouseAdapter()
 					{
@@ -191,7 +192,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					btnGroupAdd = new Button(compGroupAddDialog, SWT.PUSH | SWT.CENTER);
-					btnGroupAdd.setText(Messages.getString("CurUIGroupAddDialog.4"));//$NON-NLS-1$
+					btnGroupAdd.setText(EngLangCommonKeys.STR_ADD);//$NON-NLS-1$
 					GridData btnGroupAddLData = new GridData();
 					btnGroupAdd.addMouseListener(new MouseAdapter()
 					{
@@ -223,12 +224,12 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				tableCurGroups.setLayoutData(tableCurGroupsLData);
 				{
 					tableColumnName = new TableColumn(tableCurGroups, SWT.NONE);
-					tableColumnName.setText(Messages.getString("CurUIGroupAddDialog.0"));//$NON-NLS-1$
+					tableColumnName.setText(EngLangCommonKeys.STR_GROUP_NAME);//$NON-NLS-1$
 					tableColumnName.setWidth(150);
 				}
 				{
 					tableColumnDescription = new TableColumn(tableCurGroups, SWT.NONE);
-					tableColumnDescription.setText(Messages.getString("CurUIGroupAddDialog.1"));//$NON-NLS-1$
+					tableColumnDescription.setText(EngLangCommonKeys.STR_DESCRIPTION);//$NON-NLS-1$
 					tableColumnDescription.setWidth(270);
 				}
 			}
@@ -308,7 +309,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		MessageBox msg2 = new MessageBox(this.getParent());
 		try
 		{
-			msg.setMessage(Messages.getString("CurUIGroupAddDialog.7")); //$NON-NLS-1$
+			msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); //$NON-NLS-1$
 			int result = msg.open();
 			if (result == SWT.OK)
 			{
@@ -321,7 +322,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				btnGroupAdd.setEnabled(true);
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$
-				msg2.setMessage(Messages.getString("CurUIGroupAddDialog.8")); //$NON-NLS-1$
+				msg2.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				msg2.open();
 				fillTable();
 			}
@@ -333,9 +334,8 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			btnGroupAdd.setEnabled(true);
 			txtGroupName.setText(""); //$NON-NLS-1$
 			txtDescription.setText(""); //$NON-NLS-1$
-			msg2.setMessage(Messages.getString("CurUIGroupAddDialog.13")); //$NON-NLS-1$
-			msg2.open();
-            EngBLLogger.log(this.getClass(),ex);
+			
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -346,7 +346,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.15")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_GROUP_NAME); //$NON-NLS-1$
 				msg.open();
 			}
 			else
@@ -365,7 +365,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				btnGroupAdd.setEnabled(true);
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.19")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				txtGroupName.setFocus();
 				fillTable();
@@ -378,9 +378,8 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			btnGroupAdd.setEnabled(true);
 			txtGroupName.setText(""); //$NON-NLS-1$
 			txtDescription.setText(""); //$NON-NLS-1$
-			msg.setMessage(Messages.getString("CurUIGroupAddDialog.22")); //$NON-NLS-1$
-			msg.open();
-            EngBLLogger.log(this.getClass(),ex);
+			
+            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
@@ -391,7 +390,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.24")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_GROUP_NAME); //$NON-NLS-1$
 				msg.open();
 				txtGroupName.setFocus();
 			}
@@ -404,7 +403,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentGroup",argMap);
 				
 				
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); //$NON-NLS-1$
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$
 				fillTable();

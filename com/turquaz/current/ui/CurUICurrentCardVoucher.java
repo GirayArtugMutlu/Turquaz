@@ -45,6 +45,8 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -56,7 +58,6 @@ import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.custom.CCombo;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 
@@ -158,7 +159,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			this.setSize(632, 352);
 			//START >>  lblCashTransType
 			lblCashTransType = new CLabel(this, SWT.NONE);
-			lblCashTransType.setText(Messages.getString("CurUICurrentCardVoucher.8")); //$NON-NLS-1$
+			lblCashTransType.setText(CurLangKeys.STR_DEPT_CREDIT_VOUCHER); //$NON-NLS-1$
 			lblCashTransType.setFont(SWTResourceManager.getFont("Tahoma", 14, 1, false, false)); //$NON-NLS-1$
 			GridData lblCashTransTypeLData = new GridData();
 			lblCashTransTypeLData.horizontalAlignment = GridData.CENTER;
@@ -168,7 +169,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			//END <<  lblCashTransType
 			//START >>  lvlCurrentCard
 			lvlCurrentCard = new CLabel(this, SWT.NONE);
-			lvlCurrentCard.setText(Messages.getString("CurUICurrentCardVoucher.0")); //$NON-NLS-1$
+			lvlCurrentCard.setText(CurLangKeys.STR_CUR_CARD); //$NON-NLS-1$
 			GridData lvlCurrentCardLData = new GridData();
 			lvlCurrentCardLData.widthHint = 78;
 			lvlCurrentCardLData.heightHint = 15;
@@ -183,7 +184,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			//END <<  txtCurrentCard
 			//START >>  lvlDate
 			lvlDate = new CLabel(this, SWT.NONE);
-			lvlDate.setText(Messages.getString("CurUICurrentCardVoucher.1")); //$NON-NLS-1$
+			lvlDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
 			//END <<  lvlDate
 			//START >>  dateTransDate
 			dateTransDate = new DatePicker(this, SWT.NONE);
@@ -223,7 +224,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			//END <<  txtCredit
 			//START >>  lblAcccountingAccount
 			lblAcccountingAccount = new CLabel(this, SWT.NONE);
-			lblAcccountingAccount.setText(Messages.getString("CurUICurrentCardVoucher.3")); //$NON-NLS-1$
+			lblAcccountingAccount.setText(EngLangCommonKeys.STR_ACCOUNTING_ACCOUNT); //$NON-NLS-1$
 			//END <<  lblAcccountingAccount
 			//START >>  accountPicker
 			accountPicker = new AccountPickerLeaf(this, SWT.NONE);
@@ -234,7 +235,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			//END <<  accountPicker
 			//START >>  lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText(Messages.getString("CurUICurrentCardVoucher.5")); //$NON-NLS-1$
+			lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY); //$NON-NLS-1$
 			//END <<  lblCurrency
 			//START >>  comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -245,7 +246,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			//END <<  comboCurrencyType
 			//START >>  lvlDefinition
 			lvlDefinition = new CLabel(this, SWT.NONE);
-			lvlDefinition.setText(Messages.getString("CurUICurrentCardVoucher.2")); //$NON-NLS-1$
+			lvlDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 			//END <<  lvlDefinition
 			//START >>  txtDefinition
 			txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
@@ -328,7 +329,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
 								
 				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
-					if (EngUICommon.okToDelete(getShell(), Messages.getString("CurUICurrentCardVoucher.4"))) //$NON-NLS-1$
+					if (EngUICommon.okToDelete(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)) //$NON-NLS-1$
 				{
 					EngBLUtils.printCurrentTrans(curtrans);
 				}
@@ -348,21 +349,21 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCard.getData() == null)
 			{
-				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.10")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCard.setFocus();
 				return false;
 			}
 			else if (txtCredit.getText().equals("") && comboType.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
 			{
-				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.13")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLEASE_ENTER_CREDIT_OR_DEPT); //$NON-NLS-1$
 				msg.open();
 				comboType.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage(Messages.getString("CurUICurrentCardVoucher.6")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLEASE_CHOOSE_CURRENCY); //$NON-NLS-1$
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
@@ -372,7 +373,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage(Messages.getString("CurUICurrentCardVoucher.7")); //$NON-NLS-1$
+					msg.setMessage(CurLangKeys.MSG_PLASE_ENTER_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
 					msg.open();
 					return false;
 				}

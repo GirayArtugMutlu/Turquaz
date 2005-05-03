@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.Table;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.Messages;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -49,6 +48,9 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
@@ -112,10 +114,10 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
     }
     private BigDecimal totalCredit;
     //   Set the table column property names
-    private final String ACCOUNT_CODE = Messages.getString("AccUITransactionPayment.4"); //$NON-NLS-1$
-    private final String ACCOUNT_NAME = Messages.getString("AccUITransactionPayment.9"); //$NON-NLS-1$
-    private final String DEFINITION = Messages.getString("AccUITransactionPayment.10"); //$NON-NLS-1$
-    private final String DEBIT = Messages.getString("CurUIMultipleDeptVoucher.0"); //$NON-NLS-1$
+    private final String ACCOUNT_CODE = AccLangKeys.STR_ACCOUNT_CODE; //$NON-NLS-1$
+    private final String ACCOUNT_NAME = AccLangKeys.STR_ACCOUNT_NAME; //$NON-NLS-1$
+    private final String DEFINITION = EngLangCommonKeys.STR_DESCRIPTION; //$NON-NLS-1$
+    private final String DEBIT = EngLangCommonKeys.STR_DEPT; //$NON-NLS-1$
     private List columnList = new ArrayList();
     // Set column names
     private String[] columnNames = new String[]{ACCOUNT_CODE, ACCOUNT_NAME, DEFINITION, DEBIT};
@@ -164,7 +166,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             //END <<  txtDocumentNo
             //START >>  lblDate
             lblDate = new CLabel(this, SWT.NONE);
-            lblDate.setText(Messages.getString("AccUITransactionPayment.1")); //$NON-NLS-1$
+            lblDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
             lblDate.setSize(new org.eclipse.swt.graphics.Point(49, 19));
             //END <<  lblDate
             //START >>  datePickerTransactionDate
@@ -176,7 +178,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             //END <<  datePickerTransactionDate
             //START >>  lblCurrency
             lblCurrency = new CLabel(this, SWT.NONE);
-            lblCurrency.setText(Messages.getString("AccUITransactionPayment.5")); //$NON-NLS-1$
+            lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY); //$NON-NLS-1$
             //END <<  lblCurrency
             //START >>  comboCurrencyType
             comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -188,7 +190,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             //END <<  comboCurrencyType
             //START >>  lblDefinition
             lblDefinition = new CLabel(this, SWT.NONE);
-            lblDefinition.setText(Messages.getString("AccUITransactionPayment.3")); //$NON-NLS-1$
+            lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
             //END <<  lblDefinition
             //START >>  txtDefinition
             txtDefinition = new Text(this, SWT.MULTI | SWT.V_SCROLL);
@@ -330,31 +332,31 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
             if (totalCredit.doubleValue() <= 0)
             {
-                msg.setMessage(Messages.getString("AccUITransactionPayment.8")); //$NON-NLS-1$
+                msg.setMessage(AccLangKeys.MSG_VOUCHER_AMOUNT_NOT_ZERO); //$NON-NLS-1$
                 msg.open();
                 return false;
             }
             else if (tableTransactionRows.getItems().length == 0)
             {
-                msg.setMessage(Messages.getString("AccUITransactionPayment.15")); //$NON-NLS-1$
+                msg.setMessage(AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); //$NON-NLS-1$
                 msg.open();
                 return false;
             }
             else if (datePickerTransactionDate.getData() == null)
             {
-                msg.setMessage(Messages.getString("AccUITransactionPayment.16")); //$NON-NLS-1$
+                msg.setMessage(AccLangKeys.MSG_ENTER_VOUCHER_DATE); //$NON-NLS-1$
                 msg.open();
                 return false;
             }
             else if (currentPicker.getData() == null)
             {
-                msg.setMessage(Messages.getString("CurUIMultipleDeptVoucher.2"));  //$NON-NLS-1$
+                msg.setMessage(CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD);  //$NON-NLS-1$
                 msg.open();
                 return false;
             }
             else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
             {
-                msg.setMessage(Messages.getString("AccUITransactionPayment.6")); //$NON-NLS-1$
+                msg.setMessage(CurLangKeys.MSG_PLEASE_CHOOSE_CURRENCY); //$NON-NLS-1$
                 msg.open();
                 comboCurrencyType.setFocus();
                 return false;
@@ -364,7 +366,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                 exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePickerTransactionDate.getDate());
                 if (exchangeRate == null)
                 {
-                    msg.setMessage(Messages.getString("AccUITransactionPayment.7")); //$NON-NLS-1$
+                    msg.setMessage(CurLangKeys.MSG_PLASE_ENTER_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
                     msg.open();
                     return false;
                 }
@@ -385,7 +387,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
     public boolean okToDelete()
     {
         MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-        msg.setMessage(Messages.getString("AccUITransactionAdd.8")); //$NON-NLS-1$
+        msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); //$NON-NLS-1$
         if (msg.open() == SWT.OK)
         {
             return true;
@@ -456,12 +458,12 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                 
                if(result.intValue()==1)
                {
-                msg.setMessage(Messages.getString("AccUITransactionPayment.18")); //$NON-NLS-1$
+                msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); //$NON-NLS-1$
                 msg.open();
                }
                else if(result.intValue()==-1)
                {
-                   msg.setMessage(Messages.getString("CurUIMultipleDeptVoucher.4")); //$NON-NLS-1$
+                   msg.setMessage(CurLangKeys.MSG_NOT_SAVED_ACCOUNTING_TRANSACTIONS); //$NON-NLS-1$
                    msg.open();
                }
                

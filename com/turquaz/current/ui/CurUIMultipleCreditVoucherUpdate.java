@@ -10,12 +10,13 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPaymentTableRow;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -59,7 +60,7 @@ public class CurUIMultipleCreditVoucherUpdate extends org.eclipse.swt.widgets.Di
             }
             dialogShell.setLayout(new GridLayout());
             dialogShell.layout();
-            dialogShell.setText(Messages.getString("CurUIVoucherUpdate.5")); //$NON-NLS-1$
+            dialogShell.setText(CurLangKeys.TITLE_MULTIPLE_CREDIT_VOUCHER_UPDATE); //$NON-NLS-1$
             dialogShell.setSize(677, 392);
             {
                 toolBar1 = new ToolBar(dialogShell, SWT.NONE);
@@ -69,7 +70,7 @@ public class CurUIMultipleCreditVoucherUpdate extends org.eclipse.swt.widgets.Di
                 toolBar1.setLayoutData(toolBar1LData);
                 {
                     toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-                    toolUpdate.setText(Messages.getString("CurUIVoucherUpdate.0")); //$NON-NLS-1$
+                    toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); //$NON-NLS-1$
                     toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
                     toolUpdate.addSelectionListener(new SelectionAdapter()
                     {
@@ -82,7 +83,7 @@ public class CurUIMultipleCreditVoucherUpdate extends org.eclipse.swt.widgets.Di
                 }
                 {
                     toolDelete = new ToolItem(toolBar1, SWT.NONE);
-                    toolDelete.setText(Messages.getString("CurUIVoucherUpdate.2")); //$NON-NLS-1$
+                    toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
                     toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
                     toolDelete.addSelectionListener(new SelectionAdapter()
                     {
@@ -95,7 +96,7 @@ public class CurUIMultipleCreditVoucherUpdate extends org.eclipse.swt.widgets.Di
                 }
                 {
                     toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                    toolCancel.setText(Messages.getString("CurUIVoucherUpdate.4")); //$NON-NLS-1$
+                    toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
                     toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
                     toolCancel.addSelectionListener(new SelectionAdapter()
                     {

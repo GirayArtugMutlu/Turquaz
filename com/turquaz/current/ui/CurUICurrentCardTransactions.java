@@ -6,13 +6,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -89,7 +90,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 						coolItem1.setControl(toolBar1);
 						{
 							toolExportToExcel = new ToolItem(toolBar1, SWT.NONE);
-							toolExportToExcel.setText(Messages.getString("CurUICurrentCardTransactions.0")); //$NON-NLS-1$
+							toolExportToExcel.setText(EngLangCommonKeys.STR_EXPORT_TO_EXCEL); //$NON-NLS-1$
 							toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
 							toolExportToExcel.setWidth(68);
 							toolExportToExcel.addSelectionListener(new SelectionAdapter()
@@ -102,14 +103,13 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolPrint = new ToolItem(toolBar1, SWT.NONE);
-							toolPrint.setText(Messages.getString("CurUICurrentCardTransactions.2")); //$NON-NLS-1$
+							toolPrint.setText(EngLangCommonKeys.STR_PRINT); //$NON-NLS-1$
 							toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
 							toolPrint.addSelectionListener(new SelectionAdapter()
 							{
 								public void widgetSelected(SelectionEvent evt)
 								{
-									EngBLUtils.printTable(tableCurrentTransactions, Messages
-											.getString("CurUICurrentCardTransactions.4") //$NON-NLS-1$
+									EngBLUtils.printTable(tableCurrentTransactions,CurLangKeys.STR_CURRENT_CARD_ABSTRAT_CODE//$NON-NLS-1$
 											+ currentCard.getCardsCurrentCode());
 								}
 							});
@@ -129,12 +129,12 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 				tableCurrentTransactions.setLayoutData(tableCurrentTransactionsLData);
 				{
 					tableColumnTransDate = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnTransDate.setText(Messages.getString("CurUITransactionSearch.9")); //$NON-NLS-1$
+					tableColumnTransDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
 					tableColumnTransDate.setWidth(100);
 				}
 				{
 					tableColumnTransGroup = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnTransGroup.setText(Messages.getString("CurUITransactionSearch.6")); //$NON-NLS-1$
+					tableColumnTransGroup.setText(CurLangKeys.STR_TRANSACTION_GROUP); //$NON-NLS-1$
 					tableColumnTransGroup.setWidth(114);
 				}
 				{
@@ -144,12 +144,12 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					tableColumnDebit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
+					tableColumnDebit.setText(EngLangCommonKeys.STR_DEPT); //$NON-NLS-1$
 					tableColumnDebit.setWidth(106);
 				}
 				{
 					tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
+					tableColumnCredit.setText(EngLangCommonKeys.STR_CREDIT); //$NON-NLS-1$
 					tableColumnCredit.setWidth(86);
 					tableColumnCredit.setAlignment(131072);
 				}

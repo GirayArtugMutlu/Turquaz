@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
@@ -46,6 +45,8 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -402,10 +403,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			tbfCurrentCardAddLData.grabExcessVerticalSpace = true;
 			tbfCurrentCardAdd.setLayoutData(tbfCurrentCardAddLData);
 			tbfCurrentCardAdd.setSize(new org.eclipse.swt.graphics.Point(584, 452));
-			tabItemGeneralInfo.setText(Messages.getString("CurUICurrentCardAdd.0")); //$NON-NLS-1$
+			tabItemGeneralInfo.setText(EngLangCommonKeys.STR_GENERAL_INFO); //$NON-NLS-1$
 			{
 				tabItemContactInfo = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
-				tabItemContactInfo.setText(Messages.getString("CurUICurrentCardAdd.15")); //$NON-NLS-1$
+				tabItemContactInfo.setText(CurLangKeys.STR_CONTACT_INFO); //$NON-NLS-1$
 				{
 					compCurrentContactInfo = new Composite(tbfCurrentCardAdd, SWT.NONE);
 					tabItemContactInfo.setControl(compCurrentContactInfo);
@@ -422,7 +423,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						Name = new CLabel(compCurrentContactInfo, SWT.NONE);
 						GridData NameLData = new GridData();
 						Name.setLayoutData(NameLData);
-						Name.setText(Messages.getString("CurUICurrentCardAdd.16")); //$NON-NLS-1$
+						Name.setText(CurLangKeys.STR_CONTACT_NAME); //$NON-NLS-1$
 					}
 					{
 						txtContactName = new Text(compCurrentContactInfo, SWT.NONE);
@@ -436,7 +437,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						GridData lblContactAddressLData = new GridData();
 						lblContactAddressLData.verticalAlignment = GridData.BEGINNING;
 						lblContactAddress.setLayoutData(lblContactAddressLData);
-						lblContactAddress.setText(Messages.getString("CurUICurrentCardAdd.17")); //$NON-NLS-1$
+						lblContactAddress.setText(EngLangCommonKeys.STR_ADDRESS); 
 					}
 					{
 						txtContactAddress = new Text(compCurrentContactInfo, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
@@ -471,7 +472,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						lblPhone1 = new CLabel(compCurrentContactInfo, SWT.NONE);
 						GridData lblPhone1LData = new GridData();
 						lblPhone1.setLayoutData(lblPhone1LData);
-						lblPhone1.setText(Messages.getString("CurUICurrentCardAdd.18")); //$NON-NLS-1$
+						lblPhone1.setText(CurLangKeys.STR_CONTACT_TELEPHONE1); //$NON-NLS-1$
 					}
 					{
 						txtContactPhone = new Text(compCurrentContactInfo, SWT.NONE);
@@ -484,7 +485,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						lblPhone2 = new CLabel(compCurrentContactInfo, SWT.NONE);
 						GridData lblPhone2LData = new GridData();
 						lblPhone2.setLayoutData(lblPhone2LData);
-						lblPhone2.setText(Messages.getString("CurUICurrentCardAdd.19")); //$NON-NLS-1$
+						lblPhone2.setText(CurLangKeys.STR_CONTACT_TELEPHONE2); //$NON-NLS-1$
 					}
 					{
 						txtContactPhone2 = new Text(compCurrentContactInfo, SWT.NONE);
@@ -497,7 +498,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						lblContactFax = new CLabel(compCurrentContactInfo, SWT.NONE);
 						GridData lblContactFaxLData = new GridData();
 						lblContactFax.setLayoutData(lblContactFaxLData);
-						lblContactFax.setText(Messages.getString("CurUICurrentCardAdd.20")); //$NON-NLS-1$
+						lblContactFax.setText(CurLangKeys.STR_CONTACT_FAX); //$NON-NLS-1$
 					}
 					{
 						txtFaxNumber = new Text(compCurrentContactInfo, SWT.NONE);
@@ -510,7 +511,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						cLabel1 = new CLabel(compCurrentContactInfo, SWT.NONE);
 						GridData cLabel1LData = new GridData();
 						cLabel1.setLayoutData(cLabel1LData);
-						cLabel1.setText(Messages.getString("CurUICurrentCardAdd.21")); //$NON-NLS-1$
+						cLabel1.setText(CurLangKeys.STR_CONTACT_EMAIL); //$NON-NLS-1$
 					}
 					{
 						txtContactEmail = new Text(compCurrentContactInfo, SWT.NONE);
@@ -523,7 +524,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 						cLabel2 = new CLabel(compCurrentContactInfo, SWT.NONE);
 						GridData cLabel2LData = new GridData();
 						cLabel2.setLayoutData(cLabel2LData);
-						cLabel2.setText(Messages.getString("CurUICurrentCardAdd.22")); //$NON-NLS-1$
+						cLabel2.setText(CurLangKeys.STR_CONTACT_WEB_SITE); //$NON-NLS-1$
 					}
 					{
 						txtContactWebSite = new Text(compCurrentContactInfo, SWT.NONE);
@@ -546,10 +547,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				}
 			}
 			tabItemCurrentGroups = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
-			tabItemCurrentGroups.setText(Messages.getString("CurUICurrentCardAdd.23")); //$NON-NLS-1$
+			tabItemCurrentGroups.setText(EngLangCommonKeys.STR_GROUPS); //$NON-NLS-1$
 			//START >> tabItemAccountingAccounts
 			tabItemAccountingAccounts = new CTabItem(tbfCurrentCardAdd, SWT.NONE);
-			tabItemAccountingAccounts.setText(Messages.getString("CurUICurrentCardAdd.13")); //$NON-NLS-1$
+			tabItemAccountingAccounts.setText(EngLangCommonKeys.STR_ACCOUNTING_ACCOUNTS); //$NON-NLS-1$
 			//START >> compaccountingAccounts
 			compaccountingAccounts = new Composite(tbfCurrentCardAdd, SWT.NONE);
 			tabItemAccountingAccounts.setControl(compaccountingAccounts);
@@ -568,7 +569,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//END << cLabel4
 			//START >> lblAccountingCodeCustomer
 			lblAccountingCodeCustomer = new CLabel(compaccountingAccounts, SWT.NONE);
-			lblAccountingCodeCustomer.setText(Messages.getString("CurUICurrentCardAdd.27")); //$NON-NLS-1$
+			lblAccountingCodeCustomer.setText(CurLangKeys.STR_CURRENT_ACCOUNTING_ACCOUNT); //$NON-NLS-1$
 			//END << lblAccountingCodeCustomer
 			//START >> accPickerCustomer
 			accPickerCustomer = new AccountPickerLeaf(compaccountingAccounts, SWT.NONE);
@@ -579,7 +580,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//END << accPickerCustomer
 			//START >> lblChequeTaken
 			lblChequeTaken = new CLabel(compaccountingAccounts, SWT.NONE);
-			lblChequeTaken.setText(Messages.getString("CurUICurrentCardAdd.29")); //$NON-NLS-1$
+			lblChequeTaken.setText(CurLangKeys.STR_CHEQUES_TAKEN_ACCOUNTING_ACCOUNT); //$NON-NLS-1$
 			GridData lblChequeTakenLData = new GridData();
 			lblChequeTakenLData.widthHint = 110;
 			lblChequeTakenLData.heightHint = 22;
@@ -594,7 +595,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			//END << accountPickerChequesGiven
 			//START >> lblChequesGiven
 			lblChequesGiven = new CLabel(compaccountingAccounts, SWT.NONE);
-			lblChequesGiven.setText(Messages.getString("CurUICurrentCardAdd.31")); //$NON-NLS-1$
+			lblChequesGiven.setText(CurLangKeys.STR_CHEQUES_GIVEN_ACCOUNTING_ACCOUNT); //$NON-NLS-1$
 			//END << lblChequesGiven
 			//START >> accountPickerChequesTaken
 			accountPickerChequesTaken = new AccountPickerLeaf(compaccountingAccounts, SWT.NONE);
@@ -624,7 +625,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblCurrentCodeLData.widthHint = 93;
 					lblCurrentCodeLData.heightHint = 20;
 					lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-					lblCurrentCode.setText(Messages.getString("CurUICurrentCardAdd.1")); //$NON-NLS-1$
+					lblCurrentCode.setText(CurLangKeys.STR_CUR_CODE); //$NON-NLS-1$
 				}
 				{
 					txtCurrentCode = new CurrentCodePicker(compCurrentGeneralInfo, SWT.NONE);
@@ -640,7 +641,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblCurrentNameLData.widthHint = 73;
 					lblCurrentNameLData.heightHint = 19;
 					lblCurrentName.setLayoutData(lblCurrentNameLData);
-					lblCurrentName.setText(Messages.getString("CurUICurrentCardAdd.2")); //$NON-NLS-1$
+					lblCurrentName.setText(CurLangKeys.STR_CUR_NAME); //$NON-NLS-1$
 					lblCurrentName.setSize(new org.eclipse.swt.graphics.Point(73, 19));
 				}
 				{
@@ -657,7 +658,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					GridData lblCardDefinitionLData = new GridData();
 					lblCardDefinitionLData.verticalAlignment = GridData.BEGINNING;
 					lblCardDefinition.setLayoutData(lblCardDefinitionLData);
-					lblCardDefinition.setText(Messages.getString("CurUICurrentCardAdd.3")); //$NON-NLS-1$
+					lblCardDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 				}
 				{
 					txtCardDefinition = new Text(compCurrentGeneralInfo, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
@@ -695,7 +696,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					GridData lblCardAddressLData = new GridData();
 					lblCardAddressLData.verticalAlignment = GridData.BEGINNING;
 					lblCardAddress.setLayoutData(lblCardAddressLData);
-					lblCardAddress.setText(Messages.getString("CurUICurrentCardAdd.4")); //$NON-NLS-1$
+					lblCardAddress.setText(EngLangCommonKeys.STR_ADDRESS); //$NON-NLS-1$
 				}
 				{
 					txtCardAddress = new Text(compCurrentGeneralInfo, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
@@ -734,7 +735,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblTelephone1LData.widthHint = 82;
 					lblTelephone1LData.heightHint = 16;
 					lblTelephone1.setLayoutData(lblTelephone1LData);
-					lblTelephone1.setText(Messages.getString("CurUICurrentCardAdd.5")); //$NON-NLS-1$
+					lblTelephone1.setText(CurLangKeys.STR_CONTACT_TELEPHONE1); //$NON-NLS-1$
 					lblTelephone1.setSize(new org.eclipse.swt.graphics.Point(82, 16));
 				}
 				{
@@ -785,7 +786,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblTelephone2LData.widthHint = 82;
 					lblTelephone2LData.heightHint = 16;
 					lblTelephone2.setLayoutData(lblTelephone2LData);
-					lblTelephone2.setText(Messages.getString("CurUICurrentCardAdd.6")); //$NON-NLS-1$
+					lblTelephone2.setText(CurLangKeys.STR_CONTACT_TELEPHONE2); //$NON-NLS-1$
 					lblTelephone2.setSize(new org.eclipse.swt.graphics.Point(82, 16));
 				}
 				{
@@ -836,7 +837,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblTaxDepartmentLData.widthHint = 84;
 					lblTaxDepartmentLData.heightHint = 19;
 					lblTaxDepartment.setLayoutData(lblTaxDepartmentLData);
-					lblTaxDepartment.setText(Messages.getString("CurUICurrentCardAdd.7")); //$NON-NLS-1$
+					lblTaxDepartment.setText(CurLangKeys.STR_TAX_DEPARTMENT); //$NON-NLS-1$
 					lblTaxDepartment.setSize(new org.eclipse.swt.graphics.Point(84, 19));
 				}
 				{
@@ -854,7 +855,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblTaxNumberLData.widthHint = 105;
 					lblTaxNumberLData.heightHint = 22;
 					lblTaxNumber.setLayoutData(lblTaxNumberLData);
-					lblTaxNumber.setText(Messages.getString("CurUICurrentCardAdd.8")); //$NON-NLS-1$
+					lblTaxNumber.setText(CurLangKeys.STR_TAX_NUMBER); //$NON-NLS-1$
 				}
 				{
 					txtTaxNumber = new Text(compCurrentGeneralInfo, SWT.NONE);
@@ -869,7 +870,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblRiskLimit = new CLabel(compCurrentGeneralInfo, SWT.NONE);
 					GridData lblRiskLimitLData = new GridData();
 					lblRiskLimit.setLayoutData(lblRiskLimitLData);
-					lblRiskLimit.setText(Messages.getString("CurUICurrentCardAdd.9")); //$NON-NLS-1$
+					lblRiskLimit.setText(CurLangKeys.STR_RISK_LIMIT); //$NON-NLS-1$
 				}
 				{
 					decTxtRiskLimit = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
@@ -885,7 +886,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblCreditLimitLData.widthHint = 90;
 					lblCreditLimitLData.heightHint = 20;
 					lblCreditLimit.setLayoutData(lblCreditLimitLData);
-					lblCreditLimit.setText(Messages.getString("CurUICurrentCardAdd.10")); //$NON-NLS-1$
+					lblCreditLimit.setText(CurLangKeys.STR_CREDIT_LIMIT); //$NON-NLS-1$
 				}
 				{
 					decTxtCreditLimit = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
@@ -901,7 +902,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblDiscountAMountLData.widthHint = 102;
 					lblDiscountAMountLData.heightHint = 16;
 					lblDiscountAMount.setLayoutData(lblDiscountAMountLData);
-					lblDiscountAMount.setText(Messages.getString("CurUICurrentCardAdd.12")); //$NON-NLS-1$
+					lblDiscountAMount.setText(CurLangKeys.STR_DISCOUNT_AMOUNT); //$NON-NLS-1$
 				}
 				{
 					decTxtDiscountAmount = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
@@ -915,7 +916,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblDiscountRate = new CLabel(compCurrentGeneralInfo, SWT.NONE);
 					GridData lblDiscountRateLData = new GridData();
 					lblDiscountRate.setLayoutData(lblDiscountRateLData);
-					lblDiscountRate.setText(Messages.getString("CurUICurrentCardAdd.11")); //$NON-NLS-1$
+					lblDiscountRate.setText(CurLangKeys.STR_DISCOUNT_RATE); //$NON-NLS-1$
 				}
 				{
 					numTextDiscountRate = new CurrencyTextAdvanced(compCurrentGeneralInfo, SWT.NONE);
@@ -928,7 +929,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				}
 				{
 					lblDueDays = new CLabel(compCurrentGeneralInfo, SWT.NONE);
-					lblDueDays.setText(Messages.getString("CurUICurrentCardAdd.32")); //$NON-NLS-1$
+					lblDueDays.setText(CurLangKeys.STR_DUE_DAYS); //$NON-NLS-1$
 					GridData lblDueDaysLData = new GridData();
 					lblDueDaysLData.widthHint = 56;
 					lblDueDaysLData.heightHint = 19;
@@ -964,7 +965,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			btnUpdateGroupsLData.heightHint = 36;
 			btnUpdateGroupsLData.horizontalIndent = 10;
 			btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
-			btnUpdateGroups.setText(Messages.getString("CurUICurrentCardAdd.24"));  //$NON-NLS-1$
+			btnUpdateGroups.setText(EngLangCommonKeys.STR_UPDATE_GROUPS);  //$NON-NLS-1$
 			btnUpdateGroups.addMouseListener(new MouseAdapter()
 			{
 				public void mouseUp(MouseEvent evt)
@@ -1106,27 +1107,27 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCode.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUICurrentCardAdd.28")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_CURRENT_CODE); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCode.setFocus();
 				return false;
 			}
 			else if (save && EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()) != null)
 			{
-				msg.setMessage(Messages.getString("CurUICurrentCardAdd.44")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_CURRENT_CODE_ALREADY_EXIST); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCode.setFocus();
 				return false;
 			}
 			else if (txtCurrentName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUICurrentCardAdd.30")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_CURRENT_NAME); //$NON-NLS-1$
 				msg.open();
 				txtCurrentName.setFocus();
 				return false;
 			}
 			if (accPickerCustomer.getTurqAccountingAccount() == null)
 			{
-				boolean ans = EngUICommon.okToDelete(getShell(),Messages.getString("CurUICurrentCardAdd.45"));  //$NON-NLS-1$
+				boolean ans = EngUICommon.okToDelete(getShell(),CurLangKeys.MSG_WANT_TO_ADD_ACCOUNTING_ACCOUNT);  //$NON-NLS-1$
 				if (ans)
 				{
 					TurqAccountingAccount account = new AccUIAddAccountDialog(getShell(), SWT.NONE).open();
@@ -1193,9 +1194,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				argMap.put(CurKeys.CUR_CONTACT_INFO,getContactInfo());
 				argMap.put(CurKeys.CUR_GROUP_LIST,getGroupList());
 				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentCard",argMap);	 //$NON-NLS-1$
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("CurUICurrentCardAdd.14")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				clearFields();
 			}
 		}

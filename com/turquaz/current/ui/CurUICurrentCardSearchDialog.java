@@ -35,11 +35,12 @@ import org.eclipse.swt.SWT;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.ui.component.SearchDialogMenu;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 
@@ -112,7 +113,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				compCurrentCardSearch.setLayoutData(compCurrentCardSearchLData);
 				{
 					lblCurrentCode = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
+					lblCurrentCode.setText(CurLangKeys.STR_CUR_CODE); //$NON-NLS-1$
 					GridData lblCurrentCodeLData = new GridData();
 					lblCurrentCode.setLayoutData(lblCurrentCodeLData);
 				}
@@ -126,7 +127,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblCurrentName = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
+					lblCurrentName.setText(CurLangKeys.STR_CUR_NAME); //$NON-NLS-1$
 					GridData lblCurrentNameLData = new GridData();
 					lblCurrentName.setLayoutData(lblCurrentNameLData);
 				}
@@ -140,7 +141,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblTurqGroupName = new CLabel(compCurrentCardSearch, SWT.NONE);
-					lblTurqGroupName.setText(Messages.getString("CurUICurrentCardSearch.2")); //$NON-NLS-1$
+					lblTurqGroupName.setText(EngLangCommonKeys.STR_GROUP_NAME); //$NON-NLS-1$
 					GridData lblTurqGroupNameLData = new GridData();
 					lblTurqGroupNameLData.widthHint = 97;
 					lblTurqGroupNameLData.heightHint = 23;
@@ -174,12 +175,12 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				tableCurrentCardSearch.setLayoutData(tableCurrentCardSearchLData);
 				{
 					tableColumnCurrentCode = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-					tableColumnCurrentCode.setText(Messages.getString("CurUICurrentCardSearch.0")); //$NON-NLS-1$
+					tableColumnCurrentCode.setText(CurLangKeys.STR_CUR_CODE); //$NON-NLS-1$
 					tableColumnCurrentCode.setWidth(120);
 				}
 				{
 					tableColumnCurrentName = new TableColumn(tableCurrentCardSearch, SWT.NONE);
-					tableColumnCurrentName.setText(Messages.getString("CurUICurrentCardSearch.1")); //$NON-NLS-1$
+					tableColumnCurrentName.setText(CurLangKeys.STR_CUR_NAME); //$NON-NLS-1$
 					tableColumnCurrentName.setWidth(120);
 				}
 				{
