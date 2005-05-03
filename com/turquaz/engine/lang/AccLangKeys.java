@@ -28,6 +28,7 @@ public class AccLangKeys {
 	public final static String STR_ACC_CODE_START  = "Hesap Kodu - Baþlangýç";
 	public final static String STR_ACCOUNT = "Hesap";
 	public final static String STR_ACCOUNT_CLASS  = "Hesap Sýnýfý";
+	public final static String STR_COUNTER_ACCOUNTING_ACCOUNT="Kar?? Muhasebe Hesab?";
 	
 	public final static String STR_ACCOUNT_CODE = "Hesap Kodu";
 	public final static String STR_ACCOUNT_GROUP  = "Hesap Grubu";
@@ -95,4 +96,5 @@ public class AccLangKeys {
 	public final static String STR_UPDATE_PAYMENT_VOUCHER  = "Tediye Fiþi Güncelleme";
 	public final static String STR_VOUCHER_NO  = "Fiþ No";
 	public final static String STR_VOUCHER_TYPE  = "Fiþ Tipi";
+	public final static String MSG_SELECT_ACCOUNTING_ACCOUNT="Lütfen muhasebe hesab?n? seçiniz!";
 }
