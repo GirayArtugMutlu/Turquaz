@@ -386,7 +386,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 						if (msg2.open() == SWT.OK)
 						{
 							boolean deleteCons = false;
-							if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+							if (EngUICommon.showQuestion(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 								deleteCons = true;
 							}
 							argMap=new HashMap();

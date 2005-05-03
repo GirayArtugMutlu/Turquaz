@@ -131,7 +131,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						{
 							try
 							{
-								boolean answer = EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+								boolean answer = EngUICommon.showQuestion(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
 								dialogShell.close();
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL,bill);
@@ -345,7 +345,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				updated = true;
 				boolean deleteCons = false;
 				//TODO send boolean to delete cons
-				if (EngUICommon.okToDelete(getParent(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+				if (EngUICommon.showQuestion(getParent(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 					deleteCons = true;
 				}
 				HashMap argMap=new HashMap();

@@ -718,7 +718,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				int answer = msg2.open();
 				if (answer == SWT.YES)
 				{
-					boolean ans = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
+					boolean ans = EngUICommon.showQuestion(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
 					argMap = new HashMap();
 					argMap.put(BillKeys.BILL, bill);
 					argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));

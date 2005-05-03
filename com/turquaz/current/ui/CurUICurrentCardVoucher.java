@@ -329,7 +329,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
 								
 				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
-					if (EngUICommon.okToDelete(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)) //$NON-NLS-1$
+					if (EngUICommon.showQuestion(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)) //$NON-NLS-1$
 				{
 					EngBLUtils.printCurrentTrans(curtrans);
 				}

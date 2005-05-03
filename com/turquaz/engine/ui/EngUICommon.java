@@ -8,7 +8,7 @@ import com.turquaz.engine.lang.EngLangCommonKeys;
 
 public class EngUICommon
 {
-	public static boolean okToDelete(Shell parent, String message)
+	public static boolean showQuestion(Shell parent, String message)
 	{
 		MessageBox msg2 = new MessageBox(parent, SWT.YES | SWT.NO | SWT.ICON_QUESTION);
 		msg2.setMessage(message);

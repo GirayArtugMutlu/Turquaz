@@ -311,7 +311,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap); //$NON-NLS-1$
 				
 				
-				if (EngUICommon.okToDelete(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)); //$NON-NLS-1$
+				if (EngUICommon.showQuestion(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)); //$NON-NLS-1$
 				{
 					EngBLUtils.printCurrentTrans(curtrans);
 				}

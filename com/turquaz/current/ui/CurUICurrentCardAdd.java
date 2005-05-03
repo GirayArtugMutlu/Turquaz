@@ -1128,7 +1128,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 			}
 			if (accPickerCustomer.getTurqAccountingAccount() == null)
 			{
-				boolean ans = EngUICommon.okToDelete(getShell(),CurLangKeys.MSG_WANT_TO_ADD_ACCOUNTING_ACCOUNT);  //$NON-NLS-1$
+				boolean ans = EngUICommon.showQuestion(getShell(),CurLangKeys.MSG_WANT_TO_ADD_ACCOUNTING_ACCOUNT);  //$NON-NLS-1$
 				if (ans)
 				{
 					TurqAccountingAccount account = new AccUIAddAccountDialog(getShell(), SWT.NONE).open();

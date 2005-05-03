@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.ConsKeys;
-import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -31,6 +30,8 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.lang.ConsLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -40,7 +41,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -94,7 +94,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShell.layout();
 			dialogShell.pack();
 			dialogShell.setSize(663, 593);
-			dialogShell.setText(Messages.getString("ConUIConsignmentUpdateDialog.7")); //$NON-NLS-1$
+			dialogShell.setText(ConsLangKeys.TITLE_CONS_UPDATE);
 			{
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
 				GridData coolBar1LData = new GridData();
@@ -111,7 +111,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						coolItem1.setControl(toolBar1);
 						{
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-							toolUpdate.setText(Messages.getString("ConUIConsignmentUpdateDialog.0")); //$NON-NLS-1$
+							toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate.addSelectionListener(new SelectionAdapter()
 							{
@@ -123,7 +123,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
-							toolDelete.setText(Messages.getString("ConUIConsignmentUpdateDialog.2")); //$NON-NLS-1$
+							toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 							toolDelete.addSelectionListener(new SelectionAdapter()
 							{
@@ -135,7 +135,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolCancel = new ToolItem(toolBar1, SWT.NONE);
-							toolCancel.setText(Messages.getString("ConUIConsignmentUpdateDialog.1")); //$NON-NLS-1$
+							toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 							toolCancel.addSelectionListener(new SelectionAdapter()
 							{
@@ -147,7 +147,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolPrint = new ToolItem(toolBar1, SWT.NONE);
-							toolPrint.setText(Messages.getString("ConUIConsignmentUpdateDialog.3")); //$NON-NLS-1$
+							toolPrint.setText(EngLangCommonKeys.STR_PRINT);
 							toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
 							toolPrint.addSelectionListener(new SelectionAdapter()
 							{
@@ -203,6 +203,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void postInitGui()
 	{
+		
 		toolUpdate.setEnabled(false);
 		toolDelete.setEnabled(false);
 		if (EngBLPermissions.getPermission(compAddConsignment.getClass().getName()) == 2)
@@ -227,11 +228,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
 			if (consignment.getConsignmentsType() == 0)
 			{
-				compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.5")); //$NON-NLS-1$
+				compAddConsignment.getComboConsignmentType().setText(EngBLCommon.COMMON_BUY_STRING);
 			}
 			else
 			{
-				compAddConsignment.getComboConsignmentType().setText(Messages.getString("ConUIConsignmentUpdateDialog.6")); //$NON-NLS-1$
+				compAddConsignment.getComboConsignmentType().setText(EngBLCommon.COMMON_SELL_STRING);
 			}
 			compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
 			
@@ -286,12 +287,10 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getParent(), SWT.CANCEL | SWT.OK);
-		msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
 		try
 		{
-			if (msg2.open() == SWT.OK)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				updated = true;
 				HashMap argMap=new HashMap();
@@ -299,14 +298,13 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignment",argMap);
 				if(result.intValue()==1)
 				{
-				msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
-				msg.open();
-				dialogShell.close();
-				//delete consignment
+					EngUICommon.showDeletedSuccesfullyMessage(getParent());
+					dialogShell.close();
+					//delete consignment
 				}
 				else if(result.intValue() ==-1)
 				{
-					EngUICommon.showMessageBox(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.13"),SWT.ICON_WARNING); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getParent(),ConsLangKeys.MSG_HAS_BILL_CAN_NOT_DELETE,SWT.ICON_WARNING);
 				}
 					
 			}
@@ -319,7 +317,6 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void update()
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 		try
 		{
 			updated = true;
@@ -328,7 +325,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{	
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			boolean willUpdateBill = EngUICommon.okToDelete(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.15")); //$NON-NLS-1$
+			//boolean willUpdateBill = EngUICommon.okToDelete(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.15"));
 			
 			HashMap argMap=new HashMap();
 			
@@ -341,12 +338,10 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 			argMap.put(ConsKeys.CONS_GROUPS,compAddConsignment.getConsignmentGroups());
 			argMap.put(InvKeys.INV_TRANSACTIONS,compAddConsignment.getInventoryTransactions(type));
-			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(willUpdateBill));
+			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(true));
 			
 			EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"updateConsignment",argMap);
-						
-			msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.12")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 			dialogShell.close();
 		}
 		catch (Exception ex)

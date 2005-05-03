@@ -263,7 +263,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 		}
 		if (accountPicker.getData() == null)
 		{
-			if (EngUICommon.okToDelete(getShell(), "Muhsebe Entegrasyonu Yap?lamayacak!\n Devam Etmek ?stiyormusunuz!"))
+			if (EngUICommon.showQuestion(getShell(), "Muhsebe Entegrasyonu Yap?lamayacak!\n Devam Etmek ?stiyormusunuz!"))
 			{
 				return true;
 			}

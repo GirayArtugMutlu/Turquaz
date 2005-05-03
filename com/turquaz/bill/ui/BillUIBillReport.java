@@ -500,11 +500,11 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					{
 						if (bill != null)
 						{
-							boolean answer = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillReport.25")); //$NON-NLS-1$
+							boolean answer = EngUICommon.showQuestion(getShell(), Messages.getString("BillUIBillReport.25")); //$NON-NLS-1$
 							if (answer)
 							{
 								boolean deleteCons = false;
-								if (EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+								if (EngUICommon.showQuestion(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
 									deleteCons = true;
 								}
 								HashMap argMap=new HashMap();
@@ -535,7 +535,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 					{
 						if (bill != null)
 						{
-							boolean answer = EngUICommon.okToDelete(getShell(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+							boolean answer = EngUICommon.showQuestion(getShell(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
 							HashMap argMap=new HashMap();
 							argMap.put(BillKeys.BILL,bill);
 							argMap.put(BillKeys.BILL_BALANCE,new Boolean(answer));

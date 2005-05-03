@@ -20,5 +20,6 @@ public class ConsLangKeys
 	public final static String STR_CONSIGNMENTS="?rsaliyeler";
 	public final static String TITLE_CONS_GROUPS="?rsaliye Gruplar?";
 	public final static String TITLE_CONS_SEARCH="?rsaliye Arama";
+	public final static String TITLE_CONS_UPDATE="?rsaliye Güncelleme";
 
 }
