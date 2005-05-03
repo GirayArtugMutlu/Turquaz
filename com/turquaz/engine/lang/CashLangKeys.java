@@ -45,5 +45,8 @@ public class CashLangKeys
 	
 	
 	public final static String STR_CASH_TOTAL="KASA YEKÜNÜ";
+    public final static String STR_CASH_ACCOUNT ="Kasa Hesabý";
+    public final static String MSG_SELECT_CASH_ACCOUNT ="Lütfen Kasa Hesabý Seçiniz!";
+    
 
 }
