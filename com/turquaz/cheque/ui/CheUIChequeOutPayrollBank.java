@@ -43,6 +43,9 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -54,7 +57,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import com.turquaz.cheque.CheKeys;
-import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSaveChequeTransaction;
 
 /**
@@ -121,7 +123,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				compInfoPanel.setLayout(compInfoPanelLayout);
 				{
 					lblRollNo = new CLabel(compInfoPanel, SWT.NONE);
-					lblRollNo.setText(Messages.getString("CheUIChequeInPayroll.1")); //$NON-NLS-1$
+					lblRollNo.setText(CheLangKeys.STR_ROLL_NO); //$NON-NLS-1$
 				}
 				{
 					txtRollNo = new Text(compInfoPanel, SWT.NONE);
@@ -132,7 +134,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					lblRollDate = new CLabel(compInfoPanel, SWT.NONE);
-					lblRollDate.setText(Messages.getString("CheUIChequeInPayroll.3")); //$NON-NLS-1$
+					lblRollDate.setText(CheLangKeys.STR_ROLL_DATE); //$NON-NLS-1$
 				}
 				{
 					datePicker1 = new DatePicker(compInfoPanel, SWT.NONE);
@@ -143,7 +145,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					lblCurrentCode = new CLabel(compInfoPanel, SWT.NONE);
-					lblCurrentCode.setText(Messages.getString("CheUIChequeOutPayrollBank.0")); //$NON-NLS-1$
+					lblCurrentCode.setText(BankLangKeys.STR_BANK_CARD); //$NON-NLS-1$
 				}
 				{
 					bankCardPicker = new BankCardPicker(compInfoPanel, SWT.NONE);
@@ -165,7 +167,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				//END << accountPicker
 				{
 					btnSumTotals = new Button(compInfoPanel, SWT.CHECK | SWT.LEFT);
-					btnSumTotals.setText(Messages.getString("CheUIChequeOutPayrollBank.1")); //$NON-NLS-1$
+					btnSumTotals.setText(CheLangKeys.STR_SUM_TOTALS); //$NON-NLS-1$
 				}
 			}
 			{
@@ -176,7 +178,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				toolBarButtons.setLayoutData(toolBarButtonsLData);
 				{
 					toolItemAdd = new ToolItem(toolBarButtons, SWT.NONE);
-					toolItemAdd.setText(Messages.getString("CheUIChequeInPayroll.0")); //$NON-NLS-1$
+					toolItemAdd.setText(EngLangCommonKeys.STR_ADD); //$NON-NLS-1$
 					toolItemAdd.setImage(SWTResourceManager.getImage("icons/plus.gif")); //$NON-NLS-1$
 					toolItemAdd.addSelectionListener(new SelectionAdapter()
 					{
@@ -188,7 +190,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					toolItemDelete = new ToolItem(toolBarButtons, SWT.NONE);
-					toolItemDelete.setText(Messages.getString("CheUIChequeInPayroll.2")); //$NON-NLS-1$
+					toolItemDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 					toolItemDelete.setImage(SWTResourceManager.getImage("icons/minus.gif")); //$NON-NLS-1$
 					toolItemDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -211,27 +213,27 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				tableCheques.setLayoutData(tableChequesLData);
 				{
 					tableColumnNo = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnNo.setText(Messages.getString("CheUIChequeInPayroll.6")); //$NON-NLS-1$
+					tableColumnNo.setText(CheLangKeys.STR_PORTFOLIO_NO); //$NON-NLS-1$
 					tableColumnNo.setWidth(72);
 				}
 				{
 					tableColumnDueDaye = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnDueDaye.setText(Messages.getString("CheUIChequeInPayroll.7")); //$NON-NLS-1$
+					tableColumnDueDaye.setText(EngLangCommonKeys.STR_DUE_DATE); //$NON-NLS-1$
 					tableColumnDueDaye.setWidth(100);
 				}
 				{
 					tableColumnPaymentPlace = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnPaymentPlace.setText(Messages.getString("CheUIChequeInPayroll.9")); //$NON-NLS-1$
+					tableColumnPaymentPlace.setText(CheLangKeys.STR_PAYMENT_PLACE); //$NON-NLS-1$
 					tableColumnPaymentPlace.setWidth(151);
 				}
 				{
 					tableColumnDeptor = new TableColumn(tableCheques, SWT.NONE);
-					tableColumnDeptor.setText(Messages.getString("CheUIChequeInPayroll.8")); //$NON-NLS-1$
+					tableColumnDeptor.setText(CheLangKeys.STR_DEPTOR); //$NON-NLS-1$
 					tableColumnDeptor.setWidth(145);
 				}
 				{
 					tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
-					tableColumnAmount.setText(Messages.getString("CheUIChequeInPayroll.10")); //$NON-NLS-1$
+					tableColumnAmount.setText(EngLangCommonKeys.STR_TOTALPRICE); //$NON-NLS-1$
 					tableColumnAmount.setWidth(100);
 				}
 			}
@@ -278,13 +280,13 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 	{
 		if (bankCardPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.11"), SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), BankLangKeys.MSG_PLEASE_SELECT_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			bankCardPicker.setFocus();
 			return false;
 		}
 		else if (tableCheques.getItemCount() == 0)
 		{
-			EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.12"), SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), CheLangKeys.MSG_ENTER_AT_LEAST_ONE_CHEQUE, SWT.ICON_WARNING); //$NON-NLS-1$
 			toolItemAdd.setSelection(true);
 			return false;
 		}
@@ -311,7 +313,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				
 				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveChequeRoll",argMap);
 							
-				EngUICommon.showMessageBox(getShell(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_SAVED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
 				newForm();
 			}
 		}

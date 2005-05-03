@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.cheque.CheKeys;
-import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.EngKeys;
@@ -44,6 +43,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -111,7 +112,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				compSearchPanel.setLayout(compSearchPanelLayout);
 				{
 					lblRollNo = new CLabel(compSearchPanel, SWT.NONE);
-					lblRollNo.setText(Messages.getString("CheUIChequeRollSearch.0")); //$NON-NLS-1$
+					lblRollNo.setText(CheLangKeys.STR_ROLL_NO); //$NON-NLS-1$
 				}
 				{
 					txtRollNo = new Text(compSearchPanel, SWT.NONE);
@@ -122,7 +123,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				}
 				{
 					lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblStartDate.setText(Messages.getString("CheUIChequeRollSearch.1")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE); //$NON-NLS-1$
 				}
 				{
 					dateStartDate = new DatePicker(compSearchPanel, SWT.NONE);
@@ -133,7 +134,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				}
 				{
 					lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-					lblEndDate.setText(Messages.getString("CheUIChequeRollSearch.2")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE); //$NON-NLS-1$
 				}
 				{
 					dateEndDate = new DatePicker(compSearchPanel, SWT.NONE);
@@ -144,12 +145,12 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				}
 				{
 					lblType = new CLabel(compSearchPanel, SWT.NONE);
-					lblType.setText(Messages.getString("CheUIChequeRollSearch.3")); //$NON-NLS-1$
+					lblType.setText(CheLangKeys.STR_ROLL_TYPE); //$NON-NLS-1$
 				}
 				{
 					comboRollType = new CCombo(compSearchPanel, SWT.NONE);
 					GridData comboRollTypeLData = new GridData();
-					comboRollType.setText(Messages.getString("CheUIChequeRollSearch.4")); //$NON-NLS-1$
+					comboRollType.setText(EngLangCommonKeys.STR_ALL); //$NON-NLS-1$
 					comboRollTypeLData.widthHint = 92;
 					comboRollTypeLData.heightHint = 14;
 					comboRollType.setLayoutData(comboRollTypeLData);
@@ -174,27 +175,27 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 				tableChequeRolls.setLayoutData(tableChequeRollsLData);
 				{
 					tableColumnDate = new TableColumn(tableChequeRolls, SWT.NONE);
-					tableColumnDate.setText(Messages.getString("CheUIChequeRollSearch.5")); //$NON-NLS-1$
+					tableColumnDate.setText(CheLangKeys.STR_ROLL_DATE); //$NON-NLS-1$
 					tableColumnDate.setWidth(76);
 				}
 				{
 					tableColumnRolNo = new TableColumn(tableChequeRolls, SWT.NONE);
-					tableColumnRolNo.setText(Messages.getString("CheUIChequeRollSearch.6")); //$NON-NLS-1$
+					tableColumnRolNo.setText(CheLangKeys.STR_ROLL_NO); //$NON-NLS-1$
 					tableColumnRolNo.setWidth(88);
 				}
 				{
 					tableColumnType = new TableColumn(tableChequeRolls, SWT.NONE);
-					tableColumnType.setText(Messages.getString("CheUIChequeRollSearch.7")); //$NON-NLS-1$
+					tableColumnType.setText(CheLangKeys.STR_ROLL_TYPE); //$NON-NLS-1$
 					tableColumnType.setWidth(75);
 				}
 				{
 					tableColumnOwner = new TableColumn(tableChequeRolls, SWT.NONE);
-					tableColumnOwner.setText(Messages.getString("CheUIChequeRollSearch.8")); //$NON-NLS-1$
+					tableColumnOwner.setText(CheLangKeys.STR_ROLL_OWNER); //$NON-NLS-1$
 					tableColumnOwner.setWidth(102);
 				}
 				//START >> tableColumnAmount
 				tableColumnAmount = new TableColumn(tableChequeRolls, SWT.RIGHT);
-				tableColumnAmount.setText(Messages.getString("CheUIChequeRollSearch.10")); //$NON-NLS-1$
+				tableColumnAmount.setText(EngLangCommonKeys.STR_TOTALPRICE); //$NON-NLS-1$
 				tableColumnAmount.setWidth(100);
 				//END << tableColumnAmount
 			}
@@ -211,7 +212,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 	{
 		try
 		{
-			comboRollType.add(Messages.getString("CheUIChequeRollSearch.9")); //$NON-NLS-1$
+			comboRollType.add(EngLangCommonKeys.STR_ALL); //$NON-NLS-1$
 			List ls =(List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getTransactionTypes",null);
 			for (int i = 0; i < ls.size(); i++)
 			{
@@ -338,7 +339,7 @@ public class CheUIChequeRollSearch extends org.eclipse.swt.widgets.Composite imp
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableChequeRolls, Messages.getString("CheUIChequeRollSearch.11")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableChequeRolls, CheLangKeys.STR_ROLLS); //$NON-NLS-1$
 	}
 
 	public void search()

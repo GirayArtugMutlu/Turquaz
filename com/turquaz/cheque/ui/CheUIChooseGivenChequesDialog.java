@@ -9,11 +9,13 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cheque.CheKeys;
-import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -66,7 +68,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.setText(Messages.getString("CheUICustomerChequeChooseDialog.0")); //$NON-NLS-1$
+			dialogShell.setText(CheLangKeys.TITLE_GIVEN_CHEQUES); //$NON-NLS-1$
 			dialogShell.layout();
 			dialogShell.pack();
 			dialogShell.setSize(647, 441);
@@ -78,7 +80,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 			toolBar.setLayoutData(toolBarLData);
 			//START >> toolSave
 			toolSave = new ToolItem(toolBar, SWT.NONE);
-			toolSave.setText(Messages.getString("CheUICustomerChequeChooseDialog.1")); //$NON-NLS-1$
+			toolSave.setText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
 			toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolSave.addSelectionListener(new SelectionAdapter()
 			{
@@ -90,7 +92,7 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 			//END << toolSave
 			//START >> toolCancel
 			toolCancel = new ToolItem(toolBar, SWT.NONE);
-			toolCancel.setText(Messages.getString("CheUICustomerChequeChooseDialog.3")); //$NON-NLS-1$
+			toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 			toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 			toolCancel.addSelectionListener(new SelectionAdapter()
 			{
@@ -113,27 +115,27 @@ public class CheUIChooseGivenChequesDialog extends org.eclipse.swt.widgets.Dialo
 				tableCheques.setLayoutData(tableChequesLData);
 				//START >> tableColumnNo
 				tableColumnNo = new TableColumn(tableCheques, SWT.NONE);
-				tableColumnNo.setText(Messages.getString("CheUICustomerChequeChooseDialog.5")); //$NON-NLS-1$
+				tableColumnNo.setText(CheLangKeys.STR_ROLL_NO); //$NON-NLS-1$
 				tableColumnNo.setWidth(96);
 				//END << tableColumnNo
 				//START >> tableColumnCurrentCard
 				tableColumnCurrentCard = new TableColumn(tableCheques, SWT.NONE);
-				tableColumnCurrentCard.setText(Messages.getString("CheUICustomerChequeChooseDialog.6")); //$NON-NLS-1$
+				tableColumnCurrentCard.setText(CurLangKeys.STR_CUR_CARD); //$NON-NLS-1$
 				tableColumnCurrentCard.setWidth(111);
 				//END << tableColumnCurrentCard
 				//START >> tableColumnDueDate
 				tableColumnDueDate = new TableColumn(tableCheques, SWT.NONE);
-				tableColumnDueDate.setText(Messages.getString("CheUICustomerChequeChooseDialog.7")); //$NON-NLS-1$
+				tableColumnDueDate.setText(EngLangCommonKeys.STR_DUE_DATE); //$NON-NLS-1$
 				tableColumnDueDate.setWidth(100);
 				//END << tableColumnDueDate
 				//START >> tableColumnDebtor
 				tableColumnDebtor = new TableColumn(tableCheques, SWT.NONE);
-				tableColumnDebtor.setText(Messages.getString("CheUICustomerChequeChooseDialog.8")); //$NON-NLS-1$
+				tableColumnDebtor.setText(CheLangKeys.STR_DEPTOR); //$NON-NLS-1$
 				tableColumnDebtor.setWidth(100);
 				//END << tableColumnDebtor
 				//START >> tableColumnAmount
 				tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
-				tableColumnAmount.setText(Messages.getString("CheUICustomerChequeChooseDialog.9")); //$NON-NLS-1$
+				tableColumnAmount.setText(EngLangCommonKeys.STR_TOTALPRICE); //$NON-NLS-1$
 				tableColumnAmount.setWidth(100);
 				//END << tableColumnAmount
 			}

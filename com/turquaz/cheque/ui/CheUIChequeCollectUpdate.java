@@ -33,7 +33,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cheque.CheKeys;
-import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -42,6 +41,8 @@ import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -225,7 +226,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeCollectRoll",argMap) ;
 			
 				
-				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_UPDATED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
 			}
@@ -244,16 +245,14 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				if (compChequeRoll.getTableCheques().getItemCount() > 0)
 				{
-					EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeOutPayrollBankUpdate.0"), SWT.ICON_WARNING); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getParent(), CheLangKeys.MSG_CANNOT_DELETE_ROLLS_WITH_CHEQUE, SWT.ICON_WARNING); //$NON-NLS-1$
 					return;
 				}
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"deleteChequeRollIn",argMap);
-				
-				
-				
-				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayrollUpdate.8"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+			
+				EngUICommon.showMessageBox(getParent(),EngLangCommonKeys.MSG_DELETED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
 			}

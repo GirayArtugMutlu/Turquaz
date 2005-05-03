@@ -33,7 +33,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.cheque.CheKeys;
-import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -41,6 +40,8 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -97,7 +98,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-					toolUpdate.setText(Messages.getString("CheUIChequeInPayrollUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); //$NON-NLS-1$
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
@@ -109,7 +110,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				}
 				{
 					toolDelete = new ToolItem(toolBar1, SWT.NONE);
-					toolDelete.setText(Messages.getString("CheUIChequeInPayrollUpdate.2")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 					toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -121,7 +122,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("CheUIChequeInPayrollUpdate.4")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -211,14 +212,14 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 			{
 				if (compChequeRoll.getTableCheques().getItemCount() > 0)
 				{
-					EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeOutPayrollBankUpdate.0"), SWT.ICON_WARNING); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getParent(), CheLangKeys.MSG_CANNOT_DELETE_ROLLS_WITH_CHEQUE, SWT.ICON_WARNING); //$NON-NLS-1$
 					return;
 				}
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"deleteChequeRollIn",argMap);
 				
-				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayrollUpdate.8"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_DELETED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
 			}
@@ -255,7 +256,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeRollIn",argMap);
-				EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIChequeInPayroll.13"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_UPDATED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
 				isUpdated = true;
 				dialogShell.close();
 			}

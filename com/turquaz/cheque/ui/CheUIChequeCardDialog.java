@@ -2,8 +2,9 @@ package com.turquaz.cheque.ui;
 
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Table;
-import com.turquaz.cheque.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Composite;
@@ -17,13 +18,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -82,7 +76,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				{
 					tabItemChequeInfo = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemChequeInfo.setText(Messages.getString("CheUIChequeCardDialog.0")); //$NON-NLS-1$
+					tabItemChequeInfo.setText(CheLangKeys.STR_CHEQUE_INFO); //$NON-NLS-1$
 					{
 						compChequeInfo = new Composite(cTabFolder1, SWT.NONE);
 						tabItemChequeInfo.setControl(compChequeInfo);
@@ -91,7 +85,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 						compChequeInfo.setLayout(compChequeInfoLayout);
 						{
 							lblPortfoyNo = new CLabel(compChequeInfo, SWT.NONE);
-							lblPortfoyNo.setText(Messages.getString("CheUIChequeCardDialog.1")); //$NON-NLS-1$
+							lblPortfoyNo.setText(CheLangKeys.STR_PORTFOLIO_NO); //$NON-NLS-1$
 						}
 						{
 							txtPortfoyNo = new Text(compChequeInfo, SWT.NONE);
@@ -102,7 +96,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							lblDueDate = new CLabel(compChequeInfo, SWT.NONE);
-							lblDueDate.setText(Messages.getString("CheUIChequeCardDialog.2")); //$NON-NLS-1$
+							lblDueDate.setText(CheLangKeys.STR_DUE_DATE); //$NON-NLS-1$
 						}
 						{
 							datePicker = new DatePicker(compChequeInfo, SWT.NONE);
@@ -151,7 +145,7 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					tabItemChequeHistory = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemChequeHistory.setText(Messages.getString("CheUIChequeCardDialog.3")); //$NON-NLS-1$
+					tabItemChequeHistory.setText(CheLangKeys.STR_CHEQUE_HISTORY); //$NON-NLS-1$
 					{
 						table = new Table(cTabFolder1, SWT.NONE);
 						tabItemChequeHistory.setControl(table);
@@ -159,23 +153,23 @@ public class CheUIChequeCardDialog extends org.eclipse.swt.widgets.Dialog
 						table.setLinesVisible(true);
 						{
 							tableColumnDate = new TableColumn(table, SWT.NONE);
-							tableColumnDate.setText(Messages.getString("CheUIChequeCardDialog.4")); //$NON-NLS-1$
+							tableColumnDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
 							tableColumnDate.setWidth(100);
 						}
 						{
 							tableColumnRollNo = new TableColumn(table, SWT.NONE);
-							tableColumnRollNo.setText(Messages.getString("CheUIChequeCardDialog.5")); //$NON-NLS-1$
+							tableColumnRollNo.setText(CheLangKeys.STR_ROLL_NO); //$NON-NLS-1$
 							tableColumnRollNo.setWidth(100);
 						}
 						{
 							tableColumnRollType = new TableColumn(table, SWT.NONE);
-							tableColumnRollType.setText(Messages.getString("CheUIChequeCardDialog.6")); //$NON-NLS-1$
+							tableColumnRollType.setText(CheLangKeys.STR_ROLL_TYPE); //$NON-NLS-1$
 							tableColumnRollType.setWidth(100);
 						}
 						{
 							tableColumnCurrentBankCode = new TableColumn(table, SWT.NONE);
 							tableColumnCurrentBankCode.setWidth(113);
-							tableColumnCurrentBankCode.setText(Messages.getString("CheUIChequeCardDialog.7")); //$NON-NLS-1$
+							tableColumnCurrentBankCode.setText(CheLangKeys.STR_BANK_CURRENT_CODE); //$NON-NLS-1$
 						}
 					}
 				}
