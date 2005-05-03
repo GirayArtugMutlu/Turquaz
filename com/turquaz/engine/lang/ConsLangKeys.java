@@ -14,5 +14,6 @@ package com.turquaz.engine.lang;
  */
 public class ConsLangKeys
 {
-	
+	public final static String MSG_ENTER_AT_LEAST_ONE_ROW="En az bir sat?r girmeniz gerekli!";
+	public final static String STR_CONS_DATE="?rsaliye Tarihi";
 }

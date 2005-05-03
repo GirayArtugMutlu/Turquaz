@@ -27,7 +27,6 @@ import java.util.Vector;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -36,12 +35,12 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -52,7 +51,6 @@ import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.ConsKeys;
-import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -63,6 +61,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -218,7 +217,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 	private Text txtDefinition;
 	private CLabel lblDefinition;
 	private CurrencyText decSpecialVat;
-	private Label lblSpecialVAT;
+	private CLabel lblSpecialVAT;
 	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
 	private Composite composite1;
@@ -251,15 +250,15 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 	private final String UNIT = EngLangCommonKeys.STR_UNIT;
 	private final String TRANS_AMOUNT_IN_BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT_AMOUNT;
 	private final String BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT;
-	private final String UNIT_PRICE = "";
-	private final String TOTAL_PRICE = Messages.getString("ConUIAddConsignment.18"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT = Messages.getString("ConUIAddConsignment.15"); //$NON-NLS-1$
-	private final String TOTAL_PRICE_AFTER_DISCOUNT = Messages.getString("ConUIAddConsignment.40"); //$NON-NLS-1$
-	private final String VAT_PERCENT = Messages.getString("ConUIAddConsignment.19"); //$NON-NLS-1$
-	private final String VAT_TOTAL = Messages.getString("ConUIAddConsignment.20"); //$NON-NLS-1$
-	private final String SPECIAL_VAT_PERCENT = Messages.getString("ConUIAddConsignment.21"); //$NON-NLS-1$
-	private final String SPECIAL_VAT_TOTAL = Messages.getString("ConUIAddConsignment.32"); //$NON-NLS-1$
-	private final String ROW_TOTAL = Messages.getString("ConUIAddConsignment.33"); //$NON-NLS-1$
+	private final String UNIT_PRICE = EngLangCommonKeys.STR_UNIT_PRICE;
+	private final String TOTAL_PRICE = EngLangCommonKeys.STR_TOTALPRICE;
+	private final String DISCOUNT_PERCENT = EngLangCommonKeys.STR_DISCOUNT_PERCENTAGE;
+	private final String TOTAL_PRICE_AFTER_DISCOUNT = EngLangCommonKeys.STR_DISCOUNTED_TOTALPRICE;
+	private final String VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+	private final String VAT_TOTAL = InvLangKeys.STR_VAT_TOTAL;
+	private final String SPECIAL_VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+	private final String SPECIAL_VAT_TOTAL = InvLangKeys.STR_SPEC_VAT_TOTAL;
+	private final String ROW_TOTAL = InvLangKeys.STR_TRANSROW_TOTAL;
 	int last_row_index = 0;
 	int CONS_TYPE = EngBLCommon.COMMON_BUY_INT;
 	TableSpreadsheetCursor cursor;
@@ -520,7 +519,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						compTotalsPanel.setLayout(composite1Layout1);
 						{
 							lblDiscountAmount = new CLabel(compTotalsPanel, SWT.NONE);
-							lblDiscountAmount.setText(Messages.getString("ConUIAddConsignment.22")); //$NON-NLS-1$
+							lblDiscountAmount.setText(EngLangCommonKeys.STR_DISCOUNT_AMOUNT);
 							GridData lblDiscountAmountLData = new GridData();
 							lblDiscountAmountLData.widthHint = 105;
 							lblDiscountAmountLData.heightHint = 19;
@@ -537,7 +536,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblTotalAmount = new CLabel(compTotalsPanel, SWT.NONE);
-							lblTotalAmount.setText(Messages.getString("ConUIAddConsignment.23")); //$NON-NLS-1$
+							lblTotalAmount.setText(EngLangCommonKeys.STR_GENERAL_TOTAL);
 							GridData lblTotalAmountLData = new GridData();
 							lblTotalAmountLData.widthHint = 90;
 							lblTotalAmountLData.heightHint = 20;
@@ -554,7 +553,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblInventoryPrice = new CLabel(compTotalsPanel, SWT.NONE);
-							lblInventoryPrice.setText(Messages.getString("ConUIAddConsignment.24")); //$NON-NLS-1$
+							lblInventoryPrice.setText(EngLangCommonKeys.STR_MIDDLE_SUM);
 							GridData lblInventoryPriceLData = new GridData();
 							lblInventoryPrice.setSize(87, 19);
 							lblInventoryPriceLData.widthHint = 87;
@@ -573,7 +572,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblTotalVat = new CLabel(compTotalsPanel, SWT.NONE);
-							lblTotalVat.setText(Messages.getString("ConUIAddConsignment.25")); //$NON-NLS-1$
+							lblTotalVat.setText(InvLangKeys.STR_TOTAL_VAT);
 							GridData lblTotalVatLData = new GridData();
 							lblTotalVat.setSize(87, 19);
 							lblTotalVatLData.widthHint = 87;
@@ -591,8 +590,8 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 							txtTotalVat.setLayoutData(txtTotalVatLData);
 						}
 						{
-							lblSpecialVAT = new Label(compTotalsPanel, SWT.NONE);
-							lblSpecialVAT.setText(Messages.getString("ConUIAddConsignment.26")); //$NON-NLS-1$
+							lblSpecialVAT = new CLabel(compTotalsPanel, SWT.NONE);
+							lblSpecialVAT.setText(InvLangKeys.STR_SPEC_VAT);
 							GridData lblSpecialVATLData = new GridData();
 							lblSpecialVATLData.widthHint = 94;
 							lblSpecialVATLData.heightHint = 16;
@@ -671,20 +670,6 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		catch (Exception ex)
 		{
             EngBLLogger.log(this.getClass(),ex,getShell());
-		}
-	}
-
-	public boolean okToDelete()
-	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-		msg.setMessage(Messages.getString("ConUIAddConsignment.37")); //$NON-NLS-1$
-		if (msg.open() == SWT.OK)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
 		}
 	}
 
@@ -853,18 +838,15 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 	
 	public boolean verifyFields()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 		if (txtCurrentCard.getData() == null)
 		{
-			msg.setMessage(Messages.getString("ConUIAddConsignment.11")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CUR_ACCOUNT,SWT.ICON_WARNING);
 			txtCurrentCard.setFocus();
 			return false;
 		}
-		if (tableConsignmentRows.getItemCount() == 0)
+		else if (tableConsignmentRows.getItemCount() == 0)
 		{
-			msg.setMessage(Messages.getString("ConUIAddConsignment.31")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
 			tableConsignmentRows.setFocus();
 			return false;
 		}
@@ -881,8 +863,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		}
 		if (!isExistEntry)
 		{
-			msg.setMessage(Messages.getString("ConUIAddConsignment.39")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
 			return false;
 		}
 		return true;
@@ -922,7 +903,6 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 
 	public void save()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
 			if (verifyFields())
@@ -941,8 +921,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
 				
 				TurqConsignment cons =(TurqConsignment)EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(),"saveConsignment",argMap);
-				msg.setMessage(Messages.getString("ConUIAddConsignment.36")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
 		}

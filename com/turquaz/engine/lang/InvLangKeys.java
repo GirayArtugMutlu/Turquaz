@@ -89,7 +89,6 @@ public class InvLangKeys
 	public final static String STR_SPEC_VAT_PERC="ÖTV%";
 	public final static String STR_SUB_GROUPS="Alt Gruplar";
 	public final static String STR_SUB_UNITS="Alt Birimler";
-	public final static String STR_TOTAL_PRICE="Toplam Tutar";
 	public final static String STR_TRANSOVER_AMOUNT="Devir Mik.";
 	public final static String STR_TRANSOVER_PRICE="Devir Tutar?";
 	public final static String STR_TRANSOVER_UNIT_PRICE="Devir Bir. Fiyat?";

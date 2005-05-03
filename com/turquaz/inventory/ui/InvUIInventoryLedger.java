@@ -178,7 +178,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				}
 				{
 					tableColumnTotalPrice = new TableColumn(tableInventories, SWT.RIGHT);
-					tableColumnTotalPrice.setText(InvLangKeys.STR_TOTAL_PRICE);
+					tableColumnTotalPrice.setText(EngLangCommonKeys.STR_TOTAL_PRICE);
 					tableColumnTotalPrice.setWidth(100);
 				}
 			}

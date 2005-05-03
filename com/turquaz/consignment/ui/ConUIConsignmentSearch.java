@@ -40,6 +40,8 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TableSorter;
@@ -156,7 +158,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				composite1.setLayout(composite1Layout);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("ConUIConsignmentSearch.0")); //$NON-NLS-1$
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 					GridData lblCurrentCardLData = new GridData();
 					lblCurrentCardLData.widthHint = 109;
 					lblCurrentCardLData.heightHint = 18;
@@ -171,7 +173,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText(Messages.getString("ConUIConsignmentSearch.3")); //$NON-NLS-1$
+					lblType.setText(EngLangCommonKeys.STR_TYPE);
 					GridData lblTypeLData = new GridData();
 					lblTypeLData.widthHint = 74;
 					lblTypeLData.heightHint = 21;
@@ -187,7 +189,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText(Messages.getString("ConUIConsignmentSearch.1")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -202,7 +204,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText(Messages.getString("ConUIConsignmentSearch.2")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 77;
 					lblEndDateLData.heightHint = 21;
@@ -217,7 +219,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					lblDocNo = new CLabel(composite1, SWT.NONE);
-					lblDocNo.setText(Messages.getString("ConUIConsignmentSearch.4")); //$NON-NLS-1$
+					lblDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 				}
 				{
 					txtDocNo = new Text(composite1, SWT.NONE);
@@ -246,7 +248,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				tableConsignments.setLayoutData(tableConsignmentsLData);
 				{
 					tableColumnConsignmentDate = new TableColumn(tableConsignments, SWT.NONE);
-					tableColumnConsignmentDate.setText(Messages.getString("ConUIConsignmentSearch.5")); //$NON-NLS-1$
+					tableColumnConsignmentDate.setText(EngLangCommonKeys.STR_DATE);
 					tableColumnConsignmentDate.setWidth(104);
 					tableColumnConsignmentDate.addListener(SWT.Selection, new Listener()
 					{
@@ -258,12 +260,12 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				//START >> tableColumnCurrentCode
 				tableColumnCurrentCode = new TableColumn(tableConsignments, SWT.NONE);
-				tableColumnCurrentCode.setText(Messages.getString("ConUIConsignmentSearch.10")); //$NON-NLS-1$
+				tableColumnCurrentCode.setText(CurLangKeys.STR_CUR_CODE);
 				tableColumnCurrentCode.setWidth(100);
 				//END << tableColumnCurrentCode
 				{
 					tableColumnCurrentName = new TableColumn(tableConsignments, SWT.NONE);
-					tableColumnCurrentName.setText(Messages.getString("ConUIConsignmentSearch.6")); //$NON-NLS-1$
+					tableColumnCurrentName.setText(CurLangKeys.STR_CUR_NAME);
 					tableColumnCurrentName.setWidth(150);
 					tableColumnCurrentName.addListener(SWT.Selection, new Listener()
 					{
@@ -275,12 +277,12 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					tableColumnDcoNo = new TableColumn(tableConsignments, SWT.NONE);
-					tableColumnDcoNo.setText(Messages.getString("ConUIConsignmentSearch.11")); //$NON-NLS-1$
+					tableColumnDcoNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 					tableColumnDcoNo.setWidth(82);
 				}
 				{
 					tableColumnCumulativePrice = new TableColumn(tableConsignments, SWT.RIGHT);
-					tableColumnCumulativePrice.setText(Messages.getString("ConUIConsignmentSearch.7")); //$NON-NLS-1$
+					tableColumnCumulativePrice.setText(EngLangCommonKeys.STR_TOTAL_PRICE);
 					tableColumnCumulativePrice.setWidth(100);
 					tableColumnCumulativePrice.addListener(SWT.Selection, new Listener()
 					{
