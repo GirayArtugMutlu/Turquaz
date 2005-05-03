@@ -356,7 +356,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			}
 			else if (txtCredit.getText().equals("") && comboType.getText().equals("")) //$NON-NLS-1$ //$NON-NLS-2$
 			{
-				msg.setMessage(CurLangKeys.MSG_PLEASE_ENTER_CREDIT_OR_DEPT); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_ENTER_CREDIT_OR_DEPT); //$NON-NLS-1$
 				msg.open();
 				comboType.setFocus();
 				return false;

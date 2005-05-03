@@ -5,13 +5,13 @@ public class CurLangKeys
     
     public final static String MSG_CUR_CARD_HAS_TRANSACTIONS = "Bu Cari Kart Hareket Görmüþ. \nÖnce Bu Hareketleri Silmeniz gerekir!";
     public final static String MSG_CURRENT_CODE_ALREADY_EXIST ="Böyle bir cari kod zaten var!";
+    public final static String MSG_ENTER_CREDIT_OR_DEPT ="Borç veya Alacak Girmelisiniz!";
+    public final static String MSG_ENTER_CURRENT_CODE ="Lütfen Cari Kodu bölümünü doldurunuz!";
+    public final static String MSG_ENTER_CURRENT_NAME ="Lütfen Cari Unvan bölümünü doldurunuz!";
+    public final static String MSG_ENTER_GROUP_NAME ="Lütfen Grup Adý Bölümünü doldurunuz!";
     public final static String MSG_NOT_SAVED_ACCOUNTING_TRANSACTIONS ="Muhasebe Hareketleri Kaydedilemedi! \nCari Kart Muhasebe Hesabi tanimli olmasi gerekir!";
-    public final static String MSG_SELECT_CURRENT_CARD="Lütfen Bir Cari Kart Seçiniz!";
-    public final static String MSG_PLEASE_ENTER_CREDIT_OR_DEPT ="Borç veya Alacak Girmelisiniz!";
-    public final static String MSG_PLEASE_FILL_CURRENT_CODE ="Lütfen Cari Kodu bölümünü doldurunuz!";
-    public final static String MSG_PLEASE_FILL_CURRENT_NAME ="Lütfen Cari Unvan bölümünü doldurunuz!";
-    public final static String MSG_PLEASE_FILL_GROUP_NAME ="Lütfen Grup Adý Bölümünü doldurunuz!";
     public final static String MSG_SELECT_CUR_ACCOUNT="Lütfen cari hesap seçiniz!";
+    public final static String MSG_SELECT_CURRENT_CARD="Lütfen Bir Cari Kart Seçiniz!";
     public final static String MSG_WANT_TO_ADD_ACCOUNTING_ACCOUNT ="Bu Cari karta muhasebe hesabý açmak ister misiniz?";
     public final static String MSG_WANT_TO_PRINT_VOUCHER ="Fiþi Yazdýrmak Ýster misiniz?";
     public final static String STR_CHEQUES_GIVEN_ACCOUNTING_ACCOUNT = "Verilen Çekler Hesabý";  
@@ -46,7 +46,6 @@ public class CurLangKeys
     public final static String STR_DEPT_CREDIT = "Borç/Alacak";
     public final static String STR_DEPT_CREDIT_VOUCHER ="Cari Borç/Alacak Fiþi";
     public final static String STR_DEPT_VOUCHER ="Cari Borç Fiþi";
-    public final static String STR_DISCOUNT_AMOUNT ="Ýndirim Miktarý";
     public final static String STR_DISCOUNT_RATE ="Ýndirim Oraný";
     public final static String STR_DUE_DAYS = "Vade Miktarý (Gün)";
     public final static String STR_RISK_LIMIT ="Risk Limiti";

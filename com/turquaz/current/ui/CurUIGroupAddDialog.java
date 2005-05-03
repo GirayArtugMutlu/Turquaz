@@ -346,7 +346,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_GROUP_NAME); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_ENTER_GROUP_NAME); //$NON-NLS-1$
 				msg.open();
 			}
 			else
@@ -390,7 +390,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_GROUP_NAME); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_ENTER_GROUP_NAME); //$NON-NLS-1$
 				msg.open();
 				txtGroupName.setFocus();
 			}

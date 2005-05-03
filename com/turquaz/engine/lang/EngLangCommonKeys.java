@@ -6,6 +6,8 @@ public class EngLangCommonKeys {
 	public final static String MSG_DEFINE_DAILY_EXCHANGE_RATE="Günlük kur oran? tan?mlamal?s?n?z!";
 	public final static String MSG_DELETE_REALLY = "Silmek istediðinizden emin misiniz?";
 	public final static String MSG_DELETED_SUCCESS = "Baþarýyla Silindi!";
+	public final static String MSG_ENTER_AMOUNT = "Lütfen Tutar Giriniz!";
+	public final static String MSG_ENTER_AT_LEAST_ONE_ROW="En az bir sat?r girmeniz gerekli!";
 	public final static String MSG_SAVED_SUCCESS = "Baþarýyla Kaydedildi!";
 	public final static String MSG_SELECT_CURRENCY="Lütfen para birimi seçiniz!";
 	public final static String MSG_UNKNOWN_ERROR_REPORT_ERROR_LOG = "Bilinmeyen bir hata oluþtu. error.log dosyasýndan eriþilebilir.";
@@ -38,8 +40,8 @@ public class EngLangCommonKeys {
 	public final static String STR_DEPT="Borç";
 	public final static String STR_DESCRIPTION = "Açýklama";
 	public final static String STR_DETAILS="Ayr?nt?lar";
+	public final static String STR_DISCOUNT_AMOUNT ="Ýndirim Miktarý";
 	
-	public final static String STR_DISCOUNT_AMOUNT="?ndirim Tutar?";
 	public final static String STR_DISCOUNT_PERCENTAGE="?ndirim%";
 	public final static String STR_DISCOUNTED_TOTALPRICE="?ndirimli Tutar";
     public final static String STR_DOCUMENT_NO="Belge No";
@@ -95,8 +97,6 @@ public class EngLangCommonKeys {
 	public final static String STR_UNITS="Birimler";
 	public final static String STR_UPDATE = "Güncelle";
     public final static String STR_UPDATE_GROUPS = "Gruplarý Güncelle";
-	public final static String MSG_ENTER_AT_LEAST_ONE_ROW="En az bir sat?r girmeniz gerekli!";
-	public final static String MSG_ENTER_AMOUNT = "Lütfen Tutar Giriniz!";
 
 	
 	

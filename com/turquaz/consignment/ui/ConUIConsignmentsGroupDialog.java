@@ -328,7 +328,7 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			if (txtGroupName.getText().trim().equals("")) 
 			{
-				EngUICommon.showMessageBox(getParent(),CurLangKeys.MSG_PLEASE_FILL_GROUP_NAME,SWT.ICON_WARNING);
+				EngUICommon.showMessageBox(getParent(),CurLangKeys.MSG_ENTER_GROUP_NAME,SWT.ICON_WARNING);
 			}
 			else
 			{
@@ -369,7 +369,7 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			if (txtGroupName.getText().trim().equals("")) 
 			{
-				EngUICommon.showMessageBox(getParent(),CurLangKeys.MSG_PLEASE_FILL_GROUP_NAME,SWT.ICON_WARNING);
+				EngUICommon.showMessageBox(getParent(),CurLangKeys.MSG_ENTER_GROUP_NAME,SWT.ICON_WARNING);
 			}
 			else
 			{

@@ -902,7 +902,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 					lblDiscountAMountLData.widthHint = 102;
 					lblDiscountAMountLData.heightHint = 16;
 					lblDiscountAMount.setLayoutData(lblDiscountAMountLData);
-					lblDiscountAMount.setText(CurLangKeys.STR_DISCOUNT_AMOUNT); //$NON-NLS-1$
+					lblDiscountAMount.setText(EngLangCommonKeys.STR_DISCOUNT_AMOUNT); //$NON-NLS-1$
 				}
 				{
 					decTxtDiscountAmount = new CurrencyText(compCurrentGeneralInfo, SWT.NONE);
@@ -1107,20 +1107,21 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCode.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_CURRENT_CODE); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_ENTER_CURRENT_CODE); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCode.setFocus();
 				return false;
 			}
 			else if (save && EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()) != null)
 			{
-				msg.setMessage(CurLangKeys.MSG_CURRENT_CODE_ALREADY_EXIST); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_CURRENT_CODE_ALREADY_EXIST);
 				msg.open();
 				txtCurrentCode.setFocus();
 				return false;
 			}
-			else if (txtCurrentName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(CurLangKeys.MSG_PLEASE_FILL_CURRENT_NAME); //$NON-NLS-1$
+			else if (txtCurrentName.getText().trim().equals(""))
+			{ 
+				msg.setMessage(CurLangKeys.MSG_ENTER_CURRENT_NAME);
 				msg.open();
 				txtCurrentName.setFocus();
 				return false;
