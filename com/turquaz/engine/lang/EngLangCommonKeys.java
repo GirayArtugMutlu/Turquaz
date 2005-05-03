@@ -36,6 +36,7 @@ public class EngLangCommonKeys {
 	public final static String STR_DETAILS="Ayr?nt?lar";
     public final static String STR_DOCUMENT_NO="Belge No";
 	public final static String STR_END_DATE="Biti? Tarihi";
+    public final static String STR_DUE_DATE ="Vade Tarihi";
 	
 	public final static String STR_EXCHANGE="Kur";
 	public final static String STR_EXCHANGE_RATE="Kur Oran?";
