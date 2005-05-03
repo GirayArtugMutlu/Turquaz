@@ -325,7 +325,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{	
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			//boolean willUpdateBill = EngUICommon.okToDelete(getParent(),Messages.getString("ConUIConsignmentUpdateDialog.15"));
+			boolean willUpdateBill = EngUICommon.showQuestion(getParent(),ConsLangKeys.MSG_WILL_UPDATE_BILL);
 			
 			HashMap argMap=new HashMap();
 			
@@ -338,7 +338,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 			argMap.put(ConsKeys.CONS_GROUPS,compAddConsignment.getConsignmentGroups());
 			argMap.put(InvKeys.INV_TRANSACTIONS,compAddConsignment.getInventoryTransactions(type));
-			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(true));
+			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(willUpdateBill));
 			
 			EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"updateConsignment",argMap);
 			EngUICommon.showUpdatedSuccesfullyMessage(getParent());
