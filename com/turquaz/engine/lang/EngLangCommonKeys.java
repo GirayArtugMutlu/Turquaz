@@ -45,6 +45,7 @@ public class EngLangCommonKeys {
     public final static String STR_UPDATE_GROUPS = "Gruplarý Güncelle";
 	
 	public final static String STR_GENERAL_INFO="Genel Bilgiler";
+	public final static String STR_GENERAL_TOTAL="Genel Toplam";
 	public final static String STR_GENERAL_TOTAL_CAPITAL="GENEL TOPLAM";
     public final static String STR_GROUP_NAME="Grup Adý";
 	public final static String STR_GROUPS="Gruplar";
@@ -88,6 +89,12 @@ public class EngLangCommonKeys {
 	public final static String STR_UNITS="Birimler";
 	public final static String STR_TOTALPRICE="Tutar";
 	public final static String STR_UNIT_PRICE="Birim Fiyat?";
+	public final static String STR_DISCOUNTED_TOTALPRICE="?ndirimli Tutar";
+	public final static String STR_DISCOUNT_PERCENTAGE="?ndirim%";
+	
+	public final static String STR_DISCOUNT_AMOUNT="?ndirim Tutar?";
+	public final static String STR_MIDDLE_SUM="Ara Toplam";
+
 	
 	
 	

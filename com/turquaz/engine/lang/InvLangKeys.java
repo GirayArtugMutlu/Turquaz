@@ -97,7 +97,10 @@ public class InvLangKeys
 	public final static String STR_UNIT_PRICE_OUT="Ç?k. Birim Fiyat?";
 	public final static String STR_UPDATE_UNITS="Birimleri Güncelle";
 	public final static String STR_VAT="K.D.V";
+	public final static String STR_VAT_PERCENTAGE="KDV%";
 	public final static String STR_WAREHOUSE="Depo";
+	public final static String STR_TOTAL_VAT="Toplam KDV";
+	public final static String STR_SPEC_VAT="ÖTV";
 	
 	public final static String STR_WAREHOUSE_CODE="Depo Kodu";
 	public final static String STR_WAREHOUSE_NAME="Depo Ad?";
