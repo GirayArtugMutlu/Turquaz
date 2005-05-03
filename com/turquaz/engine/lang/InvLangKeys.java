@@ -41,10 +41,7 @@ public class InvLangKeys
 	public final static String STR_BALANCE_AMOUNT_OUT="Bakiye Ç?k??";
 	public final static String STR_BALANCE_PRICE="Bakiye Tutar?";
 	public final static String STR_BALANCE_UNIT_PRICE="Bak. Birim Fiyat?";
-	public final static String STR_BASE_UNIT="Temel Birim";
-	public final static String STR_COEFFICIENT="Katsay?";
 	public final static String STR_DISCOUNT="?ndirim";
-	public final static String STR_FILTER="Filtre";
 	public final static String STR_HAS_BALANCE="Bakiyeliler";
 	public final static String STR_HAS_TRANSACTIONS="Hareketliler";
 	

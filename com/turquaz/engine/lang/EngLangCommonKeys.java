@@ -83,6 +83,10 @@ public class EngLangCommonKeys {
 	public final static String STR_UNIT_NAME="Birim Ad?";
 	public final static String STR_UNITS="Birimler";
 	public final static String STR_UPDATE = "Güncelle";
+	public final static String STR_BASE_UNIT_AMOUNT="Temel Birim Miktar?";
+	public final static String STR_BASE_UNIT="Temel Birim";
+	public final static String STR_COEFFICIENT="Katsay?";
+	public final static String STR_FILTER="Filtre";
 	
 	
 	
