@@ -66,7 +66,7 @@ public class EngLangCommonKeys {
     public final static String STR_EXPORT_TO_EXCEL = "Excele Aktar";
    
 
-	
+    public final static String STR_NAME="?sim";
 	public final static String STR_OPERATIONS="??lemler";
 	public final static String STR_PRINT = "Yazdýr";
 	public final static String STR_REPORT="Rapor";
