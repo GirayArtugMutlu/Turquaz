@@ -289,7 +289,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 	{
 		if (currentPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), CurLangKeys.MSG_SELECT_CURRENT_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			currentPicker.setFocus();
 			return false;
 		}
