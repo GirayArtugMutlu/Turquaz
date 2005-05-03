@@ -87,6 +87,7 @@ public class EngLangCommonKeys {
 	public final static String STR_FILTER="Filtre";
 	public final static String STR_UNITS="Birimler";
 	public final static String STR_TOTALPRICE="Tutar";
+	public final static String STR_UNIT_PRICE="Birim Fiyat?";
 	
 	
 	
