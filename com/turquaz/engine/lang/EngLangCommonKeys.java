@@ -96,6 +96,7 @@ public class EngLangCommonKeys {
 	public final static String STR_DISCOUNT_AMOUNT="?ndirim Tutar?";
 	public final static String STR_MIDDLE_SUM="Ara Toplam";
 	public final static String STR_TOTAL_PRICE="Toplam Tutar";
+	public final static String STR_SEARCH="Ara";
 
 	
 	
