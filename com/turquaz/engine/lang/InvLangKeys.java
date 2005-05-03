@@ -106,6 +106,10 @@ public class InvLangKeys
 	public final static String STR_WAREHOUSE_NAME="Depo Ad?";
 	public final static String STR_WAREHOUSES="Depolar";
 	
+	public final static String STR_VAT_TOTAL="KDV Tutar?";
+	public final static String STR_SPEC_VAT_TOTAL="ÖTV Tutar?";
+	public final static String STR_TRANSROW_TOTAL="Sat?r Toplam?";
+	
 	
 	public final static String TITLE_INV_CARD_SEARCH="Stok Kart? Arama";
 	public final static String TITLE_INV_CARD_UPDATE="Stok Kart? Güncelleme";
