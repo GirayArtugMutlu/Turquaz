@@ -44,7 +44,7 @@ public class EngLangCommonKeys {
     public final static String STR_ACCOUNTING_ACCOUNT = "Muhasebe Hesabý";
     public final static String STR_UPDATE_GROUPS = "Gruplarý Güncelle";
 	
-	public final static String STR_GENERAL_INFO="Genel Bilgi";
+	public final static String STR_GENERAL_INFO="Genel Bilgiler";
 	public final static String STR_GENERAL_TOTAL_CAPITAL="GENEL TOPLAM";
     public final static String STR_GROUP_NAME="Grup Adý";
 	public final static String STR_GROUPS="Gruplar";
