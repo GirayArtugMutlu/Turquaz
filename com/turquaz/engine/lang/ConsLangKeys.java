@@ -14,6 +14,11 @@ package com.turquaz.engine.lang;
  */
 public class ConsLangKeys
 {
-	public final static String MSG_ENTER_AT_LEAST_ONE_ROW="En az bir sat?r girmeniz gerekli!";
+	public final static String MSG_HAS_BILL_CAN_NOT_DELETE="Bu irsaliyenin faturas? kesilmi?\nÖnce faturas?n? silmeniz gerekir!";
+	public final static String MSG_SELECT_ONLY_ONE_TYPE="Lütfen sadece al?? veya sat?? irsaliyesi seçiniz!";
 	public final static String STR_CONS_DATE="?rsaliye Tarihi";
+	public final static String STR_CONSIGNMENTS="?rsaliyeler";
+	public final static String TITLE_CONS_GROUPS="?rsaliye Gruplar?";
+	public final static String TITLE_CONS_SEARCH="?rsaliye Arama";
+
 }

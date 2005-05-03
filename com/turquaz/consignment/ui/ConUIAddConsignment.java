@@ -881,7 +881,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		if (tableConsignmentRows.getItemCount() == 0)
 		{
-			EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
+			EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
 			tableConsignmentRows.setFocus();
 			return false;
 		}
@@ -898,7 +898,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 		}
 		if (!isExistEntry)
 		{
-			EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
+			EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
 			return false;
 		}
 		return true;

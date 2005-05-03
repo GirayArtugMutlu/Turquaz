@@ -25,13 +25,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.consignment.ConsKeys;
-import com.turquaz.consignment.Messages;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
@@ -40,8 +38,10 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TableSorter;
@@ -294,7 +294,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					tableColumnVatAmount = new TableColumn(tableConsignments, SWT.RIGHT);
-					tableColumnVatAmount.setText(Messages.getString("ConUIConsignmentSearch.8")); //$NON-NLS-1$
+					tableColumnVatAmount.setText(InvLangKeys.STR_VAT_TOTAL);
 					tableColumnVatAmount.setWidth(100);
 					tableColumnVatAmount.addListener(SWT.Selection, new Listener()
 					{
@@ -306,7 +306,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				}
 				{
 					tableColumnSpecialVatAmount = new TableColumn(tableConsignments, SWT.RIGHT);
-					tableColumnSpecialVatAmount.setText(Messages.getString("ConUIConsignmentSearch.9")); //$NON-NLS-1$
+					tableColumnSpecialVatAmount.setText(InvLangKeys.STR_SPEC_VAT);
 					tableColumnSpecialVatAmount.setWidth(100);
 					tableColumnSpecialVatAmount.addListener(SWT.Selection, new Listener()
 					{
@@ -409,21 +409,21 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 
 	public void delete()
 	{
-		TableItem items[] = tableConsignments.getSelection();
-		if (items.length > 0)
+		try
 		{
-			Integer consId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			try
+			TableItem items[] = tableConsignments.getSelection();
+			if (items.length > 0)
 			{
+				Integer consId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
+				
 				HashMap argMap=new HashMap();
 				argMap.put(ConsKeys.CONS_ID,consId);
 				TurqConsignment cons =(TurqConsignment)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"initiliazeConsignmentById",argMap);
+				//TODO if bill exist?? result never return -1 ?
 				if (cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
 				{
-					MessageBox msg2 = new MessageBox(this.getShell(), SWT.CANCEL | SWT.OK);
-					msg2.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.9")); //$NON-NLS-1$
-					if (msg2.open() == SWT.OK)
+					boolean okToDelete=EngUICommon.okToDelete(getShell());
+					if (okToDelete)
 					{
 						argMap=new HashMap();
 						argMap.put(ConsKeys.CONS,cons);
@@ -431,28 +431,24 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 						
 						if(result.intValue()==1)
 						{
-							msg.setMessage(Messages.getString("ConUIConsignmentUpdateDialog.10")); //$NON-NLS-1$
-						
-						msg.open();
-						search();
+							EngUICommon.showDeletedSuccesfullyMessage(getShell());
+							search();
 						}
 						else if(result.intValue() ==-1)
 						{
-							EngUICommon.showMessageBox(getShell(),Messages.getString("ConUIConsignmentSearch.15"),SWT.ICON_WARNING); //$NON-NLS-1$
+							EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_HAS_BILL_CAN_NOT_DELETE,SWT.ICON_WARNING); 
 						}
 					}
 				}
 				else
 				{
-					msg = new MessageBox(this.getShell(), SWT.ICON_INFORMATION);
-					msg.setMessage(Messages.getString("ConUIConsignmentSearch.13")); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_HAS_BILL_CAN_NOT_DELETE,SWT.ICON_WARNING);
 				}
 			}
-			catch (Exception ex)
-			{
-                EngBLLogger.log(this.getClass(),ex,getShell());
-			}
+		}
+		catch (Exception ex)
+		{
+			EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
@@ -489,6 +485,6 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableConsignments, Messages.getString("ConUIConsignmentSearch.14")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableConsignments, ConsLangKeys.STR_CONSIGNMENTS);
 	}
 }

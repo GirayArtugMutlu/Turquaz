@@ -85,29 +85,29 @@ public class InvLangKeys
 	public final static String STR_SELL_AMOUNT="Sat?? Miktar?";
 	public final static String STR_SELL_COST="Sat?? Maliyeti";
 	public final static String STR_SELL_TOTALPRICE="Sat?? Tutar?";
+	public final static String STR_SPEC_VAT="ÖTV";
 	public final static String STR_SPEC_VAT_EACH="Birim ÖTV Tutar?";
 	public final static String STR_SPEC_VAT_PERC="ÖTV%";
+	public final static String STR_SPEC_VAT_TOTAL="ÖTV Tutar?";
 	public final static String STR_SUB_GROUPS="Alt Gruplar";
 	public final static String STR_SUB_UNITS="Alt Birimler";
+	public final static String STR_TOTAL_VAT="Toplam KDV";
 	public final static String STR_TRANSOVER_AMOUNT="Devir Mik.";
 	public final static String STR_TRANSOVER_PRICE="Devir Tutar?";
 	public final static String STR_TRANSOVER_UNIT_PRICE="Devir Bir. Fiyat?";
+	public final static String STR_TRANSROW_TOTAL="Sat?r Toplam?";
 	public final static String STR_UNIT_PRICE_IN="Gir. Birim Fiyat?";
 	public final static String STR_UNIT_PRICE_OUT="Ç?k. Birim Fiyat?";
 	public final static String STR_UPDATE_UNITS="Birimleri Güncelle";
 	public final static String STR_VAT="K.D.V";
 	public final static String STR_VAT_PERCENTAGE="KDV%";
+	
+	public final static String STR_VAT_TOTAL="KDV Tutar?";
 	public final static String STR_WAREHOUSE="Depo";
-	public final static String STR_TOTAL_VAT="Toplam KDV";
-	public final static String STR_SPEC_VAT="ÖTV";
 	
 	public final static String STR_WAREHOUSE_CODE="Depo Kodu";
 	public final static String STR_WAREHOUSE_NAME="Depo Ad?";
 	public final static String STR_WAREHOUSES="Depolar";
-	
-	public final static String STR_VAT_TOTAL="KDV Tutar?";
-	public final static String STR_SPEC_VAT_TOTAL="ÖTV Tutar?";
-	public final static String STR_TRANSROW_TOTAL="Sat?r Toplam?";
 	
 	
 	public final static String TITLE_INV_CARD_SEARCH="Stok Kart? Arama";

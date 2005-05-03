@@ -349,7 +349,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCard.getData() == null)
 			{
-				msg.setMessage(CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_SELECT_CURRENT_CARD); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCard.setFocus();
 				return false;
@@ -363,7 +363,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage(CurLangKeys.MSG_PLEASE_CHOOSE_CURRENCY); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SELECT_CURRENCY); //$NON-NLS-1$
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
@@ -373,7 +373,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage(CurLangKeys.MSG_PLASE_ENTER_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
+					msg.setMessage(EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
 					msg.open();
 					return false;
 				}

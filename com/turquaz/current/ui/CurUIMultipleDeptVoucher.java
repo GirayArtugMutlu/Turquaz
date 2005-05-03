@@ -52,6 +52,7 @@ import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.editors.AccountingCellEditor;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
@@ -329,35 +330,29 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
         try
         {
             calculateTotalCredit();
-            MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
             if (totalCredit.doubleValue() <= 0)
             {
-                msg.setMessage(AccLangKeys.MSG_VOUCHER_AMOUNT_NOT_ZERO); //$NON-NLS-1$
-                msg.open();
+                EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_VOUCHER_AMOUNT_NOT_ZERO,SWT.ICON_WARNING);  
                 return false;
             }
             else if (tableTransactionRows.getItems().length == 0)
             {
-                msg.setMessage(AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); //$NON-NLS-1$
-                msg.open();
+            	EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
                 return false;
             }
             else if (datePickerTransactionDate.getData() == null)
             {
-                msg.setMessage(AccLangKeys.MSG_ENTER_VOUCHER_DATE); //$NON-NLS-1$
-                msg.open();
+            	EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_ENTER_VOUCHER_DATE,SWT.ICON_WARNING);      
                 return false;
             }
             else if (currentPicker.getData() == null)
             {
-                msg.setMessage(CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD);  //$NON-NLS-1$
-                msg.open();
+                EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CURRENT_CARD,SWT.ICON_WARNING);             
                 return false;
             }
             else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
             {
-                msg.setMessage(CurLangKeys.MSG_PLEASE_CHOOSE_CURRENCY); //$NON-NLS-1$
-                msg.open();
+                EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
                 comboCurrencyType.setFocus();
                 return false;
             }
@@ -366,8 +361,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                 exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePickerTransactionDate.getDate());
                 if (exchangeRate == null)
                 {
-                    msg.setMessage(CurLangKeys.MSG_PLASE_ENTER_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
-                    msg.open();
+                	EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
                     return false;
                 }
             }

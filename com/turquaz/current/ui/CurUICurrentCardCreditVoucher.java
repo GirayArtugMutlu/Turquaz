@@ -21,7 +21,6 @@ import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -330,25 +329,21 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCard.getData() == null)
 			{
-				msg.setMessage(CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CURRENT_CARD,SWT.ICON_WARNING); 		
 				txtCurrentCard.setFocus();
 				return false;
 			}
 			else if (txtCredit.getBigDecimalValue().intValue()==0)
 			{
-				msg.setMessage(CurLangKeys.MSG_PLEASE_ENTER_AMOUNT); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AMOUNT,SWT.ICON_WARNING);
 				txtCredit.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage(CurLangKeys.MSG_PLEASE_CHOOSE_CURRENCY); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
 				comboCurrencyType.setFocus();
 				return false;
 			}
@@ -357,8 +352,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage(CurLangKeys.MSG_PLASE_ENTER_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
 					return false;
 				}
 			}
