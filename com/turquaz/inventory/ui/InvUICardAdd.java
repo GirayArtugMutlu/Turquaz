@@ -360,7 +360,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 					lblInvCardUnitLData.widthHint = 97;
 					lblInvCardUnitLData.heightHint = 19;
 					lblInvCardUnit.setLayoutData(lblInvCardUnitLData);
-					lblInvCardUnit.setText(InvLangKeys.STR_BASE_UNIT); 
+					lblInvCardUnit.setText(EngLangCommonKeys.STR_BASE_UNIT); 
 				}
 				{
 					comboInvCardUnits = new CCombo(compInvCardUnit, SWT.FLAT | SWT.READ_ONLY);
@@ -428,7 +428,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 						tableInvCardAddAllUnits.setLinesVisible(true);
 						{
 							tableColumn1 = new TableColumn(tableInvCardAddAllUnits, SWT.NONE);
-							tableColumn1.setText(InvLangKeys.STR_UNITS);
+							tableColumn1.setText(EngLangCommonKeys.STR_UNITS);
 							tableColumn1.setWidth(112);
 						}
 					}
@@ -502,7 +502,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 						}
 						{
 							tableColumnUnitCoefficient = new TableColumn(tableInvCardAddRegisteredUnits, SWT.NONE);
-							tableColumnUnitCoefficient.setText(InvLangKeys.STR_COEFFICIENT);
+							tableColumnUnitCoefficient.setText(EngLangCommonKeys.STR_COEFFICIENT);
 							tableColumnUnitCoefficient.setWidth(60);
 						}
 					}
@@ -602,7 +602,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			tableInvCardAddPrices.setSize(new org.eclipse.swt.graphics.Point(421, 178));
 			tableColumnPriceType.setText(InvLangKeys.STR_PRICE_TYPE);
 			tableColumnPriceType.setWidth(120);
-			tableColumnAmount.setText(InvLangKeys.STR_TOTALPRICE);
+			tableColumnAmount.setText(EngLangCommonKeys.STR_TOTALPRICE);
 			tableColumnAmount.setWidth(150);
 			tableColumnCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 			tableColumnCurrency.setWidth(162);
@@ -915,7 +915,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		tableInvPricesViewer = new TableViewer(tableInvCardAddPrices);
 		tableInvPricesViewer.setUseHashlookup(true);
 		tableInvPricesViewer.setColumnProperties(new String[]{
-				InvLangKeys.STR_PRICE_TYPE, InvLangKeys.STR_TOTALPRICE, EngLangCommonKeys.STR_CURRENCY});
+				InvLangKeys.STR_PRICE_TYPE, EngLangCommonKeys.STR_TOTALPRICE, EngLangCommonKeys.STR_CURRENCY});
 		// Create the cell editors
 		CellEditor[] editors = new CellEditor[3];
 		editors[0] = new ComboBoxCellEditor(tableInvCardAddPrices, new String[]{EngBLCommon.COMMON_BUY_STRING,

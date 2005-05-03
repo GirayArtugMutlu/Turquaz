@@ -90,14 +90,11 @@ public class InvLangKeys
 	public final static String STR_SUB_GROUPS="Alt Gruplar";
 	public final static String STR_SUB_UNITS="Alt Birimler";
 	public final static String STR_TOTAL_PRICE="Toplam Tutar";
-	public final static String STR_TOTALPRICE="Tutar";
-	
 	public final static String STR_TRANSOVER_AMOUNT="Devir Mik.";
 	public final static String STR_TRANSOVER_PRICE="Devir Tutar?";
 	public final static String STR_TRANSOVER_UNIT_PRICE="Devir Bir. Fiyat?";
 	public final static String STR_UNIT_PRICE_IN="Gir. Birim Fiyat?";
 	public final static String STR_UNIT_PRICE_OUT="Ç?k. Birim Fiyat?";
-	public final static String STR_UNITS="Birimler";
 	public final static String STR_UPDATE_UNITS="Birimleri Güncelle";
 	public final static String STR_VAT="K.D.V";
 	public final static String STR_WAREHOUSE="Depo";

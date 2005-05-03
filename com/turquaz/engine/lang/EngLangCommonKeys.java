@@ -24,7 +24,6 @@ public class EngLangCommonKeys {
 	public final static String STR_CANCEL = "Ýptal";
 	public final static String STR_CITY="?ehir";
 	public final static String STR_CREDIT="Alacak";
-	public final static String STR_TOTALPRICE="Tutar";
 	
 	public final static String STR_CURRENCY = "Para Birimi";
     public final static String STR_CURRENCY_ABBR="Para Birimi Kýsaltmasý";
@@ -81,12 +80,13 @@ public class EngLangCommonKeys {
 	public final static String STR_TYPE="Tipi";
 	public final static String STR_UNIT="Birim";
 	public final static String STR_UNIT_NAME="Birim Ad?";
-	public final static String STR_UNITS="Birimler";
 	public final static String STR_UPDATE = "Güncelle";
 	public final static String STR_BASE_UNIT_AMOUNT="Temel Birim Miktar?";
 	public final static String STR_BASE_UNIT="Temel Birim";
 	public final static String STR_COEFFICIENT="Katsay?";
 	public final static String STR_FILTER="Filtre";
+	public final static String STR_UNITS="Birimler";
+	public final static String STR_TOTALPRICE="Tutar";
 	
 	
 	

@@ -113,7 +113,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 					groupInv.setLayoutData(groupInvLData);
 					groupInvLayout.makeColumnsEqualWidth = true;
 					groupInv.setLayout(groupInvLayout);
-					groupInv.setText(InvLangKeys.STR_FILTER);
+					groupInv.setText(EngLangCommonKeys.STR_FILTER);
 					{
 						btnAll = new Button(groupInv, SWT.RADIO | SWT.LEFT);
 						btnAll.setText(InvLangKeys.STR_ALL_INV);

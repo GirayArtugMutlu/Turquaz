@@ -153,7 +153,7 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 			//END << tableColumnAmount
 			//START >> tableColumnPrice
 			tableColumnPrice = new TableColumn(tableInitialTransactions, SWT.NONE);
-			tableColumnPrice.setText(InvLangKeys.STR_TOTALPRICE);
+			tableColumnPrice.setText(EngLangCommonKeys.STR_TOTALPRICE);
 			tableColumnPrice.setWidth(106);
 			//END << tableColumnPrice
 			//END << tableInitialTransactions

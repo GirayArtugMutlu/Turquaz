@@ -62,6 +62,10 @@ import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.InventoryNameCellEditor;
@@ -241,13 +245,13 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 	 * Sat?r Toplam? //cant Modify
 	 */
 	//	 Set the table column property names
-	private final String INVENTORY_CODE = Messages.getString("ConUIAddConsignment.2"); //$NON-NLS-1$
-	private final String INVENTORY_NAME = Messages.getString("ConUIAddConsignment.12"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT = Messages.getString("ConUIAddConsignment.13"); //$NON-NLS-1$
-	private final String UNIT = Messages.getString("ConUIAddConsignment.14"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT = Messages.getString("ConUIAddConsignment.8"); //$NON-NLS-1$
-	private final String BASE_UNIT = Messages.getString("ConUIAddConsignment.16"); //$NON-NLS-1$
-	private final String UNIT_PRICE = Messages.getString("ConUIAddConsignment.17"); //$NON-NLS-1$
+	private final String INVENTORY_CODE = InvLangKeys.STR_INV_CODE;
+	private final String INVENTORY_NAME = InvLangKeys.STR_INV_NAME;
+	private final String TRANS_AMOUNT = EngLangCommonKeys.STR_AMOUNT;
+	private final String UNIT = EngLangCommonKeys.STR_UNIT;
+	private final String TRANS_AMOUNT_IN_BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT_AMOUNT;
+	private final String BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT;
+	private final String UNIT_PRICE = "";
 	private final String TOTAL_PRICE = Messages.getString("ConUIAddConsignment.18"); //$NON-NLS-1$
 	private final String DISCOUNT_PERCENT = Messages.getString("ConUIAddConsignment.15"); //$NON-NLS-1$
 	private final String TOTAL_PRICE_AFTER_DISCOUNT = Messages.getString("ConUIAddConsignment.40"); //$NON-NLS-1$
@@ -290,7 +294,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				//START >> tabItemInfo
 				tabItemInfo = new CTabItem(cTabFolder1, SWT.NONE);
-				tabItemInfo.setText("Genel Bilgiler");
+				tabItemInfo.setText(EngLangCommonKeys.STR_GENERAL_INFO);
 				{
 					compGeneral = new Composite(cTabFolder1, SWT.NONE);
 					tabItemInfo.setControl(compGeneral);
@@ -310,7 +314,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						compInfoPanel.setLayout(compInfoPanelLayout);
 						{
 							lblCurrentCard = new CLabel(compInfoPanel, SWT.LEFT);
-							lblCurrentCard.setText(Messages.getString("ConUIAddConsignment.1")); //$NON-NLS-1$
+							lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 							GridData lblCurrentCardLData1 = new GridData();
 							lblCurrentCard.setSize(88, 19);
 							lblCurrentCardLData1.widthHint = 88;
@@ -328,7 +332,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
-							lblDocumentNo.setText(Messages.getString("ConUIAddConsignment.3")); //$NON-NLS-1$
+							lblDocumentNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 							GridData lblDocumentNoLData = new GridData();
 							lblDocumentNoLData.widthHint = 63;
 							lblDocumentNoLData.heightHint = 15;
@@ -343,7 +347,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblBillDocumentNo = new CLabel(compInfoPanel, SWT.LEFT);
-							lblBillDocumentNo.setText(Messages.getString("ConUIAddConsignment.4")); //$NON-NLS-1$
+							lblBillDocumentNo.setText(BillLangKeys.STR_BILL_DOC_NO);
 							GridData lblBillDocumentNoLData = new GridData();
 							lblBillDocumentNoLData.widthHint = 109;
 							lblBillDocumentNoLData.heightHint = 19;
@@ -360,7 +364,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-							lblDate.setText(Messages.getString("ConUIAddConsignment.5")); //$NON-NLS-1$
+							lblDate.setText(EngLangCommonKeys.STR_DATE);
 							GridData lblDateLData = new GridData();
 							lblDateLData.widthHint = 52;
 							lblDateLData.heightHint = 20;
@@ -377,7 +381,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
-							lblWareHouse.setText(Messages.getString("ConUIAddConsignment.38")); //$NON-NLS-1$
+							lblWareHouse.setText(InvLangKeys.STR_WAREHOUSE);
 							GridData lblWareHouseLData = new GridData();
 							lblWareHouseLData.widthHint = 48;
 							lblWareHouseLData.heightHint = 19;
@@ -393,7 +397,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
-							lblDefinition.setText(Messages.getString("ConUIAddConsignment.9")); //$NON-NLS-1$
+							lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 							GridData lblDefinitionLData = new GridData();
 							lblDefinitionLData.widthHint = 108;
 							lblDefinitionLData.heightHint = 20;
@@ -608,7 +612,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
 					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
-					tabItemGroups.setText(Messages.getString("ConUIAddConsignment.27")); //$NON-NLS-1$
+					tabItemGroups.setText(EngLangCommonKeys.STR_GROUPS);
 					{
 						composite1 = new Composite(cTabFolder1, SWT.NONE);
 						tabItemGroups.setControl(composite1);
@@ -624,7 +628,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 						{
 							btnUpdateGroups = new Button(composite1, SWT.PUSH | SWT.CENTER);
-							btnUpdateGroups.setText(Messages.getString("ConUIAddConsignment.28")); //$NON-NLS-1$
+							btnUpdateGroups.setText(EngLangCommonKeys.STR_UPDATE_GROUPS);
 							GridData btnUpdateGroupsLData = new GridData();
 							btnUpdateGroups.addMouseListener(new MouseAdapter()
 							{
@@ -633,8 +637,8 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 									btnUpdateGroupsClick();
 								}
 							});
-							btnUpdateGroupsLData.widthHint = 147;
-							btnUpdateGroupsLData.heightHint = 35;
+							btnUpdateGroupsLData.widthHint = 146;
+							btnUpdateGroupsLData.heightHint = 26;
 							btnUpdateGroups.setLayoutData(btnUpdateGroupsLData);
 						}
 					}
