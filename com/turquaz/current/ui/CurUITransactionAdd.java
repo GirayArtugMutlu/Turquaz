@@ -33,7 +33,6 @@ import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -48,6 +47,9 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.CashLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -117,7 +119,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				lblCurrentCodeLData.widthHint = 102;
 				lblCurrentCodeLData.heightHint = 16;
 				lblCurrentCode.setLayoutData(lblCurrentCodeLData);
-				lblCurrentCode.setText(Messages.getString("CurUITransactionAdd.0")); //$NON-NLS-1$
+				lblCurrentCode.setText(CurLangKeys.STR_CUR_CODE); //$NON-NLS-1$
 				lblCurrentCode.setSize(new org.eclipse.swt.graphics.Point(102, 16));
 			}
 			{
@@ -163,7 +165,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			lblDocumentNoLData.grabExcessHorizontalSpace = false;
 			lblDocumentNoLData.grabExcessVerticalSpace = false;
 			lblDocumentNo.setLayoutData(lblDocumentNoLData);
-			lblDocumentNo.setText(Messages.getString("CurUITransactionAdd.2")); //$NON-NLS-1$
+			lblDocumentNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO); //$NON-NLS-1$
 			GridData txtDocumentNoLData = new GridData();
 			txtDocumentNoLData.widthHint = 150;
 			txtDocumentNoLData.heightHint = 17;
@@ -179,13 +181,13 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			comboTypeLData.grabExcessHorizontalSpace = false;
 			comboTypeLData.grabExcessVerticalSpace = false;
 			comboType.setLayoutData(comboTypeLData);
-			comboType.setText(Messages.getString("CurUITransactionAdd.3")); //$NON-NLS-1$
+			comboType.setText(CurLangKeys.STR_DEPT_CREDIT); //$NON-NLS-1$
 			comboType.setSize(new org.eclipse.swt.graphics.Point(138, 17));
 			GridData comboTransTypeLData = new GridData();
 			comboTransTypeLData.widthHint = 135;
 			comboTransTypeLData.heightHint = 17;
 			comboTransType.setLayoutData(comboTransTypeLData);
-			comboTransType.setText(Messages.getString("CurUITransactionAdd.4")); //$NON-NLS-1$
+			comboTransType.setText(EngLangCommonKeys.STR_DEPT); //$NON-NLS-1$
 			GridData lblAmountLData = new GridData();
 			lblAmountLData.verticalAlignment = GridData.CENTER;
 			lblAmountLData.horizontalAlignment = GridData.BEGINNING;
@@ -197,7 +199,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			lblAmountLData.grabExcessHorizontalSpace = false;
 			lblAmountLData.grabExcessVerticalSpace = false;
 			lblAmount.setLayoutData(lblAmountLData);
-			lblAmount.setText(Messages.getString("CurUITransactionAdd.5")); //$NON-NLS-1$
+			lblAmount.setText(EngLangCommonKeys.STR_TOTALPRICE); //$NON-NLS-1$
 			lblAmount.setSize(new org.eclipse.swt.graphics.Point(88, 21));
 			GridData decTxtAmountLData = new GridData();
 			decTxtAmount.setTextLimit(26);
@@ -216,7 +218,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			lblTransDateLData.grabExcessHorizontalSpace = false;
 			lblTransDateLData.grabExcessVerticalSpace = false;
 			lblTransDate.setLayoutData(lblTransDateLData);
-			lblTransDate.setText(Messages.getString("CurUITransactionAdd.7")); //$NON-NLS-1$
+			lblTransDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
 			lblTransDate.setSize(new org.eclipse.swt.graphics.Point(100, 19));
 			GridData dateTransDateLData = new GridData();
 			dateTransDateLData.widthHint = 157;
@@ -227,7 +229,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			lblCashAccountLData.widthHint = 88;
 			lblCashAccountLData.heightHint = 19;
 			lblCashAccount.setLayoutData(lblCashAccountLData);
-			lblCashAccount.setText(Messages.getString("CurUITransactionAdd.8")); //$NON-NLS-1$
+			lblCashAccount.setText(CashLangKeys.STR_CASH_ACCOUNT); //$NON-NLS-1$
 			GridData accPickerCashAccountLData = new GridData();
 			accPickerCashAccountLData.widthHint = 157;
 			accPickerCashAccountLData.heightHint = 17;
@@ -268,8 +270,8 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
-		comboTransType.add(Messages.getString("CurUITransactionAdd.4")); //$NON-NLS-1$
-		comboTransType.add(Messages.getString("CurUITransactionAdd.10")); //$NON-NLS-1$
+		comboTransType.add(EngLangCommonKeys.STR_DEPT); //$NON-NLS-1$
+		comboTransType.add(EngLangCommonKeys.STR_CREDIT); //$NON-NLS-1$
 		fillCurrencyCombo();
 		//	content assistant
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCode);
@@ -306,27 +308,20 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCode.getData() == null)
 			{
-				msg.setMessage(Messages.getString("CurUITransactionAdd.12")); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_PLAESE_CHOOSE_CURRENT_CARD); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCode.setFocus();
 				return false;
 			}
-			else if (dateTransDate.getData() == null)
-			{
-				msg.setMessage(Messages.getString("CurUITransactionAdd.13")); //$NON-NLS-1$
-				msg.open();
-				dateTransDate.setFocus();
-				return false;
-			}
 			else if (decTxtAmount.getText().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUITransactionAdd.15")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_ENTER_AMOUNT); //$NON-NLS-1$
 				msg.open();
 				decTxtAmount.setFocus();
 				return false;
 			}
 			else if (accPickerCashAccount.getData() == null)
 			{
-				msg.setMessage(Messages.getString("CurUITransactionAdd.16")); //$NON-NLS-1$
+				msg.setMessage(CashLangKeys.MSG_SELECT_CASH_ACCOUNT); //$NON-NLS-1$
 				msg.open();
 				accPickerCashAccount.setFocus();
 				return false;
@@ -368,10 +363,10 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 			if (verifyFields())
 			{
 				boolean isCredit = false;
-				if (comboTransType.getText().equals(Messages.getString("CurUITransactionAdd.4"))) { //$NON-NLS-1$
+				if (comboTransType.getText().equals(EngLangCommonKeys.STR_DEPT)) { //$NON-NLS-1$
 					isCredit = false;
 				}
-				else if (comboTransType.getText().equals(Messages.getString("CurUITransactionAdd.10"))) { //$NON-NLS-1$
+				else if (comboTransType.getText().equals(EngLangCommonKeys.STR_CREDIT)) { //$NON-NLS-1$
 					isCredit = true;
 				}
 				//Transaction Type is Cash
@@ -393,7 +388,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				
 				
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("CurUITransactionAdd.19")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				newForm();
 			}

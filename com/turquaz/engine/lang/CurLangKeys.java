@@ -6,7 +6,8 @@ public class CurLangKeys
     public final static String TITLE_CUR_GROUPS_UPDATE = "Cari Gruplarý Güncelleme";
     public final static String TITLE_MULTIPLE_CREDIT_VOUCHER_UPDATE ="Çoklu Alacak Fiþi Güncelleme";
     public final static String TITLE_MULTIPLE_DEPt_VOUCHER_UPDATE ="Çoklu Borç Fiþi Güncelleme";
-    
+    public final static String TITLE_CUR_TRANSACTION_UPDATE ="Cari Hareket Güncelleme";
+    public final static String TITLE_CUR_VOUCHER_UPDATE = "Borç/Alacak Fiþi Güncelleme";
     
     public final static String STR_CUR_CARD_INFO ="Cari Kart Bilgileri";
     public final static String STR_CUR_CARD_BALANCES ="Cari Kart Bakiyeleri";
@@ -37,6 +38,8 @@ public class CurLangKeys
     public final static String STR_DISCOUNT_RATE ="Ýndirim Oraný";
     public final static String STR_DUE_DAYS = "Vade Miktarý (Gün)";
     public final static String STR_TRANSACTION_GROUP = "Ýþlem Tipi";
+    public final static String STR_DEPT_CREDIT = "Borç/Alacak";
+    public final static String STR_CURRENT_TRANSACTIONS ="Cari Hareketler";
     
     public final static String STR_CREDIT_VOUCHER ="Cari Alacak Fiþi";
     public final static String STR_DEPT_VOUCHER ="Cari Borç Fiþi";

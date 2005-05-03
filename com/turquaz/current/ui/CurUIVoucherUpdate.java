@@ -9,7 +9,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
@@ -21,6 +20,8 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
@@ -63,7 +64,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			}
 			dialogShell.setLayout(new GridLayout());
 			dialogShell.layout();
-			dialogShell.setText(Messages.getString("CurUIVoucherUpdate.5")); //$NON-NLS-1$
+			dialogShell.setText(CurLangKeys.TITLE_CUR_VOUCHER_UPDATE); //$NON-NLS-1$
 			dialogShell.setSize(672, 316);
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
@@ -73,7 +74,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-					toolUpdate.setText(Messages.getString("CurUIVoucherUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); //$NON-NLS-1$
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
@@ -86,7 +87,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolDelete = new ToolItem(toolBar1, SWT.NONE);
-					toolDelete.setText(Messages.getString("CurUIVoucherUpdate.2")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 					toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -99,7 +100,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("CurUIVoucherUpdate.4")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -111,7 +112,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolPrint = new ToolItem(toolBar1, SWT.NONE);
-					toolPrint.setText(Messages.getString("CurUIVoucherUpdate.3")); //$NON-NLS-1$
+					toolPrint.setText(EngLangCommonKeys.STR_PRINT); //$NON-NLS-1$
 					toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
 					toolPrint.addSelectionListener(new SelectionAdapter()
 					{
@@ -241,7 +242,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 								
 				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
-					EngUICommon.showMessageBox(getParent(), Messages.getString("CurUIVoucherUpdate.1")); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
 			}
 			catch (Exception ex)
 			{

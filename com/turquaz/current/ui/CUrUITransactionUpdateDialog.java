@@ -35,7 +35,6 @@ import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.current.ui.CurUITransactionAdd;
@@ -46,6 +45,8 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -103,7 +104,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("CUrUITransactionUpdateDialog.3")); //$NON-NLS-1$
+			dialogShell.setText(CurLangKeys.TITLE_CUR_TRANSACTION_UPDATE); //$NON-NLS-1$
 			coolBar1 = new CoolBar(dialogShell, SWT.NULL);
 			coolItem1 = new CoolItem(coolBar1, SWT.NULL);
 			toolBar1 = new ToolBar(coolBar1, SWT.NULL);
@@ -126,7 +127,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			coolItem1.setSize(new org.eclipse.swt.graphics.Point(88, 38));
 			coolItem1.setPreferredSize(new org.eclipse.swt.graphics.Point(88, 38));
 			coolItem1.setMinimumSize(new org.eclipse.swt.graphics.Point(88, 38));
-			toolUpdate.setText(Messages.getString("CUrUITransactionUpdateDialog.0")); //$NON-NLS-1$
+			toolUpdate.setText(EngLangCommonKeys.STR_UPDATE); //$NON-NLS-1$
 			toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolUpdate.addSelectionListener(new SelectionAdapter()
 			{
@@ -135,11 +136,11 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolUpdateWidgetSelected(evt);
 				}
 			});
-			toolDelete.setText(Messages.getString("CUrUITransactionUpdateDialog.2")); //$NON-NLS-1$
+			toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 			toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 			{
 				toolCancel = new ToolItem(toolBar1, SWT.NONE);
-				toolCancel.setText(Messages.getString("CUrUITransactionUpdateDialog.1")); //$NON-NLS-1$
+				toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 				toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 				toolCancel.addSelectionListener(new SelectionAdapter()
 				{
@@ -265,10 +266,10 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (compTransactionAdd.verifyFields())
 			{
 				boolean isCredit = false;
-				if (compTransactionAdd.getComboTransType().getText().equals(Messages.getString("CUrUITransactionUpdateDialog.5"))) { //$NON-NLS-1$
+				if (compTransactionAdd.getComboTransType().getText().equals(EngLangCommonKeys.STR_DEPT)) { //$NON-NLS-1$
 					isCredit = false;
 				}
-				else if (compTransactionAdd.getComboTransType().getText().equals(Messages.getString("CUrUITransactionUpdateDialog.4"))) { //$NON-NLS-1$
+				else if (compTransactionAdd.getComboTransType().getText().equals(EngLangCommonKeys.STR_CREDIT)) { //$NON-NLS-1$
 					isCredit = true;
 				}
 				
@@ -285,7 +286,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(CurKeys.CUR_TRANSACTION,transaction);
 				EngTXCommon.doTransactionTX(CurBLSearchTransaction.class.getName(),"updateCurrentTransaction",argMap);
 				
-				msg.setMessage(Messages.getString("CUrUITransactionUpdateDialog.10")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
 			}
@@ -305,7 +306,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(CurKeys.CUR_TRANSACTION,transaction);
 			EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
 			
-			msg.setMessage(Messages.getString("CUrUITransactionUpdateDialog.11")); //$NON-NLS-1$
+			msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 			msg.open();
 			this.dialogShell.close();
 		}

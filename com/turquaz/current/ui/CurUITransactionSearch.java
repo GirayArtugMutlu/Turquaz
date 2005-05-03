@@ -34,7 +34,6 @@ import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
 import com.turquaz.bill.ui.BillUIBillSearch;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
-import com.turquaz.current.Messages;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.EngKeys;
@@ -44,13 +43,14 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -120,7 +120,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				composite1.setLayoutData(composite1LData);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText(Messages.getString("CurUITransactionSearch.0")); //$NON-NLS-1$
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD); //$NON-NLS-1$
 					lblCurrentCard.setSize(new org.eclipse.swt.graphics.Point(85, 20));
 					GridData lblCurrentCardLData = new GridData();
 					lblCurrentCardLData.widthHint = 85;
@@ -136,7 +136,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				}
 				{
 					lblTransactionGroup = new CLabel(composite1, SWT.NONE);
-					lblTransactionGroup.setText(Messages.getString("CurUITransactionSearch.1")); //$NON-NLS-1$
+					lblTransactionGroup.setText(CurLangKeys.STR_TRANSACTION_GROUP); //$NON-NLS-1$
 					lblTransactionGroup.setSize(new org.eclipse.swt.graphics.Point(105, 18));
 					GridData lblTransactionGroupLData = new GridData();
 					lblTransactionGroupLData.widthHint = 105;
@@ -152,7 +152,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText(Messages.getString("CurUITransactionSearch.3")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE); //$NON-NLS-1$
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 98;
 					lblStartDateLData.heightHint = 19;
@@ -167,7 +167,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText(Messages.getString("CurUITransactionSearch.4")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE); //$NON-NLS-1$
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 94;
 					lblEndDateLData.heightHint = 18;
@@ -183,7 +183,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				}
 				{
 					lblDefinition = new CLabel(composite1, SWT.NONE);
-					lblDefinition.setText(Messages.getString("CurUITransactionSearch.10")); //$NON-NLS-1$
+					lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 				}
 				{
 					txtDefinition = new Text(composite1, SWT.WRAP | SWT.V_SCROLL);
@@ -213,17 +213,17 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				tableCurrentTransactions.setLayoutData(tableCurrentTransactionsLData);
 				{
 					tableColumnTransDate = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnTransDate.setText(Messages.getString("CurUITransactionSearch.9")); //$NON-NLS-1$
+					tableColumnTransDate.setText(EngLangCommonKeys.STR_DATE); //$NON-NLS-1$
 					tableColumnTransDate.setWidth(98);
 				}
 				{
 					tableColumnDocNo = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnDocNo.setText(Messages.getString("CurUITransactionSearch.2")); //$NON-NLS-1$
+					tableColumnDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO); //$NON-NLS-1$
 					tableColumnDocNo.setWidth(85);
 				}
 				{
 					tableColumnCurrentCode = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnCurrentCode.setText(Messages.getString("CurUITransactionSearch.5")); //$NON-NLS-1$
+					tableColumnCurrentCode.setText(CurLangKeys.STR_CUR_CODE); //$NON-NLS-1$
 					tableColumnCurrentCode.setWidth(82);
 				}
 				//START >> tableColumnCurrentName
@@ -233,22 +233,22 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 				//END << tableColumnCurrentName
 				{
 					tableColumnTransGroup = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumnTransGroup.setText(Messages.getString("CurUITransactionSearch.6")); //$NON-NLS-1$
+					tableColumnTransGroup.setText(CurLangKeys.STR_TRANSACTION_GROUP); //$NON-NLS-1$
 					tableColumnTransGroup.setWidth(95);
 				}
 				{
 					tableColumn = new TableColumn(tableCurrentTransactions, SWT.NONE);
-					tableColumn.setText(Messages.getString("CurUITransactionSearch.13")); //$NON-NLS-1$
+					tableColumn.setText(EngLangCommonKeys.STR_DESCRIPTION); //$NON-NLS-1$
 					tableColumn.setWidth(100);
 				}
 				{
 					tableColumnDebit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-					tableColumnDebit.setText(Messages.getString("CurUITransactionSearch.7")); //$NON-NLS-1$
+					tableColumnDebit.setText(EngLangCommonKeys.STR_DEPT); //$NON-NLS-1$
 					tableColumnDebit.setWidth(62);
 				}
 				{
 					tableColumnCredit = new TableColumn(tableCurrentTransactions, SWT.RIGHT);
-					tableColumnCredit.setText(Messages.getString("CurUITransactionSearch.8")); //$NON-NLS-1$
+					tableColumnCredit.setText(EngLangCommonKeys.STR_CREDIT); //$NON-NLS-1$
 					tableColumnCredit.setWidth(68);
 				}
 			}
@@ -453,12 +453,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
                             updated =new CurUIMultipleDeptVoucherUpdate(getShell(),SWT.NONE,trans).open();
                         
                     }
-					else
-					{
-						MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-						msg.setMessage(Messages.getString("CurUITransactionSearch.11")); //$NON-NLS-1$
-						msg.open();
-					}
+					
 					if (updated)
 						search();
 				}
@@ -477,6 +472,6 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCurrentTransactions, Messages.getString("CurUITransactionSearch.12")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCurrentTransactions, CurLangKeys.STR_CURRENT_TRANSACTIONS); //$NON-NLS-1$
 	}
 }
