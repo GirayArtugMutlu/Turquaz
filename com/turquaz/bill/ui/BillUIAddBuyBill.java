@@ -27,7 +27,6 @@ import java.util.Vector;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -54,7 +53,6 @@ import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
-import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ConsKeys;
@@ -70,6 +68,11 @@ import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.ConsLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.InventoryCellEditor;
 import com.turquaz.engine.ui.editors.InventoryNameCellEditor;
@@ -255,21 +258,21 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	private TurqCurrencyExchangeRate exchangeRate = null;
 	private TurqCurrency exchangeCurrency = null;
 	//	 Set the table column property names
-	private final String INVENTORY_CODE = Messages.getString("BillUIAddBuyBill.0"); //$NON-NLS-1$
-	private final String INVENTORY_NAME = Messages.getString("BillUIAddBuyBill.1"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT = Messages.getString("BillUIAddBuyBill.2"); //$NON-NLS-1$
-	private final String UNIT = Messages.getString("BillUIAddBuyBill.3"); //$NON-NLS-1$
-	private final String TRANS_AMOUNT_IN_BASE_UNIT = Messages.getString("BillUIAddBuyBill.16"); //$NON-NLS-1$
-	private final String BASE_UNIT = Messages.getString("BillUIAddBuyBill.5"); //$NON-NLS-1$
-	private final String UNIT_PRICE = Messages.getString("BillUIAddBuyBill.6"); //$NON-NLS-1$
-	private final String TOTAL_PRICE = Messages.getString("BillUIAddBuyBill.7"); //$NON-NLS-1$
-	private final String DISCOUNT_PERCENT = Messages.getString("BillUIAddBuyBill.17"); //$NON-NLS-1$
-	private final String TOTAL_PRICE_AFTER_DISCOUNT = Messages.getString("BillUIAddBuyBill.20"); //$NON-NLS-1$
-	private final String VAT_PERCENT = Messages.getString("BillUIAddBuyBill.8"); //$NON-NLS-1$
-	private final String VAT_TOTAL = Messages.getString("BillUIAddBuyBill.9"); //$NON-NLS-1$
-	private final String SPECIAL_VAT_PERCENT = Messages.getString("BillUIAddBuyBill.10"); //$NON-NLS-1$
-	private final String SPECIAL_VAT_TOTAL = Messages.getString("BillUIAddBuyBill.11"); //$NON-NLS-1$
-	private final String ROW_TOTAL = Messages.getString("BillUIAddBuyBill.12"); //$NON-NLS-1$
+	private final String INVENTORY_CODE = InvLangKeys.STR_INV_CODE;
+	private final String INVENTORY_NAME = InvLangKeys.STR_INV_NAME;
+	private final String TRANS_AMOUNT = EngLangCommonKeys.STR_AMOUNT;
+	private final String UNIT = EngLangCommonKeys.STR_UNIT;
+	private final String TRANS_AMOUNT_IN_BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT_AMOUNT;
+	private final String BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT;
+	private final String UNIT_PRICE = EngLangCommonKeys.STR_UNIT_PRICE;
+	private final String TOTAL_PRICE = EngLangCommonKeys.STR_TOTALPRICE;
+	private final String DISCOUNT_PERCENT = EngLangCommonKeys.STR_DISCOUNT_PERCENTAGE;
+	private final String TOTAL_PRICE_AFTER_DISCOUNT = EngLangCommonKeys.STR_DISCOUNTED_TOTALPRICE;
+	private final String VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+	private final String VAT_TOTAL = InvLangKeys.STR_VAT_TOTAL;
+	private final String SPECIAL_VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+	private final String SPECIAL_VAT_TOTAL = InvLangKeys.STR_SPEC_VAT_TOTAL;
+	private final String ROW_TOTAL = InvLangKeys.STR_TRANSROW_TOTAL;
 	private final int BILL_TYPE = 0;
 	int last_row_index = 0;
 	TableSpreadsheetCursor cursor;
@@ -304,9 +307,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				{
 					tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemGeneral.setText(Messages.getString("BillUIAddBill.0")); //$NON-NLS-1$
+					tabItemGeneral.setText(EngLangCommonKeys.STR_GENERAL_INFO);
 					tabItemGeneral.setImage(SWTResourceManager.getImage("icons/Home16.gif")); //$NON-NLS-1$
-					tabItemGeneral.setText(Messages.getString("BillUIAddBill.2")); //$NON-NLS-1$
 					{
 						compGeneral = new Composite(cTabFolder1, SWT.NONE);
 						GridLayout compGeneralLayout = new GridLayout();
@@ -326,7 +328,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							compInfoPanel.setLayout(compInfoPanelLayout);
 							{
 								lblCurrentCard = new CLabel(compInfoPanel, SWT.LEFT);
-								lblCurrentCard.setText(Messages.getString("BillUIAddBill.3")); //$NON-NLS-1$
+								lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 								GridData lblCurrentCardLData1 = new GridData();
 								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
 								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
@@ -345,7 +347,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
-								lblDocumentNo.setText(Messages.getString("BillUIAddBill.5")); //$NON-NLS-1$
+								lblDocumentNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 							}
 							{
 								txtDocumentNo = new Text(compInfoPanel, SWT.NONE);
@@ -357,7 +359,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText(Messages.getString("BillUIAddBuyBill.4")); //$NON-NLS-1$
+								lblDate.setText(BillLangKeys.STR_BILL_DATE);
 							}
 							{
 								dateConsignmentDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -370,8 +372,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 								lblConsDocumentNo = new CLabel(
 									compInfoPanel,
 									SWT.LEFT);
-								lblConsDocumentNo.setText(Messages
-									.getString("BillUIAddBill.6")); //$NON-NLS-1$
+								lblConsDocumentNo.setText(ConsLangKeys.STR_CONS_DOC_NO);
 							}
 							{
 								txtConsignmentDocumentNo = new Text(
@@ -391,7 +392,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							//START >>  lblConsDate
 							lblConsDate = new CLabel(compInfoPanel, SWT.NONE);
-							lblConsDate.setText("\u0130rsaliye Tarihi");
+							lblConsDate.setText(ConsLangKeys.STR_CONS_DATE);
 							//END <<  lblConsDate
 							{
 								dateDueDate = new DatePicker(
@@ -404,7 +405,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblDueDate.setText(Messages.getString("BillUIAddBuyBill.18")); //$NON-NLS-1$
+								lblDueDate.setText(EngLangCommonKeys.STR_DUE_DATE);
 							}
 							//START >>  datePickerConsDate
 							GridData datePickerConsDateLData = new GridData();
@@ -415,7 +416,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							//END <<  datePickerConsDate
 							{
 								lblWareHouse = new CLabel(compInfoPanel, SWT.NONE);
-								lblWareHouse.setText(Messages.getString("BillUIAddBuyBill.13")); //$NON-NLS-1$
+								lblWareHouse.setText(InvLangKeys.STR_WAREHOUSE);
 							}
 							{
 								comboWareHouse = new CCombo(compInfoPanel, SWT.NONE);
@@ -426,7 +427,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							//START >> lblCurrency
 							lblCurrency = new CLabel(compInfoPanel, SWT.NONE);
-							lblCurrency.setText(Messages.getString("BillUIAddBuyBill.15")); //$NON-NLS-1$
+							lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 							//END << lblCurrency
 							//START >> comboCurrencyType
 							comboCurrencyType = new CCombo(compInfoPanel, SWT.NONE);
@@ -438,7 +439,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							//END << comboCurrencyType
 							{
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDefinition.setText(Messages.getString("BillUIAddBill.11")); //$NON-NLS-1$
+								lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 								GridData lblDefinitionLData = new GridData();
 								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
 								lblDefinition.setLayoutData(lblDefinitionLData);
@@ -561,7 +562,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							compTotalsPanel.setLayout(composite1Layout1);
 							{
 								lblDiscountAmount = new CLabel(compTotalsPanel, SWT.NONE);
-								lblDiscountAmount.setText(Messages.getString("BillUIAddBill.1")); //$NON-NLS-1$
+								lblDiscountAmount.setText(EngLangCommonKeys.STR_DISCOUNT_AMOUNT);
 								GridData lblDiscountAmountLData = new GridData();
 								lblDiscountAmountLData.widthHint = 105;
 								lblDiscountAmountLData.heightHint = 19;
@@ -578,7 +579,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblTotalAmount = new CLabel(compTotalsPanel, SWT.NONE);
-								lblTotalAmount.setText(Messages.getString("BillUIAddBill.26")); //$NON-NLS-1$
+								lblTotalAmount.setText(EngLangCommonKeys.STR_GENERAL_TOTAL);
 								GridData lblTotalAmountLData = new GridData();
 								lblTotalAmountLData.widthHint = 90;
 								lblTotalAmountLData.heightHint = 20;
@@ -595,7 +596,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblInventoryPrice = new CLabel(compTotalsPanel, SWT.NONE);
-								lblInventoryPrice.setText(Messages.getString("BillUIAddBill.27")); //$NON-NLS-1$
+								lblInventoryPrice.setText(EngLangCommonKeys.STR_MIDDLE_SUM);
 								GridData lblInventoryPriceLData = new GridData();
 								lblInventoryPrice.setSize(87, 19);
 								lblInventoryPriceLData.widthHint = 87;
@@ -614,7 +615,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblTotalVat = new CLabel(compTotalsPanel, SWT.NONE);
-								lblTotalVat.setText(Messages.getString("BillUIAddBill.28")); //$NON-NLS-1$
+								lblTotalVat.setText(InvLangKeys.STR_TOTAL_VAT);
 								GridData lblTotalVatLData = new GridData();
 								lblTotalVat.setSize(87, 19);
 								lblTotalVatLData.widthHint = 87;
@@ -633,7 +634,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							}
 							{
 								lblSpecialVAT = new Label(compTotalsPanel, SWT.NONE);
-								lblSpecialVAT.setText(Messages.getString("BillUIAddBill.29")); //$NON-NLS-1$
+								lblSpecialVAT.setText(InvLangKeys.STR_SPEC_VAT);
 								GridData lblSpecialVATLData = new GridData();
 								lblSpecialVATLData.widthHint = 94;
 								lblSpecialVATLData.heightHint = 16;
@@ -653,7 +654,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
 					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
-					tabItemGroups.setText(Messages.getString("BillUIAddBill.31")); //$NON-NLS-1$
+					tabItemGroups.setText(EngLangCommonKeys.STR_GROUPS);
 					{
 						composite1 = new Composite(cTabFolder1, SWT.NONE);
 						tabItemGroups.setControl(composite1);
@@ -669,7 +670,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 						}
 						{
 							btnUpdateGroups = new Button(composite1, SWT.PUSH | SWT.CENTER);
-							btnUpdateGroups.setText(Messages.getString("BillUIAddBill.32")); //$NON-NLS-1$
+							btnUpdateGroups.setText(EngLangCommonKeys.STR_UPDATE_GROUPS);
 							GridData btnUpdateGroupsLData = new GridData();
 							btnUpdateGroups.addMouseListener(new MouseAdapter()
 							{
@@ -742,20 +743,6 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 		catch (Exception ex)
 		{
             EngBLLogger.log(this.getClass(),ex,getShell());
-		}
-	}
-
-	public boolean okToDelete()
-	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-		msg.setMessage(Messages.getString("BillUIAddBill.34")); //$NON-NLS-1$
-		if (msg.open() == SWT.OK)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
 		}
 	}
 
@@ -934,25 +921,21 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING);
 			if (txtCurrentCard.getData() == null)
 			{
-				msg.setMessage(Messages.getString("BillUIAddBuyBill.14")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CUR_ACCOUNT,SWT.ICON_WARNING);
 				txtCurrentCard.setFocus();
 				return false;
 			}
 			else if (tableConsignmentRows.getItemCount() == 0)
 			{
-				msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
 				cursor.setFocus();
 				return false;
 			}
 			else if (comboWareHouse.getData(comboWareHouse.getText()) == null)
 			{
-				msg.setMessage(Messages.getString("BillUIAddBuyBill.24")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),BillLangKeys.MSG_SELECT_WAREHOUSE,SWT.ICON_WARNING);
 				comboWareHouse.setFocus();
 				return false;
 			}
@@ -969,15 +952,13 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			}
 			if (!isExistEntry)
 			{
-				msg.setMessage(Messages.getString("BillUIAddBill.39")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
 				return false;
 			}
 			
 			if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage(Messages.getString("BillUIAddBuyBill.25")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
 				comboCurrencyType.setFocus();
 				return false;
 			}
@@ -986,8 +967,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateConsignmentDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage(Messages.getString("BillUIAddBuyBill.26")); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
 					return false;
 				}
 			}
@@ -1060,7 +1040,6 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 
 	public void save()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
 			if (verifyFields())
@@ -1092,11 +1071,10 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
 				if(result.intValue()!=1)
 				{
-					EngUICommon.showMessageBox(getShell(),Messages.getString("BillUIAddBuyBill.29"), SWT.ICON_WARNING); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ACCOUNTING_ENTEGRATION_COULDNT_BE_MADE, SWT.ICON_WARNING);
 				}
 				
-				msg.setMessage(Messages.getString("BillUIAddBill.43")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
 		}

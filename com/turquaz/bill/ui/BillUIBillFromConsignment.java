@@ -29,7 +29,6 @@ import java.util.Set;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -44,7 +43,6 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.events.SelectionEvent;
@@ -53,7 +51,6 @@ import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
-import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ConsKeys;
@@ -69,6 +66,11 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.ConsLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
@@ -203,7 +205,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 	private Text txtDefinition;
 	private CLabel lblDefinition;
 	private CurrencyText decSpecialVat;
-	private Label lblSpecialVAT;
+	private CLabel lblSpecialVAT;
 	private TableColumn tableColumnCumulative;
 	private Button btnUpdateGroups;
 	private RegisterGroupComposite compRegisterGroup;
@@ -262,7 +264,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				cTabFolder1.setLayoutData(cTabFolder1LData);
 				{
 					tabItemGeneral = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemGeneral.setText(Messages.getString("BillUIBillFromConsignment.0")); //$NON-NLS-1$
+					tabItemGeneral.setText(EngLangCommonKeys.STR_GENERAL_INFO);
 					tabItemGeneral.setImage(SWTResourceManager.getImage("icons/Home16.gif")); //$NON-NLS-1$
 					{
 						compGeneral = new Composite(cTabFolder1, SWT.NONE);
@@ -273,7 +275,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 						toolBar = new ToolBar(compGeneral, SWT.RIGHT);
 						//START >>  toolItem1
 						toolItem1 = new ToolItem(toolBar, SWT.NONE);
-						toolItem1.setText("\u0130rsaliye Seç");
+						toolItem1.setText(ConsLangKeys.STR_SELECT_CONSIGNMENT);
 						toolItem1.setImage(SWTResourceManager.getImage("icons/search.gif"));
 						toolItem1.addSelectionListener(new SelectionAdapter() {
 							public void widgetSelected(SelectionEvent evt) {
@@ -295,7 +297,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							compInfoPanel.setLayout(compInfoPanelLayout);
 							{
 								lblCurrentCard = new CLabel(compInfoPanel, SWT.NONE);
-								lblCurrentCard.setText(Messages.getString("BillUIBillFromConsignment.5")); //$NON-NLS-1$
+								lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 								GridData lblCurrentCardLData1 = new GridData();
 								lblCurrentCardLData1.verticalAlignment = GridData.BEGINNING;
 								lblCurrentCard.setLayoutData(lblCurrentCardLData1);
@@ -311,7 +313,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblConsignmentDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblConsignmentDate.setText(Messages.getString("BillUIBillFromConsignment.4")); //$NON-NLS-1$
+								lblConsignmentDate.setText(ConsLangKeys.STR_CONS_DATE);
 							}
 							{
 								dateConsDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -323,7 +325,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblDocumentNo = new CLabel(compInfoPanel, SWT.NONE);
-								lblDocumentNo.setText("\u0130rsaliye No"); //$NON-NLS-1$
+								lblDocumentNo.setText(ConsLangKeys.STR_CONS_DOC_NO);
 							}
 							{
 								txtDocumentNo = new Text(compInfoPanel, SWT.NONE);
@@ -336,7 +338,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblDate = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDate.setText("Fatura Tarihi"); //$NON-NLS-1$
+								lblDate.setText(BillLangKeys.STR_BILL_DATE);
 							}
 							{
 								dateBillDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -347,7 +349,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							//START >>  lblBillDocNo
 							lblBillDocNo = new CLabel(compInfoPanel, SWT.NONE);
-							lblBillDocNo.setText("Fatura No");
+							lblBillDocNo.setText(BillLangKeys.STR_BILL_DOC_NO);
 							//END <<  lblBillDocNo
 							//START >>  txtBillDocumentNo
 							txtBillDocumentNo = new Text(compInfoPanel, SWT.NONE);
@@ -358,7 +360,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							//END <<  txtBillDocumentNo
 							{
 								lblDueDate = new CLabel(compInfoPanel, SWT.NONE);
-								lblDueDate.setText("Vade Tarihi");
+								lblDueDate.setText(EngLangCommonKeys.STR_DUE_DATE);
 							}
 							{
 								dateDueDate = new DatePicker(compInfoPanel, SWT.NONE);
@@ -369,7 +371,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblType = new CLabel(compInfoPanel, SWT.LEFT);
-								lblType.setText(Messages.getString("BillUIBillFromConsignment.8")); //$NON-NLS-1$
+								lblType.setText(EngLangCommonKeys.STR_TYPE);
 							}
 							{
 								comboConsignmentType = new CCombo(compInfoPanel, SWT.NONE);
@@ -377,7 +379,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 								comboConsignmentType.setEnabled(false);
 								comboConsignmentType.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								comboConsignmentType.setEditable(false);
-								comboConsignmentType.setText(Messages.getString("BillUIBillFromConsignment.9")); //$NON-NLS-1$
+								comboConsignmentType.setText(EngBLCommon.COMMON_BUY_STRING);
 								comboConsignmentTypeLData.widthHint = 85;
 								comboConsignmentTypeLData.heightHint = 18;
 								comboConsignmentTypeLData.horizontalSpan = 3;
@@ -385,7 +387,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
-								lblDefinition.setText(Messages.getString("BillUIBillFromConsignment.11")); //$NON-NLS-1$
+								lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 								GridData lblDefinitionLData = new GridData();
 								lblDefinitionLData.verticalAlignment = GridData.BEGINNING;
 								lblDefinition.setLayoutData(lblDefinitionLData);
@@ -411,52 +413,52 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							tableConsignmentRows.setLayoutData(tableConsignmentRowsLData);
 							{
 								tableColumnInventoryCode = new TableColumn(tableConsignmentRows, SWT.NONE);
-								tableColumnInventoryCode.setText(Messages.getString("BillUIBillFromConsignment.13")); //$NON-NLS-1$
+								tableColumnInventoryCode.setText(InvLangKeys.STR_INV_CODE);
 								tableColumnInventoryCode.setWidth(98);
 							}
 							{
 								tableColumnInventoryName = new TableColumn(tableConsignmentRows, SWT.NONE);
-								tableColumnInventoryName.setText(Messages.getString("BillUIBillFromConsignment.14")); //$NON-NLS-1$
+								tableColumnInventoryName.setText(InvLangKeys.STR_INV_NAME);
 								tableColumnInventoryName.setWidth(106);
 							}
 							{
 								tableColumnAmount = new TableColumn(tableConsignmentRows, SWT.NONE);
-								tableColumnAmount.setText(Messages.getString("BillUIBillFromConsignment.15")); //$NON-NLS-1$
+								tableColumnAmount.setText(EngLangCommonKeys.STR_AMOUNT);
 								tableColumnAmount.setWidth(99);
 							}
 							{
 								tableColumnUnit = new TableColumn(tableConsignmentRows, SWT.NONE);
-								tableColumnUnit.setText(Messages.getString("BillUIBillFromConsignment.16")); //$NON-NLS-1$
+								tableColumnUnit.setText(EngLangCommonKeys.STR_UNIT);
 								tableColumnUnit.setWidth(54);
 							}
 							{
 								tableColumnUnitPrice = new TableColumn(tableConsignmentRows, SWT.RIGHT);
-								tableColumnUnitPrice.setText(Messages.getString("BillUIBillFromConsignment.17")); //$NON-NLS-1$
+								tableColumnUnitPrice.setText(EngLangCommonKeys.STR_UNIT_PRICE);
 								tableColumnUnitPrice.setWidth(70);
 							}
 							{
 								tableColumnTotalPrice = new TableColumn(tableConsignmentRows, SWT.RIGHT);
-								tableColumnTotalPrice.setText(Messages.getString("BillUIBillFromConsignment.18")); //$NON-NLS-1$
-								tableColumnTotalPrice.setWidth(77);
+								tableColumnTotalPrice.setText(EngLangCommonKeys.STR_TOTAL_PRICE);
+								tableColumnTotalPrice.setWidth(90);
 							}
 							{
 								tableColumnVat = new TableColumn(tableConsignmentRows, SWT.RIGHT);
-								tableColumnVat.setText(Messages.getString("BillUIBillFromConsignment.19")); //$NON-NLS-1$
+								tableColumnVat.setText(InvLangKeys.STR_VAT_PERCENTAGE);
 								tableColumnVat.setWidth(50);
 							}
 							{
 								tableColumnVatAmount = new TableColumn(tableConsignmentRows, SWT.RIGHT);
-								tableColumnVatAmount.setText(Messages.getString("BillUIBillFromConsignment.20")); //$NON-NLS-1$
+								tableColumnVatAmount.setText(InvLangKeys.STR_VAT_TOTAL);
 								tableColumnVatAmount.setWidth(90);
 							}
 							{
 								TableColumnVATSpecial = new TableColumn(tableConsignmentRows, SWT.RIGHT);
-								TableColumnVATSpecial.setText(Messages.getString("BillUIBillFromConsignment.21")); //$NON-NLS-1$
+								TableColumnVATSpecial.setText(InvLangKeys.STR_SPEC_VAT);
 								TableColumnVATSpecial.setWidth(100);
 							}
 							{
 								tableColumnCumulative = new TableColumn(tableConsignmentRows, SWT.RIGHT);
-								tableColumnCumulative.setText(Messages.getString("BillUIBillFromConsignment.22")); //$NON-NLS-1$
+								tableColumnCumulative.setText(EngLangCommonKeys.STR_GENERAL_TOTAL);
 								tableColumnCumulative.setWidth(100);
 							}
 						}
@@ -473,7 +475,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							compTotalsPanel.setLayout(composite1Layout1);
 							{
 								lblDiscountAmount = new CLabel(compTotalsPanel, SWT.NONE);
-								lblDiscountAmount.setText(Messages.getString("BillUIBillFromConsignment.23")); //$NON-NLS-1$
+								lblDiscountAmount.setText(EngLangCommonKeys.STR_DISCOUNT_AMOUNT);
 								GridData lblDiscountAmountLData = new GridData();
 								lblDiscountAmountLData.widthHint = 105;
 								lblDiscountAmountLData.heightHint = 19;
@@ -490,7 +492,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblTotalAmount = new CLabel(compTotalsPanel, SWT.NONE);
-								lblTotalAmount.setText(Messages.getString("BillUIBillFromConsignment.24")); //$NON-NLS-1$
+								lblTotalAmount.setText(EngLangCommonKeys.STR_GENERAL_TOTAL);
 								GridData lblTotalAmountLData = new GridData();
 								lblTotalAmount.setSize(87, 19);
 								lblTotalAmountLData.widthHint = 87;
@@ -508,7 +510,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblInventoryPrice = new CLabel(compTotalsPanel, SWT.NONE);
-								lblInventoryPrice.setText(Messages.getString("BillUIBillFromConsignment.25")); //$NON-NLS-1$
+								lblInventoryPrice.setText(EngLangCommonKeys.STR_MIDDLE_SUM);
 								GridData lblInventoryPriceLData = new GridData();
 								lblInventoryPrice.setSize(87, 19);
 								lblInventoryPriceLData.widthHint = 87;
@@ -527,7 +529,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							}
 							{
 								lblTotalVat = new CLabel(compTotalsPanel, SWT.NONE);
-								lblTotalVat.setText(Messages.getString("BillUIBillFromConsignment.26")); //$NON-NLS-1$
+								lblTotalVat.setText(InvLangKeys.STR_TOTAL_VAT);
 								GridData lblTotalVatLData = new GridData();
 								lblTotalVat.setSize(87, 19);
 								lblTotalVatLData.widthHint = 87;
@@ -545,8 +547,8 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 								txtTotalVat.setLayoutData(txtTotalVatLData);
 							}
 							{
-								lblSpecialVAT = new Label(compTotalsPanel, SWT.NONE);
-								lblSpecialVAT.setText(Messages.getString("BillUIBillFromConsignment.27")); //$NON-NLS-1$
+								lblSpecialVAT = new CLabel(compTotalsPanel, SWT.NONE);
+								lblSpecialVAT.setText(InvLangKeys.STR_SPEC_VAT);
 								GridData lblSpecialVATLData = new GridData();
 								lblSpecialVATLData.widthHint = 104;
 								lblSpecialVATLData.heightHint = 16;
@@ -567,7 +569,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
-					tabItemGroups.setText(Messages.getString("BillUIBillFromConsignment.28")); //$NON-NLS-1$
+					tabItemGroups.setText(EngLangCommonKeys.STR_GROUPS);
 					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
 					{
 						composite1 = new Composite(cTabFolder1, SWT.NONE);
@@ -584,7 +586,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 						}
 						{
 							btnUpdateGroups = new Button(composite1, SWT.PUSH | SWT.CENTER);
-							btnUpdateGroups.setText(Messages.getString("BillUIBillFromConsignment.30")); //$NON-NLS-1$
+							btnUpdateGroups.setText(EngLangCommonKeys.STR_UPDATE_GROUPS);
 							GridData btnUpdateGroupsLData = new GridData();
 							btnUpdateGroups.addMouseListener(new MouseAdapter()
 							{
@@ -664,17 +666,15 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		cTabFolder1.setSelection(0);
 		fillGroupsTable();
 		//fill combo type
-		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.31")); //$NON-NLS-1$
-		comboConsignmentType.add(Messages.getString("BillUIBillFromConsignment.32")); //$NON-NLS-1$
+		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING);
+		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING);
 		}
 
 	public boolean verifyFields()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (consList.size()==0)
 		{
-			msg.setMessage(Messages.getString("BillUIBillFromConsignment.12")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),ConsLangKeys.MSG_SELECT_CONS_NO,SWT.ICON_WARNING);
 			return false;
 		}
 		
@@ -683,7 +683,6 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 
 	public void save()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
 			if (verifyFields())
@@ -710,15 +709,12 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
 				
 				TurqBill bill = (TurqBill)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromCons",argMap);
-				msg.setMessage(Messages.getString("BillUIBillFromConsignment.34")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				
-				MessageBox msg2 = new MessageBox(this.getShell(), SWT.YES | SWT.NO);
-				msg2.setMessage(Messages.getString("BillUIAddSellBill.16")); //$NON-NLS-1$
-				int answer = msg2.open();
-				if (answer == SWT.YES)
+				boolean print=EngUICommon.showQuestion(getShell(),BillLangKeys.MSG_WANT_TO_PRINT_BILL);
+				if (print)
 				{
-					boolean ans = EngUICommon.showQuestion(getShell(), Messages.getString("BillUIAddSellBill.20")); //$NON-NLS-1$
+					boolean ans = EngUICommon.showQuestion(getShell(),BillLangKeys.MSG_WILL_BALANCE_BE_PRINTED);
 					argMap = new HashMap();
 					argMap.put(BillKeys.BILL, bill);
 					argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));
@@ -827,10 +823,10 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							invTrans.getCumilativePriceInForeignCurrency().toString()});
 				
 				}
-				String type = Messages.getString("BillUIBillFromConsignment.29"); //$NON-NLS-1$
+				String type = EngBLCommon.COMMON_BUY_STRING;
 				if (cons.getConsignmentsType() == 1)
 				{
-					type = Messages.getString("BillUIBillFromConsignment.43"); //$NON-NLS-1$
+					type = EngBLCommon.COMMON_SELL_STRING;
 				}
 				comboConsignmentType.setText(type);
 				dateConsDate.setDate(cons.getConsignmentsDate());
