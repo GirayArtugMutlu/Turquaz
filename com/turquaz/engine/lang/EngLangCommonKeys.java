@@ -45,6 +45,8 @@ public class EngLangCommonKeys {
 	public final static String STR_DISCOUNT_PERCENTAGE="?ndirim%";
 	public final static String STR_DISCOUNTED_TOTALPRICE="?ndirimli Tutar";
     public final static String STR_DOCUMENT_NO="Belge No";
+    public final static String STR_DOCUMENT_NO_START="Belge No - Baþlangýç";
+    public final static String STR_DOCUMENT_NO_END="Belge No - Bitiþ";
     public final static String STR_DUE_DATE ="Vade Tarihi";
     public final static String STR_DUE_DATE_START ="Vade Tarihi - Baþlangýç";
     public final static String STR_DUE_DATE_END ="Vade Tarihi - Bitiþ";
