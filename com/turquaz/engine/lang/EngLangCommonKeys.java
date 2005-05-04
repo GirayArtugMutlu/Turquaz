@@ -21,6 +21,7 @@ public class EngLangCommonKeys {
 	public final static String STR_ADDRESS="Adres";
     public final static String STR_ALL ="Hepsi";
 	public final static String STR_AMOUNT="Miktar";
+	public final static String STR_BACKWARD="Geri";
     public final static String STR_BALANCE = "Bakiye";
     public final static String STR_BALANCE_CAPITAL="BAK?YE";
     public final static String STR_BALANCE_CREDIT ="Alacak Bakiye";
@@ -57,6 +58,7 @@ public class EngLangCommonKeys {
     public final static String STR_EXPORT_TO_EXCEL = "Excele Aktar";
     public final static String STR_FAST_VIEW="Hýzlý Görüntüleme";
 	public final static String STR_FILTER="Filtre";
+	public final static String STR_FORWARD="Ýleri";
 	
 	public final static String STR_GENERAL_INFO="Genel Bilgiler";
 	public final static String STR_GENERAL_TOTAL="Genel Toplam";
