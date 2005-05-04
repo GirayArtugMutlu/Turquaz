@@ -19,6 +19,7 @@ public class AccLangKeys {
 	public final static String MSG_PLEASE_ENTER_PARENT_ACCOUNT  = "Lütfen Ana Hesabý Giriniz!";
 	public final static String MSG_PLEASE_FILL_ACCOUNT_CODE  = "Lütfen hesap kodu bölümünü doldurunuz!";
 	public final static String MSG_SELECT_ACCOUNT_FIRST  = "Lütfen önce hesap seçiniz.";
+	public final static String MSG_SELECT_ACCOUNTING_ACCOUNT="Lütfen muhasebe hesab?n? seçiniz!";
 	public final static String MSG_SELECT_AT_LEAST_ONE_ACCOUNT_FIRST  = "Ýlk önce en az bir tane hesap kodu seçmelisiniz!";
 	public final static String MSG_SELECT_CREDITOR_ACCOUNT  = "Lütfen alacaklý hesabý seçiniz.";
 	public final static String MSG_SELECT_CURRENY_TYPE  = "Para birimi seçmelisiniz.";
@@ -28,7 +29,6 @@ public class AccLangKeys {
 	public final static String STR_ACC_CODE_START  = "Hesap Kodu - Baþlangýç";
 	public final static String STR_ACCOUNT = "Hesap";
 	public final static String STR_ACCOUNT_CLASS  = "Hesap Sýnýfý";
-	public final static String STR_COUNTER_ACCOUNTING_ACCOUNT="Kar?? Muhasebe Hesab?";
 	
 	public final static String STR_ACCOUNT_CODE = "Hesap Kodu";
 	public final static String STR_ACCOUNT_GROUP  = "Hesap Grubu";
@@ -37,6 +37,7 @@ public class AccLangKeys {
 	public final static String STR_ACCOUNT_VOUCHERS  = "Muhasebe Fiþleri";
 	public final static String STR_ACCOUNTING  = "Muhasebe";
 	public final static String STR_ACCOUNTING_ACCOUNT="Muhasebe Hesab?";
+	public final static String STR_ACCOUNTING_CODE="Muhasebe Kodu";
 	public final static String STR_ACCOUNTING_CODES="Muhasebe Kodlar?";
 	public final static String STR_ACCOUNTING_PLAN  = "Muhasebe Planý";
 	public final static String STR_ACCOUNTING_TYPE="Muhasebe Tipi";
@@ -54,6 +55,7 @@ public class AccLangKeys {
 	public final static String STR_BALANCES  = "Bakiyeler";
 	public final static String STR_CHOOSE_LOGO  = "Logo Seçiniz";
 	public final static String STR_COLLECT_VOUCHER  = "Tahsil Fiþi";
+	public final static String STR_COUNTER_ACCOUNTING_ACCOUNT="Kar?? Muhasebe Hesab?";
 	public final static String STR_CREDIT  = "Alacak";
 	public final static String STR_CREDITOR_ACCOUNT  = "Alacaklý Hesap";
 	public final static String STR_CURRENCY_TYPE  = "Para Birimi";
@@ -96,5 +98,4 @@ public class AccLangKeys {
 	public final static String STR_UPDATE_PAYMENT_VOUCHER  = "Tediye Fiþi Güncelleme";
 	public final static String STR_VOUCHER_NO  = "Fiþ No";
 	public final static String STR_VOUCHER_TYPE  = "Fiþ Tipi";
-	public final static String MSG_SELECT_ACCOUNTING_ACCOUNT="Lütfen muhasebe hesab?n? seçiniz!";
 }
