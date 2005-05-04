@@ -46,11 +46,14 @@ public class EngLangCommonKeys {
 	public final static String STR_DISCOUNTED_TOTALPRICE="?ndirimli Tutar";
     public final static String STR_DOCUMENT_NO="Belge No";
     public final static String STR_DUE_DATE ="Vade Tarihi";
+    public final static String STR_DUE_DATE_START ="Vade Tarihi - Baþlangýç";
+    public final static String STR_DUE_DATE_END ="Vade Tarihi - Bitiþ";
 	public final static String STR_END_DATE="Biti? Tarihi";
 	
 	public final static String STR_EXCHANGE="Kur";
 	public final static String STR_EXCHANGE_RATE="Kur Oran?";
     public final static String STR_EXPORT_TO_EXCEL = "Excele Aktar";
+    public final static String STR_FAST_VIEW="Hýzlý Görüntüleme";
 	public final static String STR_FILTER="Filtre";
 	
 	public final static String STR_GENERAL_INFO="Genel Bilgiler";
