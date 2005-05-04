@@ -17,6 +17,8 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -26,7 +28,6 @@ import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.custom.CLabel;
@@ -43,13 +44,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	{
@@ -110,7 +104,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			compSearchPanel.setLayout(compSearchPanelLayout);
 			//START >> lblBankCard
 			lblBankCard = new CLabel(compSearchPanel, SWT.NONE);
-			lblBankCard.setText(Messages.getString("BankUIBankCardAbstract.0")); //$NON-NLS-1$
+			lblBankCard.setText(BankLangKeys.STR_BANK_CARD); 
 			//END << lblBankCard
 			//START >> bankPicker
 			bankPicker = new BankCardPicker(compSearchPanel, SWT.NONE);
@@ -121,7 +115,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			//END << bankPicker
 			//START >> lblStartDate
 			lblStartDate = new CLabel(compSearchPanel, SWT.NONE);
-			lblStartDate.setText(Messages.getString("BankUIBankCardAbstract.1")); //$NON-NLS-1$
+			lblStartDate.setText(BankLangKeys.STR_START_DATE); 
 			//END << lblStartDate
 			//START >> dateStartDate
 			dateStartDate = new DatePicker(compSearchPanel, SWT.NONE);
@@ -132,7 +126,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			//END << dateStartDate
 			//START >> lblEndDate
 			lblEndDate = new CLabel(compSearchPanel, SWT.NONE);
-			lblEndDate.setText(Messages.getString("BankUIBankCardAbstract.2")); //$NON-NLS-1$
+			lblEndDate.setText(BankLangKeys.STR_END_DATE); 
 			//END << lblEndDate
 			//START >> dateEndDate
 			dateEndDate = new DatePicker(compSearchPanel, SWT.NONE);
@@ -172,37 +166,37 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			tableAbstract.setLayoutData(tableAbstractLData);
 			//START >> tableColumnDate
 			tableColumnDate = new TableColumn(tableAbstract, SWT.NONE);
-			tableColumnDate.setText(Messages.getString("BankUIBankCardAbstract.3")); //$NON-NLS-1$
+			tableColumnDate.setText(EngLangCommonKeys.STR_DATE); 
 			tableColumnDate.setWidth(83);
 			//END << tableColumnDate
 			//START >> tableColumnTransType
 			tableColumnTransType = new TableColumn(tableAbstract, SWT.NONE);
-			tableColumnTransType.setText("HareketTipi");
+			tableColumnTransType.setText(BankLangKeys.STR_TRANSACTION_TYPE);
 			tableColumnTransType.setWidth(97);
 			//END << tableColumnTransType
 			//START >> tableColumnDefinition
 			tableColumnDefinition = new TableColumn(tableAbstract, SWT.NONE);
-			tableColumnDefinition.setText(Messages.getString("BankUIBankCardAbstract.5")); //$NON-NLS-1$
+			tableColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION); 
 			tableColumnDefinition.setWidth(110);
 			//END << tableColumnDefinition
 			//START >> tableColumnDebit
 			tableColumnDebit = new TableColumn(tableAbstract, SWT.RIGHT);
-			tableColumnDebit.setText(Messages.getString("BankUIBankCardAbstract.6")); //$NON-NLS-1$
+			tableColumnDebit.setText(BankLangKeys.STR_DEBIT); 
 			tableColumnDebit.setWidth(62);
 			//END << tableColumnDebit
 			//START >> tableColumnCredit
 			tableColumnCredit = new TableColumn(tableAbstract, SWT.RIGHT);
-			tableColumnCredit.setText(Messages.getString("BankUIBankCardAbstract.7")); //$NON-NLS-1$
+			tableColumnCredit.setText(BankLangKeys.STR_CREDIT);
 			tableColumnCredit.setWidth(67);
 			//END << tableColumnCredit
 			//START >> tableColumnBalanceDept
 			tableColumnBalanceDept = new TableColumn(tableAbstract, SWT.RIGHT);
-			tableColumnBalanceDept.setText("Bakiye Borç");
+			tableColumnBalanceDept.setText(BankLangKeys.STR_BALANCE_DEBIT);
 			tableColumnBalanceDept.setWidth(84);
 			//END << tableColumnBalanceDept
 			//START >> tableColumnBalanceCredit
 			tableColumnBalanceCredit = new TableColumn(tableAbstract, SWT.RIGHT);
-			tableColumnBalanceCredit.setText("Bakiye Alacak");
+			tableColumnBalanceCredit.setText(BankLangKeys.STR_BALANCE_CREDIT);
 			tableColumnBalanceCredit.setWidth(84);
 			//END << tableColumnBalanceCredit
 			//END << tableAbstract
@@ -217,7 +211,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			//END << tabItemSearch
 			//START >> tabItemReport
 			tabItemReport = new CTabItem(tabFolder, SWT.NONE);
-			tabItemReport.setText("Rapor");
+			tabItemReport.setText(BankLangKeys.STR_REPORT);
 			tabFolder.setSelection(0);
 			//START >> compViewer
 			compViewer = new Composite(tabFolder, SWT.NONE);
@@ -277,7 +271,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableAbstract, Messages.getString("BankUIBankCardAbstract.9")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableAbstract, BankLangKeys.STR_BANK_ABSTRACT); 
 	}
 	
 	protected void tableBankCardsMouseDoubleClick(MouseEvent evt)
@@ -309,7 +303,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	{
 		if (bankPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIBankCardAbstract.8"), SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), BankLangKeys.MSG_PLEASE_SELECT_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			bankPicker.setFocus();
 			return false;
 		}
@@ -359,7 +353,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 						tableViewer
 								.addRow(
 										new String[]{
-												"", "", Messages.getString("BankUIBankCardAbstract.11"), cf.format(amounts[0]), cf.format(amounts[1]), cf.format(balance), cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+												"", "", BankLangKeys.STR_TURNOVER, cf.format(amounts[0]), cf.format(amounts[1]), cf.format(balance), cf.format(new BigDecimal(0)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 										}, null);
 					}
 					else
@@ -367,7 +361,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 						tableViewer
 								.addRow(
 										new String[]{
-												"", "", Messages.getString("BankUIBankCardAbstract.11"), cf.format(amounts[0]), cf.format(amounts[1]), cf.format(new BigDecimal(0)), cf.format(balance.negate()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+												"", "", BankLangKeys.STR_TURNOVER, cf.format(amounts[0]), cf.format(amounts[1]), cf.format(new BigDecimal(0)), cf.format(balance.negate()) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 										}, null);
 					}
 				}
@@ -376,7 +370,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					tableViewer
 							.addRow(
 									new String[]{
-											"", "", Messages.getString("BankUIBankCardAbstract.14"), cf.format(0), cf.format(0), cf.format(0), cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+											"", "", BankLangKeys.STR_TURNOVER_TAGS, cf.format(0), cf.format(0), cf.format(0), cf.format(0) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 									}, null);
 					parameters.put("initialDept", new BigDecimal(0));
 					parameters.put("initialCredit", new BigDecimal(0));
@@ -434,7 +428,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				}
 				tableViewer.addRow(new String[]{"", //$NON-NLS-1$
 						"", //$NON-NLS-1$
-						Messages.getString("BankUIBankCardAbstract.17"), //$NON-NLS-1$
+						BankLangKeys.STR_TURNOVER_TOTAL_TAGS, //$NON-NLS-1$
 						cf.format(total_dept), cf.format(total_credit), balance_dept, balance_credit}, null);
 				if (balance.doubleValue() > 0)
 				{
@@ -448,7 +442,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				}
 				tableViewer.addRow(new String[]{"", //$NON-NLS-1$
 						"", //$NON-NLS-1$
-						Messages.getString("BankUIBankCardAbstract.20"), //$NON-NLS-1$
+						BankLangKeys.STR_TURNOVER_TAGS, //$NON-NLS-1$
 						cf.format(deferred_dept), cf.format(deferred_credit), balance_dept, balance_credit}, null);
 				BigDecimal grand_total_dept = deferred_dept.add(total_dept);
 				BigDecimal grand_total_credit = deferred_credit.add(total_credit);
@@ -464,7 +458,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				}
 				tableViewer.addRow(new String[]{"", //$NON-NLS-1$
 						"", //$NON-NLS-1$
-						Messages.getString("BankUIBankCardAbstract.23"), //$NON-NLS-1$
+						BankLangKeys.STR_TOTAL_TAGS, //$NON-NLS-1$
 						cf.format(grand_total_dept), cf.format(grand_total_credit), balance_dept, balance_credit}, null);
 				//REPORT PART
 				if (ls.size() > 0)

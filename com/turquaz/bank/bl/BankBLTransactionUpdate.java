@@ -52,6 +52,7 @@ import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.lang.BankLangKeys;
 
 public class BankBLTransactionUpdate
 {
@@ -163,7 +164,7 @@ public class BankBLTransactionUpdate
 			Map deptAccounts = new HashMap();
 			prepareAccountingMaps(deptAccount, creditAccount, totalAmount, creditAccounts, deptAccounts);
 			int accTransType = EngBLCommon.ACCOUNTING_TRANS_GENERAL;
-			String accounting_definition = "Banka Virman - " + definition;
+			String accounting_definition = BankLangKeys.STR_INITIAL_TRANSACTION + definition;
 			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, bankTransBill.getTurqEngineSequence().getTurqModule()
 					.getId().intValue(), bankTransBill.getTurqEngineSequence().getId(), accounting_definition, exchangeRate,
 					creditAccounts, deptAccounts, true);
@@ -477,7 +478,7 @@ public class BankBLTransactionUpdate
 				transRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
 				transRow.setCreditAmount(new BigDecimal(0));
 				currentTransType = EngBLCommon.CURRENT_TRANS_CREDIT;
-				currentTransDefinition = curCard.getCardsName() + " 'den Havale";
+				currentTransDefinition = curCard.getCardsName() + BankLangKeys.STR_TRANSFER_FROM;
 			}
 			else if (type == EngBLCommon.BANK_TRANS_SEND_MONEY)
 			{
@@ -489,7 +490,7 @@ public class BankBLTransactionUpdate
 						.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio()).setScale(2,
 								EngBLCommon.ROUNDING_METHOD));
 				currentTransType = EngBLCommon.CURRENT_TRANS_DEBIT;
-				currentTransDefinition = curCard.getCardsName() + " 'e Havale";
+				currentTransDefinition = curCard.getCardsName() + BankLangKeys.STR_TRANSFER_TO;
 			}
 			/**
 			 * Save transaction bill

@@ -29,7 +29,6 @@ import java.util.Map;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
@@ -49,6 +48,7 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.lang.BankLangKeys;
 
 public class BankBLTransactionAdd
 {
@@ -151,7 +151,7 @@ public class BankBLTransactionAdd
 			accTransRowCredit.setCreditAmount(totalAmount);
 			accTransRowDept.setDeptAmount(totalAmount);
 			accTransRowDept.setCreditAmount(new BigDecimal(0));
-			String accounting_definition = "Banka Virman- " + definition;
+			String accounting_definition = BankLangKeys.STR_TRANFER + definition;
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
 			BankBLTransactionUpdate.prepareAccountingMaps(deptAccount, creditAccount, totalAmount, creditAccounts,
@@ -181,7 +181,7 @@ public class BankBLTransactionAdd
 			Calendar cal = Calendar.getInstance();
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			bankTransBill.setTransactionBillDate(cal.getTime());
-			bankTransBill.setTransactionBillDefinition(Messages.getString("BankBLTransactionAdd.0")); //$NON-NLS-1$
+			bankTransBill.setTransactionBillDefinition(BankLangKeys.STR_INITIAL_TRANSACTION); 
 			bankTransBill.setTransactionBillNo(""); //$NON-NLS-1$
 			bankTransBill.setTurqBanksTransactionType(transType);
 			bankTransBill.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
