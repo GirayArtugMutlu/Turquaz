@@ -23,12 +23,13 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-import com.turquaz.cheque.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.ToolBar;
@@ -100,9 +101,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			GridLayout dialogShellLayout = new GridLayout();
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.numColumns = 2;
-			dialogShell.layout();
-			dialogShell.setText(Messages.getString("CheUIOwnChequeAddDialog.5")); //$NON-NLS-1$
-			dialogShell.pack();
+			
 			dialogShell.setSize(507, 303);
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
@@ -113,7 +112,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolSave = new ToolItem(toolBar1, SWT.NONE);
-					toolSave.setText(Messages.getString("CheUICustomerChequeAddDialog.0")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
 					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
@@ -125,7 +124,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("CheUICustomerChequeAddDialog.2")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -140,7 +139,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			tabFolder = new CTabFolder(dialogShell, SWT.NONE);
 			//START >> cTabItem1
 			cTabItem1 = new CTabItem(tabFolder, SWT.NONE);
-			cTabItem1.setText(Messages.getString("CheUIOwnChequeAddDialog.6")); //$NON-NLS-1$
+			cTabItem1.setText(CheLangKeys.STR_CHEQUE_INFO); //$NON-NLS-1$
 			//START >> compCheq
 			compCheq = new Composite(tabFolder, SWT.NONE);
 			GridLayout compCheqLayout = new GridLayout();
@@ -149,7 +148,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			cTabItem1.setControl(compCheq);
 			{
 				lblChequeNo = new CLabel(compCheq, SWT.NONE);
-				lblChequeNo.setText(Messages.getString("CheUICustomerChequeAddDialog.5")); //$NON-NLS-1$
+				lblChequeNo.setText(CheLangKeys.STR_CHEQUE_NO); //$NON-NLS-1$
 				GridData lblChequeNoLData = new GridData();
 				lblChequeNoLData.widthHint = 71;
 				lblChequeNoLData.heightHint = 19;
@@ -164,7 +163,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblBankName = new CLabel(compCheq, SWT.NONE);
-				lblBankName.setText(Messages.getString("CheUIOwnChequeAddDialog.1")); //$NON-NLS-1$
+				lblBankName.setText(CheLangKeys.STR_BANK_NAME); //$NON-NLS-1$
 			}
 			{
 				bankPicker = new BankCardPicker(compCheq, SWT.NONE);
@@ -175,7 +174,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblDueDate = new CLabel(compCheq, SWT.NONE);
-				lblDueDate.setText(Messages.getString("CheUIOwnChequeAddDialog.2")); //$NON-NLS-1$
+				lblDueDate.setText(CheLangKeys.STR_DUE_DATE); //$NON-NLS-1$
 			}
 			{
 				datePickValueDate = new DatePicker(compCheq, SWT.NONE);
@@ -186,7 +185,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblPaymentPlace = new CLabel(compCheq, SWT.NONE);
-				lblPaymentPlace.setText(Messages.getString("CheUICustomerChequeAddDialog.10")); //$NON-NLS-1$
+				lblPaymentPlace.setText(CheLangKeys.STR_PAYMENT_PLACE); //$NON-NLS-1$
 			}
 			{
 				txtPaymentPlace = new Text(compCheq, SWT.NONE);
@@ -197,7 +196,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblAmount = new CLabel(compCheq, SWT.NONE);
-				lblAmount.setText(Messages.getString("CheUICustomerChequeAddDialog.11")); //$NON-NLS-1$
+				lblAmount.setText(EngLangCommonKeys.STR_TOTALPRICE); //$NON-NLS-1$
 			}
 			{
 				curText = new CurrencyText(compCheq, SWT.NONE);
@@ -218,6 +217,9 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			//END << cTabItem1
 			//END << tabFolder
 			postInitGUI();
+            dialogShell.layout();
+            dialogShell.setText(CheLangKeys.TITLE_OWN_CHEQUE_ENTRY); //$NON-NLS-1$
+            dialogShell.pack();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed())
@@ -251,13 +253,13 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		if (bankPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIOwnChequeAddDialog.0"), SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getParent(), CheLangKeys.MSG_CHOOSE_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			bankPicker.setFocus();
 			return false;
 		}
 		else if (curText.getBigDecimalValue().compareTo(new BigDecimal(0)) < 1)
 		{
-			EngUICommon.showMessageBox(getParent(), Messages.getString("CheUIOwnChequeAddDialog.3"), SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_ENTER_AMOUNT, SWT.ICON_WARNING); //$NON-NLS-1$
 			curText.setFocus();
 			return false;
 		}
@@ -283,7 +285,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			cheque.setChequesNo(txtChequeNo.getText().trim());
 			cheque.setChequesDueDate(datePickValueDate.getDate());
 			cheque.setChequesValueDate(datePickValueDate.getDate());
-			cheque.setChequesDebtor(Messages.getString("CheUIOwnChequeAddDialog.4")); //$NON-NLS-1$
+			cheque.setChequesDebtor(CheLangKeys.STR_OWN_CHEQUE); //$NON-NLS-1$
 			cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
 			cheque.setChequesAmount(curText.getBigDecimalValue());
 			cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());

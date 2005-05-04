@@ -14,7 +14,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.CheKeys;
-import com.turquaz.cheque.Messages;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -38,6 +37,10 @@ import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.CheLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
@@ -119,7 +122,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			compSearchPanle.setLayout(compSearchPanleLayout);
 			//START >> lblCurrentCard
 			lblCurrentCard = new CLabel(compSearchPanle, SWT.NONE);
-			lblCurrentCard.setText(Messages.getString("CheUIOwnChequeSearch.0")); //$NON-NLS-1$
+			lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD); //$NON-NLS-1$
 			//END << lblCurrentCard
 			//START >> currentPicker
 			currentPicker = new CurrentPicker(compSearchPanle, SWT.NONE);
@@ -131,7 +134,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//END << currentPicker
 			//START >> lblBankPicker
 			lblBankPicker = new CLabel(compSearchPanle, SWT.NONE);
-			lblBankPicker.setText(Messages.getString("CheUIOwnChequeSearch.1")); //$NON-NLS-1$
+			lblBankPicker.setText(BankLangKeys.STR_BANK_CARD); //$NON-NLS-1$
 			//END << lblBankPicker
 			//START >> bankPicker
 			bankPicker = new BankCardPicker(compSearchPanle, SWT.NONE);
@@ -143,7 +146,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//END << bankPicker
 			//START >> lblDueDate
 			lblDueDate = new CLabel(compSearchPanle, SWT.NONE);
-			lblDueDate.setText(Messages.getString("CheUIOwnChequeSearch.2")); //$NON-NLS-1$
+			lblDueDate.setText(CheLangKeys.STR_DUE_DATE_START); //$NON-NLS-1$
 			//END << lblDueDate
 			//START >> datePickerStartDueDate
 			datePickerStartDueDate = new DatePicker(compSearchPanle, SWT.NONE);
@@ -155,7 +158,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//END << datePickerStartDueDate
 			//START >> lblDueDateEnd
 			lblDueDateEnd = new CLabel(compSearchPanle, SWT.NONE);
-			lblDueDateEnd.setText(Messages.getString("CheUIOwnChequeSearch.3")); //$NON-NLS-1$
+			lblDueDateEnd.setText(CheLangKeys.STR_DUE_DATE_END); //$NON-NLS-1$
 			//END << lblDueDateEnd
 			//START >> datePickerEndDueDate
 			datePickerEndDueDate = new DatePicker(compSearchPanle, SWT.NONE);
@@ -167,7 +170,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//END << datePickerEndDueDate
 			//START >> lblEnterDate
 			lblEnterDate = new CLabel(compSearchPanle, SWT.NONE);
-			lblEnterDate.setText(Messages.getString("CheUIOwnChequeSearch.4")); //$NON-NLS-1$
+			lblEnterDate.setText(CheLangKeys.STR_ENTRY_DATE_START); //$NON-NLS-1$
 			//END << lblEnterDate
 			//START >> datePickerStartEnterDate
 			datePickerStartEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
@@ -179,7 +182,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			//END << datePickerStartEnterDate
 			//START >> lblEnterDateEnd
 			lblEnterDateEnd = new CLabel(compSearchPanle, SWT.NONE);
-			lblEnterDateEnd.setText(Messages.getString("CheUIOwnChequeSearch.5")); //$NON-NLS-1$
+			lblEnterDateEnd.setText(CheLangKeys.STR_ENTRY_DATE_END); //$NON-NLS-1$
 			//END << lblEnterDateEnd
 			//START >> datePickerEndEnterDate
 			datePickerEndEnterDate = new DatePicker(compSearchPanle, SWT.NONE);
@@ -237,37 +240,37 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			tableCheques.setLayoutData(tableChequesLData);
 			//START >> tableColumnEntryDate
 			tableColumnEntryDate = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnEntryDate.setText(Messages.getString("CheUIOwnChequeSearch.6")); //$NON-NLS-1$
+			tableColumnEntryDate.setText(CheLangKeys.STR_ENTRY_DATE); //$NON-NLS-1$
 			tableColumnEntryDate.setWidth(90);
 			//END << tableColumnEntryDate
 			//START >> tableColumnBankCode
 			tableColumnBankCode = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnBankCode.setText(Messages.getString("CheUIOwnChequeSearch.7")); //$NON-NLS-1$
+			tableColumnBankCode.setText(BankLangKeys.STR_BANK_CODE); //$NON-NLS-1$
 			tableColumnBankCode.setWidth(97);
 			//END << tableColumnBankCode
 			//START >> tableColumnChequeNo
 			tableColumnChequeNo = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnChequeNo.setText(Messages.getString("CheUIOwnChequeSearch.8")); //$NON-NLS-1$
+			tableColumnChequeNo.setText(CheLangKeys.STR_CHEQUE_NO); //$NON-NLS-1$
 			tableColumnChequeNo.setWidth(100);
 			//END << tableColumnChequeNo
 			//START >> tableColumnCurrentCard
 			tableColumnCurrentCard = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnCurrentCard.setText(Messages.getString("CheUIOwnChequeSearch.9")); //$NON-NLS-1$
+			tableColumnCurrentCard.setText(CurLangKeys.STR_CUR_CARD); //$NON-NLS-1$
 			tableColumnCurrentCard.setWidth(145);
 			//END << tableColumnCurrentCard
 			//START >> tableColumnDueDate
 			tableColumnDueDate = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnDueDate.setText(Messages.getString("CheUIOwnChequeSearch.10")); //$NON-NLS-1$
+			tableColumnDueDate.setText(CheLangKeys.STR_DUE_DATE); //$NON-NLS-1$
 			tableColumnDueDate.setWidth(107);
 			//END << tableColumnDueDate
 			//START >> tableColumnStatus
 			tableColumnStatus = new TableColumn(tableCheques, SWT.NONE);
-			tableColumnStatus.setText(Messages.getString("CheUIOwnChequeSearch.11")); //$NON-NLS-1$
+			tableColumnStatus.setText(CheLangKeys.STR_CHEQUE_STATUS); //$NON-NLS-1$
 			tableColumnStatus.setWidth(105);
 			//END << tableColumnStatus
 			//START >> tableColumnAmount
 			tableColumnAmount = new TableColumn(tableCheques, SWT.RIGHT);
-			tableColumnAmount.setText(Messages.getString("CheUIOwnChequeSearch.12")); //$NON-NLS-1$
+			tableColumnAmount.setText(EngLangCommonKeys.STR_TOTALPRICE); //$NON-NLS-1$
 			tableColumnAmount.setWidth(98);
 			//END << tableColumnAmount
 			//END << tableCheques
@@ -340,7 +343,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableCheques, Messages.getString("CheUIOwnChequeSearch.13")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableCheques, CheLangKeys.TITLE_OWN_CHEQUES); //$NON-NLS-1$
 	}
 
 	public void search()
