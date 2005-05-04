@@ -12,7 +12,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.bill.BillKeys;
-import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.engine.EngKeys;
@@ -21,6 +20,10 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TableSorter;
@@ -35,7 +38,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -97,7 +99,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				composite1.setLayout(composite1Layout);
 				{
 					lblCurrentCard = new CLabel(composite1, SWT.NONE);
-					lblCurrentCard.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.0")); //$NON-NLS-1$
+					lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 					GridData lblCurrentCardLData = new GridData();
 					lblCurrentCardLData.widthHint = 109;
 					lblCurrentCardLData.heightHint = 18;
@@ -112,7 +114,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					lblDocNo = new CLabel(composite1, SWT.NONE);
-					lblDocNo.setText("Belge No");
+					lblDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 				}
 				{
 					txtDocNo = new Text(composite1, SWT.NONE);
@@ -123,7 +125,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					lblStartDate = new CLabel(composite1, SWT.NONE);
-					lblStartDate.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.1")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 					GridData lblStartDateLData = new GridData();
 					lblStartDateLData.widthHint = 109;
 					lblStartDateLData.heightHint = 17;
@@ -138,7 +140,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					lblEndDate = new CLabel(composite1, SWT.NONE);
-					lblEndDate.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.2")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 					GridData lblEndDateLData = new GridData();
 					lblEndDateLData.widthHint = 105;
 					lblEndDateLData.heightHint = 19;
@@ -153,7 +155,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					lblType = new CLabel(composite1, SWT.NONE);
-					lblType.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.3")); //$NON-NLS-1$
+					lblType.setText(EngLangCommonKeys.STR_TYPE);
 					GridData lblTypeLData = new GridData();
 					lblTypeLData.widthHint = 74;
 					lblTypeLData.heightHint = 21;
@@ -185,7 +187,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				tableBills.setLayoutData(tableConsignmentsLData);
 				{
 					tableColumnConsignmentDate = new TableColumn(tableBills, SWT.NONE);
-					tableColumnConsignmentDate.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.5")); //$NON-NLS-1$
+					tableColumnConsignmentDate.setText(EngLangCommonKeys.STR_DATE);
 					tableColumnConsignmentDate.setWidth(104);
 					tableColumnConsignmentDate.addListener(SWT.Selection, new Listener()
 					{
@@ -197,17 +199,17 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					tableColumnDocNo = new TableColumn(tableBills, SWT.NONE);
-					tableColumnDocNo.setText("Belge No");
+					tableColumnDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 					tableColumnDocNo.setWidth(74);
 				}
 				//START >> tableColumnCurrentCode
 				tableColumnCurrentCode = new TableColumn(tableBills, SWT.NONE);
-				tableColumnCurrentCode.setText("Cari Kod");
+				tableColumnCurrentCode.setText(CurLangKeys.STR_CUR_CODE);
 				tableColumnCurrentCode.setWidth(100);
 				//END << tableColumnCurrentCode
 				{
 					tableColumnCurrentName = new TableColumn(tableBills, SWT.NONE);
-					tableColumnCurrentName.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.6")); //$NON-NLS-1$
+					tableColumnCurrentName.setText(CurLangKeys.STR_CUR_NAME);
 					tableColumnCurrentName.setWidth(150);
 					tableColumnCurrentName.addListener(SWT.Selection, new Listener()
 					{
@@ -219,12 +221,12 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				//START >>  tableColumnCurrency
 				tableColumnCurrency = new TableColumn(tableBills, SWT.NONE);
-				tableColumnCurrency.setText("Döviz Türü");
+				tableColumnCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 				tableColumnCurrency.setWidth(70);
 				//END <<  tableColumnCurrency
 				{
 					tableColumnCumulativePrice = new TableColumn(tableBills, SWT.RIGHT);
-					tableColumnCumulativePrice.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.7")); //$NON-NLS-1$
+					tableColumnCumulativePrice.setText(EngLangCommonKeys.STR_TOTAL_PRICE);
 					tableColumnCumulativePrice.setWidth(100);
 					tableColumnCumulativePrice.addListener(SWT.Selection, new Listener()
 					{
@@ -236,7 +238,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					tableColumnVatAmount = new TableColumn(tableBills, SWT.RIGHT);
-					tableColumnVatAmount.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.8")); //$NON-NLS-1$
+					tableColumnVatAmount.setText(InvLangKeys.STR_VAT_TOTAL);
 					tableColumnVatAmount.setWidth(100);
 					tableColumnVatAmount.addListener(SWT.Selection, new Listener()
 					{
@@ -248,7 +250,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				}
 				{
 					tableColumnSpecialVatAmount = new TableColumn(tableBills, SWT.RIGHT);
-					tableColumnSpecialVatAmount.setText(com.turquaz.bill.Messages.getString("BillUIBillSearch.9")); //$NON-NLS-1$
+					tableColumnSpecialVatAmount.setText(InvLangKeys.STR_SPEC_VAT);
 					tableColumnSpecialVatAmount.setWidth(100);
 					tableColumnSpecialVatAmount.addListener(SWT.Selection, new Listener()
 					{
@@ -350,7 +352,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 						cf.format(netTotalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, billId);
 			}
 			tableViewer.addRow(new String[]{"","","","","","","",""},null);
-			tableViewer.addRow(new String[]{"","","","","TOPLAM",cf.format(generalTotalAmount),cf.format(generalVATAmount),cf.format(generalSpecVATAmount)},null);
+			tableViewer.addRow(new String[]{"","","","",EngLangCommonKeys.STR_GENERAL_TOTAL_CAPITAL,cf.format(generalTotalAmount),cf.format(generalVATAmount),cf.format(generalSpecVATAmount)},null);
 		}
 		catch (Exception ex)
 		{
@@ -364,7 +366,6 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		try
 		{
 			TableItem items[] = tableBills.getSelection();
@@ -381,28 +382,26 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 					if (canUpdateBill.booleanValue())
 					{
 						//delete Consignment Group
-						MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-						msg2.setMessage(Messages.getString("BillUIBillSearch.12")); //$NON-NLS-1$
-						if (msg2.open() == SWT.OK)
+						boolean okToDelete=EngUICommon.okToDelete(getShell());
+						if (okToDelete)
 						{
 							boolean deleteCons = false;
-							if (EngUICommon.showQuestion(getShell(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+							if (EngUICommon.showQuestion(getShell(), BillLangKeys.MSG_WILL_DELETE_CONS))
+							{
 								deleteCons = true;
 							}
 							argMap=new HashMap();
 							argMap.put(BillKeys.BILL,bill);
 							argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(deleteCons));
 							EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap);
-							msg.setMessage(Messages.getString("BillUIBillSearch.14")); //$NON-NLS-1$
-							msg.open();
+							EngUICommon.showDeletedSuccesfullyMessage(getShell());
 							search();
 						}
 					}
 					else
 					{
-						MessageBox msg3 = new MessageBox(this.getShell(), SWT.ICON_WARNING);
-						msg3.setMessage(Messages.getString("BillUIBillSearch.15")); //$NON-NLS-1$
-						msg3.open();
+						//XXX bu ne???
+						EngUICommon.showUpdatedSuccesfullyMessage(getShell());
 						return;
 					}
 				}
@@ -454,6 +453,6 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableBills, Messages.getString("BillUIBillSearch.16")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableBills, BillLangKeys.STR_BILLS);
 	}
 }

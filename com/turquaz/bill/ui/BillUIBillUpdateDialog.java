@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
-import com.turquaz.bill.Messages;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
@@ -22,6 +21,8 @@ import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -30,7 +31,6 @@ import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -85,7 +85,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("BillUIBillUpdateDialog.6")); //$NON-NLS-1$
+			dialogShell.setText(BillLangKeys.TITLE_BILL_UPDATE);
 			GridLayout dialogShellLayout = new GridLayout();
 			dialogShell.setLayout(dialogShellLayout);
 			dialogShellLayout.horizontalSpacing = 4;
@@ -99,7 +99,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-					toolUpdate.setText(Messages.getString("BillUIBillUpdateDialog.0")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
@@ -111,7 +111,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolDelete = new ToolItem(toolBar1, SWT.NONE);
-					toolDelete.setText(Messages.getString("BillUIBillUpdateDialog.2")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 					toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -123,7 +123,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolPrint = new ToolItem(toolBar1, SWT.NONE);
-					toolPrint.setText(Messages.getString("BillUIBillUpdateDialog.5")); //$NON-NLS-1$
+					toolPrint.setText(EngLangCommonKeys.STR_PRINT);
 					toolPrint.setImage(SWTResourceManager.getImage("gfx/print.gif")); //$NON-NLS-1$
 					toolPrint.addSelectionListener(new SelectionAdapter()
 					{
@@ -131,7 +131,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						{
 							try
 							{
-								boolean answer = EngUICommon.showQuestion(getParent(), Messages.getString("BillUIBillUpdateDialog.7")); //$NON-NLS-1$
+								boolean answer = EngUICommon.showQuestion(getParent(), BillLangKeys.MSG_WILL_BALANCE_BE_PRINTED);
 								dialogShell.close();
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL,bill);
@@ -147,7 +147,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("BillUIBillUpdateDialog.4")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -280,7 +280,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void update()
 	{
-		MessageBox msg;
 		try
 		{
 			if (bill == null)
@@ -313,16 +312,14 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				
 				if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
 				{
-					EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.13")); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getParent(),BillLangKeys.MSG_COULDNT_UPDATE_CONS_DUE_TO_MANY_CONS,SWT.ICON_WARNING);
 				}
 				if(result[1]==-1)
 				{			   	
-					EngUICommon.showMessageBox(getParent(),Messages.getString("BillUIBillUpdateDialog.14")); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getParent(),EngLangCommonKeys.MSG_ACCOUNTING_ENTEGRATION_COULDNT_BE_MADE,SWT.ICON_WARNING);
 				}
 				
-				msg = new MessageBox(this.getParent(), SWT.ICON_INFORMATION);
-				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.15"));  //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				this.dialogShell.close();
 			}
 		}
@@ -335,25 +332,23 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	public void delete()
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getParent(), SWT.CANCEL | SWT.OK);
-		msg2.setMessage(Messages.getString("BillUIBillUpdateDialog.3")); //$NON-NLS-1$
 		try
 		{
-			if (msg2.open() == SWT.OK)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				updated = true;
 				boolean deleteCons = false;
 				//TODO send boolean to delete cons
-				if (EngUICommon.showQuestion(getParent(), Messages.getString("BillUIBillUpdateDialog.9"))) { //$NON-NLS-1$
+				if (EngUICommon.showQuestion(getParent(), BillLangKeys.MSG_WILL_DELETE_CONS))
+				{
 					deleteCons = true;
 				}
 				HashMap argMap=new HashMap();
 				argMap.put(BillKeys.BILL,bill);
 				argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(deleteCons));
 				EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap);
-				msg.setMessage(Messages.getString("BillUIBillUpdateDialog.1")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}
 		}

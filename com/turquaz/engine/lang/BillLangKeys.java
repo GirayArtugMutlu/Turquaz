@@ -22,6 +22,8 @@ public class BillLangKeys
 	public final static String MSG_COULDNT_UPDATE_CONS_DUE_TO_MANY_CONS="Bu faturanýn birden fazla irsaliyesi olduðu için stok hareketleri güncellenemedi\nStok hareketlerini güncellemek için irsaliyeleri güncellemelisiniz!";
 	public final static String MSG_WILL_DELETE_CONS="Bu faturanýn irsaliyesini de silmek ister misiniz?";
 	public final static String STR_BILLS="Faturalar";
+	public final static String TITLE_BILL_GROUPS="Fatura Gruplarý";
+	public final static String TITLE_BILL_UPDATE="Fatura Güncelleme";
 
 
 }

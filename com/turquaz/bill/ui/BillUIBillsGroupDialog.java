@@ -33,7 +33,6 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Button;
@@ -46,11 +45,14 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
-import com.turquaz.current.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBillGroup;
+import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -96,7 +98,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 				//handle the obtaining and disposing of resources
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
-			dialogShell.setText(Messages.getString("BillUIBillsGroupDialog.0")); //$NON-NLS-1$
+			dialogShell.setText(BillLangKeys.TITLE_BILL_GROUPS);
 			dialogShell.setSize(434, 245);
 			GridLayout dialogShellLayout = new GridLayout(1, true);
 			dialogShell.setLayout(dialogShellLayout);
@@ -122,7 +124,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 					lblGroupNameLData.widthHint = 59;
 					lblGroupNameLData.heightHint = 20;
 					lblGroupName.setLayoutData(lblGroupNameLData);
-					lblGroupName.setText(Messages.getString("CurUIGroupAddDialog.0")); //$NON-NLS-1$
+					lblGroupName.setText(EngLangCommonKeys.STR_NAME);
 				}
 				{
 					txtGroupName = new Text(compGroupAddDialog, SWT.BORDER);
@@ -139,7 +141,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 					lblDescriptionLData.widthHint = 71;
 					lblDescriptionLData.heightHint = 19;
 					lblDescription.setLayoutData(lblDescriptionLData);
-					lblDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
+					lblDescription.setText(EngLangCommonKeys.STR_DESCRIPTION);
 				}
 				{
 					txtDescription = new Text(compGroupAddDialog, SWT.SINGLE | SWT.BORDER);
@@ -156,7 +158,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 					btnDeleteLData.widthHint = 50;
 					btnDeleteLData.heightHint = 25;
 					btnDelete.setLayoutData(btnDeleteLData);
-					btnDelete.setText(Messages.getString("CurUIGroupAddDialog.2")); //$NON-NLS-1$
+					btnDelete.setText(EngLangCommonKeys.STR_DELETE);
 					btnDelete.setEnabled(false);
 					btnDelete.addMouseListener(new MouseAdapter()
 					{
@@ -173,7 +175,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 					btnUpdateLData.widthHint = 71;
 					btnUpdateLData.heightHint = 27;
 					btnUpdate.setLayoutData(btnUpdateLData);
-					btnUpdate.setText(Messages.getString("CurUIGroupAddDialog.3")); //$NON-NLS-1$
+					btnUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					btnUpdate.setEnabled(false);
 					btnUpdate.addMouseListener(new MouseAdapter()
 					{
@@ -189,7 +191,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 					btnGroupAddLData.widthHint = 54;
 					btnGroupAddLData.heightHint = 26;
 					btnGroupAdd.setLayoutData(btnGroupAddLData);
-					btnGroupAdd.setText(Messages.getString("CurUIGroupAddDialog.4")); //$NON-NLS-1$
+					btnGroupAdd.setText(EngLangCommonKeys.STR_ADD);
 					btnGroupAdd.addMouseListener(new MouseAdapter()
 					{
 						public void mouseDoubleClick(MouseEvent evt)
@@ -232,9 +234,9 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 					tableCurGroupsMouseDoubleClick(evt);
 				}
 			});
-			tableColumnName.setText(Messages.getString("CurUIGroupAddDialog.0")); //$NON-NLS-1$
+			tableColumnName.setText(EngLangCommonKeys.STR_NAME);
 			tableColumnName.setWidth(150);
-			tableColumnDescription.setText(Messages.getString("CurUIGroupAddDialog.1")); //$NON-NLS-1$
+			tableColumnDescription.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			tableColumnDescription.setWidth(269);
 			dialogShellLayout.marginWidth = 0;
 			dialogShellLayout.marginHeight = 0;
@@ -308,13 +310,10 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void btnDeleteMouseUp(MouseEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
-		MessageBox msg2 = new MessageBox(this.getParent());
 		try
 		{
-			msg.setMessage(Messages.getString("CurUIGroupAddDialog.7")); //$NON-NLS-1$
-			int result = msg.open();
-			if (result == SWT.OK)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				HashMap argMap=new HashMap();
 				argMap.put(BillKeys.BILL_GROUP,txtGroupName.getData());
@@ -324,8 +323,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 				btnGroupAdd.setEnabled(true);
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$
-				msg2.setMessage(Messages.getString("CurUIGroupAddDialog.8")); //$NON-NLS-1$
-				msg2.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				fillTable();
 			}
 		}
@@ -343,12 +341,10 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void btnUpdateMouseUp(MouseEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent());
 		try
 		{
 			if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.15")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_ENTER_GROUP_NAME,SWT.ICON_WARNING);
 			}
 			else
 			{
@@ -363,8 +359,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 				btnGroupAdd.setEnabled(true);
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.19")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				fillTable();
 			}
 		}
@@ -387,12 +382,10 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void btnGroupAddMouseUp(MouseEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent());
 		try
 		{
 			if (txtGroupName.getText().trim().equals("")) { //$NON-NLS-1$
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.24")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_ENTER_GROUP_NAME,SWT.ICON_WARNING);
 			}
 			else
 			{
@@ -400,11 +393,10 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(BillKeys.BILL_GROUP_NAME,txtGroupName.getText().trim());
 				argMap.put(BillKeys.BILL_GROUP_DESCRIPTION,txtDescription.getText().trim());
 				EngTXCommon.doTransactionTX(BillBLAddGroups.class.getName(),"saveGroup",argMap);
-				msg.setMessage(Messages.getString("CurUIGroupAddDialog.25")); //$NON-NLS-1$
 				txtGroupName.setText(""); //$NON-NLS-1$
 				txtDescription.setText(""); //$NON-NLS-1$
+				EngUICommon.showSavedSuccesfullyMessage(getParent());
 				fillTable();
-				msg.open();
 			}
 		}
 		catch (HibernateException ex)
