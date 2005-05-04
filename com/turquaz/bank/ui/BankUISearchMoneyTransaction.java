@@ -39,10 +39,11 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.widgets.Text;
@@ -109,7 +110,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				compSearch.setLayout(compSearchLayout);
 				{
 					lblDocNo = new CLabel(compSearch, SWT.NONE);
-					lblDocNo.setText(Messages.getString("BankUISearchMoneyTransaction.0")); //$NON-NLS-1$
+					lblDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 				}
 				{
 					txtDocNo = new Text(compSearch, SWT.NONE);
@@ -120,7 +121,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				}
 				{
 					lblStartDate = new CLabel(compSearch, SWT.NONE);
-					lblStartDate.setText(Messages.getString("BankUISearchMoneyTransaction.2")); //$NON-NLS-1$
+					lblStartDate.setText(EngLangCommonKeys.STR_START_DATE);
 				}
 				{
 					dateStart = new DatePicker(compSearch, SWT.NONE);
@@ -131,7 +132,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				}
 				{
 					lblEndDate = new CLabel(compSearch, SWT.NONE);
-					lblEndDate.setText(Messages.getString("BankUISearchMoneyTransaction.3")); //$NON-NLS-1$
+					lblEndDate.setText(EngLangCommonKeys.STR_END_DATE);
 				}
 				{
 					dateEnd = new DatePicker(compSearch, SWT.NONE);
@@ -159,32 +160,32 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 				tableMoneyTrans.setLayoutData(tableMoneyTransLData);
 				{
 					tableColumnDate = new TableColumn(tableMoneyTrans, SWT.NONE);
-					tableColumnDate.setText(Messages.getString("BankUISearchMoneyTransaction.4")); //$NON-NLS-1$
+					tableColumnDate.setText(EngLangCommonKeys.STR_DATE);
 					tableColumnDate.setWidth(82);
 				}
 				{
 					tableColumnDocNo = new TableColumn(tableMoneyTrans, SWT.NONE);
 					tableColumnDocNo.setWidth(75);
-					tableColumnDocNo.setText(Messages.getString("BankUISearchMoneyTransaction.5")); //$NON-NLS-1$
+					tableColumnDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 				}
 				{
 					tableColumnType = new TableColumn(tableMoneyTrans, SWT.NONE);
-					tableColumnType.setText(Messages.getString("BankUISearchMoneyTransaction.7")); //$NON-NLS-1$
+					tableColumnType.setText(EngLangCommonKeys.STR_TYPE);
 					tableColumnType.setWidth(104);
 				}
 				//START >> tableColumnDefintion
 				tableColumnDefintion = new TableColumn(tableMoneyTrans, SWT.NONE);
-				tableColumnDefintion.setText(Messages.getString("BankUISearchMoneyTransaction.1")); //$NON-NLS-1$
+				tableColumnDefintion.setText(EngLangCommonKeys.STR_DESCRIPTION);
 				tableColumnDefintion.setWidth(150);
 				//END << tableColumnDefintion
 				//START >> tableColumnDeptAmount
 				tableColumnDeptAmount = new TableColumn(tableMoneyTrans, SWT.RIGHT);
-				tableColumnDeptAmount.setText(Messages.getString("BankUISearchMoneyTransaction.6")); //$NON-NLS-1$
+				tableColumnDeptAmount.setText(EngLangCommonKeys.STR_DEPT);
 				tableColumnDeptAmount.setWidth(85);
 				//END << tableColumnDeptAmount
 				//START >> tableColumnCreditAmount
 				tableColumnCreditAmount = new TableColumn(tableMoneyTrans, SWT.RIGHT);
-				tableColumnCreditAmount.setText(Messages.getString("BankUISearchMoneyTransaction.8")); //$NON-NLS-1$
+				tableColumnCreditAmount.setText(EngLangCommonKeys.STR_CREDIT);
 				tableColumnCreditAmount.setWidth(85);
 				//END << tableColumnCreditAmount
 			}
@@ -229,7 +230,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableMoneyTrans, Messages.getString("BankUISearchMoneyTransaction.10")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableMoneyTrans, BankLangKeys.STR_BANK_OPERATIONS);
 	}
 
 	public void search()

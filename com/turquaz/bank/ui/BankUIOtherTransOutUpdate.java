@@ -7,7 +7,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -17,6 +16,7 @@ import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.widgets.ToolItem;
@@ -73,7 +73,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 				toolBar1.setLayoutData(toolBar1LData);
 				{
 					toolUpdate = new ToolItem(toolBar1, SWT.NONE);
-					toolUpdate.setText(Messages.getString("BankUICashFromBankUpdate.0")); //$NON-NLS-1$
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
@@ -85,7 +85,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolDelete = new ToolItem(toolBar1, SWT.NONE);
-					toolDelete.setText(Messages.getString("BankUICashFromBankUpdate.2")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 					toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -97,7 +97,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("BankUICashFromBankUpdate.4")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -169,7 +169,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 					TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) it2.next();
 					if (transColumn.getDeptAmount().doubleValue() > 0)
 					{
-						compCashTrans.getCurrentPicker().setText(transColumn.getTurqAccountingAccount().getAccountCode());
+						compCashTrans.getTxtAccountPicker().setText(transColumn.getTurqAccountingAccount().getAccountCode());
 					}
 				}
 			}
@@ -190,7 +190,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
 				argMap.put(BankKeys.BANK,compCashTrans.getTxtBankCard().getTurqBank());
-				argMap.put(AccKeys.ACC_ACCOUNT,compCashTrans.getCurrentPicker().getTurqAccountingAccount());
+				argMap.put(AccKeys.ACC_ACCOUNT,compCashTrans.getTxtAccountPicker().getTurqAccountingAccount());
 				argMap.put(EngKeys.TOTAL_AMOUNT,compCashTrans.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compCashTrans.getDatePick().getDate());
 				argMap.put(EngKeys.DEFINITION,compCashTrans.getTxtDefinition().getText().trim());
@@ -198,7 +198,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.EXCHANGE_RATE,compCashTrans.getExchangeRate());
 				
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateOtherTransactionBill",argMap);
-				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIOtherTransInUpdate.0")); //$NON-NLS-1$
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				isUpdated = true;
 				dialogShell.close();
 			}
@@ -218,7 +218,7 @@ public class BankUIOtherTransOutUpdate extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
-				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIMoneyTransferInUpdate.5"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				isUpdated = true;
 				dialogShell.close();
 			}

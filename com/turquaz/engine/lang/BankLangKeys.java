@@ -36,4 +36,13 @@ public class BankLangKeys {
     public final static String STR_TURNOVER_TAGS = "--DEVREDEN--";
     public final static String STR_TURNOVER_TOTAL_TAGS = "--DÖNEM YEKÜNÜ--";
     public final static String STR_BANK_CARDS="Banka Kartlarý";
+    public final static String STR_BANK_OPERATIONS="Banka Ýþlemleri";
+    
+    public final static String TITLE_TRANSFER_IN_UPDATE="Gelen Havale Güncelleme";
+    public final static String TITLE_TRANSFER_OUT_UPDATE="Gönderilen Havale Güncelleme";
+    
+    public final static String STR_DEPTOR_BANK_CARD="Borçlu Banka Kartý";
+    public final static String STR_CREDITOR_BANK_CARD="Alacaklý Banka Kartý";
+    public final static String MSG_SELECT_DEPTOR_BANK_CARD="Borçlu banka kartýný seçiniz!";
+    public final static String MSG_SELECT_CREDITOR_BANK_CARD="Alacaklý banka kartýnýz seçiniz!";
 }

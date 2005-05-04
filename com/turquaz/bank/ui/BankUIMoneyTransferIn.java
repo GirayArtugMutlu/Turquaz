@@ -43,7 +43,6 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
@@ -248,13 +247,13 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			}
 			if (curAmount.getBigDecimalValue().compareTo(new BigDecimal(0)) != 1)
 			{
-				EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferIn.8"), SWT.ICON_WARNING); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_ENTER_AMOUNT, SWT.ICON_WARNING); //$NON-NLS-1$
 				curAmount.setFocus();
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferIn.11"), SWT.ICON_WARNING); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_SELECT_CURRENCY, SWT.ICON_WARNING); //$NON-NLS-1$
 				comboCurrencyType.setFocus();
 				return false;
 			}
@@ -263,7 +262,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePick.getDate());
 				if (exchangeRate == null)
 				{
-					EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferIn.12"), SWT.ICON_WARNING); //$NON-NLS-1$
+					EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE, SWT.ICON_WARNING); //$NON-NLS-1$
 					return false;
 				}
 			}
@@ -296,12 +295,10 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 				argMap.put(EngKeys.TRANS_DATE,datePick.getDate());
 				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
-				
-				
+				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);			
 				
 				EngTXCommon.doTransactionTX(BankBLTransactionAdd.class.getName(),"saveTransaction",argMap);
-				EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferIn.9"), SWT.ICON_INFORMATION); //$NON-NLS-1$
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
 		}

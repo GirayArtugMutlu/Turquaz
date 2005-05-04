@@ -9,12 +9,12 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.dal.TurqBanksTransactionBill;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridLayout;
@@ -69,7 +69,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				toolBar.setLayoutData(toolBarLData);
 				{
 					toolUpdate = new ToolItem(toolBar, SWT.NONE);
-					toolUpdate.setText("Güncelle");
+					toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 					toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif"));
 					toolUpdate.addSelectionListener(new SelectionAdapter()
 					{
@@ -81,7 +81,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				}
 				{
 					toolDelete = new ToolItem(toolBar, SWT.NONE);
-					toolDelete.setText("Sil");
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 					toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif"));
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -93,7 +93,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				}
 				{
 					toolCancel = new ToolItem(toolBar, SWT.NONE);
-					toolCancel.setText("\u0130ptal");
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -176,7 +176,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				argMap.put(EngKeys.EXCHANGE_RATE,compTransfer.getExchangeRate());				
 				
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateTransferBetweenBanks",argMap);
-				EngUICommon.showMessageBox(getParent(), Messages.getString("BankUIOtherTransInUpdate.0")); //$NON-NLS-1$
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				isUpdated = true;
 				dialogShell.close();
 			}
@@ -196,7 +196,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
-				EngUICommon.showMessageBox(getParent(), "Ba?ar?yla Silindi!", SWT.ICON_INFORMATION);
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				isUpdated = true;
 				dialogShell.close();
 			}
