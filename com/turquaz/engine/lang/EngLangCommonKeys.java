@@ -91,6 +91,8 @@ public class EngLangCommonKeys {
 	public final static String STR_TOTAL_CAPITAL="TOPLAM";
     public final static String STR_TOTAL_CREDIT="Toplama Alacak";
     public final static String STR_TOTAL_DEPT = "Toplam Borç";
+    public final static String STR_TOTAL_MIN="Toplam - En az";
+    public final static String STR_TOTAL_MAX="Toplam - En fazla";
 	public final static String STR_TOTAL_PRICE="Toplam Tutar";
 	public final static String STR_TOTALPRICE="Tutar";
     public final static String STR_TRANSOVER_CAPITAL="DEVREDEN";
