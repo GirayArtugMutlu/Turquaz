@@ -98,4 +98,6 @@ public class AccLangKeys {
 	public final static String STR_UPDATE_PAYMENT_VOUCHER  = "Tediye Fiþi Güncelleme";
 	public final static String STR_VOUCHER_NO  = "Fiþ No";
 	public final static String STR_VOUCHER_TYPE  = "Fiþ Tipi";
+	public final static String STR_GIVEN_CHEQUES_ACCOUNT="Verilen Çekler Hesabý";
+	public final static String STR_COLLECTED_CHEQUES_ACCOUNT="Tahsildeki Çekler Hesabý";
 }
