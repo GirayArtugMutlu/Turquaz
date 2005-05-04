@@ -1,6 +1,7 @@
 package com.turquaz.engine.ui;
 
 import org.eclipse.swt.custom.CLabel;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.TurqKeyControl;
 import java.lang.reflect.Field;
@@ -14,7 +15,6 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.component.TurqKeyEvent;
@@ -105,7 +105,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			toolBar1.setLayoutData(toolBar1LData);
 			//START >>  toolSave
 			toolSave = new ToolItem(toolBar1, SWT.NONE);
-			toolSave.setText(Messages.getString("EngUIKeyControls.0")); //$NON-NLS-1$
+			toolSave.setText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
 			toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 			toolSave.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -134,7 +134,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  toolSave
 			//START >>  toolCancel
 			toolCancel = new ToolItem(toolBar1, SWT.NONE);
-			toolCancel.setText(Messages.getString("EngUIKeyControls.2")); //$NON-NLS-1$
+			toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 			toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 			toolCancel.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
@@ -145,7 +145,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  toolBar1
 			//START >>  lvlContentAssistant
 			lvlContentAssistant = new CLabel(compControls, SWT.NONE);
-			lvlContentAssistant.setText("\u0130çerik Asistan\u0131");
+			lvlContentAssistant.setText(EngLangCommonKeys.STR_CONTENT_ASSISTANT); //$NON-NLS-1$
 			//END <<  lvlContentAssistant
 			//START >>  txtContentAssistant
 			txtContentAssistant = new TurqKeyControl(compControls, SWT.NONE);
@@ -156,7 +156,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtContentAssistant
 			//START >>  lblSave
 			lblSave = new CLabel(compControls, SWT.NONE);
-			lblSave.setText("Kaydet");
+			lblSave.setText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
 			//END <<  lblSave
 			//START >>  txtSave
 			txtSave = new TurqKeyControl(compControls, SWT.NONE);
@@ -167,7 +167,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtSave
 			//START >>  lblNew
 			lblNew = new CLabel(compControls, SWT.NONE);
-			lblNew.setText("Yeni");
+			lblNew.setText(EngLangCommonKeys.STR_NEW); //$NON-NLS-1$
 			//END <<  lblNew
 			//START >>  txtNew
 			txtNew = new TurqKeyControl(compControls, SWT.NONE);
@@ -178,7 +178,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtNew
 			//START >>  lblSearch
 			lblSearch = new CLabel(compControls, SWT.NONE);
-			lblSearch.setText("Arama");
+			lblSearch.setText(EngLangCommonKeys.STR_SEARCH); //$NON-NLS-1$
 			//END <<  lblSearch
 			//START >>  txtSearch
 			txtSearch = new TurqKeyControl(compControls, SWT.NONE);
@@ -189,7 +189,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtSearch
 			//START >>  lblDelete
 			lblDelete = new CLabel(compControls, SWT.NONE);
-			lblDelete.setText("Silme");
+			lblDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 			//END <<  lblDelete
 			//START >>  txtDelete
 			txtDelete = new TurqKeyControl(compControls, SWT.NONE);
@@ -200,7 +200,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtDelete
 			//START >>  lblExcel
 			lblExcel = new CLabel(compControls, SWT.NONE);
-			lblExcel.setText("Excel");
+			lblExcel.setText(EngLangCommonKeys.STR_EXPORT_TO_EXCEL); //$NON-NLS-1$
 			//END <<  lblExcel
 			//START >>  txtExcel
 			txtExcel = new TurqKeyControl(compControls, SWT.NONE);
@@ -211,7 +211,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtExcel
 			//START >>  lblPrint
 			lblPrint = new CLabel(compControls, SWT.NONE);
-			lblPrint.setText("Yazd\u0131rma");
+			lblPrint.setText(EngLangCommonKeys.STR_PRINT); //$NON-NLS-1$
 			//END <<  lblPrint
 			//START >>  txtPrint
 			txtPrint = new TurqKeyControl(compControls, SWT.NONE);
@@ -222,7 +222,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtPrint
 			//START >>  lblNextTab
 			lblNextTab = new CLabel(compControls, SWT.NONE);
-			lblNextTab.setText("Sonraki Sekme");
+			lblNextTab.setText(EngLangCommonKeys.STR_NEXT_TAB); //$NON-NLS-1$
 			//END <<  lblNextTab
 			//START >>  txtNextTab
 			txtNextTab = new TurqKeyControl(compControls, SWT.NONE);
@@ -233,7 +233,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			//END <<  txtNextTab
 			//START >>  lblPreviousTab
 			lblPreviousTab = new CLabel(compControls, SWT.NONE);
-			lblPreviousTab.setText("Önceki Sekme");
+			lblPreviousTab.setText(EngLangCommonKeys.STR_PREVIOUS_TAB); //$NON-NLS-1$
 			//END <<  lblPreviousTab
 			//START >>  txtPreviousTab
 			txtPreviousTab = new TurqKeyControl(compControls, SWT.NONE);
@@ -288,7 +288,7 @@ public class EngUIKeyControls extends org.eclipse.swt.widgets.Dialog {
 			{
 				String name = (String) it.next();
 				TurqKeyEvent event = (TurqKeyEvent) keyMap.get(name);
-				Field field=this.getClass().getDeclaredField("txt"+name);
+				Field field=this.getClass().getDeclaredField("txt"+name); //$NON-NLS-1$
 				Object obj=field.get(this);
 				TurqKeyControl control=((TurqKeyControl)obj);
 				control.setEventName(name);

@@ -10,9 +10,9 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngConfiguration;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -71,7 +71,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				SWTResourceManager.registerResourceUser(dialogShell);
 			}
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.setText(Messages.getString("EngUIPreferences.1")); //$NON-NLS-1$
+			dialogShell.setText(EngLangCommonKeys.TITLE_PREFERENCES); //$NON-NLS-1$
 			dialogShell.layout();
 			dialogShell.pack();
 			dialogShell.setSize(557, 295);
@@ -79,7 +79,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				{
 					toolSave = new ToolItem(toolBar1, SWT.NONE);
-					toolSave.setText(Messages.getString("EngUIPreferences.0")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
 					toolSave.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
@@ -97,7 +97,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					toolCancel = new ToolItem(toolBar1, SWT.NONE);
-					toolCancel.setText(Messages.getString("EngUIPreferences.2")); //$NON-NLS-1$
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 					toolCancel.addSelectionListener(new SelectionAdapter()
 					{
@@ -132,8 +132,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				cTabItem1.setControl(compGeneral);
 				{
 					lblWorkingDate = new CLabel(compGeneral, SWT.NONE);
-					lblWorkingDate.setText(Messages.getString("EngUIPreferences.4") + //$NON-NLS-1$
-						""); //$NON-NLS-1$
+					lblWorkingDate.setText(EngLangCommonKeys.STR_WORKING_DATE); //$NON-NLS-1$
 				}
 				{
 					datePicker = new DatePicker(compGeneral, SWT.NONE);
@@ -161,7 +160,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				compBill.setLayout(compBillLayout);
 				{
 					lblBillFormat = new CLabel(compBill, SWT.NONE);
-					lblBillFormat.setText(Messages.getString("EngUIPreferences.5")); //$NON-NLS-1$
+					lblBillFormat.setText(EngLangCommonKeys.STR_BILL_FORMAT); //$NON-NLS-1$
 				}
 				{
 					cCombo = new CCombo(compBill, SWT.NONE);

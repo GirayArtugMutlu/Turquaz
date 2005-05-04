@@ -70,7 +70,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.FillLayout;
 import com.turquaz.engine.EngConfiguration;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.backup.EngBackUp;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
@@ -81,6 +80,7 @@ import com.turquaz.engine.bl.EngBLXmlParser;
 import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.MenuFactory;
 import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.TreeFactory;
@@ -299,7 +299,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			sashMainHorizontal.setBounds(new org.eclipse.swt.graphics.Rectangle(0, 0, 792, 572));
 			tabfldMenu.setBounds(0, 0, 354, 564);
 			tabModules.setControl(compModulesTab);
-			tabModules.setText(Messages.getString("EngUIMainFrame.2")); //$NON-NLS-1$
+			tabModules.setText(EngLangCommonKeys.STR_MODULES); //$NON-NLS-1$
 			tabModules.setImage(SWTResourceManager.getImage("icons/Process16.gif")); //$NON-NLS-1$
 			GridData compModulesTreeLData = new GridData();
 			compModulesTreeLData.verticalAlignment = GridData.FILL;
@@ -378,7 +378,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			compModulesHelp.setLayout(compModulesHelpLayout);
 			{
 				btnInventory = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnInventory.setText(Messages.getString("EngUIMainFrame.1")); //$NON-NLS-1$
+				btnInventory.setText(EngLangCommonKeys.STR_MODULE_INVENTORY); //$NON-NLS-1$
 				btnInventory.setSize(379, 21);
 				btnInventory.setBackground(SWTResourceManager.getColor(255, 255, 255));
 				btnInventory.addMouseListener(new MouseAdapter()
@@ -387,14 +387,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeInventory;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.42")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_INVENTORY); //$NON-NLS-1$
 					}
 				});
 				btnInventory.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnCurrent = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnCurrent.setText(Messages.getString("EngUIMainFrame.4")); //$NON-NLS-1$
+				btnCurrent.setText(EngLangCommonKeys.STR_MODULE_CURRENT); //$NON-NLS-1$
 				btnCurrent.setSize(379, 21);
 				btnCurrent.addMouseListener(new MouseAdapter()
 				{
@@ -402,14 +402,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeCurrent;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.43")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_CURRENT); //$NON-NLS-1$
 					}
 				});
 				btnCurrent.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnConsignment = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnConsignment.setText(Messages.getString("EngUIMainFrame.32")); //$NON-NLS-1$
+				btnConsignment.setText(EngLangCommonKeys.STR_MODULE_CONSIGNMENT); //$NON-NLS-1$
 				btnConsignment.setSize(379, 21);
 				btnConsignment.addMouseListener(new MouseAdapter()
 				{
@@ -417,14 +417,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeConsignment;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.44")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_CONSIGNMENT); //$NON-NLS-1$
 					}
 				});
 				btnConsignment.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnBill = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnBill.setText(Messages.getString("EngUIMainFrame.34")); //$NON-NLS-1$
+				btnBill.setText(EngLangCommonKeys.STR_MODULE_BILL); //$NON-NLS-1$
 				btnBill.setSize(379, 21);
 				btnBill.addMouseListener(new MouseAdapter()
 				{
@@ -432,14 +432,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeBill;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.45")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_BILL); //$NON-NLS-1$
 					}
 				});
 				btnBill.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnCheque = new Button(compModulesHelp, SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnCheque.setText(Messages.getString("EngUIMainFrame.46")); //$NON-NLS-1$
+				btnCheque.setText(EngLangCommonKeys.STR_MODULE_CHEQUE); //$NON-NLS-1$
 				btnCheque.setSize(379, 21);
 				btnCheque.addMouseListener(new MouseAdapter()
 				{
@@ -447,14 +447,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeCheques;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.47")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_CHEQUE); //$NON-NLS-1$
 					}
 				});
 				btnCheque.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnBank = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnBank.setText(Messages.getString("EngUIMainFrame.37")); //$NON-NLS-1$
+				btnBank.setText(EngLangCommonKeys.STR_MODULE_BANK); //$NON-NLS-1$
 				btnBank.setSize(379, 21);
 				btnBank.addMouseListener(new MouseAdapter()
 				{
@@ -462,14 +462,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeBank;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.49")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_BANK); //$NON-NLS-1$
 					}
 				});
 				btnBank.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnCash = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnCash.setText(Messages.getString("EngUIMainFrame.23")); //$NON-NLS-1$
+				btnCash.setText(EngLangCommonKeys.STR_MODULE_CASH); //$NON-NLS-1$
 				btnCash.setSize(379, 21);
 				btnCash.addMouseListener(new MouseAdapter()
 				{
@@ -477,7 +477,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeCash;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.51")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_CASH); //$NON-NLS-1$
 					}
 				});
 				btnCash.setFont(SWTResourceManager.getFont("Tahoma", //$NON-NLS-1$
@@ -485,7 +485,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				btnAccounting = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT | SWT.LEFT | SWT.BORDER);
-				btnAccounting.setText(Messages.getString("EngUIMainFrame.39")); //$NON-NLS-1$
+				btnAccounting.setText(EngLangCommonKeys.STR_MODULE_ACCOUNTING); //$NON-NLS-1$
 				btnAccounting.setSize(379, 21);
 				btnAccounting.addMouseListener(new MouseAdapter()
 				{
@@ -493,14 +493,14 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeAccounting;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.52")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_ACCOUNTING); //$NON-NLS-1$
 					}
 				});
 				btnAccounting.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
 			}
 			{
 				btnAdmin = new Button(compModulesHelp, SWT.PUSH | SWT.FLAT|SWT.LEFT|SWT.BORDER);
-				btnAdmin.setText(Messages.getString("EngUIMainFrame.3")); //$NON-NLS-1$
+				btnAdmin.setText(EngLangCommonKeys.STR_MODULE_ADMIN); //$NON-NLS-1$
 				btnAdmin.setSize(379, 21);
 				btnAdmin.addMouseListener(new MouseAdapter()
 				{
@@ -508,7 +508,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					{
 						compModulesTreeLayout.topControl = treeAdmin;
 						compModulesTree.layout();
-						lblActiveModul.setText(Messages.getString("EngUIMainFrame.53")); //$NON-NLS-1$
+						lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_ADMIN); //$NON-NLS-1$
 					}
 				});
 				btnAdmin.setFont(SWTResourceManager.getFont("Tahoma", 10, 1, false, false)); //$NON-NLS-1$
@@ -524,7 +524,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			compModulesTabLayout.horizontalSpacing = 0;
 			compModulesTab.layout();
 			tabFavorites.setControl(compFavoritesTab);
-			tabFavorites.setText(Messages.getString("EngUIMainFrame.5")); //$NON-NLS-1$
+			tabFavorites.setText(EngLangCommonKeys.STR_FAVORITES); //$NON-NLS-1$
 			tabFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif")); //$NON-NLS-1$
 			{
 				{
@@ -534,7 +534,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 					compHistoryTab.setLayout(compHistoryTabLayout);
 					{
 						lblHistory = new CLabel(compHistoryTab, SWT.NONE);
-						lblHistory.setText(Messages.getString("EngUIMainFrame.7")); //$NON-NLS-1$
+						lblHistory.setText(EngLangCommonKeys.STR_HISTORY); //$NON-NLS-1$
 					}
 					{
 						treeHistory = new Tree(compHistoryTab, SWT.NONE);
@@ -579,7 +579,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			lblFavoritesTabLData.grabExcessHorizontalSpace = true;
 			lblFavoritesTabLData.grabExcessVerticalSpace = false;
 			lblFavoritesTab.setLayoutData(lblFavoritesTabLData);
-			lblFavoritesTab.setText(Messages.getString("EngUIMainFrame.6")); //$NON-NLS-1$
+			lblFavoritesTab.setText(EngLangCommonKeys.STR_FAVORITES); //$NON-NLS-1$
 			lblFavoritesTab.setSize(new org.eclipse.swt.graphics.Point(358, 20));
 			lblFavoritesTab.setLayout(null);
 			GridLayout compFavoritesSelectionLayout = new GridLayout(2, true);
@@ -635,8 +635,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				toolbarMainTop.setLocation(new org.eclipse.swt.graphics.Point(20, 0));
 				{
 					toolNew = new ToolItem(toolbarMainTop, SWT.PUSH);
-					toolNew.setText(Messages.getString("EngUIMainFrame.8")); //$NON-NLS-1$
-					toolNew.setToolTipText(Messages.getString("EngUIMainFrame.9")); //$NON-NLS-1$
+					toolNew.setText(EngLangCommonKeys.STR_NEW); //$NON-NLS-1$
+					toolNew.setToolTipText(EngLangCommonKeys.STR_NEW); //$NON-NLS-1$
 					toolNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif")); //$NON-NLS-1$
 					toolNew.addSelectionListener(new SelectionAdapter()
 					{
@@ -648,8 +648,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					toolSave = new ToolItem(toolbarMainTop, SWT.PUSH);
-					toolSave.setText(Messages.getString("EngUIMainFrame.11")); //$NON-NLS-1$
-					toolSave.setToolTipText(Messages.getString("EngUIMainFrame.12")); //$NON-NLS-1$
+					toolSave.setText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
+					toolSave.setToolTipText(EngLangCommonKeys.STR_SAVE); //$NON-NLS-1$
 					toolSave.setImage(SWTResourceManager.getImage("icons/save.jpg")); //$NON-NLS-1$
 					toolSave.addSelectionListener(new SelectionAdapter()
 					{
@@ -661,8 +661,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					toolDelete = new ToolItem(toolbarMainTop, SWT.PUSH);
-					toolDelete.setText(Messages.getString("EngUIMainFrame.0")); //$NON-NLS-1$
-					toolDelete.setToolTipText(Messages.getString("EngUIMainFrame.15")); //$NON-NLS-1$
+					toolDelete.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
+					toolDelete.setToolTipText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
 					toolDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 					toolDelete.addSelectionListener(new SelectionAdapter()
 					{
@@ -674,8 +674,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					toolSearch = new ToolItem(toolbarMainTop, SWT.PUSH);
-					toolSearch.setText(Messages.getString("EngUIMainFrame.17")); //$NON-NLS-1$
-					toolSearch.setToolTipText(Messages.getString("EngUIMainFrame.18")); //$NON-NLS-1$
+					toolSearch.setText(EngLangCommonKeys.STR_SEARCH); //$NON-NLS-1$
+					toolSearch.setToolTipText(EngLangCommonKeys.STR_SEARCH); //$NON-NLS-1$
 					toolSearch.setImage(SWTResourceManager.getImage("icons/search.jpg")); //$NON-NLS-1$
 					toolSearch.setSelection(true);
 					toolSearch.addSelectionListener(new SelectionAdapter()
@@ -688,7 +688,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					toolExportToExcel = new ToolItem(toolbarMainTop, SWT.NONE);
-					toolExportToExcel.setText(Messages.getString("EngUIMainFrame.10")); //$NON-NLS-1$
+					toolExportToExcel.setText(EngLangCommonKeys.STR_EXPORT_TO_EXCEL); //$NON-NLS-1$
 					toolExportToExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
 					toolExportToExcel.addSelectionListener(new SelectionAdapter()
 					{
@@ -700,7 +700,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					toolPrint = new ToolItem(toolbarMainTop, SWT.NONE);
-					toolPrint.setText(Messages.getString("EngUIMainFrame.19")); //$NON-NLS-1$
+					toolPrint.setText(EngLangCommonKeys.STR_PRINT); //$NON-NLS-1$
 					toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
 					toolPrint.addSelectionListener(new SelectionAdapter()
 					{
@@ -712,7 +712,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 				}
 				//START >> toolBrowser
 				toolBrowser = new ToolItem(toolbarMainTop, SWT.NONE);
-				toolBrowser.setText("Turquaz Web Sitesi"); //$NON-NLS-1$
+				toolBrowser.setText(EngLangCommonKeys.STR_TURQUAZ_WEBSITE); //$NON-NLS-1$
 				toolBrowser.setImage(SWTResourceManager.getImage("icons/browserview.gif")); //$NON-NLS-1$
 				toolBrowser.addSelectionListener(new SelectionAdapter()
 				{
@@ -836,11 +836,11 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			//Add popup menu to add favorites
 			popupTreeAddFavorites = new Menu(getShell(), SWT.POP_UP);
 			final MenuItem item = new MenuItem(popupTreeAddFavorites, SWT.PUSH);
-			item.setText(Messages.getString("EngUIMainFrame.27")); //$NON-NLS-1$
+			item.setText(EngLangCommonKeys.STR_ADD_TO_FAVORITES); //$NON-NLS-1$
 			//Add popu menu to remove favorites
 			popupTreeRemoveFavorites = new Menu(getShell(), SWT.POP_UP);
 			final MenuItem itemRemove = new MenuItem(popupTreeRemoveFavorites, SWT.PUSH);
-			itemRemove.setText(Messages.getString("EngUIMainFrame.28")); //$NON-NLS-1$
+			itemRemove.setText(EngLangCommonKeys.STR_REMOVE_FROM_FAVORITES); //$NON-NLS-1$
 			item.addListener(SWT.Selection, new Listener()
 			{
 				public void handleEvent(Event e)
@@ -933,7 +933,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	{
 		StackLayout compo4layout = (StackLayout) compModulesTree.getLayout();
 		compo4layout.topControl = treeAccounting;
-		lblActiveModul.setText(Messages.getString("EngUIMainFrame.56")); //$NON-NLS-1$
+		lblActiveModul.setText(EngLangCommonKeys.STR_MODULE_ACCOUNTING); //$NON-NLS-1$
 		sashMainHorizontal.setWeights(new int[]{20, 80});
 		sashMainVertical.setMaximizedControl(sashMainHorizontal);
 		tabfldMain.setTabHeight(20);
@@ -1211,7 +1211,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	public boolean okToClose()
 	{
 		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-		msg.setMessage(Messages.getString("EngUIMainFrame.13")); //$NON-NLS-1$
+		msg.setMessage(EngLangCommonKeys.MSG_SURE_TO_EXIT); //$NON-NLS-1$
 		if (msg.open() == SWT.OK)
 		{
 			return true;
@@ -1225,7 +1225,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 	public static void openBrowserTab()
 	{
 		CTabItem yeni = new CTabItem(tabfldMain, SWT.NULL);
-		yeni.setText(Messages.getString("EngUIMainFrame.14")); //$NON-NLS-1$
+		yeni.setText("Web Browser"); //$NON-NLS-1$
 		yeni.setImage(SWTResourceManager.getImage("/icons/world.gif"));
 		BrowserPanel panel = new BrowserPanel(tabfldMain, true, false);
 		yeni.setControl(panel);

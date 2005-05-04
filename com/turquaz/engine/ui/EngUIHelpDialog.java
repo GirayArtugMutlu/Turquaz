@@ -2,9 +2,9 @@ package com.turquaz.engine.ui;
 
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.Hyperlink;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -39,15 +39,13 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setLayout(new GridLayout());
-			dialogShell.setText(Messages.getString("EngUIHelpDialog.0")); //$NON-NLS-1$
+			dialogShell.setText(EngLangCommonKeys.STR_ABOUT); //$NON-NLS-1$
 			dialogShell.setSize(319, 192);
 			{
 				lblMessage = new Label(dialogShell, SWT.CENTER | SWT.WRAP);
-				lblMessage.setText(Messages.getString("EngUIHelpDialog.1")); //$NON-NLS-1$
+				lblMessage.setText(EngLangCommonKeys.MSG_VISIT_WEBSITE_FOR_INFO_AND_HELP); //$NON-NLS-1$
 				GridData lblMessageLData1 = new GridData();
 				lblMessageLData1.horizontalAlignment = GridData.CENTER;
-				lblMessageLData1.widthHint = 259;
-				lblMessageLData1.heightHint = 37;
 				lblMessageLData1.grabExcessHorizontalSpace = true;
 				lblMessage.setLayoutData(lblMessageLData1);
 				GridData lblMessageLData = new GridData();
@@ -84,7 +82,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				lblGPL = new Label(dialogShell, SWT.NONE);
-				lblGPL.setText(Messages.getString("EngUIHelpDialog.5")); //$NON-NLS-1$
+				lblGPL.setText(EngLangCommonKeys.MSG_LICENCE_INFO); //$NON-NLS-1$
 				GridData lblGPLLData = new GridData();
 				lblGPLLData.widthHint = 253;
 				lblGPLLData.heightHint = 18;
@@ -93,7 +91,7 @@ public class EngUIHelpDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			{
 				hyperGPL = new Hyperlink(dialogShell, SWT.NONE);
-				hyperGPL.setText(Messages.getString("EngUIHelpDialog.2")); //$NON-NLS-1$
+				hyperGPL.setText(EngLangCommonKeys.MSG_LICENCE); //$NON-NLS-1$
 				GridData hyperGPLLData = new GridData();
 				hyperGPL.addSelectionListener(new SelectionAdapter()
 				{

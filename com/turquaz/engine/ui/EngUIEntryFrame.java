@@ -35,24 +35,17 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLVersionValidate;
 import com.turquaz.engine.dal.DatabaseThread;
 import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
 import org.eclipse.swt.widgets.Label;
@@ -97,7 +90,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		Shell shell = new Shell(display);
 		EngUIEntryFrame inst = new EngUIEntryFrame(shell, SWT.NULL);
 		Point size = inst.getSize();
-		shell.setText(Messages.getString("EngUIEntryFrame.0")); //$NON-NLS-1$
+		shell.setText(EngLangCommonKeys.STR_APPLICATION_NAME); //$NON-NLS-1$
 		shell.setLayout(new FillLayout());
 		shell.layout();
 		if (size.x == 0 && size.y == 0)
@@ -161,7 +154,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			this.setSize(385, 202);
 			{
 				lblUserName = new CLabel(this, SWT.NONE);
-				lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
+				lblUserName.setText(EngLangCommonKeys.STR_USERNAME); //$NON-NLS-1$
 			}
 			{
 				txtUserName = new Text(this, SWT.NONE);
@@ -173,7 +166,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				lblPassword = new CLabel(this, SWT.NONE);
-				lblPassword.setText(Messages.getString("EngUIEntryFrame.2")); //$NON-NLS-1$
+				lblPassword.setText(EngLangCommonKeys.STR_PASSWORD); //$NON-NLS-1$
 				GridData lblPasswordLData = new GridData();
 				lblPasswordLData.widthHint = 81;
 				lblPasswordLData.heightHint = 19;
@@ -189,7 +182,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				checkRememberPassword = new Button(this, SWT.CHECK | SWT.LEFT);
-				checkRememberPassword.setText(Messages.getString("EngUIEntryFrame.3")); //$NON-NLS-1$
+				checkRememberPassword.setText(EngLangCommonKeys.STR_REMEMBER_PASSWORD); //$NON-NLS-1$
 				GridData checkRememberPasswordLData = new GridData();
 				checkRememberPasswordLData.horizontalSpan = 2;
 				checkRememberPasswordLData.widthHint = 162;
@@ -198,7 +191,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			}
 			{
 				lblLanguage = new CLabel(this, SWT.NONE);
-				lblLanguage.setText(Messages.getString("EngUIEntryFrame.4")); //$NON-NLS-1$
+				lblLanguage.setText(EngLangCommonKeys.STR_LANGUAGE); //$NON-NLS-1$
 				GridData lblLanguageLData = new GridData();
 				lblLanguageLData.widthHint = 106;
 				lblLanguageLData.heightHint = 19;
@@ -254,7 +247,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 				compEngUIMainFrame.setLayout(composite1Layout);
 				{
 					btnOk = new Button(compEngUIMainFrame, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-					btnOk.setText(Messages.getString("EngUIEntryFrame.7")); //$NON-NLS-1$
+				
 					GridData btnOkLData = new GridData();
 					btnOk.setImage(SWTResourceManager.getImage("icons/Ok24.gif")); //$NON-NLS-1$
 					btnOk.addMouseListener(new MouseAdapter()
@@ -271,7 +264,6 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 				}
 				{
 					btnCancel = new Button(compEngUIMainFrame, SWT.PUSH | SWT.FLAT | SWT.CENTER);
-					btnCancel.setText(Messages.getString("EngUIEntryFrame.5")); //$NON-NLS-1$
 					GridData btnCancelLData = new GridData();
 					btnCancel.setSize(74, 37);
 					btnCancel.setImage(SWTResourceManager.getImage("icons/Cancel24.gif")); //$NON-NLS-1$
@@ -302,10 +294,10 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 	// display the strings
 	public void displayStrings()
 	{
-		checkRememberPassword.setText(Messages.getString("EngUIEntryFrame.3")); //$NON-NLS-1$
-		lblLanguage.setText(Messages.getString("EngUIEntryFrame.4")); //$NON-NLS-1$
-		lblPassword.setText(Messages.getString("EngUIEntryFrame.2")); //$NON-NLS-1$
-		lblUserName.setText(Messages.getString("EngUIEntryFrame.1")); //$NON-NLS-1$
+		checkRememberPassword.setText(EngLangCommonKeys.STR_REMEMBER_PASSWORD); //$NON-NLS-1$
+		lblLanguage.setText(EngLangCommonKeys.STR_LANGUAGE); //$NON-NLS-1$
+		lblPassword.setText(EngLangCommonKeys.STR_PASSWORD); //$NON-NLS-1$
+		lblUserName.setText(EngLangCommonKeys.STR_USERNAME); //$NON-NLS-1$
 	}
 
 	public void btnCancelMouseUp(MouseEvent e)
@@ -378,15 +370,15 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 		Boolean isVersionUpdated=(Boolean)EngTXCommon.doSelectTX(EngBLVersionValidate.class.getName(),"checkVersion",null);		 //$NON-NLS-1$
 		if (!isVersionUpdated.booleanValue())
 		{
-			EngUICommon.showMessageBox(getShell(),Messages.getString("EngUIEntryFrame.9")); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DATABASE_WILL_BE_UPDATED); //$NON-NLS-1$
 			Boolean successfull=(Boolean)EngTXCommon.doTransactionTX(EngBLVersionValidate.class.getName(),"validateVersion",null); //$NON-NLS-1$
 			if (successfull.booleanValue())
 			{
-				EngUICommon.showMessageBox(getShell(),Messages.getString("EngUIEntryFrame.11")); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DATABASE_UPDATED_SUCCESFULLY); //$NON-NLS-1$
 			}
 			else
 			{
-				EngUICommon.showMessageBox(getShell(),Messages.getString("EngUIEntryFrame.12")); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DATABASE_UPDATE_FAILED); //$NON-NLS-1$
 				System.exit(1);
 			}
 		}
@@ -413,15 +405,14 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			}
 			else
 			{
-				msg.setMessage(Messages.getString("EngUIEntryFrame.23")); //$NON-NLS-1$
+				msg.setMessage(EngLangCommonKeys.MSG_WRONG_USERNAME_OR_PASSWORD); //$NON-NLS-1$
 				msg.open();
 			}
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex);
-			msg.setMessage(ex.getMessage());
-			msg.open();
+            EngBLLogger.log(this.getClass(),ex,getShell());
+	
 		}
 	}
 
@@ -460,11 +451,11 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			if (rememberPassword != null && rememberPassword.equals("true")) { //$NON-NLS-1$
 				checkRememberPassword.setSelection(true);
 			}
-			comboLanguage.add(Messages.getString("EngUIEntryFrame.16")); //$NON-NLS-1$
-			comboLanguage.add(Messages.getString("EngUIEntryFrame.17")); //$NON-NLS-1$
-			comboLanguage.setData(Messages.getString("EngUIEntryFrame.18"), new Integer(1)); //$NON-NLS-1$
-			comboLanguage.setData(Messages.getString("EngUIEntryFrame.19"), new Integer(2)); //$NON-NLS-1$
-			comboLanguage.setText(Messages.getString("EngUIEntryFrame.20")); //$NON-NLS-1$
+			comboLanguage.add("T\u00FCrk\u00E7e"); //$NON-NLS-1$
+			comboLanguage.add("English"); //$NON-NLS-1$
+			comboLanguage.setData("T\u00FCrk\u00E7e", new Integer(1)); //$NON-NLS-1$
+			comboLanguage.setData("English", new Integer(2)); //$NON-NLS-1$
+			comboLanguage.setText("T\u00FCrk\u00E7e"); //$NON-NLS-1$
 			EngDALSessionFactory.init();
 			EngBLCommon.getBaseCurrency();
 			EngBLCommon.getBaseCurrencyExchangeRate();
