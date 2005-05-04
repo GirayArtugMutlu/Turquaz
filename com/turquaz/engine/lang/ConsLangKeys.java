@@ -22,5 +22,7 @@ public class ConsLangKeys
 	public final static String TITLE_CONS_SEARCH="?rsaliye Arama";
 	public final static String TITLE_CONS_UPDATE="?rsaliye Güncelleme";
 	public final static String MSG_WILL_UPDATE_BILL="Fatura da güncellensin mi?";
+	public final static String STR_CONS_DOC_NO="Ýrsaliye Belge No";
+
 
 }
