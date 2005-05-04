@@ -80,6 +80,7 @@ public class EngLangCommonKeys {
 	public final static String STR_REPORT="Rapor";
 	public final static String STR_SAVE = "Kaydet";
 	public final static String STR_SEARCH="Ara";
+	public final static String STR_SEARCHING="Arama";
 	public final static String STR_SEARCH_RESULT="Arama Sonucu";
 	public final static String STR_START_DATE="Ba?lang?ç Tarihi";
 	public final static String STR_TELEPHONE="Telefon";
