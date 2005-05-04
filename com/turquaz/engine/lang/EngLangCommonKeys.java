@@ -13,7 +13,7 @@ public class EngLangCommonKeys {
 	public final static String MSG_UNKNOWN_ERROR_REPORT_ERROR_LOG = "Bilinmeyen bir hata oluþtu. error.log dosyasýndan eriþilebilir.";
 	public final static String MSG_UPDATED_SUCCESS = "Baþarýyla Güncellendi!";
     public final static String STR_ACCOUNTING_ACCOUNT = "Muhasebe Hesabý";
-    
+    public final static String MSG_ACCOUNTING_ENTEGRATION_COULDNT_BE_MADE="Muhasebe entegrasyonu yapýlamadý.\nStok ve Cari Muhasebe baðlantýlarýný kontrol ediniz!";
     public final static String STR_ACCOUNTING_ACCOUNTS = "Muhasebe Hesaplarý";
 	
 	public final static String STR_ADD="Ekle";
