@@ -292,7 +292,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	{
 		if (currentPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), CurLangKeys.MSG_SELECT_CURRENT_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), CurLangKeys.MSG_SELECT_CUR_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			currentPicker.setFocus();
 			return false;
 		}

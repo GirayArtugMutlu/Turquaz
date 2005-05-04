@@ -27,7 +27,6 @@ import java.util.Map;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -38,10 +37,13 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardAdd;
 
 /**
@@ -133,14 +135,14 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 		try
 		{
 			preInitGUI();
-			this.setSize(634, 380);
+			this.setSize(629, 308);
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			//START >> cTabFolder1
 			cTabFolder1 = new CTabFolder(this, SWT.NONE);
 			//START >> tabGeneralInfo
 			tabGeneralInfo = new CTabItem(cTabFolder1, SWT.NONE);
-			tabGeneralInfo.setText("Genel Bilgiler");
+			tabGeneralInfo.setText(EngLangCommonKeys.STR_GENERAL_INFO);
 			//START >> compGeneralInfo
 			compGeneralInfo = new Composite(cTabFolder1, SWT.NONE);
 			GridLayout compGeneralInfoLayout = new GridLayout();
@@ -149,7 +151,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			tabGeneralInfo.setControl(compGeneralInfo);
 			{
 				lblBankCode = new CLabel(compGeneralInfo, SWT.NONE);
-				lblBankCode.setText(Messages.getString("BankUIBankCardAdd.9")); //$NON-NLS-1$
+				lblBankCode.setText(BankLangKeys.STR_BANK_CODE);
 			}
 			{
 				txtBankCode = new Text(compGeneralInfo, SWT.NONE);
@@ -160,7 +162,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			}
 			{
 				lblBankName = new CLabel(compGeneralInfo, SWT.NONE);
-				lblBankName.setText(Messages.getString("BankUIBankCardAdd.0"));//$NON-NLS-1$
+				lblBankName.setText(BankLangKeys.STR_BANK_NAME);
 				GridData lblBankNameLData = new GridData();
 				lblBankName.setLayoutData(lblBankNameLData);
 			}
@@ -174,7 +176,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			}
 			{
 				lblBankBranchName = new CLabel(compGeneralInfo, SWT.NONE);
-				lblBankBranchName.setText(Messages.getString("BankUIBankCardAdd.1"));//$NON-NLS-1$
+				lblBankBranchName.setText(BankLangKeys.STR_BRANCH_NAME);
 				lblBankBranchName.setSize(new org.eclipse.swt.graphics.Point(95, 19));
 				GridData lblBankBranchNameLData = new GridData();
 				lblBankBranchNameLData.widthHint = 95;
@@ -191,7 +193,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			}
 			{
 				lvlBanckAccountNo = new CLabel(compGeneralInfo, SWT.NONE);
-				lvlBanckAccountNo.setText(Messages.getString("BankUIBankCardAdd.2"));//$NON-NLS-1$
+				lvlBanckAccountNo.setText(BankLangKeys.STR_ACCOUNT_NO);
 				GridData lvlBanckAccountNoLData = new GridData();
 				lvlBanckAccountNo.setLayoutData(lvlBanckAccountNoLData);
 			}
@@ -205,7 +207,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			}
 			{
 				lblDefinition = new CLabel(compGeneralInfo, SWT.NONE);
-				lblDefinition.setText(Messages.getString("BankUIBankCardAdd.7")); //$NON-NLS-1$
+				lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 				GridData lblDefinitionLData = new GridData();
 				lblDefinitionLData.widthHint = 68;
 				lblDefinitionLData.heightHint = 19;
@@ -222,13 +224,13 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			}
 			{
 				lblCurrency = new CLabel(compGeneralInfo, SWT.NONE);
-				lblCurrency.setText(Messages.getString("BankUIBankCardAdd.3"));//$NON-NLS-1$
+				lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 				GridData lblCurrencyLData = new GridData();
 				lblCurrency.setLayoutData(lblCurrencyLData);
 			}
 			{
 				comboCurrency = new CCombo(compGeneralInfo, SWT.NONE);
-				comboCurrency.setText(Messages.getString("BankUIBankCardAdd.16"));//$NON-NLS-1$
+				comboCurrency.setText(BankLangKeys.STR_SELECT_CURRENYCY);
 				GridData comboCurrencyLData = new GridData();
 				comboCurrencyLData.widthHint = 135;
 				comboCurrencyLData.heightHint = 17;
@@ -244,7 +246,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			//END << tabGeneralInfo
 			//START >> tabAccountingAccounts
 			tabAccountingAccounts = new CTabItem(cTabFolder1, SWT.NONE);
-			tabAccountingAccounts.setText("Muhasebe Hesaplar\u0131");
+			tabAccountingAccounts.setText(AccLangKeys.STR_ACCOUNTING_CODES);
 			//START >> composite
 			composite = new Composite(cTabFolder1, SWT.NONE);
 			tabAccountingAccounts.setControl(composite);
@@ -253,7 +255,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			composite.setLayout(compositeLayout);
 			{
 				lblAccCode = new CLabel(composite, SWT.NONE);
-				lblAccCode.setText(Messages.getString("BankUIBankCardAdd.10")); //$NON-NLS-1$
+				lblAccCode.setText(AccLangKeys.STR_ACCOUNTING_CODE);
 			}
 			{
 				accountPicker = new AccountPickerLeaf(composite, SWT.NONE);
@@ -264,7 +266,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			}
 			//START >> lblChequesGiven
 			lblChequesGiven = new CLabel(composite, SWT.NONE);
-			lblChequesGiven.setText("Verilen Çekler Hesab\u0131");
+			lblChequesGiven.setText(AccLangKeys.STR_GIVEN_CHEQUES_ACCOUNT);
 			//END << lblChequesGiven
 			//START >> accountPickerChequesGiven
 			accountPickerChequesGiven = new AccountPickerLeaf(composite, SWT.NONE);
@@ -275,7 +277,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 			//END << accountPickerChequesGiven
 			//START >> lblChequesCollect
 			lblChequesCollect = new CLabel(composite, SWT.NONE);
-			lblChequesCollect.setText("Tahsildeki Çekler Hesab\u0131");
+			lblChequesCollect.setText(AccLangKeys.STR_COLLECTED_CHEQUES_ACCOUNT);
 			//END << lblChequesCollect
 			//START >> accountPickerChequesCollect
 			accountPickerChequesCollect = new AccountPickerLeaf(composite, SWT.NONE);
@@ -299,42 +301,35 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 
 	private boolean verifyfields()
 	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 		if (txtBankCode.getText().trim().equals("")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("BankUIBankCardAdd.13")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),BankLangKeys.MSG_ENTER_BANK_CODE,SWT.ICON_WARNING);
 			txtBankCode.setFocus();
 			return false;
 		}
 		else if (txtBankName.getText().trim().equals("")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("BankUIBankCardAdd.6")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),BankLangKeys.MSG_ENTER_BANK_NAME,SWT.ICON_WARNING);
 			txtBankName.setFocus();
 			return false;
 		}
 		else if (txtBankBranchName.getText().trim().equals("")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("BankUIBankCardAdd.8")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),BankLangKeys.MSG_ENTER_BRANCH_NAME,SWT.ICON_WARNING);
 			txtBankBranchName.setFocus();
 			return false;
 		}
 		else if (txtBankAccountNo.getText().trim().equals("")) { //$NON-NLS-1$
-			msg.setMessage(Messages.getString("BankUIBankCardAdd.5")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),BankLangKeys.MSG_ENTER_ACCOUNT_NO);
 			txtBankAccountNo.setFocus();
 			return false;
 		}
 		else if (comboCurrency.getData(comboCurrency.getText()) == null)
 		{
-			msg.setMessage(Messages.getString("BankUIBankCardAdd.11")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
 			comboCurrency.setFocus();
 			return false;
 		}
 		else if (accountPicker.getData() == null)
 		{
-			msg.setMessage(Messages.getString("BankUIBankCardAdd.14")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
 			accountPicker.setFocus();
 			return false;
 		}
@@ -347,7 +342,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 		try
 		{
 			comboCurrency.removeAll();
-			comboCurrency.setText(Messages.getString("BankUIBankCardAdd.16")); //$NON-NLS-1$
+			comboCurrency.setText(BankLangKeys.STR_SELECT_CURRENYCY);
 			List currencies = (List) EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
@@ -405,9 +400,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				argMap.put(BankKeys.BANK_ACCOUNTING_ACCOUNTS,createAccountingMap());
 				
 				EngTXCommon.doTransactionTX(BankBLBankCardAdd.class.getName(),"saveBankCard",argMap);
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				msg.setMessage(Messages.getString("BankUIBankCardAdd.17")); //$NON-NLS-1$
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 				
 			}

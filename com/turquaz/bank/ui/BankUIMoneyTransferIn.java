@@ -35,6 +35,9 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -105,7 +108,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			this.setSize(507, 227);
 			{
 				lblDocNo = new CLabel(this, SWT.NONE);
-				lblDocNo.setText(Messages.getString("BankUIMoneyTransferIn.5")); //$NON-NLS-1$
+				lblDocNo.setText(EngLangCommonKeys.STR_DOCUMENT_NO);
 			}
 			{
 				txtDocNo = new Text(this, SWT.NONE);
@@ -116,7 +119,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			}
 			{
 				lblDate = new CLabel(this, SWT.NONE);
-				lblDate.setText(Messages.getString("BankUIMoneyTransferIn.0")); //$NON-NLS-1$
+				lblDate.setText(EngLangCommonKeys.STR_DATE);
 			}
 			{
 				datePick = new DatePicker(this, SWT.NONE);
@@ -129,7 +132,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 				{
 				}
 				lblBankCard = new CLabel(this, SWT.NONE);
-				lblBankCard.setText(Messages.getString("BankUIMoneyTransferIn.1")); //$NON-NLS-1$
+				lblBankCard.setText(BankLangKeys.STR_BANK_CARD);
 			}
 			{
 				txtBankCard = new BankCardPicker(this, SWT.NONE);
@@ -140,7 +143,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			}
 			{
 				lblCurrentCard = new CLabel(this, SWT.NONE);
-				lblCurrentCard.setText(Messages.getString("BankUIMoneyTransferIn.2")); //$NON-NLS-1$
+				lblCurrentCard.setText(CurLangKeys.STR_CUR_CARD);
 			}
 			{
 				currentPicker = new CurrentPicker(this, SWT.NONE);
@@ -151,7 +154,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			}
 			{
 				lblAmount = new CLabel(this, SWT.NONE);
-				lblAmount.setText(Messages.getString("BankUIMoneyTransferIn.3")); //$NON-NLS-1$
+				lblAmount.setText(EngLangCommonKeys.STR_TOTALPRICE);
 			}
 			{
 				curAmount = new CurrencyText(this, SWT.NONE);
@@ -162,7 +165,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			}
 			//START >> lblCurrency
 			lblCurrency = new CLabel(this, SWT.NONE);
-			lblCurrency.setText(Messages.getString("BankUIMoneyTransferIn.10")); //$NON-NLS-1$
+			lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 			//END << lblCurrency
 			//START >> comboCurrencyType
 			comboCurrencyType = new CCombo(this, SWT.NONE);
@@ -173,7 +176,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			//END << comboCurrencyType
 			{
 				lblDefinition = new CLabel(this, SWT.NONE);
-				lblDefinition.setText(Messages.getString("BankUIMoneyTransferIn.4")); //$NON-NLS-1$
+				lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			}
 			{
 				txtDefinition = new Text(this, SWT.MULTI | SWT.WRAP);
@@ -233,13 +236,13 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 		{
 			if (txtBankCard.getData() == null)
 			{
-				EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferIn.6"), SWT.ICON_WARNING); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(),BankLangKeys.MSG_SELECT_BANK_CARD, SWT.ICON_WARNING); 
 				txtBankCard.setFocus();
 				return false;
 			}
 			if (currentPicker.getData() == null)
 			{
-				EngUICommon.showMessageBox(getShell(), Messages.getString("BankUIMoneyTransferIn.7"), SWT.ICON_WARNING); //$NON-NLS-1$
+				EngUICommon.showMessageBox(getShell(), CurLangKeys.MSG_SELECT_CUR_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 				currentPicker.setFocus();
 				return false;
 			}

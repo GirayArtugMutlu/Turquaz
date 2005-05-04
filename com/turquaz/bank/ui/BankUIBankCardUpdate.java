@@ -26,13 +26,11 @@ import java.util.Map;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -41,6 +39,8 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
@@ -99,7 +99,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			final org.eclipse.swt.graphics.Image toolDeleteýmage = new org.eclipse.swt.graphics.Image(Display.getDefault(), getClass()
 					.getClassLoader().getResourceAsStream("icons/delete_edit.gif")); //$NON-NLS-1$
 			GridLayout dialogShellLayout = new GridLayout(1, true);
-			dialogShell.setText(Messages.getString("BankUIBankCardUpdate.2")); //$NON-NLS-1$
+			dialogShell.setText(BankLangKeys.TITLE_BANK_CARD_UPDATE);
 			dialogShell.setLayout(dialogShellLayout);
 			{
 				coolBar1 = new CoolBar(dialogShell, SWT.NONE);
@@ -116,7 +116,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 						{
 							toolUpdate = new ToolItem(toolBar1, SWT.NONE);
 							toolUpdate.setEnabled(true);
-							toolUpdate.setText(Messages.getString("BankUIBankCardUpdate.0")); //$NON-NLS-1$
+							toolUpdate.setText(EngLangCommonKeys.STR_UPDATE);
 							toolUpdate.setImage(SWTResourceManager.getImage("icons/save_edit.gif")); //$NON-NLS-1$
 							toolUpdate.addSelectionListener(new SelectionAdapter()
 							{
@@ -129,7 +129,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 						{
 							toolDelete = new ToolItem(toolBar1, SWT.NONE);
 							toolDelete.setEnabled(false);
-							toolDelete.setText(Messages.getString("BankUIBankCardUpdate.1")); //$NON-NLS-1$
+							toolDelete.setText(EngLangCommonKeys.STR_DELETE);
 							toolDelete.setImage(SWTResourceManager.getImage("icons/Delete16.gif")); //$NON-NLS-1$
 							toolDelete.addSelectionListener(new SelectionAdapter()
 							{
@@ -141,7 +141,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 						}
 						{
 							toolCancel = new ToolItem(toolBar1, SWT.NONE);
-							toolCancel.setText(Messages.getString("BankUIBankCardUpdate.5")); //$NON-NLS-1$
+							toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 							toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
 							toolCancel.addSelectionListener(new SelectionAdapter()
 							{
@@ -288,9 +288,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			argMap.put(BankKeys.BANK_ACCOUNTING_ACCOUNTS,compBankCard.createAccountingMap());
 			
 			EngTXCommon.doTransactionTX(BankBLBankCardUpdate.class.getName(),"updateBankCard",argMap);
-			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(Messages.getString("BankUIBankCardUpdate.3")); //$NON-NLS-1$
-			msg.open();
+			EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 			this.dialogShell.close();
 		}
 		catch (Exception ex)
@@ -321,9 +319,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				else
 				{
-					MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-					msg.setMessage(Messages.getString("BankUIBankCardUpdate.4")); //$NON-NLS-1$
-					msg.open();
+					EngUICommon.showMessageBox(getParent(),BankLangKeys.MSG_HAS_TRANS_CAN_NOT_DELETE,SWT.ICON_INFORMATION);
 				}
 			}
 		}

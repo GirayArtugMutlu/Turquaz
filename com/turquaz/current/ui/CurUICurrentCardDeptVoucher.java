@@ -331,7 +331,7 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			if (txtCurrentCard.getData() == null)
 			{
-				msg.setMessage(CurLangKeys.MSG_SELECT_CURRENT_CARD); //$NON-NLS-1$
+				msg.setMessage(CurLangKeys.MSG_SELECT_CUR_CARD); //$NON-NLS-1$
 				msg.open();
 				txtCurrentCard.setFocus();
 				return false;

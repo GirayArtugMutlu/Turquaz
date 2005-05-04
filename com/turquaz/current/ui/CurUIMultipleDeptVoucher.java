@@ -347,7 +347,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             }
             else if (currentPicker.getData() == null)
             {
-                EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CURRENT_CARD,SWT.ICON_WARNING);             
+                EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CUR_CARD,SWT.ICON_WARNING);             
                 return false;
             }
             else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)

@@ -13,6 +13,8 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
@@ -22,6 +24,21 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog implements SearchDialogInterface {
 
 	private Shell dialogShell;
@@ -85,7 +102,7 @@ public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 				compBankSearchDialog.setLayout(compBankSearchDialogLayout);
 				{
 					lblBankName = new CLabel(compBankSearchDialog, SWT.NONE);
-					lblBankName.setText("Banka Ad\u0131");
+					lblBankName.setText(BankLangKeys.STR_BANK_NAME);
 				}
 				{
 					GridData txtBankNameLData = new GridData();
@@ -97,7 +114,7 @@ public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 				}
 				{
 					lblBankCard = new CLabel(compBankSearchDialog, SWT.NONE);
-					lblBankCard.setText("Banka Kodu");
+					lblBankCard.setText(BankLangKeys.STR_BANK_CODE);
 				}
 				{
 					GridData txtBankCardLData = new GridData();
@@ -121,7 +138,7 @@ public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 				table1.setLinesVisible(true);
 				{
 					colBankCode = new TableColumn(table1, SWT.NONE);
-					colBankCode.setText("Banka Kodu");
+					colBankCode.setText(BankLangKeys.STR_BANK_CODE);
 					colBankCode.setWidth(80);
 				}
 				table1.addMouseListener(new MouseAdapter() {
@@ -133,27 +150,27 @@ public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 				});
 				{
 					colBankName = new TableColumn(table1, SWT.NONE);
-					colBankName.setText("Banka Ad\u0131");
+					colBankName.setText(BankLangKeys.STR_BANK_NAME);
 					colBankName.setWidth(80);
 				}
 				{
 					colBranchName = new TableColumn(table1, SWT.NONE);
-					colBranchName.setText("\u015eube Ad\u0131");
+					colBranchName.setText(BankLangKeys.STR_BRANCH_NAME);
 					colBranchName.setWidth(80);
 				}
 				{
 					colAccNo = new TableColumn(table1, SWT.NONE);
-					colAccNo.setText("Hesap No");
+					colAccNo.setText(BankLangKeys.STR_ACCOUNT_NO);
 					colAccNo.setWidth(80);
 				}
 				{
 					colCurrency = new TableColumn(table1, SWT.NONE);
-					colCurrency.setText("Para Birimi");
+					colCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 					colCurrency.setWidth(80);
 				}
 				{
 					colDefinition = new TableColumn(table1, SWT.NONE);
-					colDefinition.setText("Aç\u0131klama");
+					colDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 					colDefinition.setWidth(80);
 				}
 			}

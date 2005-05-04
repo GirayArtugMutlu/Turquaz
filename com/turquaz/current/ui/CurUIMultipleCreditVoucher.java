@@ -350,7 +350,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
             }
             else if (currentPicker.getData() == null)
             {
-                msg.setMessage(CurLangKeys.MSG_SELECT_CURRENT_CARD);  //$NON-NLS-1$
+                msg.setMessage(CurLangKeys.MSG_SELECT_CUR_CARD);  //$NON-NLS-1$
                 msg.open();
                 return false;
             }

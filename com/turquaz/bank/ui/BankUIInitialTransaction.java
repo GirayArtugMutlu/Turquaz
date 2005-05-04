@@ -13,12 +13,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqBanksTransaction;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -49,12 +50,12 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 	private TableColumn tableColumnAccountNo;
 	private TableColumn tableColumnBankaSubesi;
 	private TableColumn tableColumnBankCode;
-	final static String BANK_CODE = Messages.getString("BankUIInitialTransaction.0"); //$NON-NLS-1$
-	final static String BANK_NAME = Messages.getString("BankUIInitialTransaction.1"); //$NON-NLS-1$
-	final static String BANK_BRANCH_NAME = Messages.getString("BankUIInitialTransaction.2"); //$NON-NLS-1$
-	final static String BANK_ACCOUNT_NO = Messages.getString("BankUIInitialTransaction.3"); //$NON-NLS-1$
-	final static String BANK_DEPT = Messages.getString("BankUIInitialTransaction.4"); //$NON-NLS-1$
-	final static String BANK_CREDIT = Messages.getString("BankUIInitialTransaction.5"); //$NON-NLS-1$
+	final static String BANK_CODE = BankLangKeys.STR_BANK_CODE;
+	final static String BANK_NAME = BankLangKeys.STR_BANK_NAME;
+	final static String BANK_BRANCH_NAME = BankLangKeys.STR_BRANCH_NAME;
+	final static String BANK_ACCOUNT_NO = BankLangKeys.STR_ACCOUNT_NO;
+	final static String BANK_DEPT = EngLangCommonKeys.STR_DEPT;
+	final static String BANK_CREDIT = EngLangCommonKeys.STR_CREDIT;
 	TableCursor cursor;
 	TableRowList rowList = new TableRowList();
 	private List columnList = new ArrayList();

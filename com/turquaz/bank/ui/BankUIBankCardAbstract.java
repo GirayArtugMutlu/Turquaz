@@ -44,6 +44,21 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	{
@@ -303,7 +318,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 	{
 		if (bankPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), BankLangKeys.MSG_PLEASE_SELECT_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), BankLangKeys.MSG_SELECT_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			bankPicker.setFocus();
 			return false;
 		}

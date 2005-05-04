@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import com.turquaz.bill.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.editors.CurrencyCellEditor;
 import com.turquaz.engine.ui.editors.NumericCellEditor;
 
@@ -230,7 +230,7 @@ public class TableSpreadsheetCursor extends TableCursor implements ICellEditorLi
 		if (!activeDelete)
 			return false;
 		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-		msg.setMessage(Messages.getString("BillUIAddBill.34")); //$NON-NLS-1$
+		msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY);
 		if (msg.open() == SWT.OK)
 		{
 			return true;

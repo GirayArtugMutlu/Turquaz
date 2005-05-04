@@ -280,7 +280,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 	{
 		if (bankCardPicker.getData() == null)
 		{
-			EngUICommon.showMessageBox(getShell(), BankLangKeys.MSG_PLEASE_SELECT_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
+			EngUICommon.showMessageBox(getShell(), BankLangKeys.MSG_SELECT_BANK_CARD, SWT.ICON_WARNING); //$NON-NLS-1$
 			bankCardPicker.setFocus();
 			return false;
 		}

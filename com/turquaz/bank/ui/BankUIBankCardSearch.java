@@ -30,7 +30,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.bank.BankKeys;
-import com.turquaz.bank.Messages;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -38,6 +37,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SearchComposite;
+import com.turquaz.engine.lang.BankLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.MouseAdapter;
@@ -111,13 +112,12 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 			composite1.layout();
 			//START >> lblBankName
 			lblBankName = new CLabel(composite1, SWT.NONE);
-			lblBankName.setText(Messages.getString("BankUIBankCardSearch.0"));
+			lblBankName.setText(BankLangKeys.STR_BANK_NAME);
 			GridData lblBankNameLData = new GridData();
 			lblBankName.setLayoutData(lblBankNameLData);
 			//END << lblBankName
 			//START >> txtBankName
 			txtBankName = new Text(composite1, SWT.NONE);
-			txtBankName.setSize(248, 13);
 			GridData txtBankNameLData = new GridData();
 			txtBankName.addKeyListener(new KeyAdapter()
 			{
@@ -127,19 +127,18 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 						search();
 				}
 			});
-			txtBankNameLData.widthHint = 150;
+			txtBankNameLData.widthHint = 250;
 			txtBankNameLData.heightHint = 17;
 			txtBankName.setLayoutData(txtBankNameLData);
 			//END << txtBankName
 			//START >> lblBankBranchName
 			lblBankBranchName = new CLabel(composite1, SWT.NONE);
-			lblBankBranchName.setText(Messages.getString("BankUIBankCardSearch.1"));
+			lblBankBranchName.setText(BankLangKeys.STR_BRANCH_NAME);
 			GridData lblBankBranchNameLData = new GridData();
 			lblBankBranchName.setLayoutData(lblBankBranchNameLData);
 			//END << lblBankBranchName
 			//START >> txtBankBranchName
 			txtBankBranchName = new Text(composite1, SWT.NONE);
-			txtBankBranchName.setSize(new org.eclipse.swt.graphics.Point(254, 13));
 			GridData txtBankBranchNameLData = new GridData();
 			txtBankBranchName.addKeyListener(new KeyAdapter()
 			{
@@ -149,19 +148,18 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 						search();
 				}
 			});
-			txtBankBranchNameLData.widthHint = 150;
+			txtBankBranchNameLData.widthHint = 250;
 			txtBankBranchNameLData.heightHint = 17;
 			txtBankBranchName.setLayoutData(txtBankBranchNameLData);
 			//END << txtBankBranchName
 			//START >> lblBankAccountNo
 			lblBankAccountNo = new CLabel(composite1, SWT.NONE);
-			lblBankAccountNo.setText(Messages.getString("BankUIBankCardSearch.2"));
+			lblBankAccountNo.setText(BankLangKeys.STR_ACCOUNT_NO);
 			GridData lblBankAccountNoLData = new GridData();
 			lblBankAccountNo.setLayoutData(lblBankAccountNoLData);
 			//END << lblBankAccountNo
 			//START >> txtBankAccountNo
 			txtBankAccountNo = new Text(composite1, SWT.NONE);
-			txtBankAccountNo.setSize(new org.eclipse.swt.graphics.Point(254, 13));
 			GridData txtBankAccountNoLData = new GridData();
 			txtBankAccountNo.addKeyListener(new KeyAdapter()
 			{
@@ -171,13 +169,13 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 						search();
 				}
 			});
-			txtBankAccountNoLData.widthHint = 150;
+			txtBankAccountNoLData.widthHint = 250;
 			txtBankAccountNoLData.heightHint = 17;
 			txtBankAccountNo.setLayoutData(txtBankAccountNoLData);
 			//END << txtBankAccountNo
 			//START >> lblCurrency
 			lblCurrency = new CLabel(composite1, SWT.NONE);
-			lblCurrency.setText(Messages.getString("BankUIBankCardSearch.3"));
+			lblCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 			GridData lblCurrencyLData = new GridData();
 			lblCurrency.setLayoutData(lblCurrencyLData);
 			//END << lblCurrency
@@ -209,27 +207,27 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 			tableBankCards.setLayoutData(tableBankCardsLData);
 			//START >> tableColoumnBankName
 			tableColoumnBankName = new TableColumn(tableBankCards, SWT.NONE);
-			tableColoumnBankName.setText(Messages.getString("BankUIBankCardSearch.4"));
+			tableColoumnBankName.setText(BankLangKeys.STR_BANK_NAME);
 			tableColoumnBankName.setWidth(120);
 			//END << tableColoumnBankName
 			//START >> tableColumnBankBrancName
 			tableColumnBankBrancName = new TableColumn(tableBankCards, SWT.NONE);
-			tableColumnBankBrancName.setText(Messages.getString("BankUIBankCardSearch.5"));
+			tableColumnBankBrancName.setText(BankLangKeys.STR_BRANCH_NAME);
 			tableColumnBankBrancName.setWidth(120);
 			//END << tableColumnBankBrancName
 			//START >> tableColumnAccountNo
 			tableColumnAccountNo = new TableColumn(tableBankCards, SWT.NONE);
-			tableColumnAccountNo.setText(Messages.getString("BankUIBankCardSearch.6"));
+			tableColumnAccountNo.setText(BankLangKeys.STR_ACCOUNT_NO);
 			tableColumnAccountNo.setWidth(120);
 			//END << tableColumnAccountNo
 			//START >> tableColumnCurrency
 			tableColumnCurrency = new TableColumn(tableBankCards, SWT.NONE);
-			tableColumnCurrency.setText(Messages.getString("BankUIBankCardSearch.7"));
+			tableColumnCurrency.setText(EngLangCommonKeys.STR_CURRENCY);
 			tableColumnCurrency.setWidth(120);
 			//END << tableColumnCurrency
 			//START >> tavleColumnDefinition
 			tavleColumnDefinition = new TableColumn(tableBankCards, SWT.NONE);
-			tavleColumnDefinition.setText(Messages.getString("BankUIBankCardSearch.8")); //$NON-NLS-1$
+			tavleColumnDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
 			tavleColumnDefinition.setWidth(150);
 			//END << tavleColumnDefinition
 			//END << tableBankCards
@@ -374,6 +372,6 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 
 	public void printTable()
 	{
-		EngBLUtils.printTable(tableBankCards, Messages.getString("BankUIBankCardSearch.9")); //$NON-NLS-1$
+		EngBLUtils.printTable(tableBankCards, BankLangKeys.STR_BANK_CARDS);
 	}
 }

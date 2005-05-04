@@ -11,7 +11,7 @@ public class CurLangKeys
     public final static String MSG_ENTER_GROUP_NAME ="Lütfen Grup Adý Bölümünü doldurunuz!";
     public final static String MSG_NOT_SAVED_ACCOUNTING_TRANSACTIONS ="Muhasebe Hareketleri Kaydedilemedi! \nCari Kart Muhasebe Hesabi tanimli olmasi gerekir!";
     public final static String MSG_SELECT_CUR_ACCOUNT="Lütfen cari hesap seçiniz!";
-    public final static String MSG_SELECT_CURRENT_CARD="Lütfen Bir Cari Kart Seçiniz!";
+    public final static String MSG_SELECT_CUR_CARD="Lütfen Bir Cari Kart Seçiniz!";
     public final static String MSG_WANT_TO_ADD_ACCOUNTING_ACCOUNT ="Bu Cari karta muhasebe hesabý açmak ister misiniz?";
     public final static String MSG_WANT_TO_PRINT_VOUCHER ="Fiþi Yazdýrmak Ýster misiniz?";
     public final static String STR_CHEQUES_GIVEN_ACCOUNTING_ACCOUNT = "Verilen Çekler Hesabý";  

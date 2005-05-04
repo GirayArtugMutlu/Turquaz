@@ -331,7 +331,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 		{
 			if (txtCurrentCard.getData() == null)
 			{
-				EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CURRENT_CARD,SWT.ICON_WARNING); 		
+				EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CUR_CARD,SWT.ICON_WARNING); 		
 				txtCurrentCard.setFocus();
 				return false;
 			}
