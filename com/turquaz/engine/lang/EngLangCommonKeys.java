@@ -276,6 +276,10 @@ public class EngLangCommonKeys {
     public final static String STR_SEARCH_OWN_CHEQUE ="Firma Çeki Arama";
     public final static String STR_SEARCH_CHEQUE_ROLL ="Bordro Arama";
     
+    public final static String STR_CLOSE = "Kapat";
+    public final static String STR_CLOSE_ALL ="Hepsini Kapat";
+    public final static String STR_CLOSE_OTHERS ="Diðerlerini Kapat";
+    
     
     
     
