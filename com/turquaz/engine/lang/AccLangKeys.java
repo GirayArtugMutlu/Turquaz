@@ -29,6 +29,8 @@ public class AccLangKeys {
 	public final static String STR_ACC_CODE_START  = "Hesap Kodu - Baþlangýç";
 	public final static String STR_ACCOUNT = "Hesap";
 	public final static String STR_ACCOUNT_CLASS  = "Hesap Sýnýfý";
+	public final static String STR_REPORT_TITLE  = "Report Title";
+	public final static String STR_JOURNAL  = "YEVMÝYE DEFTERÝ";
 	
 	public final static String STR_ACCOUNT_CODE = "Hesap Kodu";
 	public final static String STR_ACCOUNT_GROUP  = "Hesap Grubu";

@@ -40,7 +40,6 @@ import org.eclipse.swt.SWT;
  */
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-import com.turquaz.accounting.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.lang.AccLangKeys;
@@ -195,7 +194,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			Map parameters = new HashMap();
-			parameters.put(Messages.getString("AccUIAccountingJournal.2"), Messages.getString("AccUIAccountingJournal.3")); //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put(AccLangKeys.STR_REPORT_TITLE,AccLangKeys.STR_JOURNAL); //$NON-NLS-1$ //$NON-NLS-2$
 			//TODO should select all columns
 			String sqlparam = "Select trans.id as accounting_transactions_id, transcolumns.id as accounting_transaction_columns_id,"
 					+ " trans.*," + " transcolumns.*," + " accounts.*" + " from turq_accounting_transactions trans," + //$NON-NLS-1$
@@ -214,8 +213,8 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 			parameters.put("beginDate", dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
 			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
 			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			parameters.put("column1header", Messages.getString("AccUIAccountingJournal.22")); //$NON-NLS-1$ //$NON-NLS-2$
-			parameters.put("column2header", Messages.getString("AccUIAccountingJournal.24")); //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("column1header", AccLangKeys.STR_DEBIT); //$NON-NLS-1$ //$NON-NLS-2$
+			parameters.put("column2header", AccLangKeys.STR_CREDIT); //$NON-NLS-1$ //$NON-NLS-2$
 			NumberFormat formatter = NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);

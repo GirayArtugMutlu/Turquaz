@@ -20,6 +20,7 @@ public class InvLangKeys
 	public final static String MSG_ENTER_INV_NAME="Stok ad? girmelisiniz!";
 	public final static String MSG_ENTER_UNIT_NAME="Lütfen birim ad?n? doldurunuz!";
 	public final static String MSG_ENTER_WAREHOUSE_NAME="Lütfen depo ad?n? giriniz!";
+	public final static String MSG_ENTER_INV_CODE_FIRST="Önce stok kartý birimini doldurunuz!";
 	
 	
 	public final static String MSG_INV_CARD_HAS_TRANSACTION="Bu stok kart? stok hareket görmü?\n?lk önce hareketleri silmeniz gerekir!";
@@ -44,6 +45,7 @@ public class InvLangKeys
 	public final static String STR_DISCOUNT="?ndirim";
 	public final static String STR_HAS_BALANCE="Bakiyeliler";
 	public final static String STR_HAS_TRANSACTIONS="Hareketliler";
+	public final static String STR_PRICE="Fiyatý";
 	
 	public final static String STR_INITIAL_TRANSACTION="Aç?l?? Hareketi";
 	public final static String STR_INV_CARD="Stok Kart?";
@@ -101,6 +103,7 @@ public class InvLangKeys
 	public final static String STR_UPDATE_UNITS="Birimleri Güncelle";
 	public final static String STR_VAT="K.D.V";
 	public final static String STR_VAT_PERCENTAGE="KDV%";
+	public final static String STR_TRANSACTION_TYPE="Hareket Tipi";
 	
 	public final static String STR_VAT_TOTAL="KDV Tutar?";
 	public final static String STR_WAREHOUSE="Depo";

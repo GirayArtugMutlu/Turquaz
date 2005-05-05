@@ -11,15 +11,10 @@ import org.eclipse.swt.widgets.Text;
 
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
-import com.turquaz.inventory.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class InvUITransactionAdd extends Composite implements SecureComposite
 {
 	private CCombo comboInvTransWhSelect;
@@ -76,7 +71,7 @@ public class InvUITransactionAdd extends Composite implements SecureComposite
 					lblInvTransCardLData.widthHint = 52;
 					lblInvTransCardLData.heightHint = 19;
 					lblInvTransCard.setLayoutData(lblInvTransCardLData);
-					lblInvTransCard.setText(Messages.getString("InvUITransactionAdd.0")); //$NON-NLS-1$
+					lblInvTransCard.setText(InvLangKeys.STR_INV_CARD); //$NON-NLS-1$
 					lblInvTransCard.setLayout(lblInvTransCardLayout);
 					lblInvTransCard.layout();
 				}
@@ -94,7 +89,7 @@ public class InvUITransactionAdd extends Composite implements SecureComposite
 					lblInvTransTypeLData.widthHint = 57;
 					lblInvTransTypeLData.heightHint = 13;
 					lblInvTransType.setLayoutData(lblInvTransTypeLData);
-					lblInvTransType.setText(Messages.getString("InvUITransactionAdd.1")); //$NON-NLS-1$
+					lblInvTransType.setText(InvLangKeys.STR_TRANSACTION_TYPE); 
 				}
 				{
 					combpInvTransType = new CCombo(compInvTransAdd, SWT.NONE);
@@ -110,7 +105,7 @@ public class InvUITransactionAdd extends Composite implements SecureComposite
 					lblInvTransAmountLData.widthHint = 29;
 					lblInvTransAmountLData.heightHint = 13;
 					lblInvTransAmount.setLayoutData(lblInvTransAmountLData);
-					lblInvTransAmount.setText(Messages.getString("InvUITransactionAdd.2")); //$NON-NLS-1$
+					lblInvTransAmount.setText(EngLangCommonKeys.STR_AMOUNT); 
 				}
 				{
 					txtNumInvTransAmount = new Text(compInvTransAdd, SWT.NONE);
@@ -133,7 +128,7 @@ public class InvUITransactionAdd extends Composite implements SecureComposite
 					lblInvTransWhSelectLData.widthHint = 25;
 					lblInvTransWhSelectLData.heightHint = 13;
 					lblInvTransWhSelect.setLayoutData(lblInvTransWhSelectLData);
-					lblInvTransWhSelect.setText(Messages.getString("InvUITransactionAdd.3")); //$NON-NLS-1$
+					lblInvTransWhSelect.setText(InvLangKeys.STR_WAREHOUSE); 
 				}
 				{
 					comboInvTransWhSelect = new CCombo(compInvTransAdd, SWT.NONE);

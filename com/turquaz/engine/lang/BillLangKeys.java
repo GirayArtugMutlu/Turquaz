@@ -14,6 +14,7 @@ package com.turquaz.engine.lang;
  */
 public class BillLangKeys
 {
+	public final static String STR_BUY="Alýþ";
 	public final static String STR_BILL_DOC_NO="Fatura Belge No";
 	public final static String STR_BILL_DATE="Fatura Tarihi";
 	public final static String MSG_SELECT_WAREHOUSE="Lütfen bir depo seçiniz!";

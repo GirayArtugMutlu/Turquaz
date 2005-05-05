@@ -30,6 +30,8 @@ import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
+import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.NumericText;
 import com.turquaz.engine.ui.component.DecimalTextWithButton;
@@ -40,7 +42,6 @@ import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
-import com.turquaz.inventory.Messages;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
@@ -50,13 +51,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -127,7 +121,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				composite1.setLayout(composite1Layout);
 				{
 					lblInvVard = new CLabel(composite1, SWT.NONE);
-					lblInvVard.setText(Messages.getString("InvUITransactionAddDialog.0")); //$NON-NLS-1$
+					lblInvVard.setText(InvLangKeys.STR_INV_CARD); //$NON-NLS-1$
 					GridData lblInvVardLData = new GridData();
 					lblInvVardLData.widthHint = 110;
 					lblInvVardLData.heightHint = 21;
@@ -143,7 +137,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					invAmount = new CLabel(composite1, SWT.NONE);
-					invAmount.setText(Messages.getString("InvUITransactionAddDialog.1")); //$NON-NLS-1$
+					invAmount.setText(EngLangCommonKeys.STR_AMOUNT); 
 					GridData invAmountLData = new GridData();
 					invAmountLData.widthHint = 75;
 					invAmountLData.heightHint = 20;
@@ -165,7 +159,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblPrice = new CLabel(composite1, SWT.NONE);
-					lblPrice.setText(Messages.getString("InvUITransactionAddDialog.2")); //$NON-NLS-1$
+					lblPrice.setText(InvLangKeys.STR_PRICE); //$NON-NLS-1$
 					GridData lblPriceLData = new GridData();
 					lblPriceLData.widthHint = 67;
 					lblPriceLData.heightHint = 19;
@@ -194,7 +188,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblVat = new CLabel(composite1, SWT.NONE);
-					lblVat.setText(Messages.getString("InvUITransactionAddDialog.3")); //$NON-NLS-1$
+					lblVat.setText(InvLangKeys.STR_VAT_PERCENTAGE); //$NON-NLS-1$
 					GridData lblVatLData = new GridData();
 					lblVatLData.widthHint = 43;
 					lblVatLData.heightHint = 19;
@@ -212,7 +206,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblSpecialVAT = new CLabel(composite1, SWT.NONE);
-					lblSpecialVAT.setText(Messages.getString("InvUITransactionAddDialog.4")); //$NON-NLS-1$
+					lblSpecialVAT.setText(InvLangKeys.STR_SPEC_VAT_PERC); //$NON-NLS-1$
 					GridData lblSpecialVATLData = new GridData();
 					lblSpecialVATLData.widthHint = 86;
 					lblSpecialVATLData.heightHint = 19;
@@ -232,7 +226,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblSpecialVatEach = new CLabel(composite1, SWT.NONE);
-					lblSpecialVatEach.setText(Messages.getString("InvUITransactionAddDialog.5")); //$NON-NLS-1$
+					lblSpecialVatEach.setText(InvLangKeys.STR_SPEC_VAT_TOTAL); 
 				}
 				{
 					numTxtSpecialVatEach = new CurrencyText(composite1, SWT.NONE);
@@ -246,7 +240,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				{
 					lblWareHouse = new CLabel(composite1, SWT.NONE);
-					lblWareHouse.setText(Messages.getString("InvUITransactionAddDialog.6")); //$NON-NLS-1$
+					lblWareHouse.setText(InvLangKeys.STR_WAREHOUSE); 
 				}
 				{
 					comboWareHouses = new CCombo(composite1, SWT.NONE);
@@ -406,7 +400,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		else
 		{
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(Messages.getString("InvUITransactionAddDialog.9")); //$NON-NLS-1$
+			msg.setMessage(InvLangKeys.MSG_ENTER_INV_CODE_FIRST); //$NON-NLS-1$
 			msg.open();
 		}
 	}
@@ -427,7 +421,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		if (txtInvCard.getData() == null)
 		{
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			msg.setMessage(Messages.getString("InvUITransactionAddDialog.7")); //$NON-NLS-1$
+			msg.setMessage(InvLangKeys.MSG_SELECT_INV_CARD); 
 			msg.open();
 			return false;
 		}
