@@ -33,9 +33,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.EngDALConnection;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 public class EngUIDatabaseSelectionWizardPage extends WizardPage
 {
@@ -46,8 +46,8 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage
 	public EngUIDatabaseSelectionWizardPage(ISelection selection)
 	{
 		super(""); //$NON-NLS-1$
-		setTitle(Messages.getString("EngUIDatabaseSelectionWizardPage.1")); //$NON-NLS-1$
-		setDescription(Messages.getString("EngUIDatabaseSelectionWizardPage.2")); //$NON-NLS-1$
+		setTitle(EngLangCommonKeys.STR_DATABASE_WIZARD); //$NON-NLS-1$
+		setDescription(EngLangCommonKeys.STR_DATABASE_WIZARD_DESCRIPTION); //$NON-NLS-1$
 		this.selection = selection;
 		setPageComplete(false);
 	}
@@ -97,8 +97,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage
 		}
 		else
 		{
-			setErrorMessage(Messages.getString("EngUIDatabaseSelectionWizardPage.10") + //$NON-NLS-1$
-					Messages.getString("EngUIDatabaseSelectionWizardPage.11")); //$NON-NLS-1$
+			setErrorMessage(EngLangCommonKeys.STR_CAN_NOT_CONNECT_TO_SERVER); //$NON-NLS-1$
 		}
 	}
 
@@ -162,7 +161,7 @@ public class EngUIDatabaseSelectionWizardPage extends WizardPage
 	{
 		if (comboDatabases.getText().length() == 0)
 		{
-			updateStatus(Messages.getString("EngUIDatabaseSelectionWizardPage.0")); //$NON-NLS-1$
+			updateStatus(EngLangCommonKeys.STR_CHOOSE_DATABASE); //$NON-NLS-1$
 			return;
 		}
 		updateStatus(null);

@@ -28,8 +28,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.SWT;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -86,7 +86,7 @@ public class RegisterGroupComposite extends org.eclipse.swt.widgets.Composite
 			tableAllGroups.setHeaderVisible(true);
 			tableAllGroups.setLinesVisible(true);
 			tableAllGroups.setSize(new org.eclipse.swt.graphics.Point(134, 158));
-			tableColumn3.setText(Messages.getString("RegisterGroupComposite.0")); //$NON-NLS-1$
+			tableColumn3.setText(EngLangCommonKeys.STR_GROUPS); //$NON-NLS-1$
 			tableColumn3.setWidth(141);
 			GridLayout composite1Layout = new GridLayout(3, true);
 			composite1.setLayout(composite1Layout);

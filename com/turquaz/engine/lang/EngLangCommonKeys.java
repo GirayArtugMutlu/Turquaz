@@ -153,7 +153,131 @@ public class EngLangCommonKeys {
     public final static String MSG_LICENCE ="Lisans Sözleþmesi";
     public final static String MSG_SURE_TO_EXIT ="Programdan Çýkmak Ýstediðinize emin misiniz?";
     
-	
-	
-	
+    public final static String STR_DATABASE_WIZARD ="Veritabaný Sihirbazý";
+    public final static String STR_DATABASE_WIZARD_DESCRIPTION ="Bu sihirbaz veritabaný baðlantýsý oluþturur!";
+    public final static String STR_DATABASE_WIZARD_SUCCESS ="Tebrikler. Veritaban\u0131 konfig\u00FCrasyonunu ba\u015Far\u0131yla tamamlad\u0131n\u0131z.";
+	public final static String STR_CHECK_DATABASE_TABLES ="\n\nL\u00FCtfen veritaban\u0131 tablolar\u0131n\u0131n olu\u015Fturuldu\u011Funa emin olunuz.";
+    public final static String STR_DATABASE_SERVER ="Veritabaný Sunucusu :";
+	public final static String STR_ENTER_DATABASE_SERVER_LOCATION="Lütfen Sunucu Adresini Giriniz!";
+    public final static String STR_ENTER_USERNAME="Lütfen Kullanýcý Adýný Giriniz!";
+    public final static String STR_CAN_NOT_CONNECT_TO_SERVER ="Veritabaný baðlantýsý kurulamadý.\nLütfen baðlantý bilgilerini kontrol ediniz!";
+    public final static String STR_CHOOSE_DATABASE ="Bir Veritabaný Seçin!";
+    
+    public final static String STR_CARDS = "Kartlar";
+    public final static String STR_REPORTS ="Raporlar";
+    public final static String STR_PREFERENCES ="Ayarlar";
+    public final static String STR_ADD_INV_CARD ="Stok Kartý Ekle";
+    public final static String STR_SEARCH_INV_CARD ="Stok Kartý Arama";
+    public final static String STR_SEARCH_INV_TRANS ="Stok Hareketi Arama";
+    public final static String STR_SEARCH_WAREHOUSE ="Depo Arama";
+    public final static String STR_ADD_WAREHOUSE ="Depo Ekle";
+    public final static String STR_INV_TRANSACTIONS ="Stok Hareketleri";
+    public final static String STR_INV_OTHER_TRANS_IN ="Stok Giri\u015F Hareketi";
+    public final static String STR_INV_OTHER_TRANS_OUT ="Stok \u00C7\u0131k\u0131\u015F Hareketi";
+    public final static String STR_INITIAL_TRANSACTION ="A\u00E7\u0131l\u0131\u015F Hareketi";
+    public final static String STR_PROFIT_ANALYSIS ="Kar-Zarar Analizi";
+    public final static String STR_INV_LEDGER ="Envanter Listesi";
+    public final static String STR_INV_TRANSACTIONS_REPORT ="Stok Hareketleri Raporu";
+    public final static String STR_INV_TRANSACTION_TOTALS ="Hareket Toplam Raporu";
+    public final static String STR_INV_CARD_ABSTRACT ="Stok Kartý Ekstresi";
+    public final static String STR_INV_GROUPS ="Stok Gruplarý";
+    public final static String STR_INV_GROUP_ADD ="Stok Grubu Ekle";
+    
+    public final static String STR_ACCOUNTS ="Hesaplar";
+    public final static String STR_ADD_BANK_CARD ="Banka Kartý Ekle";
+    public final static String STR_BANK_TRANSACTIONS ="Banka Ýþlemleri";
+    public final static String STR_CASH_TRANSFER_IN ="Gelen Havale";
+    public final static String STR_CASH_TRANSFER_OUT ="Giden Havale";
+    public final static String STR_CASH_FROM_BANK ="Para Çekme";
+    public final static String STR_CASH_TO_BANK ="Para Yatýrma";
+    public final static String STR_OTHER_TRANSFER_DEPT ="Diðer Borç Ýþlemi";
+    public final static String STR_OTHER_TRANSFER_CREDIT ="Diðer Alacak Ýþlemi";
+    public final static String STR_TRANSFER_BETWEEN_ACCOUNTS ="Virman";
+    public final static String STR_SEARCH_BANK_CARD ="Banka Kartý Arama";
+    public final static String STR_SEARCH_BANK_TRANS ="Banka Hareketi Arama";
+    public final static String STR_BANK_CARD_ABSTRACT ="Banka Kartý Ekstresi";
+    public final static String STR_BANK_INITIAL_TRANSACTIONS ="Banka Açýlýþ Deðerleri";
+    
+    public final static String STR_ACCOUNTING_PLAN ="Hesap Planý";
+    public final static String STR_NEW_ACCOUNT ="Yeni Hesap";
+    public final static String STR_ACCOUNTING_VOUCHERS ="Muhasebe Fiþleri";
+    public final static String STR_SEARCH_ACC_VOUCHER ="Muhasebe Fiþi Arama";
+    public final static String STR_GENERAL_VOUCHER ="Mahsup Fiþi";
+    public final static String STR_COLLECT_VOUCHER ="Tahsil Fiþi";
+    public final static String STR_PAYMENT_VOUCHER ="Tediye Fiþi";
+    public final static String STR_ACC_BOOKS ="Muhasebe Defterleri";
+    public final static String STR_ACC_JOURNAL ="Yevmiye Defteri";
+    public final static String STR_ACC_SUBSIDIARY_LEDGER ="Muavin Defter";
+    public final static String STR_ACC_GENERAL_LEDGER ="Defter-i Kebir";
+    public final static String STR_STATUS_REPORTS ="Durum Raporlarý";
+    public final static String STR_ACC_BALANCE ="Mizan";
+    public final static String STR_ACC_MONTHLY_BALANCE ="Aylýk Mizan";
+    public final static String STR_INITIAL_VOUCHER ="Açýlýþ Fiþi";
+    
+    public final static String STR_CUR_TRANSCATIONS ="Cari Ýþlemler";
+    public final static String STR_ADD_CURRENT_CARD ="Cari Kart Ekleme";
+    public final static String STR_CUR_DEPT_VOUCHER ="Cari Borç Fiþi";
+    public final static String STR_CUR_CREDIT_VOUCHER ="Cari Alacak Fiþi";
+    public final static String STR_CUR_TRANSFER_BETWEEN_ACCS ="Cari Virman";
+    public final static String STR_CUR_MULTIPLE_CREDIT_VOUCHER ="Çoklu Borç Fiþi";
+    public final static String STR_CUR_MULTIPLE_DEPT_VOUCHER ="Çoklu Alacak Fiþi";
+    public final static String STR_SEARCH_CUR_CARD ="Cari Kart Arama";
+    public final static String STR_SEARCH_CUR_TRANS ="Cari Hareket Arama";
+    public final static String STR_CUR_CARD_WITH_DEPT ="Borçlu Listesi";
+    public final static String STR_CUR_CARD_WITH_CREDIT ="Alacaklý Listesi";
+    public final static String STR_CUR_CARD_ABSTRACT ="Cari Kart Ekstresi";
+    public final static String STR_CUR_CARD_BALANCE = "Cari Kart Mizaný";
+    public final static String STR_CUR_INITIAL_VALUES ="Cari Açýlýþ Deðerleri";
+    
+    public final static String STR_USERS_GROUPS ="Kullancýclar/Gruplar";
+    public final static String STR_ADD_USER ="Kullanýcý Ekle";
+    public final static String STR_ADD_GROUP ="Grup Ekle";
+    public final static String STR_PERMISSONS ="Ýzinler";
+    public final static String STR_USER_PERMISSIONS ="Kullanýcý Ýzinleri";
+    public final static String STR_GROUP_PERMISSIONS ="Grup Ýzinleri";
+    public final static String STR_USERS ="Kullanýcýlar";
+    public final static String STR_COMPANY_INFO ="Þirket Bilgisi";
+    
+    public final static String STR_ADD_BUY_CONSIGNMENT ="Alýþ Ýrsaliyesi";
+    public final static String STR_ADD_SELL_CONSIGNMENT ="Satýþ Ýrsaliyesi";
+    public final static String STR_SEARCH_CONSIGNMENT ="Ýrsaliye Arama";
+    
+    public final static String STR_BILLS = "Faturalar";
+    public final static String STR_ADD_BUY_BILL ="Alýþ Faturasý";
+    public final static String STR_ADD_SELL_BILL ="Satýþ Faturasý";
+    public final static String STR_BILL_FROM_CONSIGNMENT ="Ýrsaliyeden Fatura";
+    public final static String STR_SEARCH_BILL ="Fatura Arama";
+    public final static String STR_BILL_REPORT ="Fatura Dökümü";
+    
+    public final static String STR_ADD_CASH_CARD ="Kasa Kartý Ekle";
+    public final static String STR_COLLECT_FROM_CURRENT ="Cariden Tahsilat";
+    public final static String STR_PAYMENT_TO_CURRENT ="Cariye Ödeme";
+    public final static String STR_OTHER_COLLECT ="Diðer Tahsilat";
+    public final static String STR_OTHER_PAYMENT ="Diðer Ödeme";
+    public final static String STR_CASH_TRANSFER_BETWEEN_ACCOUNTS ="Kasa Virman";
+    public final static String STR_CASH_INITIAL_VALUES = "Kasa Açýlýþ Deðerleri";
+    public final static String STR_SEARCH_CASH_CARD ="Kasa Kartý Arama";
+    public final static String STR_SEARCH_CASH_TRANS ="Kasa Hareketi Arama";
+    public final static String STR_CASH_CARD_ABSTRACT ="Kasa Kartý Ekstresi";
+    public final static String STR_DAILY_CASH_CARD_ABSTRACT ="Günlük Kasa Kartý Ekstresi";
+    public final static String STR_CASH_TRANSACTIONS ="Kasa Ýþlemleri";
+    
+    public final static String STR_CHEQUE_ROLLS = "Bordrolar";
+    public final static String STR_CHEQUE_ROLL_IN ="Giriþ Bordrosu";
+    public final static String STR_CHEQUE_ROLL_OUT_TO_CURRENT ="Cariye Çýkýþ Bordrosu";
+    public final static String STR_CHEQUE_ROLL_OUT_TO_BANK ="Bankaya Çýkýþ Bordrosu";
+    public final static String STR_CHEQUE_COLLECT_FROM_BANK ="Bankadan Çek Tahsilatý";
+    public final static String STR_CHEQUE_COLLECT_FROM_CURRENT ="Elden Çek Tahsilatý";
+    public final static String STR_CHEQUE_RETURN_FROM_BANK ="Bankadan Portföye Ýade";
+    public final static String STR_CHEQUE_RETURN_FROM_CURRENT ="Cariden Portföye Ýade";
+    public final static String STR_CHEQUE_RETURN_TO_CURRENT ="Portföyden Cariye Ýade";
+    public final static String STR_CHEQUE_COLLECT_OF_OWN_CHEQUE ="Firma Çeki Tahsilatý";
+    public final static String STR_SEARCH_CUSTOMER_CHEQUE ="Müþteri Çeki Arama";
+    public final static String STR_SEARCH_OWN_CHEQUE ="Firma Çeki Arama";
+    public final static String STR_SEARCH_CHEQUE_ROLL ="Bordro Arama";
+    
+    
+    
+    
+    
 }

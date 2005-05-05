@@ -26,8 +26,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import com.turquaz.engine.Messages;
 
+import com.turquaz.engine.lang.EngLangCommonKeys;
 public class EngUICreateTablesWizardPage extends WizardPage
 {
 	private ISelection selection;
@@ -36,8 +36,8 @@ public class EngUICreateTablesWizardPage extends WizardPage
 	public EngUICreateTablesWizardPage(ISelection selection)
 	{
 		super("Database Connector"); //$NON-NLS-1$
-		setTitle(Messages.getString("EngUICreateTablesWizardPage.1")); //$NON-NLS-1$
-		setDescription(Messages.getString("EngUICreateTablesWizardPage.2")); //$NON-NLS-1$
+		setTitle(EngLangCommonKeys.STR_DATABASE_WIZARD); //$NON-NLS-1$
+		setDescription(EngLangCommonKeys.STR_DATABASE_WIZARD_DESCRIPTION); //$NON-NLS-1$
 		this.selection = selection;
 		setPageComplete(true);
 	}
@@ -64,11 +64,11 @@ public class EngUICreateTablesWizardPage extends WizardPage
 		Label label = new Label(container, SWT.NULL);
 		if (page1.getComboDBServer().getText().startsWith("Turquaz")) //$NON-NLS-1$
 		{
-			label.setText(Messages.getString("EngUICreateTablesWizardPage.6")); //$NON-NLS-1$
+			label.setText(EngLangCommonKeys.STR_DATABASE_WIZARD_SUCCESS); //$NON-NLS-1$
 		}
 		else
 		{
-			label.setText(Messages.getString("EngUICreateTablesWizardPage.6") + Messages.getString("EngUICreateTablesWizardPage.4")); //$NON-NLS-1$ //$NON-NLS-2$
+			label.setText(EngLangCommonKeys.STR_DATABASE_WIZARD_SUCCESS + EngLangCommonKeys.STR_CHECK_DATABASE_TABLES); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		container.layout();
 	}
