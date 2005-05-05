@@ -30,20 +30,20 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.bl.EngBLMenu;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqEngineMenu;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUIHelpDialog;
 import com.turquaz.engine.ui.EngUIKeyControls;
 import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.engine.ui.EngUIPreferences;
 
-public class MenuManager
+public class MenuManager 
 {
 	
 	
@@ -53,28 +53,28 @@ public class MenuManager
 		createEditMenu(menuMain);
 		
 		MenuItem mitAccounting = new MenuItem(menuMain, SWT.CASCADE);
-		mitAccounting.setText(Messages.getString("MenuManager.2")); //$NON-NLS-1$
+		mitAccounting.setText(EngLangCommonKeys.MENU_ACCOUNTING); //$NON-NLS-1$
 		mitAccounting = MenuFactory.createAccountingMenu(mitAccounting);
 		MenuItem mitFinance = new MenuItem(menuMain, SWT.CASCADE);
-		mitFinance.setText(Messages.getString("MenuManager.0")); //$NON-NLS-1$
+		mitFinance.setText(EngLangCommonKeys.MENU_FINANCE); //$NON-NLS-1$
 		mitFinance = MenuFactory.createFinanceMenu(mitFinance);
 		MenuItem mitSales = new MenuItem(menuMain, SWT.CASCADE);
-		mitSales.setText(Messages.getString("MenuManager.4")); //$NON-NLS-1$
+		mitSales.setText(EngLangCommonKeys.MENU_SALES); //$NON-NLS-1$
 		mitSales = MenuFactory.createSalesMenu(mitSales);
 		MenuItem mitInventory = new MenuItem(menuMain, SWT.CASCADE);
-		mitInventory.setText(Messages.getString("MenuManager.5")); //$NON-NLS-1$
+		mitInventory.setText(EngLangCommonKeys.MENU_INVENTORY); //$NON-NLS-1$
 		mitInventory = MenuFactory.createInventoryMenu(mitInventory);
 		MenuItem mitSettings = new MenuItem(menuMain, SWT.CASCADE);
-		mitSettings.setText(Messages.getString("MenuManager.6")); //$NON-NLS-1$
+		mitSettings.setText(EngLangCommonKeys.MENU_SETTINGS); //$NON-NLS-1$
 		mitSettings = MenuFactory.createSettingsMenu(mitSettings);
 		MenuItem mitHelp = new MenuItem(menuMain, SWT.CASCADE);
 		mitHelp.setEnabled(true);
-		mitHelp.setText(Messages.getString("EngUIMainFrame.22")); //$NON-NLS-1$
+		mitHelp.setText(EngLangCommonKeys.MENU_HELP); //$NON-NLS-1$
 		Menu menuHelp = new Menu(mitHelp);
 		mitHelp.setMenu(menuHelp);
 		{
 			MenuItem mitHelpContents = new MenuItem(menuHelp, SWT.PUSH);
-			mitHelpContents.setText(Messages.getString("EngUIMainFrame.50")); //$NON-NLS-1$
+			mitHelpContents.setText(EngLangCommonKeys.MENU_ABOUT); //$NON-NLS-1$
 			mitHelpContents.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -96,12 +96,12 @@ public class MenuManager
 	public static void createFileMenu(final Menu menuMain)
 	{
 		MenuItem mitFile = new MenuItem(menuMain, SWT.CASCADE);
-		mitFile.setText(Messages.getString("EngUIMainFrame.20")); //$NON-NLS-1$
+		mitFile.setText(EngLangCommonKeys.MENU_FILE); //$NON-NLS-1$
 		Menu menuFile = new Menu(mitFile);
 		mitFile.setMenu(menuFile);
 		{
 			MenuItem mitExit = new MenuItem(menuFile, SWT.PUSH);
-			mitExit.setText(Messages.getString("EngUIMainFrame.36")); //$NON-NLS-1$
+			mitExit.setText(EngLangCommonKeys.MENU_EXIT); //$NON-NLS-1$
 			mitExit.setImage(SWTResourceManager.getImage("icons/Exit16.gif")); //$NON-NLS-1$
 			mitExit.addSelectionListener(new SelectionAdapter()
 			{
@@ -113,7 +113,7 @@ public class MenuManager
 			
 			mitNew = new MenuItem(menuFile, SWT.PUSH);
 			TurqKeyEvent newEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.NEW);
-			mitNew.setText(Messages.getString("MenuManager.1")+((newEvent.isActive) ? EngBLKeyEvents.getStringValue(newEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitNew.setText(EngLangCommonKeys.STR_NEW+((newEvent.isActive) ? EngBLKeyEvents.getStringValue(newEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
 			mitNew.setAccelerator(newEvent.stateMask | newEvent.keyCode);
 			mitNew.setImage(SWTResourceManager.getImage("icons/new_wiz.gif")); //$NON-NLS-1$
 			mitNew.setData(newEvent);
@@ -139,7 +139,7 @@ public class MenuManager
 			
 			mitSave = new MenuItem(menuFile, SWT.PUSH);
 			TurqKeyEvent saveEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.SAVE);
-			mitSave.setText(Messages.getString("MenuManager.9")+((saveEvent.isActive) ? EngBLKeyEvents.getStringValue(saveEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitSave.setText(EngLangCommonKeys.STR_SAVE+((saveEvent.isActive) ? EngBLKeyEvents.getStringValue(saveEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
 			mitSave.setAccelerator(saveEvent.stateMask | saveEvent.keyCode);
 			mitSave.setImage(SWTResourceManager.getImage("icons/save.jpg")); //$NON-NLS-1$
 			mitSave.setData(saveEvent);
@@ -166,7 +166,7 @@ public class MenuManager
 			
 			mitDelete = new MenuItem(menuFile, SWT.PUSH);
 			TurqKeyEvent deleteEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.DELETE);
-			mitDelete.setText(Messages.getString("MenuManager.11")+((deleteEvent.isActive) ? EngBLKeyEvents.getStringValue(deleteEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitDelete.setText(EngLangCommonKeys.STR_DELETE+((deleteEvent.isActive) ? EngBLKeyEvents.getStringValue(deleteEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
 			mitDelete.setAccelerator(deleteEvent.stateMask | deleteEvent.keyCode);
 			mitDelete.setImage(SWTResourceManager.getImage("icons/delete_edit.gif")); //$NON-NLS-1$
 			mitDelete.setData(deleteEvent);
@@ -192,7 +192,7 @@ public class MenuManager
 			
 			mitSearch = new MenuItem(menuFile, SWT.PUSH);
 			TurqKeyEvent searchEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.SEARCH);
-			mitSearch.setText(Messages.getString("MenuManager.13")+((searchEvent.isActive) ? EngBLKeyEvents.getStringValue(searchEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitSearch.setText(EngLangCommonKeys.STR_SEARCH+((searchEvent.isActive) ? EngBLKeyEvents.getStringValue(searchEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
 			mitSearch.setAccelerator(searchEvent.stateMask | searchEvent.keyCode);
 			mitSearch.setImage(SWTResourceManager.getImage("icons/search.jpg")); //$NON-NLS-1$
 			mitSearch.setData(searchEvent);
@@ -219,7 +219,7 @@ public class MenuManager
 			
 			mitExcel = new MenuItem(menuFile, SWT.PUSH);
 			TurqKeyEvent excelEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.EXCEL);
-			mitExcel.setText(Messages.getString("MenuManager.15")+((excelEvent.isActive) ? EngBLKeyEvents.getStringValue(excelEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitExcel.setText(EngLangCommonKeys.STR_EXPORT_TO_EXCEL+((excelEvent.isActive) ? EngBLKeyEvents.getStringValue(excelEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
 			mitExcel.setAccelerator(excelEvent.stateMask | excelEvent.keyCode);
 			mitExcel.setImage(SWTResourceManager.getImage("icons/excel.jpeg")); //$NON-NLS-1$
 			mitExcel.setData(excelEvent);
@@ -243,7 +243,7 @@ public class MenuManager
 			
 			mitPrint = new MenuItem(menuFile, SWT.PUSH);
 			TurqKeyEvent printEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.PRINT);
-			mitPrint.setText(Messages.getString("MenuManager.17")+ ((printEvent.isActive) ? EngBLKeyEvents.getStringValue(printEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
+			mitPrint.setText(EngLangCommonKeys.STR_PRINT+ ((printEvent.isActive) ? EngBLKeyEvents.getStringValue(printEvent):""));  //$NON-NLS-1$ //$NON-NLS-2$
 			mitPrint.setAccelerator(printEvent.stateMask | printEvent.keyCode);
 			mitPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
 			mitPrint.setData(printEvent);
@@ -314,12 +314,12 @@ public class MenuManager
 	static void createEditMenu(final Menu menuMain)
 	{
 		MenuItem mitEdit = new MenuItem(menuMain, SWT.CASCADE);
-		mitEdit.setText(Messages.getString("EngUIMainFrame.21")); //$NON-NLS-1$
+		mitEdit.setText(EngLangCommonKeys.MENU_EDIT); //$NON-NLS-1$
 		Menu menuEdit = new Menu(mitEdit);
 		mitEdit.setMenu(menuEdit);
 		{
 			MenuItem menuItemPreferences = new MenuItem(menuEdit, SWT.PUSH);
-			menuItemPreferences.setText(Messages.getString("EngUIMainFrame.55")); //$NON-NLS-1$
+			menuItemPreferences.setText(EngLangCommonKeys.MENU_PREFERENCES); //$NON-NLS-1$
 			menuItemPreferences.addSelectionListener(new SelectionAdapter()
 			{
 				public void widgetSelected(SelectionEvent evt)
@@ -329,13 +329,13 @@ public class MenuManager
 			});
 		}
 		MenuItem mitView = new MenuItem(menuEdit, SWT.CASCADE);
-		mitView.setText(Messages.getString("MenuManager.7")); //$NON-NLS-1$
+		mitView.setText(EngLangCommonKeys.MENU_VIEW); //$NON-NLS-1$
 		{
 			Menu menuView = new Menu(mitView);
 			mitView.setMenu(menuView);
 			{
 				MenuItem mitModules = new MenuItem(menuView, SWT.PUSH);
-				mitModules.setText(Messages.getString("EngUIMainFrame.2"));//$NON-NLS-1$
+				mitModules.setText(EngLangCommonKeys.MENU_MODULES);//$NON-NLS-1$
 				mitModules.setImage(SWTResourceManager.getImage("icons/Process16.gif"));//$NON-NLS-1$
 				mitModules.addSelectionListener(new SelectionAdapter()
 				{
@@ -345,7 +345,7 @@ public class MenuManager
 						{
 							CTabItem item = new CTabItem(EngUIMainFrame.tabfldMenu, SWT.NULL);
 							item.setControl(EngUIMainFrame.compModulesTab);
-							item.setText(Messages.getString("EngUIMainFrame.2"));//$NON-NLS-1$
+							item.setText(EngLangCommonKeys.STR_MODULES);//$NON-NLS-1$
 							item.setImage(SWTResourceManager.getImage("icons/Process16.gif")); //$NON-NLS-1$
 							EngUIMainFrame.tabfldMenu.setSelection(item);
 							EngUIMainFrame.sashMainHorizontal.setMaximizedControl(null);
@@ -355,7 +355,7 @@ public class MenuManager
 			}
 			{
 				MenuItem mitFavorites = new MenuItem(menuView, SWT.PUSH);
-				mitFavorites.setText(Messages.getString("EngUIMainFrame.5"));//$NON-NLS-1$
+				mitFavorites.setText(EngLangCommonKeys.STR_FAVORITES);//$NON-NLS-1$
 				mitFavorites.setImage(SWTResourceManager.getImage("icons/favorites.gif"));//$NON-NLS-1$
 				mitFavorites.addSelectionListener(new SelectionAdapter()
 				{
@@ -365,7 +365,7 @@ public class MenuManager
 						{
 							CTabItem item = new CTabItem(EngUIMainFrame.tabfldMenu, SWT.NULL);
 							item.setControl(EngUIMainFrame.compFavoritesTab);
-							item.setText(Messages.getString("EngUIMainFrame.5"));//$NON-NLS-1$
+							item.setText(EngLangCommonKeys.STR_FAVORITES);//$NON-NLS-1$
 							item.setImage(SWTResourceManager.getImage("icons/favorites.gif")); //$NON-NLS-1$
 							EngUIMainFrame.tabfldMenu.setSelection(item);
 							EngUIMainFrame.sashMainHorizontal.setMaximizedControl(null);
@@ -375,7 +375,7 @@ public class MenuManager
 			}
 			{
 				MenuItem mitHistory = new MenuItem(menuView, SWT.PUSH);
-				mitHistory.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
+				mitHistory.setText(EngLangCommonKeys.STR_HISTORY); //$NON-NLS-1$
 				mitHistory.setImage(SWTResourceManager.getImage("icons/history.png"));//$NON-NLS-1$
 				mitHistory.addSelectionListener(new SelectionAdapter()
 				{
@@ -385,7 +385,7 @@ public class MenuManager
 						{
 							CTabItem item = new CTabItem(EngUIMainFrame.tabfldMenu, SWT.NULL);
 							item.setControl(EngUIMainFrame.compHistoryTab);
-							item.setText(Messages.getString("EngUIMainFrame.16")); //$NON-NLS-1$
+							item.setText(EngLangCommonKeys.STR_HISTORY); //$NON-NLS-1$
 							item.setImage(SWTResourceManager.getImage("icons/history.png")); //$NON-NLS-1$
 							EngUIMainFrame.tabfldMenu.setSelection(item);
 							EngUIMainFrame.sashMainHorizontal.setMaximizedControl(null);
@@ -395,7 +395,7 @@ public class MenuManager
 			}
 			{
 				final MenuItem menuItemModulBar = new MenuItem(menuView, SWT.CHECK);
-				menuItemModulBar.setText(Messages.getString("EngUIMainFrame.30")); //$NON-NLS-1$
+				menuItemModulBar.setText(EngLangCommonKeys.STR_MODULES); //$NON-NLS-1$
 				menuItemModulBar.setSelection(false);
 				menuItemModulBar.setEnabled(false);
 				menuItemModulBar.addSelectionListener(new SelectionAdapter()
@@ -415,7 +415,7 @@ public class MenuManager
 			}
 		}
 		MenuItem shortcuts = new MenuItem(menuEdit, SWT.PUSH);
-		shortcuts.setText(Messages.getString("MenuManager.8")); //$NON-NLS-1$
+		shortcuts.setText(EngLangCommonKeys.MENU_SHORTCUTS); //$NON-NLS-1$
 		SWTResourceManager.registerResourceUser(shortcuts);
 		shortcuts.addSelectionListener(new SelectionAdapter()
 		{
@@ -432,7 +432,7 @@ public class MenuManager
 		MenuItem mitGoToRightTab = new MenuItem(menuEdit, SWT.PUSH);
 		
 		TurqKeyEvent nextTabEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.NEXT_TAB);
-		mitGoToRightTab.setText(Messages.getString("MenuManager.19")+((nextTabEvent.isActive) ? EngBLKeyEvents.getStringValue(nextTabEvent):"")); //$NON-NLS-1$ //$NON-NLS-2$
+		mitGoToRightTab.setText(EngLangCommonKeys.STR_NEXT_TAB+((nextTabEvent.isActive) ? EngBLKeyEvents.getStringValue(nextTabEvent):"")); //$NON-NLS-1$ //$NON-NLS-2$
 		mitGoToRightTab.setAccelerator(nextTabEvent.stateMask | nextTabEvent.keyCode);
 		SWTResourceManager.registerResourceUser(mitGoToRightTab);
 		mitGoToRightTab.setImage(SWTResourceManager.getImage("/icons/forward.gif")); //$NON-NLS-1$
@@ -458,7 +458,7 @@ public class MenuManager
 		
 		MenuItem mitGoToLeftTab = new MenuItem(menuEdit, SWT.PUSH);
 		TurqKeyEvent previousTabEvent=(TurqKeyEvent)EngBLKeyEvents.turqKeyEvents.get(EngBLKeyEvents.PREVIOUS_TAB);
-		mitGoToLeftTab.setText(Messages.getString("MenuManager.21")+((previousTabEvent.isActive) ? EngBLKeyEvents.getStringValue(previousTabEvent):"")); //$NON-NLS-1$ //$NON-NLS-2$
+		mitGoToLeftTab.setText(EngLangCommonKeys.STR_PREVIOUS_TAB+((previousTabEvent.isActive) ? EngBLKeyEvents.getStringValue(previousTabEvent):"")); //$NON-NLS-1$ //$NON-NLS-2$
 		mitGoToLeftTab.setAccelerator(previousTabEvent.stateMask | previousTabEvent.keyCode);
 		SWTResourceManager.registerResourceUser(mitGoToLeftTab);
 		mitGoToLeftTab.setImage(SWTResourceManager.getImage("/icons/backward.gif")); //$NON-NLS-1$

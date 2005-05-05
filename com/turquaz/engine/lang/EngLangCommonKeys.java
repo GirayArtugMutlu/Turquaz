@@ -280,6 +280,25 @@ public class EngLangCommonKeys {
     public final static String STR_CLOSE_ALL ="Hepsini Kapat";
     public final static String STR_CLOSE_OTHERS ="Diðerlerini Kapat";
     
+    public final static String MENU_ACCOUNTING ="&Muhasebe";
+    public final static String MENU_FINANCE ="&Finance";
+    public final static String MENU_SALES ="&Satýþ/Pazarlama";
+    public final static String MENU_INVENTORY ="&Stoklar";
+    public final static String MENU_SETTINGS ="&Ayarlar";
+    public final static String MENU_HELP ="&Yardým";
+    public final static String MENU_ABOUT ="&Hakkýnda";
+    public final static String MENU_FILE ="&Dosya";
+    public final static String MENU_EXIT ="&Çýkýþ";
+    public final static String MENU_EDIT ="&Düzen";
+    public final static String MENU_PREFERENCES ="&Özellikler";
+    public final static String MENU_MODULES ="M&odüller";
+    public final static String MENU_VIEW ="&Görünüm";
+    public final static String MENU_SHORTCUTS ="Kýsayollar";
+    
+
+    
+    
+    
     
     
     
