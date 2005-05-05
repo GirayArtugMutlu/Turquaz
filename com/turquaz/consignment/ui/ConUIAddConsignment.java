@@ -822,11 +822,11 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 	{
 		fillGroupsTable();
 		//fill combo type
-		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING);
-		comboConsignmentType.setData(EngBLCommon.COMMON_BUY_STRING,new Integer(EngBLCommon.COMMON_BUY_INT));
-		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING);
-		comboConsignmentType.setData(EngBLCommon.COMMON_SELL_STRING,new Integer(EngBLCommon.COMMON_SELL_INT));
-		comboConsignmentType.setText(EngBLCommon.COMMON_BUY_STRING);
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_BUY_STRING);
+		comboConsignmentType.setData(EngLangCommonKeys.COMMON_BUY_STRING,new Integer(EngBLCommon.COMMON_BUY_INT));
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_SELL_STRING);
+		comboConsignmentType.setData(EngLangCommonKeys.COMMON_SELL_STRING,new Integer(EngBLCommon.COMMON_SELL_INT));
+		comboConsignmentType.setText(EngLangCommonKeys.COMMON_BUY_STRING);
 		//fill WareHouse combo
 		fillComboWarehouses();
 		//Create the table viewer..
@@ -943,7 +943,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 			if (verifyFields())
 			{
 				int type = EngBLCommon.COMMON_BUY_INT;
-				if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) { 
+				if (comboConsignmentType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING)) { 
 					type=EngBLCommon.COMMON_SELL_INT;
 				}
 				HashMap argMap=new HashMap();

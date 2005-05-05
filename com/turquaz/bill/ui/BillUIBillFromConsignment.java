@@ -379,7 +379,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 								comboConsignmentType.setEnabled(false);
 								comboConsignmentType.setBackground(SWTResourceManager.getColor(255, 255, 255));
 								comboConsignmentType.setEditable(false);
-								comboConsignmentType.setText(EngBLCommon.COMMON_BUY_STRING);
+								comboConsignmentType.setText(EngLangCommonKeys.COMMON_BUY_STRING);
 								comboConsignmentTypeLData.widthHint = 85;
 								comboConsignmentTypeLData.heightHint = 18;
 								comboConsignmentTypeLData.horizontalSpan = 3;
@@ -666,8 +666,8 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		cTabFolder1.setSelection(0);
 		fillGroupsTable();
 		//fill combo type
-		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING);
-		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING);
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_BUY_STRING);
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_SELL_STRING);
 		}
 
 	public boolean verifyFields()
@@ -688,7 +688,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 			if (verifyFields())
 			{
 				int type = EngBLCommon.COMMON_BUY_INT;
-				if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING)) { //$NON-NLS-1$
+				if (comboConsignmentType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING)) { //$NON-NLS-1$
 					type = EngBLCommon.COMMON_SELL_INT;
 				}
 				
@@ -823,10 +823,10 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 							invTrans.getCumilativePriceInForeignCurrency().toString()});
 				
 				}
-				String type = EngBLCommon.COMMON_BUY_STRING;
+				String type = EngLangCommonKeys.COMMON_BUY_STRING;
 				if (cons.getConsignmentsType() == 1)
 				{
-					type = EngBLCommon.COMMON_SELL_STRING;
+					type = EngLangCommonKeys.COMMON_SELL_STRING;
 				}
 				comboConsignmentType.setText(type);
 				dateConsDate.setDate(cons.getConsignmentsDate());

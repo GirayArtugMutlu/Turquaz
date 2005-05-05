@@ -2,6 +2,8 @@
 package com.turquaz.engine.lang;
 
 
+
+
 public class EngLangCommonKeys {
     
     public final static String TITLE_PREFERENCES ="Özellikler";
@@ -26,6 +28,8 @@ public class EngLangCommonKeys {
     public final static String STR_ALL ="Hepsi";
 	public final static String STR_AMOUNT="Miktar";
 	public final static String STR_BACKWARD="Geri";
+    public final static String STR_STOP ="Dur";
+    public final static String STR_RELOAD ="Yeniden Yükle";
     public final static String STR_BALANCE = "Bakiye";
     public final static String STR_BALANCE_CAPITAL="BAK?YE";
     public final static String STR_BALANCE_CREDIT ="Alacak Bakiye";
@@ -82,6 +86,8 @@ public class EngLangCommonKeys {
 	public final static String STR_MONTHS_NOVEMBER = "Kasým";
 	public final static String STR_MONTHS_OCTOBER = "Ekim";
 	public final static String STR_MONTHS_SEPTEMBER = "Eylül";
+    public final static String STR_MONTH ="Ay:";
+    public final static String STR_REPORT_DATE ="Rapor Tarihi";
    
 
     public final static String STR_NAME="?sim";
@@ -152,6 +158,11 @@ public class EngLangCommonKeys {
 	public final static String MSG_LICENCE_INFO ="Bu program GNU/GPL lisans\u0131 alt\u0131nda da\u011F\u0131t\u0131lmaktad\u0131r.";
     public final static String MSG_LICENCE ="Lisans Sözleþmesi";
     public final static String MSG_SURE_TO_EXIT ="Programdan Çýkmak Ýstediðinize emin misiniz?";
+    public final static String MSG_TABLE_WILL_BE_CUT ="Tablo boyutlarý nedeniyle tabloda kesinti yapýlacaktýr!";
+    public final static String MSG_BILL_NO_ALREADY_USED ="Bu Fatura No Daha Önce Kullanýlmýþ!";
+    public final static String MSG_CANNOT_DEFINE_SUBACCOUNT_AS_MAIN ="Alt hesap,Üst hesap olarak tanýmlanamaz!";
+    public final static String MSG_BILL_FORMAT_UNDEFINED ="Fatura Formatý Belirlenmemiþ";
+    
     
     public final static String STR_DATABASE_WIZARD ="Veritabaný Sihirbazý";
     public final static String STR_DATABASE_WIZARD_DESCRIPTION ="Bu sihirbaz veritabaný baðlantýsý oluþturur!";
@@ -228,6 +239,7 @@ public class EngLangCommonKeys {
     public final static String STR_CUR_CARD_ABSTRACT ="Cari Kart Ekstresi";
     public final static String STR_CUR_CARD_BALANCE = "Cari Kart Mizaný";
     public final static String STR_CUR_INITIAL_VALUES ="Cari Açýlýþ Deðerleri";
+    public final static String STR_CUR_DEPT_CREDIT_VOUCHER ="Cari Borç-Alacak Fiþi";
     
     public final static String STR_USERS_GROUPS ="Kullancýclar/Gruplar";
     public final static String STR_ADD_USER ="Kullanýcý Ekle";
@@ -280,6 +292,8 @@ public class EngLangCommonKeys {
     public final static String STR_CLOSE_ALL ="Hepsini Kapat";
     public final static String STR_CLOSE_OTHERS ="Diðerlerini Kapat";
     
+    public final static String STR_PRINT_PREVIEW ="Baský Önizleme";
+    
     public final static String MENU_ACCOUNTING ="&Muhasebe";
     public final static String MENU_FINANCE ="&Finance";
     public final static String MENU_SALES ="&Satýþ/Pazarlama";
@@ -294,6 +308,133 @@ public class EngLangCommonKeys {
     public final static String MENU_MODULES ="M&odüller";
     public final static String MENU_VIEW ="&Görünüm";
     public final static String MENU_SHORTCUTS ="Kýsayollar";
+    
+    public final static String STR_THOUSAND =" Bin";
+    public final static String STR_MILLION =" Milyon";
+    public final static String STR_BILLION =" Milyar";
+    public final static String STR_TRILLION =" Tirilyon";
+    public final static String STR_KATRILLION=" Katirilyon";
+    public final static String STR_QUINTILLION =" Quintillion";
+    
+    public final static String STR_TEN =" On";
+    public final static String STR_TWENTY =" Yirmi";
+    public final static String STR_THIRTY =" Otuz";
+    public final static String STR_FORTY =" Kýrk";
+    public final static String STR_FIFTY =" Elli";
+    public final static String STR_SIXTY =" Altmýþ";
+    public final static String STR_SEVENTY =" Yetmiþ";
+    public final static String STR_EIGHTY=" Seksen";
+    public final static String STR_NINTY =" Doksan";
+    public final static String STR_HUNDRED =" Yüz"; 
+    
+    public final static String STR_ONE =" Bir";
+    public final static String STR_TWO =" Ýki";
+    public final static String STR_THREE =" Üç";
+    public final static String STR_FOUR =" Dört";
+    public final static String STR_FIVE =" Beþ";
+    public final static String STR_SIX =" Altý";
+    public final static String STR_SEVEN =" Yedi";
+    public final static String STR_EIGTH =" Sekiz";
+    public final static String STR_NINE =" Dokuz";
+    public final static String STR_ZERO ="Sýfýr";
+    
+    public final static String STR_NEGATIVE ="eksi ";
+
+
+    //Some special keys
+    public static String RIGHT_ARROW_STRING="Sað Ok"; 
+
+
+    public static String LEFT_ARROW_STRING="Sol Ok"; 
+
+
+    public static String UP_ARROW_STRING="Yukarý Ok"; 
+
+
+    public static String DOWN_ARROW_STRING="Aþaðý Ok";
+
+
+
+
+
+    public final static String COMMON_BUY_STRING = "Alýþ"; 
+
+
+    public final static String COMMON_SELL_STRING = "Satýþ"; 
+
+
+    public final static String COMMON_ALL_STRING = "Hepsi"; 
+
+
+    public final static String COMMON_RETURN_BUY_STRING = "Alýþtan Ýade";  
+
+
+    public final static String COMMON_RETURN_SELL_STRING = "Satýþtan Ýade";  
+
+
+    public final static String COMMON_DEPT_STRING = "Borç"; 
+
+
+    public final static String COMMON_CREDIT_STRING = "Alacak"; 
+
+
+    // Giris
+    // Bordrosu
+    public final static String CHEQUE_TRANS_IN_STRING = "Giriþ"; 
+
+
+    // Cari
+    // Cikis
+    // Bordrosu
+    public final static String CHEQUE_TRANS_OUT_CURRENT_STRING = "Cariye Çýkýþ"; 
+
+
+    // bank
+    // Cikis
+    // bordrosu
+    public final static String CHEQUE_TRANS_OUT_BANK_STRING = "Bankaya Çýkýs"; 
+
+
+    // Cek
+    public final static String CHEQUE_TRANS_COLLECT_FROM_BANK_STRING = "Alýþtan Ýade"; // Tahsilati 
+
+
+    // cek
+    // tahsilati
+    public final static String CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING = "Elden Tahsil"; 
+
+
+    // Portfoye
+    // iade...
+    public final static String CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING = "Bankadan Portföye Ýade"; 
+
+
+    public final static String CHEQUE_TRANS_RETURN_TO_CURRENT_STRING = "Portföyden Cariye Ýade"; 
+
+
+    public final static String CHEQUE_TRANS_RETURN_FROM_CURRENT_STRING = "Cariden Portföye Ýade"; 
+
+
+    public final static String CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING ="Firma Çeki Tahsilatý"; 
+
+
+    public final static String CHEQUE_STATUS_PORTFOY_STRING = "Portföyde"; 
+
+
+    public final static String CHEQUE_STATUS_CURRENT_STRING = "Ciro Edildi"; 
+
+
+    public final static String CHEQUE_STATUS_COLLECTED_STRING = "Tahsil Edildi"; 
+
+
+    public final static String CHEQUE_STATUS_RETURN_TO_CURRENT_STRING = "Cariye Ýade Edildi"; 
+
+
+    public final static String CHEQUE_STATUS_IN_BANK_STRING = "Tahsilde"; 
+
+
+    public final static String CHEQUE_STATUS_BOUNCED_STRING = "Karþýlýksýz"; 
+    
     
 
     

@@ -322,7 +322,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				{
 					comboTransactionsType = new CCombo(compInvTransactionSearch, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
+					comboTransactionsType.setText(EngLangCommonKeys.COMMON_ALL_STRING);
 					comboConsignmentTypeLData.widthHint = 134;
 					comboConsignmentTypeLData.heightHint = 17;
 					comboTransactionsType.setLayoutData(comboConsignmentTypeLData);
@@ -470,13 +470,13 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			if (type != EngBLCommon.COMMON_ALL_INT)
 			{
 				if (type == EngBLCommon.COMMON_BUY_INT)
-					parameters.put("type", EngBLCommon.COMMON_BUY_STRING); //$NON-NLS-1$
+					parameters.put("type", EngLangCommonKeys.COMMON_BUY_STRING); //$NON-NLS-1$
 				else
-					parameters.put("type", EngBLCommon.COMMON_SELL_STRING); //$NON-NLS-1$
+					parameters.put("type", EngLangCommonKeys.COMMON_SELL_STRING); //$NON-NLS-1$
 			}
 			else
 			{
-				parameters.put("type", EngBLCommon.COMMON_ALL_STRING);
+				parameters.put("type", EngLangCommonKeys.COMMON_ALL_STRING);
 			}
 			TurqInventoryGroup invMainGroup = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
 			TurqInventoryGroup invSubGroup = (TurqInventoryGroup) comboInvSubGroup.getData(comboInvSubGroup.getText());
@@ -489,13 +489,13 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				}
 				else
 				{
-					parameters.put("invSubGroup", EngBLCommon.COMMON_ALL_STRING); //$NON-NLS-1$
+					parameters.put("invSubGroup", EngLangCommonKeys.COMMON_ALL_STRING); //$NON-NLS-1$
 				}
 			}
 			else
 			{
-				parameters.put("invMainGroup", EngBLCommon.COMMON_ALL_STRING); //$NON-NLS-1$ 
-				parameters.put("invSubGroup", EngBLCommon.COMMON_ALL_STRING); //$NON-NLS-1$ 
+				parameters.put("invMainGroup", EngLangCommonKeys.COMMON_ALL_STRING); //$NON-NLS-1$ 
+				parameters.put("invSubGroup", EngLangCommonKeys.COMMON_ALL_STRING); //$NON-NLS-1$ 
 			}
 			TurqCurrentCard curCardStart = (TurqCurrentCard) txtCurCardStart.getData();
 			TurqCurrentCard curCardEnd = (TurqCurrentCard) txtCurCardEnd.getData();
@@ -604,10 +604,10 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		{
 			txtInvCardStart.setTextInvName(txtInvNameStart);
 			txtInvCardEnd.setTextInvName(txtInvNameEnd);
-			comboTransactionsType.add(EngBLCommon.COMMON_ALL_STRING);
-			comboTransactionsType.add(EngBLCommon.COMMON_BUY_STRING);
-			comboTransactionsType.add(EngBLCommon.COMMON_SELL_STRING);
-			comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
+			comboTransactionsType.add(EngLangCommonKeys.COMMON_ALL_STRING);
+			comboTransactionsType.add(EngLangCommonKeys.COMMON_BUY_STRING);
+			comboTransactionsType.add(EngLangCommonKeys.COMMON_SELL_STRING);
+			comboTransactionsType.setText(EngLangCommonKeys.COMMON_ALL_STRING);
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			dateStartDate.setDate(cal.getTime());
 			List groupList = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
@@ -639,9 +639,9 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
-			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+			if (comboTransactionsType.getText().equals(EngLangCommonKeys.COMMON_BUY_STRING))
 				type = EngBLCommon.COMMON_BUY_INT;
-			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+			else if (comboTransactionsType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING))
 				type = EngBLCommon.COMMON_SELL_INT;
 			boolean searchByInvCode = radioInvCode.getSelection();
 			

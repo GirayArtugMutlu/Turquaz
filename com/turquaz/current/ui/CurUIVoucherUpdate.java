@@ -155,12 +155,12 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 		EngUICommon.centreWindow(dialogShell);
 		if (curTrans.getTransactionsTotalDept().doubleValue() > 0)
 		{
-			compVoucher.getComboType().setText(EngBLCommon.COMMON_DEPT_STRING);
+			compVoucher.getComboType().setText(EngLangCommonKeys.COMMON_DEPT_STRING);
 			compVoucher.getTxtCredit().setText(curTrans.getTotalDeptInForeignCurrency());
 		}
 		else
 		{
-			compVoucher.getComboType().setText(EngBLCommon.COMMON_CREDIT_STRING);
+			compVoucher.getComboType().setText(EngLangCommonKeys.COMMON_CREDIT_STRING);
 			compVoucher.getTxtCredit().setText(curTrans.getTotalCreditInForeignCurrency());
 		}
 		compVoucher.getDateTransDate().setDate(curTrans.getTransactionsDate());
@@ -222,7 +222,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				BigDecimal credit = compVoucher.getTxtCredit().getBigDecimalValue();
 				boolean isCredit = false;
-				if (compVoucher.getComboType().getText().equals(EngBLCommon.COMMON_CREDIT_STRING))
+				if (compVoucher.getComboType().getText().equals(EngLangCommonKeys.COMMON_CREDIT_STRING))
 				{
 					isCredit = true;
 				}

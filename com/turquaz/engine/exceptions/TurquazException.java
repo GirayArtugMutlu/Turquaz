@@ -6,7 +6,7 @@
  */
 package com.turquaz.engine.exceptions;
 
-import com.turquaz.engine.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 /**
  * @author Cem
@@ -17,8 +17,8 @@ import com.turquaz.engine.Messages;
 public class TurquazException extends Exception
 {
 
-	public final static String EX_BILL_DOC_NO=Messages.getString("TurquazException.0");  //$NON-NLS-1$
-	public final static String EX_ACC_SUB_ACC=Messages.getString("TurquazException.1"); //$NON-NLS-1$
+	public final static String EX_BILL_DOC_NO=EngLangCommonKeys.MSG_BILL_NO_ALREADY_USED;  //$NON-NLS-1$
+	public final static String EX_ACC_SUB_ACC=EngLangCommonKeys.MSG_CANNOT_DEFINE_SUBACCOUNT_AS_MAIN; //$NON-NLS-1$
 	
 	public TurquazException()
 	{

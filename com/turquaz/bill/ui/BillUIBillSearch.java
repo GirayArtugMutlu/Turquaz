@@ -272,10 +272,10 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 
 	public void postInitGui()
 	{
-		comboBillType.add(EngBLCommon.COMMON_BUY_STRING);
-		comboBillType.add(EngBLCommon.COMMON_SELL_STRING);
-		comboBillType.add(EngBLCommon.COMMON_ALL_STRING);
-		comboBillType.setText(EngBLCommon.COMMON_ALL_STRING);
+		comboBillType.add(EngLangCommonKeys.COMMON_BUY_STRING);
+		comboBillType.add(EngLangCommonKeys.COMMON_SELL_STRING);
+		comboBillType.add(EngLangCommonKeys.COMMON_ALL_STRING);
+		comboBillType.setText(EngLangCommonKeys.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
 		createTableViewer();
@@ -307,11 +307,11 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 		{
 			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
-			if (comboBillType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+			if (comboBillType.getText().equals(EngLangCommonKeys.COMMON_BUY_STRING))
 			{
 				type = EngBLCommon.COMMON_BUY_INT;
 			}
-			else if (comboBillType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+			else if (comboBillType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING))
 			{
 				type = EngBLCommon.COMMON_SELL_INT;
 			}

@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBanksCard;
@@ -413,7 +412,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			TurqCurrentCard curCard=(TurqCurrentCard)currentPicker.getData();
 			if (curCard==null)
 			{
-				parameters.put("currentCard", EngBLCommon.COMMON_ALL_STRING);
+				parameters.put("currentCard", EngLangCommonKeys.COMMON_ALL_STRING);
 			}
 			else
 			{				
@@ -422,7 +421,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			TurqBanksCard bankCard= (TurqBanksCard)bankPicker.getData();
 			if (bankCard == null)
 			{
-				parameters.put("bankCard", EngBLCommon.COMMON_ALL_STRING);
+				parameters.put("bankCard", EngLangCommonKeys.COMMON_ALL_STRING);
 			}
 			else
 			{

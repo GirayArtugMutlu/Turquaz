@@ -19,7 +19,7 @@ package com.turquaz.inventory.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -30,7 +30,7 @@ import com.turquaz.engine.bl.EngBLCommon;
  */
 public class InvUIPrice
 {
-	public String priceType = EngBLCommon.COMMON_BUY_STRING;
+	public String priceType = EngLangCommonKeys.COMMON_BUY_STRING;
 	public String amount = "0.0"; //$NON-NLS-1$
 	public String abrev = "YTL"; //$NON-NLS-1$
 

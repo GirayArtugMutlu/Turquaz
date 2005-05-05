@@ -1,40 +1,41 @@
 package com.turquaz.engine.bl;
 
 import java.math.BigDecimal;
-import com.turquaz.engine.Messages;
+
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 public class EngBLCurrencyToWords
 {
 	private static final String[] majorNames = {"", //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.1"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.2"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.3"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.4"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.5"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.6") //$NON-NLS-1$
+			EngLangCommonKeys.STR_THOUSAND, 
+            EngLangCommonKeys.STR_MILLION, 
+            EngLangCommonKeys.STR_BILLION, 
+            EngLangCommonKeys.STR_TRILLION, 
+            EngLangCommonKeys.STR_KATRILLION, 
+            EngLangCommonKeys.STR_QUINTILLION 
 	};
 	private static final String[] tensNames = {"", //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.8"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.9"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.10"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.11"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.12"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.13"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.14"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.15"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.16") //$NON-NLS-1$
+        EngLangCommonKeys.STR_TEN, 
+        EngLangCommonKeys.STR_TWENTY, 
+        EngLangCommonKeys.STR_THIRTY, 
+        EngLangCommonKeys.STR_FORTY, 
+        EngLangCommonKeys.STR_FIFTY, 
+        EngLangCommonKeys.STR_SIXTY, 
+        EngLangCommonKeys.STR_SEVENTY, 
+        EngLangCommonKeys.STR_EIGHTY, 
+        EngLangCommonKeys.STR_NINTY 
 	};
 	private static final String[] numNames = {"", //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.18"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.19"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.20"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.21"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.22"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.23"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.24"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.25"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.26"), //$NON-NLS-1$
-			Messages.getString("EngBLCurrencyToWords.27") //$NON-NLS-1$
+        EngLangCommonKeys.STR_ONE, 
+        EngLangCommonKeys.STR_TWO, 
+        EngLangCommonKeys.STR_THREE, 
+        EngLangCommonKeys.STR_FOUR, 
+        EngLangCommonKeys.STR_FIVE, 
+        EngLangCommonKeys.STR_SIX, 
+        EngLangCommonKeys.STR_SEVEN, 
+        EngLangCommonKeys.STR_EIGTH, 
+        EngLangCommonKeys.STR_NINE, 
+        EngLangCommonKeys.STR_TEN 
 	};
 
 	private static String convertLessThanOneThousand(int number)
@@ -55,8 +56,8 @@ public class EngBLCurrencyToWords
 		if (number == 0)
 			return soFar;
 		if (number == 1)
-			return Messages.getString("EngBLCurrencyToWords.28") + soFar; //$NON-NLS-1$
-		return numNames[number] + Messages.getString("EngBLCurrencyToWords.29") + soFar; //$NON-NLS-1$
+			return EngLangCommonKeys.STR_HUNDRED+ soFar; 
+		return numNames[number] + EngLangCommonKeys.STR_HUNDRED + soFar; 
 	}
 
 	private static String convert(int number)
@@ -64,12 +65,12 @@ public class EngBLCurrencyToWords
 		/* special case */
 		if (number == 0)
 		{
-			return Messages.getString("EngBLCurrencyToWords.30");} //$NON-NLS-1$
+			return EngLangCommonKeys.STR_ZERO;} 
 		String prefix = ""; //$NON-NLS-1$
 		if (number < 0)
 		{
 			number = -number;
-			prefix = Messages.getString("EngBLCurrencyToWords.32"); //$NON-NLS-1$
+			prefix = EngLangCommonKeys.STR_NEGATIVE; 
 		}
 		String soFar = ""; //$NON-NLS-1$
 		int place = 0;
@@ -79,7 +80,7 @@ public class EngBLCurrencyToWords
 			if (n != 0)
 			{
 				String s = convertLessThanOneThousand(n);
-				if (s.equals(Messages.getString("EngBLCurrencyToWords.34")) && place == 1) { //$NON-NLS-1$
+				if (s.equals(EngLangCommonKeys.STR_ONE) && place == 1) { 
 					soFar = majorNames[place] + soFar;
 				}
 				else
@@ -94,10 +95,10 @@ public class EngBLCurrencyToWords
 		return (prefix + soFar).trim();
 	}
 
-	public static String getTurkishCarrencyInWords(BigDecimal bd)
+	public static String getTurkishCurrencyInWords(BigDecimal bd)
 	{
-		bd = bd.setScale(2, BigDecimal.ROUND_DOWN);
-		String[] nums = bd.toString().split("\\.");
+		bd = bd.setScale(2, EngBLCommon.ROUNDING_METHOD);
+		String[] nums = bd.toString().split("\\."); //$NON-NLS-1$
 		int YTL = Integer.parseInt(nums[0]);
 		int YKRS = Integer.parseInt(nums[1]);
 		String words = (YKRS == 0) ? convert(YTL) + " YTL" : convert(YTL) + " YTL, " + convert(YKRS) + " YKr ";

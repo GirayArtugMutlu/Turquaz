@@ -288,10 +288,10 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 
 	public void postInitGui()
 	{
-		comboTransactionsType.add(EngBLCommon.COMMON_ALL_STRING);
-		comboTransactionsType.add(EngBLCommon.COMMON_BUY_STRING);
-		comboTransactionsType.add(EngBLCommon.COMMON_SELL_STRING);
-		comboTransactionsType.setText(EngBLCommon.COMMON_ALL_STRING);
+		comboTransactionsType.add(EngLangCommonKeys.COMMON_ALL_STRING);
+		comboTransactionsType.add(EngLangCommonKeys.COMMON_BUY_STRING);
+		comboTransactionsType.add(EngLangCommonKeys.COMMON_SELL_STRING);
+		comboTransactionsType.setText(EngLangCommonKeys.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
 		createTableViewer();
@@ -308,11 +308,11 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
-			if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+			if (comboTransactionsType.getText().equals(EngLangCommonKeys.COMMON_BUY_STRING))
 			{
 				type = EngBLCommon.COMMON_BUY_INT;
 			}
-			else if (comboTransactionsType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+			else if (comboTransactionsType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING))
 			{
 				type = EngBLCommon.COMMON_SELL_INT;
 			}

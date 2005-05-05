@@ -23,7 +23,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
-import com.turquaz.engine.Messages;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.component.TurqKeyEvent;
 
 /**
@@ -45,13 +45,6 @@ public class EngBLKeyEvents
 	public static String NEW="New"; //$NON-NLS-1$
 	public static String EXCEL="Excel"; //$NON-NLS-1$
 	public static String PRINT="Print";	 //$NON-NLS-1$
-	
-	
-	//Some special keys
-	public static String RIGHT_ARROW_STRING=Messages.getString("EngBLKeyEvents.0"); //$NON-NLS-1$
-	public static String LEFT_ARROW_STRING=Messages.getString("EngBLKeyEvents.1"); //$NON-NLS-1$
-	public static String UP_ARROW_STRING=Messages.getString("EngBLKeyEvents.2"); //$NON-NLS-1$
-	public static String DOWN_ARROW_STRING=Messages.getString("EngBLKeyEvents.3"); //$NON-NLS-1$
 	
 	
 	public static String[] KEY_CONTROLS=new String[]{
@@ -184,10 +177,10 @@ public class EngBLKeyEvents
 			case SWT.ARROW_DOWN:	return "ARROW_DOWN"; //$NON-NLS-1$
 			case SWT.ARROW_LEFT:	return "ARROW_LEFT"; //$NON-NLS-1$
 			case SWT.ARROW_RIGHT:	return "ARROW_RIGHT"; //$NON-NLS-1$*/
-			case SWT.ARROW_UP:		return UP_ARROW_STRING;
-			case SWT.ARROW_DOWN:	return DOWN_ARROW_STRING;
-			case SWT.ARROW_LEFT:	return LEFT_ARROW_STRING;
-			case SWT.ARROW_RIGHT:	return RIGHT_ARROW_STRING;
+			case SWT.ARROW_UP:		return EngLangCommonKeys.UP_ARROW_STRING;
+			case SWT.ARROW_DOWN:	return EngLangCommonKeys.DOWN_ARROW_STRING;
+			case SWT.ARROW_LEFT:	return EngLangCommonKeys.LEFT_ARROW_STRING;
+			case SWT.ARROW_RIGHT:	return EngLangCommonKeys.RIGHT_ARROW_STRING;
 			
 			case SWT.PAGE_UP:		return "PAGE_UP"; //$NON-NLS-1$
 			case SWT.PAGE_DOWN:		return "PAGE_DOWN"; //$NON-NLS-1$
@@ -301,7 +294,7 @@ public class EngBLKeyEvents
 	
 	public static TurqKeyEvent getKeyEvent(String string)
 	{
-		String[] values=string.split(Messages.getString("EngBLKeyEvents.4")); //$NON-NLS-1$
+		String[] values=string.split("\\+"); //$NON-NLS-1$
 		if (values.length == 1)
 		{
 			

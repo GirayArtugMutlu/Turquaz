@@ -201,7 +201,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			comboType = new CCombo(this, SWT.NONE);
 			GridData txtDeptLData = new GridData();
 			comboType.setEditable(false);
-			comboType.setText(EngBLCommon.COMMON_DEPT_STRING);
+			comboType.setText(EngLangCommonKeys.COMMON_DEPT_STRING);
 			comboType.setBackground(SWTResourceManager.getColor(255, 255, 255));
 			txtDeptLData.widthHint = 135;
 			txtDeptLData.heightHint = 17;
@@ -255,8 +255,8 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			txtDefinitionLData.heightHint = 56;
 			txtDefinition.setLayoutData(txtDefinitionLData);
 			//END <<  txtDefinition
-			comboType.add(EngBLCommon.COMMON_DEPT_STRING);
-			comboType.add(EngBLCommon.COMMON_CREDIT_STRING);
+			comboType.add(EngLangCommonKeys.COMMON_DEPT_STRING);
+			comboType.add(EngLangCommonKeys.COMMON_CREDIT_STRING);
 			this.layout();
 			PostInit();
 		}
@@ -310,7 +310,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 			{
 				BigDecimal credit = txtCredit.getBigDecimalValue();
 				boolean isCredit = false;
-				if (comboType.getText().equals(EngBLCommon.COMMON_CREDIT_STRING))
+				if (comboType.getText().equals(EngLangCommonKeys.COMMON_CREDIT_STRING))
 				{
 					isCredit = true;
 				}

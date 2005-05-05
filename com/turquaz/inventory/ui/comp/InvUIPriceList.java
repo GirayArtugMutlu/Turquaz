@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -38,7 +38,7 @@ public class InvUIPriceList
 	private Set changeListeners = new HashSet();
 	// Combo box choices
 	String[] CURRENCIES;
-	String[] PRICE_TYPES = new String[]{EngBLCommon.COMMON_BUY_STRING, EngBLCommon.COMMON_SELL_STRING};
+	String[] PRICE_TYPES = new String[]{EngLangCommonKeys.COMMON_BUY_STRING, EngLangCommonKeys.COMMON_SELL_STRING};
 
 	/**
 	 * Constructor

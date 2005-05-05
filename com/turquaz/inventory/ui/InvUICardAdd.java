@@ -918,8 +918,8 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				InvLangKeys.STR_PRICE_TYPE, EngLangCommonKeys.STR_TOTALPRICE, EngLangCommonKeys.STR_CURRENCY});
 		// Create the cell editors
 		CellEditor[] editors = new CellEditor[3];
-		editors[0] = new ComboBoxCellEditor(tableInvCardAddPrices, new String[]{EngBLCommon.COMMON_BUY_STRING,
-				EngBLCommon.COMMON_SELL_STRING}); //$NON-NLS-1$ //$NON-NLS-2$
+		editors[0] = new ComboBoxCellEditor(tableInvCardAddPrices, new String[]{EngLangCommonKeys.COMMON_BUY_STRING,
+				EngLangCommonKeys.COMMON_SELL_STRING}); //$NON-NLS-1$ //$NON-NLS-2$
 		TurqCurrency currency;
 		String[] currencies = new String[currencyList.size()];
 		for (int i = 0; i < currencyList.size(); i++)
@@ -1199,7 +1199,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				if (!type.equals("") && !abbrev.equals("") && !amount.equals(""))
 				{
 					boolean priceType = false;
-					if (type.equals(EngBLCommon.COMMON_BUY_STRING))
+					if (type.equals(EngLangCommonKeys.COMMON_BUY_STRING))
 					{
 						priceType = true;
 					}

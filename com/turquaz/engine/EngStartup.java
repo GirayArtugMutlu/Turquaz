@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.EngUIEntryFrame;
 import java.net.*;
 
@@ -77,7 +78,7 @@ public class EngStartup {
 		Shell shell = new Shell(display);
 		EngUIEntryFrame inst = new EngUIEntryFrame(shell, SWT.NULL);
 		Point size = inst.getSize();
-		shell.setText(Messages.getString("EngUIEntryFrame.0")); //$NON-NLS-1$
+		shell.setText(EngLangCommonKeys.STR_APPLICATION_NAME); //$NON-NLS-1$
 		shell.setLayout(new FillLayout());
 		shell.layout();
 		if (size.x == 0 && size.y == 0) {

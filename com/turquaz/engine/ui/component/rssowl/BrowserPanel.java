@@ -40,8 +40,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.EngUIMainFrame;
 
 /**
@@ -196,7 +196,7 @@ public class BrowserPanel extends Composite
 		ToolBar toolbar = new ToolBar(this, SWT.FLAT);
 		/** Navigate back in history */
 		itemBack = new ToolItem(toolbar, SWT.PUSH);
-		itemBack.setToolTipText(Messages.getString("BrowserPanel.0")); //$NON-NLS-1$
+		itemBack.setToolTipText(EngLangCommonKeys.STR_BACKWARD); //$NON-NLS-1$
 		itemBack.setImage(new Image(EngUIMainFrame.display, getClass().getResourceAsStream("/icons/backward.gif"))); //$NON-NLS-1$
 		itemBack.setDisabledImage(new Image(EngUIMainFrame.display, getClass().getResourceAsStream("/icons/backward_disabled.gif"))); //$NON-NLS-1$
 		itemBack.addDisposeListener(DisposeListenerImpl.getInstance());
@@ -210,7 +210,7 @@ public class BrowserPanel extends Composite
 		});
 		/** Navigate forward in history */
 		itemForward = new ToolItem(toolbar, SWT.PUSH);
-		itemForward.setToolTipText(Messages.getString("BrowserPanel.3")); //$NON-NLS-1$
+		itemForward.setToolTipText(EngLangCommonKeys.STR_FORWARD); //$NON-NLS-1$
 		itemForward.setImage(new Image(EngUIMainFrame.display, getClass().getResourceAsStream("/icons/forward.gif"))); //$NON-NLS-1$
 		itemForward.setDisabledImage(new Image(EngUIMainFrame.display, getClass().getResourceAsStream("/icons/forward_disabled.gif"))); //$NON-NLS-1$
 		itemForward.addDisposeListener(DisposeListenerImpl.getInstance());
@@ -224,7 +224,7 @@ public class BrowserPanel extends Composite
 		});
 		/** Stop loading */
 		itemStop = new ToolItem(toolbar, SWT.PUSH);
-		itemStop.setToolTipText(Messages.getString("BrowserPanel.6")); //$NON-NLS-1$
+		itemStop.setToolTipText(EngLangCommonKeys.STR_STOP); //$NON-NLS-1$
 		itemStop.setImage(new Image(EngUIMainFrame.display, getClass().getResourceAsStream("/icons/stop.gif"))); //$NON-NLS-1$
 		itemBack.addDisposeListener(DisposeListenerImpl.getInstance());
 		itemStop.addListener(SWT.Selection, new Listener()
@@ -237,7 +237,7 @@ public class BrowserPanel extends Composite
 		});
 		/** Reload webpage */
 		itemReload = new ToolItem(toolbar, SWT.PUSH);
-		itemReload.setToolTipText(Messages.getString("BrowserPanel.8")); //$NON-NLS-1$
+		itemReload.setToolTipText(EngLangCommonKeys.STR_RELOAD); //$NON-NLS-1$
 		itemReload.setImage(new Image(EngUIMainFrame.display, getClass().getResourceAsStream("/icons/reload.gif"))); //$NON-NLS-1$
 		itemBack.addDisposeListener(DisposeListenerImpl.getInstance());
 		itemReload.addListener(SWT.Selection, new Listener()

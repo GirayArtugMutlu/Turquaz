@@ -46,7 +46,6 @@ import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
@@ -297,11 +296,11 @@ public class InvUICardUpdateDialog extends Dialog
 				invPrice = (TurqInventoryPrice) it.next();
 				InvUIPrice price = new InvUIPrice();
 				//XXX SATIS STRINGI
-				price.priceType = EngBLCommon.COMMON_SELL_STRING;
+				price.priceType = EngLangCommonKeys.COMMON_SELL_STRING;
 				if (invPrice.isPricesType())
 				{
 					//XXX ALISSS STRINGI
-					price.priceType = EngBLCommon.COMMON_BUY_STRING;
+					price.priceType = EngLangCommonKeys.COMMON_BUY_STRING;
 				}
 				price.amount = invPrice.getPricesAmount().toString();
 				price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();

@@ -455,7 +455,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			}
 			else
 			{
-				parameters.put("status", EngBLCommon.COMMON_ALL_STRING);
+				parameters.put("status", EngLangCommonKeys.COMMON_ALL_STRING);
 			}
 			
 			String[] fields = new String[]{"id", "cheques_portfolio_no", "cheque_rolls_date", "cards_name", "cheques_due_date",

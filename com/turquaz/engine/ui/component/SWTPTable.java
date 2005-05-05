@@ -11,7 +11,9 @@ package com.turquaz.engine.ui.component;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
-import com.turquaz.engine.Messages;
+
+import com.turquaz.engine.lang.EngLangCommonKeys;
+
 import de.kupzog.ktools.kprint.boxes.PBox;
 import de.kupzog.ktools.kprint.boxes.PContainer;
 import de.kupzog.ktools.kprint.boxes.PDocument;
@@ -95,8 +97,7 @@ public class SWTPTable
 			}
 		}
 		if (abgeschnitten)
-			MsgBox.show(Messages.getString("SWTPTable.0") + //$NON-NLS-1$
-					Messages.getString("SWTPTable.1")); //$NON-NLS-1$
+			MsgBox.show(EngLangCommonKeys.MSG_TABLE_WILL_BE_CUT); //$NON-NLS-1$
 	}
 
 	public void calculatePageLengths()

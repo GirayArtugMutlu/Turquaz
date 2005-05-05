@@ -351,11 +351,11 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 					String transType = ""; //$NON-NLS-1$
 					if (type.intValue() == EngBLCommon.COMMON_BUY_INT)
 					{
-						transType = EngBLCommon.COMMON_BUY_STRING;
+						transType = EngLangCommonKeys.COMMON_BUY_STRING;
 					}
 					else if (type.intValue() == EngBLCommon.COMMON_SELL_INT)
 					{
-						transType = EngBLCommon.COMMON_SELL_STRING;
+						transType = EngLangCommonKeys.COMMON_SELL_STRING;
 					}
 					item.setText(new String[]{DatePicker.formatter.format(consDate), transType, curCardCode,
 							curCardName, consDocNo, cf.format(totalAmount), cf.format(vatAmount),

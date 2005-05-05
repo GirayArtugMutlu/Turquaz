@@ -228,11 +228,11 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
 			if (consignment.getConsignmentsType() == 0)
 			{
-				compAddConsignment.getComboConsignmentType().setText(EngBLCommon.COMMON_BUY_STRING);
+				compAddConsignment.getComboConsignmentType().setText(EngLangCommonKeys.COMMON_BUY_STRING);
 			}
 			else
 			{
-				compAddConsignment.getComboConsignmentType().setText(EngBLCommon.COMMON_SELL_STRING);
+				compAddConsignment.getComboConsignmentType().setText(EngLangCommonKeys.COMMON_SELL_STRING);
 			}
 			compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
 			
@@ -321,7 +321,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			updated = true;
 			int type = EngBLCommon.COMMON_BUY_INT;
-			if (compAddConsignment.getComboConsignmentType().getText().equals(EngBLCommon.COMMON_SELL_STRING)) //$NON-NLS-1$
+			if (compAddConsignment.getComboConsignmentType().getText().equals(EngLangCommonKeys.COMMON_SELL_STRING)) //$NON-NLS-1$
 			{	
 				type = EngBLCommon.COMMON_SELL_INT;
 			}

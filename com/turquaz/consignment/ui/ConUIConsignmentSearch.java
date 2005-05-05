@@ -182,7 +182,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					comboConsignmentType = new CCombo(composite1, SWT.NONE);
 					GridData comboConsignmentTypeLData = new GridData();
-					comboConsignmentType.setText(EngBLCommon.COMMON_BUY_STRING);
+					comboConsignmentType.setText(EngLangCommonKeys.COMMON_BUY_STRING);
 					comboConsignmentTypeLData.widthHint = 135;
 					comboConsignmentTypeLData.heightHint = 17;
 					comboConsignmentType.setLayoutData(comboConsignmentTypeLData);
@@ -328,10 +328,10 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 
 	public void postInitGui()
 	{
-		comboConsignmentType.add(EngBLCommon.COMMON_BUY_STRING);
-		comboConsignmentType.add(EngBLCommon.COMMON_SELL_STRING);
-		comboConsignmentType.add(EngBLCommon.COMMON_ALL_STRING);
-		comboConsignmentType.setText(EngBLCommon.COMMON_ALL_STRING);
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_BUY_STRING);
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_SELL_STRING);
+		comboConsignmentType.add(EngLangCommonKeys.COMMON_ALL_STRING);
+		comboConsignmentType.setText(EngLangCommonKeys.COMMON_ALL_STRING);
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
 		createTableViewer();
@@ -349,11 +349,11 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 		{
 			tableViewer.removeAll();
 			int type = EngBLCommon.COMMON_ALL_INT;
-			if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_SELL_STRING))
+			if (comboConsignmentType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING))
 			{
 				type = EngBLCommon.COMMON_SELL_INT;
 			}
-			else if (comboConsignmentType.getText().equals(EngBLCommon.COMMON_BUY_STRING))
+			else if (comboConsignmentType.getText().equals(EngLangCommonKeys.COMMON_BUY_STRING))
 			{
 				type = EngBLCommon.COMMON_BUY_INT;
 			}

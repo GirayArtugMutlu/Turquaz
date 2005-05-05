@@ -50,7 +50,6 @@ import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.Messages;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -61,6 +60,9 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqViewBillTransTotal;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.dal.TurqViewInvPriceTotal;
+import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.lang.CurLangKeys;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
@@ -282,25 +284,25 @@ public class EngBLUtils
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
 		new PVSpace(doc, 0.1);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.8") + prop.getProperty("account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText( prop.getProperty("account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.10") + prop.getProperty("start_date")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText( prop.getProperty("start_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.12") + prop.getProperty("account_name")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText( prop.getProperty("account_name")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.14") + prop.getProperty("end_date")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText( prop.getProperty("end_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.16") + prop.getProperty("top_account")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(prop.getProperty("top_account")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		new PVSpace(doc, 0.1);
@@ -327,20 +329,20 @@ public class EngBLUtils
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
 		new PVSpace(doc, 0.1);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.2") + props.get("start_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(AccLangKeys.STR_START_ACCOUNT + props.get("start_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.0") + props.get("month")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_MONTH + props.get("month")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.6") + props.get("end_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(AccLangKeys.STR_END_ACCOUNT + props.get("end_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_REPORT_DATE + props.get("report_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		new PVSpace(doc, 0.1);
@@ -367,25 +369,25 @@ public class EngBLUtils
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
 		new PVSpace(doc, 0.1);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.2") + props.get("start_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(AccLangKeys.STR_START_ACCOUNT + props.get("start_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.4") + props.get("start_date")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_START_DATE+ props.get("start_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.6") + props.get("end_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(AccLangKeys.STR_END_ACCOUNT + props.get("end_account_code")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.GRAB | PBox.POS_RIGHT);
-		t.setText(Messages.getString("EngBLUtils.9") + props.get("end_date")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_END_DATE + props.get("end_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.13") + props.get("report_date")); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_REPORT_DATE + props.get("report_date")); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 8;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		new PVSpace(doc, 0.1);
@@ -407,7 +409,7 @@ public class EngBLUtils
 			BillDALSearchBill.initializeBill(bill);
 			Boolean balance=(Boolean)argMap.get(BillKeys.BILL_BALANCE);
 			if (EngConfiguration.getString("invoice_template") == null) { //$NON-NLS-1$
-				EngUICommon.showMessageBox(Display.getCurrent().getActiveShell(), Messages.getString("EngBLUtils.1"), SWT.ICON_WARNING); //$NON-NLS-1$
+				EngUICommon.showMessageBox(Display.getCurrent().getActiveShell(), EngLangCommonKeys.MSG_BILL_FORMAT_UNDEFINED, SWT.ICON_WARNING); //$NON-NLS-1$
 				return;
 			}
 			List list=BillBLSearchBill.getBillInfo(bill);
@@ -425,7 +427,7 @@ public class EngBLUtils
 			parameters.put("invoiceDiscount", discount); 
 			parameters.put("invoiceVAT", VAT);
 			parameters.put("invoiceGrandTotal", grandTotal); 
-			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal));
+			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCurrencyInWords(grandTotal));
 			parameters.put("invoiceDate",dformat.format(bill.getBillsDate())); 
 			parameters.put("dueDate", dformat.format(bill.getDueDate()));
 			TurqCurrentCard curCard = bill.getTurqCurrentCard();
@@ -520,7 +522,7 @@ public class EngBLUtils
 			parameters.put("invoiceDiscount", discount);
 			parameters.put("invoiceVAT", specialVAT);
 			parameters.put("invoiceGrandTotal", grandTotal);
-			parameters.put("invoiceGrandTotalText", EngBLCurrencyToWords.getTurkishCarrencyInWords(grandTotal));
+			parameters.put("invoiceGrandTotalText", EngBLCurrencyToWords.getTurkishCurrencyInWords(grandTotal));
 			TurqCurrentCard curCard = cons.getTurqCurrentCard();
 			parameters.put("currentName", curCard.getCardsName());
 			parameters.put("currentAddress", curCard.getCardsAddress());
@@ -608,13 +610,13 @@ public class EngBLUtils
 		// put some header text on it
 		PTextBox t;
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.92")); //$NON-NLS-1$
+		t.setText(EngLangCommonKeys.STR_CUR_DEPT_CREDIT_VOUCHER); //$NON-NLS-1$
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_CENTER;
 		new PVSpace(doc, 0.1);
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
 		new PVSpace(doc, 0.1);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.93") + "      "); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(CurLangKeys.STR_CUR_CODE + ":      "); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
@@ -623,7 +625,7 @@ public class EngBLUtils
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.94") + "    "); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(CurLangKeys.STR_CUR_NAME + ":    "); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
@@ -632,7 +634,7 @@ public class EngBLUtils
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.95") + "     "); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_DATE + ":     "); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
@@ -641,7 +643,7 @@ public class EngBLUtils
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.96") + "       "); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_DESCRIPTION + ":       "); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
@@ -650,7 +652,7 @@ public class EngBLUtils
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.97") + "      "); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_DEPT + ":      "); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
@@ -659,7 +661,7 @@ public class EngBLUtils
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
 		t = new PTextBox(doc);
-		t.setText(Messages.getString("EngBLUtils.98") + "  "); //$NON-NLS-1$ //$NON-NLS-2$
+		t.setText(EngLangCommonKeys.STR_CREDIT + ":  "); //$NON-NLS-1$ //$NON-NLS-2$
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
@@ -668,7 +670,7 @@ public class EngBLUtils
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
 		new PHLine(doc, 0.02, SWT.COLOR_BLACK);
-		PrintPreview pr = new PrintPreview(null, Messages.getString("EngBLUtils.99"), IconSource.getImage("print"), doc); //$NON-NLS-1$ //$NON-NLS-2$
+		PrintPreview pr = new PrintPreview(null, EngLangCommonKeys.STR_PRINT_PREVIEW, IconSource.getImage("print"), doc); //$NON-NLS-1$ //$NON-NLS-2$
 		pr.open();
 	}
 }
