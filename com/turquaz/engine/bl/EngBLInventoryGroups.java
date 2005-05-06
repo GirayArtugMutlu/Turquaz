@@ -3,6 +3,7 @@ package com.turquaz.engine.bl;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 public class EngBLInventoryGroups
@@ -84,6 +85,7 @@ public class EngBLInventoryGroups
 				return;
 			}
 			_instance.fillInventoryGroups();
+			TurquazContentAssistant.refreshContentAssistant(EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS);
 		}
 		catch (Exception ex)
 		{

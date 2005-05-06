@@ -8,6 +8,7 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 /************************************************************************/
 /* TURQUAZ: Higly Modular Accounting/ERP Program                        */
@@ -132,6 +133,7 @@ public class EngBLCurrentCards
 				return;
 			}
 			_instance.fillCurrentCards();
+			TurquazContentAssistant.refreshContentAssistant(EngBLCommon.CONTENT_ASSIST_CURRENT);
 		}
 		catch (Exception ex)
 		{

@@ -25,6 +25,7 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLAccountingAccounts
 {
@@ -203,6 +204,7 @@ public class EngBLAccountingAccounts
 				return;
 			}
 			_instance.fillAccountList();
+			TurquazContentAssistant.refreshContentAssistant(EngBLCommon.CONTENT_ASSIST_ACCOUNTING);
 		}
 		catch (Exception ex)
 		{

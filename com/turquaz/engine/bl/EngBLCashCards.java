@@ -6,6 +6,7 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLCashCards
 {
@@ -91,6 +92,7 @@ public class EngBLCashCards
 				return;
 			}
 			_instance.fillCashCards();
+			TurquazContentAssistant.refreshContentAssistant(EngBLCommon.CONTENT_ASSIST_CASH);
 		}
 		catch (Exception ex)
 		{

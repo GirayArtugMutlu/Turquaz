@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLBankCards
 {
@@ -85,6 +86,7 @@ public class EngBLBankCards
 				return;
 			}
 			_instance.fillBankCards();
+			TurquazContentAssistant.refreshContentAssistant(EngBLCommon.CONTENT_ASSIST_BANK);
 		}
 		catch (Exception ex)
 		{

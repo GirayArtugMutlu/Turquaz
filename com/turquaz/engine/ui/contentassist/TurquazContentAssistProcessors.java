@@ -105,56 +105,55 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 	{
 		try
 		{
-		int type=((Integer)argMap.get(EngKeys.TYPE)).intValue();
-		List proposed = new ArrayList();
-		if (type == 0)
-		{
-			fillAccountingModuleArray();
+			int type = ((Integer) argMap.get(EngKeys.TYPE)).intValue();
+			List proposed = new ArrayList();
+			if (type == 0)
+			{
+				fillAccountingModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY)
+			{
+				fillInvCardModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES)
+			{
+				fillAccountingModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT)
+			{
+				fillCurrentModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_CASH)
+			{
+				fillCashModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH)
+			{
+				fillAccountingModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT_CODE)
+			{
+				fillCurrentModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_BANK)
+			{
+				fillBankModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS)
+			{
+				fillInvGroupModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS)
+			{
+				fillAccountingModuleArray();
+			}
+			else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
+			{
+				fillInvCardModuleArray();
+			}
 		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY)
+		catch (Exception ex)
 		{
-			fillInvCardModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES)
-		{
-			fillAccountingModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT)
-		{
-			fillCurrentModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_CASH)
-		{
-			fillCashModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH)
-		{
-			fillAccountingModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_CURRENT_CODE)
-		{
-			fillCurrentModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_BANK)
-		{
-			fillBankModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS)
-		{
-			fillInvGroupModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS)
-		{
-			fillAccountingModuleArray();
-		}
-		else if (type == EngBLCommon.CONTENT_ASSIST_INVENTORY_NAME)
-		{
-			fillInvCardModuleArray();
-		}
-		}
-		catch(Exception ex)
-		{
-           
 			throw ex;
 		}
 	}

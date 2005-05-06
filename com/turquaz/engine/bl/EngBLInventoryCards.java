@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 
@@ -135,6 +136,8 @@ public class EngBLInventoryCards
 				return;
 			}
 			_instance.fillInventoryList();
+			TurquazContentAssistant.refreshContentAssistant(EngBLCommon.CONTENT_ASSIST_INVENTORY);
+			
 		}
 		catch (Exception ex)
 		{
