@@ -107,7 +107,7 @@ public class CashBLCashTransactionAdd
 				cashTransRow.setTransactionDefinition(definition);
 				cashTransRow.setTurqAccountingAccount(account);
 				cashTransRow.setTurqCurrencyExchangeRate(exchangeRate);
-				if (type == EngBLCommon.CASH_CURRENT_COLLECT || type == EngBLCommon.CASH_CHEQUE_COLLECT)
+				if (type == EngBLCommon.CASH_CURRENT_COLLECT || type == EngBLCommon.CASH_CHEQUE_COLLECT||type==EngBLCommon.CASH_BILL_COLLECT)
 				{
 					cashTransRow.setDeptAmountInForeignCurrency((BigDecimal) totals.get(i));
 					cashTransRow.setDeptAmount(((BigDecimal) totals.get(i)).multiply(exchangeRate.getExchangeRatio()).setScale(2,
@@ -115,7 +115,7 @@ public class CashBLCashTransactionAdd
 					cashTransRow.setCreditAmountInForeignCurrency(new BigDecimal(0));
 					cashTransRow.setCreditAmount(new BigDecimal(0));
 				}
-				else if (type == EngBLCommon.CASH_CURRENT_PAYMENT)
+				else if (type == EngBLCommon.CASH_CURRENT_PAYMENT||type==EngBLCommon.CASH_BILL_PAYMENT)
 				{
 					cashTransRow.setDeptAmount(new BigDecimal(0));
 					cashTransRow.setDeptAmountInForeignCurrency(new BigDecimal(0));

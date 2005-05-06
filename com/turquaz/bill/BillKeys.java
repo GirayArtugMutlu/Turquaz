@@ -34,4 +34,5 @@ public class BillKeys
 	public static String BILL_DELETE_CONS="billDeleteCons";
 	public static String BILL_SAVE_CONS = "billSaveCons";
 	public static String BILL_CHECK="billCheck";
+    public static String BILL_IS_OPEN ="billIsOpen";
 }

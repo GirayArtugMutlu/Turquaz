@@ -81,6 +81,9 @@ public class EngBLCommon
 	// Tahsilat?
 	public final static int CASH_INITIAL_TRANSACTION = 6; //Kasa Acilis..
 	
+    public final static int CASH_BILL_COLLECT =7; //Kapali Satis Faturasi
+    
+    public final static int CASH_BILL_PAYMENT =8; //Kapali Alis Faturasi
 	
 	
 	public final static int ACCOUNTING_TRANS_COLLECT = 0; //Tahsil

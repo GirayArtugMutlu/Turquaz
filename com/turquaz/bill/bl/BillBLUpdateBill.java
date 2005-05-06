@@ -10,6 +10,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALUpdateBill;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -18,6 +19,7 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -170,9 +172,11 @@ public class BillBLUpdateBill
 			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);			
 			Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
-			
+			TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+            Boolean isOpen = (Boolean)argMap.get(BillKeys.BILL_IS_OPEN);
+            
 			int result[] = new int[2];
-			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted.booleanValue(), dueDate, type.intValue(), true, exchangeRate,billCheck);
+			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted.booleanValue(), dueDate, type.intValue(),isOpen.booleanValue(), exchangeRate,billCheck);
 			result[0] = updateInventoryTransactions(bill, invTransactions);
 			updateBillGroups(bill, billGroups);
 			//Update Transactions
@@ -180,7 +184,8 @@ public class BillBLUpdateBill
 			deleteCurrentTransactions(bill);
 			BillBLAddBill.saveCurrentTransaction(bill, totalAmount, discountAmount);
 			EngDALCommon.updateObject(bill);
-			result[1] = BillBLAddBill.saveAccountingTransaction(bill);
+			result[1] = BillBLAddBill.saveAccountingTransaction(bill,cashCard,totalAmount);
+            
 			return result;
 		}
 		catch (Exception ex)

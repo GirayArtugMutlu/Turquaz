@@ -16,6 +16,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.cash.CashKeys;
+import com.turquaz.engine.ui.EngUICommon;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SearchDialogMenu;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -74,10 +77,14 @@ public class CashUICashCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 				compCashSearch = new Composite(dialogShell, SWT.NONE);
 				GridLayout compCashSearchLayout = new GridLayout();
 				compCashSearchLayout.numColumns = 2;
+				GridData compCashSearchLData = new GridData();
+				compCashSearchLData.widthHint = 237;
+				compCashSearchLData.heightHint = 27;
+				compCashSearch.setLayoutData(compCashSearchLData);
 				compCashSearch.setLayout(compCashSearchLayout);
 				{
 					cashName = new CLabel(compCashSearch, SWT.NONE);
-					cashName.setText(CashLangKeys.STR_CASH_NAME);
+					cashName.setText(CashLangKeys.STR_CASH_CARD);
 				}
 				{
 					txtCashName = new Text(compCashSearch, SWT.NONE);
@@ -95,19 +102,24 @@ public class CashUICashCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 				tableCashSearchLData.grabExcessVerticalSpace = true;
 				tableCashSearchLData.verticalAlignment = GridData.FILL;
 				tableCashSearchLData.horizontalAlignment = GridData.FILL;
-				tableCashSearch = new Table(dialogShell, SWT.NONE);
+				tableCashSearch = new Table(dialogShell, SWT.FULL_SELECTION);
 				tableCashSearch.setLayoutData(tableCashSearchLData);
 				tableCashSearch.setHeaderVisible(true);
 				tableCashSearch.setLinesVisible(true);
+                tableCashSearch.addMouseListener(new MouseAdapter() {
+                    public void mouseDoubleClick(MouseEvent evt) {
+                        choose();
+                    }
+                });
 				{
 					colCashName = new TableColumn(tableCashSearch, SWT.NONE);
-					colCashName.setText(CashLangKeys.STR_CASH_NAME);
-					colCashName.setWidth(80);
+					colCashName.setText(CashLangKeys.STR_CASH_CARD);
+					colCashName.setWidth(113);
 				}
 				{
 					colDefinition = new TableColumn(tableCashSearch, SWT.NONE);
 					colDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
-					colDefinition.setWidth(80);
+					colDefinition.setWidth(279);
 				}
 			}
 			if (!cardCodeReturn.equals(""))
@@ -117,6 +129,7 @@ public class CashUICashCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 			dialogShell.layout();
 			dialogShell.pack();
 			dialogShell.setSize(482, 369);
+           EngUICommon.centreWindow(dialogShell);
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed()) {

@@ -12,6 +12,8 @@ import com.turquaz.accounting.bl.AccBLTransactionAdd;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALAddBill;
+import com.turquaz.cash.CashKeys;
+import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
@@ -25,6 +27,7 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
+import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -59,8 +62,11 @@ public class BillBLAddBill
 		List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
 		Boolean saveCons = (Boolean)argMap.get(BillKeys.BILL_SAVE_CONS);
 		Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
-		
-		registerBill(bill,billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,billCheck);
+		Boolean isOpen = (Boolean)argMap.get(BillKeys.BILL_IS_OPEN);
+        TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+        
+        
+		registerBill(bill,billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,billCheck,isOpen.booleanValue());
 		TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
 		TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
 		billInEng.setTurqEngineSequence(engSeq);
@@ -73,10 +79,15 @@ public class BillBLAddBill
 		if(consDocNo!=null&&consDate!=null&&saveCons.booleanValue())
 		{
 			ConBLAddConsignment.saveConsignmentFromBill(consDocNo,billDocNo,definition,isPrinted,consDate,type,currentCard,exchangeRate,engSeq);
-		}
+		}		
+        System.out.println(totalAmount);
+        saveCashTransaction(bill,cashCard,totalAmount);
+       
+        int result = saveAccountingTransaction(bill,cashCard,totalAmount);
+             
+        
 		
-		int result = saveAccountingTransaction(bill);
-		return new Integer(result);		
+        return new Integer(result);		
 	}
 
 	private static void saveBillGroups(Integer billId, List billGroups) throws Exception
@@ -107,10 +118,11 @@ public class BillBLAddBill
 			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 			Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
-
+            TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+            
 			// Save Bill
 			TurqBill  bill  = new TurqBill();
-			registerBill(bill,docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,billCheck);
+			registerBill(bill,docNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,billCheck,true);
 			//Then Save Bill Groups
 			for (int i = 0; i < consList.size(); i++)
 			{
@@ -123,7 +135,7 @@ public class BillBLAddBill
 			}
 			saveBillGroups(bill.getId(), billGroups);
 			saveCurrentTransaction(bill, totalAmount, discountAmount);
-			saveAccountingTransaction(bill);
+			saveAccountingTransaction(bill,cashCard, totalAmount);
 			return bill;
 		}
 		catch (Exception ex)
@@ -146,7 +158,7 @@ public class BillBLAddBill
 	 * @throws Exception
 	 */
 	private static TurqBill registerBill(TurqBill bill,String docNo, String definition, boolean isPrinted, Date billsDate, int type, Date dueDate,
-			TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate,Integer billCheck) throws Exception
+			TurqCurrentCard curCard, TurqCurrencyExchangeRate exchangeRate,Integer billCheck,boolean isOpen) throws Exception
 	{
 		try
 		{
@@ -160,7 +172,7 @@ public class BillBLAddBill
 			Calendar cal = Calendar.getInstance();
 			bill.setLastModified(cal.getTime());
 			bill.setCreationDate(cal.getTime());
-			bill.setIsOpen(true);
+			bill.setIsOpen(isOpen);
 			bill.setDueDate(dueDate);
 			bill.setBillDocumentNo(docNo);
 			bill.setTurqCurrentCard(curCard);
@@ -175,6 +187,35 @@ public class BillBLAddBill
 		}
 	}
 	
+    private static void saveCashTransaction(TurqBill bill,TurqCashCard cashCard,BigDecimal totalAmount)throws Exception
+    {
+        if(bill.isIsOpen())
+        {
+            return;           
+        }
+        
+        int type = EngBLCommon.CASH_BILL_COLLECT;
+        
+        if(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY)
+        {
+            type = EngBLCommon.CASH_BILL_PAYMENT;
+        }
+        
+        List totals = new ArrayList();
+        totals.add(totalAmount);
+        TurqAccountingAccount account = new TurqAccountingAccount();
+        account.setId(new Integer(-1));
+        
+        CashBLCashTransactionAdd.saveCashTransaction(cashCard,bill.getTurqEngineSequence(),type,bill.getBillsDate(),"FT. NO:"+bill.getBillDocumentNo(),bill.getBillDocumentNo(),totals,account,bill.getTurqCurrencyExchangeRate());
+        
+        
+        
+        
+        
+        
+        
+    }
+    
 	public static void checkBillDocNo(String docNo,Integer billCheck,int type,Integer curCardId, Integer billId) throws Exception
 	{
 		int billCheckValue=billCheck.intValue();
@@ -447,13 +488,73 @@ public class BillBLAddBill
 		
 	}
 
-	public static int saveAccountingTransaction(TurqBill bill) throws Exception
+	public static int saveAccountingTransaction(TurqBill bill, TurqCashCard cashCard, BigDecimal totalAmount) throws Exception
 	{
 		Map creditAccounts = new HashMap();
 		Map deptAccounts = new HashMap();
 		String billDefinition = "FT " + bill.getBillDocumentNo() + " " + bill.getTurqCurrentCard().getCardsName();
 		int saved = prepareAccountsForAccountingIntgretion(bill, creditAccounts, deptAccounts);
-		if (saved == 1)
+     
+        if(!bill.isIsOpen())
+        {
+            
+            TurqAccountingAccount cashAccount = null;
+            if(cashCard != null)
+            {
+                cashAccount = cashCard.getTurqAccountingAccount();
+            }
+            TurqAccountingAccount curAccount = CurBLCurrentCardSearch.getCurrentAccountingAccount(bill.getTurqCurrentCard(),
+                    EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
+            
+            if(cashAccount == null||curAccount == null)
+            {
+                
+            }
+            else
+            {
+            if(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY)
+            {
+                List creditList = (List)creditAccounts.get(cashAccount.getId());
+                if(creditList == null)
+                {
+                    creditList = new ArrayList();
+                }
+                creditList.add(totalAmount);
+                creditAccounts.put(cashAccount.getId(),creditList);
+                
+                List deptList = (List)deptAccounts.get(curAccount.getId());
+                if(deptList == null)
+                {
+                    deptList = new ArrayList();
+                }
+                deptList.add(totalAmount);
+                deptAccounts.put(curAccount.getId(),deptList);                
+            }
+            else 
+            {
+                List creditList = (List)creditAccounts.get(curAccount.getId());
+                if(creditList == null)
+                {
+                    creditList = new ArrayList();
+                }
+                creditList.add(totalAmount);
+                creditAccounts.put(curAccount.getId(),creditList);
+                
+                List deptList = (List)deptAccounts.get(cashAccount.getId());
+                if(deptList == null)
+                {
+                    deptList = new ArrayList();
+                }
+                deptList.add(totalAmount);
+                deptAccounts.put(cashAccount.getId(),deptList);                
+            }
+            
+            }
+        
+        }
+        
+        
+        if (saved == 1)
 		{
 			boolean isSaved = AccBLTransactionAdd.saveAccTransaction(bill.getBillsDate(), bill.getBillDocumentNo(), 2,
 					EngBLCommon.MODULE_BILL, bill.getTurqEngineSequence().getId(), billDefinition, bill.getTurqCurrencyExchangeRate(),

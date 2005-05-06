@@ -136,7 +136,10 @@ public class ConBLUpdateConsignment
 			BillBLUpdateBill.deleteAccountingTransactions(billEngSeq.getTurqBill());
 			BillBLUpdateBill.deleteCurrentTransactions(billEngSeq.getTurqBill());
 			BillBLAddBill.saveCurrentTransaction(billEngSeq.getTurqBill(),results[0],results[1]);
-			BillBLAddBill.saveAccountingTransaction(billEngSeq.getTurqBill());			
+			/**
+             * TODO Burayi Sakin atlama
+			 */
+            BillBLAddBill.saveAccountingTransaction(billEngSeq.getTurqBill(),null,null);			
 		}
 	}
 	

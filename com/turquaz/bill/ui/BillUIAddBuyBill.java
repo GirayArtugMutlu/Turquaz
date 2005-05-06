@@ -49,6 +49,8 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import com.turquaz.cash.CashKeys;
+import com.turquaz.cash.ui.comp.CashCardPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -69,6 +71,7 @@ import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -203,6 +206,8 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	private Composite compTotalsPanel;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private CashCardPicker cashPicher;
+	private Button btnClosedBill;
 	private DatePicker datePickerConsDate;
 	private CLabel lblConsDate;
 	private CCombo comboCurrencyType;
@@ -270,7 +275,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	private final String TOTAL_PRICE_AFTER_DISCOUNT = EngLangCommonKeys.STR_DISCOUNTED_TOTALPRICE;
 	private final String VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
 	private final String VAT_TOTAL = InvLangKeys.STR_VAT_TOTAL;
-	private final String SPECIAL_VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+	private final String SPECIAL_VAT_PERCENT = InvLangKeys.STR_SPEC_VAT_PERC;
 	private final String SPECIAL_VAT_TOTAL = InvLangKeys.STR_SPEC_VAT_TOTAL;
 	private final String ROW_TOTAL = InvLangKeys.STR_TRANSROW_TOTAL;
 	private final int BILL_TYPE = 0;
@@ -295,7 +300,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
-			this.setSize(995, 550);
+			this.setSize(1262, 571);
 			{
 				cTabFolder1 = new CTabFolder(this, SWT.NONE);
 				cTabFolder1.setSize(56, 25);
@@ -321,7 +326,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 180;
+							compInfoPanelLData.heightHint = 187;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -434,9 +439,30 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 							GridData comboCurrencyTypeLData = new GridData();
 							comboCurrencyTypeLData.widthHint = 135;
 							comboCurrencyTypeLData.heightHint = 17;
-							comboCurrencyTypeLData.horizontalSpan = 3;
 							comboCurrencyType.setLayoutData(comboCurrencyTypeLData);
 							//END << comboCurrencyType
+                            //START >>  btnClosedBill
+                            btnClosedBill = new Button(compInfoPanel, SWT.CHECK | SWT.LEFT);
+                            btnClosedBill.setText("Kapal\u0131 Fatura");
+                            btnClosedBill.addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                   if(btnClosedBill.getSelection())
+                                   {
+                                    cashPicher.setVisible(true);
+                                   }
+                                   else
+                                       cashPicher.setVisible(false);
+                                }
+                            });
+                            //END <<  btnClosedBill
+                            //START >>  cashPicher
+                            GridData cashPicherLData = new GridData();
+                            cashPicherLData.widthHint = 150;
+                            cashPicherLData.heightHint = 18;
+                            cashPicher = new CashCardPicker(compInfoPanel, SWT.NONE);
+                            cashPicher.setLayoutData(cashPicherLData);
+                            cashPicher.setVisible(false);
+                            //END <<  cashPicher
 							{
 								lblDefinition = new CLabel(compInfoPanel, SWT.LEFT);
 								lblDefinition.setText(EngLangCommonKeys.STR_DESCRIPTION);
@@ -939,6 +965,15 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				comboWareHouse.setFocus();
 				return false;
 			}
+            else if(btnClosedBill.getSelection())
+            {
+                if(cashPicher.getTurqCashCard()==null)
+                {
+                    EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CASH_CARD,SWT.ICON_WARNING);
+                    cashPicher.setFocus();
+                    return false;
+                }
+            }
 			boolean isExistEntry = false;
 			TableItem items[] = tableConsignmentRows.getItems();
 			for (int k = 0; k < items.length; k++)
@@ -1067,13 +1102,14 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				argMap.put(ConsKeys.CONS_DOC_NO,txtConsignmentDocumentNo.getText());
 				argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
 				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
-				
+				argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!btnClosedBill.getSelection()));
+               
+                argMap.put(CashKeys.CASH_CARD,cashPicher.getData());
 				Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
 				if(result.intValue()!=1)
 				{
 					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ACCOUNTING_ENTEGRATION_COULDNT_BE_MADE, SWT.ICON_WARNING);
 				}
-				
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}

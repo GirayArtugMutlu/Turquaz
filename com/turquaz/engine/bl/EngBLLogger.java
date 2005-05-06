@@ -18,7 +18,7 @@ public class EngBLLogger {
 	
 	public static void log(Class cls,Exception ex,Shell shell)
 	{
-		
+        ex.printStackTrace();
 		MessageBox msg = new MessageBox(shell, SWT.NULL);
 		if (ex.getMessage()== null)
 		{
@@ -47,7 +47,7 @@ public class EngBLLogger {
 			Logger loger = Logger.getLogger(cls);        
 			loger.error("Exception Caught", ex);
 		}
-		ex.printStackTrace();
+		
 		
 	}
 	
