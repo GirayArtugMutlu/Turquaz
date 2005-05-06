@@ -147,6 +147,14 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite implements
 	public void setData(Object obj)
 	{
 		super.setData(obj);
+        if(obj !=null)
+        {
+            if(obj instanceof TurqCashCard)
+            {
+                TurqCashCard cashCard = (TurqCashCard)obj;
+                text1.setText(cashCard.getCashCardName());
+            }
+        }
 	}
 	public Object getDBData()
 	{

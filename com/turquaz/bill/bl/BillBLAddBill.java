@@ -187,9 +187,9 @@ public class BillBLAddBill
 		}
 	}
 	
-    private static void saveCashTransaction(TurqBill bill,TurqCashCard cashCard,BigDecimal totalAmount)throws Exception
+    public static void saveCashTransaction(TurqBill bill,TurqCashCard cashCard,BigDecimal totalAmount)throws Exception
     {
-        if(bill.isIsOpen())
+       if(bill.isIsOpen())
         {
             return;           
         }
@@ -199,7 +199,7 @@ public class BillBLAddBill
         if(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_BUY)
         {
             type = EngBLCommon.CASH_BILL_PAYMENT;
-        }
+       }
         
         List totals = new ArrayList();
         totals.add(totalAmount);
@@ -209,7 +209,7 @@ public class BillBLAddBill
         CashBLCashTransactionAdd.saveCashTransaction(cashCard,bill.getTurqEngineSequence(),type,bill.getBillsDate(),"FT. NO:"+bill.getBillDocumentNo(),bill.getBillDocumentNo(),totals,account,bill.getTurqCurrencyExchangeRate());
         
         
-        
+       
         
         
         

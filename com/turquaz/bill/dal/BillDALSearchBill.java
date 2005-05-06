@@ -11,6 +11,7 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
+import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewBillTransTotal;
 
@@ -84,6 +85,13 @@ public class BillDALSearchBill
 					TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
 					Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqConsignments());
 					Hibernate.initialize(billInEng.getTurqEngineSequence().getTurqInventoryTransactions());
+                    Hibernate.initialize(bill.getTurqEngineSequence().getTurqCashTransactions());
+                    Iterator it2 = bill.getTurqEngineSequence().getTurqCashTransactions().iterator();
+                    while(it2.hasNext())
+                    {
+                        TurqCashTransaction cashTrans = (TurqCashTransaction)it2.next();
+                        Hibernate.initialize(cashTrans.getTurqCashTransactionRows());
+                    }
 				}
 				
 			}

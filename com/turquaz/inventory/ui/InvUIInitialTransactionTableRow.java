@@ -236,6 +236,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 						formatted = "0";
 					}
 					invTrans.setTotalPriceInForeignCurrency(new BigDecimal(formatted));
+                    invTrans.setTotalPrice(new BigDecimal(formatted));
 				}
 				break;
 			default :

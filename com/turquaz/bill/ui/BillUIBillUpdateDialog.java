@@ -9,6 +9,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -19,6 +20,8 @@ import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqBillInGroup;
+import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.lang.BillLangKeys;
@@ -221,6 +224,26 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			
 			compAddBill.getDateDueDate().setDate(bill.getDueDate());
 			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
+            if(!bill.isIsOpen())
+            {
+                compAddBill.getBtnClosedBill().setSelection(true);
+                compAddBill.getCashPicker().setVisible(true);
+                Iterator it = bill.getTurqEngineSequence().getTurqCashTransactions().iterator();
+                if(it.hasNext())
+                {
+                    TurqCashTransaction cashTrans = (TurqCashTransaction)it.next();
+                    Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
+                    while(it2.hasNext())
+                    {
+                        TurqCashTransactionRow transRow = (TurqCashTransactionRow)it2.next();
+                        compAddBill.getCashPicker().setData(transRow.getTurqCashCard());
+                        
+                        
+                    }
+                    
+                }
+                
+            }
 			fillInvTransactionColumns();
 			fillRegisteredGroup();
 			EngUICommon.centreWindow(dialogShell);
@@ -307,7 +330,9 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(BillKeys.BILL_GROUPS,compAddBill.getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,compAddBill.getInventoryTransactions());	
 				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
-				
+				argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!compAddBill.getBtnClosedBill().getSelection()));
+                argMap.put(CashKeys.CASH_CARD,compAddBill.getCashPicker().getData());
+                
 				int[] result=(int[])EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"updateBill",argMap);
 				
 				if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)

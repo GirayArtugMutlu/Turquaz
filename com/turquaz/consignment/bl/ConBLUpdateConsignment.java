@@ -29,6 +29,9 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
+import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -135,11 +138,30 @@ public class ConBLUpdateConsignment
 			BigDecimal results[] = BillBLAddBill.getTotalAndDiscountAmount(billEngSeq.getTurqBill());
 			BillBLUpdateBill.deleteAccountingTransactions(billEngSeq.getTurqBill());
 			BillBLUpdateBill.deleteCurrentTransactions(billEngSeq.getTurqBill());
-			BillBLAddBill.saveCurrentTransaction(billEngSeq.getTurqBill(),results[0],results[1]);
-			/**
-             * TODO Burayi Sakin atlama
-			 */
-            BillBLAddBill.saveAccountingTransaction(billEngSeq.getTurqBill(),null,null);			
+			
+            BillBLAddBill.saveCurrentTransaction(billEngSeq.getTurqBill(),results[0],results[1]);
+			 
+            EngDALCommon.initializeObject(billEngSeq.getTurqBill().getTurqEngineSequence(),"getTurqCashTransactions");
+            TurqCashCard cashCard = null;
+            Iterator it2 = billEngSeq.getTurqBill().getTurqEngineSequence().getTurqCashTransactions().iterator();
+            while(it2.hasNext())
+            {
+               
+              TurqCashTransaction cashTrans = (TurqCashTransaction)it2.next();
+              EngDALCommon.initializeObject(cashTrans,"getTurqCashTransactionRows");
+              Iterator it3 = cashTrans.getTurqCashTransactionRows().iterator();
+              while(it3.hasNext())
+              {
+                  TurqCashTransactionRow transRow = (TurqCashTransactionRow)it3.next();
+                  cashCard = transRow.getTurqCashCard();
+                  
+              }
+                
+                
+            } 
+            BillBLUpdateBill.deleteCashTransaction(billEngSeq.getTurqBill());
+            BillBLAddBill.saveCashTransaction(billEngSeq.getTurqBill(),cashCard,results[0]);
+            BillBLAddBill.saveAccountingTransaction(billEngSeq.getTurqBill(),cashCard,results[0]);			
 		}
 	}
 	

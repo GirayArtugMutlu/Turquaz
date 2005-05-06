@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.cash.CashKeys;
+import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -20,6 +21,7 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -112,6 +114,25 @@ public class BillBLUpdateBill
 		}
 		
 	}
+    
+    public static void deleteCashTransaction(TurqBill bill)throws Exception
+    {
+        if(bill.isIsOpen())
+        {
+            return;
+        }
+        else
+        {
+            EngDALCommon.initializeObject(bill.getTurqEngineSequence(),"getTurqCashTransactions");
+            
+            Iterator it = bill.getTurqEngineSequence().getTurqCashTransactions().iterator();
+            while(it.hasNext())
+            {
+                CashBLCashTransactionUpdate.deleteOnlyCashTransaction((TurqCashTransaction)it.next());
+            }
+        }
+        
+    }
 
 	public static void deleteBill(HashMap argMap) throws Exception
 	{
@@ -182,10 +203,11 @@ public class BillBLUpdateBill
 			//Update Transactions
 			deleteAccountingTransactions(bill);
 			deleteCurrentTransactions(bill);
+            deleteCashTransaction(bill);
 			BillBLAddBill.saveCurrentTransaction(bill, totalAmount, discountAmount);
 			EngDALCommon.updateObject(bill);
 			result[1] = BillBLAddBill.saveAccountingTransaction(bill,cashCard,totalAmount);
-            
+            BillBLAddBill.saveCashTransaction(bill,cashCard,totalAmount);
 			return result;
 		}
 		catch (Exception ex)

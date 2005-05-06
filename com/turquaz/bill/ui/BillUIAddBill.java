@@ -48,6 +48,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import com.turquaz.cash.ui.comp.CashCardPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -211,6 +212,8 @@ public class BillUIAddBill extends Composite implements SecureComposite
 	private Composite compTotalsPanel;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private CashCardPicker cashPicker;
+	private Button btnClosedBill;
 	private Text txtConsignmentDate;
 	private CLabel lblConsignmentDate;
 	private TableColumn tableColumnAmountAfterDiscount;
@@ -331,7 +334,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 157;
+							compInfoPanelLData.heightHint = 178;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -458,6 +461,29 @@ public class BillUIAddBill extends Composite implements SecureComposite
 								txtDefinitionLData.horizontalSpan = 3;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
+                            //START >>  btnClosedBill
+                            btnClosedBill = new Button(compInfoPanel, SWT.CHECK | SWT.LEFT);
+                            btnClosedBill.setText("Kapal\u0131 Fatura");
+                            btnClosedBill.addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                  if(btnClosedBill.getSelection())
+                                  {
+                                      cashPicker.setVisible(true);
+                                  }
+                                  else
+                                      cashPicker.setVisible(false);
+                                    
+                                }
+                            });
+                            //END <<  btnClosedBill
+                            //START >>  cashPicker
+                            GridData cashPickerLData = new GridData();
+                            cashPickerLData.widthHint = 221;
+                            cashPickerLData.heightHint = 17;
+                            cashPicker = new CashCardPicker(compInfoPanel, SWT.NONE);
+                            cashPicker.setLayoutData(cashPickerLData);
+                            cashPicker.setVisible(false);
+                            //END <<  cashPicker
 						}
 						{
 							tableConsignmentRows = new Table(compGeneral, SWT.FULL_SELECTION | SWT.HIDE_SELECTION | SWT.BORDER);
@@ -1041,6 +1067,18 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		decSpecialVat.setText(totalSpecVAT);
 		txtTotalAmount.setText(generalTotal.subtract(discountTotal));
 	}
+
+    public Button getBtnClosedBill()
+    {
+        return btnClosedBill;
+    }
+    
+
+    public CashCardPicker getCashPicker()
+    {
+        return cashPicker;
+    }
+    
 
 	
 }

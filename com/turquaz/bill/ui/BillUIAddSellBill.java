@@ -49,6 +49,8 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.ui.comp.CurrentPicker;
+import com.turquaz.cash.CashKeys;
+import com.turquaz.cash.ui.comp.CashCardPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -68,6 +70,7 @@ import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -201,6 +204,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 	private Composite compTotalsPanel;
 	private Text txtConsignmentDocumentNo;
 	private CLabel lblInventoryPrice;
+	private CashCardPicker cashPicker;
+	private Button btnClosedBill;
 	private DatePicker datePickerConsDate;
 	private CLabel lblConsignemntDate;
 	private TableColumn tableColumnAmountAfterDiscount;
@@ -314,7 +319,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 							GridData compInfoPanelLData = new GridData();
 							compInfoPanelLData.horizontalSpan = 2;
 							compInfoPanelLData.horizontalAlignment = GridData.FILL;
-							compInfoPanelLData.heightHint = 147;
+							compInfoPanelLData.heightHint = 172;
 							compInfoPanelLData.grabExcessHorizontalSpace = true;
 							compInfoPanel.setLayoutData(compInfoPanelLData);
 							compInfoPanelLayout.numColumns = 4;
@@ -426,6 +431,30 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 								txtDefinitionLData.horizontalSpan = 3;
 								txtDefinition.setLayoutData(txtDefinitionLData);
 							}
+                            //START >>  btnClosedBill
+                            btnClosedBill = new Button(compInfoPanel, SWT.CHECK | SWT.LEFT);
+                            btnClosedBill.setText("Kapal\u0131 Fatura");
+                            btnClosedBill.addSelectionListener(new SelectionAdapter() {
+                                public void widgetSelected(SelectionEvent evt) {
+                                  if(btnClosedBill.getSelection())
+                                  {
+                                      cashPicker.setVisible(true);
+                                  }
+                                  else
+                                  {
+                                      cashPicker.setVisible(false);
+                                  }
+                                }
+                            });
+                            //END <<  btnClosedBill
+                            //START >>  cashPicker
+                            GridData cashPickerLData = new GridData();
+                            cashPickerLData.widthHint = 241;
+                            cashPickerLData.heightHint = 17;
+                            cashPicker = new CashCardPicker(compInfoPanel, SWT.NONE);
+                            cashPicker.setLayoutData(cashPickerLData);
+                            cashPicker.setVisible(false);
+                            //END <<  cashPicker
 						}
 						{
 							tableConsignmentRows = new Table(compGeneral, SWT.FULL_SELECTION | SWT.HIDE_SELECTION | SWT.BORDER);
@@ -915,6 +944,15 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 			cursor.setFocus();
 			return false;
 		}
+         if(btnClosedBill.getSelection())
+        {
+            if(cashPicker.getTurqCashCard()==null)
+            {
+                EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CASH_CARD,SWT.ICON_WARNING);
+                cashPicker.setFocus();
+                return false;
+            }
+        }
 		boolean isExistEntry = false;
 		TableItem items[] = tableConsignmentRows.getItems();
 		for (int k = 0; k < items.length; k++)
@@ -988,7 +1026,8 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 				argMap.put(ConsKeys.CONS_DOC_NO,txtConsignmentDocumentNo.getText());
 				argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
 				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());		
-				
+                argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!btnClosedBill.getSelection()));
+                argMap.put(CashKeys.CASH_CARD,cashPicker.getData());
 				Integer result = (Integer) EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(), "saveBillFromBill", argMap);
 
 				if (result.intValue() != 1)
