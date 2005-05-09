@@ -257,8 +257,8 @@ public class EngLangCommonKeys {
     public final static String STR_BILLS = Messages.getString("EngLangCommonKeys.224"); //$NON-NLS-1$
     public final static String STR_ADD_BUY_BILL =Messages.getString("EngLangCommonKeys.225"); //$NON-NLS-1$
     public final static String STR_ADD_SELL_BILL =Messages.getString("EngLangCommonKeys.226"); //$NON-NLS-1$
-    public final static String STR_ADD_RETURN_BUY_BILL ="Alýþtan Ýade";
-    public final static String STR_ADD_RETURN_SELL_BILL ="Satýþtan Ýade";
+    public final static String STR_ADD_RETURN_BUY_BILL =Messages.getString("EngLangCommonKeys.326"); //$NON-NLS-1$
+    public final static String STR_ADD_RETURN_SELL_BILL =Messages.getString("EngLangCommonKeys.327"); //$NON-NLS-1$
     public final static String STR_BILL_FROM_CONSIGNMENT =Messages.getString("EngLangCommonKeys.227"); //$NON-NLS-1$
     public final static String STR_SEARCH_BILL =Messages.getString("EngLangCommonKeys.228"); //$NON-NLS-1$
     public final static String STR_BILL_REPORT =Messages.getString("EngLangCommonKeys.229"); //$NON-NLS-1$
