@@ -100,7 +100,7 @@ import com.turquaz.accounting.bl.AccBLTransactionSearch;
  * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
  * legally for any corporate or commercial purpose. *************************************
  */
-public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
+public class BillUIAddReturnSellBill extends Composite implements SecureComposite
 {
     /**
      * @return Returns the compRegisterGroup.
@@ -289,7 +289,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
             SPECIAL_VAT_TOTAL, ROW_TOTAL};
     private List columnList = new ArrayList();
 
-    public BillUIAddReturnBuyBill(org.eclipse.swt.widgets.Composite parent, int style)
+    public BillUIAddReturnSellBill(org.eclipse.swt.widgets.Composite parent, int style)
     {
         super(parent, style);
         initGUI();

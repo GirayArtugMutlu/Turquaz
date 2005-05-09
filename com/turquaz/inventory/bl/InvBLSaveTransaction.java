@@ -102,7 +102,7 @@ public class InvBLSaveTransaction
 		invTrans.setUnitPrice(unitPriceInBase);
 		BigDecimal totalPriceInBase;
 		BigDecimal amount;
-		if (type == EngBLCommon.COMMON_BUY_INT)
+		if (type == EngBLCommon.COMMON_BUY_INT ||type == EngBLCommon.COMMON_RETURN_SELL_INT )
 		{
 			invTrans.setAmountOut(new BigDecimal(0));
 			amount = invTrans.getAmountIn();
