@@ -14,17 +14,17 @@ package com.turquaz.engine.lang;
  */
 public class BillLangKeys
 {
-	public final static String STR_BUY="Alýþ";
-	public final static String STR_BILL_DOC_NO="Fatura Belge No";
-	public final static String STR_BILL_DATE="Fatura Tarihi";
-	public final static String MSG_SELECT_WAREHOUSE="Lütfen bir depo seçiniz!";
-	public final static String MSG_WANT_TO_PRINT_BILL="Faturayý yazdýrmak ister misiniz?";
-	public final static String MSG_WILL_BALANCE_BE_PRINTED="Bakiye faturada gösterilsin mi?";
-	public final static String MSG_COULDNT_UPDATE_CONS_DUE_TO_MANY_CONS="Bu faturanýn birden fazla irsaliyesi olduðu için stok hareketleri güncellenemedi\nStok hareketlerini güncellemek için irsaliyeleri güncellemelisiniz!";
-	public final static String MSG_WILL_DELETE_CONS="Bu faturanýn irsaliyesini de silmek ister misiniz?";
-	public final static String STR_BILLS="Faturalar";
-	public final static String TITLE_BILL_GROUPS="Fatura Gruplarý";
-	public final static String TITLE_BILL_UPDATE="Fatura Güncelleme";
+	public final static String STR_BUY=Messages.getString("BillLangKeys.0"); //$NON-NLS-1$
+	public final static String STR_BILL_DOC_NO=Messages.getString("BillLangKeys.1"); //$NON-NLS-1$
+	public final static String STR_BILL_DATE=Messages.getString("BillLangKeys.2"); //$NON-NLS-1$
+	public final static String MSG_SELECT_WAREHOUSE=Messages.getString("BillLangKeys.3"); //$NON-NLS-1$
+	public final static String MSG_WANT_TO_PRINT_BILL=Messages.getString("BillLangKeys.4"); //$NON-NLS-1$
+	public final static String MSG_WILL_BALANCE_BE_PRINTED=Messages.getString("BillLangKeys.5"); //$NON-NLS-1$
+	public final static String MSG_COULDNT_UPDATE_CONS_DUE_TO_MANY_CONS=Messages.getString("BillLangKeys.6"); //$NON-NLS-1$
+	public final static String MSG_WILL_DELETE_CONS=Messages.getString("BillLangKeys.7"); //$NON-NLS-1$
+	public final static String STR_BILLS=Messages.getString("BillLangKeys.8"); //$NON-NLS-1$
+	public final static String TITLE_BILL_GROUPS=Messages.getString("BillLangKeys.9"); //$NON-NLS-1$
+	public final static String TITLE_BILL_UPDATE=Messages.getString("BillLangKeys.10"); //$NON-NLS-1$
 
 
 }

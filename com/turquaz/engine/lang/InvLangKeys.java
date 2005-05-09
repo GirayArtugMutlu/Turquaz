@@ -14,111 +14,111 @@ package com.turquaz.engine.lang;
  */
 public class InvLangKeys
 {
-	public final static String MSG_ENTER_AMOUNT="Lütfen miktar giriniz!";
-	public final static String MSG_ENTER_GROUP_NAME="Lütfen grup ad? giriniz!";
-	public final static String MSG_ENTER_INV_CODE="Stok kodu girmelisiniz!";
-	public final static String MSG_ENTER_INV_NAME="Stok ad? girmelisiniz!";
-	public final static String MSG_ENTER_UNIT_NAME="Lütfen birim ad?n? doldurunuz!";
-	public final static String MSG_ENTER_WAREHOUSE_NAME="Lütfen depo ad?n? giriniz!";
-	public final static String MSG_ENTER_INV_CODE_FIRST="Önce stok kartý birimini doldurunuz!";
+	public final static String MSG_ENTER_AMOUNT=Messages.getString("InvLangKeys.0"); //$NON-NLS-1$
+	public final static String MSG_ENTER_GROUP_NAME=Messages.getString("InvLangKeys.1"); //$NON-NLS-1$
+	public final static String MSG_ENTER_INV_CODE=Messages.getString("InvLangKeys.2"); //$NON-NLS-1$
+	public final static String MSG_ENTER_INV_NAME=Messages.getString("InvLangKeys.3"); //$NON-NLS-1$
+	public final static String MSG_ENTER_UNIT_NAME=Messages.getString("InvLangKeys.4"); //$NON-NLS-1$
+	public final static String MSG_ENTER_WAREHOUSE_NAME=Messages.getString("InvLangKeys.5"); //$NON-NLS-1$
+	public final static String MSG_ENTER_INV_CODE_FIRST=Messages.getString("InvLangKeys.6"); //$NON-NLS-1$
 	
 	
-	public final static String MSG_INV_CARD_HAS_TRANSACTION="Bu stok kart? stok hareket görmü?\n?lk önce hareketleri silmeniz gerekir!";
-	public final static String MSG_NOT_ENTER_INV_CODE_ALREADY_EXIST="Önceden varolan bir stok kodu giremezsiniz!";
-	public final static String MSG_NOT_ENTER_UNIT_NAME_ALREADY_EXIST="Daha önce varolan bir birim ad? giremezsiniz!";
-	public final static String MSG_SELECT_BASE_UNIT="Temel birim seçmelisiniz!";
-	public final static String MSG_SELECT_INV_CARD="Lütfen stok kart? seçiniz!";
-	public final static String MSG_WAREHOUSE_HAS_TRANSACTION="Bu depo hareket görmü?\n?lk önce onlar? silmeniz gerekir!";
+	public final static String MSG_INV_CARD_HAS_TRANSACTION=Messages.getString("InvLangKeys.7"); //$NON-NLS-1$
+	public final static String MSG_NOT_ENTER_INV_CODE_ALREADY_EXIST=Messages.getString("InvLangKeys.8"); //$NON-NLS-1$
+	public final static String MSG_NOT_ENTER_UNIT_NAME_ALREADY_EXIST=Messages.getString("InvLangKeys.9"); //$NON-NLS-1$
+	public final static String MSG_SELECT_BASE_UNIT=Messages.getString("InvLangKeys.10"); //$NON-NLS-1$
+	public final static String MSG_SELECT_INV_CARD=Messages.getString("InvLangKeys.11"); //$NON-NLS-1$
+	public final static String MSG_WAREHOUSE_HAS_TRANSACTION=Messages.getString("InvLangKeys.12"); //$NON-NLS-1$
 	
 	
-	public final static String STR_ALL_INV="Bütün Stoklar";
+	public final static String STR_ALL_INV=Messages.getString("InvLangKeys.13"); //$NON-NLS-1$
 	
-	public final static String STR_AMOUNT_IN="Giri? Miktar?";
-	public final static String STR_AMOUNT_OUT="Çk?? Miktar?";
-	public final static String STR_AVERAGE_PRICE="Ort. Fiyat";
-	public final static String STR_AVERAGE_PRICE_IN="Al?? Fiyat? (Ort.)";
-	public final static String STR_BALANCE_AMOUNT="Bakiye Miktar?";
-	public final static String STR_BALANCE_AMOUNT_IN="Bakiye Giri?";
-	public final static String STR_BALANCE_AMOUNT_OUT="Bakiye Ç?k??";
-	public final static String STR_BALANCE_PRICE="Bakiye Tutar?";
-	public final static String STR_BALANCE_UNIT_PRICE="Bak. Birim Fiyat?";
-	public final static String STR_DISCOUNT="?ndirim";
-	public final static String STR_HAS_BALANCE="Bakiyeliler";
-	public final static String STR_HAS_TRANSACTIONS="Hareketliler";
-	public final static String STR_PRICE="Fiyatý";
+	public final static String STR_AMOUNT_IN=Messages.getString("InvLangKeys.14"); //$NON-NLS-1$
+	public final static String STR_AMOUNT_OUT=Messages.getString("InvLangKeys.15"); //$NON-NLS-1$
+	public final static String STR_AVERAGE_PRICE=Messages.getString("InvLangKeys.16"); //$NON-NLS-1$
+	public final static String STR_AVERAGE_PRICE_IN=Messages.getString("InvLangKeys.17"); //$NON-NLS-1$
+	public final static String STR_BALANCE_AMOUNT=Messages.getString("InvLangKeys.18"); //$NON-NLS-1$
+	public final static String STR_BALANCE_AMOUNT_IN=Messages.getString("InvLangKeys.19"); //$NON-NLS-1$
+	public final static String STR_BALANCE_AMOUNT_OUT=Messages.getString("InvLangKeys.20"); //$NON-NLS-1$
+	public final static String STR_BALANCE_PRICE=Messages.getString("InvLangKeys.21"); //$NON-NLS-1$
+	public final static String STR_BALANCE_UNIT_PRICE=Messages.getString("InvLangKeys.22"); //$NON-NLS-1$
+	public final static String STR_DISCOUNT=Messages.getString("InvLangKeys.23"); //$NON-NLS-1$
+	public final static String STR_HAS_BALANCE=Messages.getString("InvLangKeys.24"); //$NON-NLS-1$
+	public final static String STR_HAS_TRANSACTIONS=Messages.getString("InvLangKeys.25"); //$NON-NLS-1$
+	public final static String STR_PRICE=Messages.getString("InvLangKeys.26"); //$NON-NLS-1$
 	
-	public final static String STR_INITIAL_TRANSACTION="Aç?l?? Hareketi";
-	public final static String STR_INV_CARD="Stok Kart?";
-	public final static String STR_INV_CARD_END="Stok Kart? - Biti?";
-	public final static String STR_INV_CARD_START="Stok Kart? - Ba?lang?ç";
-	public final static String STR_INV_CARDS="Stok Kartlar?";
+	public final static String STR_INITIAL_TRANSACTION=Messages.getString("InvLangKeys.27"); //$NON-NLS-1$
+	public final static String STR_INV_CARD=Messages.getString("InvLangKeys.28"); //$NON-NLS-1$
+	public final static String STR_INV_CARD_END=Messages.getString("InvLangKeys.29"); //$NON-NLS-1$
+	public final static String STR_INV_CARD_START=Messages.getString("InvLangKeys.30"); //$NON-NLS-1$
+	public final static String STR_INV_CARDS=Messages.getString("InvLangKeys.31"); //$NON-NLS-1$
 	
 
-	public final static String STR_INV_CODE="Stok Kodu";
-	public final static String STR_INV_CODE_END="Stok Kodu - Biti?";
-	public final static String STR_INV_CODE_START="Stok Kodu - Ba?lang?ç";
-	public final static String STR_INV_GROUPS="Stok Gruplar?";
+	public final static String STR_INV_CODE=Messages.getString("InvLangKeys.32"); //$NON-NLS-1$
+	public final static String STR_INV_CODE_END=Messages.getString("InvLangKeys.33"); //$NON-NLS-1$
+	public final static String STR_INV_CODE_START=Messages.getString("InvLangKeys.34"); //$NON-NLS-1$
+	public final static String STR_INV_GROUPS=Messages.getString("InvLangKeys.35"); //$NON-NLS-1$
 	
-	public final static String STR_INV_LEDGER="Envanter Listesi";
-	public final static String STR_INV_MAIN_GROUP="Stok Ana Grup";
-	public final static String STR_INV_NAME="Stok Ad?";
-	public final static String STR_INV_NAME_END="Stok Ad? - Biti?";
-	public final static String STR_INV_NAME_START="Stok Ad? - Ba?lang?ç";
-	public final static String STR_INV_SUB_GROUP="Stok Alt Grup";
-	public final static String STR_INV_TRANSACTIONS="Stok Hareketleri";
-	public final static String STR_INV_UNITS="Stok Birimleri";
-	public final static String STR_LAST_AMOUNT="Son Miktar";
-	public final static String STR_MAIN_GROUP="Ana Grup";
+	public final static String STR_INV_LEDGER=Messages.getString("InvLangKeys.36"); //$NON-NLS-1$
+	public final static String STR_INV_MAIN_GROUP=Messages.getString("InvLangKeys.37"); //$NON-NLS-1$
+	public final static String STR_INV_NAME=Messages.getString("InvLangKeys.38"); //$NON-NLS-1$
+	public final static String STR_INV_NAME_END=Messages.getString("InvLangKeys.39"); //$NON-NLS-1$
+	public final static String STR_INV_NAME_START=Messages.getString("InvLangKeys.40"); //$NON-NLS-1$
+	public final static String STR_INV_SUB_GROUP=Messages.getString("InvLangKeys.41"); //$NON-NLS-1$
+	public final static String STR_INV_TRANSACTIONS=Messages.getString("InvLangKeys.42"); //$NON-NLS-1$
+	public final static String STR_INV_UNITS=Messages.getString("InvLangKeys.43"); //$NON-NLS-1$
+	public final static String STR_LAST_AMOUNT=Messages.getString("InvLangKeys.44"); //$NON-NLS-1$
+	public final static String STR_MAIN_GROUP=Messages.getString("InvLangKeys.45"); //$NON-NLS-1$
 	
-	public final static String STR_MAIN_GROUPS="Ana Gruplar";
-	public final static String STR_MAX_AMOUNT="Maksimum Miktar";
-	public final static String STR_MIN_AMOUNT="Minumum Miktar";
-	public final static String STR_NEW_SUB_GROUP="Yeni Alt Grup";
-	public final static String STR_PRICE_IN="Giri? Tutar?";
+	public final static String STR_MAIN_GROUPS=Messages.getString("InvLangKeys.46"); //$NON-NLS-1$
+	public final static String STR_MAX_AMOUNT=Messages.getString("InvLangKeys.47"); //$NON-NLS-1$
+	public final static String STR_MIN_AMOUNT=Messages.getString("InvLangKeys.48"); //$NON-NLS-1$
+	public final static String STR_NEW_SUB_GROUP=Messages.getString("InvLangKeys.49"); //$NON-NLS-1$
+	public final static String STR_PRICE_IN=Messages.getString("InvLangKeys.50"); //$NON-NLS-1$
 	
-	public final static String STR_PRICE_INFO="Fiyat Bilgileri";
-	public final static String STR_PRICE_OUT="Ç?k?? Tutar?";
-	public final static String STR_PRICE_TYPE="Fiyat Tipi";
-	public final static String STR_PROFIT_ABBR="K/Z";
-	public final static String STR_PROFIT_ANALYSIS="Kar-Zarar Analizi";
+	public final static String STR_PRICE_INFO=Messages.getString("InvLangKeys.51"); //$NON-NLS-1$
+	public final static String STR_PRICE_OUT=Messages.getString("InvLangKeys.52"); //$NON-NLS-1$
+	public final static String STR_PRICE_TYPE=Messages.getString("InvLangKeys.53"); //$NON-NLS-1$
+	public final static String STR_PROFIT_ABBR=Messages.getString("InvLangKeys.54"); //$NON-NLS-1$
+	public final static String STR_PROFIT_ANALYSIS=Messages.getString("InvLangKeys.55"); //$NON-NLS-1$
 	
-	public final static String STR_SEARCH_BY_CODE="Koda Göre Ara";
-	public final static String STR_SEARCH_BY_NAME="Ada Göre Ara";
-	public final static String STR_SELL_AMOUNT="Sat?? Miktar?";
-	public final static String STR_SELL_COST="Sat?? Maliyeti";
-	public final static String STR_SELL_TOTALPRICE="Sat?? Tutar?";
-	public final static String STR_SPEC_VAT="ÖTV";
-	public final static String STR_SPEC_VAT_EACH="Birim ÖTV Tutar?";
-	public final static String STR_SPEC_VAT_PERC="ÖTV%";
-	public final static String STR_SPEC_VAT_TOTAL="ÖTV Tutar?";
-	public final static String STR_SUB_GROUPS="Alt Gruplar";
-	public final static String STR_SUB_UNITS="Alt Birimler";
-	public final static String STR_TOTAL_VAT="Toplam KDV";
-	public final static String STR_TRANSOVER_AMOUNT="Devir Mik.";
-	public final static String STR_TRANSOVER_PRICE="Devir Tutar?";
-	public final static String STR_TRANSOVER_UNIT_PRICE="Devir Bir. Fiyat?";
-	public final static String STR_TRANSROW_TOTAL="Sat?r Toplam?";
-	public final static String STR_UNIT_PRICE_IN="Gir. Birim Fiyat?";
-	public final static String STR_UNIT_PRICE_OUT="Ç?k. Birim Fiyat?";
-	public final static String STR_UPDATE_UNITS="Birimleri Güncelle";
-	public final static String STR_VAT="K.D.V";
-	public final static String STR_VAT_PERCENTAGE="KDV%";
-	public final static String STR_TRANSACTION_TYPE="Hareket Tipi";
+	public final static String STR_SEARCH_BY_CODE=Messages.getString("InvLangKeys.56"); //$NON-NLS-1$
+	public final static String STR_SEARCH_BY_NAME=Messages.getString("InvLangKeys.57"); //$NON-NLS-1$
+	public final static String STR_SELL_AMOUNT=Messages.getString("InvLangKeys.58"); //$NON-NLS-1$
+	public final static String STR_SELL_COST=Messages.getString("InvLangKeys.59"); //$NON-NLS-1$
+	public final static String STR_SELL_TOTALPRICE=Messages.getString("InvLangKeys.60"); //$NON-NLS-1$
+	public final static String STR_SPEC_VAT=Messages.getString("InvLangKeys.61"); //$NON-NLS-1$
+	public final static String STR_SPEC_VAT_EACH=Messages.getString("InvLangKeys.62"); //$NON-NLS-1$
+	public final static String STR_SPEC_VAT_PERC=Messages.getString("InvLangKeys.63"); //$NON-NLS-1$
+	public final static String STR_SPEC_VAT_TOTAL=Messages.getString("InvLangKeys.64"); //$NON-NLS-1$
+	public final static String STR_SUB_GROUPS=Messages.getString("InvLangKeys.65"); //$NON-NLS-1$
+	public final static String STR_SUB_UNITS=Messages.getString("InvLangKeys.66"); //$NON-NLS-1$
+	public final static String STR_TOTAL_VAT=Messages.getString("InvLangKeys.67"); //$NON-NLS-1$
+	public final static String STR_TRANSOVER_AMOUNT=Messages.getString("InvLangKeys.68"); //$NON-NLS-1$
+	public final static String STR_TRANSOVER_PRICE=Messages.getString("InvLangKeys.69"); //$NON-NLS-1$
+	public final static String STR_TRANSOVER_UNIT_PRICE=Messages.getString("InvLangKeys.70"); //$NON-NLS-1$
+	public final static String STR_TRANSROW_TOTAL=Messages.getString("InvLangKeys.71"); //$NON-NLS-1$
+	public final static String STR_UNIT_PRICE_IN=Messages.getString("InvLangKeys.72"); //$NON-NLS-1$
+	public final static String STR_UNIT_PRICE_OUT=Messages.getString("InvLangKeys.73"); //$NON-NLS-1$
+	public final static String STR_UPDATE_UNITS=Messages.getString("InvLangKeys.74"); //$NON-NLS-1$
+	public final static String STR_VAT=Messages.getString("InvLangKeys.75"); //$NON-NLS-1$
+	public final static String STR_VAT_PERCENTAGE=Messages.getString("InvLangKeys.76"); //$NON-NLS-1$
+	public final static String STR_TRANSACTION_TYPE=Messages.getString("InvLangKeys.77"); //$NON-NLS-1$
 	
-	public final static String STR_VAT_TOTAL="KDV Tutar?";
-	public final static String STR_WAREHOUSE="Depo";
+	public final static String STR_VAT_TOTAL=Messages.getString("InvLangKeys.78"); //$NON-NLS-1$
+	public final static String STR_WAREHOUSE=Messages.getString("InvLangKeys.79"); //$NON-NLS-1$
 	
-	public final static String STR_WAREHOUSE_CODE="Depo Kodu";
-	public final static String STR_WAREHOUSE_NAME="Depo Ad?";
-	public final static String STR_WAREHOUSES="Depolar";
+	public final static String STR_WAREHOUSE_CODE=Messages.getString("InvLangKeys.80"); //$NON-NLS-1$
+	public final static String STR_WAREHOUSE_NAME=Messages.getString("InvLangKeys.81"); //$NON-NLS-1$
+	public final static String STR_WAREHOUSES=Messages.getString("InvLangKeys.82"); //$NON-NLS-1$
 	
 	
-	public final static String TITLE_INV_CARD_SEARCH="Stok Kart? Arama";
-	public final static String TITLE_INV_CARD_UPDATE="Stok Kart? Güncelleme";
-	public final static String TITLE_INV_GROUPS="Stok Gruplar?";
-	public final static String TITLE_INV_SUB_GROUP_ADD="Stok Alt Grubu Ekleme";
-	public final static String TITLE_INV_UNITS="Stok Birimleri";
-	public final static String TITLE_WAREHOUSE_UPDATE="Depo Güncelleme";
+	public final static String TITLE_INV_CARD_SEARCH=Messages.getString("InvLangKeys.83"); //$NON-NLS-1$
+	public final static String TITLE_INV_CARD_UPDATE=Messages.getString("InvLangKeys.84"); //$NON-NLS-1$
+	public final static String TITLE_INV_GROUPS=Messages.getString("InvLangKeys.85"); //$NON-NLS-1$
+	public final static String TITLE_INV_SUB_GROUP_ADD=Messages.getString("InvLangKeys.86"); //$NON-NLS-1$
+	public final static String TITLE_INV_UNITS=Messages.getString("InvLangKeys.87"); //$NON-NLS-1$
+	public final static String TITLE_WAREHOUSE_UPDATE=Messages.getString("InvLangKeys.88"); //$NON-NLS-1$
 	
 	
 	

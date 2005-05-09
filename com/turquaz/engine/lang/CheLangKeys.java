@@ -3,45 +3,45 @@ package com.turquaz.engine.lang;
 public class CheLangKeys
 {
 
-    public final static String TITLE_CHEQUES_IN_BANK = "Bankadaki Çekler";
-    public final static String TITLE_GIVEN_CHEQUES = "Ciro Edilen Çekler";
-    public final static String TITLE_CUSTOMER_CHEQUE_ADD ="Müþteri Çeki Ekleme";
-    public final static String TITLE_CUSTOMER_CHEQUES="Müþteri Çekleri";
-    public final static String TITLE_OWN_CHEQUES="Firma Çekleri";
-    public final static String TITLE_CUSTOMER_CHEQUE_ENTRY="Müþteri Çeki Giriþi";
-    public final static String TITLE_OWN_CHEQUE_ENTRY="Firma Çeki Giriþi";
-    public final static String TITLE_OWN_CHEQUE_UPDATE = "Firma Çeki Güncelleme";
+    public final static String TITLE_CHEQUES_IN_BANK = Messages.getString("CheLangKeys.0"); //$NON-NLS-1$
+    public final static String TITLE_GIVEN_CHEQUES = Messages.getString("CheLangKeys.1"); //$NON-NLS-1$
+    public final static String TITLE_CUSTOMER_CHEQUE_ADD =Messages.getString("CheLangKeys.2"); //$NON-NLS-1$
+    public final static String TITLE_CUSTOMER_CHEQUES=Messages.getString("CheLangKeys.3"); //$NON-NLS-1$
+    public final static String TITLE_OWN_CHEQUES=Messages.getString("CheLangKeys.4"); //$NON-NLS-1$
+    public final static String TITLE_CUSTOMER_CHEQUE_ENTRY=Messages.getString("CheLangKeys.5"); //$NON-NLS-1$
+    public final static String TITLE_OWN_CHEQUE_ENTRY=Messages.getString("CheLangKeys.6"); //$NON-NLS-1$
+    public final static String TITLE_OWN_CHEQUE_UPDATE = Messages.getString("CheLangKeys.7"); //$NON-NLS-1$
     
-   public final static String STR_CHEQUE_INFO = "Çek Bilgileri";
-   public final static String STR_PORTFOLIO_NO ="Portföy No";
-   public final static String STR_CHEQUE_NO ="Çek Numarasý";
-   public final static String STR_DUE_DATE = "Vade Tarihi";
-   public final static String STR_CHEQUE_HISTORY ="Çek Tarihçesi";
-   public final static String STR_ROLL_NO ="Bordro No";
-   public final static String STR_ROLL_TYPE = "Bordro Tipi";
-   public final static String STR_BANK_CURRENT_CODE ="Cari/Banka Kodu";
-   public final static String STR_ROLL_DATE ="Bordro Tarihi";
-   public final static String STR_PAYMENT_PLACE ="Ödeme Yeri";
-   public final static String STR_DEPTOR = "Borçlu";
-   public final static String STR_SUM_TOTALS = "Cari Hareketleri Topla";
-   public final static String STR_CUSTOMER_CHEQUE = "Müþteri Çeki";
-   public final static String STR_OWN_CHEQUE = "Firma Çeki";
-   public final static String STR_ROLL_OWNER = "Bordro Sahibi";
-   public final static String STR_ROLLS = "Cheque Bordrolarý";
-   public final static String STR_BANK_NAME = "Banka Adý";
-   public final static String STR_BANK_BRANCH ="Banka Þubesi";
-   public final static String STR_BANK_ACCOUNT_NO ="Hesap Numarasý";
-   public final static String STR_TOOK_FROM_WHO ="Kimden Alýndýðý";
-   public final static String STR_CHEQUE_STATUS ="Çek Durumu";
-   public final static String STR_DUE_DATE_START = "Vade Tarihi (Baþlangýç)";
-   public final static String STR_DUE_DATE_END = "Vade Tarihi (Bitiþ)";
-   public final static String STR_ENTRY_DATE_START ="Giriþ Tarihi (Baþlangýç)";
-   public final static String STR_ENTRY_DATE_END ="Giriþ Tarihi (Bitiþ)";
-   public final static String STR_ENTRY_DATE ="Giriþ Tarihi";
-   public final static String STR_SUPPLIER = "Satýcý";
+   public final static String STR_CHEQUE_INFO = Messages.getString("CheLangKeys.8"); //$NON-NLS-1$
+   public final static String STR_PORTFOLIO_NO =Messages.getString("CheLangKeys.9"); //$NON-NLS-1$
+   public final static String STR_CHEQUE_NO =Messages.getString("CheLangKeys.10"); //$NON-NLS-1$
+   public final static String STR_DUE_DATE = Messages.getString("CheLangKeys.11"); //$NON-NLS-1$
+   public final static String STR_CHEQUE_HISTORY =Messages.getString("CheLangKeys.12"); //$NON-NLS-1$
+   public final static String STR_ROLL_NO =Messages.getString("CheLangKeys.13"); //$NON-NLS-1$
+   public final static String STR_ROLL_TYPE = Messages.getString("CheLangKeys.14"); //$NON-NLS-1$
+   public final static String STR_BANK_CURRENT_CODE =Messages.getString("CheLangKeys.15"); //$NON-NLS-1$
+   public final static String STR_ROLL_DATE =Messages.getString("CheLangKeys.16"); //$NON-NLS-1$
+   public final static String STR_PAYMENT_PLACE =Messages.getString("CheLangKeys.17"); //$NON-NLS-1$
+   public final static String STR_DEPTOR = Messages.getString("CheLangKeys.18"); //$NON-NLS-1$
+   public final static String STR_SUM_TOTALS = Messages.getString("CheLangKeys.19"); //$NON-NLS-1$
+   public final static String STR_CUSTOMER_CHEQUE = Messages.getString("CheLangKeys.20"); //$NON-NLS-1$
+   public final static String STR_OWN_CHEQUE = Messages.getString("CheLangKeys.21"); //$NON-NLS-1$
+   public final static String STR_ROLL_OWNER = Messages.getString("CheLangKeys.22"); //$NON-NLS-1$
+   public final static String STR_ROLLS = Messages.getString("CheLangKeys.23"); //$NON-NLS-1$
+   public final static String STR_BANK_NAME = Messages.getString("CheLangKeys.24"); //$NON-NLS-1$
+   public final static String STR_BANK_BRANCH =Messages.getString("CheLangKeys.25"); //$NON-NLS-1$
+   public final static String STR_BANK_ACCOUNT_NO =Messages.getString("CheLangKeys.26"); //$NON-NLS-1$
+   public final static String STR_TOOK_FROM_WHO =Messages.getString("CheLangKeys.27"); //$NON-NLS-1$
+   public final static String STR_CHEQUE_STATUS =Messages.getString("CheLangKeys.28"); //$NON-NLS-1$
+   public final static String STR_DUE_DATE_START = Messages.getString("CheLangKeys.29"); //$NON-NLS-1$
+   public final static String STR_DUE_DATE_END = Messages.getString("CheLangKeys.30"); //$NON-NLS-1$
+   public final static String STR_ENTRY_DATE_START =Messages.getString("CheLangKeys.31"); //$NON-NLS-1$
+   public final static String STR_ENTRY_DATE_END =Messages.getString("CheLangKeys.32"); //$NON-NLS-1$
+   public final static String STR_ENTRY_DATE =Messages.getString("CheLangKeys.33"); //$NON-NLS-1$
+   public final static String STR_SUPPLIER = Messages.getString("CheLangKeys.34"); //$NON-NLS-1$
    
    
-   public final static String MSG_ENTER_AT_LEAST_ONE_CHEQUE = "En az bir tane çek girmeniz gerekir!";
-   public final static String MSG_CANNOT_DELETE_ROLLS_WITH_CHEQUE ="Çek Bulunan Bordrolarý Silemezsiniz!";
-   public final static String MSG_CHOOSE_BANK_CARD = "Lütfen Banka Kartý Seçiniz!";
+   public final static String MSG_ENTER_AT_LEAST_ONE_CHEQUE = Messages.getString("CheLangKeys.35"); //$NON-NLS-1$
+   public final static String MSG_CANNOT_DELETE_ROLLS_WITH_CHEQUE =Messages.getString("CheLangKeys.36"); //$NON-NLS-1$
+   public final static String MSG_CHOOSE_BANK_CARD = Messages.getString("CheLangKeys.37"); //$NON-NLS-1$
 }

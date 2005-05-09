@@ -14,16 +14,16 @@ package com.turquaz.engine.lang;
  */
 public class ConsLangKeys
 {
-	public final static String MSG_HAS_BILL_CAN_NOT_DELETE="Bu irsaliyenin faturas? kesilmi?\nÖnce faturas?n? silmeniz gerekir!";
-	public final static String MSG_SELECT_ONLY_ONE_TYPE="Lütfen sadece al?? veya sat?? irsaliyesi seçiniz!";
-	public final static String STR_CONS_DATE="?rsaliye Tarihi";
-	public final static String STR_CONSIGNMENTS="?rsaliyeler";
-	public final static String TITLE_CONS_GROUPS="?rsaliye Gruplar?";
-	public final static String TITLE_CONS_SEARCH="?rsaliye Arama";
-	public final static String TITLE_CONS_UPDATE="?rsaliye Güncelleme";
-	public final static String MSG_WILL_UPDATE_BILL="Fatura da güncellensin mi?";
-	public final static String STR_CONS_DOC_NO="Ýrsaliye Belge No";
-	public final static String MSG_SELECT_CONS_NO="Lütfen bir irsaliye no seçiniz!";
-	public final static String STR_SELECT_CONSIGNMENT="Ýrsaliye Seçiniz";
+	public final static String MSG_HAS_BILL_CAN_NOT_DELETE=Messages.getString("ConsLangKeys.0"); //$NON-NLS-1$
+	public final static String MSG_SELECT_ONLY_ONE_TYPE=Messages.getString("ConsLangKeys.1"); //$NON-NLS-1$
+	public final static String STR_CONS_DATE=Messages.getString("ConsLangKeys.2"); //$NON-NLS-1$
+	public final static String STR_CONSIGNMENTS=Messages.getString("ConsLangKeys.3"); //$NON-NLS-1$
+	public final static String TITLE_CONS_GROUPS=Messages.getString("ConsLangKeys.4"); //$NON-NLS-1$
+	public final static String TITLE_CONS_SEARCH=Messages.getString("ConsLangKeys.5"); //$NON-NLS-1$
+	public final static String TITLE_CONS_UPDATE=Messages.getString("ConsLangKeys.6"); //$NON-NLS-1$
+	public final static String MSG_WILL_UPDATE_BILL=Messages.getString("ConsLangKeys.7"); //$NON-NLS-1$
+	public final static String STR_CONS_DOC_NO=Messages.getString("ConsLangKeys.8"); //$NON-NLS-1$
+	public final static String MSG_SELECT_CONS_NO=Messages.getString("ConsLangKeys.9"); //$NON-NLS-1$
+	public final static String STR_SELECT_CONSIGNMENT=Messages.getString("ConsLangKeys.10"); //$NON-NLS-1$
 
 }
