@@ -269,13 +269,6 @@ public class EngBLCommon
 	public final static int CONTENT_ASSIST_INVENTORY_NAME = 10;
 	
 	
-	
-	public final static int BILL_TRANS_TYPE_BUY = 0;
-	public final static int BILL_TRANS_TYPE_SELL = 1;
-	public final static int BILL_TRANS_TYPE_ALL = 2;
-    public final static int BILL_TRANS_TYPE_RETURN_BUY =3;
-    public final static int BILL_TRANS_TYPE_RETURN_SELL =4;
-    
     
 	public final static int CONSIGNMENT_TRANS_TYPE_BUY = 0;
 	public final static int CONSIGNMENT_TRANS_TYPE_SELL = 1;

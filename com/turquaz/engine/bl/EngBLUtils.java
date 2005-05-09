@@ -459,7 +459,7 @@ public class EngBLUtils
 				parameters.put("despatchNoteDate","");
 				parameters.put("despatchNoteId","");				
 			}
-			parameters.put("billType", (bill.getBillsType() ==EngBLCommon.BILL_TRANS_TYPE_BUY) ? new Integer(1) : new Integer(0)); 
+			parameters.put("billType", (bill.getBillsType() ==EngBLCommon.COMMON_BUY_INT ||bill.getBillsType() ==EngBLCommon.COMMON_RETURN_SELL_INT ) ? new Integer(1) : new Integer(0)); 
 			
 			
 			 argMap = new HashMap();

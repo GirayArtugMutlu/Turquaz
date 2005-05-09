@@ -548,7 +548,7 @@ public class InvUITransactionTableRow implements ITableRow
 			BigDecimal totalPriceAfterDiscount = invTrans.getTotalPriceInForeignCurrency().subtract(
 					invTrans.getDiscountAmountInForeignCurrency()).setScale(2, EngBLCommon.ROUNDING_METHOD);
 		
-            if (transType == EngBLCommon.COMMON_BUY_INT||transType ==EngBLCommon.COMMON_RETURN_BUY_INT)
+            if (transType == EngBLCommon.COMMON_BUY_INT||transType ==EngBLCommon.COMMON_RETURN_SELL_INT)
 			{
 				invTrans.setAmountIn(transAmountinBaseUnit);
 			}

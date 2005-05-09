@@ -132,7 +132,7 @@ public class BillDALSearchBill
 			Session session = EngDALSessionFactory.getSession();
 			String query="Select invTrans.id, cardUnit.cardUnitsFactor, invTrans.turqInventoryCard.cardInventoryCode," +
 					" invTrans.turqInventoryCard.cardName, invTrans.turqInventoryUnit.unitsName," +
-					((bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
+					((bill.getBillsType() == EngBLCommon.COMMON_BUY_INT || bill.getBillsType() ==EngBLCommon.COMMON_RETURN_SELL_INT)
 							? "invTrans.amountIn ," : "invTrans.amountOut ,")+
 					" invTrans.unitPriceInForeignCurrency,invTrans.totalPriceInForeignCurrency," +
 					" invTrans.turqInventoryWarehous.warehousesName,invTrans.vatRate"+

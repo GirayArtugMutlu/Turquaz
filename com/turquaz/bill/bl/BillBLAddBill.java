@@ -196,7 +196,7 @@ public class BillBLAddBill
 
         int type = EngBLCommon.CASH_BILL_COLLECT;
 
-        if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY || bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_RETURN_SELL)
+        if (bill.getBillsType() == EngBLCommon.COMMON_BUY_INT || bill.getBillsType() == EngBLCommon.COMMON_RETURN_SELL_INT)
         {
             type = EngBLCommon.CASH_BILL_PAYMENT;
         }
@@ -260,7 +260,7 @@ public class BillBLAddBill
             TurqEngineSequence engSeq = bill.getTurqEngineSequence();
             String curTransDef = DatePicker.formatter.format(bill.getBillsDate()) + " " + bill.getBillDocumentNo() + " Ref. Fatura";
             // Al?? Faturas?
-            if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY || bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_RETURN_SELL)
+            if (bill.getBillsType() == EngBLCommon.COMMON_BUY_INT || bill.getBillsType() == EngBLCommon.COMMON_RETURN_SELL_INT)
             {
                 CurBLCurrentTransactionAdd.saveCurrentTransaction(bill.getTurqCurrentCard(), bill.getBillsDate(), bill.getBillDocumentNo(),
                         true, totalAmount, discountAmount, 1, engSeq.getId(), curTransDef, bill.getTurqCurrencyExchangeRate());
@@ -273,8 +273,8 @@ public class BillBLAddBill
                 }
             }
             // Sat?? Faturas?
-            else if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_SELL
-                    || bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_RETURN_BUY)
+            else if (bill.getBillsType() == EngBLCommon.COMMON_SELL_INT
+                    || bill.getBillsType() == EngBLCommon.COMMON_RETURN_BUY_INT)
             {
                 CurBLCurrentTransactionAdd.saveCurrentTransaction(bill.getTurqCurrentCard(), bill.getBillsDate(), bill.getBillDocumentNo(),
                         false, totalAmount, discountAmount, 1, engSeq.getId(), curTransDef, bill.getTurqCurrencyExchangeRate());
@@ -311,7 +311,7 @@ public class BillBLAddBill
             int INV_DISCOUNT_ACCOUNT = -1;
           
             // Alis Faturasi
-            if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY)
+            if (bill.getBillsType() == EngBLCommon.COMMON_BUY_INT)
             {
                 invRows = deptAccounts;
                 currentRows = creditAccounts;
@@ -322,7 +322,7 @@ public class BillBLAddBill
                 
             }
             // Satis Faturasi
-            else if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_SELL)
+            else if (bill.getBillsType() == EngBLCommon.COMMON_SELL_INT)
             {
                 invRows = creditAccounts;
                 currentRows = deptAccounts;
@@ -332,7 +332,7 @@ public class BillBLAddBill
                 INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_DISCOUNT_SELL;
                 
             }
-            else if(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_RETURN_BUY)
+            else if(bill.getBillsType()==EngBLCommon.COMMON_RETURN_BUY_INT)
             {
                 invRows = creditAccounts;
                 currentRows = deptAccounts;
@@ -342,7 +342,7 @@ public class BillBLAddBill
                INV_DISCOUNT_ACCOUNT = EngBLCommon.INVENTORY_ACCOUNT_TYPE_RETURN_DISCOUNT_BUY;
                             
             }
-            else if(bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_RETURN_SELL)
+            else if(bill.getBillsType()==EngBLCommon.COMMON_RETURN_SELL_INT)
             {
                 invRows = deptAccounts;
                 currentRows = creditAccounts;
@@ -522,7 +522,7 @@ public class BillBLAddBill
 
             } else
             {
-                if (bill.getBillsType() == EngBLCommon.BILL_TRANS_TYPE_BUY||bill.getBillsType()==EngBLCommon.BILL_TRANS_TYPE_RETURN_SELL)
+                if (bill.getBillsType() == EngBLCommon.COMMON_BUY_INT||bill.getBillsType()==EngBLCommon.COMMON_RETURN_SELL_INT)
                 {
                     List creditList = (List) creditAccounts.get(cashAccount.getId());
                     if (creditList == null)

@@ -280,7 +280,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
     private final String ROW_TOTAL = InvLangKeys.STR_TRANSROW_TOTAL;
    
     
-    private final int BILL_TYPE = EngBLCommon.BILL_TRANS_TYPE_RETURN_BUY;
+    private final int BILL_TYPE = EngBLCommon.COMMON_RETURN_BUY_INT;
     int last_row_index = 0;
     TableSpreadsheetCursor cursor;
     // Set column names
@@ -1048,9 +1048,9 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
             int Now = (invView.getTransactionsTotalAmountNow() == null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
             int Max = invCard.getCardMaximumAmount();
             int Min = invCard.getCardMinimumAmount();
-            if ((BILL_TYPE == EngBLCommon.BILL_TRANS_TYPE_SELL ||BILL_TYPE==EngBLCommon.BILL_TRANS_TYPE_RETURN_BUY )&& Now < Min)
+            if ((BILL_TYPE ==  EngBLCommon.COMMON_SELL_INT||BILL_TYPE==EngBLCommon.COMMON_RETURN_BUY_INT )&& Now < Min)
                 return false;
-            else if ((BILL_TYPE == EngBLCommon.BILL_TRANS_TYPE_BUY || BILL_TYPE == EngBLCommon.BILL_TRANS_TYPE_RETURN_SELL)&& Max != 0 && Now > Max)
+            else if ((BILL_TYPE == EngBLCommon.COMMON_BUY_INT || BILL_TYPE == EngBLCommon.COMMON_RETURN_SELL_INT)&& Max != 0 && Now > Max)
                 return false;
             return true;
         }
