@@ -280,7 +280,7 @@ public class BillUIAddReturnSellBill extends Composite implements SecureComposit
     private final String ROW_TOTAL = InvLangKeys.STR_TRANSROW_TOTAL;
    
     
-    private final int BILL_TYPE = EngBLCommon.BILL_TRANS_TYPE_RETURN_BUY;
+    private final int BILL_TYPE = EngBLCommon.BILL_TRANS_TYPE_RETURN_SELL;
     int last_row_index = 0;
     TableSpreadsheetCursor cursor;
     // Set column names
@@ -1132,7 +1132,7 @@ public class BillUIAddReturnSellBill extends Composite implements SecureComposit
 
     public void newForm()
     {
-        BillUIAddBuyBill curCard = new BillUIAddBuyBill(this.getParent(), this.getStyle());
+        BillUIAddReturnBuyBill curCard = new BillUIAddReturnBuyBill(this.getParent(), this.getStyle());
         CTabFolder tabfld = (CTabFolder) this.getParent();
         tabfld.getSelection().setControl(curCard);
         this.dispose();

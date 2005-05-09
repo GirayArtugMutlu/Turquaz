@@ -1132,7 +1132,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
 
     public void newForm()
     {
-        BillUIAddBuyBill curCard = new BillUIAddBuyBill(this.getParent(), this.getStyle());
+        BillUIAddReturnBuyBill curCard = new BillUIAddReturnBuyBill(this.getParent(), this.getStyle());
         CTabFolder tabfld = (CTabFolder) this.getParent();
         tabfld.getSelection().setControl(curCard);
         this.dispose();

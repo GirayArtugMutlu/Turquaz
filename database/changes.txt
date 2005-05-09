@@ -1149,3 +1149,8 @@ INSERT INTO turq_module_components VALUES (98, 4, 'com.turquaz.current.ui.CurUIC
 INSERT INTO turq_module_components VALUES (99, 4, 'com.turquaz.current.ui.CurUIMultipleCreditVoucher', 'Coklu Alacak Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');
 INSERT INTO turq_module_components VALUES (100, 4, 'com.turquaz.current.ui.CurUIMultipleDeptVoucher', 'Coklu Borc Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');
 
+INSERT INTO turq_module_components VALUES (101, 7, 'com.turquaz.bill.ui.BillUIAddReturnBuyBill', 'Alistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');
+INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAddReturnSellBill', 'Satistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');
+
+
+

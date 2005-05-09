@@ -54,6 +54,8 @@ import com.turquaz.bank.ui.BankUIOtherTransOut;
 import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
 import com.turquaz.bank.ui.BankUITransferBetweenAccounts;
 import com.turquaz.bill.ui.BillUIAddBuyBill;
+import com.turquaz.bill.ui.BillUIAddReturnBuyBill;
+import com.turquaz.bill.ui.BillUIAddReturnSellBill;
 import com.turquaz.bill.ui.BillUIAddSellBill;
 import com.turquaz.bill.ui.BillUIBillFromConsignment;
 import com.turquaz.bill.ui.BillUIBillReport;
@@ -646,6 +648,18 @@ public final class TreeFactory
 			item.setText(EngLangCommonKeys.STR_ADD_SELL_BILL); //$NON-NLS-1$
 			item.setData(BillUIAddSellBill.class.getName());
 		}
+        if (EngBLPermissions.getPermission(BillUIAddReturnSellBill.class.getName()) > 0)
+        {
+            item = new TreeItem(invoiceRoot, SWT.NULL);
+            item.setText(EngLangCommonKeys.STR_ADD_RETURN_SELL_BILL); //$NON-NLS-1$
+            item.setData(BillUIAddReturnSellBill.class.getName());
+        }
+        if (EngBLPermissions.getPermission(BillUIAddReturnBuyBill.class.getName()) > 0)
+        {
+            item = new TreeItem(invoiceRoot, SWT.NULL);
+            item.setText(EngLangCommonKeys.STR_ADD_RETURN_BUY_BILL); //$NON-NLS-1$
+            item.setData(BillUIAddReturnBuyBill.class.getName());
+        }
 		if (EngBLPermissions.getPermission(BillUIBillFromConsignment.class.getName()) > 0)
 		{
 			item = new TreeItem(invoiceRoot, SWT.NULL);
