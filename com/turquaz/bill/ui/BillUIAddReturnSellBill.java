@@ -803,7 +803,7 @@ public class BillUIAddReturnSellBill extends Composite implements SecureComposit
         for (int i = 0; i < EngBLCommon.TABLE_ROW_COUNT; i++)
         {
             //      enter empty table rows.
-            InvUITransactionTableRow row = new InvUITransactionTableRow(0, tableViewer);
+            InvUITransactionTableRow row = new InvUITransactionTableRow(EngBLCommon.COMMON_RETURN_SELL_INT, tableViewer);
             tableViewer.addRow(row);
         }
         //fill combo ware houses
@@ -908,7 +908,7 @@ public class BillUIAddReturnSellBill extends Composite implements SecureComposit
                 {
                     if (row.okToSave())
                     {
-                        InvUITransactionTableRow row2 = new InvUITransactionTableRow(0, tableViewer);
+                        InvUITransactionTableRow row2 = new InvUITransactionTableRow(EngBLCommon.COMMON_RETURN_SELL_INT, tableViewer);
                         tableViewer.addRow(row2);
                     }
                 }
