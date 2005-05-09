@@ -56,7 +56,7 @@ public class InvUITransactionTableRow implements ITableRow
 		this.transType = transType;
 		calculateFields();
 	}
-	int transType = 0;
+     int transType = 0;
 	Integer unit_index = new Integer(-1);
 	String unit_text = "";
 	String units[];
@@ -133,7 +133,7 @@ public class InvUITransactionTableRow implements ITableRow
 				result = unit_text;
 				break;
 			case 4 : //Amount in Base Unit
-				if (transType == 0)
+				if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 				{
 					result = cf.format(invTrans.getAmountIn());
 				}
@@ -324,7 +324,7 @@ public class InvUITransactionTableRow implements ITableRow
 				result = unit_index;
 				break;
 			case 4 : //amount in base units
-				if (transType == 0)
+				if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 				{
 					result = cf.format(invTrans.getAmountIn());
 				}
@@ -547,7 +547,8 @@ public class InvUITransactionTableRow implements ITableRow
 					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
 			BigDecimal totalPriceAfterDiscount = invTrans.getTotalPriceInForeignCurrency().subtract(
 					invTrans.getDiscountAmountInForeignCurrency()).setScale(2, EngBLCommon.ROUNDING_METHOD);
-			if (transType == 0)
+		
+            if (transType == EngBLCommon.COMMON_BUY_INT||transType ==EngBLCommon.COMMON_RETURN_BUY_INT)
 			{
 				invTrans.setAmountIn(transAmountinBaseUnit);
 			}
@@ -634,7 +635,7 @@ public class InvUITransactionTableRow implements ITableRow
 		if (obj instanceof TurqInventoryTransaction)
 		{
 			invTrans = (TurqInventoryTransaction) obj;
-			if (transType == 0)
+			if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 			{
 				transAmount = invTrans.getAmountIn();
 			}

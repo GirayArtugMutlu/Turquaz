@@ -140,6 +140,7 @@ public class BillBLUpdateBill
 		Boolean deleteCons=(Boolean)argMap.get(BillKeys.BILL_DELETE_CONS);
 		deleteAccountingTransactions(bill);
 		deleteCurrentTransactions(bill);
+        deleteCashTransaction(bill);
 		deleteBillGroups(bill);
 		if (hasBillConsignments(bill))
 		{
