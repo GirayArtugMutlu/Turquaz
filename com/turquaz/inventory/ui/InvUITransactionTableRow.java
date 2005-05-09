@@ -594,7 +594,7 @@ public class InvUITransactionTableRow implements ITableRow
 
 	public boolean canModify(int column_index)
 	{
-		if ( column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
+		if ( column_index == 1 || column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
 				|| column_index == 14)
 		{
 			return false;

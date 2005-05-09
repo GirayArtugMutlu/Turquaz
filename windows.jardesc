@@ -62,15 +62,15 @@
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.admin"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.accounting.ui.reports"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.lang"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine"/>
         <javaElement handleIdentifier="=Turquaz/&lt;de.kupzog.ktools.kprint.boxes"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.ui"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.engine.exceptions"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current.bl"/>
-        <javaElement handleIdentifier="=Turquaz/&lt;icons"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.current"/>
+        <javaElement handleIdentifier="=Turquaz/&lt;icons"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.bank"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.consignment"/>
         <javaElement handleIdentifier="=Turquaz/&lt;com.turquaz.inventory.bl"/>
