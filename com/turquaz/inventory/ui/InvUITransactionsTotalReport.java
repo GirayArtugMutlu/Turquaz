@@ -105,7 +105,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	private TableColumn tableColumnInvName;
 	private TableColumn tableColumnAmountOut;
 	private TableColumn tableColumnBalanceAmountIn;
-	private TableColumn tableColumnBalanceAmountOut;
+	private TableColumn tableColumnBalancePrice;
 	private TableColumn tableColumnPriceIn;
 	private TableColumn tableColumnPriceOut;
 	private Table tableSearcResults;
@@ -371,9 +371,9 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						tableColumnBalanceAmountIn.setWidth(69);
 					}
 					{
-						tableColumnBalanceAmountOut = new TableColumn(tableSearcResults, SWT.RIGHT);
-						tableColumnBalanceAmountOut.setText(InvLangKeys.STR_BALANCE_AMOUNT_OUT);
-						tableColumnBalanceAmountOut.setWidth(71);
+						tableColumnBalancePrice = new TableColumn(tableSearcResults, SWT.RIGHT);
+						tableColumnBalancePrice.setText(InvLangKeys.STR_BALANCE_PRICE);
+						tableColumnBalancePrice.setWidth(71);
 					}
 					//START >>  tableColumnBalanceUnitPrice
 					tableColumnBalanceUnitPrice = new TableColumn(tableSearcResults, SWT.NONE);
@@ -529,6 +529,11 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			BigDecimal GENERAL_TOTAL_PRICE_IN=new BigDecimal(0);
 			BigDecimal GENERAL_TOTAL_PRICE_OUT=new BigDecimal(0);
 			BigDecimal GENERAL_TOTAL_BALANCE=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_TRANSOVER_AMOUNT=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_AMOUNT_IN=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_AMOUNT_OUT=new BigDecimal(0);
+			BigDecimal GENERAL_TOTAL_BALANCE_IN=new BigDecimal(0);
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			for (int i = 0; i < listSize; i++)
 			{
@@ -610,6 +615,10 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				GENERAL_TOTAL_PRICE_IN=GENERAL_TOTAL_PRICE_IN.add(totalPriceIn);
 				GENERAL_TOTAL_PRICE_OUT=GENERAL_TOTAL_PRICE_OUT.add(totalPriceOut);
 				GENERAL_TOTAL_BALANCE=GENERAL_TOTAL_BALANCE.add(balancePrice);
+				GENERAL_TOTAL_TRANSOVER_AMOUNT=GENERAL_TOTAL_TRANSOVER_AMOUNT.add(transOverAmountNet);
+				GENERAL_TOTAL_AMOUNT_IN=GENERAL_TOTAL_AMOUNT_IN.add(totalAmountIn);
+				GENERAL_TOTAL_AMOUNT_OUT=GENERAL_TOTAL_AMOUNT_OUT.add(totalAmountOut);
+				GENERAL_TOTAL_BALANCE_IN=totalAmountOut.add(balanceAmount);
 				
 				tableViewer.addRow(new String[]{invCode, invName,
 						cf.format(totaltransOverAmountIn.subtract(totaltransOverAmountOut)),
@@ -629,10 +638,31 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				}
 				
 			}
+			BigDecimal averageTransOverUnitPrice=new BigDecimal(0);
+			BigDecimal averageUnitPriceIn=new BigDecimal(0);
+			BigDecimal averageUnitPriceOut=new BigDecimal(0);
+			BigDecimal averageBalanceUnitPrice=new BigDecimal(0);
+			
+			if (GENERAL_TOTAL_TRANSOVER_AMOUNT.doubleValue()!=0)
+			{
+				averageTransOverUnitPrice=GENERAL_TOTAL_TRANSOVER_PRICE.divide(GENERAL_TOTAL_TRANSOVER_AMOUNT,4,EngBLCommon.ROUNDING_METHOD);
+			}
+			if (GENERAL_TOTAL_AMOUNT_IN.doubleValue() != 0)
+			{
+				averageUnitPriceIn=GENERAL_TOTAL_PRICE_IN.divide(GENERAL_TOTAL_AMOUNT_IN,4,EngBLCommon.ROUNDING_METHOD);
+			}
+			if (GENERAL_TOTAL_AMOUNT_OUT.doubleValue() != 0)
+			{
+				averageUnitPriceOut=GENERAL_TOTAL_PRICE_OUT.divide(GENERAL_TOTAL_AMOUNT_OUT,4,EngBLCommon.ROUNDING_METHOD);
+			}
+			if (GENERAL_TOTAL_BALANCE_IN.doubleValue() !=0)
+			{
+				averageBalanceUnitPrice=GENERAL_TOTAL_BALANCE.divide(GENERAL_TOTAL_BALANCE_IN,4,EngBLCommon.ROUNDING_METHOD);
+			}
+			
 			tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);
-			tableViewer.addRow(new String[]{"","",EngLangCommonKeys.STR_GENERAL_TOTAL_CAPITAL,cf.format(GENERAL_TOTAL_TRANSOVER_PRICE),"","",cf.format(GENERAL_TOTAL_PRICE_IN),"","",cf.format(GENERAL_TOTAL_PRICE_OUT),"","",cf.format(GENERAL_TOTAL_BALANCE),""},null);
-			
-			
+			tableViewer.addRow(new String[]{"",EngLangCommonKeys.STR_GENERAL_TOTAL_CAPITAL,cf.format(GENERAL_TOTAL_TRANSOVER_AMOUNT),cf.format(GENERAL_TOTAL_TRANSOVER_PRICE),cf.format(averageTransOverUnitPrice),cf.format(GENERAL_TOTAL_AMOUNT_IN),cf.format(GENERAL_TOTAL_PRICE_IN),cf.format(averageUnitPriceIn),cf.format(GENERAL_TOTAL_AMOUNT_OUT),cf.format(GENERAL_TOTAL_PRICE_OUT),cf.format(averageUnitPriceOut),cf.format(GENERAL_TOTAL_BALANCE_IN),cf.format(GENERAL_TOTAL_BALANCE),cf.format(averageBalanceUnitPrice)},null);
+				
 		}
 		catch (Exception ex)
 		{
