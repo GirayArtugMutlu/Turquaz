@@ -99,22 +99,10 @@ public class EngBLVersionValidate
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
-		try{
 		String query="INSERT INTO TURQ_CURRENT_TRANSACTION_TYPES VALUES(8,'Virman','admin','2004-10-18','admin','2004-10-18')";
 		stmt.execute(query);
-		}
-		catch(Exception ex)
-		{
-			
-		}
-		try{
-		String query="INSERT INTO turq_module_components VALUES (92, 4, 'com.turquaz.current.ui.CurUICurrentTransfer', 'Cari Virman', 'cem', '2005-02-28', 'cem', '2005-02-28')";
+		query="INSERT INTO turq_module_components VALUES (92, 4, 'com.turquaz.current.ui.CurUICurrentTransfer', 'Cari Virman', 'cem', '2005-02-28', 'cem', '2005-02-28')";
 		stmt.execute(query);
-		}
-		catch(Exception ex)
-		{
-			
-		}
 		setting.setDatabaseVersion("0.7.2");
 		EngDALCommon.updateObject(setting);	
 	
@@ -124,57 +112,33 @@ public class EngBLVersionValidate
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
-	
-			try{
-			String query="INSERT INTO turq_module_components VALUES (92, 4, 'com.turquaz.current.ui.CurUICurrentTransfer', 'Cari Virman', 'cem', '2005-02-28', 'cem', '2005-02-28')";
-			stmt.execute(query);
-			}
-			catch(Exception ex)
-			{
-				
-			}
-			
-			setting.setDatabaseVersion("0.7.2");
-			EngDALCommon.updateObject(setting);
-	
+		String query="INSERT INTO turq_module_components VALUES (92, 4, 'com.turquaz.current.ui.CurUICurrentTransfer', 'Cari Virman', 'cem', '2005-02-28', 'cem', '2005-02-28')";
+		stmt.execute(query);
+		setting.setDatabaseVersion("0.7.2");
+		EngDALCommon.updateObject(setting);	
 	}
 	public static void HSQLDBupdateVersion072(TurqSetting setting)throws Exception
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
-		try{
 		String query="INSERT INTO turq_cash_transaction_types VALUES (6, 'Acilis', 'admin', '2004-12-12', 'admin', '2004-12-12');"+
 					 "INSERT INTO turq_module_components VALUES (93, 8, 'com.turquaz.cash.ui.CashUIInitialTransactions', 'Kasa Acilis', 'cem', '2005-02-28', 'cem', '2005-02-28');"+
 					 "INSERT INTO turq_module_components VALUES (94, 6, 'com.turquaz.consignment.ui.ConUIAddBuyConsignment', 'Alis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
 					 "INSERT INTO turq_module_components VALUES (95, 6, 'com.turquaz.consignment.ui.ConUIAddSellConsignment', 'Satis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
-		stmt.execute(query);
-		}
-		catch(Exception ex)
-		{
-			
-		}
-		
+		stmt.execute(query);		
 		setting.setDatabaseVersion("0.7.3");
-		EngDALCommon.updateObject(setting);	
-	
+		EngDALCommon.updateObject(setting);		
 	}
 	
 	public static void PGupdateVersion072(TurqSetting setting)throws Exception
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
-		try{
 		String query="INSERT INTO turq_cash_transaction_types VALUES (6, 'Acilis', 'admin', '2004-12-12', 'admin', '2004-12-12');"+
 					 "INSERT INTO turq_module_components VALUES (93, 8, 'com.turquaz.cash.ui.CashUIInitialTransactions', 'Kasa Acilis', 'cem', '2005-02-28', 'cem', '2005-02-28');"+
 					 "INSERT INTO turq_module_components VALUES (94, 6, 'com.turquaz.consignment.ui.ConUIAddBuyConsignment', 'Alis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
 					 "INSERT INTO turq_module_components VALUES (95, 6, 'com.turquaz.consignment.ui.ConUIAddSellConsignment', 'Satis Irsaliyesi Ekle', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
-		stmt.execute(query);
-		}
-		catch(Exception ex)
-		{
-			
-		}
-		
+		stmt.execute(query);		
 		setting.setDatabaseVersion("0.7.3");
 		EngDALCommon.updateObject(setting);	
 	
@@ -183,39 +147,24 @@ public class EngBLVersionValidate
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
-		try{
-			String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+		String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
 			  "INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Ceki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');"+
 			  "INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01');" +
 			  "INSERT INTO turq_module_components VALUES (97, 0, 'com.turquaz.inventory.ui.InvUIInitialTransacions', 'Stok Acilis Degerleri', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
-			stmt.execute(query);
-		}
-		catch(Exception ex)
-		{
-			
-		}
-		
+		stmt.execute(query);		
 		setting.setDatabaseVersion("0.7.4");
-		EngDALCommon.updateObject(setting);	
-	
+		EngDALCommon.updateObject(setting);		
 	}
 	
 	public static void PGupdateVersion073(TurqSetting setting)throws Exception
 	{
 		Session session = EngDALSessionFactory.getSession();
 		Statement stmt = session.connection().createStatement();
-		try{
-			String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+		String query= "INSERT INTO turq_module_components VALUES (96, 9, 'com.turquaz.cheque.ui.CheUIOwnChequeCollect', 'Firma Ceki Tahsili', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
 			  "INSERT INTO turq_cheque_transaction_types VALUES (8, 'Firma Ceki Tahsili', 3, 'admin', '2005-01-01', 'admin', '2005-01-01');"+
 			  "INSERT INTO turq_banks_transaction_types VALUES (9, 'Cek Odemesi', 'admin', '2005-01-01', 'admin', '2005-01-01');" +
 			  "INSERT INTO turq_module_components VALUES (97, 0, 'com.turquaz.inventory.ui.InvUIInitialTransacions', 'Stok Acilis Degerleri', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
-			stmt.execute(query);
-		}
-		catch(Exception ex)
-		{
-			
-		}
-		
+		stmt.execute(query);
 		setting.setDatabaseVersion("0.7.4");
 		EngDALCommon.updateObject(setting);	
 	
@@ -224,8 +173,7 @@ public class EngBLVersionValidate
     {
         Session session = EngDALSessionFactory.getSession();
         Statement stmt = session.connection().createStatement();
-        try{
-            String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
+        String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
             "INSERT INTO turq_inventory_accounting_types VALUES (9, 'Return Sell', 'Satistan Iade Muhasebe Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (11, 'Return Sell VAT', 'Satistan Iade KDV Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (10, 'Return Buy VAT', 'Alistan Iade KDV Hesabi');" +
@@ -238,25 +186,16 @@ public class EngBLVersionValidate
             "INSERT INTO turq_module_components VALUES (98, 4, 'com.turquaz.current.ui.CurUICurCardBalanceReport', 'Cari Kart Mizani', 'admin', '2005-04-27', 'admin', '2005-04-27');"+
             "INSERT INTO turq_module_components VALUES (99, 4, 'com.turquaz.current.ui.CurUIMultipleCreditVoucher', 'Coklu Alacak Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
             "INSERT INTO turq_module_components VALUES (100, 4, 'com.turquaz.current.ui.CurUIMultipleDeptVoucher', 'Coklu Borc Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
-            
-            stmt.execute(query);
-        }
-        catch(Exception ex)
-        {
-            
-        }
-        
+        stmt.execute(query);        
         setting.setDatabaseVersion("0.7.5");
-        EngDALCommon.updateObject(setting); 
-    
+        EngDALCommon.updateObject(setting);     
     }
     
     public static void PGupdateVersion074(TurqSetting setting)throws Exception
     {
         Session session = EngDALSessionFactory.getSession();
         Statement stmt = session.connection().createStatement();
-        try{
-            String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
+        String query= "INSERT INTO turq_inventory_accounting_types VALUES (8, 'Return Buy', 'Alistan Iade Muhasebe Hesabi');"+
             "INSERT INTO turq_inventory_accounting_types VALUES (9, 'Return Sell', 'Satistan Iade Muhasebe Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (11, 'Return Sell VAT', 'Satistan Iade KDV Hesabi');" +
             "INSERT INTO turq_inventory_accounting_types VALUES (10, 'Return Buy VAT', 'Alistan Iade KDV Hesabi');" +
@@ -269,19 +208,36 @@ public class EngBLVersionValidate
             "INSERT INTO turq_module_components VALUES (98, 4, 'com.turquaz.current.ui.CurUICurCardBalanceReport', 'Cari Kart Mizani', 'admin', '2005-04-27', 'admin', '2005-04-27');"+
             "INSERT INTO turq_module_components VALUES (99, 4, 'com.turquaz.current.ui.CurUIMultipleCreditVoucher', 'Coklu Alacak Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
             "INSERT INTO turq_module_components VALUES (100, 4, 'com.turquaz.current.ui.CurUIMultipleDeptVoucher', 'Coklu Borc Fisi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
-
-            
-            stmt.execute(query);
-        
-        
-        }
-        catch(Exception ex)
-        {
-            
-        }
-        
+        stmt.execute(query);        
         setting.setDatabaseVersion("0.7.5");
-        EngDALCommon.updateObject(setting); 
+        EngDALCommon.updateObject(setting);     
+    }
     
+    public static void HSQLDBupdateVersion075(TurqSetting setting)throws Exception
+    {
+        Session session = EngDALSessionFactory.getSession();
+        Statement stmt = session.connection().createStatement();
+        String query="delete from turq_inventory_transactions where" +
+        	" (turq_inventory_transactions.engine_sequences_id not in" +
+        	" (Select cons.engine_sequences_id from turq_consignments cons)) " +
+        	"  and (turq_inventory_transactions.engine_sequences_id not in" +
+        	" (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine))";
+        stmt.execute(query);        
+        setting.setDatabaseVersion("0.7.6");
+        EngDALCommon.updateObject(setting);     
+    }
+    
+    public static void PGupdateVersion075(TurqSetting setting)throws Exception
+    {
+        Session session = EngDALSessionFactory.getSession();
+        Statement stmt = session.connection().createStatement();
+        String query="delete from turq_inventory_transactions where" +
+			" (turq_inventory_transactions.engine_sequences_id not in" +
+			" (Select cons.engine_sequences_id from turq_consignments cons)) " +
+			" and (turq_inventory_transactions.engine_sequences_id not in" +
+			" (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine))";
+        stmt.execute(query);        
+        setting.setDatabaseVersion("0.7.6");
+        EngDALCommon.updateObject(setting);     
     }
 }
