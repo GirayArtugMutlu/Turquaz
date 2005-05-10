@@ -79,7 +79,6 @@ public class CurDALCurrentCardSearch
 			{
 				q.setParameter("cardGroup", cardGroup);
 			}
-			q.setMaxResults(1000);
 			List list = q.list();
 			return list;
 		}

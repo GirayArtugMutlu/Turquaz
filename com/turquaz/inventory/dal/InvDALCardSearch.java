@@ -60,7 +60,6 @@ public class InvDALCardSearch
 			{
 				q.setParameter("invGroup", invGroup);
 			}
-			q.setMaxResults(1000);
 			List list = q.list();
 			return list;
 		}
@@ -152,7 +151,6 @@ public class InvDALCardSearch
 			{
 				q.setParameter("invGroup", invGroup);
 			}
-			q.setMaxResults(1000);
 			List list = q.list();
 			return list;
 		}
