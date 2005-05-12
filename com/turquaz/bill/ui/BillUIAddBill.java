@@ -65,6 +65,7 @@ import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
+import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -912,6 +913,15 @@ public class BillUIAddBill extends Composite implements SecureComposite
 			cursor.setFocus();
 			return false;
 		}
+         if(btnClosedBill.getSelection())
+        {
+            if(cashPicker.getTurqCashCard()==null)
+            {
+                EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CASH_CARD,SWT.ICON_WARNING);
+                cashPicker.setFocus();
+                return false;
+            }
+        }
 		boolean isExistEntry = false;
 		TableItem items[] = tableConsignmentRows.getItems();
 		for (int k = 0; k < items.length; k++)
