@@ -127,7 +127,7 @@ public class BankBLTransactionUpdate
 			transRowCredit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			transRowCredit.setLastModified(Calendar.getInstance().getTime());
 			transRowCredit.setCreationDate(Calendar.getInstance().getTime());
-			transRowCredit.setTurqBanksCard(bankCardWithDept);
+			transRowCredit.setTurqBanksCard(bankCardWithCredit);
 			transRowCredit.setCreditAmountInForeignCurrency(totalAmount);
 			transRowCredit.setCreditAmount(totalAmount.multiply(exchangeRate.getExchangeRatio())
 					.setScale(2, EngBLCommon.ROUNDING_METHOD));
@@ -138,7 +138,7 @@ public class BankBLTransactionUpdate
 			transRowDebit.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			transRowDebit.setLastModified(Calendar.getInstance().getTime());
 			transRowDebit.setCreationDate(Calendar.getInstance().getTime());
-			transRowDebit.setTurqBanksCard(bankCardWithCredit);
+			transRowDebit.setTurqBanksCard(bankCardWithDept);
 			transRowDebit.setCreditAmountInForeignCurrency(new BigDecimal(0));
 			transRowDebit.setCreditAmount(new BigDecimal(0));
 			transRowDebit.setDeptAmountInForeignCurrency(totalAmount);
