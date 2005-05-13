@@ -372,8 +372,7 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	
 	private void PostInitGui()
 	{
-        ReportTableViewer viewer = new ReportTableViewer(tableTreeAccounts.getTable());
-        
+        ReportTableViewer viewer = new ReportTableViewer(tableTreeAccounts.getTable());        
         
 	}
 	
