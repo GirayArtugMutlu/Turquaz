@@ -96,7 +96,7 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
                 }
                 {
                     toolCancel = new ToolItem(toolBar1, SWT.NONE);
-                    toolCancel.setText(EngLangCommonKeys.STR_DELETE); //$NON-NLS-1$
+                    toolCancel.setText(EngLangCommonKeys.STR_CANCEL); //$NON-NLS-1$
                     toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg")); //$NON-NLS-1$
                     toolCancel.addSelectionListener(new SelectionAdapter()
                     {
