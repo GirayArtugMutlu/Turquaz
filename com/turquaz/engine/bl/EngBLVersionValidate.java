@@ -217,13 +217,12 @@ public class EngBLVersionValidate
     {
         Session session = EngDALSessionFactory.getSession();
         Statement stmt = session.connection().createStatement();
-   /*     String query="delete from turq_inventory_transactions where" +
+           String query="delete from turq_inventory_transactions where" +
         	" (turq_inventory_transactions.engine_sequences_id not in" +
         	" (Select cons.engine_sequences_id from turq_consignments cons)) " +
         	"  and (turq_inventory_transactions.engine_sequences_id not in" +
-        	" (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine))";
-     */
-        String query = "INSERT INTO turq_module_components VALUES (101, 7, 'com.turquaz.bill.ui.BillUIAddReturnBuyBill', 'Alistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+        	" (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine));"+
+             "INSERT INTO turq_module_components VALUES (101, 7, 'com.turquaz.bill.ui.BillUIAddReturnBuyBill', 'Alistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
                        "INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAddReturnSellBill', 'Satistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
         stmt.execute(query);        
         setting.setDatabaseVersion("0.7.6");
@@ -234,14 +233,13 @@ public class EngBLVersionValidate
     {
         Session session = EngDALSessionFactory.getSession();
         Statement stmt = session.connection().createStatement();
-      /*  String query="delete from turq_inventory_transactions where" +
-			" (turq_inventory_transactions.engine_sequences_id not in" +
-			" (Select cons.engine_sequences_id from turq_consignments cons)) " +
-			" and (turq_inventory_transactions.engine_sequences_id not in" +
-			" (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine))";
-       */
-        String query = "INSERT INTO turq_module_components VALUES (101, 7, 'com.turquaz.bill.ui.BillUIAddReturnBuyBill', 'Alistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
-        "INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAddReturnSellBill', 'Satistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+        String query="delete from turq_inventory_transactions where" +
+        " (turq_inventory_transactions.engine_sequences_id not in" +
+        " (Select cons.engine_sequences_id from turq_consignments cons)) " +
+        "  and (turq_inventory_transactions.engine_sequences_id not in" +
+        " (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine));"+
+         "INSERT INTO turq_module_components VALUES (101, 7, 'com.turquaz.bill.ui.BillUIAddReturnBuyBill', 'Alistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
+                   "INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAddReturnSellBill', 'Satistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
         stmt.execute(query);        
         setting.setDatabaseVersion("0.7.6");
         EngDALCommon.updateObject(setting);     
