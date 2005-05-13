@@ -118,7 +118,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
     private final String ACCOUNT_CODE = AccLangKeys.STR_ACCOUNT_CODE; //$NON-NLS-1$
     private final String ACCOUNT_NAME = AccLangKeys.STR_ACCOUNT_NAME; //$NON-NLS-1$
     private final String DEFINITION = EngLangCommonKeys.STR_DESCRIPTION; //$NON-NLS-1$
-    private final String DEBIT = EngLangCommonKeys.STR_DEPT; //$NON-NLS-1$
+    private final String DEBIT = EngLangCommonKeys.STR_CREDIT; //$NON-NLS-1$
     private List columnList = new ArrayList();
     // Set column names
     private String[] columnNames = new String[]{ACCOUNT_CODE, ACCOUNT_NAME, DEFINITION, DEBIT};
@@ -471,7 +471,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
 
     public void clearFields()
     {
-        CurUIMultipleCreditVoucher curCard = new CurUIMultipleCreditVoucher(this.getParent(), this.getStyle());
+        CurUIMultipleDeptVoucher curCard = new CurUIMultipleDeptVoucher(this.getParent(), this.getStyle());
         CTabFolder tabfld = (CTabFolder) this.getParent();
         tabfld.getSelection().setControl(curCard);
         this.dispose();

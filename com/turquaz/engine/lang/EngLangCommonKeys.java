@@ -230,8 +230,8 @@ public class EngLangCommonKeys {
     public final static String STR_CUR_DEPT_VOUCHER =Messages.getString("EngLangCommonKeys.200"); //$NON-NLS-1$
     public final static String STR_CUR_CREDIT_VOUCHER =Messages.getString("EngLangCommonKeys.201"); //$NON-NLS-1$
     public final static String STR_CUR_TRANSFER_BETWEEN_ACCS =Messages.getString("EngLangCommonKeys.202"); //$NON-NLS-1$
-    public final static String STR_CUR_MULTIPLE_CREDIT_VOUCHER =Messages.getString("EngLangCommonKeys.203"); //$NON-NLS-1$
-    public final static String STR_CUR_MULTIPLE_DEPT_VOUCHER =Messages.getString("EngLangCommonKeys.204"); //$NON-NLS-1$
+    public final static String STR_CUR_MULTIPLE_CREDIT_VOUCHER =Messages.getString("EngLangCommonKeys.204"); //$NON-NLS-1$
+    public final static String STR_CUR_MULTIPLE_DEPT_VOUCHER =Messages.getString("EngLangCommonKeys.203"); //$NON-NLS-1$
     public final static String STR_SEARCH_CUR_CARD =Messages.getString("EngLangCommonKeys.205"); //$NON-NLS-1$
     public final static String STR_SEARCH_CUR_TRANS =Messages.getString("EngLangCommonKeys.206"); //$NON-NLS-1$
     public final static String STR_CUR_CARD_WITH_DEPT =Messages.getString("EngLangCommonKeys.207"); //$NON-NLS-1$
