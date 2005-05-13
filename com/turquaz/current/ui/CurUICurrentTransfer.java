@@ -268,8 +268,8 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 				BigDecimal amount = currentAmount.getBigDecimalValue();
 				
 				HashMap argMap = new HashMap ();
-				argMap.put(CurKeys.CUR_CARD_CREDIT, currentCreditPicker.getData());
-				argMap.put(CurKeys.CUR_CARD_DEPT,currentDebitPicker.getData());
+				argMap.put(CurKeys.CUR_CARD_CREDIT, currentDebitPicker.getData());
+				argMap.put(CurKeys.CUR_CARD_DEPT,currentCreditPicker.getData());
 				argMap.put(EngKeys.DATE,datePicker.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(CurKeys.CUR_TRANS_AMOUNT,currentAmount.getBigDecimalValue());

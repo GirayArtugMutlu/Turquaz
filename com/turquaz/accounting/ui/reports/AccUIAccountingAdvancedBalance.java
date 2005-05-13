@@ -47,6 +47,8 @@ import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.viewers.ReportTableViewer;
+
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -271,7 +273,9 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 			//END << groupRemainder
 			{
 				checkSubAccounts = new Button(compOptions, SWT.CHECK | SWT.LEFT);
-				checkSubAccounts.setText(AccLangKeys.STR_SHOW_SUBSIDIARY_ACCOUNTS);
+
+				checkSubAccounts.setText(AccLangKeys.STR_SHOW_SUBSIDIARY_ACCOUNTS); //$NON-NLS-1$
+
 				GridData checkSubAccountsLData = new GridData();
 				checkSubAccountsLData.heightHint = 33;
 				checkSubAccounts.setLayoutData(checkSubAccountsLData);
@@ -368,6 +372,9 @@ public class AccUIAccountingAdvancedBalance extends org.eclipse.swt.widgets.Comp
 	
 	private void PostInitGui()
 	{
+        ReportTableViewer viewer = new ReportTableViewer(tableTreeAccounts.getTable());
+        
+        
 	}
 	
 	public void search()

@@ -164,12 +164,12 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
             if( curTrans.getTransactionsTotalCredit().doubleValue()>0)
             {
             	
-            	compCurTransfer.getCurrentDebitPicker().setData(curTrans.getTurqCurrentCard());
+            	compCurTransfer.getCurrentCreditPicker().setData(curTrans.getTurqCurrentCard());
             	compCurTransfer.getCurrentAmount().setText(curTrans.getTransactionsTotalCredit());
             }
             else
             {
-            	compCurTransfer.getCurrentCreditPicker().setData(curTrans.getTurqCurrentCard());
+            	compCurTransfer.getCurrentDebitPicker().setData(curTrans.getTurqCurrentCard());
             	compCurTransfer.getCurrentAmount().setText(curTrans.getTransactionsTotalDept());
             } 	
 		 }	 
