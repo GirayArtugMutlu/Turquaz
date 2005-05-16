@@ -156,12 +156,16 @@ public class AccBLAccountAdd
 			if (parentAccount.getId().intValue() == -1)
 			{
 				account.setTurqAccountingAccountByTopAccount(parentAccount);
+                EngDALCommon.saveObject(account);
+                account.setTurqAccountingAccountByTopAccount(account);
+                EngDALCommon.updateObject(account);
 			}
 			else
 			{
 				account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
+                EngDALCommon.saveObject(account);
 			}
-			EngDALCommon.saveObject(account);
+			
 			EngBLAccountingAccounts.RefreshContentAsistantMap();
 			return account;
 		}
