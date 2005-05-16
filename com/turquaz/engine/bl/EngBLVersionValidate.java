@@ -239,9 +239,31 @@ public class EngBLVersionValidate
         "  and (turq_inventory_transactions.engine_sequences_id not in" +
         " (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine));"+
          "INSERT INTO turq_module_components VALUES (101, 7, 'com.turquaz.bill.ui.BillUIAddReturnBuyBill', 'Alistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');"+
-                   "INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAddReturnSellBill', 'Satistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
+         "INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAddReturnSellBill', 'Satistan Iade Faturasi', 'onsel', '2004-10-18', 'onsel', '2004-10-18');";
         stmt.execute(query);        
         setting.setDatabaseVersion("0.7.6");
+        EngDALCommon.updateObject(setting);     
+    }
+    
+    public static void HSQLDBupdateVersion076(TurqSetting setting)throws Exception
+    {
+        Session session = EngDALSessionFactory.getSession();
+        Statement stmt = session.connection().createStatement();
+       
+        String query ="delete from turq_current_transactions where id=1933 and engine_sequences_id =1489 and transactions_date ='2005-04-06';";
+        stmt.execute(query);        
+        setting.setDatabaseVersion("0.7.7");
+        EngDALCommon.updateObject(setting);     
+    }
+    
+    public static void PGupdateVersion076(TurqSetting setting)throws Exception
+    {
+       
+        Session session = EngDALSessionFactory.getSession();
+        Statement stmt = session.connection().createStatement();
+        String query="";
+        stmt.execute(query);        
+        setting.setDatabaseVersion("0.7.7");
         EngDALCommon.updateObject(setting);     
     }
 }

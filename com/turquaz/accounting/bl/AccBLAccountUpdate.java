@@ -116,7 +116,7 @@ public class AccBLAccountUpdate
             TurqAccountingAccount dummy = new TurqAccountingAccount();
             dummy.setId(new Integer(-1));
             account.setTurqAccountingAccountByTopAccount(dummy);
-            EngDALCommon.updateObject(dummy);
+            EngDALCommon.updateObject(account);
         }
         
 		EngDALCommon.deleteObject(account);
