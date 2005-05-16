@@ -109,7 +109,17 @@ public class AccBLAccountUpdate
 
 	public static void deleteAccount(HashMap argMap) throws Exception
 	{
-		EngDALCommon.deleteObject(argMap.get(AccKeys.ACC_ACCOUNT));
+        TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+       
+        if(account.getId().equals(account.getTurqAccountingAccountByTopAccount().getId()))
+        {
+            TurqAccountingAccount dummy = new TurqAccountingAccount();
+            dummy.setId(new Integer(-1));
+            account.setTurqAccountingAccountByTopAccount(dummy);
+            EngDALCommon.updateObject(dummy);
+        }
+        
+		EngDALCommon.deleteObject(account);
 		EngBLAccountingAccounts.RefreshContentAsistantMap();
 	}
 

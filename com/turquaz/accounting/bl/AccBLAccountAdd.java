@@ -177,7 +177,7 @@ public class AccBLAccountAdd
 
 	public static List getTransactionColumns(HashMap argMap) throws Exception
 	{			
-		 	Integer type = (Integer)argMap.get(AccKeys.ACC_TYPE);
+		  Integer type = (Integer)argMap.get(AccKeys.ACC_TYPE);
 		  Object startDate = argMap.get(AccKeys.ACC_START_DATE);
 		  Object endDate = argMap.get(AccKeys.ACC_END_DATE);
 		
