@@ -39,6 +39,8 @@ import com.turquaz.bank.ui.BankUIOtherTransOut;
 import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
 import com.turquaz.bank.ui.BankUITransferBetweenAccounts;
 import com.turquaz.bill.ui.BillUIAddBuyBill;
+import com.turquaz.bill.ui.BillUIAddReturnBuyBill;
+import com.turquaz.bill.ui.BillUIAddReturnSellBill;
 import com.turquaz.bill.ui.BillUIAddSellBill;
 import com.turquaz.bill.ui.BillUIBillFromConsignment;
 import com.turquaz.bill.ui.BillUIBillReport;
@@ -48,8 +50,11 @@ import com.turquaz.cash.ui.CashUICashCardAdd;
 import com.turquaz.cash.ui.CashUICashCardDailyAbstract;
 import com.turquaz.cash.ui.CashUICashCardSearch;
 import com.turquaz.cash.ui.CashUICashCollectTransactionAdd;
+import com.turquaz.cash.ui.CashUICashOtherCollectTransaction;
+import com.turquaz.cash.ui.CashUICashOtherPaymentTransaction;
 import com.turquaz.cash.ui.CashUICashPaymentTransactionAdd;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cash.ui.CashUICashTransferBetweenCards;
 import com.turquaz.cash.ui.CashUIInitialTransactions;
 import com.turquaz.cheque.ui.CheUIChequeCollect;
 import com.turquaz.cheque.ui.CheUIChequeCollectFromBank;
@@ -60,6 +65,8 @@ import com.turquaz.cheque.ui.CheUIChequeRollSearch;
 import com.turquaz.cheque.ui.CheUICustomerChequeSearch;
 import com.turquaz.cheque.ui.CheUIOwnChequeCollect;
 import com.turquaz.cheque.ui.CheUIOwnChequeSearch;
+import com.turquaz.cheque.ui.CheUIReturnFromCurrent;
+import com.turquaz.cheque.ui.CheUIReturnFromGivenCheques;
 import com.turquaz.consignment.ui.ConUIAddBuyConsignment;
 import com.turquaz.consignment.ui.ConUIAddSellConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearch;
@@ -71,7 +78,10 @@ import com.turquaz.current.ui.CurUICurrentCardAdd;
 import com.turquaz.current.ui.CurUICurrentCardCreditVoucher;
 import com.turquaz.current.ui.CurUICurrentCardDeptVoucher;
 import com.turquaz.current.ui.CurUICurrentCardSearch;
+import com.turquaz.current.ui.CurUICurrentTransfer;
 import com.turquaz.current.ui.CurUIInitialTransaction;
+import com.turquaz.current.ui.CurUIMultipleCreditVoucher;
+import com.turquaz.current.ui.CurUIMultipleDeptVoucher;
 import com.turquaz.current.ui.CurUITransactionSearch;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -79,10 +89,13 @@ import com.turquaz.engine.ui.EngUIMainFrame;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.InvUICardSearch;
 import com.turquaz.inventory.ui.InvUIGroupingPlan;
+import com.turquaz.inventory.ui.InvUIInitialTransacions;
 import com.turquaz.inventory.ui.InvUIInventoryCardAbstract;
 import com.turquaz.inventory.ui.InvUIInventoryGroupAdd;
 import com.turquaz.inventory.ui.InvUIInventoryLedger;
 import com.turquaz.inventory.ui.InvUIInventoryTransactionReport;
+import com.turquaz.inventory.ui.InvUIOtherTransactionIn;
+import com.turquaz.inventory.ui.InvUIOtherTransactionOut;
 import com.turquaz.inventory.ui.InvUIProfitAnalysis;
 import com.turquaz.inventory.ui.InvUITransactionSearch;
 import com.turquaz.inventory.ui.InvUITransactionsTotalReport;
@@ -130,6 +143,7 @@ public class MenuFactory
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		sps = new MenuItem(currentMenu, SWT.SEPARATOR);
+        
 		if (EngBLPermissions.getPermission(CurUICurrentCardDeptVoucher.class.getName()) > 0)
 		{
 			mit = new MenuItem(currentMenu, SWT.PUSH);
@@ -143,8 +157,31 @@ public class MenuFactory
 			mit.setText(EngLangCommonKeys.STR_CUR_CREDIT_VOUCHER); //$NON-NLS-1$
 			mit.setData(CurUICurrentCardCreditVoucher.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
-		}		
+		}	
+        if (EngBLPermissions.getPermission(CurUICurrentTransfer.class.getName()) > 0)
+        {
+            mit = new MenuItem(currentMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_CUR_TRANSFER_BETWEEN_ACCS); //$NON-NLS-1$
+            mit.setData(CurUICurrentTransfer.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(CurUIMultipleDeptVoucher.class.getName()) > 0)
+        {
+            mit = new MenuItem(currentMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_CUR_MULTIPLE_DEPT_VOUCHER); //$NON-NLS-1$
+            mit.setData(CurUIMultipleDeptVoucher.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(CurUIMultipleCreditVoucher.class.getName()) > 0)
+        {
+            mit = new MenuItem(currentMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_CUR_MULTIPLE_CREDIT_VOUCHER); //$NON-NLS-1$
+            mit.setData(CurUIMultipleCreditVoucher.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        
 		sps = new MenuItem(currentMenu, SWT.SEPARATOR);
+        
 		if (EngBLPermissions.getPermission(CurUICurrentCardSearch.class.getName()) > 0)
 		{
 			mit = new MenuItem(currentMenu, SWT.PUSH);
@@ -196,8 +233,10 @@ public class MenuFactory
 			mit.setData(CurUIInitialTransaction.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
-		mit = new MenuItem(menuFinance, SWT.CASCADE);
-		mit.setText(EngLangCommonKeys.STR_MODULE_CHEQUE); //$NON-NLS-1$
+		
+        mit = new MenuItem(menuFinance, SWT.CASCADE);
+		
+        mit.setText(EngLangCommonKeys.STR_MODULE_CHEQUE); //$NON-NLS-1$
 		Menu chequeMenu = new Menu(mit);
 		mit.setMenu(chequeMenu);
 		//	cheque menu items
@@ -229,6 +268,20 @@ public class MenuFactory
 			mit.setData(CheUIChequeCollectFromBank.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
+        if (EngBLPermissions.getPermission(CheUIReturnFromCurrent.class.getName()) > 0)
+        {
+            mit = new MenuItem(chequeMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_CHEQUE_RETURN_FROM_CURRENT); //$NON-NLS-1$
+            mit.setData(CheUIReturnFromCurrent.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(CheUIReturnFromGivenCheques.class.getName()) > 0)
+        {
+            mit = new MenuItem(chequeMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_CHEQUE_RETURN_FROM_CURRENT); //$NON-NLS-1$
+            mit.setData(CheUIReturnFromGivenCheques.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
 		if (EngBLPermissions.getPermission(CheUIChequeCollect.class.getName()) > 0)
 		{
 			mit = new MenuItem(chequeMenu, SWT.PUSH);
@@ -373,17 +426,38 @@ public class MenuFactory
 		if (EngBLPermissions.getPermission(CashUICashCollectTransactionAdd.class.getName()) > 0)
 		{
 			mit = new MenuItem(cashMenu, SWT.PUSH);
-			mit.setText(EngLangCommonKeys.STR_COLLECT_VOUCHER); //$NON-NLS-1$
+			mit.setText(EngLangCommonKeys.STR_COLLECT_FROM_CURRENT); //$NON-NLS-1$
 			mit.setData(CashUICashCollectTransactionAdd.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
 		if (EngBLPermissions.getPermission(CashUICashPaymentTransactionAdd.class.getName()) > 0)
 		{
 			mit = new MenuItem(cashMenu, SWT.PUSH);
-			mit.setText(EngLangCommonKeys.STR_PAYMENT_VOUCHER); //$NON-NLS-1$
+			mit.setText(EngLangCommonKeys.STR_PAYMENT_TO_CURRENT); //$NON-NLS-1$
 			mit.setData(CashUICashPaymentTransactionAdd.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
+        if (EngBLPermissions.getPermission(CashUICashOtherCollectTransaction.class.getName()) > 0)
+        {
+            mit = new MenuItem(cashMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_OTHER_COLLECT); //$NON-NLS-1$
+            mit.setData(CashUICashOtherCollectTransaction.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(CashUICashOtherPaymentTransaction.class.getName()) > 0)
+        {
+            mit = new MenuItem(cashMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_OTHER_PAYMENT); //$NON-NLS-1$
+            mit.setData(CashUICashOtherPaymentTransaction.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(CashUICashTransferBetweenCards.class.getName()) > 0)
+        {
+            mit = new MenuItem(cashMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_CASH_TRANSFER_BETWEEN_ACCOUNTS); //$NON-NLS-1$
+            mit.setData(CashUICashTransferBetweenCards.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
 		if (EngBLPermissions.getPermission(CashUIInitialTransactions.class.getName()) > 0)
 		{
 			mit = new MenuItem(cashMenu, SWT.PUSH);
@@ -402,7 +476,7 @@ public class MenuFactory
 		if (EngBLPermissions.getPermission(CashUICashTransactionSearch.class.getName()) > 0)
 		{
 			mit = new MenuItem(cashMenu, SWT.PUSH);
-			mit.setText(EngLangCommonKeys.STR_CASH_TRANSACTIONS); //$NON-NLS-1$
+			mit.setText(EngLangCommonKeys.STR_SEARCH_CASH_TRANS); //$NON-NLS-1$
 			mit.setData(CashUICashTransactionSearch.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
@@ -553,6 +627,20 @@ public class MenuFactory
 			mit.setData(BillUIAddSellBill.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
+        if (EngBLPermissions.getPermission(BillUIAddReturnSellBill.class.getName()) > 0)
+        {
+            mit = new MenuItem(invoiceMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_ADD_RETURN_SELL_BILL); //$NON-NLS-1$
+            mit.setData(BillUIAddReturnSellBill.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(BillUIAddReturnBuyBill.class.getName()) > 0)
+        {
+            mit = new MenuItem(invoiceMenu, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_ADD_RETURN_BUY_BILL); //$NON-NLS-1$
+            mit.setData(BillUIAddReturnBuyBill.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
 		if (EngBLPermissions.getPermission(BillUIBillFromConsignment.class.getName()) > 0)
 		{
 			mit = new MenuItem(invoiceMenu, SWT.PUSH);
@@ -626,6 +714,29 @@ public class MenuFactory
 			mit.setData(InvUIWarehouseAdd.class.getName());
 			mit.addSelectionListener(new MenuSelectionAdapter());
 		}
+        sps = new MenuItem(menuAcc, SWT.SEPARATOR);
+        
+        if (EngBLPermissions.getPermission(InvUIOtherTransactionIn.class.getName()) > 0)
+        {
+            mit = new MenuItem(menuAcc, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_INV_OTHER_TRANS_IN); //$NON-NLS-1$
+            mit.setData(InvUIOtherTransactionIn.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(InvUIOtherTransactionOut.class.getName()) > 0)
+        {
+            mit = new MenuItem(menuAcc, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_INV_OTHER_TRANS_OUT); //$NON-NLS-1$
+            mit.setData(InvUIOtherTransactionOut.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
+        if (EngBLPermissions.getPermission(InvUIInitialTransacions.class.getName()) > 0)
+        {
+            mit = new MenuItem(menuAcc, SWT.PUSH);
+            mit.setText(EngLangCommonKeys.STR_INITIAL_TRANSACTION); //$NON-NLS-1$
+            mit.setData(InvUIInitialTransacions.class.getName());
+            mit.addSelectionListener(new MenuSelectionAdapter());
+        }
 		sps = new MenuItem(menuAcc, SWT.SEPARATOR);
 		if (EngBLPermissions.getPermission(InvUICardSearch.class.getName()) > 0)
 		{
