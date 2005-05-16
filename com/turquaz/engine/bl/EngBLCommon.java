@@ -33,8 +33,8 @@ import net.sf.hibernate.Transaction;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
-import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
@@ -202,12 +202,17 @@ public class EngBLCommon
 	public final static Integer CHEQUE_STATUS_RETURN_TO_CURRENT = new Integer(4);
 	public final static Integer CHEQUE_STATUS_IN_BANK = new Integer(6);
 	public final static Integer CHEQUE_STATUS_BOUNCED = new Integer(5);
+    
+    public final static String BILL_CONFIG ="bill"; //$NON-NLS-1$
 	public final static String BILL_CONFIG_CHECK_BILL_NO="checkBillNo"; //$NON-NLS-1$
 	public final static String BILL_CONFIG_CHECK_BUY_BILL="checkBuyBill"; //$NON-NLS-1$
 	public final static String BILL_CONFIG_CHECK_SELL_BILL="checkSellBill"; //$NON-NLS-1$
-
+    public final static String BILL_CONFIG_CHECK_USE_INVENTORY_NAME ="useInvName"; //$NON-NLS-1$
 	public final static int CHECK_BUY_BILL=1;
 	public final static int CHECK_SELL_BILL=2;
+    
+    
+    
 	
 	public static Map getChequeStatusMapWithStringKey()
 	{
@@ -451,7 +456,7 @@ public class EngBLCommon
 	
 	public static Integer getBillCheckStatus()
 	{
-		String checkBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
+		String checkBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
 		if (checkBill != null)
 		{
 			boolean check=new Boolean(checkBill).booleanValue();
@@ -459,12 +464,12 @@ public class EngBLCommon
 			{
 				boolean checkBuy=false;
 				boolean checkSell=false;
-				String checkBuyBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
+				String checkBuyBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
 				if (checkBuyBill != null)
 				{
 					checkBuy=new Boolean(checkBuyBill).booleanValue();
 				}		
-				String checkSellBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
+				String checkSellBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
 				if (checkSellBill != null)
 				{
 					checkSell=new Boolean(checkSellBill).booleanValue();

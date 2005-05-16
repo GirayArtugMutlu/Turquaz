@@ -10,6 +10,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -43,6 +44,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private Composite compGeneral;
+	private Button btnInventoryNameChoose;
 	private Button checkSellBills;
 	private Button checkBuyBills;
 	private Button radioBillNoCheck;
@@ -74,7 +76,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 			dialogShell.setText(EngLangCommonKeys.TITLE_PREFERENCES); //$NON-NLS-1$
 			dialogShell.layout();
 			dialogShell.pack();
-			dialogShell.setSize(557, 295);
+			dialogShell.setSize(598, 423);
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				{
@@ -87,11 +89,15 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 						{
 							EngConfiguration.setCurrentDate(datePicker.getDate());
 							EngConfiguration.setString("invoice_template", cCombo.getText().trim()); //$NON-NLS-1$
-							EngConfiguration.setString("automatic.dispatch.note",String.valueOf(btnAutomaticDispatcNote.getSelection()));
-							EngConfiguration.setString(EngBLCommon.BILL_CONFIG_CHECK_BILL_NO,String.valueOf(radioBillNoCheck.getSelection()));
-							EngConfiguration.setString(EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL, String.valueOf(checkBuyBills.getSelection()));
-							EngConfiguration.setString(EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL, String.valueOf(checkSellBills.getSelection()));
-							dialogShell.close();
+							
+                            EngModulePrefs.setProperty(EngBLCommon.BILL_CONFIG,"automatic.dispatch.note",String.valueOf(btnAutomaticDispatcNote.getSelection()));
+                            EngModulePrefs.setProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BILL_NO,String.valueOf(radioBillNoCheck.getSelection()));   
+                            EngModulePrefs.setProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL,String.valueOf(checkBuyBills.getSelection()));
+							EngModulePrefs.setProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL,String.valueOf(checkSellBills.getSelection()));
+					
+                            EngModulePrefs.setProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_USE_INVENTORY_NAME,String.valueOf(btnInventoryNameChoose.getSelection()));
+                            
+                            dialogShell.close();
 						}
 					});
 				}
@@ -224,6 +230,10 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 				checkSellBills.setSelection(true);
 				//END <<  checkSellBills
 				//END <<  groupBillNoCheck
+                //START >>  btnInventoryNameChoose
+                btnInventoryNameChoose = new Button(compBill, SWT.CHECK | SWT.LEFT);
+                btnInventoryNameChoose.setText("Fatura ve \u0130rsaliyede Stok ad\u0131na göre seçme");
+                //END <<  btnInventoryNameChoose
 				//END <<  compBill
 				tabFolder.setSelection(0);
 				//END <<  tabItemBill
@@ -253,7 +263,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 	private void configureBill()
 	{
 		fillBillTypeCombo();
-		String dispatch=EngConfiguration.getString("automatic.dispatch.note");
+		String dispatch=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,"automatic.dispatch.note");
 		if (dispatch != null)
 		{
 			btnAutomaticDispatcNote.setSelection(new Boolean(dispatch).booleanValue());
@@ -262,7 +272,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		{
 			btnAutomaticDispatcNote.setSelection(true);
 		}
-		String checkBillNo=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
+		String checkBillNo=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
 		if (checkBillNo != null)
 		{		
 			boolean check=new Boolean(checkBillNo).booleanValue();
@@ -282,7 +292,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 			checkBuyBills.setEnabled(false);
 			checkSellBills.setEnabled(false);
 		}
-		String checkBuyBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
+		String checkBuyBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
 		if (checkBuyBill != null)
 		{
 			checkBuyBills.setSelection(new Boolean(checkBuyBill).booleanValue());
@@ -291,7 +301,7 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		{
 			checkBuyBills.setSelection(false);
 		}
-		String checkSellBill=EngConfiguration.getString(EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
+		String checkSellBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
 		if (checkSellBill != null)
 		{
 			checkSellBills.setSelection(new Boolean(checkSellBill).booleanValue());
@@ -300,12 +310,32 @@ public class EngUIPreferences extends org.eclipse.swt.widgets.Dialog
 		{
 			checkSellBills.setSelection(false);
 		}
+        String checkUseInvName = EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_USE_INVENTORY_NAME);
+        
+        if(checkUseInvName != null)
+        {
+            if(checkUseInvName.equals("true"))
+            {
+                btnInventoryNameChoose.setSelection(true);
+            }
+            else
+            {
+                btnInventoryNameChoose.setSelection(false);
+            }
+          
+        }
+        else
+        {
+            btnInventoryNameChoose.setSelection(false);
+        }
+        
 	}
 
 	private void fillBillTypeCombo()
 	{
 		try
-		{
+		{       
+            
 			if (EngConfiguration.getString("invoice_template") != null) { //$NON-NLS-1$
 	
 				String invoice_template = EngConfiguration.getString("invoice_template");

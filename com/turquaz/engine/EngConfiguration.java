@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 
 public class EngConfiguration
@@ -94,7 +96,7 @@ public class EngConfiguration
 			_instance = new EngConfiguration();
 		}
 		
-		String ADN = _instance.findString("automatic.dispatch.note");
+		String ADN = EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,"automatic.dispatch.note");
 		
 		if(ADN == null)
 		{

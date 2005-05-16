@@ -70,6 +70,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.FillLayout;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.backup.EngBackUp;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLInventoryCards;
@@ -1182,6 +1183,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 						saveFavoritesTree();
 						saveProperties();
 						EngUITableProperties.saveToFile();
+                        EngModulePrefs.saveToFile();
 						EngBackUp.backUp("");
 						System.exit(0);
 					}

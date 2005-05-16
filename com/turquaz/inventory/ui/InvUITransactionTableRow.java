@@ -9,6 +9,7 @@ import java.util.Set;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -595,11 +596,31 @@ public class InvUITransactionTableRow implements ITableRow
 
 	public boolean canModify(int column_index)
 	{
-		if ( column_index == 1 || column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
+		if ( column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
 				|| column_index == 14)
 		{
 			return false;
 		}
+        if(column_index==1)
+        {
+            String useName = EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_USE_INVENTORY_NAME);
+            if(useName==null)
+            {
+                return false;
+            }
+            if(useName.equals("true"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+            
+            
+        }
+        
 		return true;
 	}
 
