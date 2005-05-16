@@ -12,7 +12,7 @@ import net.sf.hibernate.Session;
 public class EngDALCommon
 {
 	public static List getCurrencies() throws Exception
-	{
+	{ 
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
