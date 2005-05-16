@@ -113,8 +113,7 @@ public class CurBLCurrentCardAdd
 			Calendar cal = Calendar.getInstance();
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			CurBLCurrentTransactionAdd.saveCurrentTransaction(currentCard, cal.getTime(), "", false, new BigDecimal(0),
-					new BigDecimal(0), EngBLCommon.CURRENT_TRANS_INITIAL, new Integer(-1), "sads",
-					//Messages.getString("CurBLCurrentCardAdd.3"),//$NON-NLS-1$ //$NON-NLS-2$
+					new BigDecimal(0), EngBLCommon.CURRENT_TRANS_INITIAL, new Integer(-1), "",
 					EngBLCommon.getBaseCurrencyExchangeRate());
 		}
 		catch (Exception ex)

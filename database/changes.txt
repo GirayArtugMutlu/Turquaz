@@ -1154,3 +1154,11 @@ INSERT INTO turq_module_components VALUES (102, 7, 'com.turquaz.bill.ui.BillUIAd
 
 
 
+
+----------------------0.7.6 Beta-------------------------------
+
+delete from turq_inventory_transactions where (turq_inventory_transactions.engine_sequences_id not in
+ (Select cons.engine_sequences_id from turq_consignments cons)) and (turq_inventory_transactions.engine_sequences_id not in
+ (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine))
+
+------------------------------------------------------------
