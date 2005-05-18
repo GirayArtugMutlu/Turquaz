@@ -1162,3 +1162,17 @@ delete from turq_inventory_transactions where (turq_inventory_transactions.engin
  (Select billInEngine.engine_sequences_id from turq_bill_in_engine_sequences billInEngine))
 
 ------------------------------------------------------------
+
+
+----------------------------2005-05-18---------------------------------
+CREATE TABLE public.turq_services
+(
+  id int4 NOT NULL,
+  service_name varchar(250) NOT NULL,
+  class_name varchar(250) NOT NULL,
+  method_name varchar(250) NOT NULL,
+  CONSTRAINT turq_services_pkey PRIMARY KEY (id),
+  CONSTRAINT turq_services_service_name_key UNIQUE (service_name)
+)
+-------------------------------------------------------------------------
+

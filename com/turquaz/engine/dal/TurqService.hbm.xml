@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.1
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class 
+    name="com.turquaz.engine.dal.TurqService" 
+    table="turq_services"
+>
+
+    <id
+        name="id"
+        type="int"
+        column="id"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="serviceName"
+        type="java.lang.String"
+        column="service_name"
+        not-null="true"
+        unique="true"
+        length="250"
+    />
+    <property
+        name="className"
+        type="java.lang.String"
+        column="class_name"
+        not-null="true"
+        length="250"
+    />
+    <property
+        name="methodName"
+        type="java.lang.String"
+        column="method_name"
+        not-null="true"
+        length="250"
+    />
+
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

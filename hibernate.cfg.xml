@@ -88,6 +88,7 @@
        <mapping resource="com/turquaz/engine/dal/TurqUserPermissionLevel.hbm.xml"/>
        <mapping resource="com/turquaz/engine/dal/TurqSetting.hbm.xml"/>
        <mapping resource="com/turquaz/engine/dal/TurqEngineMenu.hbm.xml"/>
+       <mapping resource="com/turquaz/engine/dal/TurqService.hbm.xml"/>
        </session-factory>
     
 
