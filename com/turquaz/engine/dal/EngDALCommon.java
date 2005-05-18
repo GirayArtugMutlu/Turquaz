@@ -11,6 +11,16 @@ import net.sf.hibernate.Session;
 
 public class EngDALCommon
 {
+	
+	public static List getServices() throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		String query = "Select service from TurqSerice as service";
+		Query q = session.createQuery(query);
+		List list = q.list();
+		return list;		
+	}
+	
 	public static List getCurrencies() throws Exception
 	{ 
 		try
