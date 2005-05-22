@@ -45,10 +45,13 @@ public class AccBLAccountAdd
 			throw ex;
 		}
 	}
+    
 	public static List getAllAccountsWithSum() throws Exception
 	{
 		return AccDALAccountAdd.getAllAccountsWithSum();
 	}
+    
+    
 	public static TurqAccountingAccount getLeafAccount(HashMap argMap) throws Exception
 	{
 		try
@@ -62,7 +65,7 @@ public class AccBLAccountAdd
 		}
 	}
 
-	public static TurqAccountingAccount getAllAccounts(HashMap argMap) throws Exception
+    public static TurqAccountingAccount getAllAccounts(HashMap argMap) throws Exception
 	{
 		try
 		{
