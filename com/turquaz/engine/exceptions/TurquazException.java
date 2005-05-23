@@ -6,6 +6,7 @@
  */
 package com.turquaz.engine.exceptions;
 
+import java.io.Serializable;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 
 /**
@@ -14,7 +15,7 @@ import com.turquaz.engine.lang.EngLangCommonKeys;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class TurquazException extends Exception
+public class TurquazException extends Exception implements Serializable
 {
 
 	public final static String EX_BILL_DOC_NO=EngLangCommonKeys.MSG_BILL_NO_ALREADY_USED;  //$NON-NLS-1$
