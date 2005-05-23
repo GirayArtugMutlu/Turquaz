@@ -249,9 +249,10 @@ public class EngBLVersionValidate
     {
         Session session = EngDALSessionFactory.getSession();
         Statement stmt = session.connection().createStatement();
-       
+       /*
         String query ="delete from turq_current_transactions where id=1933 and engine_sequences_id =1489 and transactions_date ='2005-04-06';";
         stmt.execute(query);        
+        */
         setting.setDatabaseVersion("0.7.7");
         EngDALCommon.updateObject(setting);     
     }
