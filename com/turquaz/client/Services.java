@@ -6,7 +6,9 @@
  */
 package com.turquaz.client;
 
-import java.util.HashMap;
+import com.turquaz.common.HttpServiceRequest;
+import com.turquaz.common.HttpServiceResponse;
+import com.turquaz.server.ServiceCaller;
 
 /**
  * @author Cem
@@ -17,9 +19,12 @@ import java.util.HashMap;
 public class Services
 {
 	
-	public static Object CallService(String serviceName, HashMap argMap)
+	public static Object CallService(HttpServiceRequest request)throws Throwable
 	{
-		
-		return null;
+		HttpServiceResponse response=ServiceCaller.CallService(request);
+		if (response.isExceptionThrown())
+			throw response.getThrowable();
+		else
+			return response.getResult();
 	}
 }
