@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -16,7 +15,7 @@ public class EngDALCommon
 	public static List getServices() throws Exception
 	{
 		Session session = EngDALSessionFactory.getSession();
-		String query = "Select service from TurqSerice as service";
+		String query = "Select service from TurqService as service";
 		Query q = session.createQuery(query);
 		List list = q.list();
 		return list;		
@@ -292,7 +291,12 @@ public class EngDALCommon
 	{
 		try
 		{
-			return AccDALTransactionSearch.getBaseCurrency();
+			Session session = EngDALSessionFactory.getSession();
+			String query = "select currency from TurqCurrency as currency" + " where currency.defaultCurrency=true";
+			Query q = session.createQuery(query);
+			List list = q.list();
+	
+			return (TurqCurrency) list.get(0);
 		}
 		catch (Exception ex)
 		{
@@ -304,7 +308,12 @@ public class EngDALCommon
 	{
 		try
 		{
-			return AccDALTransactionSearch.getBaseCurrencyExchangeRate();
+			Session session = EngDALSessionFactory.getSession();
+			String query = "select exRate from TurqCurrencyExchangeRate as exRate" + " where exRate.id=-1";
+			Query q = session.createQuery(query);
+			List list = q.list();
+			
+			return (TurqCurrencyExchangeRate) list.get(0);
 		}
 		catch (Exception ex)
 		{

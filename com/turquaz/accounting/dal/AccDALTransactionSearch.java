@@ -33,8 +33,6 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 
 public class AccDALTransactionSearch
 {
@@ -47,57 +45,6 @@ public class AccDALTransactionSearch
 			Query q = session.createQuery(query);
 			List list = q.list();
 	
-			return list;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqCurrency getBaseCurrency() throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "select currency from TurqCurrency as currency" + " where currency.defaultCurrency=true";
-			Query q = session.createQuery(query);
-			List list = q.list();
-
-			return (TurqCurrency) list.get(0);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "select exRate from TurqCurrencyExchangeRate as exRate" + " where exRate.id=-1";
-			Query q = session.createQuery(query);
-			List list = q.list();
-			
-			return (TurqCurrencyExchangeRate) list.get(0);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static List getCurrencies() throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "select currency from TurqCurrency as currency where currency.id=1";
-			Query q = session.createQuery(query);
-			List list = q.list();
-		
 			return list;
 		}
 		catch (Exception ex)

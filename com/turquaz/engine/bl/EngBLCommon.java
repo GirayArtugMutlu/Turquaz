@@ -312,7 +312,7 @@ public class EngBLCommon
 		{
 			if (baseCurrency == null)
 			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
+				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
 			}
 				return baseCurrency;
 		}
@@ -376,7 +376,7 @@ public class EngBLCommon
 			if (baseCurrencyExchangeRate == null){
 				try
 				{
-					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
+					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
 				}
 				catch (Exception ex)
 				{
