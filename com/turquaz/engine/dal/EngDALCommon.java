@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -280,6 +281,30 @@ public class EngDALCommon
 				return ((TurqCashTransaction) it.next()).getId();
 			}
 			return null;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqCurrency getBaseCurrency() throws Exception
+	{
+		try
+		{
+			return AccDALTransactionSearch.getBaseCurrency();
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() throws Exception
+	{
+		try
+		{
+			return AccDALTransactionSearch.getBaseCurrencyExchangeRate();
 		}
 		catch (Exception ex)
 		{

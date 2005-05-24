@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.engine.EngKeys;
@@ -313,7 +312,7 @@ public class EngBLCommon
 		{
 			if (baseCurrency == null)
 			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
+				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
 			}
 				return baseCurrency;
 		}
@@ -377,7 +376,7 @@ public class EngBLCommon
 			if (baseCurrencyExchangeRate == null){
 				try
 				{
-					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
+					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
 				}
 				catch (Exception ex)
 				{

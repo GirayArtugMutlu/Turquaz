@@ -65,7 +65,7 @@ public class AccBLAccountAdd
 		}
 	}
 
-    public static TurqAccountingAccount getAllAccounts(HashMap argMap) throws Exception
+    public static TurqAccountingAccount getAllAccountsWithCodeCrit(HashMap argMap) throws Exception
 	{
 		try
 		{

@@ -87,6 +87,7 @@ import com.turquaz.engine.ui.component.MenuManager;
 import com.turquaz.engine.ui.component.TreeFactory;
 import com.turquaz.engine.ui.component.TurqKeyEvent;
 import com.turquaz.engine.ui.component.rssowl.BrowserPanel;
+import com.turquaz.server.ServiceList;
 /**
  * @author  Onsel Armagan
  * @version  $Id$
@@ -1166,7 +1167,7 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			Shell shell = new Shell(display);
-			
+
 			final EngUIMainFrame inst = new EngUIMainFrame(shell, SWT.NULL);
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0, 0, 800, 580);

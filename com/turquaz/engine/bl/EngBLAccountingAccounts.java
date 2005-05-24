@@ -185,7 +185,7 @@ public class EngBLAccountingAccounts
 		{
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
-			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccounts",argMap);
+			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithCodeCrit",argMap);
 			return account;
 		}
 		catch (Exception ex)
