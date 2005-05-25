@@ -246,7 +246,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-				argMap.put(AccKeys.ACC_ACCOUNT,compChequeRoll.getAccountPicker().getTurqAccountingAccount());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,compChequeRoll.getAccountPicker().getDBData());
 				argMap.put(BankKeys.BANK,compChequeRoll.getBankCardPicker().getTurqBank());
 				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
 				argMap.put(EngKeys.DATE,compChequeRoll.getDatePicker1().getDate());

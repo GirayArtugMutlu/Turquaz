@@ -1126,7 +1126,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				txtCurrentName.setFocus();
 				return false;
 			}
-			if (accPickerCustomer.getTurqAccountingAccount() == null)
+			if (accPickerCustomer.getDBData() == null)
 			{
 				boolean ans = EngUICommon.showQuestion(getShell(),CurLangKeys.MSG_WANT_TO_ADD_ACCOUNTING_ACCOUNT);  //$NON-NLS-1$
 				if (ans)
@@ -1164,9 +1164,9 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 		{
 			Integer type = (Integer) it.next();
 			AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
-			if (picker.getTurqAccountingAccount() != null)
+			if (picker.getDBData() != null)
 			{
-				map.put(type, picker.getTurqAccountingAccount());
+				map.put(type, picker.getDBData());
 			}
 		}
 		return map;

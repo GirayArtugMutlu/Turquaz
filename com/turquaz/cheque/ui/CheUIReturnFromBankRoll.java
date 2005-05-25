@@ -281,7 +281,7 @@ public class CheUIReturnFromBankRoll extends org.eclipse.swt.widgets.Composite i
 			if (verifyFields())
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,accountPicker.getTurqAccountingAccount());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountPicker.getDBData());
 				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
 				argMap.put(EngKeys.DATE,datePicker1.getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);

@@ -38,7 +38,6 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
@@ -52,6 +51,21 @@ import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class AccUIAddAccounts extends Composite implements SecureComposite
 {
 	{
@@ -324,7 +338,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
 				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
-				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);
+				argMap.put(AccKeys.ACC_PARENT_ID,parent.getId());
 				
 				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
 				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
@@ -367,7 +381,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
 				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
-				argMap.put(AccKeys.ACC_PARENT_ACCOUNT,parent);				
+				argMap.put(AccKeys.ACC_PARENT_ID,parent.getId());				
 				
 				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
 				msg.open();			
@@ -393,15 +407,4 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		clearFields();
 	}
 
-	
-
-	/** Auto-generated event handler method */
-	protected void txtParentAccountMouseUp(MouseEvent evt)
-	{
-		Object[] obj = new AccUIStaticAccountsDialog(this.getShell(), SWT.NULL).showDialog(""); //$NON-NLS-1$
-		if (obj[0] != null)
-		{
-			txtParentAccount.setData(obj[1]);
-		}
-	}
 }

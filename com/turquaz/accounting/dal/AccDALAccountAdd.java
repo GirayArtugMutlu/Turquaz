@@ -19,6 +19,7 @@ package com.turquaz.accounting.dal;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.util.Date;
 import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -207,7 +208,7 @@ public class AccDALAccountAdd
 		}
 	}
 
-	public static List getTransactionColumns(int type, Object startDate, Object endDate) throws Exception
+	public static List getTransactionColumns(int type, Date startDate, Date endDate) throws Exception
 	{
 		try
 		{

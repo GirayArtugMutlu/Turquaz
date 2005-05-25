@@ -33,18 +33,31 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Composite composite1;
 	private Shell dialogShell;
 	private static Tree accountTree;
-	private AccBLAccountAdd blAccount;
 	Object returnObj[] = new Object[2];
 
 	public AccUIStaticAccountsDialog(Shell parent, int style)
@@ -173,7 +186,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 	/** Add your pre-init code in here */
 	public void preInitGUI()
 	{
-		blAccount = new AccBLAccountAdd();
+
 	}
 
 	/** Add your post-init code in here */

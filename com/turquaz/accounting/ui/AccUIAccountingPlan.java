@@ -420,7 +420,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				
 				
 				argMap = new HashMap();
-		        argMap.put(AccKeys.ACC_PARENT_ACCOUNT,account);	        
+		        argMap.put(AccKeys.ACC_PARENT_ID,account.getId());	        
 				List subAccs =(List)EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",argMap);
 				
 				

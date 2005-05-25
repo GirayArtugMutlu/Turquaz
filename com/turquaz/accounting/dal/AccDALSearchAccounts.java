@@ -28,6 +28,19 @@ public class AccDALSearchAccounts {
 		return list;
 	}
 	
+	public static String getAccountCodeById(Integer accId) throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		String query ="select account.accountCode from TurqAccountingAccount as account where account.id="+accId.intValue();
+		Query q = session.createQuery(query);    
+		List list = q.list();
+		if (list.size() > 0)
+			return (String)list.get(0);
+		else
+			return "";
+		
+	}
+	
 	
 
 }

@@ -268,7 +268,7 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 				HashMap argMap=new HashMap();
 				
 				argMap.put(BankKeys.BANK,txtBankCard.getTurqBank());
-				argMap.put(AccKeys.ACC_ACCOUNT,txtAccountPicker.getTurqAccountingAccount());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,txtAccountPicker.getDBData());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_OTHER_DRAW));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(EngKeys.TOTAL_AMOUNT,curAmount.getBigDecimalValue());

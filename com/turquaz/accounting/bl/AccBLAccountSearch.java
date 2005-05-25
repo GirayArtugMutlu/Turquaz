@@ -14,8 +14,14 @@ public class AccBLAccountSearch {
 		String accCode = (String) argMap.get(AccKeys.ACC_ACCOUNT_CODE);
 		String accName = (String) argMap.get(AccKeys.ACC_ACCOUNT_NAME);
 		
-		return AccDALSearchAccounts.searchAccounts(accCode,accName);
+		return AccDALSearchAccounts.searchAccounts(accCode,accName);		
+	}
+	
+	public static String getAccountCodeById(HashMap argMap) throws Exception
+	{
+		Integer accId=(Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
 		
+		return AccDALSearchAccounts.getAccountCodeById(accId);
 	}
 
 }

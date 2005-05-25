@@ -1,5 +1,6 @@
 package com.turquaz.accounting.ui.comp;
 
+import java.util.HashMap;
 import org.eclipse.jface.contentassist.SubjectControlContentAssistant;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -8,22 +9,21 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
-
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.accounting.bl.AccBLAccountSearch;
 import com.turquaz.accounting.ui.AccUISearchAccountsDialog;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -69,13 +69,17 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 				text1.setSize(new org.eclipse.swt.graphics.Point(358, 22));
 				GridData text1LData = new GridData();
 				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
-				text1.addModifyListener(new ModifyListener() {
-					public void modifyText(ModifyEvent evt) {
-						try {
-							setDBData(EngBLAccountingAccounts
-								.getAllAccounts(text1.getText().trim()));
-						} catch (Exception ex) {
-                            EngBLLogger.log(this.getClass(),ex);
+				text1.addModifyListener(new ModifyListener()
+				{
+					public void modifyText(ModifyEvent evt)
+					{
+						try
+						{
+							setDBData(EngBLAccountingAccounts.getAllAccounts(text1.getText().trim()));
+						}
+						catch (Exception ex)
+						{
+							EngBLLogger.log(this.getClass(), ex);
 						}
 					}
 				});
@@ -84,9 +88,10 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 				text1LData.grabExcessHorizontalSpace = true;
 				text1LData.grabExcessVerticalSpace = true;
 				text1.setLayoutData(text1LData);
-				text1.addFocusListener(new FocusAdapter() {
-					public void focusLost(FocusEvent evt) {
-					
+				text1.addFocusListener(new FocusAdapter()
+				{
+					public void focusLost(FocusEvent evt)
+					{
 						openNewObjectDialog();
 					}
 				});
@@ -94,11 +99,11 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 			{
 				btnChoose = new Button(this, SWT.PUSH | SWT.CENTER);
 				btnChoose.setText("...");
-				btnChoose.addMouseListener(new MouseAdapter() {
-					public void mouseUp(MouseEvent evt) {
-						
+				btnChoose.addMouseListener(new MouseAdapter()
+				{
+					public void mouseUp(MouseEvent evt)
+					{
 						openSearchDialog();
-						
 					}
 				});
 			}
@@ -109,17 +114,11 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
-			addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			postInitGUI();
 		}
 		catch (Exception e)
 		{
-            EngBLLogger.log(this.getClass(),e);
+			EngBLLogger.log(this.getClass(), e);
 		}
 	}
 
@@ -132,7 +131,8 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 	public void postInitGUI()
 	{
 		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(text1);
-		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter, EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS);
+		final SubjectControlContentAssistant asistant = new TurquazContentAssistant(adapter,
+				EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS);
 	}
 
 	public void verifyData()
@@ -143,7 +143,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex);
+			EngBLLogger.log(this.getClass(), ex);
 		}
 	}
 
@@ -159,15 +159,27 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 
 	public void setData(Object obj)
 	{
-		super.setData(obj);
-		TurqAccountingAccount account = (TurqAccountingAccount) obj;
-		text1.setText(account.getAccountCode());
+		try
+		{
+			super.setData(obj);
+			Integer accId = (Integer) obj;
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT_ID, accId);
+			String accCode = (String) EngTXCommon.doSelectTX(AccBLAccountSearch.class.getName(),
+					"getAccountCodeById", argMap);
+			text1.setText(accCode);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	public Object getDBData()
 	{
 		return super.getData();
 	}
+
 	public void setDBData(Object obj)
 	{
 		super.setData(obj);
@@ -209,27 +221,14 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 		this.filter = filter;
 	}
 
-	public TurqAccountingAccount getTurqAccountingAccount()
+	public void openNewObjectDialog()
 	{
-		if (super.getData() == null)
-		{
-			return null;
-		}
-		else
-		{
-			return (TurqAccountingAccount) super.getData();
-		}
-	}
-
-	public void openNewObjectDialog() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	public void openSearchDialog() {
-        String code = new AccUISearchAccountsDialog(getShell(),SWT.NULL).open();
-        text1.setText(code);
-		
+	public void openSearchDialog()
+	{
+		String code = new AccUISearchAccountsDialog(getShell(), SWT.NULL).open();
+		text1.setText(code);
 	}
-	
 }

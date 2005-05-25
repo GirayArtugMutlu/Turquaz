@@ -20,6 +20,7 @@ package com.turquaz.accounting.bl;
  * @version $Id$
  */
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
@@ -30,14 +31,12 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 public class AccBLAccountAdd
 {
-	
-
 	public static List getAccount(HashMap argMap) throws Exception
 	{
 		try
 		{
-			Integer parentid = (Integer)argMap.get(AccKeys.ACC_PARENT_ID);
-			String codeCrit = (String)argMap.get(AccKeys.ACC_CODE_CRITERIA);
+			Integer parentid = (Integer) argMap.get(AccKeys.ACC_PARENT_ID);
+			String codeCrit = (String) argMap.get(AccKeys.ACC_CODE_CRITERIA);
 			return AccDALAccountAdd.getAccounts(parentid.intValue(), codeCrit);
 		}
 		catch (Exception ex)
@@ -45,32 +44,12 @@ public class AccBLAccountAdd
 			throw ex;
 		}
 	}
-    
-	public static List getAllAccountsWithSum() throws Exception
-	{
-		return AccDALAccountAdd.getAllAccountsWithSum();
-	}
-    
-    
-	public static TurqAccountingAccount getLeafAccount(HashMap argMap) throws Exception
-	{
-		try
-		{
-			String codeCrit = (String)argMap.get(AccKeys.ACC_CODE_CRITERIA);
-			return AccDALAccountAdd.getLeafAccount(codeCrit);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 
-    public static TurqAccountingAccount getAllAccountsWithCodeCrit(HashMap argMap) throws Exception
+	public static List getAccountsForAccountPickers() throws Exception
 	{
 		try
 		{
-			String codeCrit = (String)argMap.get(AccKeys.ACC_CODE_CRITERIA);
-			return AccDALAccountAdd.getAllAccounts(codeCrit);
+			return AccDALAccountAdd.getAccountsForAccountPickers();
 		}
 		catch (Exception ex)
 		{
@@ -90,20 +69,6 @@ public class AccBLAccountAdd
 		}
 	}
 
-	
-
-	public static List getAccountsForAccountPickers() throws Exception
-	{
-		try
-		{
-			return AccDALAccountAdd.getAccountsForAccountPickers();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public static List getAllAccountsForAccountPickerAll() throws Exception
 	{
 		try
@@ -114,6 +79,24 @@ public class AccBLAccountAdd
 		{
 			throw ex;
 		}
+	}
+
+	public static TurqAccountingAccount getAllAccountsWithCodeCrit(HashMap argMap) throws Exception
+	{
+		try
+		{
+			String codeCrit = (String) argMap.get(AccKeys.ACC_CODE_CRITERIA);
+			return AccDALAccountAdd.getAllAccounts(codeCrit);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getAllAccountsWithSum() throws Exception
+	{
+		return AccDALAccountAdd.getAllAccountsWithSum();
 	}
 
 	public static List getCashAccounts() throws Exception
@@ -128,24 +111,43 @@ public class AccBLAccountAdd
 		}
 	}
 
+	public static TurqAccountingAccount getLeafAccount(HashMap argMap) throws Exception
+	{
+		try
+		{
+			String codeCrit = (String) argMap.get(AccKeys.ACC_CODE_CRITERIA);
+			return AccDALAccountAdd.getLeafAccount(codeCrit);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
+
+	public static List getTransactionColumns(HashMap argMap) throws Exception
+	{
+		Integer type = (Integer) argMap.get(AccKeys.ACC_TYPE);
+		Date startDate =(Date) argMap.get(AccKeys.ACC_START_DATE);
+		Date endDate = (Date)argMap.get(AccKeys.ACC_END_DATE);
+		return AccDALAccountAdd.getTransactionColumns(type.intValue(), startDate, endDate);
+	}
+
 	public static TurqAccountingAccount saveAccount(HashMap argMap) throws Exception
 	{
 		try
 		{
-			String accountName = (String)argMap.get(AccKeys.ACC_ACCOUNT_NAME);
-			String accountCode = (String)argMap.get(AccKeys.ACC_ACCOUNT_CODE);
-			TurqAccountingAccount parent = (TurqAccountingAccount)argMap.get(AccKeys.ACC_PARENT_ACCOUNT);
-					
-			
+			String accountName = (String) argMap.get(AccKeys.ACC_ACCOUNT_NAME);
+			String accountCode = (String) argMap.get(AccKeys.ACC_ACCOUNT_CODE);
+			Integer parentId = (Integer) argMap.get(AccKeys.ACC_PARENT_ID);
 			TurqAccountingAccount account = new TurqAccountingAccount();
-			TurqAccountingAccount parentAccount;
-			if (parent != null)
+			TurqAccountingAccount parentAccount = new TurqAccountingAccount();
+			if (parentId != null)
 			{
-				parentAccount = (TurqAccountingAccount) parent;
+				parentAccount.setId(parentId);
 			}
 			else
 			{
-				parentAccount = new TurqAccountingAccount();
+				
 				parentAccount.setId(new Integer(-1));
 			}
 			account.setAccountName(accountName);
@@ -159,16 +161,16 @@ public class AccBLAccountAdd
 			if (parentAccount.getId().intValue() == -1)
 			{
 				account.setTurqAccountingAccountByTopAccount(parentAccount);
-                EngDALCommon.saveObject(account);
-                account.setTurqAccountingAccountByTopAccount(account);
-                EngDALCommon.updateObject(account);
+				EngDALCommon.saveObject(account);
+				account.setTurqAccountingAccountByTopAccount(account);
+				EngDALCommon.updateObject(account);
 			}
 			else
 			{
-				account.setTurqAccountingAccountByTopAccount(parentAccount.getTurqAccountingAccountByTopAccount());
-                EngDALCommon.saveObject(account);
+				account.setTurqAccountingAccountByTopAccount(parentAccount
+						.getTurqAccountingAccountByTopAccount());
+				EngDALCommon.saveObject(account);
 			}
-			
 			EngBLAccountingAccounts.RefreshContentAsistantMap();
 			return account;
 		}
@@ -176,15 +178,5 @@ public class AccBLAccountAdd
 		{
 			throw ex;
 		}
-	}
-
-	public static List getTransactionColumns(HashMap argMap) throws Exception
-	{			
-		  Integer type = (Integer)argMap.get(AccKeys.ACC_TYPE);
-		  Object startDate = argMap.get(AccKeys.ACC_START_DATE);
-		  Object endDate = argMap.get(AccKeys.ACC_END_DATE);
-		
-			return AccDALAccountAdd.getTransactionColumns(type.intValue(), startDate, endDate);
-		
 	}
 }

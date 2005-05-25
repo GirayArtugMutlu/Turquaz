@@ -249,7 +249,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-				argMap.put(AccKeys.ACC_ACCOUNT,compChequeRoll.getAccountPicker().getTurqAccountingAccount());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,compChequeRoll.getAccountPicker().getDBData());
 				argMap.put(EngKeys.CURRENT_CARD,compChequeRoll.getCurrentPicker().getData());
 				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
 				argMap.put(EngKeys.DATE,compChequeRoll.getDatePicker1().getDate());

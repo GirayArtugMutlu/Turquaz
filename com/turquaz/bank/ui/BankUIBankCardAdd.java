@@ -375,9 +375,9 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 		{
 			Integer type = (Integer) it.next();
 			AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
-			if (picker.getTurqAccountingAccount() != null)
+			if (picker.getDBData() != null)
 			{
-				map.put(type, picker.getTurqAccountingAccount());
+				map.put(type, picker.getDBData());
 			}
 		}
 		return map;

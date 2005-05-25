@@ -27,13 +27,13 @@ import com.turquaz.engine.dal.TurqAccountingAccount;
 
 public class AccDALAccountUpdate
 {
-	public static List getSubAccounts(TurqAccountingAccount parentAcc) throws Exception
+	public static List getSubAccounts(Integer parentId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "from TurqAccountingAccount as accounts " + "where accounts.turqAccountingAccountByParentAccount.id ="
-					+ parentAcc.getId();
+					+ parentId;
 			Query q = session.createQuery(query);
 			List list = q.list();
 		
@@ -49,10 +49,11 @@ public class AccDALAccountUpdate
 	{
 		try
 		{
-			List subAccounts = getSubAccounts(parentAcc);
+			List subAccounts = getSubAccounts(parentAcc.getId());
+			Session session = EngDALSessionFactory.getSession();
 			for (int k = 0; k < subAccounts.size(); k++)
 			{
-				Session session = EngDALSessionFactory.getSession();
+				
 				TurqAccountingAccount subAcc = (TurqAccountingAccount) subAccounts.get(k);
 				String remainingCode = subAcc.getAccountCode().substring(firstAccCode.length());
 				String firstSubAccCode = subAcc.getAccountCode();
@@ -68,13 +69,13 @@ public class AccDALAccountUpdate
 		}
 	}
 
-	public static List getAccountTransColumns(TurqAccountingAccount account) throws Exception
+	public static List getAccountTransColumns(Integer accId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transColumns from TurqAccountingTransactionColumn as transColumns "
-					+ "where transColumns.turqAccountingAccount.id =" + account.getId();
+					+ "where transColumns.turqAccountingAccount.id =" + accId;
 			Query q = session.createQuery(query);
 			List list = q.list();
 			

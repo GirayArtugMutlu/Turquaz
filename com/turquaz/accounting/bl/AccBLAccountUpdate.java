@@ -26,6 +26,7 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.exceptions.TurquazException;
 
@@ -35,18 +36,20 @@ public class AccBLAccountUpdate
 	{
 		try
 		{
-			TurqAccountingAccount account = (TurqAccountingAccount) argMap.get(AccKeys.ACC_ACCOUNT);
+			Integer accId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_ID);
 			String accountName = (String) argMap.get(AccKeys.ACC_ACCOUNT_NAME);
 			String accountCode = (String) argMap.get(AccKeys.ACC_ACCOUNT_CODE);
-			TurqAccountingAccount parentAccount = (TurqAccountingAccount) argMap.get(AccKeys.ACC_PARENT_ACCOUNT);
-			boolean isSub=isSubAccountOf(account,parentAccount);
-			System.out.println(isSub);
-			 if (isSub)
-			 {
-			 	throw new TurquazException(TurquazException.EX_ACC_SUB_ACC);
-			 }
-			
-			String accCode = account.getAccountCode();			
+			Integer parentId = (Integer) argMap.get(AccKeys.ACC_PARENT_ID);
+			TurqAccountingAccount account = (TurqAccountingAccount) EngDALSessionFactory.getSession().load(
+					TurqAccountingAccount.class, accId);
+			TurqAccountingAccount parentAccount = (TurqAccountingAccount) EngDALSessionFactory.getSession()
+					.load(TurqAccountingAccount.class, parentId);
+			boolean isSub = isSubAccountOf(account, parentAccount);
+			if (isSub)
+			{
+				throw new TurquazException(TurquazException.EX_ACC_SUB_ACC);
+			}
+			String accCode = account.getAccountCode();
 			account.setAccountName(accountName);
 			account.setAccountCode(accountCode);
 			account.setUpdatedBy(System.getProperty("user"));
@@ -71,56 +74,49 @@ public class AccBLAccountUpdate
 			throw ex;
 		}
 	}
-	
+
 	private static boolean isSubAccountOf(TurqAccountingAccount parent, TurqAccountingAccount account)
 	{
-		int parentId=parent.getId().intValue();
-		TurqAccountingAccount parentAcc=account.getTurqAccountingAccountByParentAccount();
-		Integer parentAccId=parentAcc.getId();
+		int parentId = parent.getId().intValue();
+		TurqAccountingAccount parentAcc = account.getTurqAccountingAccountByParentAccount();
+		Integer parentAccId = parentAcc.getId();
 		while (parentAccId.intValue() != -1)
 		{
-			if (parentAccId.intValue()==parentId)
+			if (parentAccId.intValue() == parentId)
 				return true;
-			parentAcc=parentAcc.getTurqAccountingAccountByParentAccount();
-			parentAccId=parentAcc.getId();
+			parentAcc = parentAcc.getTurqAccountingAccountByParentAccount();
+			parentAccId = parentAcc.getId();
 			System.out.println("here");
 		}
 		return false;
 	}
 
-
 	public static List getSubAccounts(HashMap argMap) throws Exception
 	{
-		
-		TurqAccountingAccount parentAcc = (TurqAccountingAccount)argMap.get(AccKeys.ACC_PARENT_ACCOUNT);
-		
-			return AccDALAccountUpdate.getSubAccounts(parentAcc);
-	
+		Integer parentId = (Integer) argMap.get(AccKeys.ACC_PARENT_ID);
+		return AccDALAccountUpdate.getSubAccounts(parentId);
 	}
 
 	public static List getAccountTransColumns(HashMap argMap) throws Exception
 	{
-		
-		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-		
-		return AccDALAccountUpdate.getAccountTransColumns(account);
-		
+		Integer accId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_ID);
+		return AccDALAccountUpdate.getAccountTransColumns(accId);
 	}
 
 	public static void deleteAccount(HashMap argMap) throws Exception
 	{
-        TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-       
-        if(account.getId().equals(account.getTurqAccountingAccountByTopAccount().getId()))
-        {
-            TurqAccountingAccount dummy = new TurqAccountingAccount();
-            dummy.setId(new Integer(-1));
-            account.setTurqAccountingAccountByTopAccount(dummy);
-            EngDALCommon.updateObject(account);
-        }
-        
+		Integer accId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_ID);
+		//XXX hsqldb bug is fixed..no need to change id while deleting..
+		TurqAccountingAccount account = (TurqAccountingAccount) EngDALSessionFactory.getSession().load(
+				TurqAccountingAccount.class, accId);
+		if (account.getId().equals(account.getTurqAccountingAccountByTopAccount().getId()))
+		{
+			TurqAccountingAccount dummy = new TurqAccountingAccount();
+			dummy.setId(new Integer(-1));
+			account.setTurqAccountingAccountByTopAccount(dummy);
+			EngDALCommon.updateObject(account);
+		}
 		EngDALCommon.deleteObject(account);
 		EngBLAccountingAccounts.RefreshContentAsistantMap();
 	}
-
 }
