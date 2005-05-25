@@ -40,12 +40,12 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
 import com.turquaz.accounting.bl.AccBLAccountUpdate;
+import com.turquaz.common.HashBag;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.lang.*;
@@ -219,32 +219,30 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			tableTreeAccountingPlan.removeAll();
 			
 			
-			List mainBranches =(List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithSum",null) ;
-			TurqAccountingAccount account;
-			TurqViewAccTotal accView;
+			HashBag mainBranches =(HashBag)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithSum",null) ;
 			
+			HashMap accountList=(HashMap)mainBranches.get(AccKeys.ACC_ACCOUNTS);
 			accountTotals = new HashMap();
 			allAccounts=new HashMap();
 			locatedAccounts=new HashMap();
 			
-			for (int i = 0; i < mainBranches.size(); i++)
+			for (int i = 0; i < accountList.size(); i++)
 			{
-				Object[] obj=(Object[]) mainBranches.get(i);
-				account = (TurqAccountingAccount)obj[0];
-				//accView = (TurqViewAccTotal) ((Object[]) mainBranches.get(i))[1];
-				allAccounts.put(account.getId(),obj);
-				locatedAccounts.put(account.getId(),new Boolean(false));
+				HashMap accountMap=(HashMap)accountList.get(new Integer(i));
+				Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+				allAccounts.put(accountId,accountMap);
+				locatedAccounts.put(accountId,new Boolean(false));
 			}
 			
 			
-			for (int i = 0; i < mainBranches.size(); i++)
+			for (int i = 0; i < accountList.size(); i++)
 			{
-				account = (TurqAccountingAccount) ((Object[]) mainBranches.get(i))[0];
-				accView = (TurqViewAccTotal) ((Object[]) mainBranches.get(i))[1];
-				Boolean located=(Boolean)locatedAccounts.get(account.getId());
+				HashMap accountMap=(HashMap)accountList.get(new Integer(i));
+				Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+				Boolean located=(Boolean)locatedAccounts.get(accountId);
 				if (!located.booleanValue())
 				{
-					LocateAccount(account,accView);
+					LocateAccount(accountMap);
 				}
 			}
 		}
@@ -254,43 +252,49 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		}
 	}
 	
-	public void LocateAccount(TurqAccountingAccount account, TurqViewAccTotal accView)throws Exception
+	public void LocateAccount(HashMap accountMap)throws Exception
 	{
 		TableTreeItem item;
-		Integer parentId = account.getTurqAccountingAccountByParentAccount().getId();
-		BigDecimal totalDept = (accView.getTotaldeptamount() == null) ? new BigDecimal(0) : accView.getTotaldeptamount();
-		BigDecimal totalCredit = (accView.getTotalcreditamount() == null) ? new BigDecimal(0) : accView.getTotalcreditamount();
+		Integer accountId= (Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+		Integer parentId =(Integer) accountMap.get(AccKeys.ACC_PARENT_ID);
+		BigDecimal totalDept =(BigDecimal)accountMap.get(AccKeys.ACC_TOTAL_DEPT_AMOUNT);
+		if (totalDept==null)
+			totalDept=new BigDecimal(0);
+		
+		BigDecimal totalCredit = (BigDecimal)accountMap.get(AccKeys.ACC_TOTAL_CREDIT_AMOUNT);
+		if (totalCredit==null)
+			totalCredit=new BigDecimal(0);
+		
 		BigDecimal[] totals = {totalCredit, totalDept};
-		accountTotals.put(new Integer(accView.getAccountingAccountsId()), totals);
+		accountTotals.put( accountId, totals);
 		if (parentId.intValue() == -1)
 		{
 			TableTreeItem[] parentItems = tableTreeAccountingPlan.getItems();
-			String accId = account.getAccountCode();
+			String accCode =(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE); 
+			String accName=(String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME);
 			int k;
 			for (k = 0; k < parentItems.length; k++)
 			{
 				TableTreeItem pItem = parentItems[k];
-				if (pItem.getText(0).equals("HESAP PLANI")) //$NON-NLS-1$
+				if (pItem.getText(0).equals(AccLangKeys.STR_ACCOUNT_PLAN_CAPITAL))
 					continue;
-				if (accId.compareTo(pItem.getText(0)) < 0)
+				if (accCode.compareTo(pItem.getText(0)) < 0)
 					break;
 			}
 			item = new TableTreeItem(tableTreeAccountingPlan, SWT.NULL, k);
-			item.setText(0, account.getAccountCode());
-			item.setText(1, account.getAccountName());
-			item.setData(account);
-			treeItems.put(account.getId(), item);
-			locatedAccounts.put(account.getId(),new Boolean(true));
+			item.setText(0, accCode);
+			item.setText(1, accName);
+			item.setData(accountId);
+			treeItems.put(accountId, item);
+			locatedAccounts.put(accountId,new Boolean(true));
 		}
 		else
 		{
 			Boolean parentLocated=(Boolean)locatedAccounts.get(parentId);
 			if (!parentLocated.booleanValue())
 			{
-				Object[] parentObj=(Object[]) allAccounts.get(parentId);
-				TurqAccountingAccount parentAccount = (TurqAccountingAccount) parentObj[0];
-				TurqViewAccTotal parentAccView = (TurqViewAccTotal) parentObj[1];
-				LocateAccount(parentAccount,parentAccView);
+				HashMap parentMap=(HashMap) allAccounts.get(parentId);
+				LocateAccount(parentMap);
 			}
 			TableTreeItem parentItem = (TableTreeItem) treeItems.get(parentId);
 			parentItem.setFont(SWTResourceManager.getFont("Tahoma", 9, 1, false, false)); //$NON-NLS-1$
@@ -301,27 +305,28 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				SWTResourceManager.registerResourceUser(parentItem);
 			}
 			TableTreeItem[] parentItems = parentItem.getItems();
-			String accId = account.getAccountCode();
+			String accCode =(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE); 
+			String accName=(String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME);
 			int k;
 			for (k = 0; k < parentItems.length; k++)
 			{
 				TableTreeItem pItem = parentItems[k];
-				if (accId.compareTo(pItem.getText(0)) < 0)
+				if (accCode.compareTo(pItem.getText(0)) < 0)
 					break;
 			}
 			item = new TableTreeItem(parentItem, SWT.NULL, k);
-			treeItems.put(account.getId(), item);
-			locatedAccounts.put(account.getId(),new Boolean(true));
-			item.setText(0, account.getAccountCode());
-			item.setText(1, account.getAccountName());
-			item.setData(account);
+			treeItems.put(accountId, item);
+			locatedAccounts.put(accountId,new Boolean(true));
+			item.setText(0, accCode);
+			item.setText(1, accName);
+			item.setData(accountId);
 			while (parentId.intValue() != -1)
 			{
 				BigDecimal[] parentTotals = (BigDecimal[]) accountTotals.get(parentId);
 				parentTotals[0] = parentTotals[0].add(totalCredit);
 				parentTotals[1] = parentTotals[1].add(totalDept);
-				account = account.getTurqAccountingAccountByParentAccount();
-				parentId = account.getTurqAccountingAccountByParentAccount().getId();
+				HashMap parentMap=(HashMap)allAccounts.get(parentId);
+				parentId =(Integer) parentMap.get(AccKeys.ACC_ACCOUNT_ID);
 			}
 		}
 		

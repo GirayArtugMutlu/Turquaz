@@ -102,4 +102,5 @@ public class AccLangKeys {
 	public final static String STR_VOUCHER_TYPE  = Messages.getString("AccLangKeys.95"); //$NON-NLS-1$
 	public final static String STR_GIVEN_CHEQUES_ACCOUNT=Messages.getString("AccLangKeys.96"); //$NON-NLS-1$
 	public final static String STR_COLLECTED_CHEQUES_ACCOUNT=Messages.getString("AccLangKeys.97"); //$NON-NLS-1$
+	public final static String STR_ACCOUNT_PLAN_CAPITAL="HESAP PLANI";
 }

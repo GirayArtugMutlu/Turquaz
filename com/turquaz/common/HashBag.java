@@ -8,6 +8,7 @@ package com.turquaz.common;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -124,6 +125,21 @@ public class HashBag
 		content.put(key,keyMap);
 	}
 	
+	public void put(Object key, List list, String[] columnNames) throws Exception
+	{
+		HashMap keyMap=new HashMap();
+		for(int k=0; k<list.size(); k++)
+		{
+			HashMap rowMap=new HashMap();
+			Object[] info=(Object[])list.get(k);
+			for(int m=0; m<info.length; m++)
+			{
+				rowMap.put(columnNames[m],info[m]);
+			}
+			keyMap.put(new Integer(k),rowMap);
+		}
+		content.put(key,keyMap);
+	}
 	public Object get(Object key)
 	{
 		return content.get(key);

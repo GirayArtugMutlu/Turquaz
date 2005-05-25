@@ -5,6 +5,7 @@ package com.turquaz.accounting;
 public class AccKeys
 {
 	public final static String ACC_ACCOUNT = "account";
+	public final static String ACC_ACCOUNTS="accounts";
 	public final static String ACC_ACCOUNT_CODE = "accountCode";
     public final static String ACC_ACCOUNT_END ="accountEnd";
 	public final static String ACC_ACCOUNT_ID="accountId";
@@ -31,6 +32,8 @@ public class AccKeys
     public final static String ACC_TRANSACTION ="accTransaction";
     public final static String ACC_TRANSACTIONS ="accTransactions";
 	public final static String ACC_TYPE ="type";
+	public final static String ACC_TOTAL_DEPT_AMOUNT="accTotalDeptAmount";
+	public final static String ACC_TOTAL_CREDIT_AMOUNT="accTotalCreditAmount";
    
 	
 	

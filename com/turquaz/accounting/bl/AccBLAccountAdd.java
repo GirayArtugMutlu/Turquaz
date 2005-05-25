@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALAccountAdd;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -94,9 +95,19 @@ public class AccBLAccountAdd
 		}
 	}
 
-	public static List getAllAccountsWithSum() throws Exception
+	public static HashBag getAllAccountsWithSum() throws Exception
 	{
-		return AccDALAccountAdd.getAllAccountsWithSum();
+		List list= AccDALAccountAdd.getAllAccountsWithSum();
+		String[] columnNames=new String[]{
+				AccKeys.ACC_ACCOUNT_ID,
+				AccKeys.ACC_ACCOUNT_NAME,
+				AccKeys.ACC_ACCOUNT_CODE,
+				AccKeys.ACC_PARENT_ID,
+				AccKeys.ACC_TOTAL_CREDIT_AMOUNT,
+				AccKeys.ACC_TOTAL_DEPT_AMOUNT};
+		HashBag accountBag=new HashBag();
+		accountBag.put(AccKeys.ACC_ACCOUNTS,list,columnNames);
+		return accountBag;
 	}
 
 	public static List getCashAccounts() throws Exception
