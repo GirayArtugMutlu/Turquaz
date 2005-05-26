@@ -75,7 +75,13 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 					{
 						try
 						{
-							setDBData(EngBLAccountingAccounts.getAllAccounts(text1.getText().trim()));
+							HashMap accountMap=EngBLAccountingAccounts.getAccount(text1.getText().trim());
+							if (accountMap != null)
+							{
+								Object accountId=accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+								setDBData(accountId);
+							}
+							
 						}
 						catch (Exception ex)
 						{

@@ -1,8 +1,10 @@
 package com.turquaz.engine.test;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -126,10 +128,13 @@ public class TableRowImpl extends TurqAccountingTransactionColumn implements ITa
 			case 0 : //Hesap Kodu
 				try
 				{
-					TurqAccountingAccount account = EngBLAccountingAccounts.getAccount(value.toString().trim());
-					if (account != null)
+					HashMap accountMap = EngBLAccountingAccounts.getAccount(value.toString().trim());
+					if (accountMap != null)
 					{
-						setTurqAccountingAccount(account);
+						Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+						TurqAccountingAccount acc=new TurqAccountingAccount();
+						acc.setId(accountId);
+						setTurqAccountingAccount(acc);
 					}
 				}
 				catch (Exception ex)

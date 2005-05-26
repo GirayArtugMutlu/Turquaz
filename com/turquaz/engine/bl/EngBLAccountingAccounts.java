@@ -23,17 +23,19 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLAccountingAccounts
 {
-	public List accountList;
-	public List accountListForAccountPickers;
+	public List accountList; //all accounts including -1
+	public List leafAccounts; //only leaf accounts
+	public List normalAccounts; //all accounts except -1
 	public List cashAccountList;
-	public List allAccountList;
+	
+	
 	public HashMap accountMap = new HashMap();
+	public HashMap leafAccountMap=new HashMap();
+	
 	static EngBLAccountingAccounts _instance;
 
 	public EngBLAccountingAccounts() throws Exception
@@ -54,15 +56,21 @@ public class EngBLAccountingAccounts
 		{
 			
 			accountList = AccBLAccountAdd.getAllAccounts();
-			accountListForAccountPickers =AccBLAccountAdd.getAccountsForAccountPickers();
-			allAccountList = AccBLAccountAdd.getAllAccountsForAccountPickerAll();
+			leafAccounts =AccBLAccountAdd.getLeafAccounts();
+			normalAccounts = AccBLAccountAdd.getAllAccountsExceptRoot();
+			
 			cashAccountList =AccBLAccountAdd.getCashAccounts();
 			accountMap.clear();
-			TurqAccountingAccount account;
+			HashMap accountInfo;
 			for (int i = 0; i < accountList.size(); i++)
 			{
-				account = (TurqAccountingAccount) accountList.get(i);
-				accountMap.put(account.getAccountCode(), account);
+				accountInfo = (HashMap) accountList.get(i);
+				accountMap.put(accountInfo.get(AccKeys.ACC_ACCOUNT_NAME), accountInfo);
+			}
+			for(int k=0; k<leafAccounts.size(); k++)
+			{
+				accountInfo = (HashMap)leafAccounts.get(k);
+				leafAccountMap.put(accountInfo.get(AccKeys.ACC_ACCOUNT_NAME), accountInfo);
 			}
 		}
 		catch (Exception ex)
@@ -91,7 +99,7 @@ public class EngBLAccountingAccounts
 		}
 	}
 
-	public static synchronized List getMainAccounts() throws Exception
+	public static synchronized List getNormalAccounts() throws Exception
 	{
 		try
 		{
@@ -99,7 +107,7 @@ public class EngBLAccountingAccounts
 			{
 				_instance = new EngBLAccountingAccounts();
 			}
-			return _instance.allAccountList;
+			return _instance.normalAccounts;
 		}
 		catch (Exception ex)
 		{
@@ -111,7 +119,7 @@ public class EngBLAccountingAccounts
 	 * @return
 	 * @throws Exception
 	 */
-	public static synchronized List getAccountsForAccountPickers() throws Exception
+	public static List getLeafAccounts() throws Exception
 	{
 		try
 		{
@@ -119,7 +127,7 @@ public class EngBLAccountingAccounts
 			{
 				_instance = new EngBLAccountingAccounts();
 			}
-			return _instance.accountListForAccountPickers;
+			return _instance.leafAccounts;
 		}
 		catch (Exception ex)
 		{
@@ -127,7 +135,7 @@ public class EngBLAccountingAccounts
 		}
 	}
 
-	public static synchronized List getCashAccounts() throws Exception
+	public static List getCashAccounts() throws Exception
 	{
 		try
 		{
@@ -143,7 +151,7 @@ public class EngBLAccountingAccounts
 		}
 	}
 
-	public static TurqAccountingAccount getAccount(String accountCode) throws Exception
+	public static HashMap getAccount(String accountCode) throws Exception
 	{
 		try
 		{
@@ -151,7 +159,7 @@ public class EngBLAccountingAccounts
 			{
 				_instance = new EngBLAccountingAccounts();
 			}
-			return (TurqAccountingAccount) _instance.accountMap.get(accountCode);
+			return (HashMap) _instance.accountMap.get(accountCode);
 		}
 		catch (Exception ex)
 		{
@@ -159,7 +167,7 @@ public class EngBLAccountingAccounts
 		}
 	}
 	
-	public static TurqAccountingAccount getLeafAccount(String accountCode) throws Exception
+	public static HashMap getLeafAccount(String accountCode) throws Exception
 	{
 		try
 		{
@@ -167,26 +175,7 @@ public class EngBLAccountingAccounts
 			{
 				_instance = new EngBLAccountingAccounts();
 			}
-			
-			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
-			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getLeafAccount",argMap);
-			return account;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqAccountingAccount getAllAccounts(String accountCode) throws Exception
-	{
-		try
-		{
-			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_CODE_CRITERIA,accountCode);
-			TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAllAccountsWithCodeCrit",argMap);
-			return account;
+			return (HashMap) _instance.leafAccountMap.get(accountCode);
 		}
 		catch (Exception ex)
 		{

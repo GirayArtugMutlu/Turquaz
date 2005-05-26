@@ -195,7 +195,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		
 		proposed = new ArrayList();
 		
-		list = EngBLAccountingAccounts.getAccountsForAccountPickers();
+		list = EngBLAccountingAccounts.getLeafAccounts();
 		for (int i = 0; i < list.size(); i++)
 		{
 			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
@@ -215,7 +215,7 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNTING_CASH]);
 		
 		proposed = new ArrayList();
-		list = EngBLAccountingAccounts.getMainAccounts();
+		list = EngBLAccountingAccounts.getNormalAccounts();
 		for (int i = 0; i < list.size(); i++)
 		{
 			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);

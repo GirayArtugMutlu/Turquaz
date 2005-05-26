@@ -19,6 +19,7 @@ package com.turquaz.accounting.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,11 +49,22 @@ public class AccBLAccountAdd
 		}
 	}
 
-	public static List getAccountsForAccountPickers() throws Exception
+	public static List getLeafAccounts() throws Exception
 	{
 		try
 		{
-			return AccDALAccountAdd.getAccountsForAccountPickers();
+			List accounts=AccDALAccountAdd.getLeafAccounts();
+			List accountMaps=new ArrayList();
+			for(int k=0; k<accounts.size(); k++)
+			{
+				HashMap accountMap=new HashMap();
+				Object[] accountInfo=(Object[])accounts.get(k);
+				accountMap.put(AccKeys.ACC_ACCOUNT_ID,accountInfo[0]);
+				accountMap.put(AccKeys.ACC_ACCOUNT_NAME,accountInfo[1]);
+				accountMap.put(AccKeys.ACC_ACCOUNT_CODE,accountInfo[2]);
+				accountMap.put(AccKeys.ACC_PARENT_ID,accountInfo[3]);
+			}
+			return accountMaps;
 		}
 		catch (Exception ex)
 		{
@@ -64,7 +76,18 @@ public class AccBLAccountAdd
 	{
 		try
 		{
-			return AccDALAccountAdd.getAllAccounts();
+			List accounts=AccDALAccountAdd.getAllAccounts();
+			List accountMaps=new ArrayList();
+			for(int k=0; k<accounts.size(); k++)
+			{
+				HashMap accountMap=new HashMap();
+				Object[] accountInfo=(Object[])accounts.get(k);
+				accountMap.put(AccKeys.ACC_ACCOUNT_ID,accountInfo[0]);
+				accountMap.put(AccKeys.ACC_ACCOUNT_NAME,accountInfo[1]);
+				accountMap.put(AccKeys.ACC_ACCOUNT_CODE,accountInfo[2]);
+				accountMap.put(AccKeys.ACC_PARENT_ID,accountInfo[3]);
+			}
+			return accountMaps;
 		}
 		catch (Exception ex)
 		{
@@ -72,11 +95,11 @@ public class AccBLAccountAdd
 		}
 	}
 
-	public static List getAllAccountsForAccountPickerAll() throws Exception
+	public static List getAllAccountsExceptRoot() throws Exception
 	{
 		try
 		{
-			return AccDALAccountAdd.getAllAccountsForAccountPickerAll();
+			return AccDALAccountAdd.getAllAccountsExceptRoot();
 		}
 		catch (Exception ex)
 		{
@@ -84,6 +107,7 @@ public class AccBLAccountAdd
 		}
 	}
 
+	//probably no need anymore
 	public static TurqAccountingAccount getAllAccountsWithCodeCrit(HashMap argMap) throws Exception
 	{
 		try

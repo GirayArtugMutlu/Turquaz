@@ -47,40 +47,17 @@ public class AccDALAccountAdd
 		}
 	}
 
-	public static TurqAccountingAccount getAccount(String code) throws Exception
-	{
-		try
-		{
-			Session session = EngDALSessionFactory.getSession();
-			String query = "from TurqAccountingAccount as accounts " + "where accounts.accountCode ='" + code + "'"
-					+ " and accounts.id <> -1";
-			Query q = session.createQuery(query);
-			List list = q.list();
-			
-			if (list.size() > 0)
-			{
-				return (TurqAccountingAccount) list.get(0);
-			}
-			return null;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
+
 
 	public static List getAllAccounts() throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "from TurqAccountingAccount as accounts " +
-			// was removing accounting plan
-					//	" and accounts.accountingAccountsId <> -1" +
-					" order by accounts.id";
+			String query = "Select account.id, account.accountName, account.accountCode," +
+					" account.turqAccountingAccountByParentAccount.id from TurqAccountingAccount as account order by account.id";
 			Query q = session.createQuery(query);
-			List list = q.list();
-			
+			List list = q.list();			
 			return list;
 		}
 		catch (Exception ex)
@@ -109,13 +86,15 @@ public class AccDALAccountAdd
 		}
 	}
 
-	public static List getAccountsForAccountPickers() throws Exception
+	public static List getLeafAccounts() throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "from TurqAccountingAccount as accounts " + "where accounts.id <> -1"
-					+ " and accounts.turqAccountingAccountsByParentAccount.size=0" + " order by accounts.accountCode";
+			String query = "Select account.id, account.accountName, account.accountCode," +
+					" account.turqAccountingAccountByParentAccount.id from TurqAccountingAccount as account" +
+					" where accounts.id <> -1 and account.turqAccountingAccountsByParentAccount.size=0"
+					+ " order by account.accountCode";
 			Query q = session.createQuery(query);
 			List list = q.list();
 		
@@ -127,7 +106,7 @@ public class AccDALAccountAdd
 		}
 	}
 
-	public static List getAllAccountsForAccountPickerAll() throws Exception
+	public static List getAllAccountsExceptRoot() throws Exception
 	{
 		try
 		{

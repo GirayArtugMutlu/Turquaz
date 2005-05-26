@@ -5,8 +5,10 @@
  */
 package com.turquaz.inventory.ui;
 
+import java.util.HashMap;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -127,10 +129,13 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 			case 1 : //Hesap Kodu
 				try
 				{
-					TurqAccountingAccount account = EngBLAccountingAccounts.getAccount(value.toString().trim());
-					if (account != null)
+					HashMap accountMap = EngBLAccountingAccounts.getAccount(value.toString().trim());
+					if (accountMap != null)
 					{
-						invAccRow.setTurqAccountingAccount(account);
+						Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+						TurqAccountingAccount acc=new TurqAccountingAccount();
+						acc.setId(accountId);
+						invAccRow.setTurqAccountingAccount(acc);
 					}
 				}
 				catch (Exception ex)
