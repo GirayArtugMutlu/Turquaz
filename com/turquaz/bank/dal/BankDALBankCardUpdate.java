@@ -43,6 +43,7 @@ public class BankDALBankCardUpdate
 				return new Boolean(true);
 			}
 			Session session = EngDALSessionFactory.getSession();
+			session.refresh(bankCard);
 			String query = " Select count(bankTrans.id) from TurqBanksTransaction as bankTrans where "
 					+ " bankTrans.turqBanksCard = :bankCard and bankTrans.turqBanksTransactionBill.turqBanksTransactionType.id <> "
 					+ EngBLCommon.BANK_TRANS_INITIAL;

@@ -20,11 +20,16 @@ package com.turquaz.bank.bl;
  * @version $Id$
  */
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.dal.BankDALBankCardSearch;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 
@@ -73,13 +78,32 @@ catch (Exception ex)
 		}
 	}
 
-	public static TurqBanksCard initializeBankCardById(HashMap argMap) throws Exception
+	public static HashBag initializeBankCardById(HashMap argMap) throws Exception
 	{
 		try
 		{
 			Integer bankId=(Integer)argMap.get(BankKeys.BANK_ID);
 			TurqBanksCard bankCard=BankDALBankCardSearch.initializeBankCardById(bankId);
-			return bankCard;
+			HashBag bankBag = new HashBag();
+			bankBag.put(BankKeys.BANK_NAME,bankCard.getBankName());
+			bankBag.put(BankKeys.BANK_BRANCH_NAME,bankCard.getBankBranchName());
+			bankBag.put(BankKeys.BANK_ACCOUNT_NO,bankCard.getBankAccountNo());
+			bankBag.put(BankKeys.BANK_DEFINITION,bankCard.getBankDefinition());
+			bankBag.put(BankKeys.BANK_CODE,bankCard.getBankCode());
+			bankBag.put(AdmKeys.ADM_CURRENCY_ABBR,bankCard.getTurqCurrency().getCurrenciesAbbreviation());
+			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
+			while(it.hasNext())
+			{
+				TurqBankAccountingAccount bankAccount =(TurqBankAccountingAccount)it.next();
+				bankBag.put(BankKeys.BANK_ACCOUNTING_ACCOUNTS,bankAccount.getTurqBankAccountingType().getId().intValue(),bankAccount.getTurqAccountingAccount().getId());				
+				
+				
+			}
+			
+			
+			
+			
+			return bankBag;
 		}
 		catch (Exception ex)
 		{

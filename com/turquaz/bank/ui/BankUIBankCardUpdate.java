@@ -30,14 +30,15 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bank.BankKeys;
+import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqBankAccountingAccount;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -64,7 +65,7 @@ import org.eclipse.swt.SWT;
 public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
-	private TurqBanksCard bankCard;
+	private Integer bankCardId;
 	private ToolItem toolCancel;
 	private BankUIBankCardAdd compBankCard;
 	private ToolItem toolDelete;
@@ -74,10 +75,10 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 	private CoolBar coolBar1;
 	private boolean updated = false;
 
-	public BankUIBankCardUpdate(Shell parent, int style, TurqBanksCard bc)
+	public BankUIBankCardUpdate(Shell parent, int style, Integer bankId)
 	{
 		super(parent, style);
-		bankCard = bc;
+		bankCardId = bankId;
 	}
 
 	/**
@@ -226,20 +227,27 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 				toolDelete.setEnabled(true);
 				toolUpdate.setEnabled(true);
 			}
-			compBankCard.getTxtBankName().setText(bankCard.getBankName());
-			compBankCard.getTxtBankBranchName().setText(bankCard.getBankBranchName());
-			compBankCard.getTxtBankAccountNo().setText(bankCard.getBankAccountNo());
-			compBankCard.getTxtDefinition().setText(bankCard.getBankDefinition());
-			compBankCard.getTxtBankCode().setText(bankCard.getBankCode());
-			FillCurrencyCombo();
-			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
+			
+			HashMap argMap = new HashMap();
+			argMap.put(BankKeys.BANK_ID,bankCardId);
+			HashBag bankBag = (HashBag)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"initializeBankCardById",argMap);
+			
+			
+			compBankCard.getTxtBankName().setText(bankBag.get(BankKeys.BANK_NAME).toString());
+			compBankCard.getTxtBankBranchName().setText(bankBag.get(BankKeys.BANK_BRANCH_NAME).toString());
+			compBankCard.getTxtBankAccountNo().setText(bankBag.get(BankKeys.BANK_ACCOUNT_NO).toString());
+			compBankCard.getTxtDefinition().setText(bankBag.get(BankKeys.BANK_DEFINITION).toString());
+			compBankCard.getTxtBankCode().setText(bankBag.get(BankKeys.BANK_CODE).toString());
+			FillCurrencyCombo(bankBag.get(AdmKeys.ADM_CURRENCY_ABBR).toString());
+			
+			HashMap accountMap = (HashMap)bankBag.get(BankKeys.BANK_ACCOUNTING_ACCOUNTS);
+			Iterator it = accountMap.keySet().iterator();
 			Map fieldMap = compBankCard.getAccountingFields();
 			while (it.hasNext())
 			{
-				TurqBankAccountingAccount bankAccount = (TurqBankAccountingAccount) it.next();
-				Integer type = (Integer) bankAccount.getTurqBankAccountingType().getId();
+				Integer type = (Integer) it.next();				
 				AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
-				picker.setData(bankAccount.getTurqAccountingAccount());
+				picker.setData(accountMap.get(type));
 			}
 		}
 		catch (Exception ex)
@@ -248,7 +256,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	private void FillCurrencyCombo() throws Exception
+	private void FillCurrencyCombo(String currenyAbbr) throws Exception
 	{
 		try
 		{
@@ -261,7 +269,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 				comboCurrency.add(currency.getCurrenciesAbbreviation());
 				comboCurrency.setData(currency.getCurrenciesAbbreviation(), currency);
 			}
-			comboCurrency.setText(bankCard.getTurqCurrency().getCurrenciesAbbreviation());
+			comboCurrency.setText(currenyAbbr);
 		}
 		catch (Exception ex)
 		{
@@ -278,7 +286,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			
 			HashMap argMap=new HashMap();
 			
-			argMap.put(BankKeys.BANK,bankCard);
+			argMap.put(BankKeys.BANK_ID,bankCardId);
 			argMap.put(BankKeys.BANK_NAME,compBankCard.getTxtBankName().getText().trim());
 			argMap.put(BankKeys.BANK_BRANCH_NAME,compBankCard.getTxtBankBranchName().getText().trim());
 			argMap.put(BankKeys.BANK_ACCOUNT_NO,compBankCard.getTxtBankAccountNo().getText().trim());
@@ -309,8 +317,11 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			if (EngUICommon.okToDelete(getParent()))
 			{
 				HashMap argMap=new HashMap();
-				argMap.put(BankKeys.BANK,bankCard);
-				Boolean hasTx=(Boolean)EngTXCommon.doSelectTX(BankBLBankCardUpdate.class.getName(),"hasTransaction",argMap);
+				argMap.put(BankKeys.BANK_ID,bankCardId);
+				
+				HashBag returnValue=(HashBag)EngTXCommon.doSelectTX(BankBLBankCardUpdate.class.getName(),"hasTransaction",argMap);
+				Boolean hasTx = (Boolean)returnValue.get(BankKeys.BANK_HAS_TRANSACTIONS);
+			
 				if (!hasTx.booleanValue())
 				{
 					updated = true;

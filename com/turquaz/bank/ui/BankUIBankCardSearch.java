@@ -34,7 +34,6 @@ import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.BankLangKeys;
@@ -358,8 +357,7 @@ public class BankUIBankCardSearch extends Composite implements SearchComposite
 				Integer bankId = (Integer) row.getDBObject();
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK_ID,bankId);
-				TurqBanksCard card =(TurqBanksCard)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"initializeBankCardById",argMap);
-				boolean updated = new BankUIBankCardUpdate(this.getShell(), SWT.NULL, card).open();
+				boolean updated = new BankUIBankCardUpdate(this.getShell(), SWT.NULL, bankId).open();
 				if (updated)
 					search();
 			}

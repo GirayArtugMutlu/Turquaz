@@ -91,7 +91,9 @@ public class BankBLBankCardAdd
 				bankAccount.setLastModified(cal.getTime());
 				bankAccount.setCreationDate(cal.getTime());
 				bankAccount.setTurqBanksCard(bankCard);
-				bankAccount.setTurqAccountingAccount((TurqAccountingAccount) accounts.get(type));
+				TurqAccountingAccount account = new TurqAccountingAccount();
+				account.setId((Integer)accounts.get(type));
+				bankAccount.setTurqAccountingAccount(account );
 				TurqBankAccountingType accType = new TurqBankAccountingType();
 				accType.setId(type);
 				bankAccount.setTurqBankAccountingType(accType);
