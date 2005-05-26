@@ -21,7 +21,6 @@ package com.turquaz.accounting.ui;
  */
 
 import java.util.HashMap;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -31,9 +30,9 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
+import com.turquaz.engine.ui.EngUICommon;
 
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -63,7 +62,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private ToolBar toolBar1;
-	Integer accountId=null;
+	private Integer accountId=null;
+	private boolean updated=false;
 
 	public AccUIAddAccountDialog(Shell parent, int style)
 	{
@@ -73,7 +73,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	/**
 	 * Opens the Dialog Shell. Auto-generated code - any changes you make will disappear.
 	 */
-	public void open(HashMap accountMap)
+	public boolean open(HashMap accountMap)
 	{
 		try
 		{
@@ -94,7 +94,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.makeColumnsEqualWidth = true;
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
-			dialogShell.setSize(487, 336);
+			dialogShell.setSize(487, 221);
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
 				GridData toolBar1LData = new GridData();
@@ -128,8 +128,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			}
 			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NULL);
 			GridData compAccountCardLData = new GridData();
-			compAccountCardLData.widthHint = 452;
-			compAccountCardLData.heightHint = 125;
+			compAccountCardLData.widthHint = 451;
+			compAccountCardLData.heightHint = 126;
 			compAccountCard.setLayoutData(compAccountCardLData);
 			compAccountCard.getTxtAccAcountName().setBounds(101, 93, 220, 20);
 			compAccountCard.getTxtAccAccountCode().setBounds(101, 45, 220, 20);
@@ -145,10 +145,12 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
+			return updated;
 		}
 		catch (Exception e)
 		{
             EngBLLogger.log(this.getClass(),e,getParent());
+            return true;
 		}
 	}
 
@@ -175,7 +177,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.makeColumnsEqualWidth = true;
 			dialogShellLayout.horizontalSpacing = 5;
 			dialogShellLayout.verticalSpacing = 5;
-			dialogShell.setSize(494, 233);
+			dialogShell.setSize(487, 221);
 			dialogShell.setText(getText());
 			{
 				toolBar1 = new ToolBar(dialogShell, SWT.NONE);
@@ -207,8 +209,8 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 
 			compAccountCard = new AccUIAddAccounts(dialogShell, SWT.NONE);
 			GridData compAccountCardLData = new GridData();
-			compAccountCardLData.widthHint = 452;
-			compAccountCardLData.heightHint = 125;
+			compAccountCardLData.widthHint = 451;
+			compAccountCardLData.heightHint = 126;
 			compAccountCard.setLayoutData(compAccountCardLData);
 			compAccountCard.layout();
 
@@ -251,16 +253,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			toolSave.setEnabled(true);
 		}
-		Point parentLocation = this.getParent().getLocation();
-		Point parentSize = this.getParent().getSize();
-		Point dialogSize = dialogShell.getSize();
-		int location_X = (parentLocation.x + parentSize.x) / 2 - (dialogSize.x / 2);
-		int location_Y = (parentLocation.y + parentSize.y) / 2 - (dialogSize.y / 2);
-		dialogShell.setLocation(location_X, location_Y);
-		/*
-		 * if(account.getTurqAccountingAccount().getAccountingAccountsId().intValue()==-1){ toolDelete.setEnabled(false);
-		 * toolSave.setEnabled(false); }
-		 */
+		EngUICommon.centreWindow(dialogShell);
 	}
 
 	/** Auto-generated event handler method */
@@ -268,9 +261,9 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			if (compAccountCard.verifyFields(false, null))
+			if (compAccountCard.verifyFields())
 			{
+				updated=true;
 				accountId = compAccountCard.saveAccount();
 				this.dialogShell.close();
 			}

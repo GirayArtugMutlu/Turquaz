@@ -149,8 +149,11 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 						if (items.length > 0)
 						{
 							Integer accountId=(Integer) items[0].getData();
-							new AccUIAddAccountDialog(getShell(), SWT.NULL).open((HashMap)allAccounts.get(accountId));
-							fillTree(-1, ""); //$NON-NLS-1$
+							boolean updated=new AccUIAddAccountDialog(getShell(), SWT.NULL).open((HashMap)allAccounts.get(accountId));
+							if (updated)
+							{
+								fillTree(-1, ""); //$NON-NLS-1$
+							}
 						}
 					}
 					catch (Exception ex)

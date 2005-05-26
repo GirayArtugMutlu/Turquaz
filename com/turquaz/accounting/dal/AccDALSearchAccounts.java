@@ -31,7 +31,7 @@ public class AccDALSearchAccounts {
 	public static Integer getAccountIdByAccountCode(String accountCode) throws Exception
 	{		
 		Session session = EngDALSessionFactory.getSession();
-		String query ="select account.id from TurqAccountingAccount as account where account.accountCode="+accountCode;
+		String query ="Select account.id from TurqAccountingAccount as account where account.accountCode='"+accountCode+"'";
 		Query q = session.createQuery(query);    
 		List list = q.list();
 		if (list.size() > 0)

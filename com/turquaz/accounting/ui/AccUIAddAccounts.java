@@ -20,7 +20,6 @@ package com.turquaz.accounting.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Display;
@@ -37,7 +36,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
-import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
@@ -49,22 +47,20 @@ import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
-
-
 /**
-* This code was generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* *************************************
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
-* for this machine, so Jigloo or this code cannot be used legally
-* for any corporate or commercial purpose.
-* *************************************
-*/
+ * This code was generated using CloudGarden's Jigloo
+ * SWT/Swing GUI Builder, which is free for non-commercial
+ * use. If Jigloo is being used commercially (ie, by a corporation,
+ * company or business for any purpose whatever) then you
+ * should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details.
+ * Use of Jigloo implies acceptance of these licensing terms.
+ * *************************************
+ * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+ * for this machine, so Jigloo or this code cannot be used legally
+ * for any corporate or commercial purpose.
+ * *************************************
+ */
 public class AccUIAddAccounts extends Composite implements SecureComposite
 {
 	{
@@ -96,7 +92,6 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 	{
 		return txtParentAccount;
 	}
-	
 	private CLabel lblAccountCode;
 	private Text txtAccAcountName;
 	private CLabel lblAccountName;
@@ -142,24 +137,37 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				lblParentAccount = new CLabel(compAccounting, SWT.NONE);
 				GridData cLabel2LData = new GridData();
-				lblParentAccount.setText(AccLangKeys.STR_PARENT_ACCOUNT); 
+				lblParentAccount.setText(AccLangKeys.STR_PARENT_ACCOUNT);
 				lblParentAccount.setLayoutData(cLabel2LData);
 			}
 			{
 				txtParentAccount = new Text(compAccounting, SWT.NONE);
 				GridData txtParentAccountLData = new GridData();
-				txtParentAccount.addModifyListener(new ModifyListener() {
-					public void modifyText(ModifyEvent evt) {
-						try {
-							txtParentAccount.setData(EngBLAccountingAccounts.getAccount(txtParentAccount.getText().trim()));
-							if (txtParentAccount.getData() != null) {
-								if (((Integer) txtParentAccount.getData()).intValue() != -1)
-									txtAccAccountCode.setText(txtParentAccount.getText().trim() + " "); 
-							} else {
-								txtAccAccountCode.setText(""); 
+				txtParentAccount.addModifyListener(new ModifyListener()
+				{
+					public void modifyText(ModifyEvent evt)
+					{
+						try
+						{
+							HashMap accountMap=EngBLAccountingAccounts.getAccount(txtParentAccount
+									.getText().trim());
+							if (accountMap !=null)
+							{
+								txtParentAccount.setData(accountMap.get(AccKeys.ACC_ACCOUNT_ID));
 							}
-						} catch (Exception ex) {
-                            EngBLLogger.log(this.getClass(),ex,getShell());
+							if (txtParentAccount.getData() != null)
+							{
+								if (((Integer) txtParentAccount.getData()).intValue() != -1)
+									txtAccAccountCode.setText(txtParentAccount.getText().trim() + " ");
+							}
+							else
+							{
+								txtAccAccountCode.setText("");
+							}
+						}
+						catch (Exception ex)
+						{
+							EngBLLogger.log(this.getClass(), ex, getShell());
 						}
 					}
 				});
@@ -172,7 +180,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				lblAccountCode = new CLabel(compAccounting, SWT.NONE);
 				lblAccountCode.setSize(new org.eclipse.swt.graphics.Point(83, 17));
 				GridData cLabel1LData = new GridData();
-				lblAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE); 
+				lblAccountCode.setText(AccLangKeys.STR_ACCOUNT_CODE);
 				cLabel1LData.widthHint = 83;
 				cLabel1LData.heightHint = 17;
 				lblAccountCode.setLayoutData(cLabel1LData);
@@ -224,7 +232,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		}
 		catch (Exception e)
 		{
-            EngBLLogger.log(this.getClass(),e,getShell());
+			EngBLLogger.log(this.getClass(), e, getShell());
 		}
 	}
 
@@ -242,22 +250,22 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		asistant = new TurquazContentAssistant(adapter, 0);
 	}
 
-	public boolean verifyFields(boolean update, Integer toUpdateId)
+	public boolean verifyFields()
 	{
 		try
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			boolean valid = false;
 			if (txtAccAccountCode.getText().trim().equals(""))
-			{ 
-				msg.setMessage(AccLangKeys.MSG_PLEASE_FILL_ACCOUNT_CODE); 
+			{
+				msg.setMessage(AccLangKeys.MSG_PLEASE_FILL_ACCOUNT_CODE);
 				msg.open();
 				this.txtAccAccountCode.setFocus();
 				return false;
 			}
 			else if (txtParentAccount.getData() == null)
 			{
-				msg.setMessage(AccLangKeys.MSG_PLEASE_ENTER_PARENT_ACCOUNT); 
+				msg.setMessage(AccLangKeys.MSG_PLEASE_ENTER_PARENT_ACCOUNT);
 				msg.open();
 				this.txtParentAccount.setFocus();
 				return false;
@@ -267,9 +275,9 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			{
 				if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
 				{
-					msg.setMessage(AccLangKeys.MSG_ACCOUNT_CODE_SHOULD_START_WITH_PARENT_ACCOUNT); 
+					msg.setMessage(AccLangKeys.MSG_ACCOUNT_CODE_SHOULD_START_WITH_PARENT_ACCOUNT);
 					msg.open();
-					txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" ")); 
+					txtAccAccountCode.setText(txtParentAccount.getText().trim().concat(" "));
 					txtAccAccountCode.setFocus();
 					txtAccAccountCode.setSelection(txtParentAccount.getText().trim().length() + 1);
 					return false;
@@ -295,31 +303,21 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 	{
 		try
 		{
-			if (verifyFields(false, null))
-			{
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				
-				String accountName = txtAccAcountName.getText().trim();
-				String accountCode = txtAccAccountCode.getText().trim();				
-				
-				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
-				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
-				argMap.put(AccKeys.ACC_PARENT_ID,txtParentAccount.getData());
-				
-				Integer accountId = (Integer)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
-				EngUICommon.showSavedSuccesfullyMessage(getShell()); 
-				msg.open();
-				clearFields();
-				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountId);
-				return accountId;
-			}
-			return null;
+			String accountName = txtAccAcountName.getText().trim();
+			String accountCode = txtAccAccountCode.getText().trim();
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT_NAME, accountName);
+			argMap.put(AccKeys.ACC_ACCOUNT_CODE, accountCode);
+			argMap.put(AccKeys.ACC_PARENT_ID, txtParentAccount.getData());
+			Integer accountId = (Integer) EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),
+					"saveAccount", argMap);
+			EngUICommon.showSavedSuccesfullyMessage(getShell());
+			clearFields();
+			return accountId;
 		}
 		catch (Exception ex)
 		{
-			
-            EngBLLogger.log(this.getClass(),ex,getShell());
+			EngBLLogger.log(this.getClass(), ex, getShell());
 			return null;
 		}
 	}
@@ -328,37 +326,23 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 	{
 		try
 		{
-			if (verifyFields(false, null))
+			if (verifyFields())
 			{
-				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 				Integer parentId = (Integer) txtParentAccount.getData();
-				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT_ID,parentId);				
-				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
-				
-				
-				if (accTrans.size() > 0)
-				{
-					msg.setMessage(AccLangKeys.MSG_NOT_ENTER_SUBSIDIARY_ACCOUNT_PARENT_HAS_TRANSACTION); 
-					msg.open();
-					return;
-				}
 				String accountName = txtAccAcountName.getText().trim();
 				String accountCode = txtAccAccountCode.getText().trim();
 				
-				argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
-				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
-				argMap.put(AccKeys.ACC_PARENT_ID,parentId);				
-				
-				EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
-				msg.open();			
+				HashMap argMap = new HashMap();
+				argMap.put(AccKeys.ACC_ACCOUNT_NAME, accountName);
+				argMap.put(AccKeys.ACC_ACCOUNT_CODE, accountCode);
+				argMap.put(AccKeys.ACC_PARENT_ID, parentId);
+				EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(), "saveAccount", argMap);
 				clearFields();
 			}
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
@@ -374,5 +358,4 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 	{
 		clearFields();
 	}
-
 }

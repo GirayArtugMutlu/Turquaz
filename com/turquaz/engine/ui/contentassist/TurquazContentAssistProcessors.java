@@ -34,6 +34,7 @@ import org.eclipse.jface.text.contentassist.ContextInformationValidator;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLBankCards;
@@ -187,8 +188,8 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		List list = EngBLAccountingAccounts.getAccounts();
 		for (int i = 0; i < list.size(); i++)
 		{
-			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-			proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
+			HashMap accMap = (HashMap) list.get(i);
+			proposed.add(new Proposal((String)accMap.get(AccKeys.ACC_ACCOUNT_CODE),(String) accMap.get(AccKeys.ACC_ACCOUNT_NAME)));
 		}
 		proposedCodeList[0] = new Proposal[proposed.size()];
 		proposed.toArray(proposedCodeList[0]);
@@ -198,8 +199,8 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 		list = EngBLAccountingAccounts.getLeafAccounts();
 		for (int i = 0; i < list.size(); i++)
 		{
-			TurqAccountingAccount acc = (TurqAccountingAccount) list.get(i);
-			proposed.add(new Proposal(acc.getAccountCode(), acc.getAccountName()));
+			HashMap accMap = (HashMap) list.get(i);
+			proposed.add(new Proposal((String)accMap.get(AccKeys.ACC_ACCOUNT_CODE),(String) accMap.get(AccKeys.ACC_ACCOUNT_NAME)));
 		}
 		proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES] = new Proposal[proposed.size()];
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_ACCOUNT_LEAVES]);

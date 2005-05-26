@@ -34,9 +34,9 @@ import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -291,9 +291,8 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
-			if (compAccountCard.verifyFields(true, accountId))
+			if (compAccountCard.verifyFields())
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_ID, accountId);
@@ -302,8 +301,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AccKeys.ACC_PARENT_ID,compAccountCard.getTxtParentAccount().getData());
 				
 				EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"updateAccount",argMap);						
-				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); 
-				msg.open();
+				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				updateOccured = true;
 				this.dialogShell.close();
 			}
@@ -317,19 +315,15 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 	/** Auto-generated event handler method */
 	protected void toolDeleteWidgetSelected(SelectionEvent evt)
 	{
-		MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-		MessageBox msg2 = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
 		try
 		{
-			msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); 
-			int result = msg2.open();
-			if (result == SWT.OK)
+			boolean okToDelete=EngUICommon.okToDelete(getParent());
+			if (okToDelete)
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,accountMap.get(AccKeys.ACC_ACCOUNT_ID));
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountMap.get(AccKeys.ACC_ACCOUNT_ID));
 				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);				
-				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
-				msg.open();
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				updateOccured = true;
 				this.dialogShell.close();
 				this.dialogShell.dispose();
