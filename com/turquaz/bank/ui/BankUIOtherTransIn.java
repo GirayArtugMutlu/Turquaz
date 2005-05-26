@@ -25,7 +25,6 @@ import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
@@ -182,7 +181,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
