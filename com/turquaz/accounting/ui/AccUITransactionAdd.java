@@ -58,7 +58,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyListener;
@@ -348,7 +347,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
