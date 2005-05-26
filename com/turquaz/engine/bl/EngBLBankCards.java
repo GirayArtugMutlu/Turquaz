@@ -1,14 +1,17 @@
 package com.turquaz.engine.bl;
 
 import java.util.HashMap;
-import java.util.List;
+
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.dal.TurqBanksCard;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLBankCards
 {
-	public List currentList;
+	public HashMap bankCardList;
 	public HashMap cardMap = new HashMap();
 	static EngBLBankCards _instance;
 	BankBLBankCardSearch blCardSearch = new BankBLBankCardSearch();
@@ -29,13 +32,15 @@ public class EngBLBankCards
 	{
 		try
 		{
-			currentList = BankBLBankCardSearch.getBankCards();
+			HashBag bankBag =(HashBag)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"getBankCards",null);
+			bankCardList =(HashMap)bankBag.get(BankKeys.BANK_CARDS);
 			cardMap.clear();
 			TurqBanksCard cashCard;
-			for (int i = 0; i < currentList.size(); i++)
+			for (int i = 0; i < bankCardList.size(); i++)
 			{
-				cashCard = (TurqBanksCard) (currentList.get(i));
-				cardMap.put(cashCard.getBankCode(), cashCard);
+
+				HashMap infoMap =(HashMap)bankCardList.get(new Integer(i));
+				cardMap.put(infoMap.get(BankKeys.BANK_CODE), infoMap);
 			}
 		}
 		catch (Exception ex)
@@ -44,7 +49,7 @@ public class EngBLBankCards
 		}
 	}
 
-	public static List getBankCards() throws Exception
+	public static HashMap getBankCards() throws Exception
 	{
 		try
 		{
@@ -52,7 +57,7 @@ public class EngBLBankCards
 			{
 				_instance = new EngBLBankCards();
 			}
-			return _instance.currentList;
+			return _instance.bankCardList;
 		}
 		catch (Exception ex)
 		{
@@ -60,7 +65,7 @@ public class EngBLBankCards
 		}
 	}
 
-	public static TurqBanksCard getCard(String cardName) throws Exception
+	public static HashMap getCard(String cardName) throws Exception
 	{
 		try
 		{
@@ -68,7 +73,7 @@ public class EngBLBankCards
 			{
 				_instance = new EngBLBankCards();
 			}
-			return (TurqBanksCard) _instance.cardMap.get(cardName);
+			return (HashMap) _instance.cardMap.get(cardName);
 		}
 		catch (Exception ex)
 		{

@@ -14,18 +14,19 @@ package com.turquaz.bank;
  */
 public class BankKeys
 {
-	public static String BANK="bank";
-	public static String BANK_ID="bankId";
-	public static String BANK_NAME="bankName";
-	public static String BANK_CODE="bankCode";
-	public static String BANK_DEFINITION="bankDefinition";
-	public static String BANK_BRANCH_NAME="bankBranchName";
-	public static String BANK_ACCOUNT_NO="bankAccountNo";
-	public static String BANK_CURRENCY="bankCurrency";
-	public static String BANK_ACCOUNTING_ACCOUNTS="bankAccountingAccounts";
-	public static String BANK_CARD_WITH_DEPT="bankCardWithDept";
-	public static String BANK_CARD_WITH_CREDIT="bankCardWithCredit";
-	public static String BANK_TRANS_BILL="bankTransBill";
-	public static String BANK_SORT_BY_DATE="bankSortByDate";
-	public static String BANK_HAS_TRANSACTIONS="hasTransactions";
+	public static final String BANK="bank";
+	public static final String BANK_ID="bankId";
+	public static final String BANK_NAME="bankName";
+	public static final String BANK_CODE="bankCode";
+	public static final String BANK_DEFINITION="bankDefinition";
+	public static final String BANK_BRANCH_NAME="bankBranchName";
+	public static final String BANK_ACCOUNT_NO="bankAccountNo";
+	public static final String BANK_CURRENCY="bankCurrency";
+	public static final String BANK_ACCOUNTING_ACCOUNTS="bankAccountingAccounts";
+	public static final String BANK_CARD_WITH_DEPT="bankCardWithDept";
+	public static final String BANK_CARD_WITH_CREDIT="bankCardWithCredit";
+	public static final String BANK_TRANS_BILL="bankTransBill";
+	public static final String BANK_SORT_BY_DATE="bankSortByDate";
+	public static final String BANK_HAS_TRANSACTIONS="hasTransactions";
+	public static final String BANK_CARDS = "bankCards";
 }

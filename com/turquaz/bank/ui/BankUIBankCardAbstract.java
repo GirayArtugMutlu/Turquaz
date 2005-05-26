@@ -15,7 +15,6 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -338,11 +337,12 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				BigDecimal deferred_dept = new BigDecimal(0);
 				BigDecimal deferred_credit = new BigDecimal(0);
 				BigDecimal balance = new BigDecimal(0);
-				TurqBanksCard bankCard = (TurqBanksCard) bankPicker.getData();
+				Integer bankCardId = (Integer) bankPicker.getData();
 				
 				HashMap argMap=new HashMap();
-				argMap.put(BankKeys.BANK,bankCard);
+				argMap.put(BankKeys.BANK_ID,bankCardId);
 				argMap.put(EngKeys.DATE_END,dateStartDate.getDate());
+				
 				List deferred =(List)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getDeferredTotal",argMap);
 				Map parameters = new HashMap();
 				SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -351,9 +351,9 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				parameters.put("endDate", dateFormatter.format(dateEndDate.getDate()));
 				parameters.put("dateFormat", dateFormatter);
 				parameters.put("currencyFormat", new TurkishCurrencyFormat());
-				parameters.put("bankName", bankCard.getBankName());
-				parameters.put("bankBranchName", bankCard.getBankBranchName());
-				parameters.put("bankAccountNo", bankCard.getBankAccountNo());
+				parameters.put("bankName", bankPicker.getBankName());
+				parameters.put("bankBranchName", bankPicker.getBankBranchName());
+				parameters.put("bankAccountNo", bankPicker.getBankAccountNo());
 				if (deferred.size() != 0)
 				{
 					Object[] amounts = (Object[]) deferred.get(0);
@@ -391,6 +391,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 					parameters.put("initialCredit", new BigDecimal(0));
 					parameters.put("initialBalance", new BigDecimal(0));
 				}
+				
 				argMap=new HashMap();
 				argMap.put(BankKeys.BANK, bankPicker.getData());
 				argMap.put(EngKeys.DATE_START,dateStartDate.getDate());

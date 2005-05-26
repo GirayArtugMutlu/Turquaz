@@ -37,6 +37,7 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqBanksCard;
@@ -57,8 +58,16 @@ public class BankBLTransactionAdd
 	{
 		try
 		{
-			TurqBanksCard bankCardWithDept=(TurqBanksCard)argMap.get(BankKeys.BANK_CARD_WITH_DEPT);
-			TurqBanksCard bankCardWithCredit=(TurqBanksCard)argMap.get(BankKeys.BANK_CARD_WITH_CREDIT);
+			Integer bankCardWithDeptId=(Integer)argMap.get(BankKeys.BANK_CARD_WITH_DEPT);
+			Integer bankCardWithCreditId = (Integer)argMap.get(BankKeys.BANK_CARD_WITH_CREDIT);
+			
+			
+					
+			
+			TurqBanksCard bankCardWithDept=(TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardWithDeptId);
+			TurqBanksCard bankCardWithCredit=(TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardWithCreditId);
+			
+			
 			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
 			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
@@ -219,7 +228,10 @@ public class BankBLTransactionAdd
 	{
 		try
 		{
-			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
+		
+			TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
+				
 			TurqCashCard cashCard=(TurqCashCard)argMap.get(CashKeys.CASH_CARD);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
 			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
@@ -339,7 +351,9 @@ public class BankBLTransactionAdd
 	{
 		try
 		{
-			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
+			TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
+					
 			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
 			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
@@ -454,7 +468,10 @@ public class BankBLTransactionAdd
 	{
 		try
 		{
-			TurqBanksCard bankCard=(TurqBanksCard)argMap.get(BankKeys.BANK);
+			Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
+			
+			TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
+					
 			TurqAccountingAccount account=(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
 			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);

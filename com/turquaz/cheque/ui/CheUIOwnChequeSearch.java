@@ -358,7 +358,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());
 			argMap.put(CheKeys.CHE_START_DUE_DATE,datePickerStartDueDate.getDate());
 			argMap.put(CheKeys.CHE_END_DUE_DATE,datePickerEndDueDate.getDate());
-		    argMap.put(BankKeys.BANK,bankPicker.getTurqBank());
+		    argMap.put(BankKeys.BANK_ID,bankPicker.getBankId());
 		    argMap.put(BankKeys.BANK_SORT_BY_DATE,new Boolean(radioDate.getSelection()));
 			
 			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);

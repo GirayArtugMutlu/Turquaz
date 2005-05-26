@@ -293,9 +293,9 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 				/**
 				 * 
 				 */
-				TurqBanksCard bankCard = (TurqBanksCard) bankPicker.getData();
-				cheque.setBankBranchName(bankCard.getBankBranchName());
-				cheque.setBankName(bankCard.getBankName());
+				
+				cheque.setBankBranchName(bankPicker.getBankBranchName());
+				cheque.setBankName(bankPicker.getBankName());
 				cheque.setChequesPortfolioNo(""); //$NON-NLS-1$
 				cheque.setChequesNo(txtChequeNo.getText().trim());
 				cheque.setChequesDueDate(datePickValueDate.getDate());
@@ -306,6 +306,8 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 				cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 				cheque.setLastModified(Calendar.getInstance().getTime());
 				cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
+				TurqBanksCard bankCard  = new TurqBanksCard();
+				bankCard.setId(bankPicker.getBankId());
 				cheque.setTurqBanksCard(bankCard);
 				//        TODO cheq trans exRate
 				

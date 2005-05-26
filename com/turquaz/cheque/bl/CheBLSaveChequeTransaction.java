@@ -43,6 +43,7 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -63,7 +64,10 @@ public class CheBLSaveChequeTransaction
 	{
 		TurqAccountingAccount rollAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
 		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
-		TurqBanksCard bankCard = (TurqBanksCard)argMap.get(BankKeys.BANK);
+		
+		Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
+		TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
+        
 		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		Date rollDate = (Date)argMap.get(EngKeys.DATE);
 		List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);

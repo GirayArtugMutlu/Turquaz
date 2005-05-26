@@ -287,7 +287,7 @@ public class BankUIMoneyTransferIn extends org.eclipse.swt.widgets.Composite imp
 			{
 				HashMap argMap=new HashMap();
 				
-				argMap.put(BankKeys.BANK,txtBankCard.getTurqBank());
+				argMap.put(BankKeys.BANK_ID,txtBankCard.getBankId());
 				argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_RECIEVE_MONEY));
 				argMap.put(EngKeys.ENG_SEQ,null);

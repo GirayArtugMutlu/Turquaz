@@ -166,8 +166,8 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				HashMap argMap=new HashMap();
 				
 				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
-				argMap.put(BankKeys.BANK_CARD_WITH_DEPT,compTransfer.getBankCardPickerWithDept().getTurqBank());
-				argMap.put(BankKeys.BANK_CARD_WITH_CREDIT,compTransfer.getBankCardPickerWithCredit().getTurqBank());
+				argMap.put(BankKeys.BANK_CARD_WITH_DEPT,compTransfer.getBankCardPickerWithDept().getBankId());
+				argMap.put(BankKeys.BANK_CARD_WITH_CREDIT,compTransfer.getBankCardPickerWithCredit().getBankId());
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(EngKeys.TOTAL_AMOUNT,compTransfer.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compTransfer.getDatePick().getDate());

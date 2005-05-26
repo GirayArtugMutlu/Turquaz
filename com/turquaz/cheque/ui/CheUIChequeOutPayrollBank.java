@@ -303,7 +303,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountPicker.getDBData());
-				argMap.put(BankKeys.BANK,bankCardPicker.getTurqBank());
+				argMap.put(BankKeys.BANK_ID,bankCardPicker.getBankId());
 				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
 				argMap.put(EngKeys.DATE,datePicker1.getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);

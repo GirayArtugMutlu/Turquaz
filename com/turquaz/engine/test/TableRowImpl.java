@@ -15,6 +15,10 @@ import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 public class TableRowImpl extends TurqAccountingTransactionColumn implements ITableRow
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String formatted = "";
 	TableRowList rowList;
 	int row_index = 0;

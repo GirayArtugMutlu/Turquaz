@@ -44,8 +44,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -70,6 +68,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 	private Text text1;
 	private AccountPickerLeaf accountPicker = null;
 	private Integer pickerAccountType = null;
+	private HashMap bankData ;
 
 	public BankCardPicker(Composite parent, int style)
 	{
@@ -97,7 +96,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 				text1.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent evt) {
 						try {
-							setDBData(EngBLBankCards.getCard(text1.getText()
+							setPickerData(EngBLBankCards.getCard(text1.getText()
 								.trim()));
 						} catch (Exception ex) {
                             EngBLLogger.log(this.getClass(),ex);
@@ -173,15 +172,21 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 		return text1.getText();
 	}
 
-	public void setData(Object obj)
+	public void setData(HashMap bankData)
 	{
-		super.setData(obj);
+		this.bankData = bankData;
 	}
-
-	public void setDBData(Object obj)
+	public Object getData()
 	{
-		super.setData(obj);
-		if (obj == null)
+		return bankData;
+	}
+	
+	
+	public void setPickerData(HashMap bankData)
+	{
+		setData(bankData);
+		
+		if (bankData == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 			if (accountPicker != null)
@@ -197,9 +202,10 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 				try
 				{
 					HashMap argMap=new HashMap();
-					argMap.put(BankKeys.BANK,obj);
+					argMap.put(BankKeys.BANK_ID,bankData.get(BankKeys.BANK_ID));
 					argMap.put(EngKeys.TYPE,pickerAccountType);
-					accountPicker.setData((TurqAccountingAccount)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"getAccountingAccount",argMap));
+					
+					accountPicker.setData(EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"getAccountingAccount",argMap));
 				}
 				catch (Exception ex)
 				{
@@ -209,17 +215,48 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 		}
 	}
 
-	public TurqBanksCard getTurqBank()
+	
+	public Integer getBankId()
 	{
-		if (super.getData() == null)
+		if(bankData == null)
 		{
 			return null;
 		}
-		else
-		{
-			return (TurqBanksCard) super.getData();
-		}
+		return (Integer)bankData.get(BankKeys.BANK_ID);
 	}
+	public String getBankName()
+	{
+		if(bankData == null)
+		{
+			return null;
+		}
+		return bankData.get(BankKeys.BANK_NAME).toString();
+	}
+	public String getBankBranchName()
+	{
+		if(bankData == null)
+		{
+			return null;
+		}
+		return bankData.get(BankKeys.BANK_BRANCH_NAME).toString();
+	}
+	public String getBankCode()
+	{
+		if(bankData == null)
+		{
+			return null;
+		}
+		return bankData.get(BankKeys.BANK_CODE).toString();
+	}
+	public String getBankAccountNo()
+	{
+		if(bankData == null)
+		{
+			return null;
+		}
+		return bankData.get(BankKeys.BANK_ACCOUNT_NO).toString();
+	}	
+	
 
 	public void setAccountPicker(AccountPickerLeaf picker, Integer Type)
 	{
@@ -227,11 +264,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 		pickerAccountType = Type;
 	}
 
-	public Object getDBData() {
-		
-		return super.getData();
-	}
-
+	
 	public void openNewObjectDialog() {
 		// TODO Auto-generated method stub
 		

@@ -189,7 +189,7 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap=new HashMap();
 				
 				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
-				argMap.put(BankKeys.BANK,compCashTrans.getTxtBankCard().getTurqBank());
+				argMap.put(BankKeys.BANK_ID,compCashTrans.getTxtBankCard().getBankId());
 				argMap.put(AccKeys.ACC_ACCOUNT_ID,compCashTrans.getTxtAccountPicker().getDBData());
 				argMap.put(EngKeys.TOTAL_AMOUNT,compCashTrans.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compCashTrans.getDatePick().getDate());
