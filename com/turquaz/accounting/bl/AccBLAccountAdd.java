@@ -29,6 +29,8 @@ import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.exceptions.TurquazException;
+import com.turquaz.engine.lang.AccLangKeys;
 
 public class AccBLAccountAdd
 {
@@ -143,13 +145,16 @@ public class AccBLAccountAdd
 		return AccDALAccountAdd.getTransactionColumns(type.intValue(), startDate, endDate);
 	}
 
-	public static TurqAccountingAccount saveAccount(HashMap argMap) throws Exception
+	public static Integer saveAccount(HashMap argMap) throws Exception
 	{
 		try
 		{
 			String accountName = (String) argMap.get(AccKeys.ACC_ACCOUNT_NAME);
 			String accountCode = (String) argMap.get(AccKeys.ACC_ACCOUNT_CODE);
 			Integer parentId = (Integer) argMap.get(AccKeys.ACC_PARENT_ID);
+			
+			verifyAccountForSave(accountCode,parentId);
+			
 			TurqAccountingAccount account = new TurqAccountingAccount();
 			TurqAccountingAccount parentAccount = new TurqAccountingAccount();
 			if (parentId != null)
@@ -183,11 +188,25 @@ public class AccBLAccountAdd
 				EngDALCommon.saveObject(account);
 			}
 			EngBLAccountingAccounts.RefreshContentAsistantMap();
-			return account;
+			return account.getId();
 		}
 		catch (Exception ex)
 		{
 			throw ex;
+		}
+	}
+	
+	private static void verifyAccountForSave(String accountCode,Integer parentId) throws Exception
+	{
+		Integer accountId=AccBLAccountSearch.getAccountIdByAccountCode(accountCode);
+		if (accountId != null)
+		{
+			throw new TurquazException(AccLangKeys.MSG_NOT_ENTER_EXISTING_ACCOUNT_CODE);
+		}
+		List accTrans = AccBLAccountUpdate.getAccountTransColumns(parentId);
+		if (accTrans.size() > 0)
+		{
+			throw new TurquazException(AccLangKeys.MSG_NOT_ENTER_SUBSIDIARY_ACCOUNT_PARENT_HAS_TRANSACTION); 
 		}
 	}
 }

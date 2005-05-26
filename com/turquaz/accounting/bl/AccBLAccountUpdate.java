@@ -29,6 +29,7 @@ import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.exceptions.TurquazException;
+import com.turquaz.engine.lang.AccLangKeys;
 
 public class AccBLAccountUpdate
 {
@@ -36,10 +37,14 @@ public class AccBLAccountUpdate
 	{
 		try
 		{
+			
 			Integer accId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_ID);
 			String accountName = (String) argMap.get(AccKeys.ACC_ACCOUNT_NAME);
 			String accountCode = (String) argMap.get(AccKeys.ACC_ACCOUNT_CODE);
 			Integer parentId = (Integer) argMap.get(AccKeys.ACC_PARENT_ID);
+			
+			verifyAccountForUpdate(accId,accountCode);
+			
 			TurqAccountingAccount account = (TurqAccountingAccount) EngDALSessionFactory.getSession().load(
 					TurqAccountingAccount.class, accId);
 			TurqAccountingAccount parentAccount = (TurqAccountingAccount) EngDALSessionFactory.getSession()
@@ -74,6 +79,18 @@ public class AccBLAccountUpdate
 			throw ex;
 		}
 	}
+	
+	private static void verifyAccountForUpdate(Integer accountId, String accountCode) throws Exception
+	{
+		Integer existingAcc=AccBLAccountSearch.getAccountIdByAccountCode(accountCode);
+		if (existingAcc != null)
+		{
+			if (accountId != null && existingAcc.intValue()!=accountId.intValue())
+			{
+				throw new TurquazException(AccLangKeys.MSG_NOT_ENTER_EXISTING_ACCOUNT_CODE);
+			}
+		}
+	}
 
 	private static boolean isSubAccountOf(TurqAccountingAccount parent, TurqAccountingAccount account)
 	{
@@ -101,6 +118,11 @@ public class AccBLAccountUpdate
 	{
 		Integer accId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_ID);
 		return AccDALAccountUpdate.getAccountTransColumns(accId);
+	}
+	
+	public static List getAccountTransColumns(Integer accountId) throws Exception
+	{
+		return AccDALAccountUpdate.getAccountTransColumns(accountId);
 	}
 
 	public static void deleteAccount(HashMap argMap) throws Exception

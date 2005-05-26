@@ -20,14 +20,15 @@ package com.turquaz.accounting.ui;
  * @version  $Id$
  */
 
+import java.util.HashMap;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 
@@ -47,7 +48,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolSave;
 	private ToolBar toolBar1;
-	TurqAccountingAccount acc = null;
+	Integer accountId=null;
 
 	public AccUIAddAccountDialog(Shell parent, int style)
 	{
@@ -57,7 +58,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	/**
 	 * Opens the Dialog Shell. Auto-generated code - any changes you make will disappear.
 	 */
-	public void open(TurqAccountingAccount account)
+	public void open(HashMap accountMap)
 	{
 		try
 		{
@@ -120,7 +121,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			compAccountCard.getTxtParentAccount().setBounds(101, 5, 220, 20);
 			compAccountCard.layout();
 			postInitGUI();
-			compAccountCard.getTxtParentAccount().setText(account.getAccountCode());
+			compAccountCard.getTxtParentAccount().setText((String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE));
 			dialogShell.layout();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
@@ -139,7 +140,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 	/**
 	 * Opens the Dialog Shell. Auto-generated code - any changes you make will disappear.
 	 */
-	public TurqAccountingAccount open()
+	public Integer open()
 	{
 		try
 		{
@@ -205,7 +206,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-			return acc;
+			return accountId;
 		}
 		catch (Exception e)
 		{
@@ -255,7 +256,7 @@ public class AccUIAddAccountDialog extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
 			if (compAccountCard.verifyFields(false, null))
 			{
-				acc = compAccountCard.saveAccount();
+				accountId = compAccountCard.saveAccount();
 				this.dialogShell.close();
 			}
 		}

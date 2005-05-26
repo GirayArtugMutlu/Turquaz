@@ -31,7 +31,6 @@ import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.accounting.ui.AccUIAddAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -52,7 +51,6 @@ import org.eclipse.swt.widgets.TableItem;
 public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
-	private TurqAccountingAccount account;
 	private TableColumn tableColCredit;
 	private TableColumn tableColumnCreditRemain;
 	private TableColumn tableColumnDeptRemain;
@@ -68,11 +66,14 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 	private AccUIAddAccounts compAccountCard;
 	private BigDecimal[] totals;
 	boolean updateOccured = false;
+	private HashMap accountMap;
+	private HashMap parentMap;
 
-	public AccUIAccountUpdate(Shell parent, int style, TurqAccountingAccount acc, BigDecimal[] total)
+	public AccUIAccountUpdate(Shell parent, int style, HashMap accountMap,HashMap parentMap, BigDecimal[] total)
 	{
 		super(parent, style);
-		account = acc;
+		this.accountMap=accountMap;
+		this.parentMap=parentMap;
 		totals = total;
 	}
 
@@ -244,9 +245,9 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			toolDelete.setEnabled(true);
 			toolUpdate.setEnabled(true);
 		}
-		compAccountCard.getTxtParentAccount().setText(account.getTurqAccountingAccountByParentAccount().getAccountCode());
-		compAccountCard.getTxtAccAccountCode().setText(account.getAccountCode());
-		compAccountCard.getTxtAccAcountName().setText(account.getAccountName());
+		compAccountCard.getTxtParentAccount().setText((String)parentMap.get(AccKeys.ACC_ACCOUNT_CODE));
+		compAccountCard.getTxtAccAccountCode().setText((String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE));
+		compAccountCard.getTxtAccAcountName().setText((String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME));
 		fillBalances();
 		Point parentLocation = this.getParent().getLocation();
 		Point parentSize = this.getParent().getSize();
@@ -291,10 +292,11 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			MessageBox msg = new MessageBox(this.getParent(), SWT.NULL);
-			if (compAccountCard.verifyFields(true, account))
+			Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+			if (compAccountCard.verifyFields(true, accountId))
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,account);
+				argMap.put(AccKeys.ACC_ACCOUNT_ID, accountId);
 				argMap.put(AccKeys.ACC_ACCOUNT_NAME,compAccountCard.getTxtAccAcountName().getText().trim());
 				argMap.put(AccKeys.ACC_ACCOUNT_CODE,compAccountCard.getTxtAccAccountCode().getText().trim());
 				argMap.put(AccKeys.ACC_PARENT_ID,compAccountCard.getTxtParentAccount().getData());
@@ -324,7 +326,7 @@ public class AccUIAccountUpdate extends org.eclipse.swt.widgets.Dialog
 			if (result == SWT.OK)
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,account);
+				argMap.put(AccKeys.ACC_ACCOUNT,accountMap.get(AccKeys.ACC_ACCOUNT_ID));
 				EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);				
 				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
 				msg.open();

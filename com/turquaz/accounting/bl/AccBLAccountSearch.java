@@ -23,5 +23,10 @@ public class AccBLAccountSearch {
 		
 		return AccDALSearchAccounts.getAccountCodeById(accId);
 	}
+	
+	public static Integer getAccountIdByAccountCode(String accountCode) throws Exception
+	{
+		return AccDALSearchAccounts.getAccountIdByAccountCode(accountCode);
+	}
 
 }

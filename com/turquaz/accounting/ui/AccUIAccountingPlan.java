@@ -45,7 +45,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.lang.*;
@@ -149,7 +148,8 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 						TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
 						if (items.length > 0)
 						{
-							new AccUIAddAccountDialog(getShell(), SWT.NULL).open((TurqAccountingAccount) items[0].getData());
+							Integer accountId=(Integer) items[0].getData();
+							new AccUIAddAccountDialog(getShell(), SWT.NULL).open((HashMap)allAccounts.get(accountId));
 							fillTree(-1, ""); //$NON-NLS-1$
 						}
 					}
@@ -266,7 +266,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			totalCredit=new BigDecimal(0);
 		
 		BigDecimal[] totals = {totalCredit, totalDept};
-		accountTotals.put( accountId, totals);
+		accountTotals.put(accountId, totals);
 		if (parentId.intValue() == -1)
 		{
 			TableTreeItem[] parentItems = tableTreeAccountingPlan.getItems();
@@ -326,46 +326,9 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				parentTotals[0] = parentTotals[0].add(totalCredit);
 				parentTotals[1] = parentTotals[1].add(totalDept);
 				HashMap parentMap=(HashMap)allAccounts.get(parentId);
-				parentId =(Integer) parentMap.get(AccKeys.ACC_ACCOUNT_ID);
+				parentId =(Integer) parentMap.get(AccKeys.ACC_PARENT_ID);
 			}
-		}
-		
-		
-	}
-
-	/**
-	 * @param parentItem
-	 * @param parent_id
-	 * @param codeCriteria
-	 *            Account code criteria for branches
-	 */
-	public void fillBranch(TableTreeItem parentItem, int parent_id, String codeCriteria)
-	{
-		try
-		{
-			TableTreeItem item;
-			
-			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_CODE_CRITERIA,codeCriteria);
-			argMap.put(AccKeys.ACC_PARENT_ID,new Integer(parent_id));
-		
-			List mainBranches =(List)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAccount",argMap);
-			
-			TurqAccountingAccount account;
-			for (int i = 0; i < mainBranches.size(); i++)
-			{
-				account = (TurqAccountingAccount) mainBranches.get(i);
-				item = new TableTreeItem(parentItem, SWT.NULL);
-				item.setText(0, account.getAccountCode());
-				item.setText(1, account.getAccountName());
-				item.setData(account);
-				fillBranch(item, account.getId().intValue(), ""); //$NON-NLS-1$
-			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
-		}
+		}		
 	}
 
 	/** Auto-generated event handler method */
@@ -374,13 +337,15 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
 		if (items.length > 0)
 		{
-			TurqAccountingAccount account = (TurqAccountingAccount) items[0].getData();
+			Integer accountId = (Integer) items[0].getData();
 			// it's not an main account
 			// main accounts cannot be edited
 			// was, now can be edited
 			//	if(account.getTurqAccountingAccountByParentAccount().getAccountingAccountsId().intValue()!=-1)
 			//	{
-			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL, account, (BigDecimal[]) accountTotals.get(account.getId()))
+			HashMap accountMap=(HashMap) allAccounts.get(accountId);
+			Integer parentId=(Integer)accountMap.get(AccKeys.ACC_PARENT_ID);
+			boolean result = new AccUIAccountUpdate(this.getShell(), SWT.NULL,accountMap,(HashMap)allAccounts.get(parentId), (BigDecimal[]) accountTotals.get(accountId))
 					.open();
 			if (result)
 			{
@@ -405,7 +370,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 		TableTreeItem items[] = tableTreeAccountingPlan.getSelection();
 		if (items.length > 0)
 		{
-			TurqAccountingAccount account = (TurqAccountingAccount) items[0].getData();
+			Integer accountId = (Integer) items[0].getData();
 		
 			
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
@@ -413,7 +378,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 			try
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,account);				
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountId);				
 				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
 				if (accTrans.size() > 0)
@@ -422,10 +387,9 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 					msg.open();
 					return;
 				}
-				
-				
+								
 				argMap = new HashMap();
-		        argMap.put(AccKeys.ACC_PARENT_ID,account.getId());	        
+		        argMap.put(AccKeys.ACC_PARENT_ID,accountId);	        
 				List subAccs =(List)EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getSubAccounts",argMap);
 				
 				
@@ -440,7 +404,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 				if (result == SWT.OK)
 				{
 					argMap = new HashMap();
-					argMap.put(AccKeys.ACC_ACCOUNT,account);
+					argMap.put(AccKeys.ACC_ACCOUNT_ID,accountId);
 					EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
 					
 					msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 

@@ -42,11 +42,10 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
-import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -154,7 +153,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 						try {
 							txtParentAccount.setData(EngBLAccountingAccounts.getAccount(txtParentAccount.getText().trim()));
 							if (txtParentAccount.getData() != null) {
-								if (((TurqAccountingAccount) txtParentAccount.getData()).getId().intValue() != -1)
+								if (((Integer) txtParentAccount.getData()).intValue() != -1)
 									txtAccAccountCode.setText(txtParentAccount.getText().trim() + " "); 
 							} else {
 								txtAccAccountCode.setText(""); 
@@ -243,38 +242,18 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		asistant = new TurquazContentAssistant(adapter, 0);
 	}
 
-	public boolean verifyFields(boolean update, TurqAccountingAccount toUpdate)
+	public boolean verifyFields(boolean update, Integer toUpdateId)
 	{
 		try
 		{
 			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			boolean valid = false;
-			if (txtAccAccountCode.getText().trim().equals("")) { 
+			if (txtAccAccountCode.getText().trim().equals(""))
+			{ 
 				msg.setMessage(AccLangKeys.MSG_PLEASE_FILL_ACCOUNT_CODE); 
 				msg.open();
 				this.txtAccAccountCode.setFocus();
 				return false;
-			}
-			TurqAccountingAccount acc = EngBLAccountingAccounts.getAccount(txtAccAccountCode.getText().trim());
-			if (acc != null)
-			{
-				if (!update)
-				{
-					msg.setMessage(AccLangKeys.MSG_NOT_ENTER_EXISTING_ACCOUNT_CODE); 
-					msg.open();
-					txtAccAccountCode.setFocus();
-					return false;
-				}
-				else
-				{
-					if (toUpdate != null && !acc.getId().equals(toUpdate.getId()))
-					{
-						msg.setMessage(AccLangKeys.MSG_NOT_ENTER_EXISTING_ACCOUNT_CODE);
-						msg.open();
-						txtAccAccountCode.setFocus();
-						return false;
-					}
-				}
 			}
 			else if (txtParentAccount.getData() == null)
 			{
@@ -283,8 +262,8 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				this.txtParentAccount.setFocus();
 				return false;
 			}
-			TurqAccountingAccount topAcc = (TurqAccountingAccount) txtParentAccount.getData();
-			if (topAcc.getId().intValue() != -1)
+			Integer parentId = (Integer) txtParentAccount.getData();
+			if (parentId.intValue() != -1)
 			{
 				if (!txtAccAccountCode.getText().startsWith(txtParentAccount.getText().trim()))
 				{
@@ -312,39 +291,28 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 		txtParentAccount.setSelection(txtParentAccount.getText().length());
 	}
 
-	public TurqAccountingAccount saveAccount()
+	public Integer saveAccount()
 	{
 		try
 		{
 			if (verifyFields(false, null))
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
-								
-				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,parent);				
-				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
-				if (accTrans.size() > 0)
-				{
-					msg.setMessage(AccLangKeys.MSG_NOT_ENTER_SUBSIDIARY_ACCOUNT_PARENT_HAS_TRANSACTION); 
-					msg.open();
-					return null;
-				}
 				String accountName = txtAccAcountName.getText().trim();
-				String accountCode = txtAccAccountCode.getText().trim();
+				String accountCode = txtAccAccountCode.getText().trim();				
 				
-				
-				argMap = new HashMap();
+				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
 				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
-				argMap.put(AccKeys.ACC_PARENT_ID,parent.getId());
+				argMap.put(AccKeys.ACC_PARENT_ID,txtParentAccount.getData());
 				
-				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
-				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
+				Integer accountId = (Integer)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
+				EngUICommon.showSavedSuccesfullyMessage(getShell()); 
 				msg.open();
 				clearFields();
-				return account;
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountId);
+				return accountId;
 			}
 			return null;
 		}
@@ -363,9 +331,9 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			if (verifyFields(false, null))
 			{
 				MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-				TurqAccountingAccount parent = (TurqAccountingAccount) txtParentAccount.getData();
+				Integer parentId = (Integer) txtParentAccount.getData();
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT,parent);				
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,parentId);				
 				List accTrans = (List) EngTXCommon.doSelectTX(AccBLAccountUpdate.class.getName(),"getAccountTransColumns",argMap);
 				
 				
@@ -381,9 +349,9 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 				argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_NAME,accountName);
 				argMap.put(AccKeys.ACC_ACCOUNT_CODE,accountCode);
-				argMap.put(AccKeys.ACC_PARENT_ID,parent.getId());				
+				argMap.put(AccKeys.ACC_PARENT_ID,parentId);				
 				
-				TurqAccountingAccount account = (TurqAccountingAccount)EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
+				EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),"saveAccount",argMap);
 				msg.open();			
 				clearFields();
 			}

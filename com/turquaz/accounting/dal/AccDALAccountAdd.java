@@ -95,7 +95,7 @@ public class AccDALAccountAdd
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select account.id, account.accountName, account.accountCode," +
-					" account.getturqAccountingAccountByParentAccount.id, accView.totalcreditamount," +
+					" account.turqAccountingAccountByParentAccount.id, accView.totalcreditamount," +
 					" accView.totaldeptamount from TurqAccountingAccount account, TurqViewAccTotal accView"
 					+ " where account.id=accView.accountingAccountsId order by account.id";
 			//includes "accounting plan" id=-1
