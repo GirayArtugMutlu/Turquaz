@@ -23,7 +23,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.dal.TurqGroupPermission;
@@ -31,20 +34,27 @@ import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
 import com.turquaz.engine.dal.TurqUserPermissionLevel;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class AdmBLGroupPermissions
 {
-	public static List getGroupPermissions() throws Exception
+	public static HashBag getGroupPermissions() throws Exception
 	{
 		try
 		{
-			return EngDALUserPerms.getGroupPermissions();
+            HashBag bag = new HashBag();
+            List permList = EngDALUserPerms.getGroupPermissions();
+            
+            for(int i =0;i<permList.size();i++)
+            {
+                TurqGroupPermission perm = (TurqGroupPermission)permList.get(i);
+                bag.put(AdmKeys.ADM_GROUP_PERMISSION,i,AdmKeys.ADM_GROUP_PERMISSION_ID,perm.getId());
+                bag.put(AdmKeys.ADM_GROUP_PERMISSION,i,AdmKeys.ADM_GROUP_NAME,perm.getTurqGroup().getGroupsName());
+                bag.put(AdmKeys.ADM_GROUP_PERMISSION,i,AdmKeys.ADM_MODULE_DESCRIPTION,perm.getTurqModule().getModuleDescription());
+                bag.put(AdmKeys.ADM_GROUP_PERMISSION,i,AdmKeys.ADM_MODULE_COMP_DESCRIPTION,perm.getTurqModuleComponent().getComponentsDescription());
+                bag.put(AdmKeys.ADM_GROUP_PERMISSION,i,AdmKeys.ADM_GROUP_PERMISSION_LEVEL,new Integer(perm.getGroupPermissionsLevel()));
+                
+            }            
+            return bag;
+			
 		}
 		catch (Exception ex)
 		{
@@ -52,12 +62,24 @@ public class AdmBLGroupPermissions
 		}
 	}
 
-	public static List getModuleComponents(HashMap argMap) throws Exception
+	public static HashBag getModuleComponents(HashMap argMap) throws Exception
 	{
 		try
 		{
-			Integer moduleId=(Integer)argMap.get(AdmKeys.ADM_MODULE_ID);
-			return EngDALUserPerms.getModuleComponents(moduleId.intValue());
+            Integer moduleId=(Integer)argMap.get(AdmKeys.ADM_MODULE_ID);
+            
+            HashBag bag = new HashBag();
+            List moduleComponentList = EngDALUserPerms.getModuleComponents(moduleId.intValue());
+            
+            for(int i =0;i<moduleComponentList.size();i++)
+            {
+                TurqModuleComponent moduleComonent = (TurqModuleComponent)moduleComponentList.get(i);
+                bag.put(AdmKeys.ADM_MODULE_COMP,i,AdmKeys.ADM_MODULE_COMP_ID,moduleComonent.getId());
+                bag.put(AdmKeys.ADM_MODULE_COMP,i,AdmKeys.ADM_MODULE_COMP_DESCRIPTION,moduleComonent.getComponentsDescription());
+                
+            }    
+            
+			return bag;
 		}
 		catch (Exception ex)
 		{
@@ -65,11 +87,22 @@ public class AdmBLGroupPermissions
 		}
 	}
 
-	public static List getModules() throws Exception
+	public static HashBag getModules() throws Exception
 	{
 		try
 		{
-			return EngDALUserPerms.getModules();
+            HashBag bag = new HashBag();
+            List moduleList = EngDALUserPerms.getModules();
+            
+            for(int i =0;i<moduleList.size();i++)
+            {
+                TurqModule module = (TurqModule)moduleList.get(i);
+                bag.put(AdmKeys.ADM_MODULE,i,AdmKeys.ADM_MODULE_ID,module.getId());
+                bag.put(AdmKeys.ADM_MODULE,i,AdmKeys.ADM_MODULE_DESCRIPTION,module.getModuleDescription());
+                
+            }            
+            return bag;
+			
 		}
 		catch (Exception ex)
 		{
@@ -81,11 +114,14 @@ public class AdmBLGroupPermissions
 	{
 		try
 		{
-			TurqGroup group=(TurqGroup)argMap.get(AdmKeys.ADM_GROUP);
+			Integer groupId=(Integer)argMap.get(AdmKeys.ADM_GROUP_ID);
+            
+            TurqGroup group = new TurqGroup();
+            group.setId(groupId);
+            
 			TurqModule module=(TurqModule)argMap.get(AdmKeys.ADM_MODULE);
 			TurqModuleComponent moduleComp=(TurqModuleComponent)argMap.get(AdmKeys.ADM_MODULE_COMP);
 			TurqUserPermissionLevel permissionLevel=(TurqUserPermissionLevel)argMap.get(AdmKeys.ADM_LEVEL);
-
 			
 			Calendar cal = Calendar.getInstance();
 			TurqGroupPermission groupPerm = new TurqGroupPermission();
@@ -104,4 +140,22 @@ public class AdmBLGroupPermissions
 			throw ex;
 		}
 	}
+    public static void deleteGroupPermission (HashMap argMap ) throws Exception
+    {
+        try
+        {
+            Integer permissionId=(Integer)argMap.get(AdmKeys.ADM_GROUP_PERMISSION_ID);
+           
+            TurqGroupPermission perm = new TurqGroupPermission ();
+            perm.setId(permissionId);
+            
+            EngDALSessionFactory.getSession().refresh(perm);
+                        
+            EngBLCommon.delete(perm);            
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 }

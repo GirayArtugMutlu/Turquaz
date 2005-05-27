@@ -1,7 +1,7 @@
 package com.turquaz.admin.ui;
 
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -11,8 +11,6 @@ import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqUser;
-import com.turquaz.engine.dal.TurqUserGroup;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -23,13 +21,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -38,13 +29,14 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
-	private TurqUser user;
+    private HashMap userMap;
+    
 	private boolean updated = false;
 
-	public AdmUIUserUpdateDialog(Shell parent, int style, TurqUser turquser)
+	public AdmUIUserUpdateDialog(Shell parent, int style, HashMap userMap)
 	{
 		super(parent, style);
-		this.user = turquser;
+        this.userMap=userMap;
 	}
 
 	public boolean open()
@@ -139,17 +131,18 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		compUserAdd.getTxtUsername().setEnabled(false);
 		compUserAdd.getTxtUsername().setEditable(false);
 		compUserAdd.getTxtUsername().setForeground(SWTResourceManager.getColor(255, 255, 255));
-		compUserAdd.getTxtUsername().setText(user.getUsername());
-		compUserAdd.getTxtDescription().setText(user.getUsersDescription());
-		compUserAdd.getTxtPassword().setText(user.getUsersPassword());
-		compUserAdd.getTxtRePassword().setText(user.getUsersPassword());
-		compUserAdd.getTxtRealName().setText(user.getUsersRealName());
-		Iterator it = user.getTurqUserGroups().iterator();
-		while (it.hasNext())
-		{
-			TurqUserGroup userGroup = (TurqUserGroup) it.next();
-			compUserAdd.getRegisteredGroups().RegisterGroup(userGroup.getTurqGroup());
-		}
+		compUserAdd.getTxtUsername().setText(userMap.get(AdmKeys.ADM_USER_NAME).toString());
+		compUserAdd.getTxtDescription().setText(userMap.get(AdmKeys.ADM_USER_DESCRIPTION).toString());
+		compUserAdd.getTxtPassword().setText(userMap.get(AdmKeys.ADM_USER_PASSWORD).toString());
+		compUserAdd.getTxtRePassword().setText(userMap.get(AdmKeys.ADM_USER_PASSWORD).toString());
+		compUserAdd.getTxtRealName().setText(userMap.get(AdmKeys.ADM_USER_REAL_NAME).toString());
+		
+        List userGroups=(List)userMap.get(AdmKeys.ADM_USER_GROUPS);
+        for (int k=0; k<userGroups.size();k++)
+        {
+            Integer groupId=(Integer)userGroups.get(k);
+            compUserAdd.getRegisteredGroups().RegisterGroup(groupId);
+        }
 	}
 
 	public void delete()
@@ -160,9 +153,9 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if (delete)
 			{
 				updated = true;
-				HashMap argMap=new HashMap();
-				argMap.put(AdmKeys.ADM_USER,user);
-				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteUser",argMap);
+				//HashMap argMap=new HashMap();
+				//argMap.put(AdmKeys.ADM_USER_ID,userMap.get(AdmKeys.));
+				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteUser",userMap);
 				EngUICommon.showMessageBox(this.getParent(),EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				this.dialogShell.close();
 			}
@@ -185,7 +178,7 @@ public class AdmUIUserUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AdmKeys.ADM_PASSWORD,compUserAdd.getTxtPassword().getText().trim());
 				argMap.put(AdmKeys.ADM_REALNAME,compUserAdd.getTxtRealName().getText().trim());
 				argMap.put(EngKeys.DESCRIPTION,compUserAdd.getTxtDescription().getText().trim());
-				argMap.put(AdmKeys.ADM_USER,user);
+				argMap.put(AdmKeys.ADM_USER_ID,userMap.get(AdmKeys.ADM_USER_ID));
 				argMap.put(AdmKeys.ADM_USER_GROUPS,compUserAdd.getUserGroups());
 				
 				EngTXCommon.doTransactionTX(AdmBLUserUpdate.class.getName(),"updateUser",argMap);

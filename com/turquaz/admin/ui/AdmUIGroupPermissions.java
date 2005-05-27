@@ -20,7 +20,6 @@ package com.turquaz.admin.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -30,13 +29,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
@@ -47,22 +39,15 @@ import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLGroupPermissions;
 import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.admin.bl.AdmBLUserPermissions;
-import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqGroup;
-import com.turquaz.engine.dal.TurqGroupPermission;
-import com.turquaz.engine.dal.TurqModule;
-import com.turquaz.engine.dal.TurqModuleComponent;
-import com.turquaz.engine.dal.TurqUserPermissionLevel;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AdmLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
-
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -269,27 +254,40 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 	{
 		try
 		{
-			List groupList =(List)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null);
-			for (int i = 0; i < groupList.size(); i++)
+			HashBag groupBag =(HashBag)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null);
+			
+            HashMap groupMap = (HashMap)groupBag.get(AdmKeys.ADM_GROUP);
+            
+            
+            for (int i = 0; i < groupMap.size(); i++)
 			{
-				TurqGroup group = (TurqGroup) groupList.get(i);
-				comboGroups.setData(group.getGroupsName(), group);
-				comboGroups.add(group.getGroupsName());
+				HashMap rowMap = (HashMap)groupMap.get(new Integer(i));
+                
+				comboGroups.setData(rowMap.get(AdmKeys.ADM_GROUP_NAME).toString(), rowMap.get(AdmKeys.ADM_GROUP_ID));
+				comboGroups.add(rowMap.get(AdmKeys.ADM_GROUP_NAME).toString());
 			}
-			List moduleList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
-			for (int i = 0; i < moduleList.size(); i++)
+			HashBag moduleBag =(HashBag)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModules",null);
+            
+            HashMap moduleMap = (HashMap)moduleBag.get(AdmKeys.ADM_MODULE);
+            
+			for (int i = 0; i < moduleMap.size(); i++)
 			{
-				TurqModule module = (TurqModule) moduleList.get(i);
-				comboModules.setData(module.getModuleDescription(), module);
-				comboModules.add(module.getModuleDescription());
+                HashMap rowMap = (HashMap)moduleMap.get(new Integer(i));
+                
+				comboModules.setData(rowMap.get(AdmKeys.ADM_MODULE_DESCRIPTION).toString(), rowMap.get(AdmKeys.ADM_MODULE_ID ));
+				comboModules.add(rowMap.get(AdmKeys.ADM_MODULE_DESCRIPTION).toString());
 			}
 			
-			List permissionLevels=(List)EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
-			for (int i=0; i<permissionLevels.size(); i++)
+            HashBag userPermBag = (HashBag)EngTXCommon.doSelectTX(AdmBLUserPermissions.class.getName(),"getUserPermissonLevels",null);
+			
+            HashMap userPermMap = (HashMap)userPermBag.get(AdmKeys.ADM_USER_PERMISSION);
+            
+            for (int i=0; i<userPermBag.size(); i++)
 			{
-				TurqUserPermissionLevel perLevel=(TurqUserPermissionLevel)permissionLevels.get(i);
-				comboPermissionLevel.setData(perLevel.getPermissionDescription(),perLevel);
-				comboPermissionLevel.add(perLevel.getPermissionDescription());
+                HashMap rowMap = (HashMap)userPermMap.get(new Integer(i));
+                			
+                comboPermissionLevel.setData(rowMap.get(AdmKeys.ADM_USER_PERMISSION_DESCRIPTION).toString(),AdmKeys.ADM_USER_PERMISSION_ID);
+				comboPermissionLevel.add(rowMap.get(AdmKeys.ADM_USER_PERMISSION_DESCRIPTION).toString());
 			}
 			fillTableUserPermissions();
 		}
@@ -305,17 +303,15 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		{
 			if (comboModules.getText().equals("*")) { //$NON-NLS-1$
 				comboModuleComponents.removeAll();
-				TurqModuleComponent modComp = new TurqModuleComponent();
-				modComp.setId(new Integer(-1));
 				comboModuleComponents.setText("*"); //$NON-NLS-1$
 				comboModuleComponents.add("*"); //$NON-NLS-1$
-				comboModuleComponents.setData("*", modComp); //$NON-NLS-1$
+				comboModuleComponents.setData("*", new Integer (-1)); //$NON-NLS-1$
 			}
 			else
 			{
 				comboModuleComponents.removeAll();
-				TurqModule module = (TurqModule) comboModules.getData(comboModules.getText());
-				fillComboModuleComponents(module.getId().intValue());
+				Integer moduleId = (Integer) comboModules.getData(comboModules.getText());
+				fillComboModuleComponents(moduleId.intValue());
 			}
 		}
 		catch (Exception ex)
@@ -329,12 +325,17 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(AdmKeys.ADM_MODULE_ID,new Integer(module_id));
-			List compList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
-			for (int i = 0; i < compList.size(); i++)
+			HashBag compListBag =(HashBag)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getModuleComponents",argMap);
+            
+            HashMap compListMap = (HashMap)compListBag.get(AdmKeys.ADM_MODULE_COMP);
+            
+			for (int i = 0; i < compListMap.size(); i++)
 			{
-				TurqModuleComponent group = (TurqModuleComponent) compList.get(i);
-				comboModuleComponents.setData(group.getComponentsDescription(), group);
-				comboModuleComponents.add(group.getComponentsDescription());
+				//TurqModuleComponent group = (TurqModuleComponent) compList.get(i);
+                
+                HashMap rowMap = (HashMap)compListMap.get(new Integer(i));
+				comboModuleComponents.setData(rowMap.get(AdmKeys.ADM_MODULE_COMP_DESCRIPTION).toString(), AdmKeys.ADM_MODULE_COMP_ID);
+				comboModuleComponents.add(rowMap.get(AdmKeys.ADM_MODULE_COMP_DESCRIPTION).toString());
 			}
 		}
 		catch (Exception ex)
@@ -348,45 +349,50 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 		try
 		{
 			tableGroupPermissions.removeAll();
-			List groupPermList =(List)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getGroupPermissions",null);
+			HashBag groupPermBag =(HashBag)EngTXCommon.doSelectTX(AdmBLGroupPermissions.class.getName(),"getGroupPermissions",null);
 			TableItem item;
 			String groupname;
 			String module;
 			String moduleComp;
 			String permLevel;
-			for (int i = 0; i < groupPermList.size(); i++)
+            
+            HashMap groupPermMap = (HashMap)groupPermBag.get(AdmKeys.ADM_GROUP_PERMISSION);
+            
+            
+			for (int i = 0; i < groupPermMap.size(); i++)
 			{
-				TurqGroupPermission groupPerm = (TurqGroupPermission) groupPermList.get(i);
-				groupname = groupPerm.getTurqGroup().getGroupsName();
-				module = groupPerm.getTurqModule().getModuleDescription();
+                HashMap rowMap = (HashMap)groupPermMap.get(new Integer(i));
+			//	TurqGroupPermission groupPerm = (TurqGroupPermission) groupPermList.get(i);
+				groupname = rowMap.get(AdmKeys.ADM_GROUP_NAME).toString();
+				module = rowMap.get(AdmKeys.ADM_MODULE_DESCRIPTION).toString();
 				if (module.trim().equals("*")) { //$NON-NLS-1$
 					moduleComp = "*"; //$NON-NLS-1$
 				}
 				else
 				{
-					moduleComp = groupPerm.getTurqModuleComponent().getComponentsDescription();
+					moduleComp = rowMap.get(AdmKeys.ADM_MODULE_COMP_DESCRIPTION).toString();
 				}
 				// print error if it does not take the permissons
 		
                 permLevel ="";
-				if (groupPerm.getGroupPermissionsLevel() == 0)
+				if (((Integer)rowMap.get(AdmKeys.ADM_GROUP_PERMISSION_LEVEL)).intValue() == 0)
 				{
 					permLevel = AdmLangKeys.STR_NONE; //$NON-NLS-1$
 				}
-				else if (groupPerm.getGroupPermissionsLevel() == 1)
+				else if (((Integer)rowMap.get(AdmKeys.ADM_GROUP_PERMISSION_LEVEL)).intValue() == 1)
 				{
 					permLevel = AdmLangKeys.STR_READ;
 				}
-				else if (groupPerm.getGroupPermissionsLevel() == 2)
+				else if (((Integer)rowMap.get(AdmKeys.ADM_GROUP_PERMISSION_LEVEL)).intValue() == 2)
 				{
 					permLevel = AdmLangKeys.STR_READ_WRITE;
                 }
-				else if (groupPerm.getGroupPermissionsLevel() == 3)
+				else if (((Integer)rowMap.get(AdmKeys.ADM_GROUP_PERMISSION_LEVEL)).intValue() == 3)
 				{
 					permLevel = AdmLangKeys.STR_READ_WRITE_DELETE;
 				}
 				item = new TableItem(tableGroupPermissions, SWT.NULL);
-				item.setData(groupPerm);
+				item.setData(rowMap.get(AdmKeys.ADM_GROUP_PERMISSION_ID));
 				item.setText(new String[]{groupname, module, moduleComp, permLevel});
 			}
 		}
@@ -434,7 +440,7 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 			{
 				HashMap argMap=new HashMap();
 				
-				argMap.put(AdmKeys.ADM_GROUP,comboGroups.getData(comboGroups.getText().trim()));
+				argMap.put(AdmKeys.ADM_GROUP_ID,comboGroups.getData(comboGroups.getText().trim()));
 				argMap.put(AdmKeys.ADM_MODULE,comboModules.getData(comboModules.getText().trim()));
 				argMap.put(AdmKeys.ADM_MODULE_COMP,comboModuleComponents.getData(comboModuleComponents.getText().trim()));
 				argMap.put(AdmKeys.ADM_LEVEL,comboPermissionLevel.getData(comboPermissionLevel.getText().trim()));
@@ -465,8 +471,8 @@ public class AdmUIGroupPermissions extends org.eclipse.swt.widgets.Composite imp
 				if (items.length > 0)
 				{
 					HashMap argMap=new HashMap();
-					argMap.put(EngKeys.OBJECT,items[0].getData());
-					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
+					argMap.put(AdmKeys.ADM_GROUP_PERMISSION_ID,items[0].getData());
+					EngTXCommon.doTransactionTX(AdmBLGroupPermissions.class.getName(),"deleteGroupPermission",argMap);
 					fillTableUserPermissions();
 					msg2.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
 					msg2.open();

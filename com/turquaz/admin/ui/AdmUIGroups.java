@@ -20,7 +20,6 @@ package com.turquaz.admin.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -30,13 +29,6 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.MouseAdapter;
@@ -45,9 +37,9 @@ import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLGroups;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -117,14 +109,14 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 			TableItem[] selection=tableGroups.getSelection();
 			if (selection.length > 0)
 			{
-				TurqGroup group=(TurqGroup)selection[0].getData();
-				if (group != null)
+				Integer groupNumber=(Integer)selection[0].getData();
+				if (groupNumber != null)
 				{
 					boolean delete = EngUICommon.okToDelete(this.getShell());  //$NON-NLS-1$
 					if (delete)
 					{
 						HashMap argMap=new HashMap();
-						argMap.put(AdmKeys.ADM_GROUP,group);
+						argMap.put(AdmKeys.ADM_GROUP_ID,groupNumber);
 						EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteGroup",argMap); //$NON-NLS-1$
 						EngUICommon.showMessageBox(this.getShell(),EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						fillTable();
@@ -197,15 +189,19 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 		try
 		{
 			tableGroups.removeAll();
-			List list =(List)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null); //$NON-NLS-1$
-			TurqGroup group;
-			TableItem item;
-			for (int i = 0; i < list.size(); i++)
+            
+			HashBag groupBag =(HashBag)EngTXCommon.doSelectTX(AdmBLGroups.class.getName(),"getGroups",null); //$NON-NLS-1$
+			
+            HashMap groupMap = (HashMap)groupBag.get(AdmKeys.ADM_GROUP);
+            
+            TableItem item;
+			for (int i = 0; i < groupMap.size(); i++)
 			{
-				group = (TurqGroup) list.get(i);
+                HashMap rowMap = (HashMap)groupMap.get(new Integer(i));
+                
 				item = new TableItem(tableGroups, SWT.NULL);
-				item.setData(group);
-				item.setText(new String[]{group.getGroupsName(), group.getGroupsDescription()});
+				item.setData(rowMap.get(AdmKeys.ADM_GROUP_ID));
+				item.setText(new String[]{rowMap.get(AdmKeys.ADM_GROUP_NAME).toString(), rowMap.get(AdmKeys.ADM_GROUP_DESCRIPTION).toString()});
 			}
 		}
 		catch (Exception ex)
@@ -226,9 +222,16 @@ public class AdmUIGroups extends org.eclipse.swt.widgets.Composite implements Se
 	
 	private void tableGroupsMouseDoubleClick(MouseEvent evt) {
 		TableItem items[] = tableGroups.getSelection();
+        
 		if(items.length>0)
 		{
-			new AdmUIGroupUpdateDialog(getShell(),SWT.NULL,(TurqGroup)items[0].getData()).open();	
+            Object[] data = new Object[3];
+            
+            data[0] = items[0].getText(0);
+            data[1] = items[0].getText(1);
+            data[2] = items[0].getData();
+            
+			new AdmUIGroupUpdateDialog(getShell(),SWT.NULL,data).open();	
 			tableGroups.removeAll();
 			fillTable();
 			

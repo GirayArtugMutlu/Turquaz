@@ -63,7 +63,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
+
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.LiveSashForm;
 import org.eclipse.swt.widgets.Button;
@@ -78,7 +81,6 @@ import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLXmlParser;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -1171,8 +1173,8 @@ public class EngUIMainFrame extends org.eclipse.swt.widgets.Composite
 			shell.setLayout(new org.eclipse.swt.layout.FillLayout());
 			Rectangle shellBounds = shell.computeTrim(0, 0, 800, 580);
 			shell.setImage(SWTResourceManager.getImage("icons/turquaz_paw.gif")); //$NON-NLS-1$
-			TurqCompany company = (TurqCompany) EngTXCommon.doSelectTX(AdmBLCompanyInfo.class.getName(), "getCompany", null);
-			shell.setText("Turquaz - " + company.getCompanyName()); //$NON-NLS-1$
+			HashBag companyBag = (HashBag) EngTXCommon.doSelectTX(AdmBLCompanyInfo.class.getName(), "getCompany", null);
+			shell.setText("Turquaz - " + companyBag.get(AdmKeys.ADM_COMPANY_NAME)); //$NON-NLS-1$
 			shell.setSize(shellBounds.width, shellBounds.height);
 			shell.addListener(SWT.Close, new Listener()
 			{

@@ -9,8 +9,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AdmLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -34,7 +34,7 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 	private CLabel lblCompanyPhone;
 	private Text txtCompanyAddress;
 	private CLabel lblCompanyAddress;
-	TurqCompany company;
+    Integer companyId = null;
 
 	public AdmUICompanyInfo(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -110,11 +110,12 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 	{
 		try
 		{
-			company =(TurqCompany)EngTXCommon.doSelectTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
-			txtCompanyName.setText(company.getCompanyName());
-			txtCompanyAddress.setText(company.getCompanyAddress());
-			txtCompanyFax.setText(company.getCompanyFax());
-			txtCompanyPhone.setText(company.getCompanyTelephone());
+            HashBag companyBag =(HashBag)EngTXCommon.doSelectTX(AdmBLCompanyInfo.class.getName(),"getCompany",null);
+			companyId = (Integer)companyBag.get(AdmKeys.ADM_COMPANY_ID);
+            txtCompanyName.setText(companyBag.get(AdmKeys.ADM_COMPANY_NAME).toString());
+			txtCompanyAddress.setText(companyBag.get(AdmKeys.ADM_COMPANY_ADDRESS).toString());
+			txtCompanyFax.setText(companyBag.get(AdmKeys.ADM_COMPANY_FAX).toString());
+			txtCompanyPhone.setText(companyBag.get(AdmKeys.ADM_COMPANY_PHONE).toString());
 		}
 		catch (Exception ex)
 		{
@@ -133,11 +134,11 @@ public class AdmUICompanyInfo extends org.eclipse.swt.widgets.Composite implemen
 		{
 			HashMap argMap = new HashMap();
 			
-			argMap.put(AdmKeys.ADM_COMPANY,company);
+			argMap.put(AdmKeys.ADM_COMPANY_ID,companyId);
 			argMap.put(AdmKeys.ADM_COMPANY_NAME,txtCompanyName.getText().trim());
 			argMap.put(AdmKeys.ADM_COMPANY_ADDRESS,txtCompanyAddress.getText().trim());
 			argMap.put(AdmKeys.ADM_COMPANY_PHONE,txtCompanyPhone.getText().trim());
-			argMap.put(AdmKeys.ADM_COMPANY_FAX,txtCompanyPhone.getText().trim());
+			argMap.put(AdmKeys.ADM_COMPANY_FAX,txtCompanyFax.getText().trim());
 			
 			EngTXCommon.doTransactionTX(AdmBLCompanyInfo.class.getName(),"updateCompany",argMap);
 			EngUIMainFrame.shell.setText("Turquaz - " + txtCompanyName.getText().trim());

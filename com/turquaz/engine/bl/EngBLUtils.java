@@ -41,10 +41,12 @@ import org.eclipse.swt.widgets.TableItem;
 import com.jasperassistant.designer.viewer.ViewerApp;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLCompanyInfo;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -53,7 +55,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
-import com.turquaz.engine.dal.TurqCompany;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -575,9 +576,9 @@ public class EngBLUtils
 			TurqAccountingTransaction trans=(TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
 			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$	
 			List list=AccBLTransactionSearch.getAccTransInfo(trans.getId());
-			TurqCompany company = AdmBLCompanyInfo.getCompany();
+			HashBag companyBag = AdmBLCompanyInfo.getCompany();
 			Map parameters = new HashMap();
-			parameters.put("companyName", company.getCompanyName()); //$NON-NLS-1$
+			parameters.put("companyName", companyBag.get(AdmKeys.ADM_COMPANY_NAME).toString()); //$NON-NLS-1$
 			parameters.put("transDate", dformat.format(trans.getTransactionsDate())); //$NON-NLS-1$
 			parameters.put("transNo", trans.getTransactionDocumentNo()); //$NON-NLS-1$
 			NumberFormat formatter = DecimalFormat.getInstance();

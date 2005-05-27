@@ -20,7 +20,6 @@ package com.turquaz.admin.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -29,21 +28,14 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLUsers;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqUser;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AdmLangKeys;
@@ -125,9 +117,9 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 			boolean delete=EngUICommon.okToDelete(this.getShell()); //$NON-NLS-1$
 			if (delete)
 			{
-				TurqUser user=(TurqUser)((ITableRow) selection[0].getData()).getDBObject();
+				HashMap userMap=(HashMap)((ITableRow) selection[0].getData()).getDBObject();
 				HashMap argMap=new HashMap();
-				argMap.put(AdmKeys.ADM_USER,user);
+				argMap.put(AdmKeys.ADM_USER_ID,userMap.get(AdmKeys.ADM_USER_ID));
 				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteUser",argMap);
 				fillTable();
 			}
@@ -211,12 +203,17 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		try
 		{
 			tableViewer.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(AdmBLUsers.class.getName(),"getUsers",null);
-			TurqUser user;
-			for (int i = 0; i < list.size(); i++)
+			HashBag usersBag = (HashBag)EngTXCommon.doSelectTX(AdmBLUsers.class.getName(),"getUsers",null);
+            
+            HashMap usersMap = (HashMap) usersBag.get(AdmKeys.ADM_USERS);
+            
+            
+                        
+			for (int i = 0; i < usersMap.size(); i++)
 			{
-				user = (TurqUser) list.get(i);
-				tableViewer.addRow(new String[]{user.getUsername(), user.getUsersRealName(), user.getUsersDescription()},user);
+                HashMap rowMap = (HashMap)usersMap.get(new Integer(i));
+				tableViewer.addRow(new String[]{rowMap.get(AdmKeys.ADM_USER_NAME).toString(), rowMap.get(AdmKeys.ADM_USER_REAL_NAME).toString(), rowMap.get(AdmKeys.ADM_USER_DESCRIPTION).toString()},rowMap);
+                
 			}
 		}
 		catch (Exception ex)
@@ -239,7 +236,8 @@ public class AdmUIUsers extends org.eclipse.swt.widgets.Composite implements Sec
 		TableItem items[] = tableUsers.getSelection();
 		if (items.length > 0)
 		{
-			boolean updated=new AdmUIUserUpdateDialog(this.getShell(), SWT.NULL, (TurqUser)((ITableRow) items[0].getData()).getDBObject()).open();
+            HashMap userMap=(HashMap)((ITableRow)items[0].getData()).getDBObject();
+			boolean updated=new AdmUIUserUpdateDialog(this.getShell(), SWT.NULL, userMap).open();
 			if (updated)
 				fillTable();
 		}

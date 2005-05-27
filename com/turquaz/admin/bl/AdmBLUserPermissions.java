@@ -23,7 +23,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.EngDALUserPerms;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqModuleComponent;
@@ -37,11 +40,23 @@ public class AdmBLUserPermissions
 	{
 		try
 		{
-			TurqUser user=(TurqUser)argMap.get(AdmKeys.ADM_USER);
-			TurqModule module=(TurqModule)argMap.get(AdmKeys.ADM_MODULE);
-			TurqModuleComponent moduleComp=(TurqModuleComponent)argMap.get(AdmKeys.ADM_MODULE_COMP);
-			TurqUserPermissionLevel level=(TurqUserPermissionLevel)argMap.get(AdmKeys.ADM_LEVEL);
+			Integer userId=(Integer)argMap.get(AdmKeys.ADM_USER_ID);
+			Integer moduleId=(Integer)argMap.get(AdmKeys.ADM_MODULE_ID);
+			Integer moduleCompId=(Integer)argMap.get(AdmKeys.ADM_MODULE_COMP_ID);
+			Integer levelId=(Integer)argMap.get(AdmKeys.ADM_LEVEL_ID);
 			
+            TurqUser user = new TurqUser();
+            user.setId(userId);
+            
+            TurqModule module = new TurqModule ();
+            module.setId(moduleId);
+            
+            TurqModuleComponent moduleComp = new TurqModuleComponent ();
+            moduleComp.setId(moduleCompId);
+            
+            TurqUserPermissionLevel level = new TurqUserPermissionLevel ();
+            level.setId(levelId);
+            
 			Calendar cal = Calendar.getInstance();
 			TurqUserPermission userPerm = new TurqUserPermission();
 			userPerm.setTurqUser(user);
@@ -60,11 +75,24 @@ public class AdmBLUserPermissions
 		}
 	}
 
-	public static List getUserPermissions() throws Exception
+	public static HashBag getUserPermissions() throws Exception
 	{
 		try
 		{
-			return EngDALUserPerms.getUserPermissions();
+			HashBag bag = new HashBag();
+            List userPermList = EngDALUserPerms.getUserPermissions();
+            for(int i =0;i<userPermList.size();i++)
+            {
+                TurqUserPermission userPerm = (TurqUserPermission)userPermList.get(i);
+                
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_USER_PERMISSION_ID,userPerm.getId());
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_USER_NAME,userPerm.getTurqUser().getUsername());
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_MODULE_DESCRIPTION,userPerm.getTurqModule().getModuleDescription());
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_MODULE_COMP_DESCRIPTION,userPerm.getTurqModuleComponent().getComponentsDescription());
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_USER_PERMISSION_DESCRIPTION,userPerm.getTurqUserPermissionLevel().getPermissionDescription());
+                
+            }            
+            return bag;
 		}
 		catch (Exception ex)
 		{
@@ -72,15 +100,45 @@ public class AdmBLUserPermissions
 		}
 	}
 	
-	public static List getUserPermissonLevels() throws Exception
+	public static HashBag getUserPermissonLevels() throws Exception
 	{
 		try
 		{
-			return EngDALUserPerms.getUserPermissonLevels();
+            HashBag bag = new HashBag();
+            List permList = EngDALUserPerms.getUserPermissonLevels();
+            
+            for(int i =0;i<permList.size();i++)
+            {
+                TurqUserPermissionLevel perm = (TurqUserPermissionLevel)permList.get(i);
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_USER_PERMISSION_ID,perm.getId());
+                bag.put(AdmKeys.ADM_USER_PERMISSION,i,AdmKeys.ADM_USER_PERMISSION_DESCRIPTION,perm.getPermissionDescription());
+                
+            }            
+            return bag;
+            
 		}
 		catch (Exception ex)
 		{
 			throw ex;
 		}
 	}
+    
+    public static void deleteUserPermission (HashMap argMap ) throws Exception
+    {
+        try
+        {
+            Integer permissionId=(Integer)argMap.get(AdmKeys.ADM_USER_PERMISSION_ID);
+           
+            TurqUserPermission perm = new TurqUserPermission ();
+            perm.setId(permissionId);
+            
+            EngDALSessionFactory.getSession().refresh(perm);
+                        
+            EngBLCommon.delete(perm);            
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 }

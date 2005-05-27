@@ -20,15 +20,29 @@ package com.turquaz.admin.bl;
  * @version $Id$
  */
 import java.util.List;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.TurqGroup;
 
 public class AdmBLGroups
 {
-	public static List getGroups() throws Exception
+	public static HashBag getGroups() throws Exception
 	{
 		try
-		{
-			return EngDALCommon.getGroups();
+		{            
+            HashBag bag = new HashBag();
+            List groupList = EngDALCommon.getGroups();
+            for(int i =0;i<groupList.size();i++)
+            {
+                TurqGroup group = (TurqGroup)groupList.get(i);
+                bag.put(AdmKeys.ADM_GROUP,i,AdmKeys.ADM_GROUP_ID,group.getId());
+                bag.put(AdmKeys.ADM_GROUP,i,AdmKeys.ADM_GROUP_NAME,group.getGroupsName());
+                bag.put(AdmKeys.ADM_GROUP,i,AdmKeys.ADM_GROUP_DESCRIPTION,group.getGroupsName());
+                
+            }            
+            return bag;
 		}
 		catch (Exception ex)
 		{

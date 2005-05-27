@@ -4,16 +4,27 @@ import java.util.Calendar;
 import java.util.HashMap;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.dal.AdmDALCompanyInfo;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCompany;
 
 public class AdmBLCompanyInfo
 {
-	public static TurqCompany getCompany() throws Exception
+	public static HashBag getCompany() throws Exception
 	{
 		try
 		{
-			return AdmDALCompanyInfo.getCompany();
+            TurqCompany company=AdmDALCompanyInfo.getCompany();
+            HashBag retBag=new HashBag();
+            
+            retBag.put(AdmKeys.ADM_COMPANY_NAME,company.getCompanyName());
+            retBag.put(AdmKeys.ADM_COMPANY_ADDRESS,company.getCompanyAddress());
+            retBag.put(AdmKeys.ADM_COMPANY_FAX,company.getCompanyFax());
+            retBag.put(AdmKeys.ADM_COMPANY_PHONE,company.getCompanyTelephone());
+            retBag.put(AdmKeys.ADM_COMPANY_ID,company.getId());
+            
+            return retBag;
 		}
 		catch (Exception ex)
 		{
@@ -25,12 +36,13 @@ public class AdmBLCompanyInfo
 	{
 		try
 		{
-			TurqCompany company=(TurqCompany)argMap.get(AdmKeys.ADM_COMPANY);
+			Integer companyId=(Integer)argMap.get(AdmKeys.ADM_COMPANY_ID);
 			String name=(String)argMap.get(AdmKeys.ADM_COMPANY_NAME);
 			String address=(String)argMap.get(AdmKeys.ADM_COMPANY_ADDRESS);
 			String phone=(String)argMap.get(AdmKeys.ADM_COMPANY_PHONE);
 			String fax=(String)argMap.get(AdmKeys.ADM_COMPANY_FAX);
 			
+            TurqCompany company=(TurqCompany)EngDALSessionFactory.getSession().load(TurqCompany.class,companyId);
 			Calendar cal = Calendar.getInstance();
 			company.setCompanyAddress(address);
 			company.setCompanyName(name);

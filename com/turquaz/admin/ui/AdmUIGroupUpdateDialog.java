@@ -9,7 +9,6 @@ import com.turquaz.admin.AdmKeys;
 import com.turquaz.admin.bl.AdmBLUserUpdate;
 import com.turquaz.admin.bl.AdmBLUsers;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqGroup;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -20,13 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class AdmUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -35,13 +28,15 @@ public class AdmUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
-	private TurqGroup group;
+	private Integer groupId;
 	private boolean updated = false;
+    private Object[]groupData;
 
-	public AdmUIGroupUpdateDialog(Shell parent, int style, TurqGroup group)
+	public AdmUIGroupUpdateDialog(Shell parent, int style, Object[] data)
 	{
 		super(parent, style);
-		this.group = group;
+		this.groupId = (Integer)data[2];
+        groupData = data;
 	}
 
 	public boolean open()
@@ -135,8 +130,8 @@ public class AdmUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		EngUICommon.centreWindow(dialogShell);
 		
-		compUserAdd.getTxtAdmGroupName().setText(group.getGroupsName());
-		compUserAdd.getTxtAdmGroupDesc().setText(group.getGroupsDescription());
+		compUserAdd.getTxtAdmGroupName().setText(groupData[0].toString());
+		compUserAdd.getTxtAdmGroupDesc().setText(groupData[1].toString());
 	}
 
 	public void delete()
@@ -148,7 +143,7 @@ public class AdmUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				updated = true;
 				HashMap argMap=new HashMap();
-				argMap.put(AdmKeys.ADM_GROUP,group);
+				argMap.put(AdmKeys.ADM_GROUP,groupData[2]); // group id 
 				EngTXCommon.doTransactionTX(AdmBLUsers.class.getName(),"deleteGroup",argMap); //$NON-NLS-1$
 				EngUICommon.showMessageBox(this.getParent(),EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				this.dialogShell.close();
@@ -169,7 +164,7 @@ public class AdmUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				updated = true;
 				
 				HashMap argMap=new HashMap();
-				argMap.put(AdmKeys.ADM_GROUP,group);
+				argMap.put(AdmKeys.ADM_GROUP_ID,groupData[2]);
 				argMap.put(AdmKeys.ADM_GROUP_NAME,compUserAdd.getTxtAdmGroupName().getText().trim());
 				argMap.put(AdmKeys.ADM_GROUP_DESCRIPTION,compUserAdd.getTxtAdmGroupDesc().getText());
 								
