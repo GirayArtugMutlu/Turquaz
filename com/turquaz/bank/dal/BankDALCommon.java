@@ -42,13 +42,14 @@ public class BankDALCommon
 			Session session = EngDALSessionFactory.getSession();
 			String query = "select bankTrans.id, bankTrans.transactionBillDate,"
 					+ " bankTrans.turqBanksTransactionType.transactionTypeName,"
-					+ " bankTrans.transactionBillDefinition, bankTrans.transactionBillNo, sum(transRow.deptAmount),sum(transRow.creditAmount)"
+					+ " bankTrans.transactionBillDefinition, bankTrans.transactionBillNo," +
+					" sum(transRow.deptAmount),sum(transRow.creditAmount),bankTrans.turqBanksTransactionType.id"
 					+ " from TurqBanksTransactionBill as bankTrans " + " left join bankTrans.turqBanksTransactions as transRow "
 					+ " where bankTrans.transactionBillDate >= :startDate and bankTrans.transactionBillDate <= :endDate"
 					+ " and bankTrans.transactionBillNo like '" + docNo + "%'";
 			query += " group by bankTrans.id, bankTrans.transactionBillDate,"
 					+ "bankTrans.turqBanksTransactionType.transactionTypeName,"
-					+ "bankTrans.transactionBillDefinition, bankTrans.transactionBillNo ";
+					+ "bankTrans.transactionBillDefinition, bankTrans.transactionBillNo,bankTrans.turqBanksTransactionType.id ";
 			query += " order by bankTrans, bankTrans.transactionBillDate";
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
@@ -109,7 +110,7 @@ public class BankDALCommon
 			String query = "SELECT bankTrans.transaction_bill_date,"
 					+ " bankCard.bank_code, bankTrans.transaction_bill_definition,"
 					+ " totals.dept, totals.credit, type.transaction_type_name,"
-					+ " bankTrans.id "
+					+ " bankTrans.id ,type.id"
 					+ " FROM turq_banks_transaction_bills bankTrans "
 					+ " LEFT JOIN (Select row.banks_cards_id as banksId, row.dept_amount as dept, row.credit_amount as credit, row.bank_transactions_bills_id as transId"
 					+ " FROM turq_banks_transactions as row ) totals " + " ON  totals.transId = bankTrans.id,"
@@ -123,7 +124,7 @@ public class BankDALCommon
 			List ls = new ArrayList();
 			while (rs.next())
 			{
-				result = new Object[7];
+				result = new Object[8];
 				result[0] = rs.getObject(1);
 				result[1] = rs.getObject(2);
 				result[2] = rs.getObject(3);
@@ -131,6 +132,7 @@ public class BankDALCommon
 				result[4] = rs.getObject(5);
 				result[5] = rs.getObject(6);
 				result[6] = rs.getObject(7);
+				result[7]= rs.getObject(8);
 				ls.add(result);
 			}
 			

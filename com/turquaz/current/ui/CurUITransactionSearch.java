@@ -407,10 +407,12 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BANK)
 					{
-						Integer bankTransId =(Integer) EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBankTransaction",argMap);
+						Object data[] = (Object[])EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBankTransaction",argMap);
+						Integer bankTransId =(Integer) data[0];
+						Integer transTypeId = (Integer)data[1];
 						if (bankTransId != null)
 						{
-							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId, getShell());
+							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId,transTypeId, getShell());
 						}
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BILL)

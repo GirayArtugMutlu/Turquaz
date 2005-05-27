@@ -338,7 +338,7 @@ public class EngBLCommon
 	
 	
 	
-	public static Integer getBankTransaction(HashMap argMap) throws Exception
+	public static Object[] getBankTransaction(HashMap argMap) throws Exception
 	{
 		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 		return EngDALCommon.getBankTransaction(seq);

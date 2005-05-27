@@ -24,7 +24,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -37,15 +36,16 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBanksTransactionBill;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
-import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.common.HashBag;
+
 import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.layout.GridData;
@@ -244,35 +244,42 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
 			argMap.put(EngKeys.DATE_START,dateStart.getDate());
 			argMap.put(EngKeys.DATE_END,dateEnd.getDate());
-			List ls =(List) EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"searchtransaction",argMap);
-			Object[] result;
+			
+			HashBag resultBag =(HashBag) EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"searchtransaction",argMap);
+			
 			Integer transId;
+			Integer transTypeId;
 			Date transDate;
 			BigDecimal dept = new BigDecimal(0);
 			BigDecimal credit = new BigDecimal(0);
 			String docNo = ""; //$NON-NLS-1$
 			String bankCode;
 			String transType;
-			for (int i = 0; i < ls.size(); i++)
+			
+			HashMap rowMap = (HashMap)resultBag.get(BankKeys.BANK_TRANSACTIONS);
+			for (int i = 0; i < rowMap.size(); i++)
 			{
+				HashMap rowInfo = (HashMap)rowMap.get(new Integer(i));				
+				
 				dept = new BigDecimal(0);
 				credit = new BigDecimal(0);
-				result = (Object[]) ls.get(i);
-				if (result[5] != null)
+				
+				if (rowInfo.get(EngKeys.DEPT_AMOUNT) != null)
 				{
-					dept = (BigDecimal) result[5];
+					dept = (BigDecimal) rowInfo.get(EngKeys.DEPT_AMOUNT);
 				}
-				if (result[6] != null)
+				if (rowInfo.get(EngKeys.CREDIT_AMOUNT) != null)
 				{
-					credit = (BigDecimal) result[6];
+					credit = (BigDecimal) rowInfo.get(EngKeys.CREDIT_AMOUNT);
 				}
-				transId = (Integer) result[0];
-				transType = result[2].toString();
-				transDate = (Date) result[1];
-				docNo = result[4].toString();
-				String definition = result[3].toString();
+				transId = (Integer) rowInfo.get(BankKeys.BANK_TRANS_BILL_ID);
+				transTypeId = (Integer)rowInfo.get(EngKeys.TYPE_ID);
+				transType = (String)rowInfo.get(EngKeys.TYPE_NAME);
+				transDate = (Date)rowInfo.get(EngKeys.DATE);
+				docNo = (String)rowInfo.get(EngKeys.DOCUMENT_NO);
+				String definition =(String)rowInfo.get(EngKeys.DEFINITION);
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), docNo, transType, definition, cf.format(dept),
-						cf.format(credit)}, transId);
+						cf.format(credit)}, new Object[]{transId,transTypeId});
 			}
 		}
 		catch (Exception ex)
@@ -281,39 +288,37 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 		}
 	}
 
-	public static boolean updateTransaction(Integer billId, Shell shell) throws Exception
+	public static boolean updateTransaction(Integer billId,Integer transTypeId, Shell shell) throws Exception
 	{
 		boolean isUpdated = false;
 		HashMap argMap=new HashMap();
-		argMap.put(EngKeys.TRANS_ID,billId);
-		TurqBanksTransactionBill transBill =(TurqBanksTransactionBill)EngTXCommon.doSelectTX(BankBLTransactionUpdate.class.getName(),"initializeTransaction",argMap);
-		if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
+		if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_RECIEVE_MONEY)
 		{
-			isUpdated = new BankUIMoneyTransferInUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUIMoneyTransferInUpdate(shell, SWT.NULL, billId).open();
 		}
-		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_SEND_MONEY)
+		else if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_SEND_MONEY)
 		{
-			isUpdated = new BankUIMoneyTransferOutUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUIMoneyTransferOutUpdate(shell, SWT.NULL,billId).open();
 		}
-		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_CASH_DRAW)
+		else if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_CASH_DRAW)
 		{
-			isUpdated = new BankUICashFromBankUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUICashFromBankUpdate(shell, SWT.NULL,billId).open();
 		}
-		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
+		else if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_CASH_DEPOSIT)
 		{
-			isUpdated = new BankUICashToBankUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUICashToBankUpdate(shell, SWT.NULL, billId).open();
 		}
-		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
+		else if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
 		{
-			isUpdated = new BankUIOtherTransInUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUIOtherTransInUpdate(shell, SWT.NULL,billId).open();
 		}
-		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_OTHER_DRAW)
+		else if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_OTHER_DRAW)
 		{
-			isUpdated = new BankUIOtherTransOutUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUIOtherTransOutUpdate(shell, SWT.NULL, billId).open();
 		}
-		else if (transBill.getTurqBanksTransactionType().getId().intValue() == EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
+		else if (transTypeId.intValue() == EngBLCommon.BANK_TRANS_BETWEEN_BANKS)
 		{
-			isUpdated = new BankUITransferBetweenAccountsUpdate(shell, SWT.NULL, transBill).open();
+			isUpdated = new BankUITransferBetweenAccountsUpdate(shell, SWT.NULL, billId).open();
 		}
 		return isUpdated;
 	}
@@ -326,8 +331,10 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			if (selection.length > 0)
 			{
 				boolean isUpdated = false;
-				Integer billId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
-				isUpdated = updateTransaction(billId, getShell());
+				Object []data = (Object[]) ((ITableRow) selection[0].getData()).getDBObject();
+				Integer billId = (Integer)data[0];
+				Integer typeId = (Integer)data[1];
+				isUpdated = updateTransaction(billId,typeId, getShell());
 				if (isUpdated)
 				{
 					search();

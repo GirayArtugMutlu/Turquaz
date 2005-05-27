@@ -1,22 +1,20 @@
 package com.turquaz.bank.ui;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import org.eclipse.swt.widgets.ToolBar;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.BankKeys;
+import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.bl.CashBLCashTransactionSearch;
+import com.turquaz.common.HashBag;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqBanksTransaction;
-import com.turquaz.engine.dal.TurqBanksTransactionBill;
-import com.turquaz.engine.dal.TurqCashCard;
-import com.turquaz.engine.dal.TurqCashTransaction;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
@@ -42,13 +40,13 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
-	private TurqBanksTransactionBill transBill;
+	private Integer transBillId;
 	boolean isUpdated = false;
 
-	public BankUICashToBankUpdate(Shell parent, int style, TurqBanksTransactionBill transBill)
+	public BankUICashToBankUpdate(Shell parent, int style, Integer transBill)
 	{
 		super(parent, style);
-		this.transBill = transBill;
+		this.transBillId = transBill;
 	}
 
 	public boolean open()
@@ -138,47 +136,43 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog
 	public void postInitGui()
 	{
 		EngUICommon.centreWindow(dialogShell);
-		compCashTrans.getTxtDocNo().setText(transBill.getTransactionBillNo());
-		compCashTrans.getTxtDefinition().setText(transBill.getTransactionBillDefinition());
-		compCashTrans.getDatePick().setDate(transBill.getTransactionBillDate());
-		Iterator it = transBill.getTurqBanksTransactions().iterator();
-		if (it.hasNext())
-		{
-			TurqBanksTransaction bankTrans = (TurqBanksTransaction) it.next();
-			compCashTrans.getComboCurrencyType().setText(
-					bankTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
-			compCashTrans.getTxtBankCard().setText(bankTrans.getTurqBanksCard().getBankCode());
-			compCashTrans.getCurAmount().setText(bankTrans.getCreditAmountInForeignCurrency());
-			if (bankTrans.getCreditAmountInForeignCurrency().compareTo(bankTrans.getDeptAmountInForeignCurrency()) < 1)
-			{
-				compCashTrans.getCurAmount().setText(bankTrans.getDeptAmountInForeignCurrency());
-			}
-			Iterator it2 = transBill.getTurqEngineSequence().getTurqCashTransactions().iterator();
-			if (it2.hasNext())
-			{
-				try
-				{
-					TurqCashTransaction curTrans = (TurqCashTransaction) it2.next();
-					HashMap argMap = new HashMap();
-					argMap.put(CashKeys.CASH_TRANSACTION,curTrans);
+		try{
+			HashMap argMap = new HashMap();
+			argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
+			HashBag result = (HashBag)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getTransactionInfo",argMap);
 					
-					EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
-					Iterator it3 = curTrans.getTurqCashTransactionRows().iterator();
-					TurqCashCard curCard = null;
-					;
-					if (it3.hasNext())
-					{
-						TurqCashTransactionRow cashTransRow = (TurqCashTransactionRow) it3.next();
-						curCard = cashTransRow.getTurqCashCard();
-					}
-					compCashTrans.getTxtCashCard().setText(curCard.getCashCardName());
-				}
-				catch (Exception ex)
+			compCashTrans.getTxtDocNo().setText(result.get(EngKeys.DOCUMENT_NO).toString());
+			compCashTrans.getTxtDefinition().setText(result.get(EngKeys.DEFINITION).toString());
+			compCashTrans.getDatePick().setDate((Date)result.get(EngKeys.DATE));
+			
+			HashMap rowMap = (HashMap)result.get(BankKeys.BANK_TRANSACTION_ROWS);
+			
+			for(int i=0;i<rowMap.size();i++)
+			{
+				HashMap rowInfo = (HashMap)rowMap.get(new Integer(i));
+				compCashTrans.getTxtBankCard().setText(rowInfo.get(BankKeys.BANK_CODE).toString());
+				
+				BigDecimal creditAmount = (BigDecimal)rowInfo.get(EngKeys.CREDIT_AMOUNT);
+				BigDecimal deptAmount = (BigDecimal)rowInfo.get(EngKeys.DEPT_AMOUNT);
+					
+				compCashTrans.getCurAmount().setText(creditAmount);
+				
+				if (creditAmount.compareTo(deptAmount) < 1)
 				{
-					ex.toString();
-				}
+					compCashTrans.getCurAmount().setText(deptAmount);
+				}			
+				
+				
+				
 			}
-		}
+			compCashTrans.getTxtCashCard().setText(result.get(CashKeys.CASH_CARD_NAME).toString());
+			
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		
 	}
 
 	public void update()
@@ -189,9 +183,9 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap=new HashMap();
 				
-				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
 				argMap.put(BankKeys.BANK_ID,compCashTrans.getTxtBankCard().getBankId());
-				argMap.put(CashKeys.CASH_CARD,compCashTrans.getTxtCashCard().getCashCardId());
+				argMap.put(CashKeys.CASH_CARD_ID,compCashTrans.getTxtCashCard().getCashCardId());
 				argMap.put(EngKeys.TOTAL_AMOUNT,compCashTrans.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compCashTrans.getDatePick().getDate());
 				argMap.put(EngKeys.DEFINITION,compCashTrans.getTxtDefinition().getText().trim());
@@ -217,7 +211,7 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog
 			if (EngUICommon.okToDelete(getParent()))
 			{
 				HashMap argMap=new HashMap();
-				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				isUpdated = true;

@@ -19,22 +19,23 @@ package com.turquaz.bank.ui;
  * @author  Onsel
  * @version  $Id$
  */
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.BankKeys;
+import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.common.HashBag;
+import com.turquaz.current.CurKeys;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqBanksTransaction;
-import com.turquaz.engine.dal.TurqBanksTransactionBill;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -59,13 +60,13 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
-	private TurqBanksTransactionBill transBill;
+	private Integer transBillId;
 	boolean isUpdated = false;
 
-	public BankUIMoneyTransferOutUpdate(Shell parent, int style, TurqBanksTransactionBill transBill)
+	public BankUIMoneyTransferOutUpdate(Shell parent, int style, Integer transBill)
 	{
 		super(parent, style);
-		this.transBill = transBill;
+		this.transBillId = transBill;
 	}
 
 	public boolean open()
@@ -156,28 +157,44 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 	public void postInitGUI()
 	{
 		EngUICommon.centreWindow(dialogShell);
-		compMoneyTransferIn.getTxtDocNo().setText(transBill.getTransactionBillNo());
-		compMoneyTransferIn.getTxtDefinition().setText(transBill.getTransactionBillDefinition());
-		compMoneyTransferIn.getDatePick().setDate(transBill.getTransactionBillDate());
-		Iterator it = transBill.getTurqBanksTransactions().iterator();
-		if (it.hasNext())
+		try{
+			HashMap argMap = new HashMap();
+			argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
+			HashBag result = (HashBag)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getTransactionInfo",argMap);
+			
+		
+		
+		compMoneyTransferIn.getTxtDocNo().setText(result.get(EngKeys.DOCUMENT_NO).toString());
+		compMoneyTransferIn.getTxtDefinition().setText(result.get(EngKeys.DEFINITION).toString());
+		compMoneyTransferIn.getDatePick().setDate((Date)result.get(EngKeys.DATE));
+		
+		HashMap rowMap = (HashMap)result.get(BankKeys.BANK_TRANSACTION_ROWS);
+		for(int i=0;i<rowMap.size();i++)
 		{
-			TurqBanksTransaction bankTrans = (TurqBanksTransaction) it.next();
-			compMoneyTransferIn.getComboCurrencyType().setText(
-					bankTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
-			compMoneyTransferIn.getTxtBankCard().setText(bankTrans.getTurqBanksCard().getBankCode());
-			compMoneyTransferIn.getCurAmount().setText(bankTrans.getCreditAmountInForeignCurrency());
-			if (bankTrans.getCreditAmountInForeignCurrency().compareTo(bankTrans.getDeptAmountInForeignCurrency()) < 1)
+			HashMap rowInfo = (HashMap)rowMap.get(new Integer(i));
+			compMoneyTransferIn.getTxtBankCard().setText(rowInfo.get(BankKeys.BANK_CODE).toString());
+			
+			BigDecimal creditAmount = (BigDecimal)rowInfo.get(EngKeys.CREDIT_AMOUNT);
+			BigDecimal deptAmount = (BigDecimal)rowInfo.get(EngKeys.DEPT_AMOUNT);
+				
+			compMoneyTransferIn.getCurAmount().setText(creditAmount);
+			
+			if (creditAmount.compareTo(deptAmount) < 1)
 			{
-				compMoneyTransferIn.getCurAmount().setText(bankTrans.getDeptAmountInForeignCurrency());
-			}
-			Iterator it2 = transBill.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
-			if (it2.hasNext())
-			{
-				TurqCurrentTransaction curTrans = (TurqCurrentTransaction) it2.next();
-				TurqCurrentCard curCard = curTrans.getTurqCurrentCard();
-				compMoneyTransferIn.getCurrentPicker().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
-			}
+				compMoneyTransferIn.getCurAmount().setText(deptAmount);
+			}			
+			
+			
+			
+		}
+		
+		compMoneyTransferIn.getCurrentPicker().setText(result.get(CurKeys.CUR_CURRENT_NAME).toString() + " {" + result.get(CurKeys.CUR_CURRENT_CODE).toString() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			
+		
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 
@@ -189,8 +206,8 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap=new HashMap();
 				
-				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
-				argMap.put(BankKeys.BANK,compMoneyTransferIn.getTxtBankCard().getData());
+				argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
+				argMap.put(BankKeys.BANK_ID,compMoneyTransferIn.getTxtBankCard().getBankId());
 				argMap.put(EngKeys.CURRENT_CARD,compMoneyTransferIn.getCurrentPicker().getData());
 				argMap.put(EngKeys.TOTAL_AMOUNT,compMoneyTransferIn.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compMoneyTransferIn.getDatePick().getDate());
@@ -217,7 +234,7 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 			if (EngUICommon.okToDelete(getParent()))
 			{
 				HashMap argMap=new HashMap();
-				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
+				argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"deleteTransaction",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				isUpdated = true;

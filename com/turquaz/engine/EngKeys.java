@@ -25,6 +25,8 @@ public class EngKeys
 	public final static String ENG_SEQ="engSeq";
 	public final static String ENG_SEQ_ID="engSeqId";
 	public final static String TYPE="type";
+	public final static String TYPE_NAME="typeName";
+	public final static String TYPE_ID="typeId";
 	public final static String TRANS_DATE="transDate";
 	public final static String TRANS_ID="transId";
 	public final static String DEFINITION="definition";
@@ -47,5 +49,7 @@ public class EngKeys
 	public final static String DESCRIPTION="description";
 	public final static String IS_CREDIT="isCredit";
 	public final static String DATABASE_VERSION="databaseVersion";
+	public final static String CREDIT_AMOUNT ="creditAmount";
+	public final static String DEPT_AMOUNT ="deptAmount";	
 	
 }

@@ -296,10 +296,12 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 			if (selection.length > 0)
 			{
 				boolean isUpdated = false;
-				Integer transId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
+				Object data[] = (Object[])((ITableRow) selection[0].getData()).getDBObject();
+				Integer transId = (Integer) data[0];
+				Integer typeId = (Integer)data[1];
 				if (transId != null)
 				{
-					isUpdated = BankUISearchMoneyTransaction.updateTransaction(transId, getShell());
+					isUpdated = BankUISearchMoneyTransaction.updateTransaction(transId,typeId, getShell());
 					if (isUpdated)
 					{
 						search();
@@ -337,7 +339,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				BigDecimal deferred_dept = new BigDecimal(0);
 				BigDecimal deferred_credit = new BigDecimal(0);
 				BigDecimal balance = new BigDecimal(0);
-				Integer bankCardId = (Integer) bankPicker.getData();
+				Integer bankCardId = (Integer) bankPicker.getBankId();
 				
 				HashMap argMap=new HashMap();
 				argMap.put(BankKeys.BANK_ID,bankCardId);
@@ -393,7 +395,7 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 				}
 				
 				argMap=new HashMap();
-				argMap.put(BankKeys.BANK, bankPicker.getData());
+				argMap.put(BankKeys.BANK_ID, bankPicker.getBankId());
 				argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 				argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 				
@@ -414,19 +416,21 @@ public class BankUIBankCardAbstract extends org.eclipse.swt.widgets.Composite im
 						credit = (BigDecimal) results[4];
 					}
 					Integer transId=(Integer)results[6];
+					Integer transTypeId = (Integer)results[7];
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
 					balance = balance.add(dept).subtract(credit);
 					if (balance.doubleValue() > 0)
 					{
 						tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
-								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(balance), cf.format(0)},transId);
+								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(balance), cf.format(0)},new Object[]{transId,transTypeId});
+						
 					}
 					else
 					{
 						tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[0]), results[5].toString(),
 								results[2].toString(), cf.format(dept), cf.format(credit), cf.format(0),
-								cf.format(balance.negate())},transId);
+								cf.format(balance.negate())},new Object[]{transId,transTypeId});
 					}
 				}
 				tableViewer.addRow(new String[]{"", "", "", "", "", "", ""}, null);

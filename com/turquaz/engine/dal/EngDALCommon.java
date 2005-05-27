@@ -188,7 +188,7 @@ public class EngDALCommon
 		
 	}
 
-	public static Integer getBankTransaction(TurqEngineSequence seq) throws Exception
+	public static Object[] getBankTransaction(TurqEngineSequence seq) throws Exception
 	{
 		try
 		{
@@ -198,7 +198,10 @@ public class EngDALCommon
 			Iterator it = seq.getTurqBanksTransactionBills().iterator();
 			if (it.hasNext())
 			{
-				return ((TurqBanksTransactionBill) it.next()).getId();
+				Object []data = new Object[2];
+				
+				data[0]= ((TurqBanksTransactionBill) it.next()).getId();
+				data[1]=((TurqBanksTransactionBill) it.next()).getTurqBanksTransactionType().getId();
 			}
 			return null;
 		}

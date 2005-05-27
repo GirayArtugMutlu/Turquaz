@@ -14,7 +14,6 @@ package com.turquaz.bank;
  */
 public class BankKeys
 {
-	public static final String BANK="bank";
 	public static final String BANK_ID="bankId";
 	public static final String BANK_NAME="bankName";
 	public static final String BANK_CODE="bankCode";
@@ -25,8 +24,10 @@ public class BankKeys
 	public static final String BANK_ACCOUNTING_ACCOUNTS="bankAccountingAccounts";
 	public static final String BANK_CARD_WITH_DEPT="bankCardWithDept";
 	public static final String BANK_CARD_WITH_CREDIT="bankCardWithCredit";
-	public static final String BANK_TRANS_BILL="bankTransBill";
+	public static final String BANK_TRANS_BILL_ID="bankTransBillId";
 	public static final String BANK_SORT_BY_DATE="bankSortByDate";
 	public static final String BANK_HAS_TRANSACTIONS="hasTransactions";
 	public static final String BANK_CARDS = "bankCards";
+	public static final String BANK_TRANSACTION_ROWS ="bankTransactionRows";
+	public static final String BANK_TRANSACTIONS ="bankTransactions";
 }

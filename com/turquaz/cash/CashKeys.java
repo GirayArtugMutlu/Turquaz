@@ -23,4 +23,5 @@ public class CashKeys
 	public static final String CASH_TRANSACTION= "cashTransaction";
 	public static final String CASH_CARDS ="cashCards";
 	public static final String CASH_CARD_ID ="cashCardId";
+	public static final String CASH_TRANSACTION_ROWS ="cashTransactionRows";
 }
