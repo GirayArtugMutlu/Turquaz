@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -224,7 +223,7 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

@@ -220,7 +220,9 @@ public class BankBLTransactionUpdate
 					
 			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)argMap.get(BankKeys.BANK_TRANS_BILL);
 			
-			TurqCashCard cashCard=(TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+			Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+			TurqCashCard cashCard=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+			
 			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
 			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);

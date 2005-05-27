@@ -191,7 +191,7 @@ public class BankUICashFromBankUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				argMap.put(BankKeys.BANK_TRANS_BILL,transBill);
 				argMap.put(BankKeys.BANK_ID,compCashTrans.getTxtBankCard().getBankId());
-				argMap.put(CashKeys.CASH_CARD,compCashTrans.getTxtCashCard().getTurqCashCard());
+				argMap.put(CashKeys.CASH_CARD_ID,compCashTrans.getTxtCashCard().getCashCardId());
 				argMap.put(EngKeys.TOTAL_AMOUNT,compCashTrans.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compCashTrans.getDatePick().getDate());
 				argMap.put(EngKeys.DEFINITION,compCashTrans.getTxtDefinition().getText().trim());

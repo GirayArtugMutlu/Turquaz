@@ -25,6 +25,7 @@ import java.util.List;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 
@@ -35,7 +36,9 @@ public class CashBLCashTransactionSearch
 	public static List searchCashTransactions(HashMap argMap) throws Exception
 	{
 		
-		TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+		TurqCashCard cashCard=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+		
 		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
 		String definition = (String)argMap.get(EngKeys.DEFINITION);

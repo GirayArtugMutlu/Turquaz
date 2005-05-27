@@ -24,18 +24,47 @@ import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingAccount;
+import com.turquaz.engine.dal.TurqCashCard;
 
 public class CashBLCashCardSearch
 {
 	
 
-	public static List searchCashCard(HashMap argMap) throws Exception
+	public static HashBag searchCashCard(HashMap argMap) throws Exception
 	{
-		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		Integer account_id = (Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
+		TurqAccountingAccount account=null;
+	
+		if(account_id != null)
+		{
+			account= new TurqAccountingAccount();
+			account.setId(account_id);	
+		}
 		String cardName = (String)argMap.get(CashKeys.CASH_CARD_NAME);
 		
-			return CashDALCashCard.searchCashCard(account, cardName);
+		
+		
+		HashBag returnBag = new HashBag();
+		
+		
+		List list = CashDALCashCard.searchCashCard(account, cardName);
+		
+		for(int i=0;i<list.size();i++)
+		{
+			TurqCashCard cashCard = (TurqCashCard)list.get(i);
+			returnBag.put(CashKeys.CASH_CARDS,i,CashKeys.CASH_CARD_NAME,cashCard.getCashCardName());
+			returnBag.put(CashKeys.CASH_CARDS,i,EngKeys.DEFINITION,cashCard.getCashCardDefinition());
+			returnBag.put(CashKeys.CASH_CARDS,i,CashKeys.CASH_CARD_ID,cashCard.getId());
+			returnBag.put(CashKeys.CASH_CARDS,i,AccKeys.ACC_ACCOUNT_CODE,cashCard.getTurqAccountingAccount().getAccountCode());
+			
+		}
+		
+		return returnBag;
+		
+		
 		
 	}
 }

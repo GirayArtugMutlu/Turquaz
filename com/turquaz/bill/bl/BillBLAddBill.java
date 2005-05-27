@@ -21,6 +21,7 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
@@ -61,7 +62,10 @@ public class BillBLAddBill
         Boolean saveCons = (Boolean) argMap.get(BillKeys.BILL_SAVE_CONS);
         Integer billCheck = (Integer) argMap.get(BillKeys.BILL_CHECK);
         Boolean isOpen = (Boolean) argMap.get(BillKeys.BILL_IS_OPEN);
-        TurqCashCard cashCard = (TurqCashCard) argMap.get(CashKeys.CASH_CARD);
+		
+		Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+		TurqCashCard cashCard=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+		
 
         registerBill(bill, billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,
                 billCheck, isOpen.booleanValue());

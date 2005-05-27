@@ -969,7 +969,7 @@ public class BillUIAddReturnSellBill extends Composite implements SecureComposit
             }
             else if(btnClosedBill.getSelection())
             {
-                if(cashPicher.getTurqCashCard()==null)
+                if(cashPicher.getData()==null)
                 {
                     EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CASH_CARD,SWT.ICON_WARNING);
                     cashPicher.setFocus();
@@ -1106,7 +1106,7 @@ public class BillUIAddReturnSellBill extends Composite implements SecureComposit
                 argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
                 argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!btnClosedBill.getSelection()));
                
-                argMap.put(CashKeys.CASH_CARD,cashPicher.getData());
+                argMap.put(CashKeys.CASH_CARD_ID,cashPicher.getCashCardId());
                 Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
                 if(result.intValue()!=1)
                 {

@@ -915,7 +915,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		}
          if(btnClosedBill.getSelection())
         {
-            if(cashPicker.getTurqCashCard()==null)
+            if(cashPicker.getData()==null)
             {
                 EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CASH_CARD,SWT.ICON_WARNING);
                 cashPicker.setFocus();

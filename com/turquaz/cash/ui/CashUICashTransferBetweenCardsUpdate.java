@@ -204,8 +204,8 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog
 				updated = true;
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD_WITH_DEPT,compTransAdd.getTxtCashCardWithDept().getData());
-				argMap.put(CashKeys.CASH_CARD_WITH_CREDIT,compTransAdd.getTxtCashCardWithCredit().getTurqCashCard());
+				argMap.put(CashKeys.CASH_CARD_WITH_DEPT,compTransAdd.getTxtCashCardWithDept().getCashCardId());
+				argMap.put(CashKeys.CASH_CARD_WITH_CREDIT,compTransAdd.getTxtCashCardWithCredit().getCashCardId());
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,compTransAdd.getCurTextTotalAmount().getBigDecimalValue());
 				argMap.put(EngKeys.DATE,compTransAdd.getDatePicker().getDate());
 				argMap.put(EngKeys.DEFINITION,compTransAdd.getTxtDefinition().getText());

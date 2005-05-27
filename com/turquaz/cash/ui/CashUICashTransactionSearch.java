@@ -246,7 +246,7 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			tableViewer.removeAll();
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CashKeys.CASH_CARD,txtCashCard.getTurqCashCard());
+			argMap.put(CashKeys.CASH_CARD_ID,txtCashCard.getCashCardId());
 			argMap.put(EngKeys.DATE_START,datePickerStart.getDate());
 			argMap.put(EngKeys.DATE_END,datePickerEnd.getDate());
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText());

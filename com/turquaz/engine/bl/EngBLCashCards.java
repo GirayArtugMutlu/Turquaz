@@ -1,19 +1,18 @@
 package com.turquaz.engine.bl;
 
 import java.util.HashMap;
-import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
-import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLCashCards
 {
-	public List currentList;
+	public HashMap cashCardList;
 	public HashMap cardMap = new HashMap();
 	static EngBLCashCards _instance;
-	private CashBLCashCardSearch blCurrentCards = new CashBLCashCardSearch();
 
 	public EngBLCashCards() throws Exception
 	{
@@ -32,16 +31,20 @@ public class EngBLCashCards
 		try
 		{
 			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_ACCOUNT, null);
+			argMap.put(AccKeys.ACC_ACCOUNT_ID, null);
 			argMap.put(CashKeys.CASH_CARD_NAME,"");
-			currentList  =CashBLCashCardSearch.searchCashCard(argMap);			
 			
+			HashBag result  =(HashBag)EngTXCommon.doSelectTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);			
+			
+			cashCardList =(HashMap)result.get(CashKeys.CASH_CARDS);
 			cardMap.clear();
-			TurqCashCard cashCard;
-			for (int i = 0; i < currentList.size(); i++)
+			
+			
+			for (int i = 0; i < cashCardList.size(); i++)
 			{
-				cashCard = (TurqCashCard) (currentList.get(i));
-				cardMap.put(cashCard.getCashCardName(), cashCard);
+				HashMap cardInfo = (HashMap)cashCardList.get(new Integer(i));
+				
+				cardMap.put(cardInfo.get(CashKeys.CASH_CARD_NAME), cardInfo);
 			}
 		}
 		catch (Exception ex)
@@ -50,7 +53,7 @@ public class EngBLCashCards
 		}
 	}
 
-	public static synchronized List getCashCards() throws Exception
+	public static synchronized HashMap getCashCards() throws Exception
 	{
 		try
 		{
@@ -58,7 +61,7 @@ public class EngBLCashCards
 			{
 				_instance = new EngBLCashCards();
 			}
-			return _instance.currentList;
+			return _instance.cashCardList;
 		}
 		catch (Exception ex)
 		{
@@ -66,7 +69,7 @@ public class EngBLCashCards
 		}
 	}
 
-	public static TurqCashCard getCard(String cardName) throws Exception
+	public static HashMap getCard(String cardName) throws Exception
 	{
 		try
 		{
@@ -74,7 +77,7 @@ public class EngBLCashCards
 			{
 				_instance = new EngBLCashCards();
 			}
-			return (TurqCashCard) _instance.cardMap.get(cardName);
+			return (HashMap) _instance.cardMap.get(cardName);
 		}
 		catch (Exception ex)
 		{

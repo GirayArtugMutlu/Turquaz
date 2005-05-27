@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CCombo;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.cash.ui.comp.CashCardPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -209,7 +208,7 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -244,8 +243,9 @@ public class CashUICashTransferBetweenCards extends org.eclipse.swt.widgets.Comp
 			if (verifyFields())
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD_WITH_DEPT,txtCashCardWithDept.getData());
-				argMap.put(CashKeys.CASH_CARD_WITH_CREDIT,txtCashCardWithCredit.getTurqCashCard());
+				argMap.put(CashKeys.CASH_CARD_WITH_DEPT,txtCashCardWithDept.getCashCardId());
+				argMap.put(CashKeys.CASH_CARD_WITH_CREDIT,txtCashCardWithCredit.getCashCardId());
+				
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,curTextTotalAmount.getBigDecimalValue());

@@ -218,7 +218,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-				argMap.put(CashKeys.CASH_CARD,compChequeRoll.getCashCardPcker().getTurqCashCard());
+				argMap.put(CashKeys.CASH_CARD_ID,compChequeRoll.getCashCardPcker().getCashCardId());
 				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
 				argMap.put(EngKeys.DATE, compChequeRoll.getDatePicker1().getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);

@@ -21,4 +21,6 @@ public class CashKeys
 	public static final String CASH_CARD_WITH_CREDIT = "cashCardWithCredit";
 	public static final String CASH_CARD_WITH_DEPT = "cashCardWithDept";
 	public static final String CASH_TRANSACTION= "cashTransaction";
+	public static final String CASH_CARDS ="cashCards";
+	public static final String CASH_CARD_ID ="cashCardId";
 }

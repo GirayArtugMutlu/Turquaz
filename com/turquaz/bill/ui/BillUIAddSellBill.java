@@ -946,7 +946,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 		}
          if(btnClosedBill.getSelection())
         {
-            if(cashPicker.getTurqCashCard()==null)
+            if(cashPicker.getData()==null)
             {
                 EngUICommon.showMessageBox(getShell(),CashLangKeys.MSG_SELECT_CASH_CARD,SWT.ICON_WARNING);
                 cashPicker.setFocus();
@@ -1027,7 +1027,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 				argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
 				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());		
                 argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!btnClosedBill.getSelection()));
-                argMap.put(CashKeys.CASH_CARD,cashPicker.getData());
+                argMap.put(CashKeys.CASH_CARD_ID,cashPicker.getCashCardId());
 				Integer result = (Integer) EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(), "saveBillFromBill", argMap);
 
 				if (result.intValue() != 1)

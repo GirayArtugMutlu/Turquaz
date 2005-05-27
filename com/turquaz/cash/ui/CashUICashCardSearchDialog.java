@@ -1,7 +1,6 @@
 package com.turquaz.cash.ui;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -16,12 +15,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.cash.CashKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.engine.ui.component.SearchDialogMenu;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
-import com.turquaz.engine.dal.TurqCashCard;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -153,17 +153,17 @@ public class CashUICashCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 			
 			argMap.put(CashKeys.CASH_CARD_NAME,txtCashName.getText().trim());
 
-			List listCashCards =(List) EngTXCommon.doTransactionTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
+			HashBag result =(HashBag) EngTXCommon.doTransactionTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
 			
 			TableItem item;
+			HashMap listCashCards = (HashMap)result.get(CashKeys.CASH_CARDS);
 			
 			for (int i = 0; i < listCashCards.size(); i++)
 			{
 				
-				TurqCashCard card = new TurqCashCard();
-				card = (TurqCashCard) listCashCards.get(i);
-				String cardName = card.getCashCardName();
-				String cardDefinition = card.getCashCardDefinition();
+				HashMap cashInfo = (HashMap)listCashCards.get(new Integer(i));
+				String cardName = cashInfo.get(CashKeys.CASH_CARD_NAME).toString();
+				String cardDefinition = cashInfo.get(EngKeys.DEFINITION).toString();
 				item = new TableItem(tableCashSearch, SWT.NULL);
 				item.setData(cardName);
 				

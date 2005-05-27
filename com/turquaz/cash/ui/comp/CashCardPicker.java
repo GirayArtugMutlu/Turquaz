@@ -1,5 +1,7 @@
 package com.turquaz.cash.ui.comp;
 
+import java.util.HashMap;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -16,11 +18,11 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.ui.CashUICashCardSearchDialog;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -42,6 +44,7 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite implements
 	private String filter = "";
 	private Button btnChoose;
 	private Text text1;
+	private HashMap cashInfo;
 
 	public CashCardPicker(Composite parent, int style)
 	{
@@ -143,28 +146,48 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite implements
 	{
 		return text1.getText();
 	}
-
-	public void setData(Object obj)
+	
+	public String getCashCardName()
 	{
-		super.setData(obj);
-        if(obj !=null)
+		if(cashInfo==null)
+		{
+			return null;
+		}
+		
+		return cashInfo.get(CashKeys.CASH_CARD_NAME).toString();
+	}
+	
+	public Integer getCashCardId()
+	{
+		if(cashInfo==null)
+		{
+			return null;
+		}
+		return (Integer)cashInfo.get(CashKeys.CASH_CARD_ID);
+		
+	}
+
+	public void setData(HashMap info)
+	{
+		
+		cashInfo= info;
+        if(info !=null)
         {
-            if(obj instanceof TurqCashCard)
-            {
-                TurqCashCard cashCard = (TurqCashCard)obj;
-                text1.setText(cashCard.getCashCardName());
-            }
+           text1.setText(info.get(CashKeys.CASH_CARD_NAME).toString());
+           
         }
 	}
-	public Object getDBData()
+	
+	public Object getData()
 	{
-		return super.getData();
+		return cashInfo;
+		
 	}
 
-	public void setDBData(Object obj)
+	public void setDBData(HashMap info)
 	{
-		super.setData(obj);
-		if (obj == null)
+		cashInfo = info;
+		if (info == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 		}
@@ -172,19 +195,7 @@ public class CashCardPicker extends org.eclipse.swt.widgets.Composite implements
 		{
 			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
 		}
-	}
-
-	public TurqCashCard getTurqCashCard()
-	{
-		if (super.getData() == null)
-		{
-			return null;
-		}
-		else
-		{
-			return (TurqCashCard) super.getData();
-		}
-	}
+	}	
 
 	public void openNewObjectDialog() {
 		// TODO Auto-generated method stub

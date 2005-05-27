@@ -78,8 +78,12 @@ public class CheBLUpdateChequeRoll
 	{
 		
 		TurqChequeRoll chequeRoll = (TurqChequeRoll)argMap.get(CheKeys.CHE_CHEQUE_ROLL);
-		TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
-		 String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
+		
+		Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+		TurqCashCard cashCard=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+				
+		
+		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 Date rollDate = (Date)argMap.get(EngKeys.DATE);
 		 List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);
 		 

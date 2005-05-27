@@ -267,7 +267,7 @@ public class BankUICashFromBank extends org.eclipse.swt.widgets.Composite implem
 				HashMap argMap=new HashMap();
 				
 				argMap.put(BankKeys.BANK_ID,txtBankCard.getBankId());
-				argMap.put(CashKeys.CASH_CARD,txtCashCard.getTurqCashCard());
+				argMap.put(CashKeys.CASH_CARD_ID,txtCashCard.getCashCardId());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_CASH_DRAW));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(EngKeys.TOTAL_AMOUNT,curAmount.getBigDecimalValue());

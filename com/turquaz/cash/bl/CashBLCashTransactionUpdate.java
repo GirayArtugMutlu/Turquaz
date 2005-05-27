@@ -36,6 +36,7 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
@@ -361,8 +362,15 @@ public class CashBLCashTransactionUpdate
 	{
 		
 		TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
-		TurqCashCard cashCardWithDebt= (TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);
-		TurqCashCard cashCardWithCredit =(TurqCashCard)argMap.get(CashKeys.CASH_CARD_WITH_CREDIT);
+		
+		Integer cashCardWithDebtId = (Integer)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);
+		TurqCashCard cashCardWithDebt=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardWithDebtId);
+		
+		Integer cashCardWithCreditId = (Integer)argMap.get(CashKeys.CASH_CARD_WITH_CREDIT);
+		TurqCashCard cashCardWithCredit=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardWithCreditId);
+		
+				
+		
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);

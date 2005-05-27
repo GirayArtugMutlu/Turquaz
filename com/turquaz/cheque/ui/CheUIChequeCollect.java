@@ -285,7 +285,7 @@ public class CheUIChequeCollect extends org.eclipse.swt.widgets.Composite implem
 			{
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD,cashCardPcker.getTurqCashCard());
+				argMap.put(CashKeys.CASH_CARD_ID,cashCardPcker.getCashCardId());
 				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
 				argMap.put(EngKeys.DATE,datePicker1.getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);

@@ -16,7 +16,6 @@ package com.turquaz.cash.ui;
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -26,6 +25,8 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashCardSearch;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCashCard;
@@ -201,13 +202,16 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_ACCOUNT, accountPicker.getData());
 			argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
-			List ls =(List)EngTXCommon.doSelectTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);
-			TurqCashCard card;
-			for (int i = 0; i < ls.size(); i++)
+			
+			HashBag result  =(HashBag)EngTXCommon.doSelectTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);			
+			HashMap cards = (HashMap)result.get(CashKeys.CASH_CARDS);
+			
+			for (int i = 0; i < cards.size(); i++)
 			{
-				card = (TurqCashCard) ls.get(i);
-				tableViewer.addRow(new String[]{card.getCashCardName(), card.getCashCardDefinition(),
-						card.getTurqAccountingAccount().getAccountCode()}, card);
+				HashMap cardInfo = (HashMap) cards.get(new Integer(i));
+				
+				tableViewer.addRow(new String[]{cardInfo.get(CashKeys.CASH_CARD_NAME).toString(), cardInfo.get(EngKeys.DEFINITION).toString(),
+						cardInfo.get(AccKeys.ACC_ACCOUNT_CODE).toString()}, cardInfo.get(CashKeys.CASH_CARD_ID));
 			}
 		}
 		catch (Exception ex)

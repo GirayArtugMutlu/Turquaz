@@ -36,6 +36,7 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.bank.BankKeys;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLBankCards;
@@ -46,7 +47,6 @@ import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLInventoryGroups;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.tx.EngTXCommon;
 
@@ -283,11 +283,11 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 	public static void fillCashModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
-		List list = EngBLCashCards.getCashCards();
+		HashMap list = EngBLCashCards.getCashCards();
 		for (int i = 0; i < list.size(); i++)
 		{
-			TurqCashCard card = (TurqCashCard) (list.get(i));
-			proposed.add(new Proposal(card.getCashCardName(), card.getCashCardDefinition()));
+			HashMap cardInfo = (HashMap) (list.get(new Integer(i)));
+			proposed.add(new Proposal(cardInfo.get(CashKeys.CASH_CARD_NAME).toString(), cardInfo.get(EngKeys.DEFINITION).toString()));
 		}
 		proposedCodeList[EngBLCommon.CONTENT_ASSIST_CASH] = new Proposal[proposed.size()];
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_CASH]);

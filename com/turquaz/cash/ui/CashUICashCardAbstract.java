@@ -370,7 +370,7 @@ public class CashUICashCardAbstract extends org.eclipse.swt.widgets.Composite im
 					}
 					Integer id = (Integer) results[0];
 					tableViewer.addRow(new String[]{DatePicker.formatter.format((Date) results[1]),
-							cashCardPicker.getTurqCashCard().getCashCardName(), results[5].toString(), results[2].toString(),
+							cashCardPicker.getCashCardName(), results[5].toString(), results[2].toString(),
 							cf.format(dept), cf.format(credit)}, id);
 					total_dept = total_dept.add(dept);
 					total_credit = total_credit.add(credit);
