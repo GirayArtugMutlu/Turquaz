@@ -37,8 +37,11 @@ public class CashBLCashTransactionSearch
 	{
 		
 		Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
-		TurqCashCard cashCard=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
-		
+		TurqCashCard cashCard=null;
+		if(cashCardId!=null)
+		{
+			cashCard = (TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+		}
 		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
 		String definition = (String)argMap.get(EngKeys.DEFINITION);

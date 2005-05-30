@@ -156,6 +156,9 @@ public class BankBLTransactionSearch
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			HashBag transBag = new HashBag();
 			List list = BankDALCommon.searchBankTransactions(docNo, startDate, endDate);
+			
+			transBag.put(BankKeys.BANK_TRANSACTIONS,new HashMap());
+			
 			for(int i=0;i<list.size();i++)
 			{
 				Object results[] = (Object[])list.get(i);

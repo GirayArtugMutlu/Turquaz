@@ -257,6 +257,7 @@ public class BankUISearchMoneyTransaction extends org.eclipse.swt.widgets.Compos
 			String transType;
 			
 			HashMap rowMap = (HashMap)resultBag.get(BankKeys.BANK_TRANSACTIONS);
+		
 			for (int i = 0; i < rowMap.size(); i++)
 			{
 				HashMap rowInfo = (HashMap)rowMap.get(new Integer(i));				
