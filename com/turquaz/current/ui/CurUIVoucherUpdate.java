@@ -230,7 +230,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				 
 				 argMap = new HashMap();
 				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
-				argMap.put(AccKeys.ACC_ACCOUNT_ID, compVoucher.getAccountPicker().getDBData());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID, compVoucher.getAccountPicker().getId());
 				argMap.put(EngKeys.DATE,compVoucher.getDateTransDate().getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,"");
 				argMap.put(CurKeys.CUR_IS_CREDIT,new Boolean(isCredit));

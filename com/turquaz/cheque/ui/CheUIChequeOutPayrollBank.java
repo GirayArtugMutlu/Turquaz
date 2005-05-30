@@ -302,7 +302,7 @@ public class CheUIChequeOutPayrollBank extends org.eclipse.swt.widgets.Composite
 				//	          TODO cheq trans exRate
 				
 				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountPicker.getDBData());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountPicker.getId());
 				argMap.put(BankKeys.BANK_ID,bankCardPicker.getBankId());
 				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
 				argMap.put(EngKeys.DATE,datePicker1.getDate());

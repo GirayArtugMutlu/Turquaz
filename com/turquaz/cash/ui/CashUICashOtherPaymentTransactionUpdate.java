@@ -207,7 +207,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 				argMap.put(EngKeys.DEFINITION, compTransAdd.getTxtDefinition().getText());
 				argMap.put(EngKeys.DOCUMENT_NO, compTransAdd.getTxtDocumentNo().getText());
 				argMap.put(EngKeys.EXCHANGE_RATE, compTransAdd.getExchangeRate());
-				argMap.put(AccKeys.ACC_ACCOUNT_ID,compTransAdd.getTxtAccountingAccount().getDBData());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,compTransAdd.getTxtAccountingAccount().getId());
 							
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateOtherTrans",argMap);
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());

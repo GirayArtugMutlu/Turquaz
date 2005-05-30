@@ -297,7 +297,7 @@ public class CurUICurrentCardCreditVoucher extends org.eclipse.swt.widgets.Compo
 				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
 				HashMap argMap = new HashMap();
 				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) txtCurrentCard.getData());
-				argMap.put(AccKeys.ACC_ACCOUNT_ID, accountPicker.getDBData());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID, accountPicker.getId());
 				argMap.put(EngKeys.DATE,dateTransDate.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,""); //$NON-NLS-1$
 				argMap.put(CurKeys.CUR_IS_CREDIT,new Boolean(isCredit));
