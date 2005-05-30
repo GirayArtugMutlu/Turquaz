@@ -164,8 +164,7 @@ public class BankUIOtherTransInUpdate extends org.eclipse.swt.widgets.Dialog
 			
 			
 			
-		}
-		
+		}		
 		compCashTrans.getTxtAccountPicker().setText(result.get(AccKeys.ACC_ACCOUNT_CODE).toString()); //$NON-NLS-1$ //$NON-NLS-2$
 			
 		

@@ -137,8 +137,9 @@ public class BankUIMoneyTransferOutUpdate extends org.eclipse.swt.widgets.Dialog
 				compMoneyTransferInLData.grabExcessVerticalSpace = true;
 				compMoneyTransferIn.setLayoutData(compMoneyTransferInLData);
 			}
-			dialogShell.open();
 			postInitGUI();
+			dialogShell.open();
+		
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed())
 			{
