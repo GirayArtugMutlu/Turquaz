@@ -475,8 +475,12 @@ public class BankBLTransactionAdd
 			Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
 			
 			TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
-					
-			TurqAccountingAccount account=(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+			
+			Integer accountId = (Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
+			TurqAccountingAccount account=new TurqAccountingAccount();
+
+			account.setId(accountId);
+			
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
 			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 			BigDecimal totalAmount=(BigDecimal)argMap.get(EngKeys.TOTAL_AMOUNT);
