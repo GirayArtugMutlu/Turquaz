@@ -17,13 +17,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLAccountSearch;
 import com.turquaz.accounting.ui.AccUISearchAccountsDialog;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
-import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.cloudgarden.resource.SWTResourceManager;
 
@@ -44,6 +42,7 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 	private String filter = "";
 	private Button btnChoose;
 	private Text text1;
+	private HashMap accountMap=null;
 
 	public AccountPickerLeaf(Composite parent, int style)
 	{
@@ -72,7 +71,7 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 				text1.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent evt) {
 						try {
-							setDBData(EngBLAccountingAccounts
+							setDataMap(EngBLAccountingAccounts
 								.getLeafAccount(text1.getText().trim()));
 						} catch (Exception ex) {
                             EngBLLogger.log(this.getClass(),ex);
@@ -135,7 +134,7 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 	{
 		try
 		{
-			setDBData(EngBLAccountingAccounts.getAccount(text1.getText().trim()));
+			setDataMap(EngBLAccountingAccounts.getAccount(text1.getText().trim()));
 		}
 		catch (Exception ex)
 		{
@@ -153,19 +152,26 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 		return text1.getText();
 	}
 
-	public void setData(Object obj)
+	public void setDataMap(HashMap map)
 	{
 		try
 		{
-			super.setData(obj);
-			text1.setText("");
-			if (obj != null)
+			accountMap=map;
+			if (accountMap != null)
 			{
-				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_ACCOUNT_ID, obj);
-				String accCode = (String) EngTXCommon.doSelectTX(AccBLAccountSearch.class.getName(),
-						"getAccountCodeById", argMap);
-				text1.setText(accCode);
+				String accCode=(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
+				if (accCode != null)
+				{
+					text1.setText(accCode);
+				}
+				else
+				{
+					text1.setText("");
+				}
+			}
+			else
+			{
+				text1.setText("");
 			}
 		}
 		catch (Exception ex)
@@ -173,21 +179,29 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 			ex.printStackTrace();
 		}
 	}
-	public Object getDBData()
+	public Object getData()
 	{
-		return super.getData();
+		return accountMap;
 	}
 
-	public void setDBData(Object obj)
+	private void setDataInfo(HashMap map)
 	{
-		super.setData(obj);
-		if (obj == null)
+		accountMap=map;
+		if (accountMap == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 		}
 		else
 		{
-			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
+			if (accountMap.get(AccKeys.ACC_ACCOUNT_ID)==null)
+			{
+				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
+			}
+			else
+			{
+				text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
+			}
+			
 		}
 	}
 
@@ -228,6 +242,26 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 		
         String code = new AccUISearchAccountsDialog(getShell(),SWT.NULL).open();
 		text1.setText(code);
+	}
+	
+	public Integer getId()
+	{
+		if (accountMap==null)
+		{
+			return null;
+		}
+		else
+		{
+			Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+			if (accountId==null)
+			{
+				return null;
+			}
+			else
+			{
+				return accountId;
+			}
+		}
 	}
 	
 	
