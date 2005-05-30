@@ -176,6 +176,7 @@ public class BankCardPicker extends org.eclipse.swt.widgets.Composite implements
 	{
 		this.bankData = bankData;
 	}
+	
 	public Object getData()
 	{
 		return bankData;
