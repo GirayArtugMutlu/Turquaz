@@ -185,9 +185,9 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 		}
 	}
 
-	public Object getDBData()
+	public Object getData()
 	{
-		return super.getData();
+		return accountMap;
 	}
 
 	public void setDataMap(HashMap map)
