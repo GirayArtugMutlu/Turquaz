@@ -102,7 +102,7 @@ public class BankBLTransactionSearch
 			transBag.put(CurKeys.CUR_CURRENT_CODE,curCard.getCardsCurrentCode());
 		
 		}
-		System.out.println(transBill.getTurqBanksTransactionType().getId());
+	
 		Iterator it4 =transBill.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
 		if(it4.hasNext())
 		{
@@ -116,7 +116,7 @@ public class BankBLTransactionSearch
 				
 				if(transBill.getTurqBanksTransactionType().getId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DRAW)
 				{
-					System.out.println("Draw");
+					
 					if(transColumn.getDeptAmount().doubleValue()>0)
 					{
 					
@@ -128,7 +128,7 @@ public class BankBLTransactionSearch
 				else if(transBill.getTurqBanksTransactionType().getId().intValue()==EngBLCommon.BANK_TRANS_OTHER_DEPOSIT)
 					
 				{
-					System.out.println("Deposit");
+					
 					if(transColumn.getCreditAmount().doubleValue()>0)
 					{
 					

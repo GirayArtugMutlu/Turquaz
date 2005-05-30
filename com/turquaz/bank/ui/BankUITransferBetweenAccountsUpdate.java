@@ -157,14 +157,14 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 			BigDecimal deptAmount = (BigDecimal)rowInfo.get(EngKeys.DEPT_AMOUNT);
 			BigDecimal creditAmount = (BigDecimal)rowInfo.get(EngKeys.CREDIT_AMOUNT);
 			
-			if (deptAmount.doubleValue()>0)
+			if (creditAmount.doubleValue()>0)
 			{
 				compTransfer.getBankCardPickerWithCredit().setText(rowInfo.get(BankKeys.BANK_CODE).toString());
-				compTransfer.getCurAmount().setText(deptAmount);
+				compTransfer.getCurAmount().setText(creditAmount);
 			}
 			else
 			{
-				compTransfer.getCurAmount().setText(creditAmount);
+				compTransfer.getCurAmount().setText(deptAmount);
 				compTransfer.getBankCardPickerWithDept().setText(rowInfo.get(BankKeys.BANK_CODE).toString());
 			
 			}		
