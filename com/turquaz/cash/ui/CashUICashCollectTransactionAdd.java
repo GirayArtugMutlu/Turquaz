@@ -23,6 +23,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
+
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -241,7 +243,7 @@ public class CashUICashCollectTransactionAdd extends org.eclipse.swt.widgets.Com
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD,txtCashCard.getData());
-				argMap.put(EngKeys.CURRENT_CARD,txtCurrentAccount.getData());
+				argMap.put(CurKeys.CUR_CARD,txtCurrentAccount.getData());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CASH_CURRENT_COLLECT));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,curTextTotalAmount.getBigDecimalValue());

@@ -39,6 +39,7 @@ import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.CheServerLangKeys;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
@@ -155,7 +156,7 @@ public class CheBLUpdateChequeRoll
 		
 			TurqChequeRoll chequeRoll = (TurqChequeRoll) argMap.get(CheKeys.CHE_CHEQUE_ROLL);
 			TurqAccountingAccount rollAccount =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-			 TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			 TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 			 
 			 Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
 				

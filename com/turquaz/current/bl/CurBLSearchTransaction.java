@@ -44,7 +44,7 @@ public class CurBLSearchTransaction
 			throws Exception
 	{
 		
-		 Object curCard = argMap.get(EngKeys.CURRENT_CARD);
+		 Object curCard = argMap.get(CurKeys.CUR_CARD);
 		 Object type = argMap.get(EngKeys.TYPE);
 		 String docNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
@@ -68,7 +68,7 @@ public class CurBLSearchTransaction
 	public static List getCurrentTransactions(HashMap argMap) throws Exception
 	{
 		
-		TurqCurrentCard card = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard card = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
 		return CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
@@ -79,7 +79,7 @@ public class CurBLSearchTransaction
 	{
 		
 		
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		Boolean isCredit =  (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);

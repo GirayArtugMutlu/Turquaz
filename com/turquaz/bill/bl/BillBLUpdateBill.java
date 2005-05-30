@@ -13,6 +13,7 @@ import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -186,7 +187,7 @@ public class BillBLUpdateBill
 			Boolean isPrinted=(Boolean)argMap.get(BillKeys.BILL_IS_PRINTED);
 			Date billDate=(Date)argMap.get(BillKeys.BILL_DATE);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 			Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
 			BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);			
 			BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);

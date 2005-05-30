@@ -43,6 +43,7 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
@@ -287,7 +288,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 				HashMap argMap=new HashMap();
 				
 				argMap.put(BankKeys.BANK_ID,txtBankCard.getBankId());
-				argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
+				argMap.put(CurKeys.CUR_CARD,currentPicker.getData());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_SEND_MONEY));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(EngKeys.TOTAL_AMOUNT,curAmount.getBigDecimalValue());

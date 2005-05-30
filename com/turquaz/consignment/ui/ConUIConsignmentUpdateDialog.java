@@ -20,6 +20,7 @@ import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -334,7 +335,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(EngKeys.DEFINITION,compAddConsignment.getTxtDefinition().getText().trim());
 			argMap.put(ConsKeys.CONS_DATE,compAddConsignment.getDateConsignmentDate().getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
-			argMap.put(EngKeys.CURRENT_CARD,compAddConsignment.getTxtCurrentCard().getData());
+			argMap.put(CurKeys.CUR_CARD,compAddConsignment.getTxtCurrentCard().getData());
 			argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 			argMap.put(ConsKeys.CONS_GROUPS,compAddConsignment.getConsignmentGroups());
 			argMap.put(InvKeys.INV_TRANSACTIONS,compAddConsignment.getInventoryTransactions(type));

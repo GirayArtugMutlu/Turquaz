@@ -7,6 +7,7 @@ import java.util.List;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.bill.dal.BillDALUpdateBill;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -18,7 +19,7 @@ public class BillBLSearchBill
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);

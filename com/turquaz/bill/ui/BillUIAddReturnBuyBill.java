@@ -48,6 +48,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
+
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -1092,7 +1094,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
                 argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
                 argMap.put(BillKeys.BILL_DATE,dateConsignmentDate.getDate());
                 argMap.put(EngKeys.TYPE, new Integer(type));
-                argMap.put(EngKeys.CURRENT_CARD,txtCurrentCard.getData());
+                argMap.put(CurKeys.CUR_CARD,txtCurrentCard.getData());
                 argMap.put(BillKeys.BILL_DUE_DATE,dateDueDate.getDate());
                 argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
                 argMap.put(BillKeys.BILL_DOC_NO,txtDocumentNo.getText().trim());

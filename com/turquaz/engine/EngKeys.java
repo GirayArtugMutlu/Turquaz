@@ -36,7 +36,6 @@ public class EngKeys
 	public final static String DOCUMENT_NO="documentNo";	
 	public final static String DOCUMENT_NO_START="documentNoStart";
 	public final static String DOCUMENT_NO_END="documentNoEnd";
-	public final static String CURRENT_CARD="currentCard";
 	public final static String CURRENT_CARD_START="currentCardStart";
 	public final static String CURRENT_CARD_END="currentCardEnd";
 	public final static String AMOUNT_IN="amountIn";

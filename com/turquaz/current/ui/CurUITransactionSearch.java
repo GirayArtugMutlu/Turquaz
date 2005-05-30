@@ -34,6 +34,7 @@ import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
 import com.turquaz.bill.ui.BillUIBillSearch;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.EngKeys;
@@ -319,7 +320,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			BigDecimal totalCredit = new BigDecimal(0);
 			
 			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(CurKeys.CUR_CARD,txtCurCard.getData());
 			argMap.put(EngKeys.TYPE,comboTransactionGroup.getData(comboTransactionGroup.getText()));
 			argMap.put(EngKeys.DOCUMENT_NO,"");
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());

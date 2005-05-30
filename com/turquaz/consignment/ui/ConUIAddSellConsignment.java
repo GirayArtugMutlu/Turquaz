@@ -46,6 +46,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
+
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
@@ -917,7 +919,7 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 				argMap.put(ConsKeys.CONS_IS_PRINTED,new Boolean(false));
 				argMap.put(ConsKeys.CONS_DATE,dateConsignmentDate.getDate());
 				argMap.put(EngKeys.TYPE,new Integer(CONS_TYPE));
-				argMap.put(EngKeys.CURRENT_CARD,txtCurrentCard.getData());
+				argMap.put(CurKeys.CUR_CARD,txtCurrentCard.getData());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(ConsKeys.CONS_GROUPS,getConsignmentGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				

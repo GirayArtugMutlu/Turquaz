@@ -33,6 +33,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -250,7 +251,7 @@ public class CheUIChequeInPayrollUpdate extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap = new HashMap();
 				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
 				argMap.put(AccKeys.ACC_ACCOUNT_ID,compChequeRoll.getAccountPicker().getId());
-				argMap.put(EngKeys.CURRENT_CARD,compChequeRoll.getCurrentPicker().getData());
+				argMap.put(CurKeys.CUR_CARD,compChequeRoll.getCurrentPicker().getData());
 				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
 				argMap.put(EngKeys.DATE,compChequeRoll.getDatePicker1().getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);

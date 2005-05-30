@@ -131,7 +131,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 					{
 						try
 						{
-							txtCurrentCode.setData(EngBLCurrentCards.getCards(txtCurrentCode.getText().trim()));
+							txtCurrentCode.setData(EngBLCurrentCards.getCardsId(txtCurrentCode.getText().trim()));
 						}
 						catch (Exception ex)
 						{
@@ -373,7 +373,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				//4,at the end means cash, it is a cash Transaction
 				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
 				HashMap argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) txtCurrentCode.getData());
+				argMap.put(CurKeys.CUR_CARD,(TurqCurrentCard) txtCurrentCode.getData());
 				argMap.put(AccKeys.ACC_ACCOUNT, accPickerCashAccount.getData());
 				argMap.put(EngKeys.DATE,dateTransDate.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,"");

@@ -353,7 +353,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				TurqCurrentTransactionType transType = (TurqCurrentTransactionType)it.next();
 				HashMap argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD,currentCard);
+				argMap.put(CurKeys.CUR_CARD,currentCard);
 				argMap.put(EngKeys.TYPE,transType.getId());
 				
 				List balanceList = (List)EngTXCommon.doSelectTX(CurBLCurrentCardUpdate.class.getName(),"getCurrentTransactionBalances",argMap);
@@ -402,7 +402,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg2 = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
 			
 			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.CURRENT_CARD,currentCard);
+			argMap.put(CurKeys.CUR_CARD,currentCard);
 			
 			List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 			
@@ -420,7 +420,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				updated = true;
 				argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD,currentCard);
+				argMap.put(CurKeys.CUR_CARD,currentCard);
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
 				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				msg.open();
@@ -490,7 +490,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(CurKeys.CUR_PHONE_LIST,compCurCardAdd.getPhoneList());
 				argMap.put(CurKeys.CUR_CONTACT_INFO,compCurCardAdd.getContactInfo());
 				argMap.put(CurKeys.CUR_GROUP_LIST,compCurCardAdd.getGroupList());
-				argMap.put(EngKeys.CURRENT_CARD,currentCard);
+				argMap.put(CurKeys.CUR_CARD,currentCard);
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"updateCurrentCard",argMap);
 				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$

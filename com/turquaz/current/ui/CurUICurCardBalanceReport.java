@@ -55,7 +55,6 @@ import org.eclipse.swt.custom.CTabItem;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
-import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -376,7 +375,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 					
 					
 					argMap = new HashMap();
-					argMap.put(EngKeys.CURRENT_CARD,currentCard);
+					argMap.put(CurKeys.CUR_CARD,currentCard);
 					
 					List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 					
@@ -392,7 +391,7 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 					{
 						
 						 argMap = new HashMap();
-						argMap.put(EngKeys.CURRENT_CARD,currentCard);
+						argMap.put(CurKeys.CUR_CARD,currentCard);
 						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
 						msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						msg.open();

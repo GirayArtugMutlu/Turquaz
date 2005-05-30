@@ -188,7 +188,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				{
 
 					argMap = new HashMap();
-					argMap.put(EngKeys.CURRENT_CARD, curTrans.getTurqCurrentCard());
+					argMap.put(CurKeys.CUR_CARD, curTrans.getTurqCurrentCard());
 					argMap.put(EngKeys.TYPE,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
 					
 					Object curAccount = EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap);
@@ -229,7 +229,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				 
 				 argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
+				argMap.put(CurKeys.CUR_CARD,(TurqCurrentCard)compVoucher.getTxtCurrentCard().getData());
 				argMap.put(AccKeys.ACC_ACCOUNT_ID, compVoucher.getAccountPicker().getId());
 				argMap.put(EngKeys.DATE,compVoucher.getDateTransDate().getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,"");

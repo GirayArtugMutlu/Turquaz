@@ -11,6 +11,7 @@ import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
@@ -322,7 +323,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
 				argMap.put(BillKeys.BILL_DATE,compAddBill.getDateConsignmentDate().getDate());
 				argMap.put(EngKeys.TYPE,new Integer(type));
-				argMap.put(EngKeys.CURRENT_CARD,compAddBill.getTxtCurrentCard().getData());
+				argMap.put(CurKeys.CUR_CARD,compAddBill.getTxtCurrentCard().getData());
 				argMap.put(BillKeys.BILL_DUE_DATE,compAddBill.getDateDueDate().getDate());
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,compAddBill.getTxtDiscountAmount().getBigDecimalValue());			
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,compAddBill.getTxtTotalAmount().getBigDecimalValue());

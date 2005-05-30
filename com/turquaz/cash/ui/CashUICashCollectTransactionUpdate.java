@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -216,7 +217,7 @@ public class CashUICashCollectTransactionUpdate extends Dialog
 
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD,compTransAdd.getTxtCashCard().getData());
-				argMap.put(EngKeys.CURRENT_CARD,compTransAdd.getTxtCurrentAccount().getData());
+				argMap.put(CurKeys.CUR_CARD,compTransAdd.getTxtCurrentAccount().getData());
 				
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT, compTransAdd.getCurTextTotalAmount().getBigDecimalValue());
 				argMap.put(EngKeys.DATE,compTransAdd.getDatePicker().getDate());

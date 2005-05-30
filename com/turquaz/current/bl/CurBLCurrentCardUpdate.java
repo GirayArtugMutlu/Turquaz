@@ -45,7 +45,7 @@ public class CurBLCurrentCardUpdate
 	public static void updateCurrentCard(HashMap argMap) throws Exception
 	{
 		
-		 TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD); 
+		 TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD); 
 		 String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);	
 		 String cardName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
 		 String cardDefinition = (String)argMap.get(EngKeys.DEFINITION);
@@ -170,7 +170,7 @@ public class CurBLCurrentCardUpdate
 
 	public static void deleteCurrentCard(HashMap argMap) throws Exception
 	{
-		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		
 			deleteCurrentCardAccounts(currentCard);
 			deleteCurrentCardContact(currentCard);
@@ -187,7 +187,7 @@ public class CurBLCurrentCardUpdate
 
 	public static List getCurrentTransactionBalances(HashMap argMap) throws Exception
 	{
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		Integer type = (Integer)argMap.get(EngKeys.TYPE);
 		
 			TurqCurrentTransactionType transType = new TurqCurrentTransactionType();

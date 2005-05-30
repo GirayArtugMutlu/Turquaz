@@ -316,7 +316,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				}
 				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
 				HashMap argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD,(TurqCurrentCard) txtCurrentCard.getData());
+				argMap.put(CurKeys.CUR_CARD,(TurqCurrentCard) txtCurrentCard.getData());
 				argMap.put(AccKeys.ACC_ACCOUNT_ID, accountPicker.getId());
 				argMap.put(EngKeys.DATE,dateTransDate.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,"");

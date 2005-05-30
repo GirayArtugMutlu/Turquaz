@@ -20,6 +20,7 @@ import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -375,7 +376,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			
 			HashMap argMap = new HashMap();
 			argMap.put(EngKeys.DOCUMENT_NO,txtPortFoyNo.getText().trim());
-			argMap.put(EngKeys.CURRENT_CARD,currentPicker.getData());
+			argMap.put(CurKeys.CUR_CARD,currentPicker.getData());
 			argMap.put(CheKeys.CHE_STATUS,cheStat);
 			argMap.put(CheKeys.CHE_START_ENTER_DATE,datePickerStartEnterDate.getDate());
 			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());

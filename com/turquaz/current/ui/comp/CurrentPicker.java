@@ -36,6 +36,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.ui.CurUICurrentCardSearchDialog;
 import com.turquaz.engine.EngKeys;
@@ -203,7 +204,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 				{
 
 					HashMap argMap = new HashMap();
-					argMap.put(EngKeys.CURRENT_CARD, obj);
+					argMap.put(CurKeys.CUR_CARD, obj);
 					argMap.put(EngKeys.TYPE,pickerAccountType);
 					
 					

@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.consignment.ConsKeys;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -51,7 +52,7 @@ public class ConBLAddConsignment
 			Boolean isPrinted=(Boolean)argMap.get(ConsKeys.CONS_IS_PRINTED);
 			Date consignmentDate=(Date)argMap.get(ConsKeys.CONS_DATE);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			List groups=(List)argMap.get(ConsKeys.CONS_GROUPS);
 			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);

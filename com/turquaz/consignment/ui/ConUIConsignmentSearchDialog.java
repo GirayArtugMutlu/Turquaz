@@ -39,6 +39,8 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
+
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -327,7 +329,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				curCard = (TurqCurrentCard) txtCurCard.getData();
 				tableConsignments.removeAll();
 				HashMap argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD, txtCurCard.getData());
+				argMap.put(CurKeys.CUR_CARD, txtCurCard.getData());
 				argMap.put(EngKeys.DATE_START, dateStartDate.getDate());
 				argMap.put(EngKeys.DATE_END, dateEndDate.getDate());
 				List list = (List) EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),

@@ -348,7 +348,7 @@ public class CurUICurCardCreditList extends Composite implements SearchComposite
 					
 					
 					argMap = new HashMap();
-					argMap.put(EngKeys.CURRENT_CARD,currentCard);
+					argMap.put(CurKeys.CUR_CARD,currentCard);
 					
 					List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 					
@@ -364,7 +364,7 @@ public class CurUICurCardCreditList extends Composite implements SearchComposite
 					{
 						
 						 argMap = new HashMap();
-						argMap.put(EngKeys.CURRENT_CARD,currentCard);
+						argMap.put(CurKeys.CUR_CARD,currentCard);
 						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
 					
 						msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$

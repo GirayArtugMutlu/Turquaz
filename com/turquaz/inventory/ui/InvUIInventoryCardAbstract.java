@@ -56,6 +56,7 @@ import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
 import com.turquaz.inventory.ui.comp.InventoryPicker;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
@@ -371,7 +372,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_START,txtInvCardStart.getData());
 			argMap.put(InvKeys.INV_CARD_END,txtInvCardEnd.getData());
-			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(CurKeys.CUR_CARD,txtCurCard.getData());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));

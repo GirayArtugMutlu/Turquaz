@@ -50,6 +50,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
@@ -359,7 +360,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			}
 			HashMap argMap=new HashMap();
 			
-			argMap.put(EngKeys.CURRENT_CARD,txtCurCard.getData());
+			argMap.put(CurKeys.CUR_CARD,txtCurCard.getData());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));

@@ -274,7 +274,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 				
 				HashMap argMap = new HashMap();
-				argMap.put(EngKeys.CURRENT_CARD, compTransactionAdd.getTxtCurrentCode().getData(
+				argMap.put(CurKeys.CUR_CARD, compTransactionAdd.getTxtCurrentCode().getData(
 						compTransactionAdd.getTxtCurrentCode().getText()));
 				argMap.put(EngKeys.DATE,compTransactionAdd.getDateTransDate().getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,compTransactionAdd.getTxtDocumentNo().getText());

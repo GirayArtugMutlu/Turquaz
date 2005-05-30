@@ -22,6 +22,8 @@ package com.turquaz.inventory.bl;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -40,7 +42,7 @@ public class InvBLSearchTransaction
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
@@ -57,7 +59,7 @@ public class InvBLSearchTransaction
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 			TurqInventoryCard invCardStart=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD_START);
 			TurqInventoryCard invCardEnd=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD_END);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);

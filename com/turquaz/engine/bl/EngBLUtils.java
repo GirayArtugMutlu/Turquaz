@@ -49,9 +49,9 @@ import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
-import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -464,7 +464,7 @@ public class EngBLUtils
 			
 			
 			 argMap = new HashMap();
-			argMap.put(EngKeys.CURRENT_CARD,curCard);
+			argMap.put(CurKeys.CUR_CARD,curCard);
 
 			
 			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
@@ -534,7 +534,7 @@ public class EngBLUtils
 			parameters.put("despatchNoteId", cons.getConsignmentDocumentNo());
 			
 			argMap = new HashMap();
-			argMap.put(EngKeys.CURRENT_CARD,curCard);
+			argMap.put(CurKeys.CUR_CARD,curCard);
 
 			
 			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);

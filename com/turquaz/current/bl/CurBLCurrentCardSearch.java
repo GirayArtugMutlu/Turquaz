@@ -22,6 +22,8 @@ package com.turquaz.current.bl;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.EngKeys;
@@ -62,16 +64,31 @@ public class CurBLCurrentCardSearch
 	public static TurqViewCurrentAmountTotal getCurrentCardView(HashMap argMap) throws Exception
 	{
 		
-		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		
 		return CurDALCurrentCardSearch.getCurrentCardView(currentCard);
 		
 	}
-	public static List getCurrentCards() throws Exception
+	public static HashBag getCurrentCards() throws Exception
 	{
 		try
 		{
-			return CurDALCurrentCardSearch.getCurrentCards();
+			HashBag returnBag = new HashBag();
+			returnBag.put(CurKeys.CUR_CARDS,new HashMap());
+			
+			List list = CurDALCurrentCardSearch.getCurrentCards();
+			for(int i=0;i<list.size();i++)
+			{
+				Object []cardInfo = (Object[])list.get(i);
+				returnBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_CODE,cardInfo[0]);
+				returnBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_NAME,cardInfo[1]);
+				returnBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CARD_ID,cardInfo[2]);
+				
+				
+			}
+			
+			
+			return returnBag;
 		}
 		catch (Exception ex)
 		{
@@ -83,7 +100,7 @@ public class CurBLCurrentCardSearch
 	{
 		
 		
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		
 		return CurDALCurrentCardSearch.getTransactions(curCard);
 		
@@ -116,7 +133,7 @@ public class CurBLCurrentCardSearch
 	public static TurqAccountingAccount getCurrentAccountingAccount(HashMap argMap) throws Exception
 	{
 	
-	   TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+	   TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 	   Integer type = (Integer)argMap.get(EngKeys.TYPE);	   	
 		return CurDALCurrentCardSearch.getCurrentAccountingAccount(curCard, type);
 		

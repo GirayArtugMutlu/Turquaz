@@ -6,8 +6,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLSearchTransaction;
-import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -176,7 +177,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		{
 			tableCurrentTransactions.removeAll();
 			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.CURRENT_CARD,currentCard);
+			argMap.put(CurKeys.CUR_CARD,currentCard);
 			
 			List results =(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentTransactions",argMap); 
 			

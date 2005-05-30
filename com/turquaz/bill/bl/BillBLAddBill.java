@@ -16,6 +16,7 @@ import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
@@ -49,7 +50,7 @@ public class BillBLAddBill
         Boolean isPrinted = (Boolean) argMap.get(BillKeys.BILL_IS_PRINTED);
         Date billsDate = (Date) argMap.get(BillKeys.BILL_DATE);
         Integer type = (Integer) argMap.get(EngKeys.TYPE);
-        TurqCurrentCard currentCard = (TurqCurrentCard) argMap.get(EngKeys.CURRENT_CARD);
+        TurqCurrentCard currentCard = (TurqCurrentCard) argMap.get(CurKeys.CUR_CARD);
         Date dueDate = (Date) argMap.get(BillKeys.BILL_DUE_DATE);
         Date consDate = (Date) argMap.get(ConsKeys.CONS_DATE);
         String consDocNo = (String) argMap.get(ConsKeys.CONS_DOC_NO);
@@ -115,7 +116,7 @@ public class BillBLAddBill
             Date billsDate = (Date) argMap.get(BillKeys.BILL_DATE);
             List consList = (List) argMap.get(BillKeys.BILL_CONS_LIST);
             Integer type = (Integer) argMap.get(EngKeys.TYPE);
-            TurqCurrentCard currentCard = (TurqCurrentCard) argMap.get(EngKeys.CURRENT_CARD);
+            TurqCurrentCard currentCard = (TurqCurrentCard) argMap.get(CurKeys.CUR_CARD);
             Date dueDate = (Date) argMap.get(BillKeys.BILL_DUE_DATE);
             BigDecimal discountAmount = (BigDecimal) argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);
             BigDecimal totalAmount = (BigDecimal) argMap.get(BillKeys.BILL_TOTAL_AMOUNT);

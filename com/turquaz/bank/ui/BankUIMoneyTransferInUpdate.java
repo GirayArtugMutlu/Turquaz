@@ -229,7 +229,7 @@ public class BankUIMoneyTransferInUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				argMap.put(BankKeys.BANK_TRANS_BILL_ID,transBillId);
 				argMap.put(BankKeys.BANK_ID,compMoneyTransferIn.getTxtBankCard().getBankId());
-				argMap.put(EngKeys.CURRENT_CARD,compMoneyTransferIn.getCurrentPicker().getData());
+				argMap.put(CurKeys.CUR_CARD,compMoneyTransferIn.getCurrentPicker().getData());
 				argMap.put(EngKeys.TOTAL_AMOUNT,compMoneyTransferIn.getCurAmount().getBigDecimalValue());
 				argMap.put(EngKeys.TRANS_DATE,compMoneyTransferIn.getDatePick().getDate());
 				argMap.put(EngKeys.DEFINITION,compMoneyTransferIn.getTxtDefinition().getText().trim());

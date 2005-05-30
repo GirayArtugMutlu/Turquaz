@@ -152,7 +152,7 @@ public class CurBLCurrentTransactionAdd
     public static Integer saveMultipleOtherTransaction(HashMap argMap)throws Exception
     {
     
-        TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+        TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
         List transColumns = (List)argMap.get(AccKeys.ACC_TRANSACTIONS);       
         Date transDate = (Date)argMap.get(EngKeys.DATE);
         String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
@@ -203,7 +203,7 @@ public class CurBLCurrentTransactionAdd
 		
 		try
 		{
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
@@ -262,7 +262,7 @@ public class CurBLCurrentTransactionAdd
 			throws Exception
 	{
 
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD);
+		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
 		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
