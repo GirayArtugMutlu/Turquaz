@@ -71,7 +71,7 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 				text1.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent evt) {
 						try {
-							setDataMap(EngBLAccountingAccounts
+							setDataInfo(EngBLAccountingAccounts
 								.getLeafAccount(text1.getText().trim()));
 						} catch (Exception ex) {
                             EngBLLogger.log(this.getClass(),ex);
@@ -184,7 +184,7 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 		return accountMap;
 	}
 
-	private void setDataInfo(HashMap map)
+	public void setDataInfo(HashMap map)
 	{
 		accountMap=map;
 		if (accountMap == null)
