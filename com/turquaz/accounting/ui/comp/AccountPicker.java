@@ -43,6 +43,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 	private Button btnChoose;
 	private Text text1;
 	private HashMap accountMap=null;
+	ModifyListener modifyListener=null;
 
 	public AccountPicker(Composite parent, int style)
 	{
@@ -68,7 +69,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 				text1.setSize(new org.eclipse.swt.graphics.Point(358, 22));
 				GridData text1LData = new GridData();
 				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
-				text1.addModifyListener(new ModifyListener()
+				modifyListener=new ModifyListener()
 				{
 					public void modifyText(ModifyEvent evt)
 					{
@@ -86,7 +87,8 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 							EngBLLogger.log(this.getClass(), ex);
 						}
 					}
-				});
+				};
+				text1.addModifyListener(modifyListener);
 				text1LData.verticalAlignment = GridData.FILL;
 				text1LData.horizontalAlignment = GridData.FILL;
 				text1LData.grabExcessHorizontalSpace = true;
@@ -139,18 +141,6 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 				EngBLCommon.CONTENT_ASSIST_MAIN_ACCOUNTS);
 	}
 
-	public void verifyData()
-	{
-		try
-		{
-			setDataMap(EngBLAccountingAccounts.getAccount(text1.getText().trim()));
-		}
-		catch (Exception ex)
-		{
-			EngBLLogger.log(this.getClass(), ex);
-		}
-	}
-
 	public void setText(String arg0)
 	{
 		text1.setText(arg0);
@@ -161,7 +151,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 		return text1.getText();
 	}
 
-	private void setDataInfo(HashMap map)
+	public void setDataInfo(HashMap map)
 	{
 		try
 		{
@@ -172,11 +162,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 				if (accCode != null)
 				{
 					text1.setText(accCode);
-				}
-				else
-				{
-					text1.setText("");
-				}					
+				}				
 			}			
 		}
 		catch (Exception ex)
@@ -192,7 +178,7 @@ public class AccountPicker extends org.eclipse.swt.widgets.Composite implements 
 
 	public void setDataMap(HashMap map)
 	{
-		setDataInfo(map);
+		accountMap=map;
 		if (map == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
