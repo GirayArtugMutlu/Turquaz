@@ -19,6 +19,7 @@ package com.turquaz.accounting.ui.comp;
  * @author  Onsel Armagan
  * @version  $Id$
  */
+import java.util.HashMap;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.DisposeEvent;
@@ -31,6 +32,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
+import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -44,6 +47,7 @@ public class DynamicAccountPicker extends org.eclipse.swt.widgets.Composite
 	private Button button1;
 	private Text text1;
 	private String filter = "";
+	private HashMap accountMap=null;
 
 	public DynamicAccountPicker(Composite parent, int style)
 	{
@@ -133,17 +137,23 @@ public class DynamicAccountPicker extends org.eclipse.swt.widgets.Composite
 	{
 	}
 
-	public void setData(Object obj)
+	public void setDataMap(HashMap map)
 	{
-		super.setData(obj);
-		if (obj != null)
+		accountMap=map;
+		if (map == null)
 		{
-			TurqAccountingAccount account = (TurqAccountingAccount) obj;
-			text1.setText(account.getAccountCode() + "-" + account.getAccountName());
+			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 		}
 		else
 		{
-			text1.setText("");
+			if (map.get(AccKeys.ACC_ACCOUNT_ID)==null)
+			{
+				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
+			}
+			else
+			{
+				text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
+			}
 		}
 	}
 
@@ -173,5 +183,25 @@ public class DynamicAccountPicker extends org.eclipse.swt.widgets.Composite
 	public void setFilter(String filter)
 	{
 		this.filter = filter;
+	}
+	
+	public Integer getId()
+	{
+		if (accountMap==null)
+		{
+			return null;
+		}
+		else
+		{
+			Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+			if (accountId==null)
+			{
+				return null;
+			}
+			else
+			{
+				return accountId;
+			}
+		}
 	}
 }
