@@ -151,7 +151,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite impleme
 		return text1.getText();
 	}
 
-	private void setDataInfo(HashMap map)
+	public void setDataInfo(HashMap map)
 	{
 		accountMap=map;
 		if (accountMap != null)
@@ -170,7 +170,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite impleme
 
 	public void setDataMap(HashMap map)
 	{
-		setDataInfo(map);
+		accountMap=map;
 		if (map == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));

@@ -71,7 +71,7 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 				text1.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent evt) {
 						try {
-							setDataInfo(EngBLAccountingAccounts
+							setDataMap(EngBLAccountingAccounts
 								.getLeafAccount(text1.getText().trim()));
 						} catch (Exception ex) {
                             EngBLLogger.log(this.getClass(),ex);
@@ -157,21 +157,20 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 		try
 		{
 			accountMap=map;
-			if (accountMap != null)
+			if (accountMap == null)
 			{
-				String accCode=(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
-				if (accCode != null)
-				{
-					text1.setText(accCode);
-				}
-				else
-				{
-					text1.setText("");
-				}
+				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
 			}
 			else
 			{
-				text1.setText("");
+				if (accountMap.get(AccKeys.ACC_ACCOUNT_ID)==null)
+				{
+					text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
+				}
+				else
+				{
+					text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
+				}			
 			}
 		}
 		catch (Exception ex)
@@ -187,22 +186,23 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 	public void setDataInfo(HashMap map)
 	{
 		accountMap=map;
-		if (accountMap == null)
+		if (accountMap != null)
 		{
-			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
-		}
-		else
-		{
-			if (accountMap.get(AccKeys.ACC_ACCOUNT_ID)==null)
+			String accCode=(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
+			if (accCode != null)
 			{
-				text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
+				text1.setText(accCode);
 			}
 			else
 			{
-				text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
+				text1.setText("");
 			}
-			
 		}
+		else
+		{
+			text1.setText("");
+		}
+
 	}
 
 	/** Auto-generated event handler method */
