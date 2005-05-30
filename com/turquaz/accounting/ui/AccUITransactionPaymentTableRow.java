@@ -5,10 +5,9 @@ import java.util.HashMap;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
@@ -18,16 +17,18 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 {
 	String formatted = "";
 	TableRowList rowList;
+	int columnTypes[] = null;
 	int row_index = 0;
-	private TurqAccountingTransactionColumn transRow = new TurqAccountingTransactionColumn();
-
+	private HashMap transRow=new HashMap();
+	
 	public AccUITransactionPaymentTableRow(TableRowList rowList)
 	{
 		super();
 		this.rowList = rowList;
-		transRow.setTransactionDefinition("");
-		transRow.setCreditAmount(new BigDecimal(0));
-		transRow.setDeptAmount(new BigDecimal(0));
+
+		transRow.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
+		transRow.put(EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+		transRow.put(AccKeys.ACC_TRANS_ROW_DEFINITION,"");
 	}
 
 	public void setRowIndex(int a)
@@ -42,7 +43,7 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 
 	public Color getColor()
 	{
-		if (transRow.getTurqAccountingAccount() == null)
+		if (transRow.get(AccKeys.ACC_ACCOUNT) == null)
 		{
 			return SWTResourceManager.getColor(255, 198, 198);
 		}
@@ -65,22 +66,26 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 	{
 		TurkishCurrencyFormat df = new TurkishCurrencyFormat();
 		String result = "";
+		HashMap accountMap=(HashMap)transRow.get(AccKeys.ACC_ACCOUNT);
 		switch (column_index)
 		{
 			case 0 :
-				if (transRow.getTurqAccountingAccount() != null)
-					result = transRow.getTurqAccountingAccount().getAccountCode();
+				if (accountMap != null)
+				{
+					result = (String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
+				}
 				break;
 			case 1 :
-				if (transRow.getTurqAccountingAccount() != null)
-					result = transRow.getTurqAccountingAccount().getAccountName();
-				break;
-			case 3 :
-				result = df.format(transRow.getDeptAmount());
+				if (accountMap != null)
+					result = (String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME);
 				break;
 			case 2 :
-				result = transRow.getTransactionDefinition();
+				result = (String)transRow.get(AccKeys.ACC_TRANS_ROW_DEFINITION);
 				break;
+			case 3 :
+				result = df.format((BigDecimal)transRow.get(EngKeys.DEPT_AMOUNT));
+				break;
+
 			default :
 				result = "";
 		}
@@ -90,31 +95,33 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 	public Object getValue(int column_index)
 	{
 		Object result = null;
+		HashMap accountMap=(HashMap)transRow.get(AccKeys.ACC_ACCOUNT);
 		switch (column_index)
 		{
 			case 0 :
-				if (transRow.getTurqAccountingAccount() != null)
+				if (accountMap != null)
 				{
-					result = transRow.getTurqAccountingAccount().getAccountCode();
+					result =(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
 				}
 				else
 					result = "";
 				break;
 			case 1 :
-				if (transRow.getTurqAccountingAccount() != null)
+				if (accountMap != null)
 				{
-					result = transRow.getTurqAccountingAccount().getAccountName();
+					result = (String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME);
 				}
 				else
 					result = "";
 				break;
+			case 2 :
+				result = (String)transRow.get(AccKeys.ACC_TRANS_ROW_DEFINITION);
+				break;
 			case 3 :
-				result = transRow.getDeptAmount().toString();
+				result = result =transRow.get(EngKeys.DEPT_AMOUNT).toString();
 				result = ((String) result).replaceAll("\\.", ",");
 				break;
-			case 2 :
-				result = transRow.getTransactionDefinition();
-				break;
+
 			default :
 				result = "";
 		}
@@ -131,9 +138,8 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 					HashMap accountMap = EngBLAccountingAccounts.getAccount(value.toString().trim());
 					if (accountMap != null)
 					{
-						TurqAccountingAccount acc=new TurqAccountingAccount();
-						acc.setId((Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID));
-						transRow.setTurqAccountingAccount(acc);
+						transRow.put(AccKeys.ACC_ACCOUNT,accountMap);
+
 					}
 				}
 				catch (Exception ex)
@@ -151,10 +157,10 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				transRow.setDeptAmount(new BigDecimal(formatted));
+				transRow.put(EngKeys.DEPT_AMOUNT,new BigDecimal(formatted));
 				break;
 			case 2 :
-				transRow.setTransactionDefinition(value.toString());
+				transRow.put(AccKeys.ACC_TRANS_ROW_DEFINITION,value.toString());
 				break;
 		}
 		rowList.taskChanged(this);
@@ -189,17 +195,17 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 
 	public void setDBObject(Object transRow)
 	{
-		this.transRow = (TurqAccountingTransactionColumn) transRow;
+		this.transRow = (HashMap) transRow;
 	}
 
-	public void setTransRow(TurqAccountingTransactionColumn transRow)
+	public void setTransRow(HashMap transRow)
 	{
 		this.transRow = transRow;
 	}
 
 	public boolean okToSave()
 	{
-		if (transRow.getTurqAccountingAccount() == null)
+		if (transRow.get(AccKeys.ACC_ACCOUNT) == null)
 		{
 			return false;
 		}
@@ -208,7 +214,6 @@ public class AccUITransactionPaymentTableRow implements ITableRow
 			return true;
 		}
 	}
-	int columnTypes[] = null;
 
 	public int getColumnType(int index)
 	{

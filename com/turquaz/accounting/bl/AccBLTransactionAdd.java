@@ -72,6 +72,7 @@ public class AccBLTransactionAdd
 				transCounterRow.setCreditAmount(new BigDecimal(0));
 				if (transCounterRow.getDeptAmount().doubleValue() > 0)
 				{
+					//send transCounterRowMap
 					registerAccTransactionRow(transCounterRow, transId, exchangeRate);
 				}
 			}
@@ -113,8 +114,8 @@ public class AccBLTransactionAdd
 	{
 		for(int k=0; k<transColumns.size(); k++)
 		{
-			TurqAccountingTransactionColumn transCol = (TurqAccountingTransactionColumn)transColumns.get(k);
-			registerAccTransactionRow(transCol, transId, exchangeRate);
+			HashMap transRow = (HashMap)transColumns.get(k);
+			registerAccTransactionRow(transRow, transId, exchangeRate);
 		}
 	}
 	
@@ -129,17 +130,34 @@ public class AccBLTransactionAdd
 		
 	}
 
-	private static void registerAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID,
+	private static void registerAccTransactionRow(HashMap transRowMap, Integer transID,
 			TurqCurrencyExchangeRate exchangeRate) throws Exception
 	{
 		try
 		{
-			if (transRow.getCreditAmount().compareTo(new BigDecimal(0)) < 1 && transRow.getDeptAmount().compareTo(new BigDecimal(0)) < 1)
+			if (((BigDecimal)transRowMap.get(EngKeys.CREDIT_AMOUNT)).compareTo(new BigDecimal(0)) < 1 && ((BigDecimal)transRowMap.get(EngKeys.DEPT_AMOUNT)).compareTo(new BigDecimal(0)) < 1)
 			{
 				return;
 			}
+			
+			if (exchangeRate==null)
+				System.out.println("NULLLLLLLLL");
+			if (exchangeRate.getExchangeRatio()==null)
+				System.out.println("ZZZZZZZZ");
 			TurqAccountingTransaction trans = new TurqAccountingTransaction();
 			trans.setId(transID);
+			
+			TurqAccountingTransactionColumn transRow=new TurqAccountingTransactionColumn();
+			transRow.setDeptAmount((BigDecimal)transRowMap.get(EngKeys.DEPT_AMOUNT));
+			transRow.setCreditAmount((BigDecimal)transRowMap.get(EngKeys.CREDIT_AMOUNT));
+			transRow.setTransactionDefinition((String)transRowMap.get(AccKeys.ACC_TRANS_ROW_DEFINITION));
+			
+			HashMap accountMap=(HashMap)transRowMap.get(AccKeys.ACC_ACCOUNT);
+			Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+			TurqAccountingAccount account=new TurqAccountingAccount();
+			account.setId(accountId);
+			transRow.setTurqAccountingAccount(account);
+			
 			transRow.setTurqAccountingTransaction(trans);
 			transRow.setTurqCurrencyExchangeRate(exchangeRate);
 			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRate.getExchangeRatio()).setScale(2,
@@ -158,6 +176,37 @@ public class AccBLTransactionAdd
 			throw ex;
 		}
 	}	
+	
+	private static void registerAccTransactionRow(TurqAccountingTransactionColumn transRow, Integer transID,
+			TurqCurrencyExchangeRate exchangeRate) throws Exception
+	{
+		try
+		{
+			if (transRow.getCreditAmount().compareTo(new BigDecimal(0)) < 1 && transRow.getDeptAmount().compareTo(new BigDecimal(0)) < 1)
+			{
+				return;
+			}
+			TurqAccountingTransaction trans = new TurqAccountingTransaction();
+			trans.setId(transID);
+			
+			transRow.setTurqAccountingTransaction(trans);
+			transRow.setTurqCurrencyExchangeRate(exchangeRate);
+			transRow.setRowsCreditInBaseCurrency(transRow.getCreditAmount().multiply(exchangeRate.getExchangeRatio()).setScale(2,
+					EngBLCommon.ROUNDING_METHOD));
+			transRow.setRowsDeptInBaseCurrency(transRow.getDeptAmount().multiply(exchangeRate.getExchangeRatio()).setScale(2,
+					EngBLCommon.ROUNDING_METHOD));
+			transRow.setCreatedBy(System.getProperty("user"));
+			transRow.setUpdatedBy(System.getProperty("user"));
+			Calendar cal = Calendar.getInstance();
+			transRow.setLastModified(cal.getTime());
+			transRow.setCreationDate(cal.getTime());
+			EngDALCommon.saveObject(transRow);
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 	
 	public static void saveAccTransactionFromUI(HashMap argMap)throws Exception{
 		

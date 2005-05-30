@@ -17,6 +17,9 @@ public class EngKeys
 
 	public final static String OBJECT="object";
 	public final static String EXCHANGE_RATE = "exchangeRate";
+	public final static String EXCHANGE_RATE_ID = "exchangeRateId";
+	public final static String EXCHANGE_CURRENCY_ID = "exchangeCurrencyId";
+	public final static String EXCHANGE_CURRENCY_ABBR = "exchangeCurrencyAbbr";
 	public final static String DATE="date";
 	public final static String DATE_START="dateStart";
 	public final static String DATE_END="dateEnd";
