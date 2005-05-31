@@ -21,8 +21,6 @@ package com.turquaz.accounting.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.swt.widgets.Display;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -35,8 +33,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
 
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqViewAccTotal;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -259,46 +258,36 @@ public class AccUISearchAccountsDialog extends org.eclipse.swt.widgets.Dialog im
             argMap.put(AccKeys.ACC_ACCOUNT_CODE,txtAccountCode.getText().trim());
             argMap.put(AccKeys.ACC_ACCOUNT_NAME,txtAccountName.getText().trim());
             
-            List mainBranches = (List) EngTXCommon.doSelectTX(AccBLAccountSearch.class.getName(), "searchAccounts", argMap);
+            HashBag mainBranches = (HashBag) EngTXCommon.doSelectTX(AccBLAccountSearch.class.getName(), "searchAccounts", argMap);
             TableItem item ;
             
-            Iterator it = mainBranches.iterator();
+            HashMap accountsMap=(HashMap)mainBranches.get(AccKeys.ACC_ACCOUNTS);
+
             BigDecimal dept;
             BigDecimal credit;
             BigDecimal balance;
             
             TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-            while(it.hasNext())
+            for(int k=0; k<accountsMap.size(); k++)
             {  
-                dept = new BigDecimal(0);
-                credit = new BigDecimal(0);
-                balance = new BigDecimal(0);
+            	HashMap accountMap=(HashMap)accountsMap.get(new Integer(k));
                 
-                Object [] result = (Object[])it.next();
-                item = new TableItem(tableResults,SWT.NULL);
-                TurqViewAccTotal accTotal = (TurqViewAccTotal)result[2];
-                
-                if(accTotal.getTotaldeptamount()!=null)
-                {
-                    dept = accTotal.getTotaldeptamount();
-                }
-                
-                if(accTotal.getTotalcreditamount() != null)
-                {
-                    credit = accTotal.getTotalcreditamount();
-                }
+            	dept = (BigDecimal)accountMap.get(EngKeys.DEPT_AMOUNT);
+                credit = (BigDecimal)accountMap.get(EngKeys.CREDIT_AMOUNT);
                 
                 balance = dept.subtract(credit);
                 
-                item.setText(new String[]{result[0].toString(),result[1].toString(),cf.format(dept),cf.format(credit),cf.format(balance) } );
+                item = new TableItem(tableResults,SWT.NULL);
+                
+                Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+                String accountCode=(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
+                String accountName=(String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME);
+                
+                item.setText(new String[]{accountCode,accountName,cf.format(dept),cf.format(credit),cf.format(balance) } );
            
-                item.setData(result[0]);    
-            
-            } 
-            
-            
+                item.setData(accountCode);             
+            }             
         }
-
         catch (Exception ex)
         {
             EngBLLogger.log(this.getClass(),ex,getParent());  
