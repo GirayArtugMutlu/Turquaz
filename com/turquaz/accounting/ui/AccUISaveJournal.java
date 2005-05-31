@@ -208,7 +208,8 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 			{
 				HashMap transMap=(HashMap)transMaps.get(new Integer(k));
 				item = new TableItem(tableAccountingTransaction, SWT.NULL);
-				item.setData(transMap);
+				Integer transId=(Integer)transMap.get(AccKeys.ACC_TRANS_ID);
+				item.setData(transId);
 				
 				BigDecimal total = (BigDecimal)transMap.get(EngKeys.TOTAL_AMOUNT);
 				
@@ -239,8 +240,8 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 				{
 					if (items[i].getChecked())
 					{
-						HashMap argMap = new HashMap();
-						argMap.put(AccKeys.ACC_TRANSACTION,items[i].getData());
+						HashMap argMap = new HashMap();						
+						argMap.put(AccKeys.ACC_TRANS_ID,items[i].getData());
 						argMap.put(AccKeys.ACC_TRANS_DATE,datePickerJournalDate.getDate());
 						EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"addToJournal",argMap);	
 					}
