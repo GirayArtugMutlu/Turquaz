@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
@@ -172,7 +175,10 @@ public class CurBLCurrentCardAdd
 				curAccount.setLastModified(cal.getTime());
 				curAccount.setCreationDate(cal.getTime());
 				curAccount.setTurqCurrentCard(curCard);
-				curAccount.setTurqAccountingAccount((TurqAccountingAccount) accounts.get(type));
+				
+				TurqAccountingAccount account = new TurqAccountingAccount();
+				account.setId((Integer) accounts.get(type));
+				curAccount.setTurqAccountingAccount(account);
 				TurqCurrentAccountingType accType = new TurqCurrentAccountingType();
 				accType.setId(type);
 				curAccount.setTurqCurrentAccountingType(accType);
@@ -206,7 +212,8 @@ public class CurBLCurrentCardAdd
 	{
 		for (int k = 0; k < groupList.size(); k++)
 		{
-			TurqCurrentGroup curGroup = (TurqCurrentGroup) groupList.get(k);
+			TurqCurrentGroup curGroup = new TurqCurrentGroup();
+			curGroup.setId((Integer)groupList.get(k));
 			registerCurrentCardGroup(curCardId, curGroup);
 		}
 	}
@@ -233,11 +240,26 @@ public class CurBLCurrentCardAdd
 		}
 	}
 
-	public static List getCurrentGroups() throws Exception
+	public static HashBag getCurrentGroups() throws Exception
 	{
 		try
 		{
-			return CurDALCurrentCardAdd.getCurrentGroups();
+			HashBag  groupBag = new HashBag();
+			groupBag.put(AdmKeys.ADM_GROUPS,new HashMap());
+			
+			List list = CurDALCurrentCardAdd.getCurrentGroups();
+			 for(int i=0;i<list.size();i++)
+			 {
+				 TurqCurrentGroup group = (TurqCurrentGroup)list.get(i);
+				 groupBag.put(AdmKeys.ADM_GROUPS,i,AdmKeys.ADM_GROUP_NAME,group.getGroupsName());
+				 groupBag.put(AdmKeys.ADM_GROUPS,i,AdmKeys.ADM_GROUP_DESCRIPTION,group.getGroupsDescription());
+				 groupBag.put(AdmKeys.ADM_GROUPS,i,AdmKeys.ADM_GROUP_ID,group.getId());
+				 
+			 }
+			 
+			 
+			
+			return groupBag; 
 		}
 		catch (Exception ex)
 		{

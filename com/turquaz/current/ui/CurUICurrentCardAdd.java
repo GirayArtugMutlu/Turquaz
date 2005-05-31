@@ -34,15 +34,17 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.accounting.ui.AccUIAddAccountDialog;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -1013,14 +1015,10 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			HashMap groupMap = new HashMap();
-			List list = (List)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null); //$NON-NLS-1$
-			TurqCurrentGroup curGroup;
-			for (int i = 0; i < list.size(); i++)
-			{
-				curGroup = (TurqCurrentGroup) list.get(i);
-				groupMap.put(curGroup.getGroupsName(), curGroup);
-			}
+			
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null); //$NON-NLS-1$
+			HashMap groupMap = (HashMap)groupBag.get(AdmKeys.ADM_GROUPS);
+			
 			compRegisterGroup.fillTableAllGroups(groupMap);
 		}
 		catch (Exception ex)

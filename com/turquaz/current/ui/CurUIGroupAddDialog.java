@@ -21,7 +21,6 @@ package com.turquaz.current.ui;
  */
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -42,11 +41,13 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -285,15 +286,16 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
-			TurqCurrentGroup curGroup;
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
+		
+			HashMap groupList = (HashMap)groupBag.get(AdmKeys.ADM_GROUPS);
 			TableItem item;
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < groupList.size(); i++)
 			{
-				curGroup = (TurqCurrentGroup) list.get(i);
+				HashMap groupInfo = (HashMap) groupList.get(new Integer(i));
 				item = new TableItem(tableCurGroups, SWT.NULL);
-				item.setText(new String[]{curGroup.getGroupsName(), curGroup.getGroupsDescription()});
-				item.setData(curGroup);
+				item.setText(new String[]{groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString(), groupInfo.get(AdmKeys.ADM_GROUP_DESCRIPTION).toString()});
+				item.setData(groupInfo.get(AdmKeys.ADM_GROUP_ID));
 			}
 		}
 		catch (Exception ex)
