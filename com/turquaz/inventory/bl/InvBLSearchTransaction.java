@@ -25,6 +25,7 @@ import java.util.List;
 
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -42,7 +43,12 @@ public class InvBLSearchTransaction
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			TurqCurrentCard curCard=null;
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
 			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
@@ -59,7 +65,12 @@ public class InvBLSearchTransaction
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			TurqCurrentCard curCard=null;
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
 			TurqInventoryCard invCardStart=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD_START);
 			TurqInventoryCard invCardEnd=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD_END);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);

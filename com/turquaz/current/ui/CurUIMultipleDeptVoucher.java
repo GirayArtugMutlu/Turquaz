@@ -438,7 +438,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             {               
                 
                 HashMap argMap = new HashMap();
-                argMap.put(CurKeys.CUR_CARD,currentPicker.getData());
+                argMap.put(CurKeys.CUR_CARD_ID,currentPicker.getCardId());
                 argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
                 argMap.put(EngKeys.DATE,datePickerTransactionDate.getDate());
                 argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());

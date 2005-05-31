@@ -431,7 +431,9 @@ public class EngBLUtils
 			parameters.put("invoiceGrandTotalText",EngBLCurrencyToWords.getTurkishCurrencyInWords(grandTotal));
 			parameters.put("invoiceDate",dformat.format(bill.getBillsDate())); 
 			parameters.put("dueDate", dformat.format(bill.getDueDate()));
+			
 			TurqCurrentCard curCard = bill.getTurqCurrentCard();
+			
 			parameters.put("currentName",curCard.getCardsName());
 			parameters.put("currentAddress", curCard.getCardsAddress());
 			parameters.put("currentTaxNumber", curCard.getCardsTaxNumber());
@@ -464,7 +466,7 @@ public class EngBLUtils
 			
 			
 			 argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD,curCard);
+			argMap.put(CurKeys.CUR_CARD_ID,curCard.getId());
 
 			
 			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);
@@ -534,7 +536,7 @@ public class EngBLUtils
 			parameters.put("despatchNoteId", cons.getConsignmentDocumentNo());
 			
 			argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD,curCard);
+			argMap.put(CurKeys.CUR_CARD_ID,curCard.getId());
 
 			
 			TurqViewCurrentAmountTotal currentView =(TurqViewCurrentAmountTotal)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentCardView",argMap);

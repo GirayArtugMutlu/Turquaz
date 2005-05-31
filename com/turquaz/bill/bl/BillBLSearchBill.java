@@ -9,6 +9,7 @@ import com.turquaz.bill.dal.BillDALSearchBill;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewBillTransTotal;
@@ -19,7 +20,12 @@ public class BillBLSearchBill
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard curCard=null;
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);

@@ -24,6 +24,7 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
@@ -52,7 +53,13 @@ public class ConBLAddConsignment
 			Boolean isPrinted=(Boolean)argMap.get(ConsKeys.CONS_IS_PRINTED);
 			Date consignmentDate=(Date)argMap.get(ConsKeys.CONS_DATE);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard curCard=null;
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
 			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 			List groups=(List)argMap.get(ConsKeys.CONS_GROUPS);
 			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);

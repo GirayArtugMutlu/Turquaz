@@ -18,6 +18,10 @@ import com.turquaz.engine.lang.EngLangCommonKeys;
 public class TurquazException extends Exception implements Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public final static String EX_BILL_DOC_NO=EngLangCommonKeys.MSG_BILL_NO_ALREADY_USED;  //$NON-NLS-1$
 	public final static String EX_ACC_SUB_ACC=EngLangCommonKeys.MSG_CANNOT_DEFINE_SUBACCOUNT_AS_MAIN; //$NON-NLS-1$
 	

@@ -187,7 +187,14 @@ public class BillBLUpdateBill
 			Boolean isPrinted=(Boolean)argMap.get(BillKeys.BILL_IS_PRINTED);
 			Date billDate=(Date)argMap.get(BillKeys.BILL_DATE);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard curCard=null;
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
+			
 			Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
 			BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);			
 			BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);

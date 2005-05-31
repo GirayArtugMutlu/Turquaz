@@ -156,7 +156,15 @@ public class CashBLCashTransactionAdd
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
-		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD); 
+		 
+		 Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard current=null;
+			if(curCardId!=null)
+			{
+				current=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
+		 
+		 
 		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
 			Calendar cal = Calendar.getInstance();
@@ -394,7 +402,10 @@ public class CashBLCashTransactionAdd
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
-		 TurqCurrentCard current = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD); 
+		 
+		
+		 
+		 
 		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
 		

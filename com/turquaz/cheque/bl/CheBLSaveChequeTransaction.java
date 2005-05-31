@@ -64,7 +64,13 @@ public class CheBLSaveChequeTransaction
 	public static void saveChequeRoll(HashMap argMap) throws Exception
 	{
 		TurqAccountingAccount rollAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+		
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		
 		Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
 		TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);

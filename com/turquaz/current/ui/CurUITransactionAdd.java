@@ -22,7 +22,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
@@ -30,21 +29,19 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.ModifyEvent;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
+import com.turquaz.current.ui.comp.CurrentPicker;
+
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CashLangKeys;
@@ -54,7 +51,6 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.widgets.Text;
-import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -77,7 +73,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	private CLabel lblAmount;
 	private CCombo comboTransType;
 	private CLabel comboType;
-	private Text txtCurrentCode;
+	private CurrentPicker txtCurrentCode;
 	private CLabel lblCurrentCode;
 	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
 	private TurqCurrencyExchangeRate exchangeRate = null;
@@ -123,22 +119,9 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				lblCurrentCode.setSize(new org.eclipse.swt.graphics.Point(102, 16));
 			}
 			{
-				txtCurrentCode = new Text(this, SWT.NONE);
+				txtCurrentCode = new CurrentPicker(this, SWT.NONE);
 				GridData comboCurrentCodeLData = new GridData();
-				txtCurrentCode.addModifyListener(new ModifyListener()
-				{
-					public void modifyText(ModifyEvent evt)
-					{
-						try
-						{
-							txtCurrentCode.setData(EngBLCurrentCards.getCardsId(txtCurrentCode.getText().trim()));
-						}
-						catch (Exception ex)
-						{
-                            EngBLLogger.log(this.getClass(),ex,getShell());
-						}
-					}
-				});
+				
 				comboCurrentCodeLData.widthHint = 150;
 				comboCurrentCodeLData.heightHint = 17;
 				txtCurrentCode.setLayoutData(comboCurrentCodeLData);
@@ -274,8 +257,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		comboTransType.add(EngLangCommonKeys.STR_CREDIT); //$NON-NLS-1$
 		fillCurrencyCombo();
 		//	content assistant
-		TextContentAssistSubjectAdapter adapter = new TextContentAssistSubjectAdapter(txtCurrentCode);
-		final TurquazContentAssistant assistant = new TurquazContentAssistant(adapter, 3);
+		
 	}
 
 	public void fillCurrencyCombo()
@@ -373,7 +355,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				//4,at the end means cash, it is a cash Transaction
 				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_CARD,(TurqCurrentCard) txtCurrentCode.getData());
+				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentCode.getCardId());
 				argMap.put(AccKeys.ACC_ACCOUNT, accPickerCashAccount.getData());
 				argMap.put(EngKeys.DATE,dateTransDate.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,"");
@@ -435,7 +417,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	/**
 	 * @return Returns the txtCurrentCode.
 	 */
-	public Text getTxtCurrentCode()
+	public CurrentPicker getTxtCurrentCode()
 	{
 		return txtCurrentCode;
 	}
@@ -444,7 +426,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	 * @param txtCurrentCode
 	 *             The txtCurrentCode to set.
 	 */
-	public void setTxtCurrentCode(Text comboCurrentCode)
+	public void setTxtCurrentCode(CurrentPicker comboCurrentCode)
 	{
 		this.txtCurrentCode = comboCurrentCode;
 	}

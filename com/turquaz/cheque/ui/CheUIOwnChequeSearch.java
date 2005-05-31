@@ -353,7 +353,7 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			Integer cheStat = null;
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD,currentPicker.getData());
+			argMap.put(CurKeys.CUR_CARD_ID,currentPicker.getCardId());
 			argMap.put(CheKeys.CHE_START_ENTER_DATE,datePickerStartEnterDate.getDate());
 			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());
 			argMap.put(CheKeys.CHE_START_DUE_DATE,datePickerStartDueDate.getDate());

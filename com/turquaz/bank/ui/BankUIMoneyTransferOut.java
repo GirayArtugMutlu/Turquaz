@@ -288,7 +288,7 @@ public class BankUIMoneyTransferOut extends org.eclipse.swt.widgets.Composite im
 				HashMap argMap=new HashMap();
 				
 				argMap.put(BankKeys.BANK_ID,txtBankCard.getBankId());
-				argMap.put(CurKeys.CUR_CARD,currentPicker.getData());
+				argMap.put(CurKeys.CUR_CARD_ID,currentPicker.getCardId());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.BANK_TRANS_SEND_MONEY));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(EngKeys.TOTAL_AMOUNT,curAmount.getBigDecimalValue());

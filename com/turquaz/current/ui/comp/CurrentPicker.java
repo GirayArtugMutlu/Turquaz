@@ -43,7 +43,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -68,6 +67,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 	private Text text1;
 	private AccountPickerLeaf accountPicker = null;
 	private Integer pickerAccountType = null;
+	private HashMap cardInfo;
 
 	public CurrentPicker(Composite parent, int style)
 	{
@@ -170,25 +170,22 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 	{
 		return text1.getText();
 	}
-
-	public void setData(Object obj)
+	
+	public void setData(HashMap cardInfo)
 	{
-		super.setData(obj);
-		if(obj != null)
-		{
-			TurqCurrentCard curCard = (TurqCurrentCard)obj;
-			text1.setText(curCard.getCardsName()+" {"+curCard.getCardsCurrentCode()+"}");			
-		}			
+		this.cardInfo = cardInfo;
+		
 	}
-	public Object getDBData()
+	
+	public Object getData()
 	{
-		return super.getData();
+		return cardInfo;
 	}
 
 	
-	public void setDBData(Object obj)
+	public void setDBData(HashMap obj)
 	{
-		super.setData(obj);
+	    setData(obj);
 		if (obj == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
@@ -204,7 +201,7 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 				{
 
 					HashMap argMap = new HashMap();
-					argMap.put(CurKeys.CUR_CARD, obj);
+					argMap.put(CurKeys.CUR_CARD_ID, obj.get(CurKeys.CUR_CARD_ID));
 					argMap.put(EngKeys.TYPE,pickerAccountType);
 					
 					
@@ -219,7 +216,14 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 			}
 		}
 	}
-	
+	public Integer getCardId()
+	{
+		if(cardInfo==null)
+		{
+			return null;
+		}
+		return (Integer)cardInfo.get(CurKeys.CUR_CARD_ID);
+	}
 
 	public void openNewObjectDialog() {
 		// TODO Auto-generated method stub

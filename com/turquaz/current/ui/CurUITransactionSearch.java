@@ -320,7 +320,7 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			BigDecimal totalCredit = new BigDecimal(0);
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD,txtCurCard.getData());
+			argMap.put(CurKeys.CUR_CARD_ID,txtCurCard.getCardId());
 			argMap.put(EngKeys.TYPE,comboTransactionGroup.getData(comboTransactionGroup.getText()));
 			argMap.put(EngKeys.DOCUMENT_NO,"");
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());

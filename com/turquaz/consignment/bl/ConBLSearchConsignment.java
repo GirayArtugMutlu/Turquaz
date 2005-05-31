@@ -22,6 +22,7 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewInvPriceTotal;
@@ -32,7 +33,13 @@ public class ConBLSearchConsignment
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard curCard=null;
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
+			
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
@@ -61,7 +68,12 @@ public class ConBLSearchConsignment
 	{
 		try
 		{
-			TurqCurrentCard curCard=(TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard curCard=null;
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			};
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);	
 			return ConDALSearchConsignment.chooseConsignments(curCard, startDate, endDate);

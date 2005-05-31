@@ -29,6 +29,7 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -43,8 +44,13 @@ public class CurBLSearchTransaction
 	public static List searchCurrentTransaction(HashMap argMap )
 			throws Exception
 	{
-		
-		 Object curCard = argMap.get(CurKeys.CUR_CARD);
+
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		 Object type = argMap.get(EngKeys.TYPE);
 		 String docNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
@@ -68,7 +74,13 @@ public class CurBLSearchTransaction
 	public static List getCurrentTransactions(HashMap argMap) throws Exception
 	{
 		
-		TurqCurrentCard card = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard card=null;
+		if(curCardId!=null)
+		{
+			card=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
 		return CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
@@ -79,7 +91,13 @@ public class CurBLSearchTransaction
 	{
 		
 		
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		Boolean isCredit =  (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);

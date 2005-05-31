@@ -27,6 +27,7 @@ import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardSearch;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
@@ -64,9 +65,14 @@ public class CurBLCurrentCardSearch
 	public static TurqViewCurrentAmountTotal getCurrentCardView(HashMap argMap) throws Exception
 	{
 		
-		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		
-		return CurDALCurrentCardSearch.getCurrentCardView(currentCard);
+		return CurDALCurrentCardSearch.getCurrentCardView(curCard);
 		
 	}
 	public static HashBag getCurrentCards() throws Exception
@@ -100,7 +106,12 @@ public class CurBLCurrentCardSearch
 	{
 		
 		
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		
 		return CurDALCurrentCardSearch.getTransactions(curCard);
 		
@@ -130,12 +141,18 @@ public class CurBLCurrentCardSearch
 
 	
 	
-	public static TurqAccountingAccount getCurrentAccountingAccount(HashMap argMap) throws Exception
+	public static String getCurrentAccountingAccount(HashMap argMap) throws Exception
 	{
 	
-	   TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
-	   Integer type = (Integer)argMap.get(EngKeys.TYPE);	   	
-		return CurDALCurrentCardSearch.getCurrentAccountingAccount(curCard, type);
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		
+		TurqCurrentCard curCard = new TurqCurrentCard();
+		
+		curCard.setId(curCardId);
+		
+		Integer type = (Integer)argMap.get(EngKeys.TYPE);	   	
+		
+		return CurDALCurrentCardSearch.getCurrentAccountingAccount(curCard, type).getAccountCode();
 		
 	}
 	

@@ -37,7 +37,6 @@ public class CurKeys
 	public final static String CUR_TRANS_AMOUNT = "transAmount";
 	public final static String CUR_CARD_CREDIT ="curCardCredit";
 	public final static String CUR_CARD_DEPT = "curCardDept";
-	public final static String CUR_CARD="currentCard";
 	public final static String CUR_CARDS="currentCards";
 	
 }

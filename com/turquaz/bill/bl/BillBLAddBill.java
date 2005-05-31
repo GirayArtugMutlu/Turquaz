@@ -50,7 +50,13 @@ public class BillBLAddBill
         Boolean isPrinted = (Boolean) argMap.get(BillKeys.BILL_IS_PRINTED);
         Date billsDate = (Date) argMap.get(BillKeys.BILL_DATE);
         Integer type = (Integer) argMap.get(EngKeys.TYPE);
-        TurqCurrentCard currentCard = (TurqCurrentCard) argMap.get(CurKeys.CUR_CARD);
+		
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard currentCard=null;
+		if(curCardId!=null)
+		{
+			currentCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		}
         Date dueDate = (Date) argMap.get(BillKeys.BILL_DUE_DATE);
         Date consDate = (Date) argMap.get(ConsKeys.CONS_DATE);
         String consDocNo = (String) argMap.get(ConsKeys.CONS_DOC_NO);
@@ -116,8 +122,15 @@ public class BillBLAddBill
             Date billsDate = (Date) argMap.get(BillKeys.BILL_DATE);
             List consList = (List) argMap.get(BillKeys.BILL_CONS_LIST);
             Integer type = (Integer) argMap.get(EngKeys.TYPE);
-            TurqCurrentCard currentCard = (TurqCurrentCard) argMap.get(CurKeys.CUR_CARD);
-            Date dueDate = (Date) argMap.get(BillKeys.BILL_DUE_DATE);
+			
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard currentCard=null;
+			if(curCardId!=null)
+			{
+				currentCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			}
+			
+			Date dueDate = (Date) argMap.get(BillKeys.BILL_DUE_DATE);
             BigDecimal discountAmount = (BigDecimal) argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);
             BigDecimal totalAmount = (BigDecimal) argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
             TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate) argMap.get(EngKeys.EXCHANGE_RATE);

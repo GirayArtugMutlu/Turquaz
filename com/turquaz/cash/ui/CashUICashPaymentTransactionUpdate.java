@@ -218,7 +218,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD,compTransAdd.getTxtCashCard().getData());
-				argMap.put(CurKeys.CUR_CARD,compTransAdd.getTxtCurrentAccount().getData());
+				argMap.put(CurKeys.CUR_CARD_ID,compTransAdd.getTxtCurrentAccount().getCardId());
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT, compTransAdd.getCurTextTotalAmount().getBigDecimalValue());
 				argMap.put(EngKeys.DATE,compTransAdd.getDatePicker().getDate());
 				argMap.put(EngKeys.DEFINITION,compTransAdd.getTxtDefinition().getText());

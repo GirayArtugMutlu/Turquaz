@@ -177,7 +177,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		{
 			tableCurrentTransactions.removeAll();
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD,currentCard);
+			argMap.put(CurKeys.CUR_CARD_ID,currentCard.getId());
 			
 			List results =(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentTransactions",argMap); 
 			

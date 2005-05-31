@@ -42,7 +42,6 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -316,7 +315,7 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				}
 				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_CARD,(TurqCurrentCard) txtCurrentCard.getData());
+				argMap.put(CurKeys.CUR_CARD_ID, txtCurrentCard.getCardId());
 				argMap.put(AccKeys.ACC_ACCOUNT_ID, accountPicker.getId());
 				argMap.put(EngKeys.DATE,dateTransDate.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,"");

@@ -43,8 +43,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -70,6 +68,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 	private AccountPickerLeaf accountPicker = null;
 	private Integer pickerAccountType = null;
 	private Text txtCurrentName=null;
+	private HashMap cardInfo;
 
 	public void setTxtCurrentName(Text txtCurrentName)
 	{
@@ -102,7 +101,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 				text1.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent evt) {
 						try {
-							setDBData(EngBLCurrentCards.getCardsId(text1
+							setDBData(EngBLCurrentCards.getCardsInfo(text1
 								.getText().trim()));
 						} catch (Exception ex) {
                             EngBLLogger.log(this.getClass(),ex);
@@ -177,19 +176,28 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 		return text1.getText();
 	}
 
-	public void setData(Object obj)
+	public void setData(HashMap cardInfo)
 	{
-		super.setData(obj);
+		this.cardInfo = cardInfo;
+		
 	}
 	
-	public Object getDBData()
+	public Object getData()
 	{
-		return super.getData();
+		return cardInfo;
+	}
+	public Integer getCardId()
+	{
+		if(cardInfo==null)
+		{
+			return null;
+		}
+		return (Integer)cardInfo.get(CurKeys.CUR_CARD_ID);
 	}
 
-	public void setDBData(Object obj)
+	public void setDBData(HashMap obj)
 	{
-		super.setData(obj);
+		setData(obj);
 		if (obj == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
@@ -207,7 +215,7 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
 			if (txtCurrentName != null)
 			{
-				txtCurrentName.setText(((TurqCurrentCard)obj).getCardsName());
+				txtCurrentName.setText(((HashMap)obj).get(CurKeys.CUR_CURRENT_NAME).toString());
 			}
 			if (accountPicker != null)
 			{
@@ -215,10 +223,10 @@ public class CurrentCodePicker extends org.eclipse.swt.widgets.Composite impleme
 				{
 					
 					HashMap argMap = new HashMap();
-					argMap.put(CurKeys.CUR_CARD, obj);
+					argMap.put(CurKeys.CUR_CARD_ID, obj.get(CurKeys.CUR_CARD_ID));
 					argMap.put(EngKeys.TYPE,pickerAccountType);
-					TurqAccountingAccount account=(TurqAccountingAccount)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap);
-					accountPicker.setData(account);
+					String account_code=(String)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap);
+					accountPicker.setText(account_code);
 				
 				}
 				catch (Exception ex)

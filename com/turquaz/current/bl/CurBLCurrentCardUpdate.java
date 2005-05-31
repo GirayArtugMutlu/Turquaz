@@ -31,6 +31,7 @@ import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentCardsGroup;
@@ -44,8 +45,13 @@ public class CurBLCurrentCardUpdate
 
 	public static void updateCurrentCard(HashMap argMap) throws Exception
 	{
-		
-		 TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD); 
+
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard currentCard=null;
+		if(curCardId!=null)
+		{
+			currentCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		 String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);	
 		 String cardName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
 		 String cardDefinition = (String)argMap.get(EngKeys.DEFINITION);
@@ -170,8 +176,13 @@ public class CurBLCurrentCardUpdate
 
 	public static void deleteCurrentCard(HashMap argMap) throws Exception
 	{
-		TurqCurrentCard currentCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
-		
+
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard currentCard=null;
+		if(curCardId!=null)
+		{
+			currentCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 			deleteCurrentCardAccounts(currentCard);
 			deleteCurrentCardContact(currentCard);
 			deleteCurrentCardGroups(currentCard);
@@ -187,7 +198,13 @@ public class CurBLCurrentCardUpdate
 
 	public static List getCurrentTransactionBalances(HashMap argMap) throws Exception
 	{
-		TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
+
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
 		Integer type = (Integer)argMap.get(EngKeys.TYPE);
 		
 			TurqCurrentTransactionType transType = new TurqCurrentTransactionType();

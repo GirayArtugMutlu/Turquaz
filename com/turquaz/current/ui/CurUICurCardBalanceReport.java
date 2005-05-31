@@ -369,13 +369,10 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 				{
 					
 					
+					
+					
 					HashMap argMap = new HashMap();
 					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
-					
-					
-					argMap = new HashMap();
-					argMap.put(CurKeys.CUR_CARD,currentCard);
 					
 					List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 					
@@ -390,8 +387,8 @@ public class CurUICurCardBalanceReport extends Composite implements SearchCompos
 					if (result == SWT.OK)
 					{
 						
-						 argMap = new HashMap();
-						argMap.put(CurKeys.CUR_CARD,currentCard);
+						argMap = new HashMap();
+						argMap.put(CurKeys.CUR_CARD_ID,cardId);
 						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
 						msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						msg.open();

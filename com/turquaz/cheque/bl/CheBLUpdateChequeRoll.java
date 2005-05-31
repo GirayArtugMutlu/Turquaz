@@ -156,9 +156,15 @@ public class CheBLUpdateChequeRoll
 		
 			TurqChequeRoll chequeRoll = (TurqChequeRoll) argMap.get(CheKeys.CHE_CHEQUE_ROLL);
 			TurqAccountingAccount rollAccount =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-			 TurqCurrentCard curCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD);
-			 
-			 Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
+			
+			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+			TurqCurrentCard curCard=null;
+			if(curCardId!=null)
+			{
+				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+			}; 
+			
+			Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
 				
 			TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
 

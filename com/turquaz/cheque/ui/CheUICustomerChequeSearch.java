@@ -376,7 +376,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			
 			HashMap argMap = new HashMap();
 			argMap.put(EngKeys.DOCUMENT_NO,txtPortFoyNo.getText().trim());
-			argMap.put(CurKeys.CUR_CARD,currentPicker.getData());
+			argMap.put(CurKeys.CUR_CARD_ID,currentPicker.getCardId());
 			argMap.put(CheKeys.CHE_STATUS,cheStat);
 			argMap.put(CheKeys.CHE_START_ENTER_DATE,datePickerStartEnterDate.getDate());
 			argMap.put(CheKeys.CHE_END_ENTER_DATE,datePickerEndEnterDate.getDate());

@@ -58,7 +58,7 @@ public class EngBLCurrentCards
 			for(int i=0;i<currentCards.size();i++)
 			{
 				HashMap cardInfo = (HashMap)currentCards.get(new Integer(i));
-				cardMap.put(cardInfo.get(CurKeys.CUR_CURRENT_CODE),cardInfo.get(CurKeys.CUR_CARD_ID));
+				cardMap.put(cardInfo.get(CurKeys.CUR_CURRENT_CODE),cardInfo);
 							
 			}
 			
@@ -88,7 +88,7 @@ public class EngBLCurrentCards
 		}
 	}
 
-	public static Integer getCardsId(String currentCode) throws Exception
+	public static HashMap getCardsInfo(String currentCode) throws Exception
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class EngBLCurrentCards
 			{
 				_instance = new EngBLCurrentCards();
 			}
-			return (Integer) _instance.currentCards.get(currentCode);
+			return (HashMap) _instance.currentCards.get(currentCode);
 		}
 		catch (Exception ex)
 		{
@@ -104,7 +104,7 @@ public class EngBLCurrentCards
 		}
 	}
 
-	public static Integer getCurrentCardForContentAssist(String cardNameCode) throws Exception
+	public static HashMap getCurrentCardForContentAssist(String cardNameCode) throws Exception
 	{
 		try
 		{
@@ -113,7 +113,7 @@ public class EngBLCurrentCards
 			Matcher m = p.matcher(cardNameCode);
 			if (m.find())
 			{
-				return getCardsId(m.group(1));
+				return getCardsInfo(m.group(1));
 			}
 			return null;
 		}

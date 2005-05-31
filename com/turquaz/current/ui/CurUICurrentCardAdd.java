@@ -1111,7 +1111,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				txtCurrentCode.setFocus();
 				return false;
 			}
-			else if (save && EngBLCurrentCards.getCardsId(txtCurrentCode.getText().trim()) != null)
+			else if (save && EngBLCurrentCards.getCardsInfo(txtCurrentCode.getText().trim()) != null)
 			{
 				msg.setMessage(CurLangKeys.MSG_CURRENT_CODE_ALREADY_EXIST);
 				msg.open();

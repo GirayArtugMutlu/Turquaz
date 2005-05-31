@@ -40,7 +40,6 @@ import org.eclipse.swt.custom.CTabFolder;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -322,7 +321,7 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 				
 				HashMap argMap = new HashMap();
 				argMap.put(AccKeys.ACC_ACCOUNT_ID,accountPicker.getId());
-				argMap.put(CurKeys.CUR_CARD,(TurqCurrentCard) currentPicker.getData());
+				argMap.put(CurKeys.CUR_CARD_ID, currentPicker.getCardId());
 				argMap.put(EngKeys.DOCUMENT_NO,txtRollNo.getText().trim());
 				argMap.put(EngKeys.DATE,datePicker1.getDate());
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);

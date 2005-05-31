@@ -372,7 +372,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_START,txtInvCardStart.getData());
 			argMap.put(InvKeys.INV_CARD_END,txtInvCardEnd.getData());
-			argMap.put(CurKeys.CUR_CARD,txtCurCard.getData());
+			argMap.put(CurKeys.CUR_CARD_ID,txtCurCard.getCardId());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));

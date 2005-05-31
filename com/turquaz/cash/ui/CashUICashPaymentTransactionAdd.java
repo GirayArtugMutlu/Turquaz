@@ -262,7 +262,7 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 				
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD,txtCashCard.getData());
-				argMap.put(CurKeys.CUR_CARD,txtCurrentAccount.getData());
+				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentAccount.getCardId());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CASH_CURRENT_PAYMENT));
 				argMap.put(EngKeys.ENG_SEQ,null);
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,curTextTotalAmount.getBigDecimalValue());

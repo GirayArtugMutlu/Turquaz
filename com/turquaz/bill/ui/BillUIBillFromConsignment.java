@@ -701,7 +701,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				argMap.put(BillKeys.BILL_DATE,dateBillDate.getDate());
 				argMap.put(BillKeys.BILL_CONS_LIST,consList);
 				argMap.put(EngKeys.TYPE,new Integer(type));
-				argMap.put(CurKeys.CUR_CARD,txtCurrentCard.getData());
+				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentCard.getData());
 				argMap.put(BillKeys.BILL_DUE_DATE,dateDueDate.getDate());
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
@@ -771,8 +771,9 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 			return;
 		}
 		txtDocumentNo.setText("");
-		txtCurrentCard.setData(result[0]);
+		
 		TurqCurrentCard curCard = (TurqCurrentCard)result[0];
+		txtCurrentCard.setData(curCard.getId());
 		txtCurrentCard.setText(curCard.getCardsCurrentCode()+" "+curCard.getCardsName());
 		consList = (List)result[1];
 		

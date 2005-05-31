@@ -955,7 +955,7 @@ public class ConUIAddConsignment extends org.eclipse.swt.widgets.Composite imple
 				argMap.put(ConsKeys.CONS_IS_PRINTED,new Boolean(false));
 				argMap.put(ConsKeys.CONS_DATE,dateConsignmentDate.getDate());
 				argMap.put(EngKeys.TYPE,new Integer(type));
-				argMap.put(CurKeys.CUR_CARD,txtCurrentCard.getData());
+				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentCard.getCardId());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
 				argMap.put(ConsKeys.CONS_GROUPS,getConsignmentGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions(type));				

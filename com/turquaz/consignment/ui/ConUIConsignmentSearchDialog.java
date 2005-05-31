@@ -329,7 +329,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 				curCard = (TurqCurrentCard) txtCurCard.getData();
 				tableConsignments.removeAll();
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_CARD, txtCurCard.getData());
+				argMap.put(CurKeys.CUR_CARD_ID, txtCurCard.getCardId());
 				argMap.put(EngKeys.DATE_START, dateStartDate.getDate());
 				argMap.put(EngKeys.DATE_END, dateEndDate.getDate());
 				List list = (List) EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),
