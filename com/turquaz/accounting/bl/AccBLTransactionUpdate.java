@@ -96,7 +96,7 @@ public class AccBLTransactionUpdate
 			transBag.put(AccKeys.ACC_TRANS_ID,trans.getId());
 			transBag.put(AccKeys.ACC_TRANSACTION_DEFINITION,trans.getTransactionDescription());
 			transBag.put(AccKeys.ACC_TRANSACTION_DOC_NO,trans.getTransactionDocumentNo());
-			transBag.put(AccKeys.ACC_TRANSACTION_DATE,trans.getTransactionsDate());
+			transBag.put(AccKeys.ACC_TRANS_DATE,trans.getTransactionsDate());
 			transBag.put(EngKeys.EXCHANGE_CURRENCY_ID,trans.getTurqCurrencyExchangeRate().getId());
 			transBag.put(EngKeys.EXCHANGE_CURRENCY_ABBR,trans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
 			

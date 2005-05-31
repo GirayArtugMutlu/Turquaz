@@ -29,6 +29,7 @@ public class AccKeys
 	public final static String ACC_TRANS_DATE = "transDate";
 	public final static String ACC_TRANS_ID = "transId";
 	public final static String ACC_TRANS_ROW = "transRow";
+	public final static String ACC_TRANS_TYPE_NAME="accTransTypeName";
     public final static String ACC_TRANSACTION ="accTransaction";
     public final static String ACC_TRANSACTIONS ="accTransactions";
 	public final static String ACC_TYPE ="type";
@@ -36,7 +37,6 @@ public class AccKeys
 	public final static String ACC_TOTAL_CREDIT_AMOUNT="accTotalCreditAmount";
 	public final static String ACC_TRANSACTION_DEFINITION="accTransactionDefinition";
 	public final static String ACC_TRANSACTION_DOC_NO="accTransactionDocNo";
-	public final static String ACC_TRANSACTION_DATE="accTransactionDate";
 	public final static String ACC_TRANSACTION_ROWS="accTransactionRows";
 	public final static String ACC_TRANS_ROW_ID="accTransRowId";
 	public final static String ACC_TRANS_ROW_DEFINITION="accTransRowDefinition";

@@ -2,13 +2,12 @@ package com.turquaz.accounting.ui;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
@@ -17,9 +16,12 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
@@ -30,8 +32,6 @@ import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 
 
@@ -197,26 +197,28 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			tableAccountingTransaction.removeAll();
-			List result = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getUnsavedTransactions",null);
+			HashBag transBag = (HashBag)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getUnsavedTransactions",null);
 			TableItem item;
-			int listSize = result.size();
+			
+			HashMap transMaps=(HashMap)transBag.get(AccKeys.ACC_TRANSACTIONS);
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < listSize; i++)
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+			for (int k = 0; k < transMaps.size(); k++)
 			{
-				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) result.get(i);
+				HashMap transMap=(HashMap)transMaps.get(new Integer(k));
 				item = new TableItem(tableAccountingTransaction, SWT.NULL);
-				item.setData(accTrans);
-				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-				BigDecimal total = new BigDecimal(0);
-				Iterator it = accTrans.getTurqAccountingTransactionColumns().iterator();
-				while (it.hasNext())
-				{
-					TurqAccountingTransactionColumn transColumn = (TurqAccountingTransactionColumn) it.next();
-					total = total.add(transColumn.getRowsCreditInBaseCurrency());
-				}
-				String transDate = formatter.format(accTrans.getTransactionsDate());
-				item.setText(new String[]{accTrans.getTurqAccountingTransactionType().getTypesName(),
-						accTrans.getTransactionDocumentNo(), transDate, cf.format(total), accTrans.getTransactionDescription()}); //$NON-NLS-1$
+				item.setData(transMap);
+				
+				BigDecimal total = (BigDecimal)transMap.get(EngKeys.TOTAL_AMOUNT);
+				
+				Date transDate=(Date)transMap.get(AccKeys.ACC_TRANS_DATE);
+				String transTypeName=(String)transMap.get(AccKeys.ACC_TRANS_TYPE_NAME);
+				String documentNo=(String)transMap.get(AccKeys.ACC_TRANSACTION_DOC_NO);
+				String transDefinition=(String)transMap.get(AccKeys.ACC_TRANSACTION_DEFINITION);
+				
+				item.setText(new String[]{transTypeName,documentNo,formatter.format(transDate),
+						cf.format(total), transDefinition}); //$NON-NLS-1$
 			}
 		}
 		catch (Exception ex)
@@ -229,10 +231,8 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-			msg.setMessage(AccLangKeys.MSG_NOT_DELETE_VOUCHER_WITH_JOURNAL_ID); 
-			int result = msg.open();
-			if (result == SWT.OK)
+			boolean result=EngUICommon.showQuestion(getShell(),AccLangKeys.MSG_NOT_DELETE_VOUCHER_WITH_JOURNAL_ID);
+			if (result)
 			{
 				TableItem items[] = tableAccountingTransaction.getItems();
 				for (int i = 0; i < items.length; i++)
@@ -242,8 +242,7 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 						HashMap argMap = new HashMap();
 						argMap.put(AccKeys.ACC_TRANSACTION,items[i].getData());
 						argMap.put(AccKeys.ACC_TRANS_DATE,datePickerJournalDate.getDate());
-						EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"addToJournal",argMap);
-						
+						EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),"addToJournal",argMap);	
 					}
 				}
 				fillTable();

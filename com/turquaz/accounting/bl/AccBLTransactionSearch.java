@@ -19,16 +19,21 @@ package com.turquaz.accounting.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
+import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 public class AccBLTransactionSearch
 {
@@ -76,11 +81,32 @@ public class AccBLTransactionSearch
 	}
 	
 	//-Muhasebele?tirilmemi? fi?leri getirir...
-	public static List getUnsavedTransactions() throws Exception
+	public static HashBag getUnsavedTransactions() throws Exception
 	{
 		try
 		{
-			return AccDALTransactionSearch.getUnsavedTransactions();
+			HashBag transBag = new HashBag();
+			List transList = AccDALTransactionSearch.getUnsavedTransactions();
+			transBag.put(AccKeys.ACC_TRANSACTIONS,new HashMap());
+			for (int k = 0; k <transList.size(); k++)
+			{
+				TurqAccountingTransaction trans=(TurqAccountingTransaction)transList.get(k);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_ID, trans.getId() );
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANSACTION_DEFINITION, trans.getTransactionDescription());
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANSACTION_DOC_NO, trans.getTransactionDocumentNo());
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_DATE, trans.getTransactionsDate());
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_TYPE_NAME,trans.getTurqAccountingTransactionType().getTypesName());
+				
+				BigDecimal total=new BigDecimal(0);
+				Iterator it=trans.getTurqAccountingTransactionColumns().iterator();
+				while(it.hasNext())
+				{
+					TurqAccountingTransactionColumn transRow=(TurqAccountingTransactionColumn)it.next();
+					total = total.add(transRow.getRowsCreditInBaseCurrency());
+				}				
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,EngKeys.TOTAL_AMOUNT,total);
+			}
+			return transBag; 
 		}
 		catch (Exception ex)
 		{
