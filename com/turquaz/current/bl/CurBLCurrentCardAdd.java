@@ -34,6 +34,7 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrentAccountingType;
@@ -267,19 +268,12 @@ public class CurBLCurrentCardAdd
 		}
 	}
 
-	public static void deleteObject(HashMap argMap) throws Exception
-	{
-		Object obj = argMap.get(CurKeys.CUR_GROUP);
 	
-		EngDALCommon.deleteObject(obj);
-		
-		
-	}
 
 	public static void saveCurrentGroup(HashMap argMap) throws Exception
 	{
 	
-		 	String groupName = (String)argMap.get(CurKeys.CUR_GROUP);
+		 	String groupName = (String)argMap.get(CurKeys.CUR_GROUP_NAME);
 		    String groupDescription = (String)argMap.get(EngKeys.DEFINITION);
 			
 			TurqCurrentGroup curGroup = new TurqCurrentGroup();
@@ -296,7 +290,9 @@ public class CurBLCurrentCardAdd
 
 	public static void updateGroup(HashMap argMap) throws Exception
 	{
-		TurqCurrentGroup invGroup = (TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
+		Integer curGroupId = (Integer)argMap.get(CurKeys.CUR_GROUP_ID);
+		TurqCurrentGroup invGroup = (TurqCurrentGroup)EngDALSessionFactory.getSession().load(TurqCurrentGroup.class,curGroupId);
+		
 		String name = (String)argMap.get(CurKeys.CUR_GROUP_NAME);
 		String definition = (String)argMap.get(EngKeys.DEFINITION);
 	

@@ -48,7 +48,6 @@ import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -392,7 +391,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_CURRENT_CODE,txtCurrentCode.getText().trim());
 			argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
-			argMap.put(CurKeys.CUR_GROUP, comboTurqGroupName.getData(comboTurqGroupName.getText()));
+			argMap.put(CurKeys.CUR_GROUP_ID, comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
@@ -457,10 +456,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					HashMap argMap = new HashMap();
-					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
-					boolean updated = new CurUICurrentCardUpdate(this.getShell(), SWT.NULL, currentCard).open();
+					boolean updated = new CurUICurrentCardUpdate(this.getShell(), SWT.NULL, cardId).open();
 					if (updated)
 						search();
 				}
@@ -493,10 +489,7 @@ public class CurUICurCardDeptList extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					HashMap argMap = new HashMap();
-					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					TurqCurrentCard currentCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"initializeCurrentCard",argMap);
-					new CurUICurrentCardTransactions(getShell(), SWT.NONE, currentCard).open();
+						new CurUICurrentCardTransactions(getShell(), SWT.NONE, cardId).open();
 				}
 			}
 			catch (Exception ex)

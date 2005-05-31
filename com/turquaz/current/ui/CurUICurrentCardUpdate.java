@@ -20,8 +20,6 @@ package com.turquaz.current.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,6 +31,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
@@ -41,13 +41,8 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqCurrentAccountingAccount;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentCardsGroup;
-import com.turquaz.engine.dal.TurqCurrentCardsPhone;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 import org.eclipse.swt.widgets.TableItem;
@@ -87,18 +82,19 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 	private CTabItem cTabItem1;
 	private CTabFolder cTabFolder1;
 	private Shell dialogShell;
-	private TurqCurrentCard currentCard;
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
 	private TurqCurrentContact curContact = null;
 	private boolean updated = false;
+	private Integer curCardId =null;
+	private String currentCode ="";
 
-	public CurUICurrentCardUpdate(Shell parent, int style, TurqCurrentCard curCard)
+	public CurUICurrentCardUpdate(Shell parent, int style, Integer currentCardId)
 	{
 		super(parent, style);
-		currentCard = curCard;
+		curCardId = currentCardId;
 	}
 
 	/**
@@ -254,71 +250,61 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				toolDelete.setEnabled(true);
 				toolUpdate.setEnabled(true);
 			}
-			compCurCardAdd.getTxtCurrentCode().setText(currentCard.getCardsCurrentCode());
-			compCurCardAdd.getTxtCurrentName().setText(currentCard.getCardsName());
-			compCurCardAdd.getTxtCardDefinition().setText(currentCard.getCardsDefinition());
-			compCurCardAdd.getTxtTaxDepartmant().setText(currentCard.getCardsTaxDepartment());
-			compCurCardAdd.getNumTextDiscountRate().setBigDecimalValue(currentCard.getCardsDiscountRate());
-			compCurCardAdd.getDecTxtRiskLimit().setText(currentCard.getCardsRiskLimit());
-			compCurCardAdd.getTxtTaxNumber().setText(currentCard.getCardsTaxNumber());
-			compCurCardAdd.getDecTxtCreditLimit().setText(currentCard.getCardsCreditLimit());
-			compCurCardAdd.getDecTxtDiscountAmount().setText(currentCard.getCardsDiscountPayment());
-			compCurCardAdd.getTxtCardAddress().setText(currentCard.getCardsAddress());
-			compCurCardAdd.getNumDueDays().setText(currentCard.getDaysToValue());
+			
+			HashMap argMap = new HashMap();
+			argMap.put(CurKeys.CUR_CARD_ID,curCardId);
+			HashBag cardInfo = (HashBag)EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"getCurrentcardInfo",argMap);
+			
+			currentCode = cardInfo.get(CurKeys.CUR_CURRENT_CODE).toString();
+			compCurCardAdd.getTxtCurrentCode().setText(cardInfo.get(CurKeys.CUR_CURRENT_CODE).toString());
+			compCurCardAdd.getTxtCurrentName().setText(cardInfo.get(CurKeys.CUR_CURRENT_NAME).toString());
+			compCurCardAdd.getTxtCardDefinition().setText(cardInfo.get(EngKeys.DEFINITION).toString());
+			compCurCardAdd.getTxtTaxDepartmant().setText(cardInfo.get(CurKeys.CUR_TAX_DEPARTMENT).toString());
+			compCurCardAdd.getNumTextDiscountRate().setBigDecimalValue((BigDecimal)cardInfo.get(CurKeys.CUR_DISCOUNT_RATE));
+			compCurCardAdd.getDecTxtRiskLimit().setText((BigDecimal)cardInfo.get(CurKeys.CUR_RISK_LIMIT));
+			compCurCardAdd.getTxtTaxNumber().setText(cardInfo.get(CurKeys.CUR_TAX_NUMBER).toString());
+			compCurCardAdd.getDecTxtCreditLimit().setText((BigDecimal)cardInfo.get(CurKeys.CUR_RISK_LIMIT));
+			compCurCardAdd.getDecTxtDiscountAmount().setText((BigDecimal)cardInfo.get(CurKeys.CUR_DISCOUNT_PAYMENT));
+			compCurCardAdd.getTxtCardAddress().setText(cardInfo.get(CurKeys.CUR_ADDRESS).toString());
+			compCurCardAdd.getNumDueDays().setText(((Integer)cardInfo.get(CurKeys.CUR_DAYS_TO_VALUE)).intValue());
 			/** ********************************************************* */
-			Iterator it = currentCard.getTurqCurrentContacts().iterator();
-			if (it.hasNext())
-			{
-				TurqCurrentContact curContact = (TurqCurrentContact) it.next();
-				compCurCardAdd.getTxtContactWebSite().setText(curContact.getContactsWebSite());
-				compCurCardAdd.getTxtContactName().setText(curContact.getContactsName());
-				compCurCardAdd.getTxtContactAddress().setText(curContact.getContactAddress());
-				compCurCardAdd.getTxtContactEmail().setText(curContact.getContactsEmail());
-				compCurCardAdd.getTxtFaxNumber().setText(curContact.getContactsFaxNumber());
-				compCurCardAdd.getTxtContactPhone().setText(curContact.getContactsPhone1());
-				compCurCardAdd.getTxtContactPhone2().setText(curContact.getContactsPhone2());
-			}
+		
+			compCurCardAdd.getTxtContactWebSite().setText(cardInfo.get(CurKeys.CUR_CONTACT_WEBSITE).toString());
+			compCurCardAdd.getTxtContactName().setText(cardInfo.get(CurKeys.CUR_CONTACT_NAME).toString());
+			compCurCardAdd.getTxtContactAddress().setText(cardInfo.get(CurKeys.CUR_CONTACT_ADDRESS).toString());
+			compCurCardAdd.getTxtContactEmail().setText(cardInfo.get(CurKeys.CUR_CONTACT_EMAIL).toString());
+			compCurCardAdd.getTxtFaxNumber().setText(cardInfo.get(CurKeys.CUR_CONTACT_FAX_NUMBER).toString());
+			compCurCardAdd.getTxtContactPhone().setText(cardInfo.get(CurKeys.CUR_CONTACT_PHONE1).toString());
+			compCurCardAdd.getTxtContactPhone2().setText(cardInfo.get(CurKeys.CUR_CONTACT_PHONE2).toString());
+			
 			/** ************************************************ */
 			
-			List phoneList = new ArrayList(currentCard.getTurqCurrentCardsPhones()); 
-			EngBLHibernateComparer comp = new EngBLHibernateComparer();
-			Collections.sort(phoneList,comp);
-			it = phoneList.iterator();
-			int phones = 0;
-			while (it.hasNext())
-			{
-				TurqCurrentCardsPhone currentPhone = (TurqCurrentCardsPhone) it.next();
-				if (phones == 0)
-				{
-					phones++;
-					compCurCardAdd.getNumTxtNumber().setText(currentPhone.getPhonesNumber());
-					compCurCardAdd.getNumTxtCityCode().setText(currentPhone.getPhonesCityCode());
-					compCurCardAdd.getNumtxtCountryCode().setText(currentPhone.getPhonesCountryCode());
-				}
-				else if (phones == 1)
-				{
-					compCurCardAdd.getNumTxtNumber2().setText(currentPhone.getPhonesNumber());
-					compCurCardAdd.getNumTxtCityCode2().setText(currentPhone.getPhonesCityCode());
-					compCurCardAdd.getNumTxtCountryCode2().setText(currentPhone.getPhonesCountryCode());
-					break;
-				}
-			}
-			it = currentCard.getTurqCurrentAccountingAccounts().iterator();
+			compCurCardAdd.getNumTxtNumber().setText(Integer.parseInt(cardInfo.get(CurKeys.CUR_PHONE_NUMBER1).toString()));
+			compCurCardAdd.getNumTxtCityCode().setText(Integer.parseInt(cardInfo.get(CurKeys.CUR_PHONE_CITY_CODE1).toString()));
+			compCurCardAdd.getNumtxtCountryCode().setText(Integer.parseInt(cardInfo.get(CurKeys.CUR_PHONE_COUNTRY_CODE1).toString()));
+			compCurCardAdd.getNumTxtNumber2().setText(Integer.parseInt(cardInfo.get(CurKeys.CUR_PHONE_NUMBER2).toString()));
+			compCurCardAdd.getNumTxtCityCode2().setText(Integer.parseInt(cardInfo.get(CurKeys.CUR_PHONE_CITY_CODE2).toString()));
+			compCurCardAdd.getNumTxtCountryCode2().setText(Integer.parseInt(cardInfo.get(CurKeys.CUR_PHONE_COUNTRY_CODE2).toString()));
+			
+					
+			HashMap accountMap = (HashMap)cardInfo.get(CurKeys.CUR_ACCOUNTING_LIST);
+			Iterator it = accountMap.keySet().iterator();
+			
 			Map fieldMap = compCurCardAdd.getAccountingFields();
 			while (it.hasNext())
 			{
-				TurqCurrentAccountingAccount curAccount = (TurqCurrentAccountingAccount) it.next();
-				Integer type = (Integer) curAccount.getTurqCurrentAccountingType().getId();
+				
+				Integer type = (Integer) it.next();
 				AccountPickerLeaf picker = (AccountPickerLeaf) fieldMap.get(type);
-				picker.setData(curAccount.getTurqAccountingAccount());
+				picker.setText(accountMap.get(type).toString());
 			}
-			it = currentCard.getTurqCurrentCardsGroups().iterator();
-			while (it.hasNext())
+			HashMap groupMap = (HashMap)cardInfo.get(AdmKeys.ADM_GROUPS);
+			for(int i=0;i<groupMap.size();i++)
 			{
-				TurqCurrentCardsGroup currentCardGroup = (TurqCurrentCardsGroup) it.next();
-				compCurCardAdd.getCompRegisterGroup().RegisterGroup(currentCardGroup.getTurqCurrentGroup());
+				
+				compCurCardAdd.getCompRegisterGroup().RegisterGroup((Integer)groupMap.get(new Integer(i)));
 			}
-			fillCurrentGroups();
+			
 			fillCurrentBalances();
 			compCurCardAdd.getBtnUpdateGroups().setEnabled(false);
 		}
@@ -328,15 +314,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	public void fillCurrentGroups()
-	{
-		Iterator it = currentCard.getTurqCurrentCardsGroups().iterator();
-		while (it.hasNext())
-		{
-			TurqCurrentCardsGroup cardsGroup = (TurqCurrentCardsGroup) it.next();
-			compCurCardAdd.getCompRegisterGroup().RegisterGroup(cardsGroup.getTurqCurrentGroup());
-		}
-	}
+	
 
 	public void fillCurrentBalances() throws Exception
 	{
@@ -353,7 +331,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				TurqCurrentTransactionType transType = (TurqCurrentTransactionType)it.next();
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_CARD_ID,currentCard.getId());
+				argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 				argMap.put(EngKeys.TYPE,transType.getId());
 				
 				List balanceList = (List)EngTXCommon.doSelectTX(CurBLCurrentCardUpdate.class.getName(),"getCurrentTransactionBalances",argMap);
@@ -402,7 +380,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			MessageBox msg2 = new MessageBox(this.getParent(), SWT.OK | SWT.CANCEL);
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD_ID,currentCard.getId());
+			argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 			
 			List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
 			
@@ -420,7 +398,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				updated = true;
 				argMap = new HashMap();
-				argMap.put(CurKeys.CUR_CARD_ID,currentCard.getId());
+				argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
 				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				msg.open();
@@ -450,7 +428,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				return false;
 			}
-			else if ((!currentCard.getCardsCurrentCode().equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))
+			else if ((!currentCode.equals(compCurCardAdd.getTxtCurrentCode().getText().trim()))
 					&& isCurrentCodePresent.booleanValue())
 			{
 				msg.setMessage(CurLangKeys.MSG_CURRENT_CODE_ALREADY_EXIST); //$NON-NLS-1$
@@ -490,7 +468,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(CurKeys.CUR_PHONE_LIST,compCurCardAdd.getPhoneList());
 				argMap.put(CurKeys.CUR_CONTACT_INFO,compCurCardAdd.getContactInfo());
 				argMap.put(CurKeys.CUR_GROUP_LIST,compCurCardAdd.getGroupList());
-				argMap.put(CurKeys.CUR_CARD_ID,currentCard.getId());
+				argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"updateCurrentCard",argMap);
 				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$

@@ -325,7 +325,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 			argMap.put(EngKeys.MIN_VALUE,txtTransAmount.getBigDecimalValue());	
-			argMap.put(CurKeys.CUR_GROUP, comboCurGroup.getData(comboCurGroup.getText()));
+			argMap.put(CurKeys.CUR_GROUP_ID, comboCurGroup.getData(comboCurGroup.getText()));
 			
 			List list=(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentCardAbstract",argMap);
 			Map parameters = new HashMap();

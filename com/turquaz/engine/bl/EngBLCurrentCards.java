@@ -96,7 +96,7 @@ public class EngBLCurrentCards
 			{
 				_instance = new EngBLCurrentCards();
 			}
-			return (HashMap) _instance.currentCards.get(currentCode);
+			return (HashMap) _instance.cardMap.get(currentCode);
 		}
 		catch (Exception ex)
 		{

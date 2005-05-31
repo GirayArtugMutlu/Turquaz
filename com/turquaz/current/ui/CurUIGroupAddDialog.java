@@ -316,7 +316,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			if (result == SWT.OK)
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_GROUP,txtGroupName.getData());
+				argMap.put(CurKeys.CUR_GROUP_ID,txtGroupName.getData());
 				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"deleteObject",argMap);
 			
 				btnDelete.setEnabled(false);
@@ -355,7 +355,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_GROUP,txtGroupName.getData());
+				argMap.put(CurKeys.CUR_GROUP_ID,txtGroupName.getData());
 				argMap.put(CurKeys.CUR_GROUP_NAME,txtGroupName.getText().trim());
 			    argMap.put(EngKeys.DEFINITION,txtDescription.getText().trim());
 				
@@ -399,7 +399,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			else
 			{
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_GROUP,txtGroupName.getText().trim());
+				argMap.put(CurKeys.CUR_GROUP_NAME,txtGroupName.getText().trim());
 				argMap.put(EngKeys.DEFINITION,txtDescription.getText().trim());
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentGroup",argMap);

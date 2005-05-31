@@ -42,9 +42,9 @@ public class CurBLCurrentCardSearch
 		
 		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
 		String currentName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
-		TurqCurrentGroup currentGroup = (TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
-			
-		return CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroup);
+		Integer currentGroupId = (Integer)argMap.get(CurKeys.CUR_GROUP_ID);
+		
+		return CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroupId);
 		
 	}
 	
@@ -53,7 +53,11 @@ public class CurBLCurrentCardSearch
 		
 		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
 		String currentName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
-		TurqCurrentGroup currentGroup = (TurqCurrentGroup)argMap.get(CurKeys.CUR_GROUP);
+		
+		Integer groupId = (Integer)argMap.get(CurKeys.CUR_GROUP_ID);
+		TurqCurrentGroup currentGroup = new TurqCurrentGroup();
+		currentGroup.setId(groupId);
+		
 		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 		Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 		String definition=(String)argMap.get(EngKeys.DEFINITION);		

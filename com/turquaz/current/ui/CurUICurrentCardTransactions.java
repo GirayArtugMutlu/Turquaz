@@ -56,10 +56,10 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
 	 */
-	public CurUICurrentCardTransactions(Shell parent, int style, TurqCurrentCard card)
+	public CurUICurrentCardTransactions(Shell parent, int style, Integer curCardId)
 	{
 		super(parent, style);
-		currentCard = card;
+	
 	}
 
 	public void open()
