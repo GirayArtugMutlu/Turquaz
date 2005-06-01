@@ -30,8 +30,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.ui.EngUICommon;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -72,7 +70,6 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			{
@@ -103,15 +100,8 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.marginHeight = 0;
 			dialogShellLayout.spacing = 0;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 387, 260);
 			dialogShell.setSize(bounds.width, bounds.height);
-			postInitGUI();
 			dialogShell.open();
 			Display display = dialogShell.getDisplay();
 			while (!dialogShell.isDisposed())
@@ -133,7 +123,6 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setText(getText());
@@ -183,12 +172,6 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI(String filter) throws Exception
 	{
@@ -212,10 +195,5 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 		returnObj[0] = accountTree.getSelection()[0].getText();
 		returnObj[1] = accountTree.getSelection()[0].getData();
 		dialogShell.close();
-	}
-
-	/** Add your post-init code in here */
-	public void postInitGUI()
-	{
 	}
 }
