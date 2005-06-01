@@ -21,7 +21,6 @@ package com.turquaz.accounting.ui;
  */
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Shell;
@@ -34,6 +33,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.ui.EngUICommon;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
@@ -192,12 +192,7 @@ public class AccUIStaticAccountsDialog extends org.eclipse.swt.widgets.Dialog
 	/** Add your post-init code in here */
 	public void postInitGUI(String filter) throws Exception
 	{
-		Point parentLocation = this.getParent().getLocation();
-		Point parentSize = this.getParent().getSize();
-		Point dialogSize = dialogShell.getSize();
-		int location_X = (parentLocation.x + parentSize.x) / 2 - (dialogSize.x / 2);
-		int location_Y = (parentLocation.y + parentSize.y) / 2 - (dialogSize.y / 2);
-		dialogShell.setLocation(location_X, location_Y);
+		EngUICommon.centreWindow(dialogShell);
 		AccUIStaticAccountsTree treeFactory = new AccUIStaticAccountsTree();
 		try
 		{

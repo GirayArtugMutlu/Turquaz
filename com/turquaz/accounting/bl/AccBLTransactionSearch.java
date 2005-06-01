@@ -30,6 +30,7 @@ import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqAccountingJournal;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -116,23 +117,22 @@ public class AccBLTransactionSearch
 
 	public static void addToJournal(HashMap argMap) throws Exception
 	{
+		Integer transId = (Integer) argMap.get(AccKeys.ACC_TRANS_ID);
+		Date journalDate = (Date) argMap.get(AccKeys.ACC_TRANS_DATE);
 		
-		TurqAccountingTransaction trans = (TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
-		Date journalDate = (Date)argMap.get(AccKeys.ACC_TRANS_DATE);
-		
-			TurqAccountingJournal journal = new TurqAccountingJournal();
-			journal.setCreatedBy(System.getProperty("user"));
-			journal.setUpdatedBy(System.getProperty("user"));
-			Calendar cal = Calendar.getInstance();
-			journal.setLastModified(cal.getTime());
-			journal.setCreationDate(cal.getTime());
-			journal.setJournalDate(journalDate);
-			EngDALCommon.saveObject(journal);
-			trans.setTurqAccountingJournal(journal);
-			trans.setLastModified(cal.getTime());
-			trans.setUpdatedBy(System.getProperty("user"));
-			EngDALCommon.updateObject(trans);
-		
+		TurqAccountingTransaction trans=(TurqAccountingTransaction)EngDALSessionFactory.getSession().load(TurqAccountingTransaction.class,transId);
+		TurqAccountingJournal journal = new TurqAccountingJournal();
+		journal.setCreatedBy(System.getProperty("user"));
+		journal.setUpdatedBy(System.getProperty("user"));
+		Calendar cal = Calendar.getInstance();
+		journal.setLastModified(cal.getTime());
+		journal.setCreationDate(cal.getTime());
+		journal.setJournalDate(journalDate);
+		EngDALCommon.saveObject(journal);
+		trans.setTurqAccountingJournal(journal);
+		trans.setLastModified(cal.getTime());
+		trans.setUpdatedBy(System.getProperty("user"));
+		EngDALCommon.updateObject(trans);
 	}
 
 	/*AccUIAccountingAdvancedBalance*/

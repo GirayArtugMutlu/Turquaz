@@ -18,8 +18,12 @@ public class AccDALSearchAccounts {
 		TurqViewAccTotal accView=null;
 		
 		Session session = EngDALSessionFactory.getSession();
-		String query ="select account.accountCode,account.accountName,accView from TurqAccountingAccount as account,TurqViewAccTotal as accView where account.accountCode like '"+accCode+"%'" +
-				" and account.accountName like '"+accName+"%' and accView.accountingAccountsId = account.id and account.id <>-1";
+		String query ="select account.id, account.accountCode,account.accountName," +
+				" accView.totaldeptamount, accView.totalcreditamount from TurqAccountingAccount as account," +
+				" TurqViewAccTotal as accView " +
+				" where account.accountCode like '"+accCode+"%'" +
+				" and account.accountName like '"+accName+"%' " +
+				" and accView.accountingAccountsId = account.id and account.id <>-1";
 		Query q = session.createQuery(query);
  
     
