@@ -168,6 +168,30 @@ public class CurDALCurrentCardSearch
 			throw ex;
 		}
 	}
+	public static Boolean hasTransactions(TurqCurrentCard curCard) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select bankTrans from TurqCurrentTransaction as bankTrans" + " where bankTrans.turqCurrentCard.id="
+					+ curCard.getId() + " and bankTrans.turqCurrentTransactionType.id <>" + EngBLCommon.CURRENT_TRANS_INITIAL;
+			Query q = session.createQuery(query);
+			q.setMaxResults(1);
+			List list = q.list();
+			if(list.size()>0)
+			{
+				return new Boolean(true);
+			}
+			else
+			{
+				return new Boolean(false);
+			}
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+	}
 
 	public static List getCurrentCards() throws Exception
 	{

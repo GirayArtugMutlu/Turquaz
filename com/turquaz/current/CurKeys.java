@@ -14,7 +14,7 @@ package com.turquaz.current;
  */
 public class CurKeys
 {
-	
+	public final static String CUR_CURRENT_BALANCE ="currentBalance";	
 	public final static String CUR_CURRENT_CODE ="currentCode";	
 	public final static String CUR_CURRENT_NAME ="currentName";
 	public final static String CUR_ADDRESS ="currentAddress";
@@ -33,6 +33,7 @@ public class CurKeys
 	public final static String CUR_GROUP_NAME="currentGroupName";
 	public final static String CUR_CARD_ID ="currentCardId";
 	public final static String CUR_TRANSACTION ="currentTransaction";
+	public final static String CUR_TRANSACTIONS ="currentTransactions";
 	public final static String CUR_IS_CREDIT ="isCredit";
 	public final static String CUR_TRANS_AMOUNT = "transAmount";
 	public final static String CUR_CARD_CREDIT ="curCardCredit";
@@ -51,5 +52,6 @@ public class CurKeys
 	public final static String CUR_PHONE_CITY_CODE2="phoneCityCode2";
 	public final static String CUR_PHONE_COUNTRY_CODE1="phoneCountryCode1";
 	public final static String CUR_PHONE_COUNTRY_CODE2="phoneCountryCode2";
+	public final static String CUR_HAS_TRANSACTIONS="hasTransactions";
 	
 }

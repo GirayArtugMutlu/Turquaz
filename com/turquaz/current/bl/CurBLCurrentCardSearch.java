@@ -19,8 +19,10 @@ package com.turquaz.current.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import com.turquaz.common.HashBag;
@@ -37,14 +39,48 @@ public class CurBLCurrentCardSearch
 {
 
 	/*CurUICurrentCardSearch, CurUICurCardBalanceReport*/
-	public static List searchCurrentCard(HashMap argMap) throws Exception
+	public static HashBag searchCurrentCard(HashMap argMap) throws Exception
 	{
 		
 		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
 		String currentName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
 		Integer currentGroupId = (Integer)argMap.get(CurKeys.CUR_GROUP_ID);
 		
-		return CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroupId);
+		
+		HashBag resultBag = new HashBag();
+		resultBag.put(CurKeys.CUR_TRANSACTIONS,new HashMap());
+		List list = CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroupId);
+		Iterator it = list.iterator();
+		int i=0;
+		while(it.hasNext())
+		{
+			Object[] cardInfo = (Object[])it.next();
+			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CARD_ID,cardInfo[0]);
+			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_CODE,cardInfo[1]);
+			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_NAME,cardInfo[2]);
+			
+			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
+			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_BALANCE,new BigDecimal(0));
+			
+			if(cardInfo[3]!=null)
+			{
+				resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.CREDIT_AMOUNT,cardInfo[3]);
+			}
+			if(cardInfo[4]!=null)
+			{
+				resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DEPT_AMOUNT,cardInfo[4]);
+			}
+			if(cardInfo[5]!=null)
+			{
+				resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_BALANCE,cardInfo[5]);
+			}
+			i++;
+		}
+			
+		return resultBag;
+		
+		
 		
 	}
 	
@@ -106,6 +142,18 @@ public class CurBLCurrentCardSearch
 		}
 	}
 	
+	public static HashBag hasTransactions(HashMap argMap)throws Exception
+	{
+		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
+		TurqCurrentCard curCard=null;
+		if(curCardId!=null)
+		{
+			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
+		};
+		HashBag resultMap = new HashBag();
+		resultMap.put(CurKeys.CUR_HAS_TRANSACTIONS,CurDALCurrentCardSearch.hasTransactions(curCard));
+		return resultMap;
+	}
 	public static List getTransactions(HashMap argMap) throws Exception
 	{
 		

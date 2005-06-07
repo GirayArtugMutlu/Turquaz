@@ -17,7 +17,6 @@ package com.turquaz.current.ui;
 /************************************************************************/
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -32,12 +31,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.ui.component.SearchDialogMenu;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -244,15 +247,18 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(CurKeys.CUR_CURRENT_NAME,txtCurrentName.getText().trim());
 			argMap.put(CurKeys.CUR_GROUP_ID, comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			
+			HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
+			HashMap cardList = (HashMap)result.get(CurKeys.CUR_TRANSACTIONS);
 			
-			List listCurrentCards = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
-			
-			for (int k = 0; k < listCurrentCards.size(); k++)
+			for (int k = 0; k < cardList.size(); k++)
 			{
 				TableItem item = new TableItem(tableCurrentCardSearch, SWT.NULL);
-			    Object result[] = (Object[])listCurrentCards.get(k);
-                String cardCode = (String)((Object[]) listCurrentCards.get(k))[1]; //$NON-NLS-1$
-			    String cardName = (String)((Object[]) listCurrentCards.get(k))[2]; //$NON-NLS-1$
+				
+				HashMap cardInfo = (HashMap)cardList.get(new Integer(k));
+				
+                
+				String cardCode = cardInfo.get(CurKeys.CUR_CURRENT_CODE).toString(); //$NON-NLS-1$
+			    String cardName =  cardInfo.get(CurKeys.CUR_CURRENT_NAME).toString(); //$NON-NLS-1$
 			    if(type==0)
 				{
 				item.setData(cardCode);
@@ -264,17 +270,17 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 				BigDecimal totalDept = new BigDecimal(0);
 				BigDecimal totalCredit = new BigDecimal(0);
 				BigDecimal balance = new BigDecimal(0);
-				if(result[4]!=null)
+				if(cardInfo.get(EngKeys.DEPT_AMOUNT)==null)
 				{
-					totalDept = (BigDecimal)result[4];
+					totalDept = (BigDecimal)cardInfo.get(EngKeys.DEPT_AMOUNT);
 				}
-				if(result[3] != null)
+				if(cardInfo.get(EngKeys.CREDIT_AMOUNT) != null)
 				{
-					totalCredit = (BigDecimal)result[3];
+					totalCredit = (BigDecimal)cardInfo.get(EngKeys.CREDIT_AMOUNT);
 				}
-				if(result[5] != null)
+				if(cardInfo.get(CurKeys.CUR_CURRENT_BALANCE) != null)
 				{
-					balance =(BigDecimal)result[5];
+					balance =(BigDecimal)cardInfo.get(CurKeys.CUR_CURRENT_BALANCE);
 				}
 				
 				item.setText(new String[]{cardCode,cardName,cf.format(totalDept),cf.format(totalCredit),cf.format(balance)});
@@ -293,13 +299,15 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			EngUICommon.centreWindow(dialogShell);
 			comboTurqGroupName.removeAll();
 			comboTurqGroupName.setText(""); //$NON-NLS-1$
-			List groups = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
 			
-			for (int k = 0; k < groups.size(); k++)
+			HashMap groupMap = (HashMap)groupBag.get(AdmKeys.ADM_GROUPS);
+	
+			for (int k = 0; k < groupMap.size(); k++)
 			{
-				TurqCurrentGroup group = (TurqCurrentGroup) groups.get(k);
-				comboTurqGroupName.add(group.getGroupsName());
-				comboTurqGroupName.setData(group.getGroupsName(), group);
+				HashMap groupInfo = (HashMap) groupMap.get(new Integer(k));
+				comboTurqGroupName.add(groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString());
+				comboTurqGroupName.setData(groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString(), groupInfo.get(AdmKeys.ADM_GROUP_ID));
 			}
 		}
 		catch (Exception ex)
