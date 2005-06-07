@@ -28,7 +28,7 @@ public class EngDALCommon
 		TurqCurrency currency=(TurqCurrency)session.load(TurqCurrency.class,currencyId);
 		if (currency.isConstant())
 		{
-			String query = "Select exchangeRate from TurqCurrencyExchangeRate as exchangeRate where turqCurrencyByExchangeCurrencyId.id="+currencyId;
+			String query = "Select exchangeRate from TurqCurrencyExchangeRate as exchangeRate where exchangeRate.turqCurrencyByExchangeCurrencyId.id="+currencyId;
 			Query q = session.createQuery(query);
 			List list = q.list();
 			if (list.size() > 0)
@@ -43,7 +43,7 @@ public class EngDALCommon
 		else
 		{
 			String query = "Select exchangeRate from TurqCurrencyExchangeRate as exchangeRate where turqCurrencyByExchangeCurrencyId.id="+currencyId+
-						" and exhangeRatesDate=:exchangeDate";
+						" and exchangeRate.exhangeRatesDate=:exchangeDate";
 			Query q = session.createQuery(query);
 			q.setParameter("exchangeDate",exchangeDate);
 			List list = q.list();

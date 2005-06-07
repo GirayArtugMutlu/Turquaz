@@ -9,8 +9,6 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.ModifyListener;
@@ -103,12 +101,6 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite impleme
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
-			addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			postInitGUI();
 		}
 		catch (Exception e)
@@ -216,18 +208,24 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite impleme
 		this.filter = filter;
 	}
 
-	public Object getDBData() {
-		// TODO Auto-generated method stub
-		return super.getData();
+	public Object getDBData() 
+	{
+
+		return accountMap;
+	}
+	
+	public Object getData()
+	{
+		return accountMap;
 	}
 
 	public void openNewObjectDialog() {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	public void openSearchDialog() {
-		// TODO Auto-generated method stub
+	
 		
 	}
 	

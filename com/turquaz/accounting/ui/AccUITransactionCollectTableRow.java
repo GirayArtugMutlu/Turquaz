@@ -43,7 +43,7 @@ public class AccUITransactionCollectTableRow implements ITableRow
 
 	public Color getColor()
 	{
-		if (transRow.get(AccKeys.ACC_ACCOUNT_ID) == null)
+		if (transRow.get(AccKeys.ACC_ACCOUNT) == null)
 		{
 			return SWTResourceManager.getColor(255, 198, 198);
 		}
@@ -66,7 +66,7 @@ public class AccUITransactionCollectTableRow implements ITableRow
 	{
 		TurkishCurrencyFormat df = new TurkishCurrencyFormat();
 		String result = "";
-		HashMap accountMap=(HashMap)transRow.get(AccKeys.ACC_ACCOUNT_ID);
+		HashMap accountMap=(HashMap)transRow.get(AccKeys.ACC_ACCOUNT);
 		switch (column_index)
 		{
 			case 0 :
@@ -95,7 +95,7 @@ public class AccUITransactionCollectTableRow implements ITableRow
 	public Object getValue(int column_index)
 	{
 		Object result = null;
-		HashMap accountMap=(HashMap)transRow.get(AccKeys.ACC_ACCOUNT_ID);
+		HashMap accountMap=(HashMap)transRow.get(AccKeys.ACC_ACCOUNT);
 		switch (column_index)
 		{
 			case 0 :
@@ -138,7 +138,7 @@ public class AccUITransactionCollectTableRow implements ITableRow
 					HashMap accountMap = EngBLAccountingAccounts.getAccount(value.toString().trim());
 					if (accountMap != null)
 					{
-						transRow.put(AccKeys.ACC_ACCOUNT_ID,accountMap);
+						transRow.put(AccKeys.ACC_ACCOUNT,accountMap);
 
 					}
 				}
@@ -204,7 +204,7 @@ public class AccUITransactionCollectTableRow implements ITableRow
 
 	public boolean okToSave()
 	{
-		if (transRow.get(AccKeys.ACC_ACCOUNT_ID) == null)
+		if (transRow.get(AccKeys.ACC_ACCOUNT) == null)
 		{
 			return false;
 		}

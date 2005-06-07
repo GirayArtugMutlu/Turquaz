@@ -23,6 +23,7 @@ public class AccLangKeys {
 	public final static String MSG_SELECT_AT_LEAST_ONE_ACCOUNT_FIRST  = Messages.getString("AccLangKeys.17"); //$NON-NLS-1$
 	public final static String MSG_SELECT_CREDITOR_ACCOUNT  = Messages.getString("AccLangKeys.18"); //$NON-NLS-1$
 	public final static String MSG_SELECT_CURRENY_TYPE  = Messages.getString("AccLangKeys.19"); //$NON-NLS-1$
+
 	public final static String MSG_TOTAL_CREDIT_SHOULD_EQUAL_DEBIT  = Messages.getString("AccLangKeys.20"); //$NON-NLS-1$
 	public final static String MSG_VOUCHER_AMOUNT_NOT_ZERO  = Messages.getString("AccLangKeys.21"); //$NON-NLS-1$
 	public final static String STR_ACC_CODE_END  = Messages.getString("AccLangKeys.22"); //$NON-NLS-1$
@@ -102,5 +103,6 @@ public class AccLangKeys {
 	public final static String STR_VOUCHER_TYPE  = Messages.getString("AccLangKeys.95"); //$NON-NLS-1$
 	public final static String STR_GIVEN_CHEQUES_ACCOUNT=Messages.getString("AccLangKeys.96"); //$NON-NLS-1$
 	public final static String STR_COLLECTED_CHEQUES_ACCOUNT=Messages.getString("AccLangKeys.97"); //$NON-NLS-1$
-	public final static String STR_ACCOUNT_PLAN_CAPITAL="HESAP PLANI";
+	public final static String STR_ACCOUNT_PLAN_CAPITAL=Messages.getString("AccLangKeys.98"); //$NON-NLS-1$
+	public final static String MSG_SELECT_DEPTOR_ACCOUNT = Messages.getString("AccLangKeys.99"); //$NON-NLS-1$
 }

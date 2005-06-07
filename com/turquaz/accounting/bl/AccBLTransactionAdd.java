@@ -140,11 +140,6 @@ public class AccBLTransactionAdd
 			{
 				return;
 			}
-			
-			if (exchangeRate==null)
-				System.out.println("NULLLLLLLLL");
-			if (exchangeRate.getExchangeRatio()==null)
-				System.out.println("ZZZZZZZZ");
 			TurqAccountingTransaction trans = new TurqAccountingTransaction();
 			trans.setId(transID);
 			

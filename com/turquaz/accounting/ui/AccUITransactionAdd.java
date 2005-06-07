@@ -429,6 +429,11 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); 
 				return false;
 			}
+			else if (comboCurrencyType.getData(comboCurrencyType.getText().trim())==null)
+			{
+				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY);
+				return false;
+			}
 			return true;
 		}
 		catch (Exception ex)
