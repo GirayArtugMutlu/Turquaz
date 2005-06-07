@@ -117,16 +117,28 @@ public class CurBLCurrentTransactionAdd
 			  try
 			  {
 			  	
-			  	TurqCurrentCard creditCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD_CREDIT);
-			  	TurqCurrentCard debitCard = (TurqCurrentCard)argMap.get(CurKeys.CUR_CARD_DEPT);
+				Integer creditCardId = (Integer)argMap.get(CurKeys.CUR_CARD_CREDIT);
+				Integer deptCardId = (Integer)argMap.get(CurKeys.CUR_CARD_DEPT);
+			  	
+				TurqCurrentCard creditCard = (TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,creditCardId);
+			  	TurqCurrentCard debitCard = (TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,deptCardId);
+			
+				
+				
 				Date transDate = (Date)argMap.get(EngKeys.DATE);
 				String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 				
 				BigDecimal amount = (BigDecimal)argMap.get(CurKeys.CUR_TRANS_AMOUNT);
 								
 				String definition = (String)argMap.get(EngKeys.DEFINITION);
-				TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 				
+				Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+				TurqCurrencyExchangeRate exRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+				
+				if (exRate == null)
+				{
+					throw new TurquazException("You need to define daily exchange rate");
+				}	
 			  	
 			  	
 			   TurqEngineSequence seq = new TurqEngineSequence();
@@ -137,10 +149,10 @@ public class CurBLCurrentTransactionAdd
 			   EngDALCommon.saveObject(seq);
 			   
 			   TurqCurrentTransaction curTrans1 = saveCurrentTransaction(creditCard, transDate, documentNo, false, amount,new BigDecimal(0) ,
-			     EngBLCommon.CURRENT_TRANS_BETWEEN_ACCOUNTS, seq.getId(), definition,exchangeRate);
+			     EngBLCommon.CURRENT_TRANS_BETWEEN_ACCOUNTS, seq.getId(), definition,exRate);
 			   
 			   TurqCurrentTransaction curTrans2 = saveCurrentTransaction(debitCard, transDate, documentNo, true, amount, new BigDecimal(0),
-			     EngBLCommon.CURRENT_TRANS_BETWEEN_ACCOUNTS, seq.getId(), definition, exchangeRate);
+			     EngBLCommon.CURRENT_TRANS_BETWEEN_ACCOUNTS, seq.getId(), definition, exRate);
 			   
 			 
 			   

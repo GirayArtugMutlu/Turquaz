@@ -268,13 +268,13 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 				BigDecimal amount = currentAmount.getBigDecimalValue();
 				
 				HashMap argMap = new HashMap ();
-				argMap.put(CurKeys.CUR_CARD_CREDIT, currentDebitPicker.getData());
-				argMap.put(CurKeys.CUR_CARD_DEPT,currentCreditPicker.getData());
+				argMap.put(CurKeys.CUR_CARD_CREDIT, currentDebitPicker.getCardId());
+				argMap.put(CurKeys.CUR_CARD_DEPT,currentCreditPicker.getCardId());
 				argMap.put(EngKeys.DATE,datePicker.getDate());
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(CurKeys.CUR_TRANS_AMOUNT,currentAmount.getBigDecimalValue());
 				argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
-                argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+                argMap.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveCurrentTransferBetweenAccounts",argMap);
 				

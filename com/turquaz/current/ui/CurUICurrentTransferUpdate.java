@@ -1,7 +1,8 @@
 package com.turquaz.current.ui;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -11,12 +12,13 @@ import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.widgets.ToolBar;
 
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.current.ui.CurUICurrentTransfer;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
+import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -51,15 +53,15 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 	private ToolBar toolBar;
 	boolean isUpdated =false;
 
-	TurqCurrentTransaction currentTrans = null;
+	Integer currentTransId = null;
 	/**
 	* Auto-generated main method to display this 
 	* org.eclipse.swt.widgets.Dialog inside a new Shell.
 	*/
 	
-	public CurUICurrentTransferUpdate(Shell parent, int style,TurqCurrentTransaction curTrans) {
+	public CurUICurrentTransferUpdate(Shell parent, int style,Integer curTransId) {
 		super(parent, style);
-		this.currentTrans = curTrans;
+		this.currentTransId = curTransId;
 	}
 
 	public boolean open() {
@@ -109,7 +111,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 				}
 				{
 					toolCancel = new ToolItem(toolBar, SWT.NONE);
-					toolCancel.setText("Ýptal");
+					toolCancel.setText(EngLangCommonKeys.STR_CANCEL);
 					toolCancel.setImage(SWTResourceManager.getImage("icons/cancel.jpg"));
 					toolCancel.addSelectionListener(new SelectionAdapter() {
 						public void widgetSelected(SelectionEvent evt) {
@@ -150,29 +152,20 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 			
 		
 		HashMap argMap = new HashMap();
-		argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTrans.getId());
-	    EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
-		
-	    Iterator it = currentTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
-		 while(it.hasNext())
-		 {
-		 	TurqCurrentTransaction curTrans = (TurqCurrentTransaction)it.next();
-		 	compCurTransfer.getTxtDefinition().setText(curTrans.getTransactionsDefinition());
-		 	compCurTransfer.getTxtDocumentNo().setText(curTrans.getTransactionsDocumentNo());
-            compCurTransfer.getDatePicker().setDate(curTrans.getTransactionsDate());
+		argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTransId);
+	    HashBag transInfo = (HashBag)EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"getTransferBetweenAccountsInfo",argMap);
+			   
+		 	compCurTransfer.getTxtDefinition().setText(transInfo.get(EngKeys.DEFINITION).toString());
+		 	compCurTransfer.getTxtDocumentNo().setText(transInfo.get(EngKeys.DOCUMENT_NO).toString());
+            compCurTransfer.getDatePicker().setDate((Date)transInfo.get(EngKeys.DATE));
          
-            if( curTrans.getTransactionsTotalCredit().doubleValue()>0)
-            {
-            	
-            	compCurTransfer.getCurrentCreditPicker().setData(curTrans.getTurqCurrentCard());
-            	compCurTransfer.getCurrentAmount().setText(curTrans.getTransactionsTotalCredit());
-            }
-            else
-            {
-            	compCurTransfer.getCurrentDebitPicker().setData(curTrans.getTurqCurrentCard());
-            	compCurTransfer.getCurrentAmount().setText(curTrans.getTransactionsTotalDept());
-            } 	
-		 }	 
+           
+            	compCurTransfer.getCurrentCreditPicker().setText(transInfo.get(CurKeys.CUR_CARD_CREDIT).toString());
+           
+            	compCurTransfer.getCurrentDebitPicker().setText(transInfo.get(CurKeys.CUR_CARD_DEPT).toString());
+            	compCurTransfer.getCurrentAmount().setText((BigDecimal)transInfo.get(EngKeys.TOTAL_AMOUNT));
+             	
+		  
 		 
 		}
 		catch(Exception ex)
@@ -190,7 +183,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 		if(compCurTransfer.verifyFields())
 		{
 			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.ENG_SEQ,currentTrans.getTurqEngineSequence());
+			argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTransId);
 			EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteTransfer",argMap);
 			compCurTransfer.saveTrans();
 			isUpdated=true;
@@ -213,7 +206,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 			if(EngUICommon.okToDelete(getParent()))
 			{
 			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.ENG_SEQ,currentTrans.getTurqEngineSequence());
+			argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTransId);
 			EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteTransfer",argMap);
 			
 			isUpdated=true;
