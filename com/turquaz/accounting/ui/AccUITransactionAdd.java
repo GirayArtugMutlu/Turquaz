@@ -31,13 +31,13 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CTabFolder;
@@ -58,7 +58,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
@@ -163,7 +162,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			preInitGUI();
 			this.setSize(688, 540);
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
@@ -325,11 +323,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
@@ -424,55 +417,29 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		tableViewer.addSortingSupport(columnTypes);
 	}
 
-	public boolean okToDelete()
-	{
-		MessageBox msg = new MessageBox(this.getShell(), SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
-		msg.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY); 
-		if (msg.open() == SWT.OK)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 	public boolean verifyFields()
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			calculateTotalDeptAndCredit();
 			if (totalCredit.doubleValue() <= 0)
 			{
-				msg.setMessage(AccLangKeys.MSG_VOUCHER_AMOUNT_NOT_ZERO); 
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_VOUCHER_AMOUNT_NOT_ZERO); 
 				return false;
 			}
 			if (totalCredit.doubleValue() != totalDept.doubleValue())
 			{
-				msg.setMessage(AccLangKeys.MSG_TOTAL_CREDIT_SHOULD_EQUAL_DEBIT); 	
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_TOTAL_CREDIT_SHOULD_EQUAL_DEBIT); 	
 				return false;
 			}
 			else if (tableTransactionColumns.getItems().length == 0)
 			{
-				msg.setMessage(AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); 
-				msg.open();
-				return false;
-			}
-			else if (dateTransactionDate.getData() == null)
-			{
-				msg.setMessage(AccLangKeys.MSG_ENTER_VOUCHER_DATE); 
-				msg.open();
-				dateTransactionDate.setFocus();
+				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); 
 				return false;
 			}
 			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
 			{
-				msg.setMessage(AccLangKeys.MSG_SELECT_CURRENY_TYPE); 
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_CURRENY_TYPE); 
 				comboCurrencyType.setFocus();
 				return false;
 			}
@@ -481,8 +448,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransactionDate.getDate());
 				if (exchangeRate == null)
 				{
-					msg.setMessage(AccLangKeys.MSG_DEFINE_RELATED_CURRENCY); 
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_DEFINE_RELATED_CURRENCY); 
 					return false;
 				}
 			}
@@ -561,17 +527,16 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		totalDept = new BigDecimal(0);
 		for (int i = 0; i < items.length; i++)
 		{
-			TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn) ((AccUITransactionAddTableRow) items[i].getData())
-					.getDBObject();
-			if (column != null && ((AccUITransactionAddTableRow) items[i].getData()).okToSave())
+			HashMap transRow = (HashMap)((AccUITransactionAddTableRow) items[i].getData()).getDBObject();
+			if (transRow != null && ((AccUITransactionAddTableRow) items[i].getData()).okToSave())
 			{
-				totalCredit = totalCredit.add(column.getCreditAmount());
-				totalDept = totalDept.add(column.getDeptAmount());
+				totalCredit = totalCredit.add((BigDecimal)transRow.get(EngKeys.CREDIT_AMOUNT));
+				totalDept = totalDept.add((BigDecimal)transRow.get(EngKeys.DEPT_AMOUNT));
 			}
 		}
-		tableItemDept.setText(new String[]{AccLangKeys.STR_DEBIT, df.format(totalDept)}); //$NON-NLS-1$
-		tableItemCredit.setText(new String[]{AccLangKeys.STR_CREDIT, df.format(totalCredit)}); //$NON-NLS-1$
-		tableItemBalance.setText(new String[]{AccLangKeys.STR_BALANCE, df.format(totalCredit.subtract(totalDept))}); //$NON-NLS-1$
+		tableItemDept.setText(new String[]{AccLangKeys.STR_DEBIT, df.format(totalDept)}); 
+		tableItemCredit.setText(new String[]{AccLangKeys.STR_CREDIT, df.format(totalCredit)}); 
+		tableItemBalance.setText(new String[]{AccLangKeys.STR_BALANCE, df.format(totalCredit.subtract(totalDept))}); 
 	}
 
 	public void delete()
@@ -585,33 +550,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 
 	public void search()
 	{
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnAddTransactionRowMouseUp(MouseEvent evt)
-	{
-		Object o = new AccUITransactionRowAddDialog(this.getShell(), SWT.NULL, 2).showDialog();
-		if (o != null)
-		{
-			TurqAccountingTransactionColumn accTransRow = (TurqAccountingTransactionColumn) o;
-			TableItem item = new TableItem(tableTransactionColumns, SWT.NULL);
-			item.setData(accTransRow);
-			item.setText(new String[]{accTransRow.getTurqAccountingAccount().getAccountCode(),
-					accTransRow.getTurqAccountingAccount().getAccountName(), accTransRow.getDeptAmount().toString(),
-					accTransRow.getCreditAmount().toString(), accTransRow.getTransactionDefinition().toString()});
-			calculateTotalDeptAndCredit();
-		}
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnRemoveTransactionRowMouseUp(MouseEvent evt)
-	{
-		TableItem selection[] = tableTransactionColumns.getSelection();
-		if (selection.length > 0)
-		{
-			selection[0].dispose();
-			calculateTotalDeptAndCredit();
-		}
 	}
 
 	/**
@@ -631,28 +569,10 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	}
 
 	/**
-	 * @param txtTransDefinition
-	 *             The txtTransDefinition to set.
-	 */
-	public void setTxtTransDefinition(Text txtTransDefinition)
-	{
-		this.txtTransDefinition = txtTransDefinition;
-	}
-
-	/**
 	 * @return Returns the comboCurrencyType.
 	 */
 	public CCombo getComboCurrencyType()
 	{
 		return comboCurrencyType;
-	}
-
-	/**
-	 * @param comboCurrencyType
-	 *             The comboCurrencyType to set.
-	 */
-	public void setComboCurrencyType(CCombo comboCurrencyType)
-	{
-		this.comboCurrencyType = comboCurrencyType;
 	}
 }
