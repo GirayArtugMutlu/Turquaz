@@ -40,7 +40,8 @@ public class AccKeys
 	public final static String ACC_TRANSACTION_ROWS="accTransactionRows";
 	public final static String ACC_TRANS_ROW_ID="accTransRowId";
 	public final static String ACC_TRANS_ROW_DEFINITION="accTransRowDefinition";
-   
+	public final static String ACC_TRANS_JOURNAL_ID="accRegistered";
+	public final static String ACC_TRANS_MODULE_ID="accTransModuleId";
 	
 	
 }

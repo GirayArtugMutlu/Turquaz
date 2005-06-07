@@ -429,7 +429,7 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				}
 				else if (type == 0)
 				{
-					updated = new AccUITransactionCollectUpdateDialog(this.getShell(), SWT.NULL, accTrans).open();
+					updated = new AccUITransactionCollectUpdateDialog(this.getShell(), SWT.NULL, accTrans.getId()).open();
 					if (updated)
 						search();
 				}

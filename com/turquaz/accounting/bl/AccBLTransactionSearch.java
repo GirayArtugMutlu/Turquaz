@@ -20,15 +20,19 @@ package com.turquaz.accounting.bl;
  * @version $Id$
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.sf.hibernate.Session;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -79,6 +83,48 @@ public class AccBLTransactionSearch
 		{
 			throw ex;
 		}
+	}
+	
+	public static HashBag getAccTransactionById(HashMap argMap)throws Exception
+	{	
+		Integer transId=(Integer)argMap.get(AccKeys.ACC_TRANS_ID);
+		
+		HashBag transBag=new HashBag();
+		Session session=EngDALSessionFactory.getSession();
+		TurqAccountingTransaction accTrans=(TurqAccountingTransaction)session.load(TurqAccountingTransaction.class,transId);
+		
+		transBag.put(AccKeys.ACC_TRANS_ID,accTrans.getId());
+		transBag.put(AccKeys.ACC_TRANSACTION_DEFINITION,accTrans.getTransactionDescription());
+		transBag.put(AccKeys.ACC_TRANSACTION_DOC_NO,accTrans.getTransactionDocumentNo());
+		transBag.put(AccKeys.ACC_TRANS_DATE,accTrans.getTransactionsDate());
+		transBag.put(AccKeys.ACC_TRANS_JOURNAL_ID,accTrans.getTurqAccountingJournal().getId());
+		transBag.put(AccKeys.ACC_TRANS_MODULE_ID,accTrans.getTurqModule().getId());
+		transBag.put(EngKeys.CURRENCY_ID,accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getId());
+		transBag.put(EngKeys.CURRENCY_ABBR,accTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
+		
+		transBag.put(AccKeys.ACC_TRANSACTION_ROWS, new HashMap());
+		
+		List rowList=new ArrayList(accTrans.getTurqAccountingTransactionColumns());
+		Collections.sort(rowList,new EngBLHibernateComparer());
+		
+		for(int row=0; row<rowList.size(); row++)
+		{
+			TurqAccountingTransactionColumn transRow=(TurqAccountingTransactionColumn)rowList.get(row);
+			transBag.put(AccKeys.ACC_TRANSACTION_ROWS,row,AccKeys.ACC_TRANS_ROW_ID,transRow.getId());
+			transBag.put(AccKeys.ACC_TRANSACTION_ROWS,row,AccKeys.ACC_TRANS_ROW_DEFINITION,transRow.getTransactionDefinition());
+			transBag.put(AccKeys.ACC_TRANSACTION_ROWS,row,EngKeys.CREDIT_AMOUNT,transRow.getCreditAmount());
+			transBag.put(AccKeys.ACC_TRANSACTION_ROWS,row,EngKeys.DEPT_AMOUNT,transRow.getDeptAmount());		
+			
+			HashMap accountMap=new HashMap();
+			TurqAccountingAccount rowAcc=transRow.getTurqAccountingAccount();
+			accountMap.put(AccKeys.ACC_ACCOUNT_ID,rowAcc.getId());
+			accountMap.put(AccKeys.ACC_ACCOUNT_NAME,rowAcc.getAccountName());
+			accountMap.put(AccKeys.ACC_ACCOUNT_CODE,rowAcc.getAccountCode());
+			
+			transBag.put(AccKeys.ACC_TRANSACTION_ROWS,row,AccKeys.ACC_ACCOUNT,accountMap);
+		}
+				
+		return transBag;
 	}
 	
 	//-Muhasebele?tirilmemi? fi?leri getirir...
@@ -152,7 +198,10 @@ public class AccBLTransactionSearch
 
 	public static void removeAccountingTransaction(HashMap argMap) throws Exception
 	{
-		TurqAccountingTransaction accTrans =(TurqAccountingTransaction) argMap.get(AccKeys.ACC_TRANSACTION);
+		Integer transId=(Integer)argMap.get(AccKeys.ACC_TRANS_ID);
+		Session session=EngDALSessionFactory.getSession();
+		
+		TurqAccountingTransaction accTrans =(TurqAccountingTransaction)session.load(TurqAccountingTransaction.class,transId);
 		AccDALTransactionSearch.deleteTransaction(accTrans);
 	}
 }
