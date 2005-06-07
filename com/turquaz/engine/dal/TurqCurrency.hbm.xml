@@ -81,6 +81,12 @@
         not-null="true"
         length="1"
     />
+    <property
+        name="constant"
+        type="boolean"
+        column="constant"
+        length="1"
+    />
 
     <!-- Associations -->
   

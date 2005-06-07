@@ -32,6 +32,7 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -387,11 +388,25 @@ public class EngBLCommon
 		
 	}
 
-	public static List getCurrencies() throws Exception
+	public static HashBag getCurrencies() throws Exception
 	{
 		try
 		{
-			return EngDALCommon.getCurrencies();
+			HashBag currencyBag=new HashBag();
+			List list= EngDALCommon.getCurrencies();
+			currencyBag.put(EngKeys.CURRENCIES,new HashMap());
+			
+			for(int k=0; k<list.size(); k++)
+			{
+				TurqCurrency currency=(TurqCurrency)list.get(k);
+				
+				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.CURRENCY_ID,currency.getId());
+				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.CURRENCY_ABBR,currency.getCurrenciesAbbreviation());
+				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.DEFAULT, new Boolean(currency.isDefaultCurrency()));
+				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.CONSTANT, new Boolean(currency.isConstant()));
+			}
+			
+			return currencyBag;
 		}
 		catch (Exception ex)
 		{

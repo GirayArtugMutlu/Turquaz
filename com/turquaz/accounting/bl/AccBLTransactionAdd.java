@@ -38,6 +38,7 @@ import com.turquaz.engine.dal.TurqAccountingTransactionType;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.exceptions.TurquazException;
 
 public class AccBLTransactionAdd
 {
@@ -208,7 +209,8 @@ public class AccBLTransactionAdd
 		}
 	}
 	
-	public static void saveAccTransactionFromUI(HashMap argMap)throws Exception{
+	public static void saveAccTransactionFromUI(HashMap argMap)throws Exception
+	{
 		
 		Date date = (Date) argMap.get(AccKeys.ACC_TRANS_DATE);
 		String documentNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
@@ -216,7 +218,14 @@ public class AccBLTransactionAdd
 		Integer moduleId = (Integer)argMap.get(AccKeys.ACC_MODULE_ID);
 		Integer seqId = (Integer)argMap.get(AccKeys.ACC_SEQUENCE_ID);
 		String definition = (String)argMap.get(AccKeys.ACC_DEFINITION);
-		TurqCurrencyExchangeRate exRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
+		Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+		TurqCurrencyExchangeRate exRate = EngDALCommon.getCurrencyExchangeRate(currencyId,date);
+		if (exRate == null)
+		{
+			throw new TurquazException("You need to define daily exchange rate");
+		}		
+		
 		List transColumns=(List)argMap.get(AccKeys.ACC_TRANSACTIONS);
 		
 		saveAccTransaction(date, documentNo,type.intValue(),moduleId.intValue(),seqId,definition,exRate,transColumns);

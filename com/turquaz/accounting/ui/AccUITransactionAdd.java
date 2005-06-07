@@ -28,11 +28,10 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -51,7 +50,6 @@ import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Table;
@@ -70,14 +68,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 		//Register as a resource user - SWTResourceManager will
 		//handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
-	}
-
-	/**
-	 * @return Returns the exchangeRate.
-	 */
-	public TurqCurrencyExchangeRate getExchangeRate()
-	{
-		return exchangeRate;
 	}
 
 	/**
@@ -111,10 +101,8 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	{
 		return txtDocumentNo;
 	}
-	private TurqCurrency baseCurrency;
-	private TurqCurrency exchangeCurrency;
-	private TurqCurrencyExchangeRate exchangeRate;
-	BigDecimal totalCredit;
+	
+	private BigDecimal totalCredit;
 	private CLabel lblDate;
 	private DatePicker dateTransactionDate;
 	private TableColumn tableColumnDefinition;
@@ -340,16 +328,19 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-				if (currency.isDefaultCurrency())
+				HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+				comboCurrencyType.add((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+				comboCurrencyType.setData(currencyMap.get(EngKeys.CURRENCY_ID));
+				
+				if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
 				{
-					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-					baseCurrency = currency;
+					comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
 				}
 			}
 		}
@@ -437,25 +428,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_ENTER_AT_LEAST_ONE_ROW); 
 				return false;
 			}
-			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
-			{
-				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_CURRENY_TYPE); 
-				comboCurrencyType.setFocus();
-				return false;
-			}
-			if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-			{
-				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransactionDate.getDate());
-				if (exchangeRate == null)
-				{
-					EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_DEFINE_RELATED_CURRENCY); 
-					return false;
-				}
-			}
-			else
-			{
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-			}
 			return true;
 		}
 		catch (Exception ex)
@@ -492,7 +464,6 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 	{
 		if (verifyFields())
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			try
 			{				
 				HashMap argMap = new HashMap();
@@ -502,14 +473,11 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				argMap.put(AccKeys.ACC_MODULE_ID,new Integer(1));
 				argMap.put(AccKeys.ACC_SEQUENCE_ID,null);
 				argMap.put(AccKeys.ACC_DEFINITION,txtTransDefinition.getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));
 				argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionAdd.class.getName(),"saveAccTransactionFromUI",argMap);
-				
-				
-				msg.setMessage(EngLangCommonKeys.MSG_SAVED_SUCCESS); 
-				msg.open();
+				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				clearFields();
 			}
 			catch (Exception ex)

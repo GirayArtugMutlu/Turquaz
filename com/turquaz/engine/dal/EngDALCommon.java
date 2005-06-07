@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import com.turquaz.engine.exceptions.TurquazException;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -19,6 +20,42 @@ public class EngDALCommon
 		Query q = session.createQuery(query);
 		List list = q.list();
 		return list;		
+	}
+	
+	public static TurqCurrencyExchangeRate getCurrencyExchangeRate(Integer currencyId, Date exchangeDate)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		TurqCurrency currency=(TurqCurrency)session.load(TurqCurrency.class,currencyId);
+		if (currency.isConstant())
+		{
+			String query = "Select exchangeRate from TurqCurrencyExchangeRate as exchangeRate where turqCurrencyByExchangeCurrencyId.id="+currencyId;
+			Query q = session.createQuery(query);
+			List list = q.list();
+			if (list.size() > 0)
+			{
+				return (TurqCurrencyExchangeRate)list.get(0);
+			}
+			else
+			{
+				throw new TurquazException("Inconsistent database error: constant currency must have a global exchangeRate");
+			}
+		}
+		else
+		{
+			String query = "Select exchangeRate from TurqCurrencyExchangeRate as exchangeRate where turqCurrencyByExchangeCurrencyId.id="+currencyId+
+						" and exhangeRatesDate=:exchangeDate";
+			Query q = session.createQuery(query);
+			q.setParameter("exchangeDate",exchangeDate);
+			List list = q.list();
+			if (list.size() > 0)
+			{
+				return (TurqCurrencyExchangeRate)list.get(0);
+			}
+			else
+			{
+				return null;
+			}
+		}
 	}
 	
 	public static List getCurrencies() throws Exception

@@ -53,5 +53,11 @@ public class EngKeys
 	public final static String DATABASE_VERSION="databaseVersion";
 	public final static String CREDIT_AMOUNT ="creditAmount";
 	public final static String DEPT_AMOUNT ="deptAmount";	
+	public final static String CURRENCIES="currencies";
+	public final static String CURRENCY="currency";
+	public final static String CURRENCY_ID="currencyId";
+	public final static String CURRENCY_ABBR="currencyAbbr";
+	public final static String DEFAULT="default";
+	public final static String CONSTANT="constant";
 	
 }

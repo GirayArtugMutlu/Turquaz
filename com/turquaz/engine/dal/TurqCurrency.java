@@ -36,6 +36,9 @@ public class TurqCurrency implements Serializable {
     /** persistent field */
     private boolean defaultCurrency;
 
+    /** nullable persistent field */
+    private boolean constant;
+
     /** persistent field */
     private Set turqInventoryPrices;
 
@@ -55,6 +58,29 @@ public class TurqCurrency implements Serializable {
     private Set turqCurrencyExchangeRatesByExchangeCurrencyId;
 
     /** full constructor */
+    public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, boolean defaultCurrency, boolean constant, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrencyExchangeRatesByBaseCurrencyId, Set turqCurrencyExchangeRatesByExchangeCurrencyId) {
+        this.currenciesName = currenciesName;
+        this.currenciesAbbreviation = currenciesAbbreviation;
+        this.currenciesCountry = currenciesCountry;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.updatedBy = updatedBy;
+        this.lastModified = lastModified;
+        this.defaultCurrency = defaultCurrency;
+        this.constant = constant;
+        this.turqInventoryPrices = turqInventoryPrices;
+        this.turqTradebillTradebills = turqTradebillTradebills;
+        this.turqBanksCards = turqBanksCards;
+        this.turqChequeCheques = turqChequeCheques;
+        this.turqCurrencyExchangeRatesByBaseCurrencyId = turqCurrencyExchangeRatesByBaseCurrencyId;
+        this.turqCurrencyExchangeRatesByExchangeCurrencyId = turqCurrencyExchangeRatesByExchangeCurrencyId;
+    }
+
+    /** default constructor */
+    public TurqCurrency() {
+    }
+
+    /** minimal constructor */
     public TurqCurrency(java.lang.String currenciesName, java.lang.String currenciesAbbreviation, java.lang.String currenciesCountry, java.lang.String createdBy, java.util.Date creationDate, java.lang.String updatedBy, java.util.Date lastModified, boolean defaultCurrency, Set turqInventoryPrices, Set turqTradebillTradebills, Set turqBanksCards, Set turqChequeCheques, Set turqCurrencyExchangeRatesByBaseCurrencyId, Set turqCurrencyExchangeRatesByExchangeCurrencyId) {
         this.currenciesName = currenciesName;
         this.currenciesAbbreviation = currenciesAbbreviation;
@@ -70,10 +96,6 @@ public class TurqCurrency implements Serializable {
         this.turqChequeCheques = turqChequeCheques;
         this.turqCurrencyExchangeRatesByBaseCurrencyId = turqCurrencyExchangeRatesByBaseCurrencyId;
         this.turqCurrencyExchangeRatesByExchangeCurrencyId = turqCurrencyExchangeRatesByExchangeCurrencyId;
-    }
-
-    /** default constructor */
-    public TurqCurrency() {
     }
 
     public java.lang.Integer getId() {
@@ -146,6 +168,14 @@ public class TurqCurrency implements Serializable {
 
     public void setDefaultCurrency(boolean defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
+    }
+
+    public boolean isConstant() {
+        return this.constant;
+    }
+
+    public void setConstant(boolean constant) {
+        this.constant = constant;
     }
 
     public java.util.Set getTurqInventoryPrices() {
