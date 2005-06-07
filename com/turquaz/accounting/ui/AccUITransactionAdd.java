@@ -335,8 +335,9 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 			{
 				HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
 
-				comboCurrencyType.add((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
-				comboCurrencyType.setData(currencyMap.get(EngKeys.CURRENCY_ID));
+				String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+				comboCurrencyType.add(abbr);
+				comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
 				
 				if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
 				{
