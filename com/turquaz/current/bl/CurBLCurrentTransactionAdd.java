@@ -43,6 +43,7 @@ import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
+import com.turquaz.engine.exceptions.TurquazException;
 import com.turquaz.engine.ui.component.DatePicker;
 
 public class CurBLCurrentTransactionAdd
@@ -226,11 +227,17 @@ public class CurBLCurrentTransactionAdd
 		Integer type = (Integer)argMap.get(EngKeys.TYPE);
 		Integer seqDocNo = (Integer)argMap.get(EngKeys.ENG_SEQ_ID);
 		String definition = (String)argMap.get(EngKeys.DEFINITION);
-		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
+		Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+		TurqCurrencyExchangeRate exRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+		
+		if (exRate == null)
+		{
+			throw new TurquazException("You need to define daily exchange rate");
+		}	
 		
 		TurqCurrentTransaction curTrans = saveCurrentTransaction(curCard, transDate, documentNo, isCredit.booleanValue(), amount, totalDiscount,
-				type.intValue(), seqDocNo, definition, exchangeRate);
+				type.intValue(), seqDocNo, definition, exRate);
 		if (account == null)
 		{
 			return curTrans;
@@ -244,7 +251,7 @@ public class CurBLCurrentTransactionAdd
 			Map deptAccounts = new HashMap();
 			prepareAccountingMaps(curCard, isCredit.booleanValue(), amount, account, deptAccounts, creditAccounts);
 			AccBLTransactionAdd.saveAccTransaction(transDate, documentNo, EngBLCommon.ACCOUNTING_TRANS_GENERAL,
-					EngBLCommon.MODULE_CURRENT, curTrans.getTurqEngineSequence().getId(), transDefinition, exchangeRate,
+					EngBLCommon.MODULE_CURRENT, curTrans.getTurqEngineSequence().getId(), transDefinition, exRate,
 					creditAccounts, deptAccounts, true);
 			return curTrans;
 		}

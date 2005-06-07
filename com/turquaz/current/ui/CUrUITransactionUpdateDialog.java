@@ -282,7 +282,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						.getBigDecimalValue());
 				argMap.put(AccKeys.ACC_ACCOUNT,compTransactionAdd.getAccPickerCashAccount()
 						.getData());
-				argMap.put(CurKeys.CUR_TRANSACTION,transaction);
+				argMap.put(CurKeys.CUR_TRANSACTION_ID,transaction.getId());
 				EngTXCommon.doTransactionTX(CurBLSearchTransaction.class.getName(),"updateCurrentTransaction",argMap);
 				
 				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
@@ -302,7 +302,7 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_TRANSACTION,transaction);
+			argMap.put(CurKeys.CUR_TRANSACTION_ID,transaction.getId());
 			EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
 			
 			msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$

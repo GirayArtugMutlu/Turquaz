@@ -1,18 +1,19 @@
 package com.turquaz.current.ui;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLSearchTransaction;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -40,7 +41,6 @@ import org.eclipse.swt.widgets.CoolItem;
 public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
-	private TurqCurrentCard currentCard;
 	private Table tableCurrentTransactions;
 	private TableColumn tableColumnDocumentNo;
 	private ToolBar toolBar1;
@@ -52,6 +52,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	private TableColumn tableColumnTransGroup;
 	static private ToolItem toolPrint;
 	static private ToolItem toolExportToExcel;
+	Integer curCardId =null;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
@@ -59,6 +60,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 	public CurUICurrentCardTransactions(Shell parent, int style, Integer curCardId)
 	{
 		super(parent, style);
+		this.curCardId = curCardId;
 	
 	}
 
@@ -106,14 +108,7 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 							toolPrint = new ToolItem(toolBar1, SWT.NONE);
 							toolPrint.setText(EngLangCommonKeys.STR_PRINT); //$NON-NLS-1$
 							toolPrint.setImage(SWTResourceManager.getImage("icons/Print16.gif")); //$NON-NLS-1$
-							toolPrint.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									EngBLUtils.printTable(tableCurrentTransactions,CurLangKeys.STR_CURRENT_CARD_ABSTRAT_CODE//$NON-NLS-1$
-											+ currentCard.getCardsCurrentCode());
-								}
-							});
+						
 						}
 					}
 				}
@@ -177,23 +172,44 @@ public class CurUICurrentCardTransactions extends org.eclipse.swt.widgets.Dialog
 		{
 			tableCurrentTransactions.removeAll();
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_CARD_ID,currentCard.getId());
+			argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 			
-			List results =(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentTransactions",argMap); 
+			final HashBag result =(HashBag)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentTransactions",argMap); 
 			
-			TurqCurrentTransaction transaction;
+			toolPrint.addSelectionListener(new SelectionAdapter()
+					{
+						public void widgetSelected(SelectionEvent evt)
+						{
+							EngBLUtils.printTable(tableCurrentTransactions,CurLangKeys.STR_CURRENT_CARD_ABSTRAT_CODE//$NON-NLS-1$
+									+ result.get(CurKeys.CUR_CURRENT_CODE).toString());
+						}
+					});
+			
+			
+			HashMap transList = (HashMap)result.get(CurKeys.CUR_TRANSACTIONS);
+			
 			TableItem item;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < results.size(); i++)
+			for (int i = 0; i < transList.size(); i++)
 			{
-				transaction = (TurqCurrentTransaction) results.get(i);
+				HashMap transInfo = (HashMap)transList.get(new Integer(i));
 				item = new TableItem(tableCurrentTransactions, SWT.NULL);
-				item.setData(transaction);
-				item.setText(new String[]{DatePicker.formatter.format(transaction.getTransactionsDate()),
-						transaction.getTurqCurrentTransactionType().getTransactionTypeName(),
-						transaction.getTransactionsDocumentNo(), cf.format(transaction.getTransactionsTotalDept()),
-						cf.format(transaction.getTransactionsTotalCredit()),});
+				item.setData(transInfo.get(CurKeys.CUR_TRANSACTION_ID));
+				Date transDate = (Date)transInfo.get(EngKeys.DATE);
+				String typeName =(String)transInfo.get(EngKeys.TYPE_NAME);
+				String docNo =(String)transInfo.get(EngKeys.DOCUMENT_NO);
+				BigDecimal totalCredit=(BigDecimal)transInfo.get(EngKeys.CREDIT_AMOUNT);
+				BigDecimal totalDept=(BigDecimal)transInfo.get(EngKeys.DEPT_AMOUNT);
+				
+				item.setText(new String[]{DatePicker.formatter.format(transDate),
+						typeName,
+						docNo, cf.format(totalDept),
+						cf.format(totalCredit)});
 			}
+			
+			
+			
+			
 		}
 		catch (Exception ex)
 		{

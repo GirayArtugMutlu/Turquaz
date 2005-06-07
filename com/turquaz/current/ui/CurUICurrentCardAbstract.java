@@ -24,27 +24,25 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.CurrencyText;
 import com.turquaz.current.CurKeys;
 import org.eclipse.swt.custom.CCombo;
-import com.turquaz.current.bl.CurBLCurrentCardSearch;
+
+import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -79,45 +77,6 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 	private TurqCurrentCard currentCard2 = null;
 	private Calendar cal = Calendar.getInstance();
 
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		showGUI();
-	}
-
-	/**
-	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void showGUI()
-	{
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CurUICurrentCardAbstract inst = new CurUICurrentCardAbstract(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if (size.x == 0 && size.y == 0)
-		{
-			inst.pack();
-			shell.pack();
-		}
-		else
-		{
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
 
 	public CurUICurrentCardAbstract(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -269,14 +228,15 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 		{
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			datePickerStartDate.setDate(cal.getTime());
-			List groups = (List) EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),
-					"getTurqCurrentGroups", null);
-			comboCurGroup.add("");
-			for (int k = 0; k < groups.size(); k++)
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
+			
+			HashMap groupMap = (HashMap)groupBag.get(AdmKeys.ADM_GROUPS);
+	
+			for (int k = 0; k < groupMap.size(); k++)
 			{
-				TurqCurrentGroup group = (TurqCurrentGroup) groups.get(k);
-				comboCurGroup.add(group.getGroupsName());
-				comboCurGroup.setData(group.getGroupsName(), group);
+				HashMap groupInfo = (HashMap) groupMap.get(new Integer(k));
+				comboCurGroup.add(groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString());
+				comboCurGroup.setData(groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString(), groupInfo.get(AdmKeys.ADM_GROUP_ID));
 			}
 		}
 		catch (Exception ex)
@@ -329,6 +289,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			
 			List list=(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentCardAbstract",argMap);
 			Map parameters = new HashMap();
+		
 			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
 			parameters.put("startDate", dformat2.format(datePickerStartDate.getDate())); //$NON-NLS-1$
 			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
@@ -359,6 +320,7 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			{
 				parameters.put("showGeneralTotal", new Boolean(true));
 			}
+			
 			HashMap balanceList = new HashMap();
 			for (int k = 0; k < balances.size(); k++)
 			{

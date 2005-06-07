@@ -17,7 +17,6 @@ package com.turquaz.current.ui;
 /************************************************************************/
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -40,9 +39,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -52,10 +48,10 @@ import com.turquaz.engine.ui.component.CurrencyText;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.custom.CCombo;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -76,15 +72,8 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 		return comboCurrencyType;
 	}
 
-	/**
-	 * @return Returns the exchangeRate.
-	 */
-	public TurqCurrencyExchangeRate getExchangeRate()
-	{
-		return exchangeRate;
-	}
-	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
+	
+	
 	private CLabel lblCashTransType;
 	private CurrentPicker txtCurrentCard;
 	private CLabel lvlDate;
@@ -98,7 +87,6 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 	private CurrencyText txtCredit;
 	private DatePicker dateTransDate;
 	private CLabel lvlCurrentCard;
-	private TurqCurrency exchangeCurrency = null;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
@@ -257,18 +245,23 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null); //$NON-NLS-1$
+
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-				if (currency.isDefaultCurrency())
-				{
-					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-					baseCurrency = currency;
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboCurrencyType.add(abbr);
+					comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
 				}
-			}
 		}
 		catch (Exception ex)
 		{
@@ -304,14 +297,15 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 				argMap.put(CurKeys.CUR_DISCOUNT_PAYMENT,new BigDecimal(0));
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_OTHERS));
 				argMap.put(EngKeys.ENG_SEQ_ID,null);
-				argMap.put(EngKeys.DEFINITION, txtDefinition.getText());
-				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
+				argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));
 								
-				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap); //$NON-NLS-1$
+				EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap); //$NON-NLS-1$
+				
 				
 				if (EngUICommon.showQuestion(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)) //$NON-NLS-1$
 				{
-					EngBLUtils.printCurrentTrans(curtrans);
+					EngBLUtils.printCurrentTrans(txtCurrentCard.getCardCode(),txtCurrentCard.getCardName(),txtDefinition.getText().trim(),dateTransDate.getDate(),credit,isCredit);
 				}
 				newForm();
 			}
@@ -342,27 +336,14 @@ public class CurUICurrentCardDeptVoucher extends org.eclipse.swt.widgets.Composi
 				txtCredit.setFocus();
 				return false;
 			}
-			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
+			else if (comboCurrencyType.getData(comboCurrencyType.getText()) == null)
 			{
 				msg.setMessage(EngLangCommonKeys.MSG_SELECT_CURRENCY); //$NON-NLS-1$
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-			{
-				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransDate.getDate());
-				if (exchangeRate == null)
-				{
-					msg.setMessage(EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE); //$NON-NLS-1$
-					msg.open();
-					return false;
-				}
-			}
-			else
-			{
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-			}
+			
 			return true;
 		}
 		catch (Exception ex)

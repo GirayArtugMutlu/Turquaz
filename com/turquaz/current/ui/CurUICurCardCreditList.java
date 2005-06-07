@@ -26,7 +26,6 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
@@ -37,18 +36,21 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -300,14 +302,15 @@ public class CurUICurCardCreditList extends Composite implements SearchComposite
 			Calendar cal=Calendar.getInstance();
 			cal.set(cal.get(Calendar.YEAR),0,1);
 			dateStartDate.setDate(cal.getTime());
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardAdd.class.getName(),"getCurrentGroups",null);
 			
-			List groups = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTurqCurrentGroups",null);
-						
-			for (int k = 0; k < groups.size(); k++)
+			HashMap groupMap = (HashMap)groupBag.get(AdmKeys.ADM_GROUPS);
+	
+			for (int k = 0; k < groupMap.size(); k++)
 			{
-				TurqCurrentGroup group = (TurqCurrentGroup) groups.get(k);
-				comboTurqGroupName.add(group.getGroupsName());
-				comboTurqGroupName.setData(group.getGroupsName(), group);
+			HashMap groupInfo = (HashMap) groupMap.get(new Integer(k));
+			comboTurqGroupName.add(groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString());
+			comboTurqGroupName.setData(groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString(), groupInfo.get(AdmKeys.ADM_GROUP_ID));
 			}
 			createTableViewer();
 		}
@@ -344,10 +347,10 @@ public class CurUICurCardCreditList extends Composite implements SearchComposite
 					HashMap argMap = new HashMap();
 					
 					argMap.put(CurKeys.CUR_CARD_ID,cardId);
-					
-					List curCardTrans = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getTransactions",argMap);
-					
-					if (curCardTrans.size() > 0)
+					HashBag curCardTrans2 = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"hasTransactions",argMap);
+					Boolean hasTrans = (Boolean)curCardTrans2.get(CurKeys.CUR_HAS_TRANSACTIONS);
+				
+					if (hasTrans.booleanValue())
 					{
 						msg.setMessage(CurLangKeys.MSG_CUR_CARD_HAS_TRANSACTIONS); //$NON-NLS-1$
 						msg.open();
@@ -391,23 +394,24 @@ public class CurUICurCardCreditList extends Composite implements SearchComposite
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			
-			List listCurrentCards = (List)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCardBalanceList",argMap);
+			HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCardBalanceList",argMap);
+			HashMap cardList = (HashMap)result.get(CurKeys.CUR_CARDS);
 			
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat(2);
 			BigDecimal generalCredit = new BigDecimal(0);
 			BigDecimal generalDept = new BigDecimal(0);
-			for (int k = 0; k < listCurrentCards.size(); k++)
+			for (int k = 0; k < cardList.size(); k++)
 			{
-				Object result[] = (Object[]) listCurrentCards.get(k);
-				BigDecimal totalDept = (BigDecimal) result[3];
-				BigDecimal totalCredit =(BigDecimal) result[4];				
+				HashMap cardInfo = (HashMap)cardList.get(new Integer(k));
+				BigDecimal totalDept = (BigDecimal)((cardInfo.get(EngKeys.DEPT_AMOUNT)==null) ? new BigDecimal(0) : (BigDecimal)cardInfo.get(EngKeys.DEPT_AMOUNT));
+				BigDecimal totalCredit =(BigDecimal) ((cardInfo.get(EngKeys.CREDIT_AMOUNT)==null) ? new BigDecimal(0) : (BigDecimal)cardInfo.get(EngKeys.CREDIT_AMOUNT));				
 				BigDecimal balance = totalCredit.subtract(totalDept);
 				if (balance.doubleValue() > 0)
 				{
-					Integer cardId = (Integer) result[0];
-					String curCode = result[1].toString();
-					String curName = result[2].toString();
+					Integer cardId = (Integer) cardInfo.get(CurKeys.CUR_CARD_ID);
+					String curCode = cardInfo.get(CurKeys.CUR_CURRENT_CODE).toString();
+					String curName = cardInfo.get(CurKeys.CUR_CURRENT_NAME).toString();
 					
 					generalCredit = generalCredit.add(totalCredit);
 					generalDept = generalDept.add(totalDept);

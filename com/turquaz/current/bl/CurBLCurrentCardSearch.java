@@ -48,58 +48,87 @@ public class CurBLCurrentCardSearch
 		
 		
 		HashBag resultBag = new HashBag();
-		resultBag.put(CurKeys.CUR_TRANSACTIONS,new HashMap());
+		resultBag.put(CurKeys.CUR_CARDS,new HashMap());
 		List list = CurDALCurrentCardSearch.searchCurrentCards(currentCode, currentName, currentGroupId);
 		Iterator it = list.iterator();
 		int i=0;
 		while(it.hasNext())
 		{
 			Object[] cardInfo = (Object[])it.next();
-			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CARD_ID,cardInfo[0]);
-			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_CODE,cardInfo[1]);
-			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_NAME,cardInfo[2]);
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CARD_ID,cardInfo[0]);
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_CODE,cardInfo[1]);
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_NAME,cardInfo[2]);
 			
-			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
-			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DEPT_AMOUNT,new BigDecimal(0));
-			resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_BALANCE,new BigDecimal(0));
+			resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
+			resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_BALANCE,new BigDecimal(0));
 			
 			if(cardInfo[3]!=null)
 			{
-				resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.CREDIT_AMOUNT,cardInfo[3]);
+				resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.CREDIT_AMOUNT,cardInfo[3]);
 			}
 			if(cardInfo[4]!=null)
 			{
-				resultBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DEPT_AMOUNT,cardInfo[4]);
+				resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.DEPT_AMOUNT,cardInfo[4]);
 			}
 			if(cardInfo[5]!=null)
 			{
-				resultBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_CURRENT_BALANCE,cardInfo[5]);
+				resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_BALANCE,cardInfo[5]);
 			}
 			i++;
 		}
 			
-		return resultBag;
-		
-		
+		return resultBag;		
 		
 	}
 	
-	public static List searchCurrentCardBalanceList(HashMap argMap) throws Exception
+	public static HashBag searchCurrentCardBalanceList(HashMap argMap) throws Exception
 	{
 		
 		String currentCode = (String)argMap.get(CurKeys.CUR_CURRENT_CODE);
 		String currentName = (String)argMap.get(CurKeys.CUR_CURRENT_NAME);
 		
+		
 		Integer groupId = (Integer)argMap.get(CurKeys.CUR_GROUP_ID);
-		TurqCurrentGroup currentGroup = new TurqCurrentGroup();
-		currentGroup.setId(groupId);
+		TurqCurrentGroup currentGroup = null;
+		if(groupId!=null)
+		{
+			currentGroup = new TurqCurrentGroup();
+			currentGroup.setId(groupId);
+		}
 		
 		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 		Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 		String definition=(String)argMap.get(EngKeys.DEFINITION);		
 		
-			return CurDALCurrentCardSearch.searchCurrentCardsBalanceList(currentCode, currentName, currentGroup,startDate,endDate,definition);
-		
+		HashBag resultBag = new HashBag();
+		resultBag.put(CurKeys.CUR_CARDS,new HashMap());
+		List list = CurDALCurrentCardSearch.searchCurrentCardsBalanceList(currentCode, currentName, currentGroup,startDate,endDate,definition);
+		Iterator it = list.iterator();
+		int i=0;
+		while(it.hasNext())
+		{
+			Object[] cardInfo = (Object[])it.next();
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CARD_ID,cardInfo[0]);
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_CODE,cardInfo[1]);
+			resultBag.put(CurKeys.CUR_CARDS,i,CurKeys.CUR_CURRENT_NAME,cardInfo[2]);
+			
+			resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
+			resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+			
+			if(cardInfo[3]!=null)
+			{
+				resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.DEPT_AMOUNT,cardInfo[3]);
+			}
+			if(cardInfo[4]!=null)
+			{
+				resultBag.put(CurKeys.CUR_CARDS,i,EngKeys.CREDIT_AMOUNT,cardInfo[4]);
+			}
+			
+			i++;
+		}
+			
+		return resultBag;
 	}
 
 	public static TurqViewCurrentAmountTotal getCurrentCardView(HashMap argMap) throws Exception

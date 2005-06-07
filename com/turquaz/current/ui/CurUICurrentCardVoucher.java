@@ -42,7 +42,6 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -327,10 +326,11 @@ public class CurUICurrentCardVoucher extends org.eclipse.swt.widgets.Composite i
 				argMap.put(EngKeys.DEFINITION, txtDefinition.getText());
 				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
 								
-				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
+				EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
 				if (EngUICommon.showQuestion(getShell(), CurLangKeys.MSG_WANT_TO_PRINT_VOUCHER)) //$NON-NLS-1$
 				{
-					EngBLUtils.printCurrentTrans(curtrans);
+					EngBLUtils.printCurrentTrans(txtCurrentCard.getCardCode(),txtCurrentCard.getCardName(),txtDefinition.getText().trim(),dateTransDate.getDate(),credit,isCredit);
+					
 				}
 				newForm();
 			}

@@ -150,7 +150,7 @@ public class CurUICurrentTransferUpdate extends org.eclipse.swt.widgets.Dialog {
 			
 		
 		HashMap argMap = new HashMap();
-		argMap.put(CurKeys.CUR_TRANSACTION,currentTrans);
+		argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTrans.getId());
 	    EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
 		
 	    Iterator it = currentTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();

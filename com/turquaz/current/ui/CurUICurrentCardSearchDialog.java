@@ -248,7 +248,7 @@ public class CurUICurrentCardSearchDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(CurKeys.CUR_GROUP_ID, comboTurqGroupName.getData(comboTurqGroupName.getText()));
 			
 			HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
-			HashMap cardList = (HashMap)result.get(CurKeys.CUR_TRANSACTIONS);
+			HashMap cardList = (HashMap)result.get(CurKeys.CUR_CARDS);
 			
 			for (int k = 0; k < cardList.size(); k++)
 			{

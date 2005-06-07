@@ -224,6 +224,26 @@ public class CurrentPicker extends org.eclipse.swt.widgets.Composite implements 
 		}
 		return (Integer)cardInfo.get(CurKeys.CUR_CARD_ID);
 	}
+	
+	public String getCardName()
+	{
+		if(cardInfo==null)
+		{
+			return null;
+		}
+		return (String)cardInfo.get(CurKeys.CUR_CURRENT_NAME);
+		
+	}
+
+	public String getCardCode()
+	{
+		if(cardInfo==null)
+		{
+			return null;
+		}
+		return (String)cardInfo.get(CurKeys.CUR_CURRENT_CODE);
+		
+	}
 
 	public void openNewObjectDialog() {
 		// TODO Auto-generated method stub

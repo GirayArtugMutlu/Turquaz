@@ -379,7 +379,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 			
 			
 			HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"searchCurrentCard",argMap);
-			HashMap cardList = (HashMap)result.get(CurKeys.CUR_TRANSACTIONS);
+			HashMap cardList = (HashMap)result.get(CurKeys.CUR_CARDS);
 			
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat(2);

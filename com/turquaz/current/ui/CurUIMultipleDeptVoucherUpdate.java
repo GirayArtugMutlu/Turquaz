@@ -142,7 +142,7 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
         try
         {
             HashMap argMap = new HashMap();
-            argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
+            argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
             
             EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
             Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
@@ -186,7 +186,7 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
         {
             updated = true;
             HashMap argMap = new HashMap();
-            argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
+            argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
             EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
             compVoucher.saveTrans();
             
@@ -209,7 +209,7 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
                 
                 updated = true;
                 HashMap argMap = new HashMap();
-                argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
+                argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
                 EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
                 
             }

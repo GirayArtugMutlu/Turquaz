@@ -183,7 +183,7 @@ public class CurUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 				try
 				{
 					HashMap argMap = new HashMap();
-					argMap.put(CurKeys.CUR_TRANSACTION,row.getDBObject());
+					argMap.put(CurKeys.CUR_TRANSACTION_ID,row.getDBObject());
 					EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"updateTrans",argMap);
 				}
 				catch (Exception ex)

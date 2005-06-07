@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +58,6 @@ import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.dal.TurqViewBillTransTotal;
 import com.turquaz.engine.dal.TurqViewCurrentAmountTotal;
 import com.turquaz.engine.dal.TurqViewInvPriceTotal;
@@ -604,8 +604,18 @@ public class EngBLUtils
 		}
 	}
 
-	public static void printCurrentTrans(TurqCurrentTransaction curtrans)
+	public static void printCurrentTrans(String curCode,String cardName,String definition,Date transDate, BigDecimal amount, boolean isCredit)
 	{
+		BigDecimal totalCredit=new BigDecimal(0);
+		BigDecimal totalDept=new BigDecimal(0);
+		if(isCredit)
+		{
+			totalCredit=amount;
+		}
+		else
+		{
+			totalDept=amount;
+		}
 		double space = 0.5;
 		TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 		//	  create a document with default settings from PageSetup
@@ -623,7 +633,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
-		t.setText(curtrans.getTurqCurrentCard().getCardsCurrentCode());
+		t.setText(curCode);
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
@@ -632,7 +642,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
-		t.setText(curtrans.getTurqCurrentCard().getCardsName());
+		t.setText(cardName);
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
@@ -641,7 +651,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
-		t.setText(DatePicker.formatter.format(curtrans.getTransactionsDate()));
+		t.setText(DatePicker.formatter.format(transDate));
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
@@ -650,7 +660,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
-		t.setText(curtrans.getTransactionsDefinition());
+		t.setText(definition);
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
@@ -659,7 +669,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
-		t.setText(cf.format(curtrans.getTransactionsTotalDept()));
+		t.setText(cf.format(totalDept));
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);
@@ -668,7 +678,7 @@ public class EngBLUtils
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().fontStyle = SWT.BOLD;
 		t = new PTextBox(doc, PBox.POS_RIGHT);
-		t.setText(cf.format(curtrans.getTransactionsTotalCredit()));
+		t.setText(cf.format(totalCredit));
 		t.getTextStyle().fontSize = 10;
 		t.getTextStyle().textAlign = PTextStyle.ALIGN_RIGHT;
 		new PVSpace(doc, space);

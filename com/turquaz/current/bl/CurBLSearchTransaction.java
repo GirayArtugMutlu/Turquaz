@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.engine.EngKeys;
@@ -71,19 +72,42 @@ public class CurBLSearchTransaction
 		
 	}
 
-	public static List getCurrentTransactions(HashMap argMap) throws Exception
+	public static HashBag getCurrentTransactions(HashMap argMap) throws Exception
 	{
 		
-
+        HashBag returnBag = new HashBag();
+		
+		
+		
 		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
 		TurqCurrentCard card=null;
 		if(curCardId!=null)
 		{
 			card=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
 		};
+		
+		returnBag.put(CurKeys.CUR_CURRENT_CODE,card.getCardsCurrentCode());
+		
 		Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 		Date endDate = (Date)argMap.get(EngKeys.DATE_END);
-		return CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
+		
+		
+		List list = CurDALSearchTransaction.getCurrentTransactions(card, startDate, endDate);
+		returnBag.put(CurKeys.CUR_TRANSACTIONS,new HashMap());
+		for(int i=0;i<list.size();i++)
+		{
+			TurqCurrentTransaction trans = (TurqCurrentTransaction)list.get(i);
+			
+			returnBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DATE,trans.getTransactionsDate());
+			returnBag.put(CurKeys.CUR_TRANSACTIONS,i,CurKeys.CUR_TRANSACTION_ID,trans.getId());
+			returnBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.TYPE_NAME,trans.getTurqCurrentTransactionType().getTransactionTypeName());
+			returnBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DOCUMENT_NO,trans.getTransactionsDocumentNo());
+			returnBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.CREDIT_AMOUNT,trans.getTransactionsTotalCredit());
+			returnBag.put(CurKeys.CUR_TRANSACTIONS,i,EngKeys.DEPT_AMOUNT,trans.getTransactionsTotalDept());
+						
+		}
+		
+		return returnBag;
 		
 	}
 
@@ -103,9 +127,14 @@ public class CurBLSearchTransaction
 		Boolean isCredit =  (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);
 		BigDecimal amount = (BigDecimal)argMap.get(CurKeys.CUR_TRANS_AMOUNT);
 		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-		TurqCurrentTransaction curTrans = (TurqCurrentTransaction)argMap.get(CurKeys.CUR_TRANSACTION); 
 		
-			Calendar cal = Calendar.getInstance();
+		Integer curTransId =(Integer)argMap.get(CurKeys.CUR_TRANSACTION_ID);
+		
+		
+		TurqCurrentTransaction curTrans = (TurqCurrentTransaction)EngDALSessionFactory.getSession().load(TurqCurrentTransaction.class,curTransId);
+		
+		
+		Calendar cal = Calendar.getInstance();
 			TurqCurrency currency = EngBLCommon.getBaseCurrency();
 			curTrans.setTurqCurrentCard(curCard);
 			curTrans.setTransactionsDate(transDate);

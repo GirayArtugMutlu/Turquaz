@@ -15,7 +15,6 @@ import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
@@ -118,7 +117,8 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 						public void widgetSelected(SelectionEvent evt)
 						{
 							dialogShell.close();
-							EngBLUtils.printCurrentTrans(curTrans);
+						// XXX Print Duzeltilecek 
+						//	EngBLUtils.printCurrentTrans(curTrans);
 						}
 					});
 				}
@@ -171,7 +171,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
+			argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans);
 			
 			EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
 			Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
@@ -216,7 +216,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
+				argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
 				EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
 				
 				BigDecimal credit = compVoucher.getTxtCredit().getBigDecimalValue();
@@ -259,7 +259,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				updated = true;
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_TRANSACTION,curTrans);
+				argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
 				EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
 				
 			}
