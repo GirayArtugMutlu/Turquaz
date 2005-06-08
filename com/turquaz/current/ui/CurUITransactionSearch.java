@@ -23,17 +23,22 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
+
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.ui.BankUISearchMoneyTransaction;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.ui.BillUIBillSearch;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.ui.CashUICashTransactionSearch;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.ui.CheUIChequeRollSearch;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLSearchTransaction;
@@ -41,8 +46,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
-import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -287,17 +290,20 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSelectTX(CurBLCurrentTransactionAdd.class.getName(),"getCurrentTransactionTypes",null);
-		
 			
-			TurqCurrentTransactionType type;
+			HashBag resultBag =(HashBag)EngTXCommon.doSelectTX(CurBLCurrentTransactionAdd.class.getName(),"getCurrentTransactionTypes",null);
+					
+			HashMap types = (HashMap)resultBag.get(EngKeys.TYPES);
+			
+			
 			comboTransactionGroup.add("Hepsi");
 			comboTransactionGroup.setData("Hepsi", null);
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < types.size(); i++)
 			{
-				type = (TurqCurrentTransactionType) list.get(i);
-				comboTransactionGroup.add(type.getTransactionTypeName());
-				comboTransactionGroup.setData(type.getTransactionTypeName(), type);
+				
+				HashMap typeInfo = (HashMap) types.get(new Integer(i));
+				comboTransactionGroup.add(typeInfo.get(EngKeys.TYPE_NAME).toString());
+				comboTransactionGroup.setData(typeInfo.get(EngKeys.TYPE_NAME).toString(), typeInfo.get(EngKeys.TYPE_ID));
 			}
 			comboTransactionGroup.setText("Hepsi");
 		}
@@ -321,30 +327,37 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			
 			HashMap argMap = new HashMap();
 			argMap.put(CurKeys.CUR_CARD_ID,txtCurCard.getCardId());
-			argMap.put(EngKeys.TYPE,comboTransactionGroup.getData(comboTransactionGroup.getText()));
+			argMap.put(EngKeys.TYPE_ID,comboTransactionGroup.getData(comboTransactionGroup.getText()));
 			argMap.put(EngKeys.DOCUMENT_NO,"");
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			
 			
-			List results = (List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"searchCurrentTransaction",argMap); 
-			Object[] transaction;
+			HashBag resultBag = (HashBag)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"searchCurrentTransaction",argMap); 
+			HashMap transactions = (HashMap)resultBag.get(CurKeys.CUR_TRANSACTIONS);
+						
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < results.size(); i++)
+			for (int i = 0; i < transactions.size(); i++)
 			{
-				transaction = (Object[]) results.get(i);
-				Integer transId = (Integer) transaction[0];
-				Date transDate = (Date) transaction[1];
-				String transDocNo = (String) transaction[2];
-				String curCardCode = (String) transaction[3];
-				String curCardName = (String) transaction[4];
-				String transTypeName = (String) transaction[5];
-				String transDefinition = (String) transaction[6];
-				BigDecimal transTotalDept = (BigDecimal) transaction[7];
-				BigDecimal transTotalCredit = (BigDecimal) transaction[8];
+				HashMap transInfo = (HashMap)transactions.get(new Integer(i));
+				Integer transId = (Integer) transInfo.get(CurKeys.CUR_TRANSACTION_ID);
+				Integer typeId =(Integer) transInfo.get(EngKeys.TYPE_ID);
+				Integer rowData[]=new Integer[]{
+					transId,typeId	
+				};
+				
+				Date transDate = (Date) transInfo.get(EngKeys.DATE);
+				String transDocNo = (String)  transInfo.get(EngKeys.DOCUMENT_NO);
+				String curCardCode = (String)  transInfo.get(CurKeys.CUR_CURRENT_CODE);
+				String curCardName = (String)  transInfo.get(CurKeys.CUR_CURRENT_NAME);
+				String transTypeName = (String)  transInfo.get(EngKeys.TYPE_NAME);
+				String transDefinition = (String) transInfo.get(EngKeys.DEFINITION);
+				BigDecimal transTotalDept = (BigDecimal)transInfo.get(EngKeys.DEPT_AMOUNT);
+				BigDecimal transTotalCredit = (BigDecimal)transInfo.get(EngKeys.CREDIT_AMOUNT);
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDocNo, curCardCode, curCardName,
-						transTypeName, transDefinition, cf.format(transTotalDept), cf.format(transTotalCredit)}, transId);
+						transTypeName, transDefinition, cf.format(transTotalDept), cf.format(transTotalCredit)}, rowData);
 				totalDept = totalDept.add(transTotalDept);
 				totalCredit = totalCredit.add(transTotalCredit);
 			}
@@ -389,28 +402,27 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 			if (items.length > 0)
 			{
 				boolean updated = false;
-				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
+				Integer[] rowData = (Integer[]) ((ITableRow) items[0].getData()).getDBObject();
+				Integer transId = rowData[0];
+				int type = rowData[1].intValue();
 				if (transId != null)
 				{
 					
 					HashMap argMap = new HashMap();
 					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqCurrentTransaction trans = (TurqCurrentTransaction)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurTransByTransId",argMap);
-					//nakit hareketi ise izin ver
+				
 					
-					argMap = new HashMap();
-					argMap.put(EngKeys.ENG_SEQ,trans.getTurqEngineSequence());
-					
-					int type = trans.getTurqCurrentTransactionType().getId().intValue();
 					if (type == EngBLCommon.CURRENT_TRANS_OTHERS)
 					{
-						updated = new CurUIVoucherUpdate(this.getShell(), SWT.NULL, trans).open();
+						
+						updated = new CurUIVoucherUpdate(this.getShell(), SWT.NULL, transId).open();
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BANK)
 					{
-						Object data[] = (Object[])EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getBankTransaction",argMap);
-						Integer bankTransId =(Integer) data[0];
-						Integer transTypeId = (Integer)data[1];
+						HashBag transInfo = (HashBag)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getBankTransaction",argMap);
+						Integer bankTransId =(Integer) transInfo.get(BankKeys.BANK_TRANS_BILL_ID);
+						Integer transTypeId = (Integer)transInfo.get(EngKeys.TYPE_ID);
+					
 						if (bankTransId != null)
 						{
 							updated = BankUISearchMoneyTransaction.updateTransaction(bankTransId,transTypeId, getShell());
@@ -418,15 +430,19 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_BILL)
 					{
-						Integer bankTransId = (Integer)EngTXCommon.doSelectTX( EngBLCommon.class.getName(),"getBillofCurrentTrans",argMap);
+						HashBag result = (HashBag)EngTXCommon.doSelectTX( CurBLSearchTransaction.class.getName(),"getBillofCurrentTrans",argMap);
+						
+						Integer bankTransId = (Integer)result.get(BillKeys.BILL_ID);
 						if (bankTransId != null)
 						{
 							updated = BillUIBillSearch.updateBill(bankTransId, getShell());
 						}
 					}
+					
 					else if (type == EngBLCommon.CURRENT_TRANS_CHEQUE)
 					{
-						Integer bankTransId =(Integer)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCheqeuTransaction",argMap);
+						HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCheqeuTransaction",argMap);
+						Integer bankTransId =(Integer)result.get(CheKeys.CHE_CHEQUE_ROLL_ID);
 						if (bankTransId != null)
 						{
 							updated = CheUIChequeRollSearch.rollUpdate(bankTransId, getShell());
@@ -434,7 +450,8 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_CASH)
 					{
-						Integer bankTransId = (Integer)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCashTransaction",argMap);
+						HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCashTransaction",argMap);
+						Integer bankTransId = (Integer)result.get(CashKeys.CASH_TRANSACTION_ID);
 						if (bankTransId != null)
 						{
 							updated = CashUICashTransactionSearch.updateCashTransaction(bankTransId, getShell());
@@ -448,12 +465,12 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					}
                     else if (type == EngBLCommon.CURRENT_TRANS_MULTIPLE_CREDIT)
                     {
-                            updated =new CurUIMultipleCreditVoucherUpdate(getShell(),SWT.NONE,trans).open();
+                            updated =new CurUIMultipleCreditVoucherUpdate(getShell(),SWT.NONE,transId).open();
                         
                     }
                     else if (type == EngBLCommon.CURRENT_TRANS_MULTIPLE_DEPT)
                     {
-                            updated =new CurUIMultipleDeptVoucherUpdate(getShell(),SWT.NONE,trans).open();
+                            updated =new CurUIMultipleDeptVoucherUpdate(getShell(),SWT.NONE,transId).open();
                         
                     }
 					

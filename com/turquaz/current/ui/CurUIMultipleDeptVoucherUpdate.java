@@ -1,20 +1,18 @@
 package com.turquaz.current.ui;
 
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionCollectTableRow;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -38,13 +36,13 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
     private ToolItem toolCancel;
     private ToolItem toolDelete;
     private ToolBar toolBar1;
-    TurqCurrentTransaction curTrans;
+	Integer transId;
     private boolean updated = false;
 
-    public CurUIMultipleDeptVoucherUpdate(Shell parent, int style, TurqCurrentTransaction curTrans)
+    public CurUIMultipleDeptVoucherUpdate(Shell parent, int style,Integer curTransId)
     {
         super(parent, style);
-        this.curTrans = curTrans;
+		 this.transId = curTransId;
     }
 
     public boolean open()
@@ -135,47 +133,48 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
 
     public void postInitGUI()
     {
-        compVoucher.tableViewer.removeAll();
-        EngUICommon.centreWindow(dialogShell);
-        compVoucher.getCurrentPicker().setData(curTrans.getTurqCurrentCard());
-        
-        try
-        {
-            HashMap argMap = new HashMap();
-            argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
-            
-            EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
-            Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
-            if (it.hasNext())
-            {         
-                TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-                 argMap = new HashMap();
-                argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-                EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
-                
-                Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
-                while (accIt.hasNext())
-                {
-                    TurqAccountingTransactionColumn transRow = (TurqAccountingTransactionColumn)accIt.next();
-                    if(transRow.getCreditAmount().doubleValue()>0)
-                    {
-                        ITableRow row = new AccUITransactionCollectTableRow(compVoucher.tableViewer.getRowList());
-                        row.setDBObject(transRow);
-                        compVoucher.tableViewer.addRow(row);                
-                        
-                    }            
-                    
-                }
-                
-                
-            }
-        }
-        catch(Exception ex)
-        {
-            EngBLLogger.log(this.getClass(),ex,getParent());
-        }
-            
-        
+		 compVoucher.tableViewer.removeAll();
+	        EngUICommon.centreWindow(dialogShell);
+		
+			try{
+			HashMap argMap = new HashMap();
+	        argMap.put(CurKeys.CUR_TRANSACTION_ID,transId);
+			
+			HashBag voucherInfo = (HashBag)EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"getMultipleVoucherInfo",argMap);
+			
+			String currentCode = (String)voucherInfo.get(CurKeys.CUR_CURRENT_CODE);
+			String currentName = (String)voucherInfo.get(CurKeys.CUR_CURRENT_NAME);
+			Date transDate = (Date)voucherInfo.get(EngKeys.DATE);
+			String definition = (String)voucherInfo.get(EngKeys.DEFINITION);
+			String docNo = (String)voucherInfo.get(EngKeys.DOCUMENT_NO);
+			compVoucher.getTxtDefinition().setText(definition);
+			compVoucher.getTxtDocumentNo().setText(docNo);
+			compVoucher.getDatePickerTransactionDate().setDate(transDate);
+			
+			
+			
+			
+			HashMap transRows = (HashMap)voucherInfo.get(AccKeys.ACC_TRANSACTION_ROWS);
+
+			compVoucher.getCurrentPicker().setText(currentName+" {"+currentCode+"}");
+	        
+			
+			for(int i=0;i<transRows.size();i++)
+			{
+				
+				HashMap rowInfo = (HashMap)transRows.get(new Integer(i));
+				
+	            ITableRow row = new AccUITransactionCollectTableRow(compVoucher.tableViewer.getRowList());
+	            row.setDBObject(rowInfo);
+	            compVoucher.tableViewer.addRow(row);    
+			}
+	                        
+	           
+	        }
+	        catch(Exception ex)
+	        {
+	            EngBLLogger.log(this.getClass(),ex,getParent());
+	        }
        
        
     }
@@ -186,7 +185,7 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
         {
             updated = true;
             HashMap argMap = new HashMap();
-            argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
+            argMap.put(CurKeys.CUR_TRANSACTION_ID,transId);
             EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
             compVoucher.saveTrans();
             
@@ -209,7 +208,7 @@ public class CurUIMultipleDeptVoucherUpdate extends org.eclipse.swt.widgets.Dial
                 
                 updated = true;
                 HashMap argMap = new HashMap();
-                argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
+                argMap.put(CurKeys.CUR_TRANSACTION_ID,transId);
                 EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
                 
             }

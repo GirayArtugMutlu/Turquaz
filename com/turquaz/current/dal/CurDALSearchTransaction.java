@@ -34,7 +34,6 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqCurrentGroup;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
-import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -45,14 +44,14 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
  */
 public class CurDALSearchTransaction
 {
-	public static List searchTransaction(TurqCurrentCard curCard, TurqCurrentTransactionType type, String docNo, String definition,
+	public static List searchTransaction(TurqCurrentCard curCard, Integer type, String docNo, String definition,
 			Date startDate, Date endDate) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transaction.id," + " transaction.transactionsDate," + " transaction.transactionsDocumentNo,"
-					+ " curCard.cardsCurrentCode, curCard.cardsName, transType.transactionTypeName,"
+					+ " curCard.cardsCurrentCode, curCard.cardsName, transType.transactionTypeName, transType.id,"
 					+ " transaction.transactionsDefinition, transaction.transactionsTotalDept,"
 					+ " transaction.transactionsTotalCredit from TurqCurrentTransaction as transaction,"
 					+ " transaction.turqCurrentCard as curCard,transaction.turqCurrentTransactionType as transType where"
@@ -65,7 +64,7 @@ public class CurDALSearchTransaction
 			}
 			if (type != null)
 			{
-				query += " and transaction.turqCurrentTransactionType = :type";
+				query += " and transaction.turqCurrentTransactionType.id = :type";
 			}
 			query += " order by transaction.transactionsDate";
 			Query q = session.createQuery(query);

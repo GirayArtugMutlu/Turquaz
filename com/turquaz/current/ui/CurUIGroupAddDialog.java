@@ -317,7 +317,7 @@ public class CurUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap = new HashMap();
 				argMap.put(CurKeys.CUR_GROUP_ID,txtGroupName.getData());
-				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"deleteObject",argMap);
+				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"deleteGroup",argMap);
 			
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);

@@ -28,6 +28,7 @@ public class EngKeys
 	public final static String ENG_SEQ="engSeq";
 	public final static String ENG_SEQ_ID="engSeqId";
 	public final static String TYPE="type";
+	public final static String TYPES="types";
 	public final static String TYPE_NAME="typeName";
 	public final static String TYPE_ID="typeId";
 	public final static String TRANS_DATE="transDate";

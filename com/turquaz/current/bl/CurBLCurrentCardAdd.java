@@ -312,6 +312,15 @@ public class CurBLCurrentCardAdd
 			return new Boolean(CurDALCurrentCardAdd.isCurrentCodePresent(Code));
 	
 	}
+	public static void deleteGroup(HashMap argMap)throws Exception
+	{
+		
+		Integer groupId = (Integer)argMap.get(CurKeys.CUR_GROUP_ID);
+		TurqCurrentGroup group = (TurqCurrentGroup)EngDALSessionFactory.getSession().load(TurqCurrentGroup.class,groupId);
+		
+		EngDALCommon.deleteObject(group);
+		
+	}
 
 	public static Boolean isCurrentNamePresent(HashMap argMap) throws Exception
 	{

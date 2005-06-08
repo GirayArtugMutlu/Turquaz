@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.Map;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionAdd;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
@@ -230,7 +231,17 @@ public class CurBLCurrentTransactionAdd
 			{
 				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
 			};
-		TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		
+			
+		Integer accountId = (Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
+		TurqAccountingAccount account =null;
+		if(accountId!=null)
+		{
+			account = (TurqAccountingAccount)EngDALSessionFactory.getSession().load(TurqAccountingAccount.class,accountId);
+		}
+		
+		
+		
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		String documentNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		Boolean isCredit = (Boolean)argMap.get(CurKeys.CUR_IS_CREDIT);
@@ -467,11 +478,25 @@ public class CurBLCurrentTransactionAdd
 	}
 
 	
-	public static List getCurrentTransactionTypes() throws Exception
+	public static HashBag getCurrentTransactionTypes() throws Exception
 	{
 		try
 		{
-			return CurDALCurrentTransactionAdd.getTransactionTypes();
+			HashBag returnBag = new HashBag();
+			List list = CurDALCurrentTransactionAdd.getTransactionTypes();
+			returnBag.put(EngKeys.TYPES,new HashMap());
+			for(int i=0;i<list.size();i++)
+			{
+				TurqCurrentTransactionType type = (TurqCurrentTransactionType)list.get(i);
+				
+				returnBag.put(EngKeys.TYPES,i,EngKeys.TYPE_NAME,type.getTransactionTypeName());
+                returnBag.put(EngKeys.TYPES,i,EngKeys.TYPE_ID,type.getId());
+				
+				
+			}
+			
+			
+			return returnBag;
 		}
 		catch (Exception ex)
 		{

@@ -1,23 +1,20 @@
 package com.turquaz.current.ui;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLTransactionUpdate;
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
-import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -40,13 +37,14 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
-	TurqCurrentTransaction curTrans;
+	Integer currentTransId =null;
+	
 	private boolean updated = false;
 
-	public CurUIVoucherUpdate(Shell parent, int style, TurqCurrentTransaction curTrans)
+	public CurUIVoucherUpdate(Shell parent, int style, Integer curTransId)
 	{
 		super(parent, style);
-		this.curTrans = curTrans;
+		this.currentTransId = curTransId;
 	}
 
 	public boolean open()
@@ -152,57 +150,44 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 	public void postInitGUI()
 	{
 		EngUICommon.centreWindow(dialogShell);
-		if (curTrans.getTransactionsTotalDept().doubleValue() > 0)
+		
+		try{
+		HashMap argMap = new HashMap();
+		argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTransId);
+		HashBag transInfo = (HashBag)EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"getVoucherInfo",argMap);
+		BigDecimal creditAmount = (BigDecimal)transInfo.get(EngKeys.CREDIT_AMOUNT);
+		BigDecimal deptAmount =(BigDecimal)transInfo.get(EngKeys.DEPT_AMOUNT);
+		Date transDate = (Date)transInfo.get(EngKeys.DATE);
+		String currentCode = (String)transInfo.get(CurKeys.CUR_CURRENT_CODE);
+		String currentName = (String)transInfo.get(CurKeys.CUR_CURRENT_NAME);
+		String definition = (String) transInfo.get(EngKeys.DEFINITION);
+		String docNo = (String) transInfo.get(EngKeys.DOCUMENT_NO);
+		String abbr = (String)transInfo.get(AdmKeys.ADM_CURRENCY_ABBR);
+		String accountCode = (String)transInfo.get(AccKeys.ACC_ACCOUNT_CODE);
+		
+		if (deptAmount.doubleValue() > 0)
 		{
 			compVoucher.getComboType().setText(EngLangCommonKeys.COMMON_DEPT_STRING);
-			compVoucher.getTxtCredit().setText(curTrans.getTotalDeptInForeignCurrency());
+			compVoucher.getTxtCredit().setText(deptAmount);
 		}
 		else
 		{
 			compVoucher.getComboType().setText(EngLangCommonKeys.COMMON_CREDIT_STRING);
-			compVoucher.getTxtCredit().setText(curTrans.getTotalCreditInForeignCurrency());
+			compVoucher.getTxtCredit().setText(creditAmount);
 		}
-		compVoucher.getDateTransDate().setDate(curTrans.getTransactionsDate());
+		compVoucher.getDateTransDate().setDate(transDate);
+		
 		compVoucher.getTxtCurrentCard().setText(
-				curTrans.getTurqCurrentCard().getCardsName() + " {" + curTrans.getTurqCurrentCard().getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
-		compVoucher.getTxtDefinition().setText(curTrans.getTransactionsDefinition());
-		compVoucher.getComboCurrencyType().setText(
-				curTrans.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
-		try
-		{
-			HashMap argMap = new HashMap();
-			argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans);
-			
-			EngTXCommon.doSelectTX(CurBLTransactionUpdate.class.getName(),"initCurTrans",argMap);
-			Iterator it = curTrans.getTurqEngineSequence().getTurqAccountingTransactions().iterator();
-			if (it.hasNext())
-			{
-				TurqAccountingTransaction accTrans = (TurqAccountingTransaction) it.next();
-				 argMap = new HashMap();
-				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
-				
-				Iterator accIt = accTrans.getTurqAccountingTransactionColumns().iterator();
-				while (accIt.hasNext())
-				{
-
-					argMap = new HashMap();
-					argMap.put(CurKeys.CUR_CARD_ID, curTrans.getTurqCurrentCard().getId());
-					argMap.put(EngKeys.TYPE,EngBLCommon.CURRENT_ACC_TYPE_GENERAL);
-					
-					Object curAccount = EngTXCommon.doSelectTX(CurBLCurrentCardSearch.class.getName(),"getCurrentAccountingAccount",argMap);
-				    
-					TurqAccountingTransactionColumn accRow = (TurqAccountingTransactionColumn) accIt.next();
-					if (!accRow.getTurqAccountingAccount().equals(curAccount))
-					{
-						compVoucher.getAccountPicker().setText(accRow.getTurqAccountingAccount().getAccountCode());
-					}
-				}
-			}
+				currentName + " {" + currentCode+ "}"); //$NON-NLS-1$ //$NON-NLS-2$
+		compVoucher.getTxtDefinition().setText(definition);
+		compVoucher.getComboCurrencyType().setText(abbr);
+		
+		compVoucher.getAccountPicker().setText(accountCode);
+		
 		}
-		catch (Exception ex)
+		catch(Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex,getParent());
+			ex.printStackTrace();
 		}
 	}
 
@@ -216,7 +201,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
+				argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTransId);
 				EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
 				
 				BigDecimal credit = compVoucher.getTxtCredit().getBigDecimalValue();
@@ -239,9 +224,10 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.ENG_SEQ_ID,null);
 				argMap.put(EngKeys.DEFINITION, compVoucher.getTxtDefinition().getText());
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
-								
-				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
-					EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
+				
+				EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
+				
+				EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
 			}
 			catch (Exception ex)
 			{
@@ -259,7 +245,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				
 				updated = true;
 				HashMap argMap = new HashMap();
-				argMap.put(CurKeys.CUR_TRANSACTION_ID,curTrans.getId());
+				argMap.put(CurKeys.CUR_TRANSACTION_ID,currentTransId);
 				EngTXCommon.doTransactionTX(CurBLTransactionUpdate.class.getName(),"deleteCurTrans",argMap);
 				
 			}
