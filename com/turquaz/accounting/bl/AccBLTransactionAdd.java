@@ -115,6 +115,7 @@ public class AccBLTransactionAdd
 	{
 		for(int k=0; k<transColumns.size(); k++)
 		{
+			
 			HashMap transRow = (HashMap)transColumns.get(k);
 			registerAccTransactionRow(transRow, transId, exchangeRate);
 		}

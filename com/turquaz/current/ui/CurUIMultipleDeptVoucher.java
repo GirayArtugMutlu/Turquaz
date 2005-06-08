@@ -37,16 +37,13 @@ import org.eclipse.swt.widgets.Table;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -71,13 +68,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class CurUIMultipleDeptVoucher extends Composite implements SecureComposite
 {
     {
@@ -85,9 +76,6 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
         //handle the obtaining and disposing of resources
         SWTResourceManager.registerResourceUser(this);
     }
-    private TurqCurrency baseCurrency;
-    private TurqCurrency exchangeCurrency;
-    private TurqCurrencyExchangeRate exchangeRate;
     private TableItem item;
     private TableSpreadsheetCursor cursor;
     private TableColumn tableColumnDeptAmount;
@@ -106,13 +94,7 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
     private CurrentPicker currentPicker;
     private CLabel lblCreditor;
 
-    /**
-     * @return Returns the exchangeRate.
-     */
-    public TurqCurrencyExchangeRate getExchangeRate()
-    {
-        return exchangeRate;
-    }
+   
     private BigDecimal totalCredit;
     //   Set the table column property names
     private final String ACCOUNT_CODE = AccLangKeys.STR_ACCOUNT_CODE; //$NON-NLS-1$
@@ -304,25 +286,31 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
 
     public void fillCurrencyCombo()
     {
-        try
-        {
-            List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null); //$NON-NLS-1$
-            for (int k = 0; k < currencies.size(); k++)
-            {
-                TurqCurrency currency = (TurqCurrency) currencies.get(k);
-                comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-                comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-                if (currency.isDefaultCurrency())
-                {
-                    comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-                    baseCurrency = currency;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
+		try
+		{
+
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
+			for (int k = 0; k < currencies.size(); k++)
+			{
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboCurrencyType.add(abbr);
+					comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
+				}
+		}
+		catch (Exception ex)
+		{
+
             EngBLLogger.log(this.getClass(),ex,getShell());
-        }
+		}
     }
 
     public boolean verifyFields()
@@ -350,25 +338,13 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                 EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CUR_CARD,SWT.ICON_WARNING);             
                 return false;
             }
-            else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
+            else if (comboCurrencyType.getData(comboCurrencyType.getText()) == null)
             {
                 EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
                 comboCurrencyType.setFocus();
                 return false;
             }
-            if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-            {
-                exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePickerTransactionDate.getDate());
-                if (exchangeRate == null)
-                {
-                	EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
-                    return false;
-                }
-            }
-            else
-            {
-                exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-            }
+            
             return true;
         }
         catch (Exception ex)
@@ -446,9 +422,11 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
                 argMap.put(CurKeys.CUR_TRANS_AMOUNT,totalCredit);
                 argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
                 argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_MULTIPLE_DEPT));
-                argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+                argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));
                 
-               Integer result =(Integer)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveMultipleOtherTransaction",argMap);          //$NON-NLS-1$
+               HashBag resultMap = (HashBag)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveMultipleOtherTransaction",argMap);          //$NON-NLS-1$
+			
+			   Integer result =(Integer)resultMap.get(EngKeys.RETURN_VALUE);
                 
                if(result.intValue()==1)
                {
@@ -487,9 +465,9 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
             AccUITransactionCollectTableRow row = (AccUITransactionCollectTableRow) items[i].getData();
             if (row.okToSave())
             {
-                TurqAccountingTransactionColumn tcol=(TurqAccountingTransactionColumn)row.getDBObject();
-                transColumns.add(tcol);
-                total=total.add(tcol.getCreditAmount());
+				 HashMap rowInfo =(HashMap)row.getDBObject();
+	               transColumns.add(rowInfo);
+	               total=total.add((BigDecimal)rowInfo.get(EngKeys.CREDIT_AMOUNT));
             }
         }
        
@@ -516,11 +494,11 @@ public class CurUIMultipleDeptVoucher extends Composite implements SecureComposi
         totalCredit = new BigDecimal(0);
         for (int i = 0; i < items.length; i++)
         {
-            TurqAccountingTransactionColumn column = (TurqAccountingTransactionColumn) ((AccUITransactionCollectTableRow) items[i]
+           HashMap column = (HashMap) ((AccUITransactionCollectTableRow) items[i]
                     .getData()).getDBObject();
             if (column != null && ((AccUITransactionCollectTableRow) items[i].getData()).okToSave())
             {
-                totalCredit = totalCredit.add(column.getCreditAmount());
+                totalCredit = totalCredit.add((BigDecimal)column.get(EngKeys.CREDIT_AMOUNT));
             }
         }
     }
