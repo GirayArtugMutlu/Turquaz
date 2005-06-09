@@ -41,7 +41,6 @@ import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionCollect;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -296,7 +295,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 				argMap.put(AccKeys.ACC_DOCUMENT_NO,compTransactionCollect.getTxtDocumentNo().getText().trim());
 				argMap.put(AccKeys.ACC_TRANS_DATE, compTransactionCollect.getDatePickerTransactionDate().getDate());
 				argMap.put(AccKeys.ACC_DEFINITION,compTransactionCollect.getTxtTransDefinition().getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,compTransactionCollect.getComboCurrencyType().getData(compTransactionCollect.getComboCurrencyType().getText().trim()));
 				argMap.put(AccKeys.ACC_TRANSACTIONS,compTransactionCollect.getTransactionColumns());
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);			

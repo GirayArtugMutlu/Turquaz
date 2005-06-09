@@ -41,7 +41,6 @@ import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.accounting.ui.AccUITransactionPayment;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.lang.AccLangKeys;
@@ -80,7 +79,6 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 	{
 		try
 		{
-			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			{
@@ -191,11 +189,6 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
@@ -300,7 +293,7 @@ public class AccUITransactionPaymentUpdateDialog extends org.eclipse.swt.widgets
 				argMap.put(AccKeys.ACC_DOCUMENT_NO,compTransactionPayment.getTxtDocumentNo().getText().trim());
 				argMap.put(AccKeys.ACC_TRANS_DATE, compTransactionPayment.getDatePickerTransactionDate().getDate());
 				argMap.put(AccKeys.ACC_DEFINITION,compTransactionPayment.getTxtDefinition().getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,compTransactionPayment.getComboCurrencyType().getData(compTransactionPayment.getComboCurrencyType().getText().trim()));
 				argMap.put(AccKeys.ACC_TRANSACTIONS,compTransactionPayment.getTransactionColumns());
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);			

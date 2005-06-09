@@ -37,6 +37,7 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
+import com.turquaz.engine.exceptions.TurquazException;
 
 public class AccBLTransactionUpdate
 {	
@@ -49,8 +50,14 @@ public class AccBLTransactionUpdate
 			String docNo = (String) argMap.get(AccKeys.ACC_DOCUMENT_NO);
 			Date transDate =(Date) argMap.get(AccKeys.ACC_TRANS_DATE);
 			String definition = (String) argMap.get(AccKeys.ACC_DEFINITION);
-			Integer exchangeRateId = (Integer) argMap.get(EngKeys.EXCHANGE_RATE_ID);
 			List transColumns = (List) argMap.get(AccKeys.ACC_TRANSACTIONS);
+		
+			Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+			if (exchangeRate == null)
+			{
+				throw new TurquazException("You need to define daily exchange rate");
+			}				
 			
 			TurqAccountingTransaction transaction=new TurqAccountingTransaction();
 			transaction.setId(transId);
@@ -59,8 +66,6 @@ public class AccBLTransactionUpdate
 			transaction.setTransactionsDate(transDate);
 			transaction.setTransactionDocumentNo(docNo);
 			transaction.setTransactionDescription(definition);
-			
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)EngDALSessionFactory.getSession().load(TurqCurrencyExchangeRate.class,exchangeRateId);
 			
 			transaction.setTurqCurrencyExchangeRate(exchangeRate);
 			transaction.setUpdatedBy(System.getProperty("user"));
