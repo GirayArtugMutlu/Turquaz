@@ -21,7 +21,7 @@ public class AccKeys
     public final static String ACC_IS_COLLECT ="isCollect";
 	public final static String ACC_IS_GENERAL ="isGeneral";
     public final static String ACC_IS_PAYMENT = "isPayment";
-	public final static String ACC_MODULE_ID = "moduleId";
+	public final static String ACC_TRANS_MODULE_ID = "moduleId";
 	public final static String ACC_PARENT_ID = "parentId";
 	public final static String ACC_SEQUENCE_ID ="sequenceId";
 	public final static String ACC_START_DATE = "startDate";
@@ -29,6 +29,7 @@ public class AccKeys
 	public final static String ACC_TRANS_DATE = "transDate";
 	public final static String ACC_TRANS_ID = "transId";
 	public final static String ACC_TRANS_ROW = "transRow";
+	public final static String ACC_TRANS_TYPE_ID="accTransTypeId";
 	public final static String ACC_TRANS_TYPE_NAME="accTransTypeName";
     public final static String ACC_TRANSACTION ="accTransaction";
     public final static String ACC_TRANSACTIONS ="accTransactions";
@@ -41,7 +42,7 @@ public class AccKeys
 	public final static String ACC_TRANS_ROW_ID="accTransRowId";
 	public final static String ACC_TRANS_ROW_DEFINITION="accTransRowDefinition";
 	public final static String ACC_TRANS_JOURNAL_ID="accRegistered";
-	public final static String ACC_TRANS_MODULE_ID="accTransModuleId";
+
 	
 	
 }

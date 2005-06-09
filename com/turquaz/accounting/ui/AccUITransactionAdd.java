@@ -476,7 +476,7 @@ public class AccUITransactionAdd extends Composite implements SecureComposite
 				argMap.put(AccKeys.ACC_TRANS_DATE,dateTransactionDate.getDate());
 				argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(AccKeys.ACC_TYPE,new Integer(2));
-				argMap.put(AccKeys.ACC_MODULE_ID,new Integer(1));
+				argMap.put(AccKeys.ACC_TRANS_MODULE_ID,new Integer(1));
 				argMap.put(AccKeys.ACC_SEQUENCE_ID,null);
 				argMap.put(AccKeys.ACC_DEFINITION,txtTransDefinition.getText().trim());
 				argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));

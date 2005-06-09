@@ -30,6 +30,7 @@ import java.util.List;
 import net.sf.hibernate.Session;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALTransactionSearch;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
@@ -42,19 +43,40 @@ import com.turquaz.engine.dal.TurqAccountingTransactionColumn;
 
 public class AccBLTransactionSearch
 {
-	public static List searchAccTransaction(HashMap argMap) throws Exception
+	public static HashBag searchAccTransaction(HashMap argMap) throws Exception
 	{
 		try
 		{
 			String docNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
-			Object startDate = argMap.get(AccKeys.ACC_START_DATE);
-			Object endDate = argMap.get(AccKeys.ACC_END_DATE); 
+			Date startDate =(Date) argMap.get(AccKeys.ACC_START_DATE);
+			Date endDate = (Date)argMap.get(AccKeys.ACC_END_DATE); 
 			Boolean isGeneralTrans = (Boolean)argMap.get(AccKeys.ACC_IS_GENERAL);
 			Boolean isCollect = (Boolean)argMap.get(AccKeys.ACC_IS_COLLECT);
 			Boolean isPayment = (Boolean)argMap.get(AccKeys.ACC_IS_PAYMENT);
-					
-			List ls = AccDALTransactionSearch.searchTransaction(docNo, startDate, endDate, isGeneralTrans.booleanValue(), isCollect.booleanValue(), isPayment.booleanValue());
-			return ls;
+				
+			HashBag transBag=new HashBag();
+			List list = AccDALTransactionSearch.searchTransaction(docNo, startDate, endDate, isGeneralTrans.booleanValue(), isCollect.booleanValue(), isPayment.booleanValue());
+			
+			transBag.put(AccKeys.ACC_TRANSACTIONS,new HashMap());
+			
+			for(int k=0; k<list.size(); k++)
+			{
+				Object[] accTrans=(Object[])list.get(k);
+				
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_ID,accTrans[0]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_DATE,accTrans[1]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANSACTION_DOC_NO,accTrans[2]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_TYPE_NAME,accTrans[3]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANSACTION_DEFINITION,accTrans[4]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TOTAL_CREDIT_AMOUNT,accTrans[5]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AdmKeys.ADM_MODULE_DESCRIPTION,accTrans[6]);				
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_JOURNAL_ID,accTrans[7]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_MODULE_ID,accTrans[8]);
+				transBag.put(AccKeys.ACC_TRANSACTIONS,k,AccKeys.ACC_TRANS_TYPE_ID,accTrans[9]);
+				
+			}
+			
+			return transBag;
 		}
 		catch (Exception ex)
 		{

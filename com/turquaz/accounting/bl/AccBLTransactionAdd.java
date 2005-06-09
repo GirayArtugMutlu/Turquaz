@@ -211,7 +211,7 @@ public class AccBLTransactionAdd
 		Date date = (Date) argMap.get(AccKeys.ACC_TRANS_DATE);
 		String documentNo = (String)argMap.get(AccKeys.ACC_DOCUMENT_NO);
 		Integer type = (Integer)argMap.get(AccKeys.ACC_TYPE);
-		Integer moduleId = (Integer)argMap.get(AccKeys.ACC_MODULE_ID);
+		Integer moduleId = (Integer)argMap.get(AccKeys.ACC_TRANS_MODULE_ID);
 		Integer seqId = (Integer)argMap.get(AccKeys.ACC_SEQUENCE_ID);
 		String definition = (String)argMap.get(AccKeys.ACC_DEFINITION);
 		

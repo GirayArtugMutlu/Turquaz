@@ -86,17 +86,18 @@ public class AccDALTransactionSearch
 		}
 	}
 
-	public static List searchTransaction(String docNo, Object startDate, Object endDate, boolean isGeneralTrans, boolean isCollect,
+	public static List searchTransaction(String docNo, Date startDate, Date endDate, boolean isGeneralTrans, boolean isCollect,
 			boolean isPayment) throws Exception
 	{
 		try
 		{
 			
 			Session session = EngDALSessionFactory.getSession();
-			String query = "select accTrans.id," + " accTrans.transactionsDate," + "accTrans.transactionDocumentNo,"
-					+ "accTrans.turqAccountingTransactionType.typesName," + "accTrans.transactionDescription, "
-					+ "accView.totalcreditamount," + "accTrans.turqModule.moduleDescription "
-					+ "from TurqAccountingTransaction as accTrans, TurqViewAccTransTotalAmount as accView "
+			String query = "select accTrans.id, accTrans.transactionsDate, accTrans.transactionDocumentNo,"
+					+ " accTrans.turqAccountingTransactionType.typesName, accTrans.transactionDescription, "
+					+ " accView.totalcreditamount, accTrans.turqModule.moduleDescription, accTrans.turqAccountingJournal.id,"
+					+ " accTrans.turqModule.id, accTrans.turqAccountingTransactionType.id"
+					+ " from TurqAccountingTransaction as accTrans, TurqViewAccTransTotalAmount as accView "
 					+ " where accTrans.id = accView.accountingTransactionsId" ;
 			if(!docNo.trim().equals(""))
 			{

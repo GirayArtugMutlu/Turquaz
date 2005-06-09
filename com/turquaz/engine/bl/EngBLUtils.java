@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import net.sf.hibernate.Session;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -53,6 +54,7 @@ import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.engine.EngConfiguration;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -575,7 +577,10 @@ public class EngBLUtils
 	{
 		try
 		{
-			TurqAccountingTransaction trans=(TurqAccountingTransaction)argMap.get(AccKeys.ACC_TRANSACTION);
+			Integer transId=(Integer)argMap.get(AccKeys.ACC_TRANS_ID);
+			Session session=EngDALSessionFactory.getSession();
+			
+			TurqAccountingTransaction trans=(TurqAccountingTransaction)session.load(TurqAccountingTransaction.class,transId);
 			SimpleDateFormat dformat = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$	
 			List list=AccBLTransactionSearch.getAccTransInfo(trans.getId());
 			HashBag companyBag = AdmBLCompanyInfo.getCompany();

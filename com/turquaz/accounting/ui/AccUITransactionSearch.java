@@ -22,8 +22,8 @@ package com.turquaz.accounting.ui;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
@@ -38,6 +38,8 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.bl.AccBLTransactionUpdate;
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqAccountingTransaction;
@@ -51,8 +53,6 @@ import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.SWT;
@@ -98,7 +98,6 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			preInitGUI();
 			{
 				compAccTransactionSearch = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -236,12 +235,6 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
-			addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			postInitGUI();
 		}
 		catch (Exception e)
@@ -262,15 +255,9 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 		tableViewer = new SearchTableViewer(tableTransactions, columnTypes, true);
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
-		//dateStartDate.setDate(new Date(cal.getTime().getYear(),0,1));
 		cal.set(cal.get(Calendar.YEAR), 0, 1);
 		dateStartDate.setDate(cal.getTime());
 		createTableViewer();
@@ -282,9 +269,9 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
+		MessageBox msg=new MessageBox(getShell(),SWT.NULL);
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
 			TableItem items[] = tableTransactions.getSelection();
 			if (items.length > 0)
 			{
@@ -322,7 +309,6 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 					msg.open();
 					return;
 				}
-				AccBLTransactionUpdate blUpdate = new AccBLTransactionUpdate();
 				MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
 				msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY);
 				int result = msg2.open();
@@ -359,27 +345,33 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			argMap.put(AccKeys.ACC_IS_PAYMENT,new Boolean(btnPayment.getSelection()));
 			
 			
-			List result = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"searchAccTransaction",argMap);
-		
 			
-			int listSize = result.size();
+			HashBag transBag=(HashBag)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"searchAccTransaction",argMap);
+			HashMap transList = (HashMap)transBag.get(AccKeys.ACC_TRANSACTIONS);
+		
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < listSize; i++)
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
+			for (int i = 0; i < transList.size() ; i++)
 			{
-				Object[] accTransValues = (Object[]) result.get(i);
-				Integer transId=(Integer) accTransValues[0];
-				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-				BigDecimal total = new BigDecimal(0);
-				if (accTransValues[5] != null)
+				HashMap transMap=(HashMap)transList.get(new Integer(i));
+				Integer transId=(Integer)transMap.get(AccKeys.ACC_TRANS_ID);
+				Date date=(Date)transMap.get(AccKeys.ACC_TRANS_DATE);
+				String transDocNo=(String)transMap.get(AccKeys.ACC_TRANSACTION_DOC_NO);
+				String transTypeName=(String)transMap.get(AccKeys.ACC_TRANS_TYPE_NAME);
+				String moduleDesc=(String)transMap.get(AdmKeys.ADM_MODULE_DESCRIPTION);
+				String transDefinition=(String)transMap.get(AccKeys.ACC_TRANSACTION_DEFINITION);
+				
+				BigDecimal total = (BigDecimal)transMap.get(AccKeys.ACC_TOTAL_CREDIT_AMOUNT);
+		
+				if (total==null)
 				{
-					total = (BigDecimal) accTransValues[5];
+					total = new BigDecimal(0);
 				}
-				String transDate = formatter.format(accTransValues[1]);
-				tableViewer.addRow(new String[]{transDate, accTransValues[2].toString(), //doc no
-						accTransValues[3].toString(), //type
-						accTransValues[6].toString(),//modele name
-						accTransValues[4].toString(), //definition
-						cf.format(total)}, transId); //$NON-NLS-1$ 
+				String transDate = formatter.format(date);
+				
+				tableViewer.addRow(new String[]{transDate, transDocNo,
+						transTypeName,moduleDesc,transDefinition,
+						cf.format(total)}, transMap); 
 			}
 		}
 		catch (Exception ex)
@@ -406,32 +398,27 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 			if (selection.length > 0)
 			{
 				ITableRow row = (ITableRow) selection[0].getData();
-				TurqAccountingTransaction accTrans =new TurqAccountingTransaction();
-				accTrans.setId((Integer) row.getDBObject());
+				HashMap transMap=(HashMap)row.getDBObject();
 				
-				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_TRANSACTION,accTrans);
-				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(),"initiliazeTransactionRows",argMap);
-				
-				int type = accTrans.getTurqAccountingTransactionType().getId().intValue();
-				boolean updated;
+				int type=((Integer)transMap.get(AccKeys.ACC_TRANS_TYPE_ID)).intValue();
+				Integer transId=(Integer)transMap.get(AccKeys.ACC_TRANS_ID);
+
+				boolean updated=false;
 				if (type == 2)
 				{
-					updated = new AccUITransactionUpdateDialog(this.getShell(), SWT.NULL, accTrans).open();
-					if (updated)
-						search();
+					updated = new AccUITransactionUpdateDialog(this.getShell(), SWT.NULL, transId).open();
 				}
 				else if (type == 1)
 				{
-					updated = new AccUITransactionPaymentUpdateDialog(this.getShell(), SWT.NULL, accTrans).open();
-					if (updated)
-						search();
+					updated = new AccUITransactionPaymentUpdateDialog(this.getShell(), SWT.NULL, transId).open();
 				}
 				else if (type == 0)
 				{
-					updated = new AccUITransactionCollectUpdateDialog(this.getShell(), SWT.NULL, accTrans.getId()).open();
-					if (updated)
-						search();
+					updated = new AccUITransactionCollectUpdateDialog(this.getShell(), SWT.NULL, transId).open();
+				}
+				if (updated)
+				{
+					search();
 				}
 			}
 		}

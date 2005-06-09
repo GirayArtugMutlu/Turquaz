@@ -63,7 +63,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	private CoolBar coolBar1;
 	private AccUITransactionCollect compTransactionCollect;
 	private boolean updated = false;
-	private HashMap transMap=null;
+	private HashBag transBag=null;
 	private Integer transId;
 
 	public AccUITransactionCollectUpdateDialog(Shell parent, int style, Integer transId)
@@ -215,7 +215,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 			HashMap argMap = new HashMap();
 			argMap.put(AccKeys.ACC_TRANS_ID, transId);
 		
-			HashBag transBag = (HashBag) EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),
+			transBag = (HashBag) EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),
 					"getAccTransactionById", argMap);
 			
 			Integer journalId = (Integer) transBag.get(AccKeys.ACC_TRANS_JOURNAL_ID);
@@ -256,7 +256,7 @@ public class AccUITransactionCollectUpdateDialog extends org.eclipse.swt.widgets
 	{
 		compTransactionCollect.tableViewer.removeAll();
 		
-		HashMap rowList=(HashMap)transMap.get(AccKeys.ACC_TRANSACTION_ROWS);
+		HashMap rowList=(HashMap)transBag.get(AccKeys.ACC_TRANSACTION_ROWS);
 		
 		TableItem item;
 		for (int k = 0; k < rowList.size(); k++)
