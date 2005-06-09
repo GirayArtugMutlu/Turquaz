@@ -53,5 +53,5 @@ public class CurKeys
 	public final static String CUR_PHONE_COUNTRY_CODE1="phoneCountryCode1";
 	public final static String CUR_PHONE_COUNTRY_CODE2="phoneCountryCode2";
 	public final static String CUR_HAS_TRANSACTIONS="hasTransactions";
-	
+	public final static String CUR_TRANS_INFO="curTransInfo";
 }

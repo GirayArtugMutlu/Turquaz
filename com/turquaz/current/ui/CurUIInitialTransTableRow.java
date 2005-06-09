@@ -1,28 +1,33 @@
 package com.turquaz.current.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.current.CurKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 public class CurUIInitialTransTableRow implements ITableRow
 {
-	TurqCurrentTransaction curTrans = new TurqCurrentTransaction();
+	HashMap curTransInfo = new HashMap();
+	
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
 	public CurUIInitialTransTableRow()
 	{
 		try
 		{
-			curTrans.setTransactionsTotalCredit(new BigDecimal(0));
-			curTrans.setTransactionsTotalDept(new BigDecimal(0));
-			//      TODO current trans exRate
-			curTrans.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			curTransInfo.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
+			curTransInfo.put(EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+			curTransInfo.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
+		   	
+			
 		}
 		catch (Exception ex)
 		{
@@ -59,8 +64,8 @@ public class CurUIInitialTransTableRow implements ITableRow
 			case 0 : // inventory code
 				if (okToSave())
 				{
-					result = curTrans.getTurqCurrentCard().getCardsName() + " {" + curTrans.getTurqCurrentCard().getCardsCurrentCode()
-							+ "}";
+					result =  curTransInfo.get(CurKeys.CUR_CURRENT_NAME) + " {" + curTransInfo.get(CurKeys.CUR_CURRENT_CODE) 
+					+ "}";
 				}
 				else
 				{
@@ -68,10 +73,10 @@ public class CurUIInitialTransTableRow implements ITableRow
 				}
 				break;
 			case 1 :
-				result = cf.format(curTrans.getTransactionsTotalDept());
+				result = cf.format(curTransInfo.get(EngKeys.DEPT_AMOUNT));
 				break;
 			case 2 :
-				result = cf.format(curTrans.getTransactionsTotalCredit());
+				result = cf.format(curTransInfo.get(EngKeys.CREDIT_AMOUNT));
 				break;
 			default :
 		}
@@ -80,7 +85,7 @@ public class CurUIInitialTransTableRow implements ITableRow
 
 	public Object getDBObject()
 	{
-		return curTrans;
+		return curTransInfo;
 	}
 
 	public int getRowIndex()
@@ -96,7 +101,7 @@ public class CurUIInitialTransTableRow implements ITableRow
 			case 0 : // inventory code
 				if (okToSave())
 				{
-					result = curTrans.getTurqCurrentCard().getCardsName() + " {" + curTrans.getTurqCurrentCard().getCardsCurrentCode()
+					result = curTransInfo.get(CurKeys.CUR_CURRENT_NAME) + " {" + curTransInfo.get(CurKeys.CUR_CURRENT_CODE) 
 							+ "}";
 				}
 				else
@@ -105,10 +110,10 @@ public class CurUIInitialTransTableRow implements ITableRow
 				}
 				break;
 			case 1 :
-				result = cf.format(curTrans.getTransactionsTotalDept());
+				result = cf.format(curTransInfo.get(EngKeys.DEPT_AMOUNT));
 				break;
 			case 2 :
-				result = cf.format(curTrans.getTransactionsTotalCredit());
+				result = cf.format(curTransInfo.get(EngKeys.CREDIT_AMOUNT));
 				break;
 			default :
 		}
@@ -130,8 +135,8 @@ public class CurUIInitialTransTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				curTrans.setTransactionsTotalDept(new BigDecimal(formatted));
-				curTrans.setTotalDeptInForeignCurrency(new BigDecimal(formatted));
+				curTransInfo.put(EngKeys.DEPT_AMOUNT,new BigDecimal(formatted));
+			
 				break;
 			case 2 :
 				formatted = value.toString();
@@ -141,8 +146,8 @@ public class CurUIInitialTransTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				curTrans.setTransactionsTotalCredit(new BigDecimal(formatted));
-				curTrans.setTotalCreditInForeignCurrency(new BigDecimal(formatted));
+				curTransInfo.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(formatted));
+				
 				break;
 			default :
 		}
@@ -150,7 +155,7 @@ public class CurUIInitialTransTableRow implements ITableRow
 
 	public boolean okToSave()
 	{
-		if (curTrans.getTurqCurrentCard() == null)
+		if (curTransInfo.get(CurKeys.CUR_CARD_ID) == null)
 		{
 			return false;
 		}
@@ -159,9 +164,9 @@ public class CurUIInitialTransTableRow implements ITableRow
 
 	public void setDBObject(Object obj)
 	{
-		if (obj instanceof TurqCurrentTransaction)
+		if (obj instanceof HashMap)
 		{
-			curTrans = (TurqCurrentTransaction) obj;
+			curTransInfo = (HashMap) obj;
 		}
 	}
 
