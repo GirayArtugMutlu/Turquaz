@@ -52,6 +52,64 @@ public class AccDALTransactionSearch
 			throw ex;
 		}
 	}
+	
+	public static List getSubsidiaryLedger(Integer accountIdStart, Integer accountIdEnd, Date startDate, Date endDate)throws Exception
+	{
+		Session session = EngDALSessionFactory.getSession();
+		TurqAccountingAccount accountStart=null;
+		TurqAccountingAccount accountEnd=null;
+		
+		if (accountIdStart != null)
+		{
+			accountStart=(TurqAccountingAccount)session.load(TurqAccountingAccount.class,accountIdStart);
+		}
+		
+		if (accountIdEnd != null)
+		{
+			accountEnd=(TurqAccountingAccount)session.load(TurqAccountingAccount.class,accountIdEnd);
+		}
+		
+		SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+		String 	query = "Select transColumns.id as columnId, transColumns.rows_dept_in_base_currency," +
+					"transColumns.rows_credit_in_base_currency,transColumns.transaction_definition," +
+					" accounts.account_name as accName, accounts.account_code as accCode," +
+					" topacc.account_name as topAccName, topacc.account_code as topAccCode," + 
+					" trans.transactions_date, trans.transaction_document_no" +
+					" from turq_accounting_transaction_columns transColumns," + 
+					" turq_accounting_accounts accounts, turq_accounting_accounts topacc," + 
+					" turq_accounting_transactions trans" + 
+					" where transColumns.accounting_accounts_id=accounts.id" + 
+					" and accounts.top_account=topacc.id" + 
+					" and transColumns.accounting_transactions_id=trans.id" + 
+					" and trans.transactions_date >=" + "'" + dformat.format(startDate) + "'" + 
+					" and trans.transactions_date <=" + "'" + dformat.format(endDate) + "'";
+					
+		if (accountEnd != null)
+		{
+			query +=" and accounts.account_code >=" + "'" + accountStart.getAccountCode() + "'" + 
+					" and accounts.account_code <=" + "'" + accountEnd.getAccountCode() + "'" ;
+		}
+		else
+		{
+			query +=" and accounts.id=" + accountIdStart.intValue();
+		}
+		
+		query +=" order by accounts.account_code,trans.transactions_date,trans.transaction_document_no";		
+		Statement statement=session.connection().createStatement();
+		ResultSet rs=statement.executeQuery(query);
+		List result=new ArrayList();
+		while(rs.next())
+		{
+			Object[] obj=new Object[10];
+			for(int k=0; k<10; k++)
+			{
+				obj[k]=rs.getObject(k+1);
+			}
+			result.add(obj);
+		}		
+		return result;
+	}
+
 
 	public static List getCurrentBalances(TurqAccountingAccount accountStart, TurqAccountingAccount accountEnd, Date startDate)
 			throws Exception

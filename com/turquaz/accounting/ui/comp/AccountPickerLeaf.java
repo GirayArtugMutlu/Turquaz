@@ -264,5 +264,37 @@ public class AccountPickerLeaf extends org.eclipse.swt.widgets.Composite impleme
 		}
 	}
 	
+	public String getAccountCode()
+	{
+		if (accountMap==null)
+		{
+			return "";
+		}
+		else
+		{	
+			String accountCode=(String)accountMap.get(AccKeys.ACC_ACCOUNT_CODE);
+			if (accountCode==null)
+				return "";
+			else
+				return accountCode;
+		}
+	}
+	
+	public String getAccountName()
+	{
+		if (accountMap==null)
+		{
+			return "";
+		}
+		else
+		{	
+			String accountName=(String)accountMap.get(AccKeys.ACC_ACCOUNT_NAME);
+			if (accountName==null)
+				return "";
+			else
+				return accountName;
+		}
+	}
+	
 	
 }

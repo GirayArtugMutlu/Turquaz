@@ -11,6 +11,8 @@ public class AccKeys
 	public final static String ACC_ACCOUNT_ID="accountId";
 	public final static String ACC_ACCOUNT_NAME = "accountName";
     public final static String ACC_ACCOUNT_START ="accountStart";
+    public final static String ACC_ACCOUNT_START_ID ="accountStartId";
+    public final static String ACC_ACCOUNT_END_ID ="accountEndId";
 	public final static String ACC_CODE_CRITERIA = "codeCriteria";
 	public final static String ACC_CREDIT_ACCOUNT_MAP =	"creditAccountMap";
 	public final static String ACC_DEFINITION = "definition";

@@ -31,24 +31,23 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.EngDALConnection;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
+import com.turquaz.common.HashBag;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 
 
@@ -70,8 +69,8 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 	private CLabel lblAccNo;
 	private Composite compAccTransactionSearch;
 	private AccBLTransactionSearch blTransSearch = new AccBLTransactionSearch();
-	private TurqAccountingAccount account;
-	private TurqAccountingAccount account2;
+	private Integer accountIdStart;
+	private Integer accountIdEnd;
 
 	public AccUISubsidiaryLedger(Composite parent, int style)
 	{
@@ -88,7 +87,6 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 	{
 		try
 		{
-			preInitGUI();
 			{
 				compAccTransactionSearch = new Composite(this, SWT.NONE);
 				GridLayout composite1Layout = new GridLayout();
@@ -177,23 +175,12 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 			thisLayout.horizontalSpacing = 5;
 			thisLayout.verticalSpacing = 5;
 			this.layout();
-			addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			postInitGUI();
 		}
 		catch (Exception e)
 		{
             EngBLLogger.log(this.getClass(),e,getShell());
 		}
-	}
-
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
 	}
 
 	/** Add your post-init code in here */
@@ -213,153 +200,87 @@ public class AccUISubsidiaryLedger extends Composite implements SearchComposite
 	{
 		try
 		{
-			MessageBox msg = new MessageBox(this.getShell(), SWT.NULL);
-			account = null;
-			account2 = null;
+			accountIdStart = null;
+			accountIdEnd = null;
 			if (txtAccount.getData() == null && txtAccount2.getData() == null)
 			{
-				msg.setMessage(AccLangKeys.MSG_SELECT_AT_LEAST_ONE_ACCOUNT_FIRST); 
-				msg.open();
+				EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_AT_LEAST_ONE_ACCOUNT_FIRST); 
 				txtAccount.setFocus();
 				return;
 			}
 			else if (txtAccount.getData() == null)
 			{
-				account = (TurqAccountingAccount) txtAccount2.getData();
-				account2 = null;
+				accountIdStart = txtAccount2.getId();
 			}
 			else if (txtAccount2.getData() == null)
 			{
-				account = (TurqAccountingAccount) txtAccount.getData();
-				account2 = null;
+				accountIdStart = txtAccount.getId();
 			}
 			else
 			{
-				account = (TurqAccountingAccount) txtAccount.getData();
-				account2 = (TurqAccountingAccount) txtAccount2.getData();
+				accountIdStart =txtAccount.getId();
+				accountIdEnd = txtAccount2.getId();
 			}
+			
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT_START_ID,accountIdStart);
+			argMap.put(AccKeys.ACC_ACCOUNT_END_ID,accountIdEnd);
+			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
+			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
+			
+
+			HashBag list=(HashBag)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getSubsidiaryLedger",argMap);
+			List transList=(List)list.get(AccKeys.ACC_TRANSACTIONS);
+			
 			Map parameters = new HashMap();
-			String sqlparam;
-			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			if (account2 == null)
-			{
-				sqlparam = "Select transColumns.id as columnId, " + //$NON-NLS-1$
-						"transColumns.rows_dept_in_base_currency,transColumns.rows_credit_in_base_currency," + //$NON-NLS-1$
-						"transColumns.transaction_definition, accounts.account_name as accName," + //$NON-NLS-1$
-						"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," + //$NON-NLS-1$
-						" trans.transactions_date, trans.transaction_document_no" + //$NON-NLS-1$
-						" from turq_accounting_transaction_columns transColumns," + //$NON-NLS-1$
-						" turq_accounting_accounts accounts," + //$NON-NLS-1$
-						" turq_accounting_accounts topacc," + //$NON-NLS-1$
-						" turq_accounting_transactions trans" + //$NON-NLS-1$
-						" where transColumns.accounting_accounts_id=accounts.id" + //$NON-NLS-1$
-						" and accounts.top_account=topacc.id" + //$NON-NLS-1$
-						" and accounts.id=" + account.getId().intValue() + //$NON-NLS-1$
-						" and transColumns.accounting_transactions_id=trans.id" + //$NON-NLS-1$
-						" and trans.transactions_date >=" + "'" + dformat.format(dateStartDate.getDate()) + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" and trans.transactions_date <=" + "'" + dformat.format(dateEndDate.getDate()) + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" order by accounts.account_code,trans.transactions_date,trans.transaction_document_no";//$NON-NLS-1$
-			}
-			else
-			{
-				sqlparam = "Select transColumns.id as columnId," + //$NON-NLS-1$
-						"transColumns.rows_dept_in_base_currency,transColumns.rows_credit_in_base_currency," + //$NON-NLS-1$
-						"transColumns.transaction_definition, accounts.account_name as accName," + //$NON-NLS-1$
-						"accounts.account_code as accCode, topacc.account_name as topAccName, topacc.account_code as topAccCode," + //$NON-NLS-1$
-						" trans.transactions_date, trans.transaction_document_no" + //$NON-NLS-1$
-						" from turq_accounting_transaction_columns transColumns," + //$NON-NLS-1$
-						" turq_accounting_accounts accounts, " + //$NON-NLS-1$
-						"turq_accounting_accounts topacc," + //$NON-NLS-1$
-						" turq_accounting_transactions trans" + //$NON-NLS-1$
-						" where transColumns.accounting_accounts_id=accounts.id" + //$NON-NLS-1$
-						" and accounts.top_account=topacc.id" + //$NON-NLS-1$
-						" and transColumns.accounting_transactions_id=trans.id" + //$NON-NLS-1$
-						" and accounts.account_code >=" + "'" + account.getAccountCode() + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" and accounts.account_code <=" + "'" + account2.getAccountCode() + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" and trans.transactions_date >=" + "'" + dformat.format(dateStartDate.getDate()) + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" and trans.transactions_date <=" + "'" + dformat.format(dateEndDate.getDate()) + "'" + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						" order by accounts.account_code,trans.transactions_date,trans.transaction_document_no"; //$NON-NLS-1$
-			}
-			//System.out.println(sqlparam);
-			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			parameters.put("beginDate", dformat2.format(dateStartDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate", dformat2.format(dateEndDate.getDate())); //$NON-NLS-1$
+			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); 
+			parameters.put("beginDate", dformat2.format(dateStartDate.getDate())); 
+			parameters.put("endDate", dformat2.format(dateEndDate.getDate())); 
 			parameters.put("dformat", dformat2); //$NON-NLS-1$
-			parameters.put("account1", account.getAccountCode()); //$NON-NLS-1$
-			parameters.put("account2", (account2 == null) ? "" : account2.getAccountCode()); //$NON-NLS-1$ //$NON-NLS-2$
-			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			parameters.put("account1", txtAccount.getAccountCode()); 
+			parameters.put("account2", (accountIdEnd == null) ? "" : txtAccount2.getAccountCode()); 
+			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); 
 			NumberFormat formatter = NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
 			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
-			
-			
 		
-			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_ACCOUNT_START,account);
-			argMap.put(AccKeys.ACC_ACCOUNT_END,account2);
-			argMap.put(AccKeys.ACC_START_DATE,dateStartDate.getDate());
+
 			List balances = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrentBalances",argMap);
 			
 			HashMap balanceList = new HashMap();
 			for (int k = 0; k < balances.size(); k++)
 			{
 				Object[] balanceArr = (Object[]) balances.get(k);
-				//balanceList.put((String)balanceArr[0],((BigDecimal)balanceArr[2]).subtract(((BigDecimal)balanceArr[1])));
 				balanceList.put((String) balanceArr[0], balanceArr);
 			}
 			parameters.put("balanceList", balanceList); //$NON-NLS-1$
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
-			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingSubsidiaryLedger.jrxml");
-			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingSubsidiaryLedger.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
-			viewer.getReportViewer().setDocument(jasperPrint);
+			GenerateJasper(transList,parameters);
 		}
 		catch (Exception ex)
 		{
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
-		/*
-		 * try { tableTransactions.removeAll(); MessageBox msg = new MessageBox(this.getShell(),SWT.NULL); if (txtAccount.getData()== null &&
-		 * txtAccount2.getData()== null) { msg.setMessage(Messages.getString("AccUISubsidiaryLedger.9")); //$NON-NLS-1$ msg.open();
-		 * txtAccount.setFocus(); return ; } else if (txtAccount.getData()==null) { account=(TurqAccountingAccount)txtAccount2.getData();
-		 * account2=null; } else if (txtAccount2.getData()==null) { account=(TurqAccountingAccount)txtAccount.getData(); account2=null; }
-		 * else { account=(TurqAccountingAccount)txtAccount.getData(); account2=(TurqAccountingAccount)txtAccount2.getData(); } List
-		 * result = blTransSearch.searchAccTransactionsColumns( account, dateStartDate .getData(), dateEndDate.getData());
-		 * TurkishCurrencyFormat df = new TurkishCurrencyFormat(); BigDecimal balance = new BigDecimal(0); //balance shown in table
-		 * BigDecimal totalDept = new BigDecimal(0); //total dept BigDecimal totalCredit = new BigDecimal(0); //total credit TableItem
-		 * item; // if start date is after beginning of the year // get the sum of previous transactions if
-		 * (dateStartDate.getDate().after(new Date(cal.getTime().getYear(),0,1)) ) { // get previous date (any better suggestions :) )
-		 * Date date = dateStartDate.getDate(); long time = date.getTime(); time -= 86400000; date.setTime(time); // decimal formatter
-		 * Object sums[] = blTransSearch.getAccTransactionBalance((TurqAccountingAccount) txtAccount.getData(), new
-		 * Date(cal.getTime().getYear(),0,1),date); if (sums[0]!= null) { balance = balance.subtract((BigDecimal)sums[0]); totalDept =
-		 * totalDept.add((BigDecimal)sums[0]); } if (sums[1] != null) { balance = balance.add((BigDecimal)sums[1]); totalCredit =
-		 * totalCredit.add((BigDecimal)sums[1]); } item = new TableItem(tableTransactions, SWT.NULL); item.setText(new
-		 * String[]{"","",Messages.getString(Messages.getString("AccUISubsidiaryLedger.14")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		 * (balance.compareTo(new BigDecimal(0)) <0) ? df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$
-		 * (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "", //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0)) <0) ?
-		 * df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ?
-		 * df.format(balance): "" }); //$NON-NLS-1$ // one empty row item = new TableItem(tableTransactions, SWT.NULL); } int listSize =
-		 * result.size(); for (int i = 0; i < listSize; i++) { TurqAccountingTransactionColumn accTransColumn =
-		 * (TurqAccountingTransactionColumn) result .get(i); item = new TableItem(tableTransactions, SWT.NULL);
-		 * item.setData(accTransColumn.getTurqAccountingTransaction()); BigDecimal total = new BigDecimal(0); balance =
-		 * balance.add(accTransColumn.getCreditAmount()); totalCredit = totalCredit.add(accTransColumn.getCreditAmount()); balance =
-		 * balance.subtract(accTransColumn.getDeptAmount()); totalDept = totalDept.add(accTransColumn.getDeptAmount()); String transDate =
-		 * formatter.format(accTransColumn .getTurqAccountingTransaction().getTransactionsDate()); item.setText(new String[] { transDate,
-		 * accTransColumn.getTurqAccountingTransaction().getTransactionDocumentNo(), accTransColumn.getTransactionDefinition(), // if it
-		 * is zero does not print to the table (accTransColumn.getDeptAmount().equals(new BigDecimal(0))) ? "":
-		 * df.format(accTransColumn.getDeptAmount()), //$NON-NLS-1$ (accTransColumn.getCreditAmount().equals(new BigDecimal(0))) ? "":
-		 * df.format(accTransColumn.getCreditAmount()), //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0)) <0) ?
-		 * df.format(balance.multiply(new BigDecimal(-1))): "", //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ?
-		 * df.format(balance): "" }); //$NON-NLS-1$ } // grand total last row item = new TableItem(tableTransactions, SWT.NULL); item =
-		 * new TableItem(tableTransactions, SWT.NULL); item.setText(new
-		 * String[]{"","",Messages.getString("AccUISubsidiaryLedger.25"),df.format(totalDept),df.format(totalCredit), //$NON-NLS-1$
-		 * //$NON-NLS-2$ //$NON-NLS-3$ (balance.compareTo(new BigDecimal(0)) <0) ? df.format(balance.multiply(new BigDecimal(-1))): "",
-		 * //$NON-NLS-1$ (balance.compareTo(new BigDecimal(0))>0) ? df.format(balance): "" }); //$NON-NLS-1$ } catch (Exception ex) {
-		 * Logger loger = Logger.getLogger(this.getClass()); loger.error("Exception Caught",ex);ex.printStacfckTrace(); }
-		 */
+	}
+	
+	public void GenerateJasper(List list, Map parameters)
+	{
+		try
+		{
+			String[] fields = new String[]{"columnId", "rows_dept_in_base_currency",
+					"rows_credit_in_base_currency",	"transaction_definition",
+					"accName", "accCode", "topAccName", "topAccCode",
+					"transactions_date", "transaction_document_no"};
+			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingSubsidiaryLedger.jrxml");
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+			viewer.getReportViewer().setDocument(jasperPrint);
+		}
+		catch (Exception ex)
+		{
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
+		}
 	}
 
 	public void newForm()

@@ -83,16 +83,39 @@ public class AccBLTransactionSearch
 			throw ex;
 		}
 	}
-
-	public static List getCurrentBalances(HashMap argMap)
-			throws Exception
+	
+	public static HashBag getSubsidiaryLedger(HashMap argMap)throws Exception
 	{
-		TurqAccountingAccount accountStart =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT_START);
-		TurqAccountingAccount accountEnd =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT_END);
-		Date startDate = (Date)argMap.get(AccKeys.ACC_START_DATE);  
-				
-			return AccDALTransactionSearch.getCurrentBalances(accountStart, accountEnd, startDate);
+		Integer accountStartId=(Integer)argMap.get(AccKeys.ACC_ACCOUNT_START_ID);
+		Integer accountEndId=(Integer)argMap.get(AccKeys.ACC_ACCOUNT_END_ID);
+		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+		Date endDate=(Date)argMap.get(EngKeys.DATE_END);		
 		
+		HashBag subBag=new HashBag();		
+		List list=AccDALTransactionSearch.getSubsidiaryLedger(accountStartId,accountEndId,startDate,endDate);
+		subBag.put(AccKeys.ACC_TRANSACTIONS,list);		
+		return subBag;
+	}
+
+	public static List getCurrentBalances(HashMap argMap) throws Exception
+	{
+		Integer accountStartId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_START_ID);
+		Integer accountEndId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_END_ID);
+		Date startDate = (Date) argMap.get(EngKeys.DATE_START);
+		
+		Session session=EngDALSessionFactory.getSession();
+		TurqAccountingAccount accountStart=null;
+		if (accountStartId != null)
+		{
+			accountStart=(TurqAccountingAccount)session.load(TurqAccountingAccount.class,accountStartId);
+		}
+		
+		TurqAccountingAccount accountEnd=null;
+		if (accountEndId != null)
+		{
+			accountEnd=(TurqAccountingAccount)session.load(TurqAccountingAccount.class,accountEndId);
+		}
+		return AccDALTransactionSearch.getCurrentBalances(accountStart, accountEnd, startDate);
 	}
 	
 	public static List getAccTransInfo(Integer transId) throws Exception
