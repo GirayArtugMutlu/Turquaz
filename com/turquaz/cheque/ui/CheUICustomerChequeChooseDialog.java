@@ -10,9 +10,10 @@ import org.eclipse.swt.widgets.ToolItem;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
+import com.turquaz.common.HashBag;
+import com.turquaz.current.CurKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -164,7 +165,9 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 			TableItem items[] = tableCheques.getItems();
 			for (int i = 0; i < items.length; i++)
 			{
-				if (selectedCheques.contains(items[i].getData()))
+				HashMap chequeInfo = (HashMap)items[i].getData();
+				
+				if (selectedCheques.contains(chequeInfo))
 				{
 					items[i].setChecked(true);
 				}
@@ -177,27 +180,25 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getChequesInPortfolio",null);
-			TurqChequeCheque cheque;
+			
+			HashBag resultBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getChequesInPortfolio",null);
+			
+			HashMap chequeList =(HashMap)resultBag.get(CheKeys.CHE_CHEQUE_LIST);
+		
 			TableItem item;
 			String currentName;
-			for (int i = 0; i < ls.size(); i++)
+			for (int i = 0; i < chequeList.size(); i++)
 			{
-				cheque = (TurqChequeCheque) ls.get(i);
+				HashMap chequeInfo = (HashMap) chequeList.get(new Integer(i));
 				item = new TableItem(tableCheques, SWT.NULL);
-				item.setData(cheque);
-				
-				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE,cheque);
+				item.setData(chequeInfo);
 				
 				
-				TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getCurrentCardOfCustomerCheque",argMap);
 				
-				
-				item.setText(new String[]{cheque.getChequesPortfolioNo(),
-						curCard.getCardsName(),
-						DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesDebtor(),
-						cf.format(cheque.getChequesAmount())});
+				item.setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(),
+						chequeInfo.get(CurKeys.CUR_CURRENT_NAME).toString(),
+						DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)), chequeInfo.get(CheKeys.CHE_DEBTOR).toString(),
+						cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
 			}
 		}
 		catch (Exception ex)
@@ -205,6 +206,9 @@ public class CheUICustomerChequeChooseDialog extends org.eclipse.swt.widgets.Dia
             EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
+	
+	
+	
 
 	private void toolSaveWidgetSelected(SelectionEvent evt)
 	{

@@ -361,7 +361,7 @@ public class CheDALSearch
 	/*
 	 * Ceki veren Cari Karti getir
 	 */
-	public static TurqCurrentCard getCurrentCardOfCustomerCheque(TurqChequeCheque cheque) throws Exception
+	public static TurqCurrentCard getCurrentCardOfCustomerCheque(Integer cheque) throws Exception
 	{
 		try
 		{
@@ -369,7 +369,7 @@ public class CheDALSearch
 			TurqChequeChequeInRoll cv;
 			TurqChequeRoll asd;
 			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard from TurqChequeChequeInRoll as chequeRoll"
-					+ " where chequeRoll.turqChequeCheque = :cheque and "
+					+ " where chequeRoll.turqChequeCheque.id = :cheque and "
 					+ " chequeRoll.turqChequeRoll.turqChequeTransactionType.id =" + EngBLCommon.CHEQUE_TRANS_IN;
 			Query q = session.createQuery(query);
 			q.setParameter("cheque", cheque);
@@ -390,7 +390,7 @@ public class CheDALSearch
 	/*
 	 * Cekin Verildigi Cari Karti Getir
 	 */
-	public static TurqCurrentCard getCurrentCardOfGivenCheque(TurqChequeCheque cheque) throws Exception
+	public static TurqCurrentCard getCurrentCardOfGivenCheque(Integer cheque) throws Exception
 	{
 		try
 		{
@@ -398,7 +398,7 @@ public class CheDALSearch
 			TurqChequeChequeInRoll cv;
 			TurqChequeRoll asd;
 			String query = "Select chequeRoll.turqChequeRoll.turqCurrentCard from TurqChequeChequeInRoll as chequeRoll"
-					+ " where chequeRoll.turqChequeCheque = :cheque and "
+					+ " where chequeRoll.turqChequeCheque.id = :cheque and "
 					+ " chequeRoll.turqChequeRoll.turqChequeTransactionType.id =" + EngBLCommon.CHEQUE_TRANS_OUT_CURRENT;
 			Query q = session.createQuery(query);
 			q.setParameter("cheque", cheque);

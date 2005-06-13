@@ -1,5 +1,6 @@
 package com.turquaz.cheque.ui;
 
+import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
@@ -7,9 +8,12 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLSearchChequeRoll;
+import com.turquaz.common.HashBag;
+import com.turquaz.current.CurKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -175,21 +179,25 @@ public class CheUIChequesInBankChooseDialog extends org.eclipse.swt.widgets.Dial
 		try
 		{
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getChequesInBank",null);
-			TurqChequeCheque cheque;
+			
+			HashBag resultBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchChequeRoll.class.getName(),"getChequesInBank",null);
+			
+			HashMap chequeList =(HashMap)resultBag.get(CheKeys.CHE_CHEQUE_LIST);
+		
 			TableItem item;
-			Object result[];
 			String currentName;
-			for (int i = 0; i < ls.size(); i++)
+			for (int i = 0; i < chequeList.size(); i++)
 			{
-				result = (Object[]) ls.get(i);
-				cheque = (TurqChequeCheque) result[0];
-				currentName = result[1].toString();
+				HashMap chequeInfo = (HashMap) chequeList.get(new Integer(i));
 				item = new TableItem(tableCheques, SWT.NULL);
-				item.setData(cheque);
-				item.setText(new String[]{cheque.getChequesPortfolioNo(), currentName,
-						DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesDebtor(),
-						cf.format(cheque.getChequesAmount())});
+				item.setData(chequeInfo);
+				
+				
+				
+				item.setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(),
+						chequeInfo.get(CurKeys.CUR_CURRENT_NAME).toString(),
+						DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)), chequeInfo.get(CheKeys.CHE_DEBTOR).toString(),
+						cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
 			}
 		}
 		catch (Exception ex)

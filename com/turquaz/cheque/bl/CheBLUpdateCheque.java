@@ -146,7 +146,7 @@ public class CheBLUpdateCheque
 				{
 					TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
 					//TODO cheq trans exRate
-					TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(chequeInRoll.getTurqChequeCheque());
+					TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(chequeInRoll.getTurqChequeCheque().getId());
 					CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard, chequeRoll.getChequeRollsDate(), chequeRoll
 							.getChequeRollNo(), false, //Dept
 							chequeInRoll.getTurqChequeCheque().getChequesAmount(), new BigDecimal(0),
@@ -163,7 +163,7 @@ public class CheBLUpdateCheque
 				{
 					TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
 					//TODO cheq trans exRate
-					TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfGivenCheque(chequeInRoll.getTurqChequeCheque());
+					TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfGivenCheque(chequeInRoll.getTurqChequeCheque().getId());
 					CurBLCurrentTransactionAdd.saveCurrentTransaction(curCard, chequeRoll.getChequeRollsDate(), chequeRoll
 							.getChequeRollNo(), false, //Dept
 							chequeInRoll.getTurqChequeCheque().getChequesAmount(), new BigDecimal(0),

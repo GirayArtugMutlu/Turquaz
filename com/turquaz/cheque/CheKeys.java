@@ -26,5 +26,9 @@ public class CheKeys
 	public final static String CHE_CHEQUE_ROLL ="chequeRoll";
 	public final static String CHE_CHEQUE_ROLL_ID ="chequeRollId";
 	public final static String CHE_SORT="chequeSort";
+	public final static String CHE_CHEQUE_ID="chequeId";
+	public final static String CHE_PORTFOLIO_NO="chequePortfolioNo";
+	public final static String CHE_DEBTOR ="chequesDebtor";
+	public final static String CHE_PAYMENT_PLACE ="chequePaymentPlace";
 	
 }

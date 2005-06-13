@@ -20,8 +20,8 @@ package com.turquaz.cheque.ui;
  * @version $Id$
  */
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
@@ -31,16 +31,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.CashKeys;
-import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCashTransaction;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqChequeChequeInRoll;
-import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -61,12 +56,12 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolBar toolBar;
 	boolean isUpdated = false;
-	TurqChequeRoll chequeRoll = null;
+	Integer chequeRollId = null;
 
-	public CheUIChequeCollectUpdate(Shell parent, int style, TurqChequeRoll chequeRoll)
+	public CheUIChequeCollectUpdate(Shell parent, int style, Integer chequeRollId)
 	{
 		super(parent, style);
-		this.chequeRoll = chequeRoll;
+		this.chequeRollId = chequeRollId;
 	}
 
 	public boolean open()
@@ -163,38 +158,32 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-			EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
+			argMap.put(CheKeys.CHE_CHEQUE_ROLL_ID,chequeRollId);
+			HashBag infoBag = (HashBag)EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"getChequeRollInfo",argMap);
 			
 			
-			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
-			compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
+			compChequeRoll.getTxtRollNo().setText(infoBag.get(EngKeys.DOCUMENT_NO).toString());
+			compChequeRoll.getDatePicker1().setDate((Date)infoBag.get(EngKeys.DATE));
 			TableItem item;
-			Iterator it = chequeRoll.getTurqChequeChequeInRolls().iterator();
-			while (it.hasNext())
+			
+			
+			
+			HashMap chequeList =(HashMap)infoBag.get(CheKeys.CHE_CHEQUE_LIST);
+			
+		
+			for(int i=0;i<chequeList.size();i++)
 			{
-				TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
-				TurqChequeCheque cheque = chequeInRoll.getTurqChequeCheque();
-				item = new TableItem(compChequeRoll.getTableCheques(), SWT.NULL);
-				item.setData(cheque);
-				item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
-						cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
-			}
-			it = chequeRoll.getTurqEngineSequence().getTurqCashTransactions().iterator();
-			if (it.hasNext())
-			{
-				TurqCashTransaction cashTrans = (TurqCashTransaction) it.next();
-				 argMap = new HashMap();
-				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
 				
-				EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"initializeTransaction",argMap);
-				Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
-				while (it2.hasNext())
-				{
-					TurqCashTransactionRow transRow = (TurqCashTransactionRow) it2.next();
-					compChequeRoll.getCashCardPcker().setText(transRow.getTurqCashCard().getCashCardName());
-				}
+				HashMap chequeInfo = (HashMap)chequeList.get(new Integer(i));
+				
+				item = new TableItem(compChequeRoll.getTableCheques(), SWT.NULL);
+				item.setData(chequeInfo);
+				item.setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(), DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)),
+						chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE).toString(), chequeInfo.get(CheKeys.CHE_DEBTOR).toString(), cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
 			}
+			
+			compChequeRoll.getCashCardPcker().setText(infoBag.get(CashKeys.CASH_CARD_NAME).toString());
+			
 			compChequeRoll.calculateTotal();
 		}
 		catch (Exception ex)
@@ -217,7 +206,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 				}
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+				argMap.put(CheKeys.CHE_CHEQUE_ROLL_ID,chequeRollId);
 				argMap.put(CashKeys.CASH_CARD_ID,compChequeRoll.getCashCardPcker().getCashCardId());
 				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
 				argMap.put(EngKeys.DATE, compChequeRoll.getDatePicker1().getDate());
@@ -249,7 +238,7 @@ public class CheUIChequeCollectUpdate extends org.eclipse.swt.widgets.Dialog
 					return;
 				}
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+				argMap.put(CheKeys.CHE_CHEQUE_ROLL_ID,chequeRollId);
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"deleteChequeRollIn",argMap);
 			
 				EngUICommon.showMessageBox(getParent(),EngLangCommonKeys.MSG_DELETED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
