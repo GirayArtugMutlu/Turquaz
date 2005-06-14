@@ -37,7 +37,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -338,8 +337,8 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 		BigDecimal totalAmount = new BigDecimal(0);
 		for (int i = 0; i < count; i++)
 		{
-			TurqChequeCheque cheque = (TurqChequeCheque) tableCheques.getItem(i).getData();
-			totalAmount = totalAmount.add(cheque.getChequesAmount());
+			HashMap cheque = (HashMap) tableCheques.getItem(i).getData();
+			totalAmount = totalAmount.add((BigDecimal)cheque.get(EngKeys.TOTAL_AMOUNT));
 		}
 		txtTotalAmount.setBigDecimalValue(totalAmount);
 	}
@@ -364,13 +363,17 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 		for (int i = 0; i < cheques.size(); i++)
 		{
 			TableItem item;
-			TurqChequeCheque cheque = (TurqChequeCheque) cheques.get(i);
-			if (cheque != null)
+			HashMap chequeInfo = (HashMap) cheques.get(i);
+			if (chequeInfo != null)
 			{
 				item = new TableItem(tableCheques, SWT.NULL);
-				item.setData(cheque);
-				item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
-						cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+				item.setData(chequeInfo);
+				
+				item.setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(),
+						DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)),
+						chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE).toString(),
+						chequeInfo.get(CheKeys.CHE_DEBTOR).toString(),
+						cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
 			}
 		}
 		calculateTotal();
@@ -379,19 +382,24 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 	public void updateCheque()
 	{
 		TableItem selection[] = tableCheques.getSelection();
-		TurqChequeCheque cheque = null;
+		HashMap chequeInfo = null;
 		if (selection.length > 0)
 		{
-			cheque = (TurqChequeCheque) selection[0].getData();
-			if (cheque.getChequesType() == EngBLCommon.CHEQUE_TYPE_OWN)
+			chequeInfo = (HashMap) selection[0].getData();
+			
+			if (((Integer)chequeInfo.get(EngKeys.TYPE_ID)).intValue() == EngBLCommon.CHEQUE_TYPE_OWN)
 			{
-				cheque = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL).open(cheque);
-				if (cheque != null)
+				chequeInfo = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL).open(chequeInfo);
+				if (chequeInfo != null)
 				{
-					selection[0].setData(cheque);
-					selection[0].setText(new String[]{cheque.getChequesPortfolioNo(),
-							DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesPaymentPlace(),
-							cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+					selection[0].setData(chequeInfo);
+					selection[0].setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(),
+							DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)),
+							chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE).toString(),
+							chequeInfo.get(CheKeys.CHE_DEBTOR).toString(),
+							cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
+					
+					
 					calculateTotal();
 				}
 			}
@@ -401,14 +409,17 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 	public void addOwnCheque()
 	{
 		TableItem item;
-		TurqChequeCheque cheque = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL).open();
-		if (cheque != null)
+		HashMap chequeInfo = new CheUIOwnChequeAddDialog(getShell(), SWT.NULL).open();
+		if (chequeInfo != null)
 		{
 			item = new TableItem(tableCheques, SWT.NULL);
-			item.setData(cheque);
-			item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
-					cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
-			cheques.add(cheque);
+			item.setData(chequeInfo);
+			item.setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(),
+					DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)),
+					chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE).toString(),
+					chequeInfo.get(CheKeys.CHE_DEBTOR).toString(),
+					cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
+			cheques.add(chequeInfo);
 			calculateTotal();
 		}
 	}

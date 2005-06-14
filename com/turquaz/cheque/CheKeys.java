@@ -23,12 +23,13 @@ public class CheKeys
 	public final static String CHE_START_DUE_DATE ="chequeStartDueDate";
 	public final static String CHE_END_ENTER_DATE ="chequeEndEnterDate";
 	public final static String CHE_END_DUE_DATE ="chequeEndDueDate";
-	public final static String CHE_CHEQUE_ROLL ="chequeRoll";
+	public final static String CHE_CHEQUE_ROLLS ="chequeRolls";
 	public final static String CHE_CHEQUE_ROLL_ID ="chequeRollId";
 	public final static String CHE_SORT="chequeSort";
 	public final static String CHE_CHEQUE_ID="chequeId";
 	public final static String CHE_PORTFOLIO_NO="chequePortfolioNo";
 	public final static String CHE_DEBTOR ="chequesDebtor";
 	public final static String CHE_PAYMENT_PLACE ="chequePaymentPlace";
+	public final static String CHE_CHEQUE_NO="chequeNo";
 	
 }

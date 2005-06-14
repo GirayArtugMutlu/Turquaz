@@ -209,7 +209,7 @@ public class CheUIChequeCollectFromBankUpdate extends org.eclipse.swt.widgets.Di
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
 				argMap.put(EngKeys.TYPE,EngBLCommon.CHEQUE_TRANS_COLLECT_FROM_BANK);
 				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(false));
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
 				
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeRollIn",argMap);

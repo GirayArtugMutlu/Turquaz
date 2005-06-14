@@ -20,8 +20,8 @@ package com.turquaz.cheque.ui;
  * @version  $Id$
  */
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
@@ -34,12 +34,10 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqChequeChequeInRoll;
-import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -67,12 +65,12 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 	boolean isUpdated = false;
-	TurqChequeRoll chequeRoll = null;
+	Integer chequeRollId = null;
 
-	public CheUIChequeOutPayrollBankUpdate(Shell parent, int style, TurqChequeRoll chequeRoll)
+	public CheUIChequeOutPayrollBankUpdate(Shell parent, int style,Integer chequeRoll)
 	{
 		super(parent, style);
-		this.chequeRoll = chequeRoll;
+		this.chequeRollId = chequeRoll;
 	}
 
 	public boolean open()
@@ -168,33 +166,40 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 			
 
 			HashMap argMap = new HashMap();
-			argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
-			EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"initializeChequeRoll",argMap);
+			argMap.put(CheKeys.CHE_CHEQUE_ROLL_ID,chequeRollId);
+			
+			HashBag infoBag = (HashBag)EngTXCommon.doSelectTX(CheBLUpdateChequeRoll.class.getName(),"getChequeRollInfo",argMap);
 			
 			
-			compChequeRoll.getTxtRollNo().setText(chequeRoll.getChequeRollNo());
-			compChequeRoll.getDatePicker1().setDate(chequeRoll.getChequeRollsDate());
-			compChequeRoll.getBankCardPicker().setText(chequeRoll.getTurqBanksCard().getBankCode());
+			compChequeRoll.getTxtRollNo().setText((String)infoBag.get(EngKeys.DOCUMENT_NO));
+			compChequeRoll.getDatePicker1().setDate((Date)infoBag.get(EngKeys.DATE));
+			
+			
+			compChequeRoll.getBankCardPicker().setText((String)infoBag.get(BankKeys.BANK_CODE));
 			compChequeRoll.getToolItemDelete().setEnabled(false);
 			compChequeRoll.getToolItemAdd().setEnabled(false);
-			if (chequeRoll.getTurqChequeRollAccountingAccount() == null)
+			
+			
+			if (infoBag.get(AccKeys.ACC_ACCOUNT_CODE) == null)
 			{
 				compChequeRoll.getAccountPicker().setData(null);
 			}
 			else
 			{
-				compChequeRoll.getAccountPicker().setData(chequeRoll.getTurqChequeRollAccountingAccount().getTurqAccountingAccount());
+				compChequeRoll.getAccountPicker().setText((String)infoBag.get(AccKeys.ACC_ACCOUNT_CODE));
 			}
+			
 			TableItem item;
-			Iterator it = chequeRoll.getTurqChequeChequeInRolls().iterator();
-			while (it.hasNext())
+			HashMap chequeList =(HashMap)infoBag.get(CheKeys.CHE_CHEQUE_LIST);
+			for(int i=0;i<chequeList.size();i++)
 			{
-				TurqChequeChequeInRoll chequeInRoll = (TurqChequeChequeInRoll) it.next();
-				TurqChequeCheque cheque = chequeInRoll.getTurqChequeCheque();
+				
+				HashMap chequeInfo = (HashMap)chequeList.get(new Integer(i));
+				
 				item = new TableItem(compChequeRoll.getTableCheques(), SWT.NULL);
-				item.setData(cheque);
-				item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
-						cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+				item.setData(chequeInfo);
+				item.setText(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(), DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)),
+						chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE).toString(), chequeInfo.get(CheKeys.CHE_DEBTOR).toString(), cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))});
 			}
 			compChequeRoll.calculateTotal();
 		}
@@ -216,7 +221,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 					return;
 				}
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+				argMap.put(CheKeys.CHE_CHEQUE_ROLL_ID,chequeRollId);
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"deleteChequeRollIn",argMap);
 				
 				EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_DELETED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
@@ -245,7 +250,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				//		          TODO cheq trans exRate
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE_ROLL,chequeRoll);
+				argMap.put(CheKeys.CHE_CHEQUE_ROLL_ID,chequeRollId);
 				argMap.put(AccKeys.ACC_ACCOUNT_ID,compChequeRoll.getAccountPicker().getId());
 				argMap.put(BankKeys.BANK_ID,compChequeRoll.getBankCardPicker().getBankId());
 				argMap.put(EngKeys.DOCUMENT_NO,compChequeRoll.getTxtRollNo().getText().trim());
@@ -253,7 +258,7 @@ public class CheUIChequeOutPayrollBankUpdate extends org.eclipse.swt.widgets.Dia
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
 				argMap.put(EngKeys.TYPE,EngBLCommon.CHEQUE_TRANS_OUT_BANK);
 				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(compChequeRoll.getBtnSumTotals().getSelection()));
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeRollIn",argMap);
 				EngUICommon.showMessageBox(getParent(), EngLangCommonKeys.MSG_UPDATED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$

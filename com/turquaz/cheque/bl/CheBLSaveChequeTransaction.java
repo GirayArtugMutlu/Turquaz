@@ -53,6 +53,7 @@ import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.dal.TurqChequeRollAccountingAccount;
 import com.turquaz.engine.dal.TurqChequeTransactionType;
+import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -63,24 +64,37 @@ public class CheBLSaveChequeTransaction
 	
 	public static void saveChequeRoll(HashMap argMap) throws Exception
 	{
-		TurqAccountingAccount rollAccount = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		
+		Integer rollAccountId = (Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
+		TurqAccountingAccount rollAccount =null;
+		if(rollAccountId!=null)
+		{
+			rollAccount =(TurqAccountingAccount)EngDALSessionFactory.getSession().load(TurqAccountingAccount.class,rollAccountId);
+		}
 		
 		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
 		TurqCurrentCard curCard=null;
 		if(curCardId!=null)
 		{
 			curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
-		};
+		}
 		
 		Integer bankCardId=(Integer)argMap.get(BankKeys.BANK_ID);
-		TurqBanksCard bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
-        
+		TurqBanksCard bankCard = null;
+		if(bankCardId!=null)
+		{
+			bankCard = (TurqBanksCard)EngDALSessionFactory.getSession().load(TurqBanksCard.class,bankCardId);
+		}
+		
+		
 		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		Date rollDate = (Date)argMap.get(EngKeys.DATE);
 		List chequeList = (List)argMap.get(CheKeys.CHE_CHEQUE_LIST);
 		Integer rollType = (Integer)argMap.get(EngKeys.TYPE);
 		Boolean sumTransTotal = (Boolean)argMap.get(CheKeys.CHE_SUM_TRANS);
-		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		
+		
+		TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(EngBLCommon.getBaseCurrencyId(),rollDate);
 		
 			TurqChequeTransactionType type = new TurqChequeTransactionType();
 			type.setId(rollType);
@@ -128,8 +142,11 @@ public class CheBLSaveChequeTransaction
 			for (int i = 0; i < chequeList.size(); i++)
 			{
 				TurqChequeChequeInRoll chequeInRoll = new TurqChequeChequeInRoll();
-				cheque = (TurqChequeCheque) chequeList.get(i);
-				EngDALCommon.saveOrUpdateObject(cheque);              
+				
+				
+				cheque = saveCheque((HashMap)chequeList.get(i),rollDate);				            
+				
+				
 				chequeInRoll.setTurqChequeCheque(cheque);
 				chequeInRoll.setTurqChequeRoll(chequeRoll);
 				chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
@@ -202,6 +219,54 @@ public class CheBLSaveChequeTransaction
 		
 	}
 
+	private static TurqChequeCheque saveCheque(HashMap chequeInfo,Date rollDate)throws Exception
+	{
+		TurqChequeCheque cheque = new TurqChequeCheque();
+		cheque.setBankAccountNo((String)chequeInfo.get(BankKeys.BANK_ACCOUNT_NO));
+		cheque.setBankBranchName((String)chequeInfo.get(BankKeys.BANK_BRANCH_NAME));
+		cheque.setBankName((String)chequeInfo.get(BankKeys.BANK_NAME));
+		cheque.setChequesAmount((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
+		cheque.setChequesAmountInForeignCurrency((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
+		cheque.setChequesDebtor((String)chequeInfo.get(CheKeys.CHE_DEBTOR));
+		cheque.setChequesDueDate((Date)chequeInfo.get(EngKeys.DATE));
+		cheque.setChequesNo((String)chequeInfo.get(CheKeys.CHE_CHEQUE_NO));
+		cheque.setChequesPaymentPlace((String)chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE));
+		cheque.setChequesPortfolioNo((String)chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO));
+		cheque.setChequesType(((Integer)chequeInfo.get(EngKeys.TYPE_ID)).intValue());
+		cheque.setChequesValueDate((Date)chequeInfo.get(EngKeys.DATE));
+		cheque.setCreatedBy(System.getProperty("user"));
+		cheque.setCreationDate(Calendar.getInstance().getTime());
+		cheque.setLastModified(Calendar.getInstance().getTime());
+		cheque.setUpdatedBy(System.getProperty("user"));
+		
+		
+		TurqBanksCard bankCard = new TurqBanksCard();
+		bankCard.setId((Integer)chequeInfo.get(BankKeys.BANK_ID));		
+		cheque.setTurqBanksCard(bankCard);
+		
+		Integer currencyId = (Integer)chequeInfo.get(EngKeys.CURRENCY_ID);
+		TurqCurrency currency = new TurqCurrency();
+		currency.setId(currencyId);		
+		cheque.setTurqCurrency(currency);
+		
+		
+		
+		cheque.setTurqCurrencyExchangeRate(EngDALCommon.getCurrencyExchangeRate(currencyId,rollDate));
+		
+		if(chequeInfo.get(CheKeys.CHE_CHEQUE_ID)==null)
+		{			
+			EngDALCommon.saveObject(cheque);
+		}
+		else
+		{
+			cheque.setId((Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID));
+			EngDALCommon.updateObject(cheque);
+		}
+		
+	
+		return cheque;
+		
+	}
 	
 	public static void saveCollectOfOwnCheques(HashMap argMap)throws Exception
 	{
@@ -324,6 +389,7 @@ public class CheBLSaveChequeTransaction
 		
 		TurqChequeTransactionType type = new TurqChequeTransactionType();
 		type.setId(EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY);
+		
 		TurqModule module = new TurqModule();
 		module.setId(new Integer(EngBLCommon.MODULE_CHEQUE));
 		TurqEngineSequence seq = new TurqEngineSequence();
@@ -355,19 +421,24 @@ public class CheBLSaveChequeTransaction
 			EngDALCommon.saveObject(rollAccountingAccount);
 		}
 		TurqChequeChequeInRoll chequeInRoll;
-		TurqChequeCheque cheque;
+		HashMap chequeInfo;
 		BigDecimal amount = new BigDecimal(0);
 		for (int i = 0; i < chequeList.size(); i++)
 		{
 			chequeInRoll = new TurqChequeChequeInRoll();
-			cheque = (TurqChequeCheque) chequeList.get(i);
+			
+			chequeInfo = (HashMap) chequeList.get(i);
+			
+			TurqChequeCheque cheque = new TurqChequeCheque();
+			cheque.setId((Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID));
+			
 			chequeInRoll.setTurqChequeCheque(cheque);
 			chequeInRoll.setTurqChequeRoll(chequeRoll);
 			chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeInRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeInRoll.setLastModified(Calendar.getInstance().getTime());
 			chequeInRoll.setCreationDate(Calendar.getInstance().getTime());
-			amount = amount.add(cheque.getChequesAmount());
+			amount = amount.add((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
 			EngDALCommon.saveObject(chequeInRoll);
 		}
 		saveRollAccountingTransactions(rollAccount, null, chequeRoll, amount, EngBLCommon.getBaseCurrencyExchangeRate(),  CheServerLangKeys.ROLL_NO + chequeRoll.getChequeRollNo()); //$NON-NLS-1$
@@ -417,34 +488,43 @@ public class CheBLSaveChequeTransaction
 			EngDALCommon.saveObject(rollAccountingAccount);
 		}
 		TurqChequeChequeInRoll chequeInRoll;
-		TurqChequeCheque cheque;
+		HashMap chequeInfo;
 		BigDecimal amount = new BigDecimal(0);
 		for (int i = 0; i < chequeList.size(); i++)
 		{
 			chequeInRoll = new TurqChequeChequeInRoll();
-			cheque = (TurqChequeCheque) chequeList.get(i);
+			
+			chequeInfo = (HashMap) chequeList.get(i);
+			
+			
+			TurqChequeCheque cheque =new TurqChequeCheque();
+			
+			cheque.setId((Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID));
+			
 			chequeInRoll.setTurqChequeCheque(cheque);
 			chequeInRoll.setTurqChequeRoll(chequeRoll);
 			chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeInRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeInRoll.setLastModified(Calendar.getInstance().getTime());
 			chequeInRoll.setCreationDate(Calendar.getInstance().getTime());
-			amount = amount.add(cheque.getChequesAmount());
+			amount = amount.add((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
 			EngDALCommon.saveObject(chequeInRoll);
-			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque.getId());
+			
+			
+			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque((Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID));
 			CurBLCurrentTransactionAdd
 					.saveCurrentTransaction(
 							curCard,
 							chequeRoll.getChequeRollsDate(),
 							chequeRoll.getChequeRollNo(),
 							false,
-							cheque.getChequesAmount(),
+							(BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT),
 							new BigDecimal(0),
 							EngBLCommon.CURRENT_TRANS_CHEQUE,
 							chequeRoll.getTurqEngineSequence().getId(),
-                            CheServerLangKeys.PORTFOLIO_NO+ cheque.getChequesPortfolioNo(), EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
+                            CheServerLangKeys.PORTFOLIO_NO+(String)chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO), EngDALCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
 		}
-		saveRollAccountingTransactions(rollAccount, null, chequeRoll, amount, EngBLCommon.getBaseCurrencyExchangeRate(),  CheServerLangKeys.ROLL_NO + chequeRoll.getChequeRollNo()); //$NON-NLS-1$
+		saveRollAccountingTransactions(rollAccount, null, chequeRoll, amount, EngDALCommon.getBaseCurrencyExchangeRate(),  CheServerLangKeys.ROLL_NO + chequeRoll.getChequeRollNo()); //$NON-NLS-1$
 	}
 
 	public static void saveReturnFromCurrent(HashMap argMap) throws Exception
@@ -479,33 +559,38 @@ public class CheBLSaveChequeTransaction
 		chequeRoll.setTurqEngineSequence(seq);
 		EngDALCommon.saveObject(chequeRoll);
 		TurqChequeChequeInRoll chequeInRoll;
-		TurqChequeCheque cheque;
+		HashMap chequeInfo;
 		BigDecimal amount = new BigDecimal(0);
 		for (int i = 0; i < chequeList.size(); i++)
 		{
 			chequeInRoll = new TurqChequeChequeInRoll();
-			cheque = (TurqChequeCheque) chequeList.get(i);
+			chequeInfo = (HashMap) chequeList.get(i);
+			
+			TurqChequeCheque cheque = new TurqChequeCheque();
+			cheque.setId((Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID));
+			
+			
 			chequeInRoll.setTurqChequeCheque(cheque);
 			chequeInRoll.setTurqChequeRoll(chequeRoll);
 			chequeInRoll.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeInRoll.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			chequeInRoll.setLastModified(Calendar.getInstance().getTime());
 			chequeInRoll.setCreationDate(Calendar.getInstance().getTime());
-			amount = amount.add(cheque.getChequesAmount());
+			amount = amount.add((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
 			EngDALCommon.saveObject(chequeInRoll);
 			
-			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque.getId());
+			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque((Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID));
 			CurBLCurrentTransactionAdd
 					.saveCurrentTransaction(
 							curCard,
 							chequeRoll.getChequeRollsDate(),
 							chequeRoll.getChequeRollNo(),
 							false,
-							cheque.getChequesAmount(),
+							(BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT),
 							new BigDecimal(0),
 							EngBLCommon.CURRENT_TRANS_CHEQUE,
 							chequeRoll.getTurqEngineSequence().getId(),
-                            CheServerLangKeys.PORTFOLIO_NO+ cheque.getChequesPortfolioNo(), EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
+                            CheServerLangKeys.PORTFOLIO_NO+ (String)chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO), EngBLCommon.getBaseCurrencyExchangeRate()); //$NON-NLS-1$
 		}
 		saveRollAccountingTransactions(null, null, chequeRoll, amount, EngBLCommon.getBaseCurrencyExchangeRate(),  CheServerLangKeys.ROLL_NO+ chequeRoll.getChequeRollNo()); //$NON-NLS-1$
 	}

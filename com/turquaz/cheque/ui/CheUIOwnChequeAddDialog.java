@@ -20,14 +20,14 @@ package com.turquaz.cheque.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.ui.EngUICommon;
@@ -42,7 +42,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CTabItem;
+
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.ui.comp.BankCardPicker;
+import com.turquaz.cheque.CheKeys;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -74,20 +78,20 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	private DatePicker datePickValueDate;
 	private CLabel lblDueDate;
 	private BankCardPicker bankPicker;
-	TurqChequeCheque cheque = null;
+	HashMap chequeInfo = null;
 
 	public CheUIOwnChequeAddDialog(Shell parent, int style)
 	{
 		super(parent, style);
 	}
 
-	public TurqChequeCheque open(TurqChequeCheque cheque)
+	public HashMap open(HashMap cheque)
 	{
-		this.cheque = cheque;
+		this.chequeInfo = cheque;
 		return open();
 	}
 
-	public TurqChequeCheque open()
+	public HashMap open()
 	{
 		try
 		{
@@ -227,7 +231,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 				if (!display.readAndDispatch())
 					display.sleep();
 			}
-			return cheque;
+			return chequeInfo;
 		}
 		catch (Exception e)
 		{
@@ -239,13 +243,13 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	public void postInitGUI()
 	{
 		EngUICommon.centreWindow(dialogShell);
-		if (cheque != null)
+		if (chequeInfo != null)
 		{
-			txtChequeNo.setText(cheque.getChequesNo());
-			txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
-			datePickValueDate.setDate(cheque.getChequesDueDate());
-			curText.setText(cheque.getChequesAmountInForeignCurrency());
-			bankPicker.setText(cheque.getTurqBanksCard().getBankCode());
+			txtChequeNo.setText(chequeInfo.get(CheKeys.CHE_CHEQUE_NO).toString());
+			txtPaymentPlace.setText(chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE).toString());
+			datePickValueDate.setDate((Date)chequeInfo.get(EngKeys.DATE));
+			curText.setText((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
+			bankPicker.setText(chequeInfo.get(BankKeys.BANK_CODE).toString());
 		}
 	}
 
@@ -270,39 +274,28 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		if (verifyFields())
 		{
-			if (cheque == null)
+			if (chequeInfo == null)
 			{
-				cheque = new TurqChequeCheque();
+				chequeInfo = new HashMap();
 			}
 			/**
 			 * 
 			 */
 			
-			cheque.setBankBranchName(bankPicker.getBankBranchName());
-			cheque.setBankName(bankPicker.getBankName());
-			cheque.setBankAccountNo(bankPicker.getBankAccountNo());
-			cheque.setChequesPortfolioNo(""); //$NON-NLS-1$
-			cheque.setChequesNo(txtChequeNo.getText().trim());
-			cheque.setChequesDueDate(datePickValueDate.getDate());
-			cheque.setChequesValueDate(datePickValueDate.getDate());
-			cheque.setChequesDebtor(CheLangKeys.STR_OWN_CHEQUE); //$NON-NLS-1$
-			cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-			cheque.setChequesAmount(curText.getBigDecimalValue());
-			cheque.setChequesAmountInForeignCurrency(curText.getBigDecimalValue());
+			chequeInfo.put(BankKeys.BANK_BRANCH_NAME,bankPicker.getBankBranchName());
+			chequeInfo.put(BankKeys.BANK_NAME,bankPicker.getBankName());
+			chequeInfo.put(BankKeys.BANK_CODE,bankPicker.getBankAccountNo());
+			chequeInfo.put(CheKeys.CHE_PORTFOLIO_NO,""); //$NON-NLS-1$
+			chequeInfo.put(CheKeys.CHE_CHEQUE_NO,txtChequeNo.getText().trim());
+			chequeInfo.put(EngKeys.DATE,datePickValueDate.getDate());
+			chequeInfo.put(CheKeys.CHE_DEBTOR,CheLangKeys.STR_OWN_CHEQUE); //$NON-NLS-1$
+			chequeInfo.put(CheKeys.CHE_PAYMENT_PLACE,txtPaymentPlace.getText().trim());
+			chequeInfo.put(EngKeys.TOTAL_AMOUNT,curText.getBigDecimalValue());
 			
-			cheque.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			chequeInfo.put(EngKeys.TYPE_ID,new Integer(EngBLCommon.CHEQUE_TYPE_OWN));
+			chequeInfo.put(BankKeys.BANK_ID,bankPicker.getBankId());
+			chequeInfo.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
 		
-			cheque.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-			cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			cheque.setLastModified(Calendar.getInstance().getTime());
-			cheque.setCreationDate(Calendar.getInstance().getTime());
-			cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
-			TurqBanksCard bankCard = new TurqBanksCard();
-			bankCard.setId(bankPicker.getBankId());
-			cheque.setTurqBanksCard(bankCard);
-			TurqCurrency cur = new TurqCurrency();
-			cur.setId(new Integer(1));
-			cheque.setTurqCurrency(cur);
 			dialogShell.close();
 		}
 	}

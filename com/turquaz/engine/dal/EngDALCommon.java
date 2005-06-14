@@ -248,7 +248,7 @@ public class EngDALCommon
 		}
 	}
 
-	public static Integer getCheqeuTransaction(TurqEngineSequence seq) throws Exception
+	public static Integer[] getCheqeuTransaction(TurqEngineSequence seq) throws Exception
 	{
 		try
 		{
@@ -258,7 +258,10 @@ public class EngDALCommon
 			Iterator it = seq.getTurqChequeRolls().iterator();
 			if (it.hasNext())
 			{
-				return ((TurqChequeRoll) it.next()).getId();
+				TurqChequeRoll roll =(TurqChequeRoll) it.next();
+				Integer []data = new Integer[]{roll.getId(),roll.getTurqChequeTransactionType().getId()};
+				
+				return data;
 			}
 			return null;
 		}

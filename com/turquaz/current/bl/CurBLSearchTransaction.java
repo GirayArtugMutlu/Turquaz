@@ -286,7 +286,8 @@ public class CurBLSearchTransaction
 		Integer curTransId = (Integer)argMap.get(CurKeys.CUR_TRANSACTION_ID);
 		TurqCurrentTransaction trans = (TurqCurrentTransaction)EngDALSessionFactory.getSession().load(TurqCurrentTransaction.class,curTransId);
 		
-		result.put(CheKeys.CHE_CHEQUE_ROLL_ID,EngDALCommon.getCheqeuTransaction(trans.getTurqEngineSequence()));
+		result.put(CheKeys.CHE_CHEQUE_ROLL_ID,EngDALCommon.getCheqeuTransaction(trans.getTurqEngineSequence())[0]);
+		result.put(EngKeys.TYPE_ID,EngDALCommon.getCheqeuTransaction(trans.getTurqEngineSequence())[01]);
 		return result;
 	}
 

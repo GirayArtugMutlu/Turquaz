@@ -443,9 +443,10 @@ public class CurUITransactionSearch extends Composite implements SearchComposite
 					{
 						HashBag result = (HashBag)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCheqeuTransaction",argMap);
 						Integer bankTransId =(Integer)result.get(CheKeys.CHE_CHEQUE_ROLL_ID);
+						Integer typeId =(Integer)result.get(EngKeys.TYPE_ID);
 						if (bankTransId != null)
 						{
-							updated = CheUIChequeRollSearch.rollUpdate(bankTransId, getShell());
+							updated = CheUIChequeRollSearch.rollUpdate(bankTransId,typeId, getShell());
 						}
 					}
 					else if (type == EngBLCommon.CURRENT_TRANS_CASH)

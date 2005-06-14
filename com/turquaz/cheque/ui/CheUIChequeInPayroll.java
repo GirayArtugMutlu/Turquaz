@@ -21,6 +21,7 @@ package com.turquaz.cheque.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
@@ -39,7 +40,6 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -327,7 +327,6 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
 				argMap.put(EngKeys.TYPE, EngBLCommon.CHEQUE_TRANS_IN);
 				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(btnSumTotals.getSelection()));
-				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
 				
 				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveChequeRoll",argMap);
 				EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_SAVED_SUCCESS, SWT.ICON_INFORMATION); //$NON-NLS-1$
@@ -346,8 +345,8 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 		BigDecimal totalAmount = new BigDecimal(0);
 		for (int i = 0; i < count; i++)
 		{
-			TurqChequeCheque cheque = (TurqChequeCheque) tableCheques.getItem(i).getData();
-			totalAmount = totalAmount.add(cheque.getChequesAmount());
+			HashMap chequeInfo = (HashMap) tableCheques.getItem(i).getData();
+			totalAmount = totalAmount.add((BigDecimal)chequeInfo.get(EngKeys.TOTAL_AMOUNT));
 		}
 		txtTotalAmount.setBigDecimalValue(totalAmount);
 	}
@@ -368,16 +367,21 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	public void updateCheque()
 	{
 		TableItem selection[] = tableCheques.getSelection();
-		TurqChequeCheque cheque = null;
+		HashMap chequeInfo = null;
 		if (selection.length > 0)
 		{
-			cheque = new CheUICustomerChequeAddDialog(getShell(), SWT.NULL).open((TurqChequeCheque) selection[0].getData());
-			if (cheque != null)
+			chequeInfo = new CheUICustomerChequeAddDialog(getShell(), SWT.NULL).open((HashMap) selection[0].getData());
+			if (chequeInfo != null)
 			{
-				selection[0].setData(cheque);
-				selection[0].setText(new String[]{cheque.getChequesPortfolioNo(),
-						DatePicker.formatter.format(cheque.getChequesDueDate()), cheque.getChequesPaymentPlace(),
-						cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+				selection[0].setData(chequeInfo);
+				selection[0].setText(new String[]{
+									(String)chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO),
+									DatePicker.formatter.format((Date)chequeInfo.get(EngKeys.DATE)),
+									(String)chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE),
+									(String)chequeInfo.get(CheKeys.CHE_DEBTOR), 
+									cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))
+									
+									});
 				calculateTotal();
 			}
 		}
@@ -386,13 +390,19 @@ public class CheUIChequeInPayroll extends org.eclipse.swt.widgets.Composite impl
 	public void addCheque()
 	{
 		TableItem item;
-		TurqChequeCheque cheque = new CheUICustomerChequeAddDialog(getShell(), SWT.NULL).open();
-		if (cheque != null)
+		HashMap chequeInfo = new CheUICustomerChequeAddDialog(getShell(), SWT.NULL).open();
+		if (chequeInfo != null)
 		{
 			item = new TableItem(tableCheques, SWT.NULL);
-			item.setData(cheque);
-			item.setText(new String[]{cheque.getChequesPortfolioNo(), DatePicker.formatter.format(cheque.getChequesDueDate()),
-					cheque.getChequesPaymentPlace(), cheque.getChequesDebtor(), cf.format(cheque.getChequesAmount())});
+			item.setData(chequeInfo);
+			item.setText(new String[]{
+					(String)chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO),
+					DatePicker.formatter.format((Date)chequeInfo.get(EngKeys.DATE)),
+					(String)chequeInfo.get(CheKeys.CHE_PAYMENT_PLACE),
+					(String)chequeInfo.get(CheKeys.CHE_DEBTOR), 
+					cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))					
+					});
+			
 			calculateTotal();
 		}
 	}

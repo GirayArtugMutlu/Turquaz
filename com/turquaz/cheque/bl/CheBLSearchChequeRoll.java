@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import com.turquaz.bank.BankKeys;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.dal.CheDALSearch;
 import com.turquaz.cheque.dal.CheDALUpdate;
@@ -38,21 +40,67 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 public class CheBLSearchChequeRoll
 {
 	
-	public static List searchChequeRoll(HashMap argMap) throws Exception
+	public static HashBag searchChequeRoll(HashMap argMap) throws Exception
 	{
 		String rollNo = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 Date startDate = (Date)argMap.get(EngKeys.DATE_START);
 		 Date endDate = (Date)argMap.get(EngKeys.DATE_END);	
-		 TurqChequeTransactionType type = (TurqChequeTransactionType)argMap.get(CheKeys.CHE_TRANS_TYPE); 
+		Integer typeId = (Integer)argMap.get(CheKeys.CHE_TRANS_TYPE); 
 		
-			return CheDALSearch.searchChequeRoll(rollNo, startDate, endDate, type);
+		HashBag rollsBag = new HashBag();
+		rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,new HashMap());
+		
+		List list = CheDALSearch.searchChequeRoll(rollNo, startDate, endDate, typeId);
+		
+		for(int i =0;i<list.size();i++)
+		{
+			
+			Object info[] =(Object[])list.get(i);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,CheKeys.CHE_CHEQUE_ROLL_ID,info[0]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,EngKeys.DATE,info[1]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,EngKeys.DOCUMENT_NO,info[2]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,EngKeys.TYPE_NAME,info[3]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,CurKeys.CUR_CURRENT_NAME,info[4]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,BankKeys.BANK_CODE,info[5]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,CurKeys.CUR_CARD_ID,info[6]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,BankKeys.BANK_ID,info[7]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,EngKeys.TOTAL_AMOUNT,info[8]);
+			rollsBag.put(CheKeys.CHE_CHEQUE_ROLLS,i,EngKeys.TYPE_ID,info[9]);
+			
+		}
+		
+		
+		
+		
+		
+		
+		return rollsBag;
 		
 	}
 
-	public static List getTransactionTypes() throws Exception
+	public static HashBag getTransactionTypes() throws Exception
 	{
 		
-			return CheDALSearch.getTransactionTypes();
+			
+		List list = CheDALSearch.getTransactionTypes();
+		HashBag returnBag = new HashBag();
+		returnBag.put(EngKeys.TYPES,new HashMap());
+		
+		for(int i=0;i<list.size();i++)
+		{
+			TurqChequeTransactionType type = (TurqChequeTransactionType)list.get(i);
+			
+			returnBag.put(EngKeys.TYPE,i,EngKeys.TYPE_NAME,type.getTransactionTypsName());
+			returnBag.put(EngKeys.TYPE,i,EngKeys.TYPE_ID,type.getId());
+						
+		}
+		return returnBag;
+		
+		
+		
+		
+		
+		
 		
 	}
 
@@ -71,6 +119,7 @@ public class CheBLSearchChequeRoll
 			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.DATE,cheque.getChequesDueDate());
 			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_DEBTOR,cheque.getChequesDebtor());
 			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_PAYMENT_PLACE,cheque.getChequesPaymentPlace());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.TYPE_ID,new Integer(cheque.getChequesType()));
 			
 			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque.getId());
 			
@@ -84,16 +133,57 @@ public class CheBLSearchChequeRoll
 		
 	}
 
-	public static List getChequesGivenToCurrent() throws Exception
+	public static HashBag getChequesGivenToCurrent() throws Exception
 	{
+		List list = CheDALSearch.getChequesGivenToCurrent();
+		HashBag chequesBag = new HashBag();
+		chequesBag.put(CheKeys.CHE_CHEQUE_LIST,new HashMap());
 		
-			return CheDALSearch.getChequesGivenToCurrent();
+		for(int i=0;i<list.size();i++)
+		{
+			TurqChequeCheque cheque = (TurqChequeCheque)list.get(i);
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_CHEQUE_ID,cheque.getId());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_PORTFOLIO_NO,cheque.getChequesPortfolioNo());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.DATE,cheque.getChequesDueDate());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_DEBTOR,cheque.getChequesDebtor());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_PAYMENT_PLACE,cheque.getChequesPaymentPlace());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.TYPE_ID,new Integer(cheque.getChequesType()));
+			
+			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque.getId());
+			
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CurKeys.CUR_CURRENT_NAME,curCard.getCardsName());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.TOTAL_AMOUNT,cheque.getChequesAmount());
+				
+		}	
+		
+			return chequesBag; 
 		
 	}
-	public static List getOwnChequesGivenToCurrent() throws Exception
+	public static HashBag getOwnChequesGivenToCurrent() throws Exception
 	{
 		
-			return CheDALSearch.getOwnChequesGivenToCurrent();
+		List list = CheDALSearch.getOwnChequesGivenToCurrent();
+		HashBag chequesBag = new HashBag();
+		chequesBag.put(CheKeys.CHE_CHEQUE_LIST,new HashMap());
+		
+		for(int i=0;i<list.size();i++)
+		{
+			TurqChequeCheque cheque = (TurqChequeCheque)list.get(i);
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_CHEQUE_ID,cheque.getId());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_PORTFOLIO_NO,cheque.getChequesPortfolioNo());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.DATE,cheque.getChequesDueDate());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_DEBTOR,cheque.getChequesDebtor());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_PAYMENT_PLACE,cheque.getChequesPaymentPlace());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.TYPE_ID,new Integer(cheque.getChequesType()));
+			
+			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfGivenCheque(cheque.getId());
+			
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CurKeys.CUR_CURRENT_NAME,curCard.getCardsName());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.TOTAL_AMOUNT,cheque.getChequesAmount());
+				
+		}	
+		
+			return chequesBag; 
 		
 	}
 
@@ -124,6 +214,7 @@ public class CheBLSearchChequeRoll
 			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.DATE,cheque.getChequesDueDate());
 			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_DEBTOR,cheque.getChequesDebtor());
 			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,CheKeys.CHE_PAYMENT_PLACE,cheque.getChequesPaymentPlace());
+			chequesBag.put(CheKeys.CHE_CHEQUE_LIST,i,EngKeys.TYPE_ID,new Integer(cheque.getChequesType()));
 			
 			TurqCurrentCard curCard = CheDALSearch.getCurrentCardOfCustomerCheque(cheque.getId());
 			

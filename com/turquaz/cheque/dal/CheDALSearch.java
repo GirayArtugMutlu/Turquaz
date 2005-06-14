@@ -30,13 +30,12 @@ import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.dal.TurqChequeChequeInRoll;
 import com.turquaz.engine.dal.TurqChequeRoll;
-import com.turquaz.engine.dal.TurqChequeTransactionType;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqViewChequeStatus;
 
 public class CheDALSearch
 {
-	public static List searchChequeRoll(String rollNo, Date startDate, Date endDate, TurqChequeTransactionType type) throws Exception
+	public static List searchChequeRoll(String rollNo, Date startDate, Date endDate,Integer type) throws Exception
 	{
 		try
 		{
@@ -45,13 +44,14 @@ public class CheDALSearch
 					+ " chequeRoll.turqChequeTransactionType.transactionTypsName,"
 					+ " chequeRoll.turqCurrentCard.cardsName, chequeRoll.turqBanksCard.bankCode,"
 					+ " chequeRoll.turqCurrentCard.id,chequeRoll.turqBanksCard.id,"
-					+ " sum(chequesInRolls.turqChequeCheque.chequesAmount)" + " from TurqChequeRoll as chequeRoll"
+					+ " sum(chequesInRolls.turqChequeCheque.chequesAmount)," 
+					+ "chequeRoll.turqChequeTransactionType.id" + " from TurqChequeRoll as chequeRoll"
 					+ " left join chequeRoll.turqChequeChequeInRolls as chequesInRolls "
 					+ "where chequeRoll.chequeRollsDate >= :startDate and chequeRoll.chequeRollsDate <=:endDate "
 					+ "and chequeRoll.chequeRollNo like '" + rollNo + "%'";
 			if (type != null)
 			{
-				query += " and chequeRoll.turqChequeTransactionType = :type ";
+				query += " and chequeRoll.turqChequeTransactionType.id = :type ";
 			}
 			query += " group by chequeRoll.id,chequeRoll.chequeRollsDate, chequeRoll.chequeRollNo,"
 					+ " chequeRoll.turqChequeTransactionType.transactionTypsName,"
