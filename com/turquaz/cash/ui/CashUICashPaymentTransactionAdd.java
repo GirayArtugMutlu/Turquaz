@@ -21,9 +21,8 @@ package com.turquaz.cash.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
-
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CCombo;
@@ -36,8 +35,6 @@ import com.turquaz.cash.bl.CashBLCashTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -50,13 +47,7 @@ import org.eclipse.swt.widgets.Text;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
 	{
@@ -84,20 +75,11 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 		return comboCurrencyType;
 	}
 
-	/**
-	 * @return Returns the exchangeRate.
-	 */
-	public TurqCurrencyExchangeRate getExchangeRate()
-	{
-		return exchangeRate;
-	}
+
 	private CLabel lblTotalAmount;
 	private CurrentPicker txtCurrentAccount;
 	private CLabel lblCurrentCard;
 	private CashCardPicker txtCashCard;
-	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
-	private TurqCurrency exchangeCurrency = null;
 
 	public CashUICashPaymentTransactionAdd(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -225,18 +207,22 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+            HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+            HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+           
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-				if (currency.isDefaultCurrency())
-				{
-					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-					baseCurrency = currency;
-				}
-			}
+                HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+                String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+                
+                comboCurrencyType.add(abbr);
+                comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+                
+                if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+                {
+                    comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+                }
+            }
 		}
 		catch (Exception ex)
 		{
@@ -261,7 +247,7 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 			{
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD,txtCashCard.getData());
+				argMap.put(CashKeys.CASH_CARD_ID,txtCashCard.getCashCardId());
 				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentAccount.getCardId());
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CASH_CURRENT_PAYMENT));
 				argMap.put(EngKeys.ENG_SEQ,null);
@@ -269,7 +255,7 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 				argMap.put(EngKeys.DATE,datePicker.getDate());
 				argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE, exchangeRate);
+				argMap.put(EngKeys.CURRENCY_ID, comboCurrencyType.getData(comboCurrencyType.getText().trim()));
 		
 				EngTXCommon.doTransactionTX(CashBLCashTransactionAdd.class.getName(),"saveCurrentTransaction",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
@@ -305,25 +291,13 @@ public class CashUICashPaymentTransactionAdd extends org.eclipse.swt.widgets.Com
 				curTextTotalAmount.setFocus();
 				return false;
 			}
-			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
+			else if (  comboCurrencyType.getData(comboCurrencyType.getText()) == null)
 			{
 				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-			{
-				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePicker.getDate());
-				if (exchangeRate == null)
-				{
-					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
-					return false;
-				}
-			}
-			else
-			{
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-			}
+			
 			return true;
 		}
 		catch (Exception ex)

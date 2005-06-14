@@ -105,8 +105,10 @@ public class CashBLCashTransactionUpdate
 	public static void deleteCashTrans(HashMap argMap) throws Exception
 	{
 		
-		 TurqCashTransaction cashTrans = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+		 Integer cashTransId = (Integer)argMap.get(CashKeys.CASH_TRANSACTION_ID);
 		
+         TurqCashTransaction cashTrans = (TurqCashTransaction)EngDALSessionFactory.getSession().load(TurqCashTransaction.class,cashTransId);
+         
 			// if it is a current transaction the delete Current Transactions
 			if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT
 					|| cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
@@ -130,23 +132,52 @@ public class CashBLCashTransactionUpdate
 		
 	}
 
-	
+    public static void updateCashInitialTrans(HashMap argMap)throws Exception
+    {
+        Integer cashTransId = (Integer)argMap.get(CashKeys.CASH_TRANSACTION_ID);
+        TurqCashTransaction cashTrans = (TurqCashTransaction)EngDALSessionFactory.getSession().load(TurqCashTransaction.class,cashTransId);
+      
+        //delete cash Transaction rows...
+        Iterator  it = cashTrans.getTurqCashTransactionRows().iterator();
+        
+        TurqCashTransactionRow cashTransRow = null;
+        
+        while (it.hasNext())
+        {
+           cashTransRow = (TurqCashTransactionRow) it.next();
+        }
+        BigDecimal deptAmount = (BigDecimal) argMap.get(EngKeys.DEPT_AMOUNT);
+        BigDecimal creditAmount = (BigDecimal) argMap.get(EngKeys.CREDIT_AMOUNT);
+       
+        cashTransRow.setDeptAmount(deptAmount);
+        cashTransRow.setCreditAmount(creditAmount);
+        
+        EngDALCommon.updateObject(cashTransRow);
+        
+    }
+    
 	public static void updateCashTrans(HashMap argMap)throws Exception
 	{
 		
-		TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
-		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+         Integer cashTransId = (Integer)argMap.get(CashKeys.CASH_TRANSACTION_ID);
+         TurqCashTransaction cashTrans = (TurqCashTransaction)EngDALSessionFactory.getSession().load(TurqCashTransaction.class,cashTransId);
+       
+		 Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+         Integer currentId = (Integer)argMap.get(CurKeys.CUR_CARD_ID); 
+         
+         TurqCashCard cashCard = (TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+         
+         TurqCurrentCard current=null;
+            if(currentId!=null)
+            {
+                current=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,currentId);
+            };
+         
 		 Date transDate = (Date)argMap.get(EngKeys.DATE);
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
-		 
-		 Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
-			TurqCurrentCard current=null;
-			if(curCardId!=null)
-			{
-				current=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
-			}; 
+
 		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
 		
@@ -282,7 +313,9 @@ public class CashBLCashTransactionUpdate
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 
 		 TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+         
+            Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+            TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 		
 		
 		
@@ -368,16 +401,17 @@ public class CashBLCashTransactionUpdate
 	public static void updateTransBetweenCards(HashMap argMap) throws Exception
 	{
 		
-		TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+		Integer cashTransId  = (Integer)argMap.get(CashKeys.CASH_TRANSACTION_ID);
 		
+        TurqCashTransaction cashTrans = (TurqCashTransaction)EngDALSessionFactory.getSession().load(TurqCashTransaction.class,cashTransId);
+        
 		Integer cashCardWithDebtId = (Integer)argMap.get(CashKeys.CASH_CARD_WITH_DEPT);
 		TurqCashCard cashCardWithDebt=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardWithDebtId);
 		
 		Integer cashCardWithCreditId = (Integer)argMap.get(CashKeys.CASH_CARD_WITH_CREDIT);
 		TurqCashCard cashCardWithCredit=(TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardWithCreditId);
 		
-				
-		
+
 		Date transDate = (Date)argMap.get(EngKeys.DATE);
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);

@@ -27,6 +27,7 @@ import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCashCard;
 
@@ -34,16 +35,27 @@ public class CashBLCashCardUpdate
 {
 	public static void updateCashCard(HashMap argMap) throws Exception
 	{
-		TurqCashCard cashCard = (TurqCashCard) argMap.get(CashKeys.CASH_CARD);
+		Integer cashCardId = (Integer) argMap.get(CashKeys.CASH_CARD_ID);
 		String name = (String) argMap.get(CashKeys.CASH_CARD_NAME);
 		String definition = (String) argMap.get(EngKeys.DEFINITION);
-		TurqAccountingAccount cashAccount = (TurqAccountingAccount) argMap.get(AccKeys.ACC_ACCOUNT);
+		Integer cashAccountId = (Integer) argMap.get(AccKeys.ACC_ACCOUNT_ID);
 		Calendar cal = Calendar.getInstance();
-		cashCard.setCashCardName(name);
+        
+        TurqCashCard cashCard = new TurqCashCard();
+        TurqAccountingAccount acc = new TurqAccountingAccount();
+        
+        cashCard.setId(cashCardId);
+		EngDALSessionFactory.getSession().refresh(cashCard);
+        
+        acc.setId(cashAccountId);
+        
+        cashCard.setCashCardName(name);
 		cashCard.setCashCardDefinition(definition);
-		cashCard.setTurqAccountingAccount(cashAccount);
+		cashCard.setTurqAccountingAccount(acc);
 		cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));
+        
+        
 		EngDALCommon.updateObject(cashCard);
 		if (!CashDALCashCard.checkInitialTransaction(cashCard))
 		{
@@ -54,7 +66,13 @@ public class CashBLCashCardUpdate
 
 	public static void deleteCashCard(HashMap argMap) throws Exception
 	{
-		EngDALCommon.deleteObject(argMap.get(CashKeys.CASH_CARD));
+        Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+        TurqCashCard cashCard = new TurqCashCard();
+        cashCard.setId(cashCardId);
+        
+        EngDALSessionFactory.getSession().refresh(cashCard);
+        
+		EngDALCommon.deleteObject(cashCard);
 		EngBLCashCards.RefreshContentAsistantMap();
 	}
 }

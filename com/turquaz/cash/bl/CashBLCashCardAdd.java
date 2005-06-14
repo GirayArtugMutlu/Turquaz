@@ -48,13 +48,16 @@ public class CashBLCashCardAdd
 		
 		 String name = (String) argMap.get(CashKeys.CASH_CARD_NAME);
 		 String definition = (String) argMap.get(EngKeys.DEFINITION);
-		 TurqAccountingAccount cashAccount =(TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		 Integer cashAccountId =(Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
 		 
+         TurqAccountingAccount acc = new TurqAccountingAccount();
+         acc.setId(cashAccountId);
+         
 			Calendar cal = Calendar.getInstance();
 			TurqCashCard cashCard = new TurqCashCard();
 			cashCard.setCashCardName(name);
 			cashCard.setCashCardDefinition(definition);
-			cashCard.setTurqAccountingAccount(cashAccount);
+			cashCard.setTurqAccountingAccount(acc);
 			cashCard.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cashCard.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			cashCard.setLastModified(new java.sql.Date(cal.getTime().getTime()));

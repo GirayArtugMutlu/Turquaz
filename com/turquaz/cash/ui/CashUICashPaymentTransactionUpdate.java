@@ -14,18 +14,17 @@ package com.turquaz.cash.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.cash.CashKeys;
+import com.turquaz.cash.bl.CashBLCashTransactionSearch;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCashTransaction;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -40,13 +39,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -55,13 +47,13 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	private CashUICashPaymentTransactionAdd compTransAdd;
 	private ToolItem toolCancel;
 	private ToolBar toolBar1;
-	private TurqCashTransaction cashTrans;
+	private Integer cashTransId;
 	private boolean updated = false;
 
-	public CashUICashPaymentTransactionUpdate(Shell parent, int style, TurqCashTransaction cashTrans)
+	public CashUICashPaymentTransactionUpdate(Shell parent, int style, Integer cashTransId)
 	{
 		super(parent, style);
-		this.cashTrans = cashTrans;
+		this.cashTransId = cashTransId;
 	}
 
 	public boolean open()
@@ -145,45 +137,43 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 	public void postInitGUI()
 	{
 		EngUICommon.centreWindow(dialogShell);
-		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
+        
+        HashMap argMapSearch = new HashMap();
+        argMapSearch.put(EngKeys.TRANS_ID,cashTransId);
+        
+        try
+        {
+        HashBag cashBag = (HashBag)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"getTransactionInfo",argMapSearch); //$NON-NLS-1$
+
+		if (((Integer)cashBag.get(CashKeys.CASH_TRANS_MODULE_ID)).intValue() != EngBLCommon.MODULE_CASH)
 		{
 			toolUpdate.setEnabled(false);
 			tooldelete.setEnabled(false);
 		}
-		compTransAdd.getTxtDocumentNo().setText(cashTrans.getDocumentNo());
-		compTransAdd.getDatePicker().setDate(cashTrans.getTransactionDate());
-		compTransAdd.getTxtDefinition().setText(cashTrans.getTransactionDefinition());
-		try
-		{
-			HashMap argMap = new HashMap();
-			argMap.put(EngKeys.ENG_SEQ,cashTrans.getTurqEngineSequence());
-			
-			TurqCurrentCard curCard =(TurqCurrentCard)EngTXCommon.doSelectTX(CashBLCashTransactionUpdate.class.getName(),"getCurrentCard",argMap);
-			if (curCard != null)
+        
+		compTransAdd.getTxtDocumentNo().setText(cashBag.get(EngKeys.DOCUMENT_NO).toString());
+		compTransAdd.getDatePicker().setDate((Date)cashBag.get(EngKeys.DATE));
+		compTransAdd.getTxtDefinition().setText(cashBag.get(EngKeys.DEFINITION).toString());	
+		compTransAdd.getTxtCurrentAccount().setText(cashBag.get(CurKeys.CUR_CURRENT_NAME) + " {" + cashBag.get(CurKeys.CUR_CURRENT_CODE) + "}");
+	
+
+			compTransAdd.getTxtCashCard().setText(cashBag.get(CashKeys.CASH_TRANS_ROW_CASH_CARD_NAME).toString());
+            
+			if (((BigDecimal)cashBag.get(CashKeys.CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT)).compareTo(new BigDecimal(0)) == 1)
 			{
-				compTransAdd.getTxtCurrentAccount().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}");
-			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getParent());
-		}
-		Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
-		if (it.hasNext())
-		{
-			TurqCashTransactionRow row = (TurqCashTransactionRow) it.next();
-			compTransAdd.getTxtCashCard().setText(row.getTurqCashCard().getCashCardName());
-			if (row.getDeptAmount().compareTo(new BigDecimal(0)) == 1)
-			{
-				compTransAdd.getCurTextTotalAmount().setText(row.getDeptAmountInForeignCurrency());
+				compTransAdd.getCurTextTotalAmount().setText(((BigDecimal)cashBag.get(CashKeys.CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT)));
 			}
 			else
 			{
-				compTransAdd.getCurTextTotalAmount().setText(row.getCreditAmountInForeignCurrency());
+				compTransAdd.getCurTextTotalAmount().setText((BigDecimal)cashBag.get(CashKeys.CASH_TRANS_ROW_FOREIGN_CREDIT_AMOUNT));
 			}
-			compTransAdd.getComboCurrencyType().setText(
-					row.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
-		}
+			compTransAdd.getComboCurrencyType().setText(cashBag.get(CashKeys.CASH_TRANS_ROW_ABBREVATION).toString());
+
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
 	}
 
 	public void delete()
@@ -195,7 +185,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 			{
 				updated = true;
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
+				argMap.put(CashKeys.CASH_TRANSACTION_ID,cashTransId);
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"deleteCashTrans",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
@@ -223,8 +213,8 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				argMap.put(EngKeys.DATE,compTransAdd.getDatePicker().getDate());
 				argMap.put(EngKeys.DEFINITION,compTransAdd.getTxtDefinition().getText());
 				argMap.put(EngKeys.DOCUMENT_NO,compTransAdd.getTxtDocumentNo().getText());
-				argMap.put(EngKeys.EXCHANGE_RATE, compTransAdd.getExchangeRate());
-				argMap.put(CashKeys.CASH_TRANSACTION,cashTrans);
+				argMap.put(EngKeys.CURRENCY_ID, compTransAdd.getComboCurrencyType().getData(compTransAdd.getComboCurrencyType().getText().trim()));
+				argMap.put(CashKeys.CASH_TRANSACTION_ID,cashTransId);
 				
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateCashTrans",argMap );

@@ -32,7 +32,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.CashLangKeys;
@@ -42,13 +41,7 @@ import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.widgets.Composite;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite implements SecureComposite
 {
 	private CLabel lblCardName;
@@ -155,7 +148,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
 				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
-				argMap.put(AccKeys.ACC_ACCOUNT,(TurqAccountingAccount) accountPicker.getData());
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,(Integer) accountPicker.getId());
 				EngTXCommon.doTransactionTX(CashBLCashCardAdd.class.getName(),"saveCashCard",argMap);	
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
@@ -175,7 +168,7 @@ public class CashUICashCardAdd extends org.eclipse.swt.widgets.Composite impleme
 			txtCardCode.setFocus();
 			return false;
 		}
-		else if (accountPicker.getData() == null)
+		else if (accountPicker.getId() == null)
 		{
 			EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_SELECT_ACCOUNTING_ACCOUNT,SWT.ICON_WARNING);
 			accountPicker.setFocus();

@@ -13,11 +13,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionSearch;
-import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -33,13 +33,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 //TODO Bank Initial Transaction : currency should be added???
 public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 {
@@ -175,9 +169,7 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(EngKeys.OBJECT,row.getDBObject());
-					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"update",argMap); //$NON-NLS-1$
+					EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateCashInitialTrans",(HashMap)row.getDBObject()); 
 				}
 				catch (Exception ex)
 				{
@@ -199,15 +191,17 @@ public class CashUIInitialTransactions extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"getInitialTransactions",null); //$NON-NLS-1$
-			TurqCashTransactionRow curTrans;
-			for (int i = 0; i < list.size(); i++)
+            HashBag transBag =(HashBag)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"getInitialTransactions",null); //$NON-NLS-1$      
+            HashMap transMap = (HashMap)transBag.get(CashKeys.CASH_TRANS_ROW);
+            
+			for (int i = 0; i < transMap.size(); i++)
 			{
-				curTrans = (TurqCashTransactionRow) list.get(i);
+                HashMap rowMap = (HashMap)transMap.get(new Integer(i));
 				CashUIInitialTransactionTableRow row = new CashUIInitialTransactionTableRow();
-				row.setDBObject(curTrans);
+                
+				row.setDBObject(rowMap);
 				rowList.addTask(row);
-				rowList.taskChanged(row);
+				
 			}
 		}
 		catch (Exception ex)

@@ -1,34 +1,47 @@
-/*
- * Created on Apr 11, 2005
- *
- * 
- * Window - Preferences - Java - Code Style - Code Templates
- */
+
 package com.turquaz.cash.ui;
 
+/************************************************************************/
+/* TURQUAZ: Higly Modular Accounting/ERP Program                        */
+/* ============================================                         */
+/* Copyright (c) 2004 by Turquaz Software Development Group             */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License, or    */
+/* (at your option) any later version.                                  */
+/*                                                                      */
+/* This program is distributed in the hope that it will be useful,      */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of       */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        */
+/* GNU General Public License for more details.                         */
+/************************************************************************/
+/**
+ * @author Onsel
+ * @version $Id$
+ */
+
 import java.math.BigDecimal;
+import java.util.HashMap;
+
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
+import com.turquaz.cash.CashKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
-/**
- * @author onsel
- *
- * 
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class CashUIInitialTransactionTableRow implements ITableRow
 {
-	TurqCashTransactionRow cashTransRow = new TurqCashTransactionRow();
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-
+    HashMap transRowInfo = new HashMap();
+    
 	public CashUIInitialTransactionTableRow()
 	{
-		cashTransRow.setDeptAmount(new BigDecimal(0));
-		cashTransRow.setCreditAmount(new BigDecimal(0));
+        transRowInfo.put(EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+        transRowInfo.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
+		
 	}
 
 	public boolean canModify(int column_index)
@@ -60,7 +73,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 			case 0 : // inventory code
 				if (okToSave())
 				{
-					result = cashTransRow.getTurqCashCard().getCashCardName();
+					result = transRowInfo.get(CashKeys.CASH_CARD_NAME).toString();
 				}
 				else
 				{
@@ -70,7 +83,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 			case 1 :
 				if (okToSave())
 				{
-					result = cashTransRow.getTurqCashCard().getCashCardDefinition();
+					result = transRowInfo.get(EngKeys.DEFINITION).toString();
 				}
 				else
 				{
@@ -78,10 +91,10 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 				}
 				break;
 			case 2 :
-				result = cf.format(cashTransRow.getDeptAmount());
+				result = cf.format(transRowInfo.get(EngKeys.DEPT_AMOUNT));
 				break;
 			case 3 :
-				result = cf.format(cashTransRow.getCreditAmount());
+				result = cf.format(transRowInfo.get(EngKeys.CREDIT_AMOUNT));
 				break;
 			default :
 		}
@@ -90,7 +103,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 
 	public Object getDBObject()
 	{
-		return cashTransRow;
+		return transRowInfo;
 	}
 
 	public int getRowIndex()
@@ -106,7 +119,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 			case 0 : // inventory code
 				if (okToSave())
 				{
-					result = cashTransRow.getTurqCashCard().getCashCardName();
+					result = transRowInfo.get(CashKeys.CASH_CARD_NAME).toString();
 				}
 				else
 				{
@@ -116,7 +129,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 			case 1 :
 				if (okToSave())
 				{
-					result = cashTransRow.getTurqCashCard().getCashCardDefinition();
+					result = transRowInfo.get(EngKeys.DEFINITION).toString();
 				}
 				else
 				{
@@ -125,10 +138,10 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 				break;
 		
 			case 2 :
-				result = cf.format(cashTransRow.getDeptAmount());
+				result = cf.format(transRowInfo.get(EngKeys.DEPT_AMOUNT));
 				break;
 			case 3 :
-				result = cf.format(cashTransRow.getCreditAmount());
+				result = cf.format(transRowInfo.get(EngKeys.CREDIT_AMOUNT));
 				break;
 			default :
 		}
@@ -152,7 +165,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				cashTransRow.setDeptAmount(new BigDecimal(formatted));
+                transRowInfo.put(EngKeys.DEPT_AMOUNT,new BigDecimal(formatted));         
 				break;
 			case 3 :
 				formatted = value.toString();
@@ -162,7 +175,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				cashTransRow.setCreditAmount(new BigDecimal(formatted));
+                transRowInfo.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(formatted));
 				break;
 			default :
 		}
@@ -170,7 +183,7 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 
 	public boolean okToSave()
 	{
-		if (cashTransRow.getTurqCashTransaction() == null)
+		if (transRowInfo.get(CashKeys.CASH_CARD_ID) == null)
 		{
 			return false;
 		}
@@ -179,9 +192,9 @@ public class CashUIInitialTransactionTableRow implements ITableRow
 
 	public void setDBObject(Object obj)
 	{
-		if (obj instanceof TurqCashTransactionRow)
+		if (obj instanceof HashMap)
 		{
-			cashTransRow = (TurqCashTransactionRow) obj;
+			transRowInfo = (HashMap) obj;
 		}
 	}
 

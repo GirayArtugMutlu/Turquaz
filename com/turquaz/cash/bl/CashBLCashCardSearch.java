@@ -49,6 +49,7 @@ public class CashBLCashCardSearch
 		
 		HashBag returnBag = new HashBag();
 		
+        returnBag.put(CashKeys.CASH_CARDS,new HashMap());
 		
 		List list = CashDALCashCard.searchCashCard(account, cardName);
 		
@@ -58,13 +59,13 @@ public class CashBLCashCardSearch
 			returnBag.put(CashKeys.CASH_CARDS,i,CashKeys.CASH_CARD_NAME,cashCard.getCashCardName());
 			returnBag.put(CashKeys.CASH_CARDS,i,EngKeys.DEFINITION,cashCard.getCashCardDefinition());
 			returnBag.put(CashKeys.CASH_CARDS,i,CashKeys.CASH_CARD_ID,cashCard.getId());
-			returnBag.put(CashKeys.CASH_CARDS,i,AccKeys.ACC_ACCOUNT_CODE,cashCard.getTurqAccountingAccount().getAccountCode());
+			returnBag.put(CashKeys.CASH_CARDS,i,AccKeys.ACC_ACCOUNT_CODE_ID,cashCard.getTurqAccountingAccount().getId());
+            returnBag.put(CashKeys.CASH_CARDS,i,AccKeys.ACC_ACCOUNT_CODE,cashCard.getTurqAccountingAccount().getAccountCode());
+            
 			
 		}
 		
 		return returnBag;
-		
-		
-		
+
 	}
 }

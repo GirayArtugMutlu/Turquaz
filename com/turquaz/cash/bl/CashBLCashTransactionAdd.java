@@ -46,13 +46,7 @@ import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class CashBLCashTransactionAdd
 {
 	
@@ -149,7 +143,10 @@ public class CashBLCashTransactionAdd
 	
 	public static void saveCurrentTransaction(HashMap argMap )	throws Exception
 	{
-		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+         
+         TurqCashCard cashCard = (TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+         
 		 TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 		 Integer type = (Integer)argMap.get(EngKeys.TYPE);
 		 Date transDate = (Date)argMap.get(EngKeys.DATE);
@@ -165,8 +162,9 @@ public class CashBLCashTransactionAdd
 			};
 		 
 		 
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
-		
+            Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+            TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+            
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
 			{
@@ -287,7 +285,10 @@ public class CashBLCashTransactionAdd
 	public static void saveOtherTransaction(HashMap argMap)
 			throws Exception
 	{
-		 TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
+		 Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+         TurqCashCard cashCard = (TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+         
+         
 		 TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 		 Integer type = (Integer)argMap.get(EngKeys.TYPE);
 		 Date transDate = (Date)argMap.get(EngKeys.DATE);
@@ -295,8 +296,11 @@ public class CashBLCashTransactionAdd
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 
-		 TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+		 Integer accountId = (Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
+         TurqAccountingAccount account = (TurqAccountingAccount)EngDALSessionFactory.getSession().load(TurqAccountingAccount.class,accountId);
+         
+        Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+        TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 		
 		
 			Calendar cal = Calendar.getInstance();
@@ -403,14 +407,9 @@ public class CashBLCashTransactionAdd
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 
-		
-		 
-		 
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
-		
-		
-		
-		
+         Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+         TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+        
 			Calendar cal = Calendar.getInstance();
 			if (seq == null)
 			{

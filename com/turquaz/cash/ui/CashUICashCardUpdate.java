@@ -19,10 +19,11 @@ import java.util.HashMap;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
+import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.cash.bl.CashBLCashCardUpdate;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -39,20 +40,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo
- * SWT/Swing GUI Builder, which is free for non-commercial
- * use. If Jigloo is being used commercially (ie, by a corporation,
- * company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details.
- * Use of Jigloo implies acceptance of these licensing terms.
- * *************************************
- * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
- * for this machine, so Jigloo or this code cannot be used legally
- * for any corporate or commercial purpose.
- * *************************************
- */
+
 /**
  * @author onsel
  * @version $Id$
@@ -67,12 +55,13 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
-	TurqCashCard cashCard;
-
-	public CashUICashCardUpdate(Shell parent, int style, TurqCashCard card)
+    private String cardName;
+    private Integer cardId;
+    
+	public CashUICashCardUpdate(Shell parent, int style, String cardName)
 	{
 		super(parent, style);
-		cashCard = card;
+		this.cardName = cardName;
 	}
 
 	public void open()
@@ -168,9 +157,26 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 
 	public void postInitGUI()
 	{
-		compCashCard.getTxtCardCode().setText(cashCard.getCashCardName());
-		compCashCard.getTxtDefinition().setText(cashCard.getCashCardDefinition());
-		compCashCard.getAccountPicker().setData(cashCard.getTurqAccountingAccount());
+        try {
+        HashMap argMap = new HashMap();
+        argMap.put(CashKeys.CASH_CARD_NAME,cardName);
+        
+        HashBag result  =(HashBag)EngTXCommon.doSelectTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);         
+        HashMap cards = (HashMap)result.get(CashKeys.CASH_CARDS);
+        
+        HashMap cardInfo = (HashMap) cards.get(new Integer(0));
+        
+        cardId = (Integer)cardInfo.get(CashKeys.CASH_CARD_ID);
+            
+		compCashCard.getTxtCardCode().setText(cardInfo.get(CashKeys.CASH_CARD_NAME).toString());
+		compCashCard.getTxtDefinition().setText(cardInfo.get(EngKeys.DEFINITION).toString());
+		compCashCard.getAccountPicker().setData(cardInfo.get(AccKeys.ACC_ACCOUNT_CODE_ID));
+        compCashCard.getAccountPicker().setText(cardInfo.get(AccKeys.ACC_ACCOUNT_CODE).toString());
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
 	}
 
 	public void toolDeleteSelected()
@@ -182,7 +188,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				//TODO check there exist transaction with this cash card
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD, cashCard);
+				argMap.put(CashKeys.CASH_CARD_ID, cardId);
 				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(), "deleteCashCard", argMap);
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				dialogShell.close();
@@ -207,10 +213,10 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 			if (compCashCard.verifyFields())
 			{				
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD,cashCard);
+				argMap.put(CashKeys.CASH_CARD_ID,cardId);
 				argMap.put(CashKeys.CASH_CARD_NAME,compCashCard.getTxtCardCode().getText().trim());
 				argMap.put(EngKeys.DEFINITION,compCashCard.getTxtDefinition().getText().trim());
-				argMap.put(AccKeys.ACC_ACCOUNT,compCashCard.getAccountPicker().getData());				
+				argMap.put(AccKeys.ACC_ACCOUNT_ID,compCashCard.getAccountPicker().getId());				
 				
 				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"updateCashCard",argMap);
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());

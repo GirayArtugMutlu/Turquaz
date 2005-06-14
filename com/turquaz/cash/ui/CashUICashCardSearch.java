@@ -29,7 +29,6 @@ import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.CashLangKeys;
@@ -45,20 +44,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 
-/**
- * This code was generated using CloudGarden's Jigloo
- * SWT/Swing GUI Builder, which is free for non-commercial
- * use. If Jigloo is being used commercially (ie, by a corporation,
- * company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details.
- * Use of Jigloo implies acceptance of these licensing terms.
- * *************************************
- * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
- * for this machine, so Jigloo or this code cannot be used legally
- * for any corporate or commercial purpose.
- * *************************************
- */
 /**
  * @author onsel
  * @version $Id$
@@ -200,19 +185,20 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		{
 			tableViewer.removeAll();
 			HashMap argMap = new HashMap();
-			argMap.put(AccKeys.ACC_ACCOUNT, accountPicker.getData());
+			argMap.put(AccKeys.ACC_ACCOUNT_CODE_ID, accountPicker.getData());
 			argMap.put(CashKeys.CASH_CARD_NAME,txtCardCode.getText().trim());
 			
 			HashBag result  =(HashBag)EngTXCommon.doSelectTX(CashBLCashCardSearch.class.getName(),"searchCashCard",argMap);			
 			HashMap cards = (HashMap)result.get(CashKeys.CASH_CARDS);
 			
-			for (int i = 0; i < cards.size(); i++)
+            for (int i = 0; i < cards.size(); i++)
 			{
 				HashMap cardInfo = (HashMap) cards.get(new Integer(i));
-				
+                
 				tableViewer.addRow(new String[]{cardInfo.get(CashKeys.CASH_CARD_NAME).toString(), cardInfo.get(EngKeys.DEFINITION).toString(),
-						cardInfo.get(AccKeys.ACC_ACCOUNT_CODE).toString()}, cardInfo.get(CashKeys.CASH_CARD_ID));
+						cardInfo.get(AccKeys.ACC_ACCOUNT_CODE).toString()}, cardInfo.get(CashKeys.CASH_CARD_NAME));
 			}
+            
 		}
 		catch (Exception ex)
 		{
@@ -227,7 +213,7 @@ public class CashUICashCardSearch extends org.eclipse.swt.widgets.Composite impl
 		{
 			TableItem item = selection[0];
 			ITableRow row = (ITableRow) item.getData();
-			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (TurqCashCard) row.getDBObject()).open();
+			new CashUICashCardUpdate(this.getShell(), SWT.NULL, (String) row.getDBObject()).open();
 			search();
 		}
 	}

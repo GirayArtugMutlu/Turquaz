@@ -34,7 +34,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -49,19 +48,13 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.cash.ui.comp.CashCardPicker;
+import com.turquaz.common.HashBag;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	private Composite compSearchPanel;
@@ -292,32 +285,34 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 		HashMap argMap = new HashMap();
 		argMap.put(EngKeys.TRANS_ID,transId);
 		
-		TurqCashTransaction cashTrans =(TurqCashTransaction)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"initializeCashTransaction",argMap); //$NON-NLS-1$
-		if (cashTrans.getTurqEngineSequence().getTurqModule().getId().intValue() != EngBLCommon.MODULE_CASH)
+		HashBag cashBag = (HashBag)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"getTransactionInfo",argMap); //$NON-NLS-1$
+        
+		if (((Integer)cashBag.get(CashKeys.CASH_TRANS_MODULE_ID)).intValue() != EngBLCommon.MODULE_CASH)
 		{
 			EngUICommon.showMessageBox(shell, CashLangKeys.MSG_ONLY_CASH_TRANSACTIONS_ARE_ALLOWED_TO_EDIT,SWT.ICON_INFORMATION);
 			return false;
 		}
 		boolean updated = false;
-		if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
+        
+		if (((Integer)cashBag.get(CashKeys.CASH_TRANS_TYPE_ID)).intValue() == EngBLCommon.CASH_CURRENT_COLLECT)
 		{
-			updated = new CashUICashCollectTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+			updated = new CashUICashCollectTransactionUpdate(shell, SWT.NULL, transId).open();
 		}
-		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
+		else if (((Integer)cashBag.get(CashKeys.CASH_TRANS_TYPE_ID)).intValue() == EngBLCommon.CASH_CURRENT_PAYMENT)
 		{
-			updated = new CashUICashPaymentTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+			updated = new CashUICashPaymentTransactionUpdate(shell, SWT.NULL, transId).open();
 		}
-		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_COLLECT)
+		else if (((Integer)cashBag.get(CashKeys.CASH_TRANS_TYPE_ID)).intValue() == EngBLCommon.CASH_OTHER_COLLECT)
 		{
-			updated = new CashUICashOtherCollectTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+			updated = new CashUICashOtherCollectTransactionUpdate(shell, SWT.NULL, transId).open();
 		}
-		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
+		else if (((Integer)cashBag.get(CashKeys.CASH_TRANS_TYPE_ID)).intValue() == EngBLCommon.CASH_OTHER_PAYMENT)
 		{
-			updated = new CashUICashOtherPaymentTransactionUpdate(shell, SWT.NULL, cashTrans).open();
+			updated = new CashUICashOtherPaymentTransactionUpdate(shell, SWT.NULL, transId).open();
 		}
-		else if (cashTrans.getTurqCashTransactionType().getId().intValue() == EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS)
+		else if (((Integer)cashBag.get(CashKeys.CASH_TRANS_TYPE_ID)).intValue() == EngBLCommon.CASH_TRANSFER_BETWEEN_CARDS)
 		{
-			updated = new CashUICashTransferBetweenCardsUpdate(shell, SWT.NULL, cashTrans).open();
+			updated = new CashUICashTransferBetweenCardsUpdate(shell, SWT.NULL, transId).open();
 		}
 		return updated;
 	}
