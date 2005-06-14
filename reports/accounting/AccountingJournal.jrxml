@@ -2,7 +2,7 @@
 <!-- Created using an evaluation version of JasperAssistant (http://www.jasperassistant.com) -->
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="AccountingJournal" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+<jasperReport name="AccountingJournal" language="java" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
 	<property name="com.jasperassistant.designer.DataSource" value="turquaz"/>
 	<property name="ireport.scriptlethandling" value="2"/>
 	<reportFont name="Copy_of_pdffont" isDefault="true" fontName="sansserif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
@@ -27,17 +27,11 @@
 	</field>
 	<field name="accounting_journal_id" class="java.lang.Integer">
 	</field>
-	<field name="accounting_transaction_types_id" class="java.lang.Integer">
-	</field>
 	<field name="transactions_date" class="java.util.Date">
-	</field>
-	<field name="module_id" class="java.lang.Integer">
 	</field>
 	<field name="transaction_document_no" class="java.lang.String">
 	</field>
 	<field name="accounting_transaction_columns_id" class="java.lang.Integer">
-	</field>
-	<field name="accounting_accounts_id" class="java.lang.Integer">
 	</field>
 	<field name="rows_dept_in_base_currency" class="java.math.BigDecimal">
 	</field>
@@ -46,14 +40,6 @@
 	<field name="account_name" class="java.lang.String">
 	</field>
 	<field name="account_code" class="java.lang.String">
-	</field>
-	<field name="parent_account" class="java.lang.Integer">
-	</field>
-	<field name="update_date" class="java.util.Date">
-	</field>
-	<field name="dept_amount" class="java.math.BigDecimal">
-	</field>
-	<field name="credit_amount" class="java.math.BigDecimal">
 	</field>
 	<field name="transaction_definition" class="java.lang.String">
 	</field>
@@ -92,7 +78,7 @@
 		<band height="11">
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="20" y="0" width="125" height="11">
-					<printWhenExpression><![CDATA[($F{dept_amount}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{rows_credit_in_base_currency}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -101,7 +87,7 @@
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="145" y="0" width="125" height="11">
-					<printWhenExpression><![CDATA[($F{credit_amount}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{rows_credit_in_base_currency}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -110,7 +96,7 @@
 			</textField>
 			<textField pattern="">
 				<reportElement key="textField" positionType="Float" mode="Opaque" x="380" y="0" width="88" height="11">
-					<printWhenExpression><![CDATA[($F{dept_amount}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{rows_dept_in_base_currency}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
@@ -127,7 +113,9 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[((NumberFormat)$P{REPORT_PARAMETERS_MAP}.get("formatter")).format($F{rows_credit_in_base_currency})+" "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="271" y="0" width="112" height="11"/>
+				<reportElement positionType="Float" x="271" y="0" width="112" height="11">
+					<printWhenExpression><![CDATA[($F{rows_credit_in_base_currency}.doubleValue() > 0 ) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
 				<textElement>
 					<font size="8" pdfEncoding="Cp1252"/>
 				</textElement>

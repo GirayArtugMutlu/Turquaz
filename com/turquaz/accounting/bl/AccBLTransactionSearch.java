@@ -110,6 +110,18 @@ public class AccBLTransactionSearch
 		generalBag.put(AccKeys.ACC_TRANSACTIONS,list);		
 		return generalBag;
 	}
+	
+	public static HashBag getAccountingJournal(HashMap argMap)throws Exception
+	{
+		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+		Date endDate=(Date)argMap.get(EngKeys.DATE_END);	
+		Boolean approved=(Boolean)argMap.get(AccKeys.ACC_APPROVED);
+		
+		HashBag journalBag=new HashBag();		
+		List list=AccDALTransactionSearch.getAccountingJournal(startDate,endDate,approved.booleanValue());
+		journalBag.put(AccKeys.ACC_TRANSACTIONS,list);		
+		return journalBag;
+	}
 
 	public static List getCurrentBalances(HashMap argMap) throws Exception
 	{

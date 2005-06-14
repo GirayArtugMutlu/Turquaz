@@ -19,6 +19,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -40,11 +41,16 @@ import org.eclipse.swt.SWT;
  */
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.EngDALConnection;
 import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -151,7 +157,7 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 				btnReports.setText(AccLangKeys.STR_SHOW_REPORT); 
 				btnReports.addMouseListener(new MouseAdapter()
 				{
-					public void mouseDown(MouseEvent evt)
+					public void mouseUp(MouseEvent evt)
 					{
 						btnReportsSingleClick();
 					}
@@ -193,41 +199,61 @@ public class AccUIAccountingJournal extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
+ 
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.DATE_START,datePickerBeginDate.getDate());
+			argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
+			argMap.put(AccKeys.ACC_APPROVED,new Boolean(checkApproved.getSelection()));
+			
+
+			HashBag bag=(HashBag)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getAccountingJournal",argMap);
+			List list=(List)bag.get(AccKeys.ACC_TRANSACTIONS);
+			
+			
+			SimpleDateFormat dformat2 = new SimpleDateFormat("dd-MM-yyyy"); 
+			
 			Map parameters = new HashMap();
-			parameters.put(AccLangKeys.STR_REPORT_TITLE,AccLangKeys.STR_JOURNAL); //$NON-NLS-1$ //$NON-NLS-2$
-			//TODO should select all columns
-			String sqlparam = "Select trans.id as accounting_transactions_id, transcolumns.id as accounting_transaction_columns_id,"
-					+ " trans.*," + " transcolumns.*," + " accounts.*" + " from turq_accounting_transactions trans," + //$NON-NLS-1$
-					"turq_accounting_transaction_columns transcolumns," + //$NON-NLS-1$
-					"turq_accounting_accounts accounts where " + //$NON-NLS-1$
-					"trans.id=transcolumns.accounting_transactions_id" + //$NON-NLS-1$
-					" and transcolumns.accounting_accounts_id=accounts.id"; //$NON-NLS-1$
-			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			sqlparam += " and trans.transactions_date >= '" + dformat.format(datePickerBeginDate.getDate()) + "'" //$NON-NLS-1$ //$NON-NLS-2$
-					+ " and trans.transactions_date <= '" + dformat.format(datePickerEndDate.getDate()) + "'"; //$NON-NLS-1$ //$NON-NLS-2$
-			if (checkApproved.getSelection())
-				sqlparam += " and trans.accounting_journal_id > 0"; //$NON-NLS-1$
-			sqlparam += " ORDER BY trans.accounting_journal_id"; //$NON-NLS-1$
-			SimpleDateFormat dformat2 = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
-			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			parameters.put("beginDate", dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
-			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
-			parameters.put("column1header", AccLangKeys.STR_DEBIT); //$NON-NLS-1$ //$NON-NLS-2$
-			parameters.put("column2header", AccLangKeys.STR_CREDIT); //$NON-NLS-1$ //$NON-NLS-2$
+			
+			parameters.put("ReportTitle",AccLangKeys.STR_JOURNAL);
+			parameters.put("beginDate", dformat2.format(datePickerBeginDate.getDate()));
+			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); 
+			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); 
+			parameters.put("column1header", AccLangKeys.STR_DEBIT); 
+			parameters.put("column2header", AccLangKeys.STR_CREDIT); 
 			NumberFormat formatter = NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
 			formatter.setMinimumFractionDigits(2);
-			parameters.put("formatter", new TurkishCurrencyFormat()); //$NON-NLS-1$
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
+			parameters.put("formatter", new TurkishCurrencyFormat()); 
+			GenerateJasper(list,parameters);
+		}
+		catch (Exception ex)
+		{
+            EngBLLogger.log(this.getClass(),ex,getShell());
+		}
+	}
+	
+	public void GenerateJasper(List list, Map parameters)
+	{
+		try
+		{
+			String[] fields = new String[]{"accounting_transactions_id",
+					"accounting_transaction_columns_id",
+					"accounting_journal_id",
+					"transactions_date",
+					"transaction_document_no",
+					"rows_dept_in_base_currency",
+					"rows_credit_in_base_currency",
+					"account_name",
+					"account_code",
+					"transaction_definition"};
+			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
 			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingJournal.jrxml");
-			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingJournal.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 			viewer.getReportViewer().setDocument(jasperPrint);
 		}
 		catch (Exception ex)
 		{
+
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
