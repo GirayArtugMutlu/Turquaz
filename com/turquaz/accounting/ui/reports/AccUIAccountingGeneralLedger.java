@@ -19,6 +19,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -30,13 +31,17 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPicker;
+import com.turquaz.common.HashBag;
 import org.eclipse.swt.widgets.Button;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.EngDALConnection;
-import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.lang.AccLangKeys;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import org.eclipse.swt.layout.GridData;
 import com.jasperassistant.designer.viewer.ViewerComposite;
 
@@ -193,55 +198,57 @@ public class AccUIAccountingGeneralLedger extends org.eclipse.swt.widgets.Compos
 	{
 		try
 		{
+			HashMap argMap = new HashMap();
+			argMap.put(AccKeys.ACC_ACCOUNT_START_ID,txtAccountStart.getId());
+			argMap.put(AccKeys.ACC_ACCOUNT_END_ID,txtAccountEnd.getId());
+			argMap.put(EngKeys.DATE_START,datePickerBeginDate.getDate());
+			argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
+			argMap.put(AccKeys.ACC_APPROVED,new Boolean(checkApproved.getSelection()));
+			
+			HashBag bag=(HashBag)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getGeneralLedger",argMap);
+			List list=(List)bag.get(AccKeys.ACC_TRANSACTIONS);
+			
+			SimpleDateFormat dformat2 = new SimpleDateFormat("dd-MM-yyyy"); 
 			Map parameters = new HashMap();
-			String sqlparam = "Select accounts.top_account,accounts.account_name," + //$NON-NLS-1$
-					" accounts.account_code," + //$NON-NLS-1$	
-					" trans.transactions_date,trans.transaction_document_no," + //$NON-NLS-1$
-					" transcolumns.rows_dept_in_base_currency," + " transcolumns.rows_credit_in_base_currency,"
-					+ " transcolumns.transaction_definition," + //$NON-NLS-1$
-					" trans.accounting_journal_id, accounts.id as accounting_accounts_id" + //$NON-NLS-1$
-					" from turq_accounting_accounts accounts," + " turq_accounting_transactions trans," + //$NON-NLS-1$
-					" turq_accounting_transaction_columns transcolumns" + " where accounts.id=transcolumns.accounting_accounts_id" + //$NON-NLS-1$
-					" and transcolumns.accounting_transactions_id=trans.id"; //$NON-NLS-1$
-			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
-			sqlparam += " and trans.transactions_date >= '" + dformat.format(datePickerBeginDate.getDate()) + "'" //$NON-NLS-1$ //$NON-NLS-2$
-					+ " and trans.transactions_date <= '" + dformat.format(datePickerEndDate.getDate()) + "'";//$NON-NLS-1$ //$NON-NLS-2$
-			if (checkApproved.getSelection())
-				sqlparam += " and trans.accounting_journal_id > 0"; //$NON-NLS-1$
-			TurqAccountingAccount accountStart = (TurqAccountingAccount) txtAccountStart.getData();
-			TurqAccountingAccount accountEnd = (TurqAccountingAccount) txtAccountEnd.getData();
-			if (accountStart != null && accountEnd != null)
-			{
-				sqlparam += " and accounts.account_code >='" + accountStart.getAccountCode() + "'" + " and accounts.account_code <='"
-						+ accountEnd.getAccountCode() + "'";
-			}
-			else if (accountStart != null && accountEnd == null)
-			{
-				sqlparam += " and accounts.id=" + accountStart.getId();
-			}
-			else if (accountStart == null && accountEnd != null)
-			{
-				sqlparam += " and accounts.id=" + accountEnd.getId();
-			}
-			sqlparam += " ORDER BY accounts.top_account,trans.transactions_date"; //$NON-NLS-1$
-			SimpleDateFormat dformat2 = new SimpleDateFormat("dd-MM-yyyy"); //$NON-NLS-1$
-			parameters.put("sqlparam", sqlparam); //$NON-NLS-1$
-			parameters.put("beginDate", dformat2.format(datePickerBeginDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); //$NON-NLS-1$
-			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			parameters.put("beginDate", dformat2.format(datePickerBeginDate.getDate())); 
+			parameters.put("endDate", dformat2.format(datePickerEndDate.getDate())); 
+			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); 
 			NumberFormat formatter = NumberFormat.getNumberInstance();
 			formatter.setMaximumFractionDigits(2);
-			parameters.put("formatter", formatter); //$NON-NLS-1$
-			EngDALConnection db = new EngDALConnection();
-			db.connect();
-			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingGeneralLedger.jrxml");
-			//JasperReport jasperReport = (JasperReport) JRLoader.loadObject("reports/accounting/AccountingGeneralLedger.jasper"); //$NON-NLS-1$
-			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, db.getCon());
-			viewer.getReportViewer().setDocument(jasperPrint);
+			parameters.put("formatter", formatter);
+			
+			GenerateJasper(list,parameters);
 		}
 		catch (Exception ex)
 		{
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
+	
+	public void GenerateJasper(List list, Map parameters)
+	{
+		try
+		{
+			String[] fields = new String[]{"top_account",
+					"account_name",
+					"account_code",
+					"transactions_date",
+					"transaction_document_no",
+					"rows_dept_in_base_currency",
+					"rows_credit_in_base_currency",
+					"transaction_definition",					
+					"accounting_journal_id",
+					"accounting_accounts_id"};
+			HibernateQueryResultDataSource ds = new HibernateQueryResultDataSource(list, fields);
+			JasperReport jasperReport = JasperCompileManager.compileReport("reports/accounting/AccountingGeneralLedger.jrxml");
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
+			viewer.getReportViewer().setDocument(jasperPrint);
+		}
+		catch (Exception ex)
+		{
+
+            EngBLLogger.log(this.getClass(),ex,getShell());
+		}
+	}
+
 }

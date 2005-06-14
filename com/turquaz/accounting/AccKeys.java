@@ -45,6 +45,7 @@ public class AccKeys
 	public final static String ACC_TRANS_ROW_ID="accTransRowId";
 	public final static String ACC_TRANS_ROW_DEFINITION="accTransRowDefinition";
 	public final static String ACC_TRANS_JOURNAL_ID="accRegistered";
+	public final static String ACC_APPROVED="accApproved";
 
 	
 	

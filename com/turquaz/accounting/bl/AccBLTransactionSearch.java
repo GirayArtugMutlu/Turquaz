@@ -96,6 +96,20 @@ public class AccBLTransactionSearch
 		subBag.put(AccKeys.ACC_TRANSACTIONS,list);		
 		return subBag;
 	}
+	
+	public static HashBag getGeneralLedger(HashMap argMap)throws Exception
+	{
+		Integer accountStartId=(Integer)argMap.get(AccKeys.ACC_ACCOUNT_START_ID);
+		Integer accountEndId=(Integer)argMap.get(AccKeys.ACC_ACCOUNT_END_ID);
+		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
+		Date endDate=(Date)argMap.get(EngKeys.DATE_END);	
+		Boolean approved=(Boolean)argMap.get(AccKeys.ACC_APPROVED);
+		
+		HashBag generalBag=new HashBag();		
+		List list=AccDALTransactionSearch.getGeneralLedger(accountStartId,accountEndId,startDate,endDate,approved.booleanValue());
+		generalBag.put(AccKeys.ACC_TRANSACTIONS,list);		
+		return generalBag;
+	}
 
 	public static List getCurrentBalances(HashMap argMap) throws Exception
 	{
