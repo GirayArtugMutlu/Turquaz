@@ -425,11 +425,5 @@ public class CheBLUpdateCheque
 		}
 	}
 	
-	public static TurqChequeCheque initCheque(HashMap argMap)throws Exception
-	{
-		Integer cheId = (Integer)argMap.get(CheKeys.CHE_CHEQUE);
-		
-		return CheDALUpdate.initCheque(cheId);
-		
-	}
+	
 }
