@@ -14,6 +14,11 @@ package com.turquaz.inventory;
  */
 public class InvKeys
 {
+	public static String INV_ACC_TYPES="invAccTypes";
+	public static String INV_ACC_TYPE="invAccType";
+	public static String INV_ACC_TYPE_ID="invAccTypeId";
+	public static String INV_ACC_TYPE_NAME="invAccTypeName";
+	public static String INV_ACC_TYPE_DEFINITION="invAccTypeDefinition";
 	public static String INV_CARD="invCard";
 	public static String INV_CARD_START="invCardStart";
 	public static String INV_CARD_END="invCardEnd";
@@ -43,6 +48,8 @@ public class InvKeys
 	public static String INV_TRANSACTIONS="invTransactions";
 	public static String INV_TRANS="invTrans";
 	public static String INV_UNIT="invUnit";
+	public static String INV_UNIT_ID="invUnitId";
+	public static String INV_UNITS="invUnits";
 	public static String INV_WAREHOUSE="invWarehouse";
 	public static String INV_WAREHOUSE_NAME="invWarehouseName";
 	public static String INV_WAREHOUSE_CODE="invWarehouseCode";

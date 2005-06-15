@@ -11,33 +11,24 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
-import com.turquaz.engine.dal.TurqInventoryAccountingType;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TableRowList;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.inventory.InvKeys;
 
 public class InvUIInvAccountingAccTableRow implements ITableRow
 {
 	String formatted = "";
 	TableRowList rowList;
 	int row_index = 0;
-	private TurqInventoryAccountingAccount invAccRow = new TurqInventoryAccountingAccount();
+	private HashMap invAccRow = new HashMap();
 
-	public InvUIInvAccountingAccTableRow(TableRowList rowList, TurqInventoryAccountingType type)
+	public InvUIInvAccountingAccTableRow(TableRowList rowList, HashMap typeMap)
 	{
 		super();
 		this.rowList = rowList;
-		this.invAccRow.setTurqInventoryAccountingType(type);
-	}
-
-	public InvUIInvAccountingAccTableRow(TableRowList rowList, TurqInventoryAccountingAccount invAcc)
-	{
-		super();
-		this.rowList = rowList;
-		this.invAccRow = invAcc;
+		this.invAccRow.put(InvKeys.INV_ACC_TYPE,typeMap);
 	}
 
 	public void setRowIndex(int a)
@@ -52,7 +43,7 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 
 	public Color getColor()
 	{
-		if (invAccRow.getTurqAccountingAccount() == null)
+		if (invAccRow.get(AccKeys.ACC_ACCOUNT) == null)
 		{
 			return SWTResourceManager.getColor(255, 198, 198);
 		}
@@ -78,12 +69,14 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 		switch (column_index)
 		{
 			case 0 :
-				if (invAccRow.getTurqInventoryAccountingType() != null)
-					result = invAccRow.getTurqInventoryAccountingType().getDefinition();
+				HashMap invAccTypeMap=(HashMap)invAccRow.get(InvKeys.INV_ACC_TYPE);
+				if ( invAccTypeMap != null)
+					result =(String) invAccTypeMap.get(InvKeys.INV_ACC_TYPE_DEFINITION);
 				break;
 			case 1 :
-				if (invAccRow.getTurqAccountingAccount() != null)
-					result = invAccRow.getTurqAccountingAccount().getAccountCode();
+				HashMap accMap=(HashMap)invAccRow.get(AccKeys.ACC_ACCOUNT);
+				if (accMap != null)
+					result =(String)accMap.get(AccKeys.ACC_ACCOUNT_CODE);
 				break;
 			default :
 				result = "";
@@ -97,18 +90,16 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 		switch (column_index)
 		{
 			case 0 :
-				if (invAccRow.getTurqInventoryAccountingType() != null)
-				{
-					result = invAccRow.getTurqInventoryAccountingType().getDefinition();
-				}
+				HashMap invAccTypeMap=(HashMap)invAccRow.get(InvKeys.INV_ACC_TYPE);
+				if ( invAccTypeMap != null)
+					result =(String) invAccTypeMap.get(InvKeys.INV_ACC_TYPE_DEFINITION);
 				else
 					result = "";
 				break;
 			case 1 :
-				if (invAccRow.getTurqAccountingAccount() != null)
-				{
-					result = invAccRow.getTurqAccountingAccount().getAccountCode();
-				}
+				HashMap accMap=(HashMap)invAccRow.get(AccKeys.ACC_ACCOUNT);
+				if (accMap != null)
+					result =(String)accMap.get(AccKeys.ACC_ACCOUNT_CODE);
 				else
 					result = "";
 				break;
@@ -123,20 +114,14 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 		switch (column_index)
 		{
 			case 0 :
-				TurqInventoryAccountingType invAccType = (TurqInventoryAccountingType) value;
-				invAccRow.setTurqInventoryAccountingType(invAccType);
+				HashMap invAccType = (HashMap) value;
+				invAccRow.put(InvKeys.INV_ACC_TYPE,invAccType);
 				break;
 			case 1 : //Hesap Kodu
 				try
 				{
 					HashMap accountMap = EngBLAccountingAccounts.getAccount(value.toString().trim());
-					if (accountMap != null)
-					{
-						Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
-						TurqAccountingAccount acc=new TurqAccountingAccount();
-						acc.setId(accountId);
-						invAccRow.setTurqAccountingAccount(acc);
-					}
+					invAccRow.put(AccKeys.ACC_ACCOUNT,accountMap);
 				}
 				catch (Exception ex)
 				{
@@ -171,12 +156,12 @@ public class InvUIInvAccountingAccTableRow implements ITableRow
 
 	public void setDBObject(Object transRow)
 	{
-		this.invAccRow = (TurqInventoryAccountingAccount) transRow;
+		this.invAccRow = (HashMap) transRow;
 	}
 
 	public boolean okToSave()
 	{
-		if (invAccRow.getTurqAccountingAccount() == null)
+		if (invAccRow.get(AccKeys.ACC_ACCOUNT) == null)
 		{
 			return false;
 		}

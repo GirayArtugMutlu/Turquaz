@@ -5,6 +5,8 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.CurrencyText;
@@ -16,8 +18,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CCombo;
@@ -26,10 +26,7 @@ import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
-import com.turquaz.engine.dal.TurqInventoryAccountingType;
-import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -165,7 +162,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	private Composite compInvCardGeneral;
 	private CTabItem tabInvCardGeneral;
 	private CTabFolder tabfldInvCardAdd;
-	private List currencyList;
+	private HashMap currencyMap;
 	public InvUIPriceList priceList;
 	private final String INV_ACC_TYPE = "Muhasebe Tipi";
 	private final String ACC_CODE = "Hesap Kodu";
@@ -189,7 +186,6 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			preInitGUI();
 			tabfldInvCardAdd = new CTabFolder(this, SWT.NULL);
 			tabInvCardGeneral = new CTabItem(tabfldInvCardAdd, SWT.NONE);
 			tabInvCardDetails = new CTabItem(tabfldInvCardAdd, SWT.NULL);
@@ -790,12 +786,6 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				}
 			}
 			this.layout();
-			addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			postInitGUI();
 		}
 		catch (Exception e)
@@ -804,28 +794,16 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-		try
-		{
-			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-			currencyList = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
-		}
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
 		try
 		{
+			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			currencyMap = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
 			fillInvCardUnits();
 			initTableInvPrices();
-			fillDefaultValues();
 			createTableViewer();
 			fillInventoryAccounts();
 		}
@@ -839,11 +817,13 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List allTypes = (List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
-			for (int k = 0; k < allTypes.size(); k++)
+			HashBag typeBag= (HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getAllInvAccTypes",null);
+			HashMap typesMap=(HashMap)typeBag.get(InvKeys.INV_ACC_TYPES);
+			for (int k = 0; k < typesMap.size(); k++)
 			{
-				TurqInventoryAccountingType type = (TurqInventoryAccountingType) allTypes.get(k);
-				InvUIInvAccountingAccTableRow row = new InvUIInvAccountingAccTableRow(rowList, type);
+				HashMap typeMap=(HashMap)typesMap.get(new Integer(k));
+				
+				InvUIInvAccountingAccTableRow row = new InvUIInvAccountingAccTableRow(rowList, typeMap);
 				rowList.addTask(row);
 			}
 		}
@@ -900,16 +880,6 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		}
 	}
 
-	public void fillDefaultValues()
-	{
-		/*
-		 * txtInvCardInAcc.setText("153"); //Alis Muhasebe Kodu //$NON-NLS-1$ txtInvCardOutAcc.setText("600"); //Satis Muhasebe Kodu
-		 * //$NON-NLS-1$ accountPickerSpecVAT.setText("193"); // Alis OTV Kodu //$NON-NLS-1$ accountPickerSpecVatSell.setText("360");
-		 * //Satis OTV Kodu //$NON-NLS-1$ accountPickerVAT.setText("191"); //Alis K.D.V //$NON-NLS-1$ accountPickerVATSell.setText("391");
-		 * //Satis K.D.V //$NON-NLS-1$
-		 */
-	}
-
 	public void initTableInvPrices()
 	{
 		tableInvPricesViewer = new TableViewer(tableInvCardAddPrices);
@@ -920,12 +890,13 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		CellEditor[] editors = new CellEditor[3];
 		editors[0] = new ComboBoxCellEditor(tableInvCardAddPrices, new String[]{EngLangCommonKeys.COMMON_BUY_STRING,
 				EngLangCommonKeys.COMMON_SELL_STRING}); //$NON-NLS-1$ //$NON-NLS-2$
-		TurqCurrency currency;
-		String[] currencies = new String[currencyList.size()];
-		for (int i = 0; i < currencyList.size(); i++)
+
+		
+		String[] currencies = new String[currencyMap.size()];
+		for (int i = 0; i < currencyMap.size(); i++)
 		{
-			currency = (TurqCurrency) currencyList.get(i);
-			currencies[i] = currency.getCurrenciesAbbreviation();
+			HashMap curMap = (HashMap) currencyMap.get(new Integer(i));
+			currencies[i] = (String)curMap.get(EngKeys.CURRENCY_ABBR);
 		}
 		//Initialize Price List
 		priceList = new InvUIPriceList(currencies);
@@ -1000,41 +971,44 @@ public class InvUICardAdd extends Composite implements SecureComposite
 
 	public void fillInvCardUnits()
 	{
-		tableInvCardAddAllUnits.removeAll();
-		tableInvCardAddRegisteredUnits.removeAll();
-		comboInvCardUnits.removeAll();
-		//Remove All editors
-		Iterator it = mapEditorsTableInvCardAddRegisteredUnits.keySet().iterator();
-		while (it.hasNext())
-		{
-			TableEditor editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits.get(it.next());
-			editor.getEditor().dispose();
-			editor.dispose();
-		}
-		tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
 		try
 		{
-			List unitLst = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getInventoryUnits",null);
-			TableItem item = null;
-			TurqInventoryUnit trqInvUnit;
-			for (int i = 0; i < unitLst.size(); i++)
+			tableInvCardAddAllUnits.removeAll();
+			tableInvCardAddRegisteredUnits.removeAll();
+			comboInvCardUnits.removeAll();
+			//Remove All editors
+			Iterator it = mapEditorsTableInvCardAddRegisteredUnits.keySet().iterator();
+			while (it.hasNext())
 			{
-				trqInvUnit = (TurqInventoryUnit) unitLst.get(i);
-				comboInvCardUnits.add(trqInvUnit.getUnitsName());
+				TableEditor editor = (TableEditor) mapEditorsTableInvCardAddRegisteredUnits.get(it.next());
+				editor.getEditor().dispose();
+				editor.dispose();
+			}
+			tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
+			HashBag unitBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(), "getInventoryUnits",
+					null);
+			HashMap unitsMap = (HashMap)unitBag.get(InvKeys.INV_UNITS); 
+			TableItem item = null;
+
+			for (int i = 0; i < unitsMap.size(); i++)
+			{
+				HashMap unitMap = (HashMap) unitsMap.get(new Integer(i));
+				String unitName=(String)unitMap.get(InvKeys.INV_UNIT_NAME);
+				comboInvCardUnits.add(unitName);
 				//set first inventory unit default
 				if (i == 0)
 				{
-					comboInvCardUnits.setText(trqInvUnit.getUnitsName());
+					comboInvCardUnits.setText(unitName);
 				}
-				comboInvCardUnits.setData(trqInvUnit.getUnitsName(), trqInvUnit);
+				comboInvCardUnits.setData(unitName, unitMap.get(InvKeys.INV_UNIT_ID));
 				item = new TableItem(tableInvCardAddAllUnits, SWT.NULL);
-				item.setText(trqInvUnit.getUnitsName());
-				item.setData(trqInvUnit);
+				item.setText(unitName);
+				item.setData(unitMap.get(InvKeys.INV_UNIT_ID));
 			}
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
@@ -1229,20 +1203,6 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 	}
 
-	
-
-	protected void btnInvCardGeneralMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
-	protected void btnInvCardUnitsNxtMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
 	protected void btnInvCardAddPricesAddPriceMouseDown(MouseEvent evt)
 	{
 		priceList.addPrice();
@@ -1306,48 +1266,6 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			mapEditorsTableInvCardAddRegisteredUnits.remove(itemText);
 			tableInvCardAddRegisteredUnits.getColumn(1).setWidth(50);
 		}
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardPricesNextMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardNextMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() + 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardDetPreMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardUnitsPreMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardPricesPreMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
-		tabfldInvCardAdd.setSelection(next);
-	}
-
-	/** Auto-generated event handler method */
-	protected void btnInvCardGroupsPreMouseUp(MouseEvent evt)
-	{
-		int next = tabfldInvCardAdd.getSelectionIndex() - 1;
-		tabfldInvCardAdd.setSelection(next);
 	}
 
 	/** Auto-generated event handler method */
@@ -1473,29 +1391,14 @@ public class InvUICardAdd extends Composite implements SecureComposite
 	{
 		return radioSpecialVatAmount;
 	}
-
-	public void setRadioSpecialVatAmount(Button radioSpecialVatAmount)
-	{
-		this.radioSpecialVatAmount = radioSpecialVatAmount;
-	}
-
+	
 	public Button getRadioSpecialVatPercent()
 	{
 		return radioSpecialVatPercent;
 	}
 
-	public void setRadioSpecialVatPercent(Button radioSpecialVatPercent)
-	{
-		this.radioSpecialVatPercent = radioSpecialVatPercent;
-	}
-
 	public InvUIInventoryGroups getCompInvCardGroups()
 	{
 		return compInvCardGroups;
-	}
-
-	public void setCompInvCardGroups(InvUIInventoryGroups compInvCardGroups)
-	{
-		this.compInvCardGroups = compInvCardGroups;
 	}
 }
