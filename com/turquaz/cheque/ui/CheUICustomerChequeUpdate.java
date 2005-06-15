@@ -19,20 +19,21 @@ package com.turquaz.cheque.ui;
  * @author  Onsel
  * @version  $Id$
  */
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
+
+import com.turquaz.bank.BankKeys;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.common.HashBag;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqChequeRoll;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -102,13 +103,13 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 	private Text txtChequeNo;
 	private CLabel lblChequeNo;
 	private Text txtPortfoyNo;
-	TurqChequeCheque cheque = null;
+	Integer chequeId = null;
 	boolean isUpdated = false;
 
-	public CheUICustomerChequeUpdate(Shell parent, int style, TurqChequeCheque cheque)
+	public CheUICustomerChequeUpdate(Shell parent, int style, Integer chequeId)
 	{
 		super(parent, style);
-		this.cheque = cheque;
+		this.chequeId = chequeId;
 	}
 
 	public boolean open()
@@ -378,21 +379,31 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			EngUICommon.centreWindow(dialogShell);
-			if (cheque != null)
+			
+			if (chequeId != null)
 			{
-				txtBankBranch.setText(cheque.getBankBranchName());
-				txtBankName.setText(cheque.getBankName());
-				txtChequeNo.setText(cheque.getChequesNo());
-				txtDeptor.setText(cheque.getChequesDebtor());
-				txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
-				txtPortfoyNo.setText(cheque.getChequesPortfolioNo());
-				datePickValueDate.setDate(cheque.getChequesDueDate());
-				curText.setText(cheque.getChequesAmount());
-				if (cheque.getBankAccountNo() != null)
+				
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
+				HashBag chequeBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"getChequeInfo",argMap);
+				
+				
+				txtBankBranch.setText((String)chequeBag.get(BankKeys.BANK_BRANCH_NAME));
+				txtBankName.setText((String)chequeBag.get(BankKeys.BANK_NAME));
+				txtChequeNo.setText((String)chequeBag.get(CheKeys.CHE_CHEQUE_NO));
+				txtDeptor.setText((String)chequeBag.get(CheKeys.CHE_DEBTOR));
+				txtPaymentPlace.setText((String)chequeBag.get(CheKeys.CHE_PAYMENT_PLACE));
+				txtPortfoyNo.setText((String)chequeBag.get(CheKeys.CHE_PORTFOLIO_NO));
+				datePickValueDate.setDate((Date)chequeBag.get(CheKeys.CHE_DUE_DATE));
+				curText.setText((BigDecimal)chequeBag.get(EngKeys.TOTAL_AMOUNT));
+				
+				if (chequeBag.get(BankKeys.BANK_ACCOUNT_NO) != null)
 				{
-					txtBankAccountNO.setText(cheque.getBankAccountNo());
+					txtBankAccountNO.setText((String)chequeBag.get(BankKeys.BANK_ACCOUNT_NO) );
 				}
-				FillHistory();
+				
+				HashMap historyMap = (HashMap)chequeBag.get(CheKeys.CHE_CHEQUE_ROLLS);
+				FillHistory(historyMap);
 			}
 		}
 		catch (Exception ex)
@@ -401,31 +412,41 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	public void FillHistory()
+	public void FillHistory(HashMap chequeRolls)
 	{
 		try
 		{
 			//HISTORY
 			tableHistory.removeAll();
 			
-			HashMap argMap = new HashMap();
-			argMap.put(CheKeys.CHE_CHEQUE,cheque);
-			List history = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"getChequeHistory",argMap);
+			
+			if(chequeRolls==null)
+			{
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
+				HashBag historyBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"getChequeHistory",argMap);
+				chequeRolls=(HashMap)historyBag.get(CheKeys.CHE_CHEQUE_ROLLS);
+			
+			}
+			
 			TableItem item;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-			for (int k = 0; k < history.size(); k++)
+			
+			for (int k = 0; k < chequeRolls.size(); k++)
 			{
-				TurqChequeRoll cheqRoll = (TurqChequeRoll) history.get(k);
+				HashMap cheqRollInfo = (HashMap) chequeRolls.get(new Integer(k));
+				
+				
 				item = new TableItem(tableHistory, SWT.NULL);
+				
 				item.setText(new String[]{
-						dateFormat.format(cheqRoll.getChequeRollsDate()),
-						cheqRoll.getTurqChequeTransactionType().getTransactionTypsName(),
-						((cheqRoll.getTurqBanksCard().getId().intValue() == -1) ? "" : cheqRoll.getTurqBanksCard().getBankCode()), //$NON-NLS-1$
-						((cheqRoll.getTurqCurrentCard().getId().intValue() == -1)
-								? "" : cheqRoll.getTurqCurrentCard().getCardsCurrentCode())}); //$NON-NLS-1$
+						dateFormat.format(cheqRollInfo.get(EngKeys.DATE)),
+						(String)cheqRollInfo.get(EngKeys.TYPE_NAME),
+						(String)cheqRollInfo.get(BankKeys.BANK_CODE),
+						(String)cheqRollInfo.get(CurKeys.CUR_CURRENT_CODE)}); //$NON-NLS-1$
 				
 				
-				item.setData(new Integer[]{cheqRoll.getId(),cheqRoll.getTurqChequeTransactionType().getId()});
+				item.setData(new Integer[]{(Integer)cheqRollInfo.get(CheKeys.CHE_CHEQUE_ROLL_ID),(Integer)cheqRollInfo.get(EngKeys.TYPE_ID)});
 			}
 		}
 		catch (Exception ex)
@@ -438,23 +459,25 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			cheque.setBankBranchName(txtBankBranch.getText().trim());
-			cheque.setBankName(txtBankName.getText().trim());
-			cheque.setChequesPortfolioNo(txtPortfoyNo.getText().trim());
-			cheque.setChequesNo(txtChequeNo.getText().trim());
-			cheque.setChequesDueDate(datePickValueDate.getDate());
-			cheque.setChequesValueDate(datePickValueDate.getDate());
-			cheque.setChequesDebtor(txtDeptor.getText().trim());
-			cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-			cheque.setChequesAmount(curText.getBigDecimalValue());
-			cheque.setBankAccountNo(txtBankAccountNO.getText().trim());
-			cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-			cheque.setLastModified(Calendar.getInstance().getTime());
-			//        TODO cheq trans exRate
 			
 			HashMap argMap = new HashMap();
-			argMap.put(CheKeys.CHE_CHEQUE,cheque);
-			argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+			
+			argMap.put(BankKeys.BANK_BRANCH_NAME,txtBankBranch.getText().trim());
+			argMap.put(BankKeys.BANK_NAME,txtBankName.getText().trim());
+			argMap.put(CheKeys.CHE_PORTFOLIO_NO,txtPortfoyNo.getText().trim());
+			argMap.put(CheKeys.CHE_CHEQUE_NO,txtChequeNo.getText().trim());
+			argMap.put(CheKeys.CHE_DUE_DATE,datePickValueDate.getDate());
+		
+			argMap.put(CheKeys.CHE_DEBTOR,txtDeptor.getText().trim());
+			argMap.put(CheKeys.CHE_PAYMENT_PLACE,txtPaymentPlace.getText().trim());
+			argMap.put(EngKeys.TOTAL_AMOUNT,curText.getBigDecimalValue());
+			argMap.put(BankKeys.BANK_ACCOUNT_NO,txtBankAccountNO.getText().trim());
+			
+			// TODO cheq trans exRate
+			
+			
+			argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
+			
 			
 			EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"updateCheque",argMap);
 			EngUICommon.showSavedSuccesfullyMessage(getParent());
@@ -476,8 +499,7 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 				//	          TODO cheq trans exRate
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE,cheque);
-				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"deleteCheque",argMap);
 				
@@ -504,7 +526,7 @@ public class CheUICustomerChequeUpdate extends org.eclipse.swt.widgets.Dialog
 				boolean isUpdatedRoll = CheUIChequeRollSearch.rollUpdate(data[0],data[1], this.getParent());
 				if (isUpdatedRoll)
 				{
-					FillHistory();
+					FillHistory(null);
 				}
 			}
 		}

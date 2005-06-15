@@ -19,7 +19,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
-import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.events.MouseAdapter;
@@ -32,8 +32,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -393,30 +391,31 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			}
 			argMap.put(CheKeys.CHE_SORT,sorting);		
 			
-			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchCheque",argMap);
-		
+			HashBag cheuqeBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchCheque",argMap);
+		 
+			HashMap chequeList =(HashMap)cheuqeBag.get(CheKeys.CHE_CHEQUES);			
+			
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
-			for (int i = 0; i < ls.size(); i++)
+			for (int i = 0; i < chequeList.size(); i++)
 			{
 				
-				Object result[] = (Object[]) ls.get(i);
-				String status = (String)result[7];
+				HashMap chequeInfo = (HashMap) chequeList.get(new Integer(i));
+				String status = (String)chequeInfo.get(EngKeys.TYPE_NAME);
 				/*Map statusMap = EngBLCommon.getChequeTransMapWithIntegerKey();
 				if (statusMap.containsKey(result[5]))
 				{
 					status = statusMap.get(result[5]).toString();
 				}*/
-				Integer id = (Integer) result[0];
-				tableViewer.addRow(new String[]{result[1].toString(), DatePicker.formatter.format(result[2]), result[3].toString(),
-						DatePicker.formatter.format(result[4]), status, cf.format(result[6])}, id);
-				total = total.add((BigDecimal) result[6]);
+				Integer id = (Integer)chequeInfo.get(CheKeys.CHE_CHEQUE_ID) ;
+				tableViewer.addRow(new String[]{chequeInfo.get(CheKeys.CHE_PORTFOLIO_NO).toString(), DatePicker.formatter.format(chequeInfo.get(EngKeys.DATE)), chequeInfo.get(CurKeys.CUR_CURRENT_NAME).toString(),
+						DatePicker.formatter.format(chequeInfo.get(CheKeys.CHE_DUE_DATE)), status, cf.format(chequeInfo.get(EngKeys.TOTAL_AMOUNT))}, id);
+				total = total.add((BigDecimal) chequeInfo.get(EngKeys.TOTAL_AMOUNT));
 			}
 			tableViewer.addRow(new String[]{"", "", "", "", "", ""}, null);
 			tableViewer.addRow(new String[]{"", "", "", "", "Toplam", cf.format(total)}, null);
-			if (ls.size() > 0)
-				GenerateJasper(ls);
+			
 		}
 		catch (Exception ex)
 		{
@@ -439,14 +438,14 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			parameters.put("dueDateEnd", sdf.format(datePickerEndDueDate.getDate()));
 			parameters.put("dateFormatter", sdf);
 			parameters.put("currenyFormatter", cf);
-			TurqCurrentCard curCard=(TurqCurrentCard)currentPicker.getData();
-			if (curCard == null)
+		
+			if (	currentPicker.getData() == null)
 			{
 				parameters.put("currentCard", "Hepsi");
 			}
 			else
 			{
-				parameters.put("currentCard", curCard.getCardsName());
+				parameters.put("currentCard", currentPicker.getCardName());
 			}
 			
 			Map map = EngBLCommon.getChequeStatusMapWithStringKey();
@@ -484,12 +483,9 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				Integer cheqId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cheqId != null)
 				{
-					HashMap argMap = new HashMap();
-					argMap.put(CheKeys.CHE_CHEQUE,cheqId);
 					
-					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSelectTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
-					
-					boolean isUpdated = new CheUICustomerChequeUpdate(getShell(), SWT.NULL, cheque).open();
+				
+					boolean isUpdated = new CheUICustomerChequeUpdate(getShell(), SWT.NULL, cheqId).open();
 					if (isUpdated)
 						search();
 				}

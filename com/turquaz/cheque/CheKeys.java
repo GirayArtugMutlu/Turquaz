@@ -18,6 +18,7 @@ public class CheKeys
 	public static final String CHE_SUM_TRANS ="chequeTransRows";
 	public static final String CHE_TRANS_TYPE =	"chequeTransType";
 	public static final String CHE_CHEQUE = "cheque";
+	public static final String CHE_CHEQUES = "cheques";
 	public static final String CHE_STATUS = "chequeStatus";
 	public final static String CHE_START_ENTER_DATE ="chequeStartEnterDate";
 	public final static String CHE_START_DUE_DATE ="chequeStartDueDate";
@@ -31,5 +32,6 @@ public class CheKeys
 	public final static String CHE_DEBTOR ="chequesDebtor";
 	public final static String CHE_PAYMENT_PLACE ="chequePaymentPlace";
 	public final static String CHE_CHEQUE_NO="chequeNo";
+	public final static String CHE_DUE_DATE="chequeDueDate";
 	
 }

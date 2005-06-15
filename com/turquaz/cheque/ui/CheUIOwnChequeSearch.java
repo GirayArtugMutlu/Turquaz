@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CLabel;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLSearchCheques;
-import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.custom.CTabFolder;
@@ -30,11 +30,10 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.dal.TurqChequeCheque;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.CheLangKeys;
@@ -361,32 +360,33 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 		    argMap.put(BankKeys.BANK_ID,bankPicker.getBankId());
 		    argMap.put(BankKeys.BANK_SORT_BY_DATE,new Boolean(radioDate.getSelection()));
 			
-			List ls = (List)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
+			HashBag cheqBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"searchOwnCheques",argMap);
+			HashMap cheqList = (HashMap)cheqBag.get(CheKeys.CHE_CHEQUES);
+			
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
-			for (int i = 0; i < ls.size(); i++)
+			for (int i = 0; i < cheqList.size(); i++)
 			{
-				Object result[] = (Object[]) ls.get(i);
-				String status = (String)result[4];
-				/*
-				if (((Integer)result[4]).equals(EngBLCommon.CHEQUE_TRANS_OUT_CURRENT))
-				{
-					status = EngBLCommon.CHEQUE_TRANS_OUT_CURRENT_STRING;
-				}
-				else if (((Integer)result[4]).equals(EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE))
-				{
-					status = EngBLCommon.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING;
-				}*/
-				Integer id = (Integer) result[0];
-				tableViewer.addRow(new String[]{DatePicker.formatter.format(result[1]), result[6].toString(), result[7].toString(),
-						result[2].toString(), DatePicker.formatter.format(result[3]), status, cf.format(result[5])}, id);
-				total = total.add((BigDecimal) result[5]);
+				HashMap cheqInfo = (HashMap) cheqList.get(new Integer(i));
+				
+				String status = (String)cheqInfo.get(EngKeys.TYPE_NAME);
+			
+				Integer id = (Integer) cheqInfo.get(CheKeys.CHE_CHEQUE_ID);
+				
+				tableViewer.addRow(new String[]{DatePicker.formatter.format(cheqInfo.get(EngKeys.DATE)),
+						cheqInfo.get(BankKeys.BANK_CODE).toString(),
+						cheqInfo.get(CheKeys.CHE_CHEQUE_NO).toString(),
+						cheqInfo.get(CurKeys.CUR_CURRENT_NAME).toString(),
+						DatePicker.formatter.format(cheqInfo.get(CheKeys.CHE_DUE_DATE)),
+						status,
+						cf.format(cheqInfo.get(EngKeys.TOTAL_AMOUNT))}, id);
+				total = total.add((BigDecimal) cheqInfo.get(EngKeys.TOTAL_AMOUNT));
 			}
+			
 			tableViewer.addRow(new String[]{"", "", "", "", "", "", ""}, null);
 			tableViewer.addRow(new String[]{"", "", "", "", "", "Toplam", cf.format(total)}, null);
-			if (ls.size() > 0)
-				GenerateJasper(ls);
+			
 		}
 		catch (Exception ex)
 		{
@@ -409,23 +409,23 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 			parameters.put("dueDateEnd", sdf.format(datePickerEndDueDate.getDate()));
 			parameters.put("dateFormatter", sdf);
 			parameters.put("currenyFormatter", cf);
-			TurqCurrentCard curCard=(TurqCurrentCard)currentPicker.getData();
-			if (curCard==null)
+			
+			if (currentPicker.getData()==null)
 			{
 				parameters.put("currentCard", EngLangCommonKeys.COMMON_ALL_STRING);
 			}
 			else
 			{				
-				parameters.put("currentCard",curCard.getCardsName());
+				parameters.put("currentCard",currentPicker.getCardName());
 			}
-			TurqBanksCard bankCard= (TurqBanksCard)bankPicker.getData();
-			if (bankCard == null)
+			
+			if (bankPicker.getData() == null)
 			{
 				parameters.put("bankCard", EngLangCommonKeys.COMMON_ALL_STRING);
 			}
 			else
 			{
-				parameters.put("bankCard", bankCard.getBankName());
+				parameters.put("bankCard", bankPicker.getBankName());
 			}
 			String[] fields = new String[]{"id", "cheque_rolls_date", "cards_name", "cheques_due_date", "transaction_typs_name",
 					"cheques_amount", "bank_code", "cheques_no"};
@@ -452,12 +452,8 @@ public class CheUIOwnChequeSearch extends org.eclipse.swt.widgets.Composite impl
 				Integer cheqId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cheqId != null)
 				{
-					HashMap argMap = new HashMap();
-					argMap.put(CheKeys.CHE_CHEQUE,cheqId);
 					
-					TurqChequeCheque cheque = (TurqChequeCheque)EngTXCommon.doSelectTX(CheBLUpdateCheque.class.getName(),"initCheque",argMap);
-					
-					boolean isUpdated = new CheUIOwnChequeUpdate(getShell(), SWT.NULL, cheque).open();
+					boolean isUpdated = new CheUIOwnChequeUpdate(getShell(), SWT.NULL, cheqId).open();
 					if (isUpdated)
 						search();
 				}

@@ -20,17 +20,16 @@ package com.turquaz.cheque.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.cheque.CheKeys;
+import com.turquaz.cheque.bl.CheBLSearchCheques;
 import com.turquaz.cheque.bl.CheBLUpdateCheque;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.dal.TurqChequeCheque;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -47,6 +46,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CTabItem;
+
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.ui.comp.BankCardPicker;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -80,13 +81,13 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 	private DatePicker datePickValueDate;
 	private CLabel lblDueDate;
 	private BankCardPicker bankPicker;
-	TurqChequeCheque cheque = null;
+	Integer chequeId = null;
 	boolean isUpdated = false;
 
-	public CheUIOwnChequeUpdate(Shell parent, int style, TurqChequeCheque cheque)
+	public CheUIOwnChequeUpdate(Shell parent, int style, Integer cheque)
 	{
 		super(parent, style);
-		this.cheque = cheque;
+		this.chequeId = cheque;
 	}
 
 	public boolean open()
@@ -253,13 +254,24 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 	public void postInitGUI()
 	{
 		EngUICommon.centreWindow(dialogShell);
-		if (cheque != null)
-		{
-			txtChequeNo.setText(cheque.getChequesNo());
-			txtPaymentPlace.setText(cheque.getChequesPaymentPlace());
-			datePickValueDate.setDate(cheque.getChequesDueDate());
-			curText.setText(cheque.getChequesAmount());
-			bankPicker.setText(cheque.getTurqBanksCard().getBankCode());
+	
+		try {
+			if (chequeId != null)
+			{
+				HashMap argMap = new HashMap();
+				argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
+				HashBag chequeBag = (HashBag)EngTXCommon.doSelectTX(CheBLSearchCheques.class.getName(),"getChequeInfo",argMap);
+				
+				txtChequeNo.setText((String)chequeBag.get(CheKeys.CHE_CHEQUE_NO));
+				txtPaymentPlace.setText((String)chequeBag.get(CheKeys.CHE_PAYMENT_PLACE));
+				
+				datePickValueDate.setDate((Date)chequeBag.get(CheKeys.CHE_DUE_DATE));
+				curText.setText((BigDecimal)chequeBag.get(EngKeys.TOTAL_AMOUNT));
+				bankPicker.setText((String)chequeBag.get(BankKeys.BANK_CODE));
+			}
+		} catch (Exception e) {
+			
+			EngBLLogger.log(this.getClass(),e,getParent());
 		}
 	}
 
@@ -286,35 +298,22 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 		{
 			if (verifyFields())
 			{
-				if (cheque == null)
-				{
-					cheque = new TurqChequeCheque();
-				}
-				/**
-				 * 
-				 */
-				
-				cheque.setBankBranchName(bankPicker.getBankBranchName());
-				cheque.setBankName(bankPicker.getBankName());
-				cheque.setChequesPortfolioNo(""); //$NON-NLS-1$
-				cheque.setChequesNo(txtChequeNo.getText().trim());
-				cheque.setChequesDueDate(datePickValueDate.getDate());
-				cheque.setChequesValueDate(datePickValueDate.getDate());
-				cheque.setChequesDebtor(CheLangKeys.STR_OWN_CHEQUE); //$NON-NLS-1$
-				cheque.setChequesPaymentPlace(txtPaymentPlace.getText().trim());
-				cheque.setChequesAmount(curText.getBigDecimalValue());
-				cheque.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
-				cheque.setLastModified(Calendar.getInstance().getTime());
-				cheque.setChequesType(EngBLCommon.CHEQUE_TYPE_OWN);
-				TurqBanksCard bankCard  = new TurqBanksCard();
-				bankCard.setId(bankPicker.getBankId());
-				cheque.setTurqBanksCard(bankCard);
-				//        TODO cheq trans exRate
 				
 				
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE,cheque);
-				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
+				
+				argMap.put(BankKeys.BANK_BRANCH_NAME,bankPicker.getBankBranchName());
+				argMap.put(BankKeys.BANK_NAME,bankPicker.getBankName());
+				argMap.put(CheKeys.CHE_PORTFOLIO_NO,"");
+				argMap.put(CheKeys.CHE_CHEQUE_NO,txtChequeNo.getText().trim());
+				argMap.put(CheKeys.CHE_DUE_DATE,datePickValueDate.getDate());
+			
+				argMap.put(CheKeys.CHE_DEBTOR,CheLangKeys.STR_OWN_CHEQUE);
+				argMap.put(CheKeys.CHE_PAYMENT_PLACE,txtPaymentPlace.getText().trim());
+				argMap.put(EngKeys.TOTAL_AMOUNT,curText.getBigDecimalValue());
+				argMap.put(BankKeys.BANK_ID,bankPicker.getBankId());
+				
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"updateCheque",argMap);
 					
@@ -338,8 +337,7 @@ public class CheUIOwnChequeUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				//		          TODO cheq trans exRate
 				HashMap argMap = new HashMap();
-				argMap.put(CheKeys.CHE_CHEQUE,cheque);
-				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(CheKeys.CHE_CHEQUE_ID,chequeId);
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateCheque.class.getName(),"deleteCheque",argMap);
 				

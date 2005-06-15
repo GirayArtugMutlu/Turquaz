@@ -74,13 +74,13 @@ public class CheDALSearch
 		}
 	}
 
-	public static List getChequeHistory(TurqChequeCheque cheque) throws Exception
+	public static List getChequeHistory(Integer cheque) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "select cheqInRoll.turqChequeRoll from TurqChequeChequeInRoll cheqInRoll"
-					+ " where cheqInRoll.turqChequeCheque.id=" + cheque.getId()
+					+ " where cheqInRoll.turqChequeCheque.id=" + cheque
 					+ " order by cheqInRoll.turqChequeRoll.chequeRollsDate";
 			Query q = session.createQuery(query);
 			List list = q.list();
@@ -212,7 +212,7 @@ public class CheDALSearch
 	 * @return
 	 * @throws Exception
 	 */
-	public static List searchCheque(String portfoyNo, TurqCurrentCard curCard, Integer status, Date startEnterDate, Date endEnterDate,
+	public static List searchCheque(String portfoyNo, Integer curCardId, Integer status, Date startEnterDate, Date endEnterDate,
 			Date startDueDate, Date endDueDate, Integer sorting) throws Exception
 	{
 		try
@@ -229,9 +229,9 @@ public class CheDALSearch
 					+ " and chequeInRolls.turqChequeRoll.chequeRollsDate <= :endEnterDate"
 					+ " and chequeInRolls.turqChequeRoll.turqChequeTransactionType.id =" + EngBLCommon.CHEQUE_TRANS_IN
 					+ " and status.chequeChequesId = cheque.id ";
-			if (curCard != null)
+			if (curCardId != null)
 			{
-				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
+				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard.id = :curCard";
 			}
 			if (status != null)
 			{
@@ -262,9 +262,9 @@ public class CheDALSearch
 			q.setParameter("endDueDate", endDueDate);
 			q.setParameter("startEnterDate", startEnterDate);
 			q.setParameter("endEnterDate", endEnterDate);
-			if (curCard != null)
+			if (curCardId != null)
 			{
-				q.setParameter("curCard", curCard);
+				q.setParameter("curCard", curCardId);
 			}
 			List list = q.list();
 			return list;
@@ -275,7 +275,7 @@ public class CheDALSearch
 		}
 	}
 
-	public static List searchOwnCheques(TurqCurrentCard curCard, TurqBanksCard bankCard, Date startEnterDate, Date endEnterDate,
+	public static List searchOwnCheques(Integer curCard, Integer bankCard, Date startEnterDate, Date endEnterDate,
 			Date startDueDate, Date endDueDate, boolean sortByDate) throws Exception
 	{
 		try
@@ -297,11 +297,11 @@ public class CheDALSearch
 					+ " and status.chequeChequesId = cheque.id ";
 			if (curCard != null)
 			{
-				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard = :curCard";
+				query += " and chequeInRolls.turqChequeRoll.turqCurrentCard.id = :curCard";
 			}
 			if (bankCard != null)
 			{
-				query += " and cheque.turqBanksCard = :bankCard";
+				query += " and cheque.turqBanksCard.id = :bankCard";
 			}
 			if (sortByDate)
 			{
