@@ -223,7 +223,7 @@ public class CurUIVoucherUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_OTHERS));
 				argMap.put(EngKeys.ENG_SEQ_ID,null);
 				argMap.put(EngKeys.DEFINITION, compVoucher.getTxtDefinition().getText());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,compVoucher.getComboCurrencyType().getData(compVoucher.getComboCurrencyType().getText().trim()));
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveOtherCurrentTransaction",argMap);
 				

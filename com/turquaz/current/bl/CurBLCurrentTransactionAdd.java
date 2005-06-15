@@ -342,8 +342,10 @@ public class CurBLCurrentTransactionAdd
 		BigDecimal totalDiscount = (BigDecimal)argMap.get(CurKeys.CUR_DISCOUNT_PAYMENT);
 		Integer type = (Integer)argMap.get(EngKeys.TYPE);
 		Integer seqDocNo = (Integer)argMap.get(EngKeys.ENG_SEQ_ID);
-		TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
 		
+		Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+		TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+		 
 			//Accounting Integration
 			//Eger bir Nakit hareketi ise Muhasebe kaydini yap
 			//Daha sonra cari hareketi ekle

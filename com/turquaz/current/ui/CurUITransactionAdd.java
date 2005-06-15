@@ -21,14 +21,13 @@ package com.turquaz.current.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.comp.CurrentPicker;
@@ -40,8 +39,6 @@ import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.CashLangKeys;
@@ -75,9 +72,6 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	private CLabel comboType;
 	private CurrentPicker txtCurrentCode;
 	private CLabel lblCurrentCode;
-	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
-	private TurqCurrency exchangeCurrency = null;
 
 	/**
 	 * @return Returns the comboCurrencyType.
@@ -87,13 +81,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 		return comboCurrencyType;
 	}
 
-	/**
-	 * @return Returns the exchangeRate.
-	 */
-	public TurqCurrencyExchangeRate getExchangeRate()
-	{
-		return exchangeRate;
-	}
+	
 
 	public CurUITransactionAdd(Composite parent, int style)
 	{
@@ -264,18 +252,23 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-				if (currency.isDefaultCurrency())
-				{
-					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-					baseCurrency = currency;
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboCurrencyType.add(abbr);
+					comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
 				}
-			}
 		}
 		catch (Exception ex)
 		{
@@ -308,27 +301,14 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				accPickerCashAccount.setFocus();
 				return false;
 			}
-			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
+			else if ( comboCurrencyType.getData(comboCurrencyType.getText()) == null)
 			{
 				msg.setMessage("Para birimi seçmelisiniz!");
 				msg.open();
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-			{
-				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateTransDate.getDate());
-				if (exchangeRate == null)
-				{
-					msg.setMessage("Günlük kur tan?mlamal?s?n?z!");
-					msg.open();
-					return false;
-				}
-			}
-			else
-			{
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-			}
+			
 			return true;
 		}
 		catch (Exception ex)
@@ -353,7 +333,6 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				}
 				//Transaction Type is Cash
 				//4,at the end means cash, it is a cash Transaction
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
 				HashMap argMap = new HashMap();
 				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentCode.getCardId());
 				argMap.put(AccKeys.ACC_ACCOUNT, accPickerCashAccount.getData());
@@ -364,7 +343,7 @@ public class CurUITransactionAdd extends Composite implements SecureComposite
 				argMap.put(CurKeys.CUR_DISCOUNT_PAYMENT,new BigDecimal(0));
 				argMap.put(EngKeys.TYPE,new Integer(EngBLCommon.CURRENT_TRANS_OTHERS));
 				argMap.put(EngKeys.ENG_SEQ_ID,null);
-				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));
 								
 				TurqCurrentTransaction curtrans = (TurqCurrentTransaction)EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveCurrentCashTransaction",argMap);
 				

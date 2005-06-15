@@ -103,7 +103,9 @@ public class BankBLTransactionUpdate
 			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);			
+			
+			Integer currencyId = (Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate=EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 			
 			// delete transactions
 			Iterator it = bankTransBill.getTurqBanksTransactions().iterator();
@@ -230,7 +232,9 @@ public class BankBLTransactionUpdate
 			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);	
+			
+			Integer currencyId = (Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate=EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 			
 			bankTransBill.setTransactionBillDate(transDate);
 			bankTransBill.setTransactionBillDefinition(definition);
@@ -351,7 +355,9 @@ public class BankBLTransactionUpdate
 			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);	
+		
+			Integer currencyId = (Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate=EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 			
 			bankTransBill.setTransactionBillDate(transDate);
 			bankTransBill.setTransactionBillDefinition(definition);
@@ -453,9 +459,10 @@ public class BankBLTransactionUpdate
 			Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);	
 			
-
+			Integer currencyId = (Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate=EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+			
 			
 			bankTransBill.setTransactionBillDate(transDate);
 			bankTransBill.setTransactionBillDefinition(definition);

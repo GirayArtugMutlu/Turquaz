@@ -2,7 +2,6 @@ package com.turquaz.bank.ui;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
@@ -10,8 +9,6 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.BankLangKeys;
@@ -23,6 +20,7 @@ import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLTransactionAdd;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.ui.comp.BankCardPicker;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
@@ -52,9 +50,6 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 	private DatePicker datePick;
 	private CLabel lblDate;
 	private Text txtDocNo;
-	private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
-	private TurqCurrency exchangeCurrency = null;
 
 	/**
 	 * @return Returns the comboCurrencyType.
@@ -64,13 +59,7 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 		return comboCurrencyType;
 	}
 
-	/**
-	 * @return Returns the exchangeRate.
-	 */
-	public TurqCurrencyExchangeRate getExchangeRate()
-	{
-		return exchangeRate;
-	}
+	
 
 	public BankUIOtherTransOut(org.eclipse.swt.widgets.Composite parent, int style)
 	{
@@ -181,18 +170,22 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-				if (currency.isDefaultCurrency())
-				{
-					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-					baseCurrency = currency;
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboCurrencyType.add(abbr);
+					comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
 				}
-			}
 		}
 		catch (Exception ex)
 		{
@@ -222,25 +215,13 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 				curAmount.setFocus();
 				return false;
 			}
-			else if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
+			else if ( comboCurrencyType.getData(comboCurrencyType.getText()) == null)
 			{
 				EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_SELECT_CURRENCY, SWT.ICON_WARNING); 
 				comboCurrencyType.setFocus();
 				return false;
 			}
-			if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-			{
-				exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, datePick.getDate());
-				if (exchangeRate == null)
-				{
-					EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE, SWT.ICON_WARNING); 
-					return false;
-				}
-			}
-			else
-			{
-				exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
-			}
+			
 			return true;
 		}
 		catch (Exception ex)
@@ -274,7 +255,8 @@ public class BankUIOtherTransOut extends org.eclipse.swt.widgets.Composite imple
 				argMap.put(EngKeys.TRANS_DATE,datePick.getDate());
 				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,exchangeRate);
+				argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));
+				
 				
 				
 				EngTXCommon.doTransactionTX(BankBLTransactionAdd.class.getName(),"saveOtherTransaction",argMap);

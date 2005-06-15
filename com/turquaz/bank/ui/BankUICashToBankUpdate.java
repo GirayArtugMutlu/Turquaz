@@ -190,7 +190,7 @@ public class BankUICashToBankUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.TRANS_DATE,compCashTrans.getDatePick().getDate());
 				argMap.put(EngKeys.DEFINITION,compCashTrans.getTxtDefinition().getText().trim());
 				argMap.put(EngKeys.DOCUMENT_NO,compCashTrans.getTxtDocNo().getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,compCashTrans.getExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,compCashTrans.getComboCurrencyType().getData(compCashTrans.getComboCurrencyType().getText().trim()));				
 				
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateCashTransactionBill",argMap);
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());

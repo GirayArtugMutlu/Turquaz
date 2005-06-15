@@ -189,7 +189,7 @@ public class BankUITransferBetweenAccountsUpdate extends org.eclipse.swt.widgets
 				argMap.put(EngKeys.TRANS_DATE,compTransfer.getDatePick().getDate());
 				argMap.put(EngKeys.DEFINITION,compTransfer.getTxtDefinition().getText().trim());
 				argMap.put(EngKeys.DOCUMENT_NO,compTransfer.getTxtDocNo().getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE,compTransfer.getExchangeRate());				
+				argMap.put(EngKeys.CURRENCY_ID,compTransfer.getComboCurrencyType().getData(compTransfer.getComboCurrencyType().getText().trim()));				
 				
 				EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateTransferBetweenBanks",argMap);
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());

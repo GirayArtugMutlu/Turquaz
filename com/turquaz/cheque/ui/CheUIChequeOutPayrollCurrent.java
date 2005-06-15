@@ -316,7 +316,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);
 				argMap.put(EngKeys.TYPE, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT);
 				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(btnSumTotals.getSelection()));
-				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID, EngBLCommon.getBaseCurrencyId());
 				
 				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveChequeRoll",argMap);
 								
