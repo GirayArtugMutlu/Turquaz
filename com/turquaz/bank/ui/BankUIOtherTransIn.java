@@ -9,6 +9,7 @@ import org.eclipse.swt.SWT;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.BankLangKeys;
@@ -169,7 +170,7 @@ public class BankUIOtherTransIn extends org.eclipse.swt.widgets.Composite implem
 	{
 		try
 		{
-			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
 			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
 			
 			for (int k = 0; k < currencies.size(); k++)

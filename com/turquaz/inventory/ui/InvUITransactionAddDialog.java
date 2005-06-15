@@ -22,8 +22,8 @@ package com.turquaz.inventory.ui;
 import java.util.List;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.custom.CCombo;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryPrice;
@@ -342,7 +342,7 @@ public class InvUITransactionAddDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			comboCurrency.removeAll();
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
 			TurqCurrency currency;
 			for (int i = 0; i < currencies.size(); i++)
 			{

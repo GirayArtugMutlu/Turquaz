@@ -21,6 +21,7 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -463,7 +464,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 							argMap.put(BillKeys.BILL_DUE_DATE,compAddBill.getDateDueDate().getDate());
 							argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,compAddBill.getTxtDiscountAmount().getBigDecimalValue());			
 							argMap.put(BillKeys.BILL_TOTAL_AMOUNT,compAddBill.getTxtTotalAmount().getBigDecimalValue());
-							argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+							argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
 							argMap.put(BillKeys.BILL_GROUPS,compAddBill.getBillGroups());
 							argMap.put(InvKeys.INV_TRANSACTIONS,compAddBill.getInventoryTransactions());	
 							

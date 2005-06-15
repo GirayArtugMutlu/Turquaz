@@ -61,6 +61,7 @@ import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -1021,7 +1022,7 @@ public class BillUIAddSellBill extends Composite implements SecureComposite
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT, txtDiscountAmount.getBigDecimalValue());
 				argMap.put(BillKeys.BILL_DOC_NO, txtDocumentNo.getText().trim());
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT, txtTotalAmount.getBigDecimalValue());
-				argMap.put(EngKeys.EXCHANGE_RATE, EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.EXCHANGE_RATE, EngBLClient.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS, getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS, getInventoryTransactions());
 				argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(EngConfiguration.automaticDispatcNote()));

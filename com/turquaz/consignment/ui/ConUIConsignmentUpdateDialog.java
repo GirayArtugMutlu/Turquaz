@@ -22,6 +22,7 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
@@ -336,7 +337,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(ConsKeys.CONS_DATE,compAddConsignment.getDateConsignmentDate().getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			argMap.put(CurKeys.CUR_CARD_ID,compAddConsignment.getTxtCurrentCard().getCardId());
-			argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+			argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
 			argMap.put(ConsKeys.CONS_GROUPS,compAddConsignment.getConsignmentGroups());
 			argMap.put(InvKeys.INV_TRANSACTIONS,compAddConsignment.getInventoryTransactions(type));
 			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(willUpdateBill));

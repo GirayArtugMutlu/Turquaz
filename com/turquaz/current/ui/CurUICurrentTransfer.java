@@ -13,7 +13,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -274,7 +274,7 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(CurKeys.CUR_TRANS_AMOUNT,currentAmount.getBigDecimalValue());
 				argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
-                argMap.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
+                argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentTransactionAdd.class.getName(),"saveCurrentTransferBetweenAccounts",argMap);
 				

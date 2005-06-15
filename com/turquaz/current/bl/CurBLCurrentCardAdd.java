@@ -31,6 +31,7 @@ import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentCardAdd;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -118,7 +119,7 @@ public class CurBLCurrentCardAdd
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			CurBLCurrentTransactionAdd.saveCurrentTransaction(currentCard, cal.getTime(), "", false, new BigDecimal(0),
 					new BigDecimal(0), EngBLCommon.CURRENT_TRANS_INITIAL, new Integer(-1), "",
-					EngBLCommon.getBaseCurrencyExchangeRate());
+					EngBLClient.getBaseCurrencyExchangeRate());
 		}
 		catch (Exception ex)
 		{

@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.TableItem;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
@@ -287,7 +288,7 @@ public class CurUIMultipleCreditVoucher extends Composite implements SecureCompo
 		try
 		{
 
-			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
 			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
 			
 			for (int k = 0; k < currencies.size(); k++)

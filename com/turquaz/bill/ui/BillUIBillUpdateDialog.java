@@ -13,6 +13,7 @@ import com.turquaz.cash.CashKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -327,7 +328,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(BillKeys.BILL_DUE_DATE,compAddBill.getDateDueDate().getDate());
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,compAddBill.getTxtDiscountAmount().getBigDecimalValue());			
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,compAddBill.getTxtTotalAmount().getBigDecimalValue());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS,compAddBill.getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,compAddBill.getInventoryTransactions());	
 				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());

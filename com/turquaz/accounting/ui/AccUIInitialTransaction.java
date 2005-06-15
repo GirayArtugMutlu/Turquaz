@@ -32,7 +32,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SecureComposite;
@@ -446,7 +446,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(AccKeys.ACC_TRANS_DATE, dateTransactionDate.getDate());
 				argMap.put(AccKeys.ACC_DEFINITION,	txtTransDefinition.getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE_ID,EngBLCommon.getBaseCurrencyExchangeRate().getId());
+				argMap.put(EngKeys.EXCHANGE_RATE_ID,EngBLClient.getBaseCurrencyExchangeRate().getId());
 				argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);

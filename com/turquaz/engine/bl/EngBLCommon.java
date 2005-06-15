@@ -27,12 +27,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
-import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -43,8 +41,6 @@ import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.dal.TurqSetting;
-import com.turquaz.engine.lang.EngLangCommonKeys;
-import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.inventory.dal.InvDALCardSearch;
 
 public class EngBLCommon
@@ -214,47 +210,9 @@ public class EngBLCommon
     
     
 	
-	public static Map getChequeStatusMapWithStringKey()
-	{
-		Map map = new HashMap();
-		map.put(EngLangCommonKeys.CHEQUE_STATUS_PORTFOY_STRING, CHEQUE_STATUS_PORTFOY);
-		map.put(EngLangCommonKeys.CHEQUE_STATUS_CURRENT_STRING, CHEQUE_STATUS_CURRENT);
-		map.put(EngLangCommonKeys.CHEQUE_STATUS_COLLECTED_STRING, CHEQUE_STATUS_COLLECTED);
-		map.put(EngLangCommonKeys.CHEQUE_STATUS_RETURN_TO_CURRENT_STRING, CHEQUE_STATUS_RETURN_TO_CURRENT);
-		map.put(EngLangCommonKeys.CHEQUE_STATUS_IN_BANK_STRING, CHEQUE_STATUS_IN_BANK);
-		map.put(EngLangCommonKeys.CHEQUE_STATUS_BOUNCED_STRING, CHEQUE_STATUS_BOUNCED);
-		return map;
-	}
 	public final static int CHEQUE_TYPE_CUSTOMER = 0; //mü?teri Ceki
 	public final static int CHEQUE_TYPE_OWN = 1; //Firma Ceki
 
-	public static Map getChequeTransMapWithStringKey()
-	{
-		Map map = new HashMap();
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_IN_STRING, CHEQUE_TRANS_IN);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_OUT_CURRENT_STRING, CHEQUE_TRANS_OUT_CURRENT);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_OUT_BANK_STRING, CHEQUE_TRANS_OUT_BANK);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_COLLECT_FROM_BANK_STRING, CHEQUE_TRANS_COLLECT_FROM_BANK);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING, CHEQUE_TRANS_COLLECT_FROM_CURRENT);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING, CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_RETURN_TO_CURRENT_STRING, CHEQUE_TRANS_RETURN_TO_CURRENT);
-		map.put(EngLangCommonKeys.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING,CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE);
-		return map;
-	}
-
-	public static Map getChequeTransMapWithIntegerKey()
-	{
-		Map map = new HashMap();
-		map.put(CHEQUE_TRANS_IN, EngLangCommonKeys.CHEQUE_TRANS_IN_STRING);
-		map.put(CHEQUE_TRANS_OUT_CURRENT, EngLangCommonKeys.CHEQUE_TRANS_OUT_CURRENT_STRING);
-		map.put(CHEQUE_TRANS_OUT_BANK, EngLangCommonKeys.CHEQUE_TRANS_OUT_BANK_STRING);
-		map.put(CHEQUE_TRANS_COLLECT_FROM_BANK, EngLangCommonKeys.CHEQUE_TRANS_COLLECT_FROM_BANK_STRING);
-		map.put(CHEQUE_TRANS_COLLECT_FROM_CURRENT, EngLangCommonKeys.CHEQUE_TRANS_COLLECT_FROM_CURRENT_STRING);
-		map.put(CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY, EngLangCommonKeys.CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY_STRING);
-		map.put(CHEQUE_TRANS_RETURN_TO_CURRENT, EngLangCommonKeys.CHEQUE_TRANS_RETURN_TO_CURRENT_STRING);
-		map.put(CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE,EngLangCommonKeys.CHEQUE_TRANS_COLLECT_OF_OWN_CHEQUE_STRING);
-		return map;
-	}
 	public final static boolean INVENTORY_SPEC_VAT_FOR_EACH = true; //OTV
 	// birimle
 	// hesaplanir
@@ -304,25 +262,6 @@ public class EngBLCommon
     
 	public final static int TABLE_ROW_COUNT = 10;
 	public final static int ROUNDING_METHOD = BigDecimal.ROUND_HALF_UP;
-	private static TurqCurrency baseCurrency = null;
-	private static TurqCurrencyExchangeRate baseCurrencyExchangeRate = null;
-
-	public static TurqCurrency getBaseCurrency()
-	{
-		try
-		{
-			if (baseCurrency == null)
-			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
-			}
-				return baseCurrency;
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(EngBLCommon.class,ex);
-			return null;
-		}
-	}
 
 	public static TurqCurrencyExchangeRate getCurrencyExchangeRate(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency,
 			Date exhangeDate) throws Exception
@@ -344,66 +283,7 @@ public class EngBLCommon
 		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
 		return EngDALCommon.getBill(seq);
 	}
-	public static Integer getBaseCurrencyId()
-	{
-		try
-		{
-			if (baseCurrency == null)
-			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
-			}
-				return baseCurrency.getId();
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(EngBLCommon.class,ex);
-			return null;
-		}
-	}
-
-	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() 
-	{
-		
-			if (baseCurrencyExchangeRate == null){
-				try
-				{
-					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
-				}
-				catch (Exception ex)
-				{
-                    EngBLLogger.log(EngBLCommon.class,ex);
-				}
-			}
-					return baseCurrencyExchangeRate;
-		
-	}
-
-	public static HashBag getCurrencies() throws Exception
-	{
-		try
-		{
-			HashBag currencyBag=new HashBag();
-			List list= EngDALCommon.getCurrencies();
-			currencyBag.put(EngKeys.CURRENCIES,new HashMap());
-			
-			for(int k=0; k<list.size(); k++)
-			{
-				TurqCurrency currency=(TurqCurrency)list.get(k);
-				
-				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.CURRENCY_ID,currency.getId());
-				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.CURRENCY_ABBR,currency.getCurrenciesAbbreviation());
-				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.DEFAULT, new Boolean(currency.isDefaultCurrency()));
-				currencyBag.put(EngKeys.CURRENCIES,k,EngKeys.CONSTANT, new Boolean(currency.isConstant()));
-			}
-			
-			return currencyBag;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
+	
 	public static TurqEngineSequence saveEngineSequence(int moduleId) throws Exception
 	{
 		TurqEngineSequence seq = new TurqEngineSequence();

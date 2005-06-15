@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.admin.dal.AdmDALCurrencyExchangeRateAdd;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -32,7 +32,7 @@ public class AdmBLCurrencyExchangeRateAdd
 		TurqCurrencyExchangeRate newExchangeRate = new TurqCurrencyExchangeRate();
 		newExchangeRate.setExchangeRatio(exchangeRatio);
 		newExchangeRate.setTurqCurrencyByExchangeCurrencyId(exchangeCurrency);
-		newExchangeRate.setTurqCurrencyByBaseCurrencyId(EngBLCommon.getBaseCurrency());
+		newExchangeRate.setTurqCurrencyByBaseCurrencyId(EngBLClient.getBaseCurrency());
 		newExchangeRate.setExhangeRatesDate(exchangeDate);
 		EngDALCommon.saveObject(newExchangeRate);
 	}

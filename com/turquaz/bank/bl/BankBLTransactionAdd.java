@@ -36,6 +36,7 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -211,7 +212,7 @@ public class BankBLTransactionAdd
 			transRow.setLastModified(Calendar.getInstance().getTime());
 			transRow.setCreationDate(Calendar.getInstance().getTime());
 			transRow.setTurqBanksCard(bankCard);
-			transRow.setTurqCurrencyExchangeRate(EngBLCommon.getBaseCurrencyExchangeRate());
+			transRow.setTurqCurrencyExchangeRate(EngBLClient.getBaseCurrencyExchangeRate());
 			transRow.setDeptAmount(new BigDecimal(0));
 			transRow.setCreditAmount(new BigDecimal(0));
 			transRow.setDeptAmountInForeignCurrency(new BigDecimal(0));

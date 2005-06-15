@@ -40,6 +40,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLVersionValidate;
@@ -455,8 +456,8 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			comboLanguage.setData("English", new Integer(2)); //$NON-NLS-1$
 			comboLanguage.setText("T\u00FCrk\u00E7e"); //$NON-NLS-1$
 			EngDALSessionFactory.init();
-			EngBLCommon.getBaseCurrency();
-			EngBLCommon.getBaseCurrencyExchangeRate();
+			EngBLClient.getBaseCurrency();
+			EngBLClient.getBaseCurrencyExchangeRate();
             //checkRememberPassword.setVisible(false);
             
 		}

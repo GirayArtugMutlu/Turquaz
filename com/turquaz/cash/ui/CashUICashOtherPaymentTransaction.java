@@ -35,6 +35,7 @@ import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.CashLangKeys;
@@ -194,7 +195,7 @@ public class CashUICashOtherPaymentTransaction extends org.eclipse.swt.widgets.C
 	{
 		try
 		{
-            HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+            HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
             HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
             
             for (int k = 0; k < currencies.size(); k++)

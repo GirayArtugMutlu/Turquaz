@@ -35,6 +35,7 @@ import com.turquaz.cheque.CheKeys;
 import com.turquaz.cheque.bl.CheBLUpdateChequeRoll;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.lang.CheLangKeys;
@@ -221,7 +222,7 @@ public class CheUIReturnFromBankRollUpdate extends org.eclipse.swt.widgets.Dialo
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,chequeList);
 				argMap.put(EngKeys.TYPE,EngBLCommon.CHEQUE_TRANS_RETURN_FROM_BANK_TO_PORTFOY);
 				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(false));
-				argMap.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
+				argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 				
 				EngTXCommon.doTransactionTX(CheBLUpdateChequeRoll.class.getName(),"updateChequeRollIn",argMap);
 				

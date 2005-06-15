@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import org.eclipse.swt.widgets.Group;
@@ -144,7 +144,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 			comboStatus.setText(EngLangCommonKeys.STR_ALL); //$NON-NLS-1$
 			//TODO bunlar db den cekilmeli. EngBLCommondaki Map iptal edilmeli..
 			comboStatus.add(EngLangCommonKeys.STR_ALL); //$NON-NLS-1$
-			Iterator it = EngBLCommon.getChequeStatusMapWithStringKey().keySet().iterator();
+			Iterator it = EngBLClient.getChequeStatusMapWithStringKey().keySet().iterator();
 			while (it.hasNext())
 			{
 				comboStatus.add(it.next().toString());
@@ -366,7 +366,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 		try
 		{
 			Integer cheStat = null;
-			Map map = EngBLCommon.getChequeStatusMapWithStringKey();
+			Map map = EngBLClient.getChequeStatusMapWithStringKey();
 			if (map.containsKey(comboStatus.getText()))
 			{
 				cheStat = (Integer) map.get(comboStatus.getText());
@@ -448,7 +448,7 @@ public class CheUICustomerChequeSearch extends org.eclipse.swt.widgets.Composite
 				parameters.put("currentCard", currentPicker.getCardName());
 			}
 			
-			Map map = EngBLCommon.getChequeStatusMapWithStringKey();
+			Map map = EngBLClient.getChequeStatusMapWithStringKey();
 			if (map.containsKey(comboStatus.getText()))
 			{
 				parameters.put("status",comboStatus.getText());

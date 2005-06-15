@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
@@ -25,7 +25,7 @@ public class CurUIInitialTransTableRow implements ITableRow
 		{
 			curTransInfo.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
 			curTransInfo.put(EngKeys.DEPT_AMOUNT,new BigDecimal(0));
-			curTransInfo.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
+			curTransInfo.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 		   	
 			
 		}

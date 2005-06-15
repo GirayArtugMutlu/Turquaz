@@ -23,9 +23,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
@@ -800,7 +800,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 		try
 		{
 			mapEditorsTableInvCardAddRegisteredUnits = new HashMap();
-			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
 			currencyMap = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
 			fillInvCardUnits();
 			initTableInvPrices();

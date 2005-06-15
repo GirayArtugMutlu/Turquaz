@@ -35,6 +35,8 @@ import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
+
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SecureComposite;
@@ -316,7 +318,7 @@ public class CheUIChequeOutPayrollCurrent extends org.eclipse.swt.widgets.Compos
 				argMap.put(CheKeys.CHE_CHEQUE_LIST,cheques);
 				argMap.put(EngKeys.TYPE, EngBLCommon.CHEQUE_TRANS_OUT_CURRENT);
 				argMap.put(CheKeys.CHE_SUM_TRANS,new Boolean(btnSumTotals.getSelection()));
-				argMap.put(EngKeys.CURRENCY_ID, EngBLCommon.getBaseCurrencyId());
+				argMap.put(EngKeys.CURRENCY_ID, EngBLClient.getBaseCurrencyId());
 				
 				EngTXCommon.doTransactionTX(CheBLSaveChequeTransaction.class.getName(),"saveChequeRoll",argMap);
 								

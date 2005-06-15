@@ -28,8 +28,10 @@ import com.turquaz.bank.BankKeys;
 import com.turquaz.cheque.CheKeys;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.lang.CheLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -302,7 +304,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
 			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
 			
 			for (int k = 0; k < currencies.size(); k++)
@@ -374,7 +376,7 @@ public class CheUICustomerChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			chequeInfo.put(BankKeys.BANK_ACCOUNT_NO,txtBankAccountNO.getText().trim());
 			// TODO Exchane Rate
 			
-			chequeInfo.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
+			chequeInfo.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 			chequeInfo.put(BankKeys.BANK_ID,new Integer(-1));
 			
 			dialogShell.close();

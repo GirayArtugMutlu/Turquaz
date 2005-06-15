@@ -26,6 +26,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.lang.CheLangKeys;
@@ -294,7 +295,7 @@ public class CheUIOwnChequeAddDialog extends org.eclipse.swt.widgets.Dialog
 			
 			chequeInfo.put(EngKeys.TYPE_ID,new Integer(EngBLCommon.CHEQUE_TYPE_OWN));
 			chequeInfo.put(BankKeys.BANK_ID,bankPicker.getBankId());
-			chequeInfo.put(EngKeys.CURRENCY_ID,EngBLCommon.getBaseCurrencyId());
+			chequeInfo.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 		
 			dialogShell.close();
 		}

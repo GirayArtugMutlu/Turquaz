@@ -12,11 +12,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AdmLangKeys;
@@ -163,7 +163,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 
 	public void PostInit()
 	{
-		txtBaseCurrency.setText(EngBLCommon.getBaseCurrency().getCurrenciesAbbreviation());
+		txtBaseCurrency.setText(EngBLClient.getBaseCurrency().getCurrenciesAbbreviation());
 		fillCurrencyCombo();
 	}
 
@@ -171,7 +171,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+			List currencies = (List)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
 			for (int k = 0; k < currencies.size(); k++)
 			{
 				TurqCurrency currency = (TurqCurrency) currencies.get(k);

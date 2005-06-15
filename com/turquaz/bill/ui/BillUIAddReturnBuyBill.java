@@ -61,8 +61,10 @@ import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
+import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -93,7 +95,6 @@ import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
-import com.turquaz.accounting.bl.AccBLTransactionSearch;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -261,7 +262,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
     private CurrentPicker txtCurrentCard;
     private CLabel lblCurrentCard;
     ConBLAddConsignment blAddConsignment = new ConBLAddConsignment();
-    private TurqCurrency baseCurrency = EngBLCommon.getBaseCurrency();
+    private TurqCurrency baseCurrency = EngBLClient.getBaseCurrency();
     private TurqCurrencyExchangeRate exchangeRate = null;
     private TurqCurrency exchangeCurrency = null;
     //   Set the table column property names
@@ -817,7 +818,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
     {
         try
         {
-            List currencies = (List)EngTXCommon.doSelectTX(AccBLTransactionSearch.class.getName(),"getCurrencies",null);
+            List currencies = (List)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
             for (int k = 0; k < currencies.size(); k++)
             {
                 TurqCurrency currency = (TurqCurrency) currencies.get(k);
@@ -1012,7 +1013,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
             }
             else
             {
-                exchangeRate = EngBLCommon.getBaseCurrencyExchangeRate();
+                exchangeRate = EngBLClient.getBaseCurrencyExchangeRate();
             }
             return true;
         }
@@ -1099,7 +1100,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
                 argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
                 argMap.put(BillKeys.BILL_DOC_NO,txtDocumentNo.getText().trim());
                 argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
-                argMap.put(EngKeys.EXCHANGE_RATE,EngBLCommon.getBaseCurrencyExchangeRate());
+                argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
                 argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
                 argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());                
                 argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(EngConfiguration.automaticDispatcNote()));
