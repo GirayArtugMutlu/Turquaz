@@ -39,6 +39,8 @@ public class InvKeys
 	public static String INV_CARD_IS_SPEC_AMOUNT="invCardIsSpecAmount";
 	public static String INV_CARD_INV_GROUPS="invCardInvGroups";
 	public static String INV_CARD_UNITS="invCardUnits";
+	public static String INV_CARD_UNIT_ID="invCardUnitId";
+	public static String INV_CARD_UNIT_FACTOR="invCardUnitFactor";
 	public static String INV_CARD_PRICES="invCardPrices";
 	public static String INV_CARD_ACCOUNTS="invCardAccounts";
 	public static String INV_GROUP_ID="invGroupId";
@@ -63,7 +65,21 @@ public class InvKeys
 	public static String INV_SUB_GROUPS="invSubGroups";
 	public static String INV_GROUP="invGroup";
 	public static String INV_GROUPS="invGroups";
-	
+	public static String INV_AMOUNT_IN="invAmountIn";
+	public static String INV_AMOUNT_OUT="invAmountOut";
+	public static String INV_UNIT_PRICE_IN_FOREIGN_CURRENCY="invUnitPriceInFC";
+	public static String INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY="invTotalPriceInFC";
+	public static String INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY="invVatAmountinFC";
+	public static String INV_VAT_RATE="invVatRate";
+	public static String INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY="invVatSpecialAmountinFC";
+	public static String INV_VAT_SPECIAL_RATE="invVatSpecialRate";
+	public static String INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY="invVatSpecialUnitPriceInFC";
+	public static String INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY="invCumilativePriceInFC";
+	public static String INV_DISCOUNT_RATE="invDiscountRate";
+	public static String INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY="invDiscountAmountInFC";
+	public static String INV_TRANS_TYPE_ID="invTransTypeId";
+	public static String INV_IS_SPEC_VAT_FOR_EACH="invIsSpecVatForEach";
+	public static String INV_SPECIAL_VAT_FOR_EACH="invSpecialVatForEach";
 	
 	
 	

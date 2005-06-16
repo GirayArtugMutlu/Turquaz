@@ -21,7 +21,7 @@ package com.turquaz.engine.bl;
  */
 import java.util.HashMap;
 import java.util.List;
-import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.InvKeys;
@@ -76,7 +76,7 @@ public class EngBLInventoryCards
 		}
 	}
 
-	public static TurqInventoryCard getInvCard(String accountCode) throws Exception
+	public static HashMap getInvCard(String accountCode) throws Exception
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public class EngBLInventoryCards
 			throw ex;
 		}
 	}
-	public static TurqInventoryCard getInvFromCardName(String cardName) throws Exception
+	public static HashMap getInvFromCardName(String cardName) throws Exception
 	{
 		try
 		{
@@ -101,9 +101,9 @@ public class EngBLInventoryCards
 			}
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_NAME,cardName);
+			HashBag cardBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInventoryCardFromName",argMap);
 			
-			
-			return  (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInventoryCardFromName",argMap);
+			return  (HashMap)cardBag.get(InvKeys.INV_CARD);
 		}
 		catch (Exception ex)
 		{
@@ -111,13 +111,14 @@ public class EngBLInventoryCards
 		}
 	}
 
-	public TurqInventoryCard getCard(String invCode) throws Exception
+	public HashMap getCard(String invCode) throws Exception
 	{
 		try
 		{
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_CODE,invCode);
-			return (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInventoryCard",argMap);
+			HashBag cardBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInventoryCard",argMap);
+			return (HashMap)cardBag.get(InvKeys.INV_CARD);
 		}
 		catch (Exception ex)
 		{

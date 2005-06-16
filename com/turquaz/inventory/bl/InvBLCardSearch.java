@@ -19,14 +19,19 @@ package com.turquaz.inventory.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import net.sf.hibernate.Session;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryAccountingType;
 import com.turquaz.engine.dal.TurqInventoryCard;
+import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
 import com.turquaz.inventory.InvKeys;
@@ -148,12 +153,45 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static void initializeInventoryCard(HashMap argMap) throws Exception
+	public static HashBag initializeInventoryCard(HashMap argMap) throws Exception
 	{
 		try
 		{
-			TurqInventoryCard invCard = (TurqInventoryCard) argMap.get(InvKeys.INV_CARD);
-			InvDALCardSearch.initializeInventoryCard(invCard);
+			Integer cardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
+			
+			Session session=EngDALSessionFactory.getSession();
+			TurqInventoryCard invCard = (TurqInventoryCard)session.load(TurqInventoryCard.class,cardId);
+			
+			HashBag cardBag=new HashBag();
+			
+			cardBag.put(InvKeys.INV_CARD_ID, invCard.getId());
+			cardBag.put(InvKeys.INV_CARD_NAME, invCard.getCardName());
+			cardBag.put(InvKeys.INV_CARD_CODE, invCard.getCardInventoryCode());			
+			cardBag.put(InvKeys.INV_CARD_DEFINITION, invCard.getCardDefinition());			
+			cardBag.put(InvKeys.INV_IS_SPEC_VAT_FOR_EACH, new Boolean(invCard.isSpecVatForEach()));
+			cardBag.put(InvKeys.INV_VAT_RATE,new BigDecimal(invCard.getCardVat()));
+			cardBag.put(InvKeys.INV_VAT_SPECIAL_RATE, new BigDecimal(invCard.getCardSpecialVat()));
+			cardBag.put(InvKeys.INV_SPECIAL_VAT_FOR_EACH, invCard.getCardSpecialVatEach());
+			
+			
+			Iterator it=invCard.getTurqInventoryCardUnits().iterator();
+			cardBag.put(InvKeys.INV_CARD_UNITS, new HashMap());
+			int row=0;
+			while (it.hasNext())
+			{
+				TurqInventoryCardUnit cardUnit=(TurqInventoryCardUnit)it.next();
+				
+				cardBag.put(InvKeys.INV_CARD_UNITS,row,InvKeys.INV_CARD_UNIT_ID,cardUnit.getId());
+				cardBag.put(InvKeys.INV_CARD_UNITS,row,InvKeys.INV_CARD_UNIT_FACTOR,cardUnit.getCardUnitsFactor());
+				
+				HashMap unitMap=new HashMap();
+				unitMap.put(InvKeys.INV_UNIT_ID,cardUnit.getTurqInventoryUnit().getId());
+				unitMap.put(InvKeys.INV_UNIT_NAME,cardUnit.getTurqInventoryUnit().getUnitsName());
+			
+				cardBag.put(InvKeys.INV_CARD_UNITS,row,InvKeys.INV_UNIT,unitMap);
+			}			
+			
+			return cardBag;
 		}
 		catch (Exception ex)
 		{
@@ -186,12 +224,23 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static TurqInventoryCard getInventoryCard(HashMap argMap) throws Exception
+	public static HashBag getInventoryCard(HashMap argMap) throws Exception
 	{
 		try
 		{
 			String invCode = (String) argMap.get(InvKeys.INV_CARD_CODE);
-			return InvDALCardSearch.getInventoryCard(invCode);
+			TurqInventoryCard invCard=InvDALCardSearch.getInventoryCard(invCode);
+			HashBag cardBag=new HashBag();
+			HashMap cardMap=new HashMap();
+			
+			cardMap.put(InvKeys.INV_CARD_ID,invCard.getId());
+			cardMap.put(InvKeys.INV_CARD_NAME,invCard.getCardName());
+			cardMap.put(InvKeys.INV_CARD_CODE,invCard.getCardInventoryCode());
+			cardMap.put(InvKeys.INV_CARD_DEFINITION,invCard.getCardDefinition());
+			cardMap.put(InvKeys.INV_IS_SPEC_VAT_FOR_EACH,new Boolean(invCard.isSpecVatForEach()));
+			
+			cardBag.put(InvKeys.INV_CARD,cardMap);
+			return cardBag;
 		}
 		catch (Exception ex)
 		{
@@ -199,12 +248,26 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static TurqInventoryCard getInventoryCardFromName(HashMap argMap) throws Exception
+	public static HashBag getInventoryCardFromName(HashMap argMap) throws Exception
 	{
 		try
 		{
 			String invCode = (String) argMap.get(InvKeys.INV_CARD_NAME);
-			return InvDALCardSearch.getInventoryCardFromName(invCode);
+			TurqInventoryCard invCard=InvDALCardSearch.getInventoryCardFromName(invCode);
+			
+			HashBag cardBag=new HashBag();
+			HashMap cardMap=new HashMap();
+			
+			cardMap.put(InvKeys.INV_CARD_ID,invCard.getId());
+			cardMap.put(InvKeys.INV_CARD_NAME,invCard.getCardName());
+			cardMap.put(InvKeys.INV_CARD_CODE,invCard.getCardInventoryCode());
+			cardMap.put(InvKeys.INV_CARD_DEFINITION,invCard.getCardDefinition());
+			cardMap.put(InvKeys.INV_IS_SPEC_VAT_FOR_EACH,new Boolean(invCard.isSpecVatForEach()));
+			
+			cardBag.put(InvKeys.INV_CARD,cardMap);
+			return cardBag;
+			
+			
 		}
 		catch (Exception ex)
 		{
