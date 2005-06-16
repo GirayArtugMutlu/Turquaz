@@ -15,8 +15,8 @@ import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -195,7 +195,7 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(EngKeys.OBJECT,row.getDBObject());
-					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"update",argMap);
+					EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"update",argMap);
 				}
 				catch (Exception ex)
 				{

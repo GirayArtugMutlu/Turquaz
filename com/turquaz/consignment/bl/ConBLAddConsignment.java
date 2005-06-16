@@ -23,6 +23,7 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignment;
@@ -75,7 +76,7 @@ public class ConBLAddConsignment
 			consignment.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			consignment.setLastModified(cal.getTime());
 			consignment.setCreationDate(cal.getTime());
-			TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_CONSIGNMENT);
+			TurqEngineSequence engSeq = EngBLServer.saveEngineSequence(EngBLCommon.MODULE_CONSIGNMENT);
 			consignment.setTurqEngineSequence(engSeq);
 			consignment.setConsignmentDocumentNo(docNo);
 			consignment.setTurqCurrencyExchangeRate(exchangeRate);

@@ -40,8 +40,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -304,7 +304,7 @@ public class InvUIUnitAddDialog extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_UNIT,txtUnitName.getData());
 				//XXX check if there exist a transaction with this unit!!
-				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
+				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnUnitAdd.setEnabled(true);

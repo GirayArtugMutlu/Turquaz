@@ -3,6 +3,7 @@ package com.turquaz.engine.bl;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.turquaz.engine.EngModulePrefs;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -103,6 +104,41 @@ public class EngBLClient {
 			}
 					return baseCurrencyExchangeRate;
 		
+	}
+
+	public static Integer getBillCheckStatus()
+	{
+		String checkBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
+		if (checkBill != null)
+		{
+			boolean check=new Boolean(checkBill).booleanValue();
+			if (check)
+			{
+				boolean checkBuy=false;
+				boolean checkSell=false;
+				String checkBuyBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
+				if (checkBuyBill != null)
+				{
+					checkBuy=new Boolean(checkBuyBill).booleanValue();
+				}		
+				String checkSellBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
+				if (checkSellBill != null)
+				{
+					checkSell=new Boolean(checkSellBill).booleanValue();
+				}
+				int result=0;
+				if (checkBuy)
+				{
+					result |= EngBLCommon.CHECK_BUY_BILL;
+				}
+				if (checkSell)
+				{
+					result |= EngBLCommon.CHECK_SELL_BILL;
+				}
+				return new Integer(result);
+			}	
+		}
+		return new Integer(0);	
 	}
 
 }

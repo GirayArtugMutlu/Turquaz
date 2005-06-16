@@ -14,6 +14,7 @@ import java.util.List;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -48,7 +49,7 @@ public class InvBLSaveTransaction
 		invTrans.setTurqInventoryCard(invCard);
 		invTrans.setTurqInventoryWarehous(warehous);
 		invTrans.setTurqInventoryUnit(invUnit);
-		TurqEngineSequence seq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_INVENTORY);
+		TurqEngineSequence seq = EngBLServer.saveEngineSequence(EngBLCommon.MODULE_INVENTORY);
 		invTrans.setTurqEngineSequence(seq);
 		invTrans.setTransactionsDate(transDate);
 		invTrans.setDefinition(definition);

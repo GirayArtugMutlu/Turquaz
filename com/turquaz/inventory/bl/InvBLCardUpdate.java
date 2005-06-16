@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
@@ -268,7 +267,7 @@ public class InvBLCardUpdate
 			Calendar cal=Calendar.getInstance();
 			invUnit.setLastModified(cal.getTime());
 			invUnit.setUnitsName(invUnitName);
-			EngBLCommon.update(invUnit);
+			EngDALCommon.updateObject(invUnit);
 		}
 		catch (Exception ex)
 		{

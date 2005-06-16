@@ -21,6 +21,7 @@ import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -76,7 +77,7 @@ public class BillBLAddBill
 
         registerBill(bill, billDocNo, definition, isPrinted.booleanValue(), billsDate, type.intValue(), dueDate, currentCard, exchangeRate,
                 billCheck, isOpen.booleanValue());
-        TurqEngineSequence engSeq = EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL);
+        TurqEngineSequence engSeq = EngBLServer.saveEngineSequence(EngBLCommon.MODULE_BILL);
         TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
         billInEng.setTurqEngineSequence(engSeq);
         billInEng.setTurqBill(bill);
@@ -196,7 +197,7 @@ public class BillBLAddBill
             bill.setBillDocumentNo(docNo);
             bill.setTurqCurrentCard(curCard);
             bill.setTurqCurrencyExchangeRate(exchangeRate);
-            bill.setTurqEngineSequence(EngBLCommon.saveEngineSequence(EngBLCommon.MODULE_BILL));
+            bill.setTurqEngineSequence(EngBLServer.saveEngineSequence(EngBLCommon.MODULE_BILL));
             EngDALCommon.saveObject(bill);
             return bill;
         } catch (Exception ex)

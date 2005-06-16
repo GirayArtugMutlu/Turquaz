@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.common.HashBag;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqGroup;
@@ -81,7 +80,7 @@ public class AdmBLUsers
             TurqGroup group = new TurqGroup ();
             group.setId(groupId);
 			deleteGroupPermissions(group);
-			EngBLCommon.delete(group);
+			EngDALCommon.deleteObject(group);
 		}
 		catch(Exception ex)
 		{
@@ -100,7 +99,7 @@ public class AdmBLUsers
             EngDALSessionFactory.getSession().refresh(user);            
 			deleteUserGroups(user);
 			deleteUserPermissions(user);
-			EngBLCommon.delete(user);
+			EngDALCommon.deleteObject(user);
 		}
 		catch(Exception ex)
 		{
@@ -114,7 +113,7 @@ public class AdmBLUsers
 		Iterator it=user.getTurqGroupPermissions().iterator();
 		while (it.hasNext())
 		{
-			EngBLCommon.delete(it.next());
+			EngDALCommon.deleteObject(it.next());
 		}
 	}
 	private static void deleteUserPermissions(TurqUser user)throws Exception
@@ -122,7 +121,7 @@ public class AdmBLUsers
 		Iterator it=user.getTurqUserPermissions().iterator();
 		while (it.hasNext())
 		{
-			EngBLCommon.delete(it.next());
+			EngDALCommon.deleteObject(it.next());
 		}
 	}
 	
@@ -131,7 +130,7 @@ public class AdmBLUsers
 		Iterator it=user.getTurqUserGroups().iterator();
 		while (it.hasNext())
 		{
-			EngBLCommon.delete(it.next());
+			EngDALCommon.deleteObject(it.next());
 		}
 	}
 }

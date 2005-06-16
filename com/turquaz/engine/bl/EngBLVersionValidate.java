@@ -25,7 +25,7 @@ public class EngBLVersionValidate
 {
 	public static Boolean checkVersion() throws Exception
 	{
-		TurqSetting setting=EngBLCommon.getTurqSetting();
+		TurqSetting setting=EngBLServer.getTurqSetting();
 		if (setting.getDatabaseVersion().equals(EngBLCommon.DATABASE_VERSION))				
 			return new Boolean(true);
 		else 
@@ -49,7 +49,7 @@ public class EngBLVersionValidate
 	
 	public static void updateVersion() throws Exception
 	{
-		TurqSetting setting = EngBLCommon.getTurqSetting();
+		TurqSetting setting = EngBLServer.getTurqSetting();
 		String DBVersion=setting.getDatabaseVersion();
 		if (!DBVersion.equals(EngBLCommon.DATABASE_VERSION))
 		{

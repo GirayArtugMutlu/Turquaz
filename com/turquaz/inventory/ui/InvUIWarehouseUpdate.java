@@ -25,9 +25,9 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -269,7 +269,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 					EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_WAREHOUSE_HAS_TRANSACTION,SWT.ICON_WARNING);
 					return;
 				}
-				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap);
+				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				this.dialogShell.dispose();
 			}

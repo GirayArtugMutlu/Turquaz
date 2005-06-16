@@ -29,7 +29,6 @@ import com.turquaz.bank.dal.BankDALBankCardUpdate;
 import com.turquaz.bank.dal.BankDALCommon;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLBankCards;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.dal.TurqCurrency;
@@ -129,7 +128,7 @@ public class BankBLBankCardUpdate
 			Iterator it = bankCard.getTurqBankAccountingAccounts().iterator();
 			while (it.hasNext())
 			{
-				EngBLCommon.delete(it.next());
+				EngDALCommon.deleteObject(it.next());
 			}
 			BankDALBankCardUpdate.deleteInitialTransaction(bankCard);
 			EngDALCommon.deleteObject(bankCard);

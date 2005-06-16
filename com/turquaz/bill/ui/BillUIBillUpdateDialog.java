@@ -331,7 +331,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
 				argMap.put(BillKeys.BILL_GROUPS,compAddBill.getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,compAddBill.getInventoryTransactions());	
-				argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
+				argMap.put(BillKeys.BILL_CHECK,EngBLClient.getBillCheckStatus());
 				argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!compAddBill.getBtnClosedBill().getSelection()));
                 argMap.put(CashKeys.CASH_CARD,compAddBill.getCashPicker().getData());
                 

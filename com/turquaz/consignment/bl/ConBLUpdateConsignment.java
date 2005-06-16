@@ -27,7 +27,6 @@ import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
@@ -95,7 +94,7 @@ public class ConBLUpdateConsignment
 				Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 				while (it.hasNext())
 				{
-					EngBLCommon.delete(it.next());
+					EngDALCommon.deleteObject(it.next());
 				}
 				if (groups != null)
 				{
@@ -213,15 +212,15 @@ public class ConBLUpdateConsignment
 			Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
 			while (it.hasNext())
 			{
-				EngBLCommon.delete(it.next());
+				EngDALCommon.deleteObject(it.next());
 			}
 			//			delete Inventory Transaction
 			it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
 			while (it.hasNext())
 			{
-				EngBLCommon.delete(it.next());
+				EngDALCommon.deleteObject(it.next());
 			}
-			EngBLCommon.delete(consignment);
+			EngDALCommon.deleteObject(consignment);
 			return new Integer(1);
 		}
 		catch (Exception ex)

@@ -34,9 +34,8 @@ import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
-
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -235,7 +234,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 			{ 
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
-				EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"delete",argMap); //$NON-NLS-1$
+				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap); //$NON-NLS-1$
 				EngUICommon.showDeletedSuccesfullyMessage(getShell());
 				search();
 

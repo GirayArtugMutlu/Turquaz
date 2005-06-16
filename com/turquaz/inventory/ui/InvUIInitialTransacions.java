@@ -33,8 +33,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -216,7 +216,7 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_TRANS,row.getDBObject());
-					EngTXCommon.doTransactionTX(EngBLCommon.class.getName(),"update",argMap);
+					EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"update",argMap);
 				}
 				catch (Exception ex)
 				{

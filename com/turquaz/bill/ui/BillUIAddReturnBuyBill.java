@@ -1002,19 +1002,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
                 comboCurrencyType.setFocus();
                 return false;
             }
-            if (baseCurrency.getId().intValue() != exchangeCurrency.getId().intValue())
-            {
-                exchangeRate = EngBLCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, dateConsignmentDate.getDate());
-                if (exchangeRate == null)
-                {
-                    EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_DEFINE_DAILY_EXCHANGE_RATE,SWT.ICON_WARNING);
-                    return false;
-                }
-            }
-            else
-            {
-                exchangeRate = EngBLClient.getBaseCurrencyExchangeRate();
-            }
+           
             return true;
         }
         catch (Exception ex)
@@ -1106,7 +1094,7 @@ public class BillUIAddReturnBuyBill extends Composite implements SecureComposite
                 argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(EngConfiguration.automaticDispatcNote()));
                 argMap.put(ConsKeys.CONS_DOC_NO,txtConsignmentDocumentNo.getText());
                 argMap.put(ConsKeys.CONS_DATE,datePickerConsDate.getDate());
-                argMap.put(BillKeys.BILL_CHECK,EngBLCommon.getBillCheckStatus());
+                argMap.put(BillKeys.BILL_CHECK,EngBLClient.getBillCheckStatus());
                 argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!btnClosedBill.getSelection()));
                
                 argMap.put(CashKeys.CASH_CARD_ID,cashPicher.getCashCardId());

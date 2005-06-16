@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.common.HashBag;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.EngDALUserPerms;
@@ -134,7 +133,7 @@ public class AdmBLUserPermissions
             
             EngDALSessionFactory.getSession().refresh(perm);
                         
-            EngBLCommon.delete(perm);            
+            EngDALCommon.deleteObject(perm);            
         }
         catch (Exception ex)
         {

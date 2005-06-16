@@ -20,27 +20,15 @@ package com.turquaz.engine.bl;
  * @version $Id$
  */
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.bill.dal.BillDALSearchBill;
-import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.EngModulePrefs;
-import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
-import com.turquaz.engine.dal.TurqEngineSequence;
-import com.turquaz.engine.dal.TurqModule;
-import com.turquaz.engine.dal.TurqSetting;
 import com.turquaz.inventory.dal.InvDALCardSearch;
 
 public class EngBLCommon
@@ -262,38 +250,10 @@ public class EngBLCommon
     
 	public final static int TABLE_ROW_COUNT = 10;
 	public final static int ROUNDING_METHOD = BigDecimal.ROUND_HALF_UP;
-
-	public static TurqCurrencyExchangeRate getCurrencyExchangeRate(TurqCurrency baseCurrency, TurqCurrency exchangeCurrency,
-			Date exhangeDate) throws Exception
-	{
-		try
-		{
-			return EngDALCommon.getCurrencyExchangeRate(baseCurrency, exchangeCurrency, exhangeDate);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
 	
 	
 	
-	public static Integer getBill(HashMap argMap) throws Exception
-	{
-		TurqEngineSequence seq = (TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
-		return EngDALCommon.getBill(seq);
-	}
-	
-	public static TurqEngineSequence saveEngineSequence(int moduleId) throws Exception
-	{
-		TurqEngineSequence seq = new TurqEngineSequence();
-		TurqModule module = new TurqModule();
-		module.setId(new Integer(moduleId));
-		seq.setTurqModule(module);
-		EngDALCommon.saveObject(seq);
-		return seq;
-	}
-
+	/*
 	public static void insertBillInEngineSeq() throws Exception
 	{
 		try
@@ -322,121 +282,8 @@ public class EngBLCommon
 			throw ex;
 		}
 	}
+	*/
 	
-	public static TurqSetting getTurqSetting()throws Exception
-	{
-		return EngDALCommon.getTurqSetting();
-	}
-
-	public static Boolean checkUserPass(HashMap argMap) throws Exception
-	{
-		
-		String user = (String)argMap.get(EngKeys.USER);
-		String pass = (String)argMap.get(EngKeys.PASSWORD);
-		
-		return new Boolean(EngDALCommon.checkUserPass(user, pass));
-		
-	}
-	
-	public static Integer getBillCheckStatus()
-	{
-		String checkBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BILL_NO);
-		if (checkBill != null)
-		{
-			boolean check=new Boolean(checkBill).booleanValue();
-			if (check)
-			{
-				boolean checkBuy=false;
-				boolean checkSell=false;
-				String checkBuyBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_BUY_BILL);
-				if (checkBuyBill != null)
-				{
-					checkBuy=new Boolean(checkBuyBill).booleanValue();
-				}		
-				String checkSellBill=EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_SELL_BILL);
-				if (checkSellBill != null)
-				{
-					checkSell=new Boolean(checkSellBill).booleanValue();
-				}
-				int result=0;
-				if (checkBuy)
-				{
-					result |= EngBLCommon.CHECK_BUY_BILL;
-				}
-				if (checkSell)
-				{
-					result |= EngBLCommon.CHECK_SELL_BILL;
-				}
-				return new Integer(result);
-			}	
-		}
-		return new Integer(0);	
-	}
-
-	public static void delete(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.deleteObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-	
-	public static void delete(HashMap argMap) throws Exception
-	{
-		try
-		{
-			Iterator it=argMap.values().iterator();
-			while(it.hasNext())
-				EngBLCommon.delete(it.next());
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-	
-	public static void save(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.saveObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-	
-	public static void update(Object obj) throws Exception
-	{
-		try
-		{
-			EngDALCommon.updateObject(obj);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-	
-	public static void update(HashMap argMap) throws Exception
-	{
-		try
-		{
-			Iterator it=argMap.values().iterator();
-			while(it.hasNext())
-				update(it.next());
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
 	public static void updateAllBillAccountingTransactions()
 	{
 		try
@@ -461,6 +308,7 @@ public class EngBLCommon
 		}
 	}
 
+	
 	public static void exportCurrentCardAccs() throws Exception
 	{
 		Transaction tx = null;
