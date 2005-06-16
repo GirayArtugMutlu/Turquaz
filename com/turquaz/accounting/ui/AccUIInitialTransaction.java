@@ -446,7 +446,7 @@ public class AccUIInitialTransaction extends Composite implements SecureComposit
 				argMap.put(AccKeys.ACC_DOCUMENT_NO,txtDocumentNo.getText().trim());
 				argMap.put(AccKeys.ACC_TRANS_DATE, dateTransactionDate.getDate());
 				argMap.put(AccKeys.ACC_DEFINITION,	txtTransDefinition.getText().trim());
-				argMap.put(EngKeys.EXCHANGE_RATE_ID,EngBLClient.getBaseCurrencyExchangeRate().getId());
+				argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 				argMap.put(AccKeys.ACC_TRANSACTIONS,getTransactionColumns());
 				
 				EngTXCommon.doTransactionTX(AccBLTransactionUpdate.class.getName(),"updateTransaction",argMap);

@@ -337,7 +337,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			argMap.put(ConsKeys.CONS_DATE,compAddConsignment.getDateConsignmentDate().getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			argMap.put(CurKeys.CUR_CARD_ID,compAddConsignment.getTxtCurrentCard().getCardId());
-			argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
+			argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 			argMap.put(ConsKeys.CONS_GROUPS,compAddConsignment.getConsignmentGroups());
 			argMap.put(InvKeys.INV_TRANSACTIONS,compAddConsignment.getInventoryTransactions(type));
 			argMap.put(ConsKeys.CONS_UPDATE_BILLS,new Boolean(willUpdateBill));

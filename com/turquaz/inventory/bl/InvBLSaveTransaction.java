@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -77,7 +76,7 @@ public class InvBLSaveTransaction
 		invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 		invTrans.setLastModified(cal.getTime());
 		invTrans.setCreationDate(cal.getTime());
-		invTrans.setTurqCurrencyExchangeRate(EngBLClient.getBaseCurrencyExchangeRate());
+		invTrans.setTurqCurrencyExchangeRate(EngDALCommon.getBaseCurrencyExchangeRate());
 		TurqCurrentCard curCard = new TurqCurrentCard();
 		curCard.setId(new Integer(-1));
 		invTrans.setTurqCurrentCard(curCard);

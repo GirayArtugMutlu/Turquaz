@@ -46,8 +46,7 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 
 public class CurBLCurrentCardUpdate
 {
-	
-	
+		
 	public static HashBag getCurrentcardInfo(HashMap argMap)throws Exception
 	{
 		Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);

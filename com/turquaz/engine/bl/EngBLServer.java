@@ -40,6 +40,15 @@ public class EngBLServer {
 		}
 	}
 
+	public static HashBag getBaseCurrency()throws Exception
+	{
+		
+		TurqCurrency currency = EngDALCommon.getBaseCurrency();
+		HashBag curBag = new HashBag();
+		curBag.put(EngKeys.CURRENCY_ID,currency.getId());
+		return curBag;
+		
+	}
 	public static TurqEngineSequence saveEngineSequence(int moduleId) throws Exception
 	{
 		TurqEngineSequence seq = new TurqEngineSequence();

@@ -706,7 +706,7 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				argMap.put(BillKeys.BILL_DUE_DATE,dateDueDate.getDate());
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 				argMap.put(BillKeys.BILL_CHECK,EngBLClient.getBillCheckStatus());
 				

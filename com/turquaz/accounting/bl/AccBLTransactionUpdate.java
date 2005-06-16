@@ -53,6 +53,7 @@ public class AccBLTransactionUpdate
 			List transColumns = (List) argMap.get(AccKeys.ACC_TRANSACTIONS);
 		
 			Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+			
 			TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 			if (exchangeRate == null)
 			{

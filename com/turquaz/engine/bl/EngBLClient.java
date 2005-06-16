@@ -3,18 +3,16 @@ package com.turquaz.engine.bl;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.EngModulePrefs;
-import com.turquaz.engine.dal.EngDALCommon;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 
 public class EngBLClient {
 
-	private static TurqCurrency baseCurrency = null;
-	private static TurqCurrencyExchangeRate baseCurrencyExchangeRate = null;
-
+	public static Integer baseCurrencyId;
+	
 	public static Map getChequeStatusMapWithStringKey()
 	{
 		Map map = new HashMap();
@@ -55,32 +53,18 @@ public class EngBLClient {
 		return map;
 	}
 
-	public static TurqCurrency getBaseCurrency()
-	{
-		try
-		{
-			if (baseCurrency == null)
-			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
-			}
-				return baseCurrency;
-		}
-		catch (Exception ex)
-		{
-	        EngBLLogger.log(EngBLCommon.class,ex);
-			return null;
-		}
-	}
-
+	
 	public static Integer getBaseCurrencyId()
 	{
 		try
 		{
-			if (baseCurrency == null)
+			if (baseCurrencyId == null)
 			{
-				baseCurrency = (TurqCurrency)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
+				HashBag bag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getBaseCurrency",null); //$NON-NLS-1$
+				baseCurrencyId = (Integer)bag.get(EngKeys.CURRENCY_ID);
+			
 			}
-				return baseCurrency.getId();
+				return baseCurrencyId;
 		}
 		catch (Exception ex)
 		{
@@ -89,22 +73,7 @@ public class EngBLClient {
 		}
 	}
 
-	public static TurqCurrencyExchangeRate getBaseCurrencyExchangeRate() 
-	{
-		
-			if (baseCurrencyExchangeRate == null){
-				try
-				{
-					baseCurrencyExchangeRate = (TurqCurrencyExchangeRate)EngTXCommon.doSelectTX(EngDALCommon.class.getName(),"getBaseCurrencyExchangeRate",null); //$NON-NLS-1$
-				}
-				catch (Exception ex)
-				{
-	                EngBLLogger.log(EngBLCommon.class,ex);
-				}
-			}
-					return baseCurrencyExchangeRate;
-		
-	}
+	
 
 	public static Integer getBillCheckStatus()
 	{

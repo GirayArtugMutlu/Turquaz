@@ -990,7 +990,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
 				argMap.put(BillKeys.BILL_DOC_NO,txtDocumentNo.getText().trim());
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
+				argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
 				

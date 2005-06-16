@@ -2,7 +2,6 @@ package com.turquaz.admin.ui;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -13,11 +12,10 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.admin.bl.AdmBLCurrencyExchangeRateAdd;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AdmLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -163,7 +161,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 
 	public void PostInit()
 	{
-		txtBaseCurrency.setText(EngBLClient.getBaseCurrency().getCurrenciesAbbreviation());
+		
 		fillCurrencyCombo();
 	}
 
@@ -171,16 +169,22 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				if (!currency.isDefaultCurrency())
-				{
-					comboExchangeCurrency.add(currency.getCurrenciesAbbreviation());
-					comboExchangeCurrency.setData(currency.getCurrenciesAbbreviation(), currency);
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboExchangeCurrency.add(abbr);
+					comboExchangeCurrency.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboExchangeCurrency.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
 				}
-			}
 		}
 		catch (Exception ex)
 		{
@@ -225,7 +229,7 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 			{
 				HashMap argMap=new HashMap();
 				
-				argMap.put(EngKeys.EXCHANGE_CURRENCY,comboExchangeCurrency.getData(comboExchangeCurrency.getText()));
+				argMap.put(EngKeys.CURRENCY_ID,comboExchangeCurrency.getData(comboExchangeCurrency.getText()));
 				argMap.put(EngKeys.EXCHANGE_RATIO,txtExchangeRatio.getBigDecimalValue());
 				argMap.put(EngKeys.EXCHANGE_DATE,dateExchangeDate.getDate());
 				

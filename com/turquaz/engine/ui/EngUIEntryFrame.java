@@ -41,11 +41,10 @@ import org.eclipse.swt.widgets.Text;
 import com.turquaz.engine.EngConfiguration;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLClient;
-import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.bl.EngBLVersionValidate;
 import com.turquaz.engine.dal.DatabaseThread;
-import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.wizards.EngUIDatabaseConnectionWizard;
@@ -397,7 +396,7 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			argMap.put(EngKeys.USER,txtUserName.getText());
 			argMap.put(EngKeys.PASSWORD,txtPassword.getText());
 			
-			Boolean result = (Boolean)EngTXCommon.doSelectTX(EngBLCommon.class.getName(),"checkUserPass",argMap); //$NON-NLS-1$
+			Boolean result = (Boolean)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"checkUserPass",argMap); //$NON-NLS-1$
 			if (result.booleanValue())
 			{
 				showMainFrame();
@@ -455,9 +454,9 @@ public class EngUIEntryFrame extends org.eclipse.swt.widgets.Composite
 			comboLanguage.setData("T\u00FCrk\u00E7e", new Integer(1)); //$NON-NLS-1$
 			comboLanguage.setData("English", new Integer(2)); //$NON-NLS-1$
 			comboLanguage.setText("T\u00FCrk\u00E7e"); //$NON-NLS-1$
-			EngDALSessionFactory.init();
-			EngBLClient.getBaseCurrency();
-			EngBLClient.getBaseCurrencyExchangeRate();
+		
+			EngBLClient.getBaseCurrencyId();
+			
             //checkRememberPassword.setVisible(false);
             
 		}

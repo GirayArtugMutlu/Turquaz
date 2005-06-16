@@ -59,6 +59,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.engine.bl.EngBLClient;
@@ -67,8 +68,6 @@ import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillGroup;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
@@ -262,9 +261,6 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	private CurrentPicker txtCurrentCard;
 	private CLabel lblCurrentCard;
 	ConBLAddConsignment blAddConsignment = new ConBLAddConsignment();
-	private TurqCurrency baseCurrency = EngBLClient.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
-	private TurqCurrency exchangeCurrency = null;
 	//	 Set the table column property names
 	private final String INVENTORY_CODE = InvLangKeys.STR_INV_CODE;
 	private final String INVENTORY_NAME = InvLangKeys.STR_INV_NAME;
@@ -816,18 +812,22 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 	{
 		try
 		{
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrencyType.add(currency.getCurrenciesAbbreviation());
-				comboCurrencyType.setData(currency.getCurrenciesAbbreviation(), currency);
-				if (currency.isDefaultCurrency())
-				{
-					comboCurrencyType.setText(currency.getCurrenciesAbbreviation());
-					baseCurrency = currency;
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboCurrencyType.add(abbr);
+					comboCurrencyType.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboCurrencyType.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
 				}
-			}
 		}
 		catch (Exception ex)
 		{
@@ -994,7 +994,7 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				return false;
 			}
 			
-			if ((exchangeCurrency = (TurqCurrency) comboCurrencyType.getData(comboCurrencyType.getText())) == null)
+			if (comboCurrencyType.getData(comboCurrencyType.getText()) == null)
 			{
 				EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_SELECT_CURRENCY,SWT.ICON_WARNING);
 				comboCurrencyType.setFocus();
@@ -1086,7 +1086,9 @@ public class BillUIAddBuyBill extends Composite implements SecureComposite
 				argMap.put(BillKeys.BILL_DISCOUNT_AMOUNT,txtDiscountAmount.getBigDecimalValue());
 				argMap.put(BillKeys.BILL_DOC_NO,txtDocumentNo.getText().trim());
 				argMap.put(BillKeys.BILL_TOTAL_AMOUNT,txtTotalAmount.getBigDecimalValue());
-				argMap.put(EngKeys.EXCHANGE_RATE,EngBLClient.getBaseCurrencyExchangeRate());
+				
+				argMap.put(EngKeys.CURRENCY_ID,comboCurrencyType.getData(comboCurrencyType.getText().trim()));
+				
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
 				argMap.put(BillKeys.BILL_SAVE_CONS,new Boolean(EngConfiguration.automaticDispatcNote()));

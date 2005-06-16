@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.admin.dal.AdmDALCurrencyExchangeRateAdd;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
@@ -25,14 +24,19 @@ public class AdmBLCurrencyExchangeRateAdd
 	public static void saveExchangeRate(HashMap argMap) throws Exception
 	{
 		
-		TurqCurrency exchangeCurrency=(TurqCurrency)argMap.get(EngKeys.EXCHANGE_CURRENCY);
+		
+		Integer currencyId =(Integer)argMap.get(EngKeys.CURRENCY_ID);
+		TurqCurrency exchangeCurrency=new TurqCurrency();
+		exchangeCurrency.setId(currencyId);
+		
+		
 		BigDecimal exchangeRatio=(BigDecimal)argMap.get(EngKeys.EXCHANGE_RATIO);
 		Date exchangeDate=(Date)argMap.get(EngKeys.EXCHANGE_DATE);
 		
 		TurqCurrencyExchangeRate newExchangeRate = new TurqCurrencyExchangeRate();
 		newExchangeRate.setExchangeRatio(exchangeRatio);
 		newExchangeRate.setTurqCurrencyByExchangeCurrencyId(exchangeCurrency);
-		newExchangeRate.setTurqCurrencyByBaseCurrencyId(EngBLClient.getBaseCurrency());
+		newExchangeRate.setTurqCurrencyByBaseCurrencyId(EngDALCommon.getBaseCurrency());
 		newExchangeRate.setExhangeRatesDate(exchangeDate);
 		EngDALCommon.saveObject(newExchangeRate);
 	}

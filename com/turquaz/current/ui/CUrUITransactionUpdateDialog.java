@@ -39,11 +39,8 @@ import com.turquaz.current.bl.CurBLSearchTransaction;
 import com.turquaz.current.bl.CurBLTransactionUpdate;
 import com.turquaz.current.ui.CurUITransactionAdd;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentTransaction;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -71,9 +68,6 @@ public class CUrUITransactionUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private Shell dialogShell;
 	TurqCurrentTransaction transaction;
 	private ToolItem toolCancel;
-	private TurqCurrency baseCurrency = EngBLClient.getBaseCurrency();
-	private TurqCurrencyExchangeRate exchangeRate = null;
-	private TurqCurrency exchangeCurrency = null;
 
 	public CUrUITransactionUpdateDialog(Shell parent, int style, TurqCurrentTransaction trans)
 	{
