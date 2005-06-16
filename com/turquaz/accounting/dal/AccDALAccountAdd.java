@@ -111,7 +111,8 @@ public class AccDALAccountAdd
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select account from TurqAccountingAccount as account " + "where account.id<> -1" +
+			String query = "Select account.id, account.accountName, account.accountCode," +
+					" account.turqAccountingAccountByParentAccount.id from TurqAccountingAccount as account " + "where account.id<> -1" +
 			//" and account.turqAccountingAccountsByParentAccount.accountingAccountsId=-1" +
 					" order by account.accountCode";
 			Query q = session.createQuery(query);

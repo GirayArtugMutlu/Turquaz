@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLAccountAdd;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
 public class EngBLAccountingAccounts
@@ -52,14 +54,16 @@ public class EngBLAccountingAccounts
 
 	public void fillAccountList() throws Exception
 	{
-		try
-		{
+		
 			
-			accountList = AccBLAccountAdd.getAllAccounts();
-			leafAccounts =AccBLAccountAdd.getLeafAccounts();
-			normalAccounts = AccBLAccountAdd.getAllAccountsExceptRoot();
+			HashBag resultBag =(HashBag)EngTXCommon.doSelectTX(AccBLAccountAdd.class.getName(),"getAccountingAccountLists",null);
 			
-			cashAccountList =AccBLAccountAdd.getCashAccounts();
+			accountList = (List)resultBag.get(AccKeys.ACC_ALL_ACCOUNTS);
+			leafAccounts =(List)resultBag.get(AccKeys.ACC_LEAF_ACCOUNTS);
+			normalAccounts = (List)resultBag.get(AccKeys.ACC_NORMAL_ACCOUNTS);
+			cashAccountList =(List)resultBag.get(AccKeys.ACC_CASH_ACCOUNTS);
+						
+			
 			accountMap.clear();
 			
 			for (int i = 0; i < accountList.size(); i++)
@@ -72,11 +76,7 @@ public class EngBLAccountingAccounts
 				HashMap accountInfo = (HashMap)leafAccounts.get(k);
 				leafAccountMap.put(accountInfo.get(AccKeys.ACC_ACCOUNT_CODE), accountInfo);
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	/**

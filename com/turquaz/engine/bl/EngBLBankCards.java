@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.common.HashBag;
-import com.turquaz.engine.dal.TurqBanksCard;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 
@@ -14,7 +13,6 @@ public class EngBLBankCards
 	public HashMap bankCardList;
 	public HashMap cardMap = new HashMap();
 	static EngBLBankCards _instance;
-	BankBLBankCardSearch blCardSearch = new BankBLBankCardSearch();
 
 	public EngBLBankCards() throws Exception
 	{
@@ -35,7 +33,7 @@ public class EngBLBankCards
 			HashBag bankBag =(HashBag)EngTXCommon.doSelectTX(BankBLBankCardSearch.class.getName(),"getBankCards",null);
 			bankCardList =(HashMap)bankBag.get(BankKeys.BANK_CARDS);
 			cardMap.clear();
-			TurqBanksCard cashCard;
+			
 			for (int i = 0; i < bankCardList.size(); i++)
 			{
 
