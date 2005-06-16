@@ -131,6 +131,7 @@ public class CashDALCashCard
 
 	public static TurqCashTransaction initiliazeCashTrans(Integer id) throws Exception
 	{
+
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();

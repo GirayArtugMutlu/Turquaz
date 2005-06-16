@@ -152,18 +152,17 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog
 		compTransAdd.getDatePicker().setDate((Date)cashBag.get(EngKeys.DATE));
 		compTransAdd.getTxtDefinition().setText(cashBag.get(EngKeys.DEFINITION).toString());
         
-
+        compTransAdd.getTxtCashCardWithCredit().setText(cashBag.get(CashKeys.CASH_CARD_WITH_DEPT).toString());
+        compTransAdd.getTxtCashCardWithDept().setText(cashBag.get(CashKeys.CASH_CARD_WITH_CREDIT).toString());
+        
             if (((BigDecimal)cashBag.get(CashKeys.CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT)).compareTo(new BigDecimal(0)) == 1)
 			{
 				compTransAdd.getCurTextTotalAmount().setText(((BigDecimal)cashBag.get(CashKeys.CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT)));
-				compTransAdd.getTxtCashCardWithCredit().setText(cashBag.get(CashKeys.CASH_CARD_WITH_DEPT).toString());
 			}
 			else
 			{
 				compTransAdd.getCurTextTotalAmount().setText(((BigDecimal)cashBag.get(CashKeys.CASH_TRANS_ROW_FOREIGN_CREDIT_AMOUNT)));
-				compTransAdd.getTxtCashCardWithDept().setText(cashBag.get(CashKeys.CASH_CARD_WITH_CREDIT).toString());
 			}
-
 				compTransAdd.getComboCurrencyType().setText(cashBag.get(CashKeys.CASH_TRANS_ROW_ABBREVATION).toString());
                 
         }
@@ -183,7 +182,7 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog
 			{
 				updated = true;
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_TRANSACTION,cashTransId);
+				argMap.put(CashKeys.CASH_TRANSACTION_ID,cashTransId);
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"deleteCashTrans",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
@@ -212,7 +211,7 @@ public class CashUICashTransferBetweenCardsUpdate extends Dialog
 				argMap.put(EngKeys.DEFINITION,compTransAdd.getTxtDefinition().getText());
 				argMap.put(EngKeys.DOCUMENT_NO,compTransAdd.getTxtDocumentNo().getText().trim());
 				argMap.put(EngKeys.CURRENCY_ID,compTransAdd.getComboCurrencyType().getData(compTransAdd.getComboCurrencyType().getText()));
-				argMap.put(CashKeys.CASH_TRANSACTION,cashTransId);
+				argMap.put(CashKeys.CASH_TRANSACTION_ID,cashTransId);
 				
 				EngTXCommon.doTransactionTX(CashBLCashTransactionUpdate.class.getName(),"updateTransBetweenCards",argMap);
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());

@@ -91,20 +91,28 @@ public class CashBLCashTransactionSearch
                 returnBag.put(CurKeys.CUR_CURRENT_CODE,curCard.getCardsCurrentCode());  
             }
             
-            Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
-            TurqCashTransactionRow row = (TurqCashTransactionRow) it.next();
+            returnBag.put(CashKeys.CASH_TRANSACTION_ROWS, new HashMap());
+            Iterator it = cashTrans.getTurqCashTransactionRows().iterator();            
             
-            if (it.hasNext())
+            // if there is another line 
+            int i = 0 ;
+            while (it.hasNext())
             {
-                System.out.println("hello");
-                
+
+                TurqCashTransactionRow row =   (TurqCashTransactionRow) it.next();
+/*                returnBag.put(CashKeys.CASH_TRANSACTION_ROWS,i,CashKeys.CASH_TRANS_ROW_CASH_CARD_NAME,row.getTurqCashCard().getCashCardName());
+                returnBag.put(CashKeys.CASH_TRANSACTION_ROWS,i,CashKeys.CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT,row.getDeptAmountInForeignCurrency());
+                returnBag.put(CashKeys.CASH_TRANSACTION_ROWS,i,CashKeys.CASH_TRANS_ROW_FOREIGN_CREDIT_AMOUNT,row.getCreditAmountInForeignCurrency());
+                returnBag.put(CashKeys.CASH_TRANSACTION_ROWS,i,CashKeys.CASH_TRANS_ROW_ABBREVATION,row.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
+                returnBag.put(CashKeys.CASH_TRANSACTION_ROWS,i,AccKeys.ACC_ACCOUNT_CODE,row.getTurqAccountingAccount().getAccountCode());
+               */ 
                 returnBag.put(CashKeys.CASH_TRANS_ROW_CASH_CARD_NAME,row.getTurqCashCard().getCashCardName());
                 returnBag.put(CashKeys.CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT,row.getDeptAmountInForeignCurrency());
                 returnBag.put(CashKeys.CASH_TRANS_ROW_FOREIGN_CREDIT_AMOUNT,row.getCreditAmountInForeignCurrency());
                 returnBag.put(CashKeys.CASH_TRANS_ROW_ABBREVATION,row.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
                 returnBag.put(AccKeys.ACC_ACCOUNT_CODE,row.getTurqAccountingAccount().getAccountCode());
-                
-
+            
+                i++;
             }
             
             return returnBag;
@@ -138,10 +146,11 @@ public class CashBLCashTransactionSearch
             }
             
             Iterator it = cashTrans.getTurqCashTransactionRows().iterator();
-            TurqCashTransactionRow row = (TurqCashTransactionRow) it.next();
             
             while (it.hasNext())
             {
+                TurqCashTransactionRow row = (TurqCashTransactionRow) it.next();
+                
                 if (((BigDecimal)row.getDeptAmountInForeignCurrency()).compareTo(new BigDecimal(0)) == 1)
                 {
                     returnBag.put(CashKeys.CASH_CARD_WITH_DEPT,row.getTurqCashCard().getCashCardName());
@@ -155,6 +164,7 @@ public class CashBLCashTransactionSearch
                 }
                 
                 returnBag.put(CashKeys.CASH_TRANS_ROW_ABBREVATION,row.getTurqCurrencyExchangeRate().getTurqCurrencyByExchangeCurrencyId().getCurrenciesAbbreviation());
+               
              }
             
             return returnBag;

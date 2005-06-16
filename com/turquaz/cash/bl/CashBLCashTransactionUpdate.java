@@ -178,8 +178,9 @@ public class CashBLCashTransactionUpdate
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
-		
+         Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+         TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
+        
 		
 			Calendar cal = Calendar.getInstance();
 			//delete current Transactions..
@@ -304,15 +305,20 @@ public class CashBLCashTransactionUpdate
 			throws Exception
 	{
 		
-			TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
-			TurqCashTransaction cashTrans  = (TurqCashTransaction)argMap.get(CashKeys.CASH_TRANSACTION);
+        Integer cashCardId = (Integer)argMap.get(CashKeys.CASH_CARD_ID);
+       TurqCashCard cashCard = (TurqCashCard)EngDALSessionFactory.getSession().load(TurqCashCard.class,cashCardId);
+       
+            Integer cashTransId = (Integer)argMap.get(CashKeys.CASH_TRANSACTION_ID);
+            TurqCashTransaction cashTrans = (TurqCashTransaction)EngDALSessionFactory.getSession().load(TurqCashTransaction.class,cashTransId);
+         
 		
 		 Date transDate = (Date)argMap.get(EngKeys.DATE);
 		 String definition = (String)argMap.get(EngKeys.DEFINITION);
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 
-		 TurqAccountingAccount account = (TurqAccountingAccount)argMap.get(AccKeys.ACC_ACCOUNT);
+		 Integer accountId = (Integer)argMap.get(AccKeys.ACC_ACCOUNT_ID);
+         TurqAccountingAccount account = (TurqAccountingAccount)EngDALSessionFactory.getSession().load(TurqAccountingAccount.class,accountId);
          
             Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
             TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
@@ -320,14 +326,9 @@ public class CashBLCashTransactionUpdate
 		
 		
 			Calendar cal = Calendar.getInstance();
-			//delete current Transactions..
-			Iterator it = cashTrans.getTurqEngineSequence().getTurqCurrentTransactions().iterator();
-			while (it.hasNext())
-			{
-				EngDALCommon.deleteObject(it.next());
-			}
+
 			//delete cash Transaction rows...
-			it = cashTrans.getTurqCashTransactionRows().iterator();
+            Iterator  it = cashTrans.getTurqCashTransactionRows().iterator();
 			while (it.hasNext())
 			{
 				EngDALCommon.deleteObject(it.next());
@@ -417,7 +418,8 @@ public class CashBLCashTransactionUpdate
 		 String document_no = (String)argMap.get(EngKeys.DOCUMENT_NO);
 		 BigDecimal totalAmount = (BigDecimal)argMap.get(CashKeys.CASH_TOTAL_AMOUNT);
 		 
-		 TurqCurrencyExchangeRate exchangeRate = (TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+         Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+         TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,transDate);
 		
 			Calendar cal = Calendar.getInstance();
 			//delete current Transactions..

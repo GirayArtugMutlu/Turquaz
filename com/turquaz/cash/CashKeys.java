@@ -32,7 +32,7 @@ public class CashKeys
     public static final String CASH_TRANS_ROW_CASH_CARD_NAME ="cashTransRowCashCardName";
     public static final String CASH_TRANS_ROW_FOREIGN_DEPT_AMOUNT ="cashTransRowDeptAmount";
     public static final String CASH_TRANS_ROW_FOREIGN_CREDIT_AMOUNT ="cashTransRowCreditAmount";
-    public static final String CASH_TRANS_ROW_ABBREVATION ="cashTransRowCreditAmount";
+    public static final String CASH_TRANS_ROW_ABBREVATION ="cashTransRowAbbrevation";
     
 }
 

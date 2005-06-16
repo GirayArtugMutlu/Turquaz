@@ -203,7 +203,7 @@ public class CashUICashOtherPaymentTransactionUpdate extends Dialog
 				updated = true;
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_TRANSACTION_ID,cashTransId);
-				argMap.put(CashKeys.CASH_CARD_ID, compTransAdd.getTxtCashCard().getData());
+				argMap.put(CashKeys.CASH_CARD_ID, compTransAdd.getTxtCashCard().getCashCardId());
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT,compTransAdd.getCurTextTotalAmount().getBigDecimalValue());
 				argMap.put(EngKeys.DATE, compTransAdd.getDatePicker().getDate());
 				argMap.put(EngKeys.DEFINITION, compTransAdd.getTxtDefinition().getText());

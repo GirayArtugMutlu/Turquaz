@@ -140,7 +140,6 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
         
         HashMap argMapSearch = new HashMap();
         argMapSearch.put(EngKeys.TRANS_ID,cashTransId);
-        
         try
         {
         HashBag cashBag = (HashBag)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"getTransactionInfo",argMapSearch); //$NON-NLS-1$
@@ -207,7 +206,7 @@ public class CashUICashPaymentTransactionUpdate extends org.eclipse.swt.widgets.
 				updated = true;				
 
 				HashMap argMap = new HashMap();
-				argMap.put(CashKeys.CASH_CARD,compTransAdd.getTxtCashCard().getData());
+				argMap.put(CashKeys.CASH_CARD_ID,compTransAdd.getTxtCashCard().getCashCardId());
 				argMap.put(CurKeys.CUR_CARD_ID,compTransAdd.getTxtCurrentAccount().getCardId());
 				argMap.put(CashKeys.CASH_TOTAL_AMOUNT, compTransAdd.getCurTextTotalAmount().getBigDecimalValue());
 				argMap.put(EngKeys.DATE,compTransAdd.getDatePicker().getDate());
