@@ -1,14 +1,16 @@
 package com.turquaz.engine.bl;
 
 import java.util.HashMap;
-import java.util.List;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.dal.TurqInventoryGroup;
+import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 public class EngBLInventoryGroups
 {
-	public List groupList;
+	public HashMap groupsMap;
 	public HashMap cardMap = new HashMap();
 	static EngBLInventoryGroups _instance;
 
@@ -28,13 +30,14 @@ public class EngBLInventoryGroups
 	{
 		try
 		{
-			groupList = InvBLCardAdd.getParentInventoryGroups();
+			HashBag groupBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			groupsMap = (HashMap)groupBag.get(InvKeys.INV_GROUPS);
 			cardMap.clear();
 			TurqInventoryGroup invGroup;
-			for (int i = 0; i < groupList.size(); i++)
+			for (int i = 0; i < groupsMap.size(); i++)
 			{
-				invGroup = (TurqInventoryGroup) (groupList.get(i));
-				cardMap.put(invGroup.getGroupsName(), invGroup);
+				HashMap invGroupMap=(HashMap)groupsMap.get(new Integer(i));
+				cardMap.put(invGroupMap.get(InvKeys.INV_GROUP_NAME), invGroupMap);
 			}
 		}
 		catch (Exception ex)
@@ -43,7 +46,7 @@ public class EngBLInventoryGroups
 		}
 	}
 
-	public static synchronized List getInvGroups() throws Exception
+	public static HashMap getInvGroups() throws Exception
 	{
 		try
 		{
@@ -51,7 +54,7 @@ public class EngBLInventoryGroups
 			{
 				_instance = new EngBLInventoryGroups();
 			}
-			return _instance.groupList;
+			return _instance.groupsMap;
 		}
 		catch (Exception ex)
 		{

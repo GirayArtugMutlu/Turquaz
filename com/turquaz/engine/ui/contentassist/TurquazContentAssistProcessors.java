@@ -48,8 +48,8 @@ import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLInventoryGroups;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqAccountingAccount;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.inventory.InvKeys;
 
 public class TurquazContentAssistProcessors implements ISubjectControlContentAssistProcessor
 {
@@ -258,11 +258,11 @@ public class TurquazContentAssistProcessors implements ISubjectControlContentAss
 	public static void fillInvGroupModuleArray() throws Exception
 	{
 		List proposed = new ArrayList();
-		List list = EngBLInventoryGroups.getInvGroups();
+		HashMap list = EngBLInventoryGroups.getInvGroups();
 		for (int i = 0; i < list.size(); i++)
 		{
-			TurqInventoryGroup bankCard = ((TurqInventoryGroup) list.get(i));
-			proposed.add(new Proposal(bankCard.getGroupsName(), bankCard.getGroupsDescription()));
+			HashMap invGroupMap = (HashMap) list.get(new Integer(i));
+			proposed.add(new Proposal((String)invGroupMap.get(InvKeys.INV_GROUP_NAME),(String)invGroupMap.get(InvKeys.INV_GROUP_DESCRIPTION)));
 		}
 		proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS] = new Proposal[proposed.size()];
 		proposed.toArray(proposedCodeList[EngBLCommon.CONTENT_ASSIST_INVENTORY_GROUPS]);

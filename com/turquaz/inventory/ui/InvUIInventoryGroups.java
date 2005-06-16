@@ -1,8 +1,6 @@
 package com.turquaz.inventory.ui;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -19,12 +17,13 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 
 /**
@@ -172,15 +171,15 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 		{
 			registeredGroups = new HashMap();
 			TableItem item;
-			TurqInventoryGroup group;
-			List ls =(List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
-			for (int i = 0; i < ls.size(); i++)
+			HashBag groupBag =(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashMap groupsMap=(HashMap)groupBag.get(InvKeys.INV_GROUPS);
+			for (int i = 0; i < groupsMap.size(); i++)
 			{
-				group = (TurqInventoryGroup) ls.get(i);
+				HashMap invGroupMap = (HashMap)groupsMap.get(new Integer(i));
 				item = new TableItem(tableParentGroups, SWT.NULL);
-				item.setText(group.getGroupsName());
-				item.setData(group);
-				registeredGroups.put(group.getId(), null);
+				item.setText((String)invGroupMap.get(InvKeys.INV_GROUP_NAME));
+				item.setData(invGroupMap);
+				registeredGroups.put(invGroupMap.get(InvKeys.INV_GROUP_ID), null);
 			}
 		}
 		catch (Exception ex)
@@ -205,23 +204,24 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 	private void tableParentGroupsWidgetSelected(SelectionEvent evt)
 	{
 		TableItem[] selection = tableParentGroups.getSelection();
-		TurqInventoryGroup mainGroup;
-		TurqInventoryGroup subGroup;
+		HashMap mainGroup;
 		if (selection.length > 0)
 		{
 			TableItem item;
 			tableSubGroups.removeAll();
-			mainGroup = (TurqInventoryGroup) selection[0].getData();
-			Iterator it = mainGroup.getTurqInventoryGroups().iterator();
-			while (it.hasNext())
+			mainGroup = (HashMap) selection[0].getData();
+			HashBag subGroupBag=(HashBag)mainGroup.get(InvKeys.INV_SUB_GROUPS);
+			HashMap subGroups=(HashMap)subGroupBag.get(InvKeys.INV_SUB_GROUPS);
+			
+			for (int k=0; k<subGroups.size(); k++)
 			{
-				subGroup = (TurqInventoryGroup) it.next();
+				HashMap subGroup=(HashMap)subGroups.get(new Integer(k));
 				item = new TableItem(tableSubGroups, SWT.NULL);
-				item.setText(subGroup.getGroupsName());
+				item.setText((String)subGroup.get(InvKeys.INV_GROUP_NAME));
 				item.setData(subGroup);
-				if (registeredGroups.get(mainGroup.getId()) != null)
+				if (registeredGroups.get(mainGroup.get(InvKeys.INV_GROUP_ID)) != null)
 				{
-					if (registeredGroups.get(mainGroup.getId()).equals(subGroup))
+					if (registeredGroups.get(mainGroup.get(InvKeys.INV_GROUP_ID)).equals(subGroup))
 					{
 						item.setChecked(true);
 					}
@@ -232,7 +232,7 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 
 	public void itemChecked(TableItem item)
 	{
-		TurqInventoryGroup group = (TurqInventoryGroup) item.getData();
+		HashMap group = (HashMap) item.getData();
 		if (item.getChecked())
 		{
 			tableSubGroups.removeListener(SWT.Selection, subTablelistener);
@@ -242,12 +242,12 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 				items[i].setChecked(false);
 			}
 			item.setChecked(true);
-			registeredGroups.put(group.getTurqInventoryGroup().getId(), group);
+			registeredGroups.put(group.get(InvKeys.INV_GROUP_ID), group);
 			tableSubGroups.addListener(SWT.Selection, subTablelistener);
 		}
 		else
 		{
-			registeredGroups.put(group.getTurqInventoryGroup().getId(), null);
+			registeredGroups.put(group.get(InvKeys.INV_GROUP_ID), null);
 		}
 	}
 
@@ -256,8 +256,4 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 		return registeredGroups;
 	}
 
-	public void setRegisteredGroups(Map registeredGroups)
-	{
-		this.registeredGroups = registeredGroups;
-	}
 }

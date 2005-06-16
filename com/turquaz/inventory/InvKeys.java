@@ -41,6 +41,7 @@ public class InvKeys
 	public static String INV_CARD_UNITS="invCardUnits";
 	public static String INV_CARD_PRICES="invCardPrices";
 	public static String INV_CARD_ACCOUNTS="invCardAccounts";
+	public static String INV_GROUP_ID="invGroupId";
 	public static String INV_GROUP_NAME="invGroupName";
 	public static String INV_GROUP_DESCRIPTION="invGroupDescription";
 	public static String INV_GROUP_PARENT="invGroupParent";
@@ -59,7 +60,9 @@ public class InvKeys
 	public static String INV_WAREHOUSE_CITY="invWarehouseCity";
 	public static String INV_MAIN_GROUP="invMainGroup";
 	public static String INV_SUB_GROUP="invSubGroup";
+	public static String INV_SUB_GROUPS="invSubGroups";
 	public static String INV_GROUP="invGroup";
+	public static String INV_GROUPS="invGroups";
 	
 	
 	
