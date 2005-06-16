@@ -43,6 +43,8 @@ import com.turquaz.accounting.bl.AccBLAccountUpdate;
 import com.turquaz.common.HashBag;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -409,7 +411,7 @@ public class AccUIAccountingPlan extends org.eclipse.swt.widgets.Composite imple
 					argMap = new HashMap();
 					argMap.put(AccKeys.ACC_ACCOUNT_ID,accountId);
 					EngTXCommon.doTransactionTX(AccBLAccountUpdate.class.getName(),"deleteAccount",argMap);
-					
+					EngBLAccountingAccounts.RefreshContentAsistantMap();
 					msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); 
 					msg.open();
 

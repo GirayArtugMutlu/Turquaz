@@ -33,7 +33,6 @@ import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALSearchTransaction;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -160,7 +159,7 @@ public class CurBLSearchTransaction
 		
 		
 		Calendar cal = Calendar.getInstance();
-			TurqCurrency currency = EngBLClient.getBaseCurrency();
+			TurqCurrency currency = EngDALCommon.getBaseCurrency();
 			curTrans.setTurqCurrentCard(curCard);
 			curTrans.setTransactionsDate(transDate);
 			curTrans.setTransactionsDocumentNo(documentNo);
@@ -172,7 +171,7 @@ public class CurBLSearchTransaction
 				accTransType = 1;
 				curTrans.setTransactionsTotalCredit(amount);
 				//      TODO current trans exRate
-				curTrans.setTotalCreditInForeignCurrency(amount.multiply(EngBLClient.getBaseCurrencyExchangeRate().getExchangeRatio())
+				curTrans.setTotalCreditInForeignCurrency(amount.multiply(EngDALCommon.getBaseCurrencyExchangeRate().getExchangeRatio())
 						.setScale(2, EngBLCommon.ROUNDING_METHOD));
 				curTrans.setTransactionsTotalDept(new BigDecimal(0));
 				curTrans.setTotalDeptInForeignCurrency(new BigDecimal(0));
@@ -183,7 +182,7 @@ public class CurBLSearchTransaction
 				curTrans.setTransactionsTotalCredit(new BigDecimal(0));
 				curTrans.setTotalCreditInForeignCurrency(new BigDecimal(0));
 				//      TODO current trans exRate
-				curTrans.setTotalDeptInForeignCurrency(amount.multiply(EngBLClient.getBaseCurrencyExchangeRate().getExchangeRatio())
+				curTrans.setTotalDeptInForeignCurrency(amount.multiply(EngDALCommon.getBaseCurrencyExchangeRate().getExchangeRatio())
 						.setScale(2, EngBLCommon.ROUNDING_METHOD));
 				curTrans.setTransactionsTotalDept(amount);
 			}

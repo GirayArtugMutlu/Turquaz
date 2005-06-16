@@ -33,6 +33,8 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CTabItem;
+
+import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLServer;
@@ -402,6 +404,7 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 				
 				EngTXCommon.doTransactionTX(BankBLBankCardAdd.class.getName(),"saveBankCard",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
+				EngBLBankCards.RefreshContentAsistantMap();
 				newForm();
 				
 			}

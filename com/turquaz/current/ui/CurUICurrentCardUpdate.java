@@ -41,6 +41,7 @@ import com.turquaz.current.bl.CurBLCurrentTransactionAdd;
 import com.turquaz.current.ui.CurUICurrentCardAdd;
 import org.eclipse.swt.layout.GridData;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.dal.TurqCurrentTransactionType;
@@ -400,6 +401,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap = new HashMap();
 				argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
+				EngBLCurrentCards.RefreshContentAsistantMap();
 				msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();
@@ -471,6 +473,7 @@ public class CurUICurrentCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(CurKeys.CUR_CARD_ID,curCardId);
 				
 				EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"updateCurrentCard",argMap);
+				EngBLCurrentCards.RefreshContentAsistantMap();
 				msg.setMessage(EngLangCommonKeys.MSG_UPDATED_SUCCESS); //$NON-NLS-1$
 				msg.open();
 				this.dialogShell.close();

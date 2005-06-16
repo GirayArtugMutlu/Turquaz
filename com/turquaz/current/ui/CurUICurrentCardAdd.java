@@ -1192,6 +1192,7 @@ public class CurUICurrentCardAdd extends Composite implements SecureComposite
 				argMap.put(CurKeys.CUR_CONTACT_INFO,getContactInfo());
 				argMap.put(CurKeys.CUR_GROUP_LIST,getGroupList());
 				EngTXCommon.doTransactionTX(CurBLCurrentCardAdd.class.getName(),"saveCurrentCard",argMap);	 //$NON-NLS-1$
+				EngBLCurrentCards.RefreshContentAsistantMap();
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				clearFields();
 			}

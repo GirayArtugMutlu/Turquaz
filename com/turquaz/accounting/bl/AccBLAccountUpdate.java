@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.dal.AccDALAccountUpdate;
-import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -72,7 +71,7 @@ public class AccBLAccountUpdate
 			}
 			EngDALCommon.updateObject(account);
 			AccDALAccountUpdate.updateAccountCodeOfSubAccs(account, accCode);
-			EngBLAccountingAccounts.RefreshContentAsistantMap();
+			
 		}
 		catch (Exception ex)
 		{
@@ -139,6 +138,6 @@ public class AccBLAccountUpdate
 			EngDALCommon.updateObject(account);
 		}
 		EngDALCommon.deleteObject(account);
-		EngBLAccountingAccounts.RefreshContentAsistantMap();
+		
 	}
 }

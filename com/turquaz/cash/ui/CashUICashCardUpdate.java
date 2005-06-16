@@ -23,6 +23,7 @@ import com.turquaz.cash.bl.CashBLCashCardSearch;
 import com.turquaz.cash.bl.CashBLCashCardUpdate;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.lang.CashLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -190,6 +191,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 				HashMap argMap = new HashMap();
 				argMap.put(CashKeys.CASH_CARD_ID, cardId);
 				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(), "deleteCashCard", argMap);
+				EngBLCashCards.RefreshContentAsistantMap();
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}
@@ -219,6 +221,7 @@ public class CashUICashCardUpdate extends org.eclipse.swt.widgets.Dialog
 				argMap.put(AccKeys.ACC_ACCOUNT_ID,compCashCard.getAccountPicker().getId());				
 				
 				EngTXCommon.doTransactionTX(CashBLCashCardUpdate.class.getName(),"updateCashCard",argMap);
+				EngBLCashCards.RefreshContentAsistantMap();
 				EngUICommon.showUpdatedSuccesfullyMessage(getParent());
 				dialogShell.close();
 			}

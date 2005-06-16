@@ -33,6 +33,7 @@ import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.dal.CurDALCurrentTransactionAdd;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.TurquazDateFormat;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -44,8 +45,6 @@ import com.turquaz.engine.dal.TurqCurrentTransactionType;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqModule;
 import com.turquaz.engine.exceptions.TurquazException;
-import com.turquaz.engine.ui.component.DatePicker;
-
 public class CurBLCurrentTransactionAdd
 {
 	
@@ -290,7 +289,7 @@ public class CurBLCurrentTransactionAdd
 		{
 			//muhasebe fisi kalemlerini de ekleyelim..
 			// add accounting bill rows
-			String transDefinition = "Cari Borc/Alacak " + DatePicker.formatter.format(transDate) + " " + documentNo;
+			String transDefinition = "Cari Borc/Alacak " + TurquazDateFormat.format(transDate) + " " + documentNo;
 			Map creditAccounts = new HashMap();
 			Map deptAccounts = new HashMap();
 			prepareAccountingMaps(curCard, isCredit.booleanValue(), amount, account, deptAccounts, creditAccounts);
@@ -376,7 +375,7 @@ public class CurBLCurrentTransactionAdd
 				module.setId(new Integer(4));
 				seq.setTurqModule(module);
 				EngDALCommon.saveObject(seq);
-				String transDefinition = "Cari " + DatePicker.formatter.format(transDate) + " " + documentNo;
+				String transDefinition = "Cari " + TurquazDateFormat.format(transDate) + " " + documentNo;
 				Map creditAccounts = new HashMap();
 				Map deptAccounts = new HashMap();
 				prepareAccountingMaps(curCard, isCredit.booleanValue(), amount, account, deptAccounts, creditAccounts);

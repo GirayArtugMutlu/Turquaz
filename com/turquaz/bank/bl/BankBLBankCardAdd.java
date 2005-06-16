@@ -20,7 +20,6 @@ package com.turquaz.bank.bl;
  * @version $Id$
  */
 import com.turquaz.bank.BankKeys;
-import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
@@ -47,7 +46,7 @@ public class BankBLBankCardAdd
 			Map accountingAccounts=(Map)argMap.get(BankKeys.BANK_ACCOUNTING_ACCOUNTS);
 			TurqBanksCard bankCard = registerBankCard( bankName, bankBranchName, bankAccountNo, currency, definition, bankCode);
 			saveBankAccountingAccounts(bankCard, accountingAccounts);
-			EngBLBankCards.RefreshContentAsistantMap();
+			
 			
 		}
 		catch (Exception ex)

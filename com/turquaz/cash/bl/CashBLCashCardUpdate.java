@@ -25,7 +25,6 @@ import com.turquaz.accounting.AccKeys;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.dal.CashDALCashCard;
 import com.turquaz.engine.EngKeys;
-import com.turquaz.engine.bl.EngBLCashCards;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -61,7 +60,7 @@ public class CashBLCashCardUpdate
 		{
 			CashBLCashCardAdd.saveInitialTransaction(cashCard);
 		}
-		EngBLCashCards.RefreshContentAsistantMap();
+		
 	}
 
 	public static void deleteCashCard(HashMap argMap) throws Exception
@@ -73,6 +72,6 @@ public class CashBLCashCardUpdate
         EngDALSessionFactory.getSession().refresh(cashCard);
         
 		EngDALCommon.deleteObject(cashCard);
-		EngBLCashCards.RefreshContentAsistantMap();
+		
 	}
 }

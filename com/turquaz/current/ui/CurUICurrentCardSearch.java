@@ -45,6 +45,7 @@ import com.turquaz.current.bl.CurBLCurrentCardAdd;
 import com.turquaz.current.bl.CurBLCurrentCardSearch;
 import com.turquaz.current.bl.CurBLCurrentCardUpdate;
 import com.turquaz.engine.EngKeys;
+import com.turquaz.engine.bl.EngBLCurrentCards;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.interfaces.SearchComposite;
@@ -343,6 +344,7 @@ public class CurUICurrentCardSearch extends Composite implements SearchComposite
 						 argMap = new HashMap();
 						 argMap.put(CurKeys.CUR_CARD_ID,cardId);
 						EngTXCommon.doTransactionTX(CurBLCurrentCardUpdate.class.getName(),"deleteCurrentCard",argMap);
+						EngBLCurrentCards.RefreshContentAsistantMap();
 						msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS); //$NON-NLS-1$
 						msg.open();
 					}

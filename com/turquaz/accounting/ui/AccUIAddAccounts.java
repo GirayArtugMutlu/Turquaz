@@ -312,6 +312,7 @@ public class AccUIAddAccounts extends Composite implements SecureComposite
 			Integer accountId = (Integer) EngTXCommon.doTransactionTX(AccBLAccountAdd.class.getName(),
 					"saveAccount", argMap);
 			EngUICommon.showSavedSuccesfullyMessage(getShell());
+			EngBLAccountingAccounts.RefreshContentAsistantMap();
 			clearFields();
 			return accountId;
 		}
