@@ -1,10 +1,16 @@
 package com.turquaz.engine.dal;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import net.sf.hibernate.Criteria;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
+
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.expression.Expression;
 
 /**
  * @author onsel
@@ -19,10 +25,11 @@ public class EngDALUserPerms
 	 * @throws Exception
 	 *              "Hibernate Exception"
 	 */
-	public static List getGroupPermissions(String username) throws Exception
+	public static HashBag getGroupPermissions(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String username=(String)argMap.get(EngKeys.USER);
 			Session session = EngDALSessionFactory.getSession();
 			
 			String query = "select perms from TurqGroupPermission as perms," + "TurqUserGroup as ug "
@@ -30,7 +37,23 @@ public class EngDALUserPerms
 			Query q = session.createQuery(query);
 			List list = q.list();
 		
-			return list;
+			HashBag permBag = new HashBag();
+			permBag.put(EngKeys.GROUP_PERMISSIONS,new HashMap());
+			Iterator it = list.iterator();
+			int i=0;
+			while(it.hasNext())
+			{
+				TurqGroupPermission perm = (TurqGroupPermission)it.next();
+				permBag.put(EngKeys.GROUP_PERMISSIONS,i,AdmKeys.ADM_MODULE_ID,perm.getTurqModule().getId());
+				permBag.put(EngKeys.GROUP_PERMISSIONS,i,AdmKeys.ADM_MODULE_COMP_ID,perm.getTurqModuleComponent().getId());
+				permBag.put(EngKeys.GROUP_PERMISSIONS,i,AdmKeys.ADM_GROUP_PERMISSION_LEVEL,new Integer(perm.getGroupPermissionsLevel()));
+				permBag.put(EngKeys.GROUP_PERMISSIONS,i,AdmKeys.ADM_MODULE_COMP_NAME,perm.getTurqModuleComponent().getComponentsName());				
+							
+			}
+			
+			
+			
+			return permBag;
 		}
 		/*
 		 * String query ="select DISTINCT GP.modules_id, GP.module_components_id, GP.group_permissions_level"; query +=" from
@@ -74,17 +97,34 @@ public class EngDALUserPerms
 	 * @throws Exception
 	 *              HiberNate Exception
 	 */
-	public static List getUserPermissions(String username) throws Exception
+	public static HashBag getUserPermissions(HashMap argMap) throws Exception
 	{
 		try
 		{
+			String username=(String)argMap.get(EngKeys.USER);
 			Session session = EngDALSessionFactory.getSession();
 			
 			String query = "select perms from TurqUserPermission as perms where " + "perms.turqUser.username ='" + username + "'";
 			Query q = session.createQuery(query);
 			List list = q.list();
 		
-			return list;
+			HashBag permBag = new HashBag();
+			permBag.put(EngKeys.USER_PERMISSIONS,new HashMap());
+			Iterator it = list.iterator();
+			int i=0;
+			while(it.hasNext())
+			{
+				TurqUserPermission perm = (TurqUserPermission)it.next();
+				permBag.put(EngKeys.USER_PERMISSIONS,i,AdmKeys.ADM_MODULE_ID,perm.getTurqModule().getId());
+				permBag.put(EngKeys.USER_PERMISSIONS,i,AdmKeys.ADM_MODULE_COMP_ID,perm.getTurqModuleComponent().getId());
+				permBag.put(EngKeys.USER_PERMISSIONS,i,AdmKeys.ADM_USER_PERMISSION_LEVEL,new Integer(perm.getTurqUserPermissionLevel().getPermissionLevel()));
+				permBag.put(EngKeys.USER_PERMISSIONS,i,AdmKeys.ADM_MODULE_COMP_NAME,perm.getTurqModuleComponent().getComponentsName());				
+			}
+			
+			
+			return permBag;		
+			
+			
 			/*
 			 * String query ="select DISTINCT UP.modules_id, UP.components_id,UP.user_permissions_level"; query +=" from
 			 * turq_user_permissions UP, turq_users U where UP.users_id = U.users_id"; query +=" AND U.username ='"+username+"' order by
@@ -157,17 +197,47 @@ public class EngDALUserPerms
 	 * @throws Exception
 	 *              Hibernate Exception
 	 */
-	public static List getModuleComponents() throws Exception
+	public static HashBag getModuleComponents() throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			//	Query q = session.createQuery("from TurqModuleComponent comp "+
-			//			"where comp.moduleComponentsId > -1");
-			Criteria cri = session.createCriteria(TurqModuleComponent.class).add(Expression.gt("id", new Integer(-1)));
-			List list = cri.list();
+			Query q = session.createQuery("select comp.id,comp.turqModule.id,comp.componentsName from TurqModuleComponent comp "+
+						"where comp.id > -1");
+
+			List list = q.list();
+			Iterator it = list.iterator();
+			HashMap modules = new HashMap();
+			while(it.hasNext())
+			{
+			  
+			  Object[] comp =(Object[])it.next();
+			  Integer componentId =(Integer)comp[0];
+			  Integer moduleId=(Integer)comp[1];
+			  String compName =(String)comp[2];
+			  
+			  List compList =(List)modules.get(moduleId);
+			  if(compList==null)
+			  {
+				  compList=new ArrayList();
+			  }			  
+			  
+			  HashMap compMap = new HashMap();
+			  compMap.put(AdmKeys.ADM_MODULE_COMP_ID,componentId);  
+			  compMap.put(AdmKeys.ADM_MODULE_COMP_NAME,compName);
+			  compList.add(compMap);	
+			  
+			  modules.put(moduleId,compList);
+			  
 			
-			return list;
+			}
+			
+			HashBag compBag = new HashBag();
+			compBag.put(EngKeys.MODULE_COMPONENTS,modules);
+			
+			
+			
+			return compBag;
 		}
 		catch (Exception e)
 		{

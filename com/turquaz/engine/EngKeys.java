@@ -61,5 +61,8 @@ public class EngKeys
 	public final static String TYPES="types";
 	public final static String USER ="user";
 	public final static String RETURN_VALUE ="returnValue";
+	public final static String MODULE_COMPONENTS="moduleComponents";
+	public final static String GROUP_PERMISSIONS="groupPermissions";
+	public final static String USER_PERMISSIONS="userPermissions";
 	
 }

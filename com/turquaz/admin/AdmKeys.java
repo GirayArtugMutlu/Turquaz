@@ -31,6 +31,7 @@ public class AdmKeys
 	public static String ADM_MODULE="admModule";
 	public static String ADM_MODULE_ID="admModuleId";
     public static String ADM_MODULE_COMP="admModuleComp";
+	 public static String ADM_MODULE_COMP_NAME="admModuleCompName";
 	public static String ADM_MODULE_COMP_ID="admModuleCompId";
     public static String ADM_MODULE_COMP_DESCRIPTION="admModuleCompDescription";
     public static String ADM_MODULE_DESCRIPTION="admModuleDescription";
@@ -53,6 +54,7 @@ public class AdmKeys
     public static String ADM_GROUP_PERMISSION_LEVEL="admGroupPermissionLevel";
     public static String ADM_USER_PERMISSION="admUserPermission";
     public static String ADM_USER_PERMISSION_ID="admUserPermissionId";
+	 public static String ADM_USER_PERMISSION_LEVEL="admUserPermissionLevel";
     public static String ADM_USER_PASSWORD="admUserPassword";
     public static String ADM_USER_PERMISSION_DESCRIPTION="admUserPermissionDescription";
 }

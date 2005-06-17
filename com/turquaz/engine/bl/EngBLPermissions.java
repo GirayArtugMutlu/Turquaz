@@ -20,10 +20,12 @@ package com.turquaz.engine.bl;
  * @version  $Id$
  */
 import java.util.*;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALUserPerms;
-import com.turquaz.engine.dal.TurqGroupPermission;
-import com.turquaz.engine.dal.TurqModuleComponent;
-import com.turquaz.engine.dal.TurqUserPermission;
+import com.turquaz.engine.tx.EngTXCommon;
 
 /**
  * @author onsel
@@ -88,17 +90,45 @@ public class EngBLPermissions
 		try
 		{
 			compMap = new HashMap();
-			List list = EngDALUserPerms.getModuleComponents();
-			TurqModuleComponent comp = null;
-			for (int i = 0; i < list.size(); i++)
+						
+			
+			HashBag result =(HashBag) EngTXCommon.doSelectTX(EngDALUserPerms.class.getName(),"getModuleComponents",null);
+			HashMap moduleList =(HashMap)result.get(EngKeys.MODULE_COMPONENTS);
+			
+			Iterator it = moduleList.keySet().iterator();
+			
+			while(it.hasNext())
 			{
-				comp = (TurqModuleComponent) list.get(i);
-				compMap.put(comp.getComponentsName(), "0");
+				List list =(List)moduleList.get(it.next());
+				
+				Iterator listIt=list.iterator();
+				
+				while(listIt.hasNext())
+				{
+					HashMap compInfo = (HashMap)listIt.next();
+					compMap.put(compInfo.get(AdmKeys.ADM_MODULE_COMP_NAME),"0");
+				}
+				
+				
+				
 			}
-			List ls = EngDALUserPerms.getGroupPermissions(username);
-			calculateGroupPerms(ls);
-			ls = EngDALUserPerms.getUserPermissions(username);
-			calculateUserPerms(ls);
+		
+			
+			HashMap argMap = new HashMap();
+			argMap.put(EngKeys.USER,username);
+			
+			HashBag permBag =(HashBag) EngTXCommon.doSelectTX(EngDALUserPerms.class.getName(),"getGroupPermissions",argMap);
+			
+			HashMap permList = (HashMap)permBag.get(EngKeys.GROUP_PERMISSIONS);		
+			
+			calculateGroupPerms(permList,moduleList);
+						
+			HashBag userPermBag =(HashBag) EngTXCommon.doSelectTX(EngDALUserPerms.class.getName(),"getUserPermissions",argMap);
+			
+			HashMap userPermList = (HashMap)userPermBag.get(EngKeys.USER_PERMISSIONS);		
+			
+			calculateUserPerms(userPermList,moduleList);
+		
 		}
 		catch (Exception ex)
 		{
@@ -110,7 +140,7 @@ public class EngBLPermissions
 	 * @param list
 	 *             List of the TurqGroupPermission objects for user Calculates the group permissions according to the list
 	 */
-	private void calculateGroupPerms(List list)
+	private void calculateGroupPerms(HashMap permlist,HashMap moduleList)
 	{
 		try
 		{
@@ -118,12 +148,16 @@ public class EngBLPermissions
 			int module_component_id = -1;
 			int perm_level = 0;
 			String component_name = "";
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < permlist.size(); i++)
 			{
-				TurqGroupPermission perms = (TurqGroupPermission) list.get(i);
-				module_id = perms.getTurqModule().getId().intValue();
-				module_component_id = perms.getTurqModuleComponent().getId().intValue();
-				perm_level = perms.getGroupPermissionsLevel();
+				
+				HashMap permInfo =(HashMap)permlist.get(new Integer(i));
+							
+				module_id = ((Integer)permInfo.get(AdmKeys.ADM_MODULE_ID)).intValue();
+				module_component_id = ((Integer)permInfo.get(AdmKeys.ADM_MODULE_COMP_ID)).intValue();
+				perm_level = ((Integer)permInfo.get(AdmKeys.ADM_GROUP_PERMISSION_LEVEL)).intValue();
+				component_name = (String)permInfo.get(AdmKeys.ADM_MODULE_COMP_NAME);
+				
 				if (perm_level > -1 && perm_level < 4)
 				{
 					if (module_id == -1)
@@ -140,17 +174,18 @@ public class EngBLPermissions
 					{
 						if (module_component_id == -1)
 						{
-							List lst = EngDALUserPerms.getModuleComponents(module_id);
-							TurqModuleComponent modComp = null;
+							
+							List list = (List)moduleList.get(new Integer(module_id));
+														
+							HashMap modComp = null;
 							for (int j = 0; j < list.size(); i++)
 							{
-								modComp = (TurqModuleComponent) list.get(j);
-								compMap.put(modComp.getComponentsName(), perm_level + "");
+								modComp = (HashMap) list.get(j);
+								compMap.put(modComp.get(AdmKeys.ADM_MODULE_COMP_NAME), perm_level + "");
 							}
 						}
 						else
-						{
-							component_name = EngDALUserPerms.getModuleCompName(module_id, module_component_id);
+						{							
 							compMap.put(component_name, perm_level + "");
 						}
 					}
@@ -171,7 +206,7 @@ public class EngBLPermissions
 	 * @param list
 	 *             list of the TurqUserPermission objects of user Adds the user permission to the permission map (compMap)
 	 */
-	private void calculateUserPerms(List list)
+	private void calculateUserPerms(HashMap permlist,HashMap moduleList)
 	{
 		try
 		{
@@ -179,12 +214,15 @@ public class EngBLPermissions
 			int module_component_id = -1;
 			int perm_level = 0;
 			String component_name = "";
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < permlist.size(); i++)
 			{
-				TurqUserPermission perms = (TurqUserPermission) list.get(i);
-				module_id = perms.getTurqModule().getId().intValue();
-				module_component_id = perms.getTurqModuleComponent().getId().intValue();
-				perm_level = perms.getTurqUserPermissionLevel().getPermissionLevel();
+				HashMap permInfo =(HashMap)permlist.get(new Integer(i));
+				
+				module_id = ((Integer)permInfo.get(AdmKeys.ADM_MODULE_ID)).intValue();
+				module_component_id = ((Integer)permInfo.get(AdmKeys.ADM_MODULE_COMP_ID)).intValue();
+				perm_level = ((Integer)permInfo.get(AdmKeys.ADM_USER_PERMISSION_LEVEL)).intValue();
+				component_name = (String)permInfo.get(AdmKeys.ADM_MODULE_COMP_NAME);
+				
 				if (perm_level > -1 && perm_level < 4)
 				{
 					if (module_id == -1)
@@ -201,17 +239,17 @@ public class EngBLPermissions
 					{
 						if (module_component_id == -1)
 						{
-							List lst = EngDALUserPerms.getModuleComponents(module_id);
-							TurqModuleComponent modComp = null;
-							for (int j = 0; j < lst.size(); j++)
+							List list = (List)moduleList.get(new Integer(module_id));
+							
+							HashMap modComp = null;
+							for (int j = 0; j < list.size(); i++)
 							{
-								modComp = (TurqModuleComponent) lst.get(j);
-								compMap.put(modComp.getComponentsName(), perm_level + "");
+								modComp = (HashMap) list.get(j);
+								compMap.put(modComp.get(AdmKeys.ADM_MODULE_COMP_NAME), perm_level + "");
 							}
 						}
 						else
 						{
-							component_name = EngDALUserPerms.getModuleCompName(module_id, module_component_id);
 							compMap.put(component_name, perm_level + "");
 						}
 					}
