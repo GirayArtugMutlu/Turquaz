@@ -1,6 +1,7 @@
 package com.turquaz.inventory.ui;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
@@ -233,6 +234,8 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 	public void itemChecked(TableItem item)
 	{
 		HashMap group = (HashMap) item.getData();
+		TableItem[] selectedMain=tableParentGroups.getSelection();
+		HashMap mainGroup=(HashMap)selectedMain[0].getData();
 		if (item.getChecked())
 		{
 			tableSubGroups.removeListener(SWT.Selection, subTablelistener);
@@ -242,18 +245,30 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 				items[i].setChecked(false);
 			}
 			item.setChecked(true);
-			registeredGroups.put(group.get(InvKeys.INV_GROUP_ID), group);
+			registeredGroups.put(mainGroup.get(InvKeys.INV_GROUP_ID), group);
 			tableSubGroups.addListener(SWT.Selection, subTablelistener);
 		}
 		else
 		{
-			registeredGroups.put(group.get(InvKeys.INV_GROUP_ID), null);
+			registeredGroups.put(mainGroup.get(InvKeys.INV_GROUP_ID), null);
 		}
 	}
 
-	public Map getRegisteredGroups()
+	public HashMap getRegisteredGroups()
 	{
-		return registeredGroups;
+		HashMap regGroups=new HashMap();
+		
+		Iterator it=registeredGroups.keySet().iterator();
+		while(it.hasNext())
+		{
+			Integer groupId=(Integer)it.next();
+			HashMap groupMap=(HashMap)registeredGroups.get(groupId);
+			if (groupMap != null)
+			{
+				regGroups.put(groupId,groupMap);
+			}
+		}
+		return regGroups;
 	}
 
 }

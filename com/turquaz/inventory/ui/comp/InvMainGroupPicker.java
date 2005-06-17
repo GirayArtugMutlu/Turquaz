@@ -1,10 +1,9 @@
 package com.turquaz.inventory.ui.comp;
 
+import java.util.HashMap;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
@@ -32,6 +31,7 @@ public class InvMainGroupPicker extends org.eclipse.swt.widgets.Composite
 	}
 	private String filter = "";
 	private Text text1;
+	private HashMap groupMap=new HashMap();
 
 	public InvMainGroupPicker(Composite parent, int style)
 	{
@@ -46,7 +46,6 @@ public class InvMainGroupPicker extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			preInitGUI();
 			this.setSize(new org.eclipse.swt.graphics.Point(397, 22));
 			this.setEnabled(true);
 			GridLayout thisLayout = new GridLayout(4, true);
@@ -62,7 +61,7 @@ public class InvMainGroupPicker extends org.eclipse.swt.widgets.Composite
 					{
 						try
 						{
-							setData2(EngBLInventoryGroups.getGroup(text1.getText().trim()));
+							setDBData(EngBLInventoryGroups.getGroup(text1.getText().trim()));
 						}
 						catch (Exception ex)
 						{
@@ -84,12 +83,6 @@ public class InvMainGroupPicker extends org.eclipse.swt.widgets.Composite
 			thisLayout.horizontalSpacing = 0;
 			thisLayout.verticalSpacing = 0;
 			this.layout();
-			addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			postInitGUI();
 		}
 		catch (Exception e)
@@ -97,11 +90,7 @@ public class InvMainGroupPicker extends org.eclipse.swt.widgets.Composite
             EngBLLogger.log(this.getClass(),e);
 		}
 	}
-
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
+	
 	public TurquazContentAssistant asistant;
 
 	/** Add your post-init code in here */
@@ -126,9 +115,9 @@ public class InvMainGroupPicker extends org.eclipse.swt.widgets.Composite
 		super.setData(obj);
 	}
 
-	public void setData2(Object obj)
+	public void setDBData(Object obj)
 	{
-		super.setData(obj);
+		groupMap=(HashMap)obj;
 		if (obj == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));

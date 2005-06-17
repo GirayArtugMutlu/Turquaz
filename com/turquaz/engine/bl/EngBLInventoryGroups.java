@@ -2,7 +2,6 @@ package com.turquaz.engine.bl;
 
 import java.util.HashMap;
 import com.turquaz.common.HashBag;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
 import com.turquaz.inventory.InvKeys;
@@ -33,7 +32,6 @@ public class EngBLInventoryGroups
 			HashBag groupBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
 			groupsMap = (HashMap)groupBag.get(InvKeys.INV_GROUPS);
 			cardMap.clear();
-			TurqInventoryGroup invGroup;
 			for (int i = 0; i < groupsMap.size(); i++)
 			{
 				HashMap invGroupMap=(HashMap)groupsMap.get(new Integer(i));
@@ -62,7 +60,7 @@ public class EngBLInventoryGroups
 		}
 	}
 
-	public static TurqInventoryGroup getGroup(String cardName) throws Exception
+	public static HashMap getGroup(String cardName) throws Exception
 	{
 		try
 		{
@@ -70,7 +68,7 @@ public class EngBLInventoryGroups
 			{
 				_instance = new EngBLInventoryGroups();
 			}
-			return (TurqInventoryGroup) _instance.cardMap.get(cardName);
+			return (HashMap) _instance.cardMap.get(cardName);
 		}
 		catch (Exception ex)
 		{

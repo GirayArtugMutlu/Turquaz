@@ -231,15 +231,17 @@ public class InvBLCardSearch
 			String invCode = (String) argMap.get(InvKeys.INV_CARD_CODE);
 			TurqInventoryCard invCard=InvDALCardSearch.getInventoryCard(invCode);
 			HashBag cardBag=new HashBag();
-			HashMap cardMap=new HashMap();
+			if (invCard != null)
+			{
+				HashMap cardMap=new HashMap();
+				cardMap.put(InvKeys.INV_CARD_ID,invCard.getId());
+				cardMap.put(InvKeys.INV_CARD_NAME,invCard.getCardName());
+				cardMap.put(InvKeys.INV_CARD_CODE,invCard.getCardInventoryCode());
+				cardMap.put(InvKeys.INV_CARD_DEFINITION,invCard.getCardDefinition());
+				cardMap.put(InvKeys.INV_IS_SPEC_VAT_FOR_EACH,new Boolean(invCard.isSpecVatForEach()));
+				cardBag.put(InvKeys.INV_CARD,cardMap);
+			}
 			
-			cardMap.put(InvKeys.INV_CARD_ID,invCard.getId());
-			cardMap.put(InvKeys.INV_CARD_NAME,invCard.getCardName());
-			cardMap.put(InvKeys.INV_CARD_CODE,invCard.getCardInventoryCode());
-			cardMap.put(InvKeys.INV_CARD_DEFINITION,invCard.getCardDefinition());
-			cardMap.put(InvKeys.INV_IS_SPEC_VAT_FOR_EACH,new Boolean(invCard.isSpecVatForEach()));
-			
-			cardBag.put(InvKeys.INV_CARD,cardMap);
 			return cardBag;
 		}
 		catch (Exception ex)

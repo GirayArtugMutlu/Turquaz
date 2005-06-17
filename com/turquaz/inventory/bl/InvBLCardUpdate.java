@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
@@ -53,7 +52,7 @@ public class InvBLCardUpdate
 			Integer cardSpecialVat=(Integer)argMap.get(InvKeys.INV_CARD_SPECIAL_VAT_RATE);
 			BigDecimal cardSpecialVatEach=(BigDecimal)argMap.get(InvKeys.INV_CARD_SPECIAL_FOR_EACH);
 			Boolean isSpecAmount=(Boolean)argMap.get(InvKeys.INV_CARD_IS_SPEC_AMOUNT);
-			Map invGroups=(Map)argMap.get(InvKeys.INV_CARD_INV_GROUPS);
+			HashMap invGroups=(HashMap)argMap.get(InvKeys.INV_CARD_INV_GROUPS);
 			List invCardUnits=(List)argMap.get(InvKeys.INV_CARD_UNITS);
 			List invPrices=(List)argMap.get(InvKeys.INV_CARD_PRICES);
 			List invAccounts=(List)argMap.get(InvKeys.INV_CARD_ACCOUNTS);
@@ -115,7 +114,7 @@ public class InvBLCardUpdate
 		}
 	}
 
-	private static void updateInvGroups(TurqInventoryCard invCard, Map invGroups) throws Exception
+	private static void updateInvGroups(TurqInventoryCard invCard, HashMap invGroups) throws Exception
 	{
 		try
 		{

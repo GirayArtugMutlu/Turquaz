@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.Button;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -1080,6 +1079,7 @@ public class InvUICardAdd extends Composite implements SecureComposite
 				argMap.put(InvKeys.INV_CARD_SPECIAL_VAT_RATE,numTextSpecailVATPercent.getIntegerValue());
 				argMap.put(InvKeys.INV_CARD_SPECIAL_FOR_EACH,decTextSpecialVatAmount.getBigDecimalValue());
 				argMap.put(InvKeys.INV_CARD_IS_SPEC_AMOUNT,new Boolean(radioSpecialVatAmount.getSelection()));
+				
 				argMap.put(InvKeys.INV_CARD_INV_GROUPS,compInvCardGroups.getRegisteredGroups());
 				argMap.put(InvKeys.INV_CARD_UNITS,getInvUnits());
 				argMap.put(InvKeys.INV_CARD_PRICES,getInvPrices());
@@ -1106,10 +1106,9 @@ public class InvUICardAdd extends Composite implements SecureComposite
 			for (int k = 0; k < items.length; k++)
 			{
 				InvUIInvAccountingAccTableRow row = (InvUIInvAccountingAccTableRow) items[k].getData();
-				TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) row.getDBObject();
-				if (invAcc.getTurqAccountingAccount() != null)
+				HashMap invAcc = (HashMap) row.getDBObject();
+				if (row.okToSave())
 				{
-					//InvBLCardAdd.saveInvAccount(invAcc, card);
 					invAccounts.add(invAcc);
 				}
 			}

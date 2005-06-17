@@ -25,7 +25,6 @@ import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrency;
-import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 
 public class InvDALCardAdd
@@ -92,15 +91,14 @@ public class InvDALCardAdd
 		}
 	}
 
-	public static List getInventoryUnits(TurqInventoryCard invCard) throws Exception
+	public static List getInventoryUnits(Integer invCardId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select cardUnit.turqInventoryUnit from TurqInventoryCardUnit cardUnit"
-					+ "	where cardUnit.turqInventoryCard = :invCard";
+					+ "	where cardUnit.turqInventoryCard.id ="+ invCardId;
 			Query q = session.createQuery(query);
-			q.setParameter("invCard", invCard);
 			List list = q.list();
 			return list;
 		}

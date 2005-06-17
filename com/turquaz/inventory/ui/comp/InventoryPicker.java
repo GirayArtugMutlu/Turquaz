@@ -20,7 +20,6 @@ package com.turquaz.inventory.ui.comp;
  * @version  $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.jface.contentassist.TextContentAssistSubjectAdapter;
 import org.eclipse.swt.layout.GridLayout;
@@ -33,11 +32,10 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.interfaces.TurquazContentAssistInterface;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.contentassist.TurquazContentAssistant;
@@ -69,6 +67,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 	private Text text1;
 	private Text textInvName = null;
 	private CCombo comboUnits = null;
+	private HashMap invCardMap=new HashMap();
 
 	public InventoryPicker(Composite parent, int style)
 	{
@@ -170,6 +169,18 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 	{
 		return text1.getText();
 	}
+	
+	public Integer getId()
+	{
+		if(invCardMap==null)
+		{
+			return null;
+		}
+		else
+		{
+			return (Integer)invCardMap.get(InvKeys.INV_CARD_ID);
+		}
+	}
 
 	public void setData(Object obj)
 	{
@@ -178,7 +189,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 
 	public void setDBData(Object obj)
 	{
-		super.setData(obj);
+		invCardMap=(HashMap)obj;
 		if (obj == null)
 		{
 			text1.setBackground(SWTResourceManager.getColor(255, 150, 150));
@@ -195,10 +206,9 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 		else
 		{
 			text1.setBackground(SWTResourceManager.getColor(198, 255, 198));
-			TurqInventoryCard invCard = (TurqInventoryCard) obj;
 			if (textInvName != null)
 			{
-				textInvName.setText(invCard.getCardName());
+				textInvName.setText((String)invCardMap.get(InvKeys.INV_CARD_NAME));
 			}
 			if (comboUnits != null)
 			{
@@ -206,15 +216,18 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 				comboUnits.setText("");
 				try
 				{
-					TurqInventoryUnit unit = null;
+					HashMap unit = null;
 					HashMap argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD,invCard);
-					List ls = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getInventoryUnits",argMap);
-					for (int i = 0; i < ls.size(); i++)
+					argMap.put(InvKeys.INV_CARD_ID,invCardMap.get(InvKeys.INV_CARD_ID));
+					HashBag unitBag = (HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getInventoryUnits",argMap);
+					HashMap unitList=(HashMap)unitBag.get(InvKeys.INV_UNITS);
+					for (int i = 0; i < unitList.size(); i++)
 					{
-						unit = (TurqInventoryUnit) ls.get(i);
-						comboUnits.add(unit.getUnitsName());
-						comboUnits.setData(unit.getUnitsName(), unit);
+						unit = (HashMap) unitList.get(new Integer(i));
+						String unitName=(String)unit.get(InvKeys.INV_UNIT_NAME);
+						Integer unitId=(Integer)unit.get(InvKeys.INV_UNIT_ID);
+						comboUnits.add(unitName);
+						comboUnits.setData(unitName, unitId);
 					}
 					if (comboUnits.getItemCount() > 0)
 					{
@@ -240,7 +253,7 @@ public class InventoryPicker extends org.eclipse.swt.widgets.Composite implement
 	}
 
 	public Object getDBData() {
-		return super.getData();
+		return invCardMap;
 	}
 
 	public void openNewObjectDialog() {

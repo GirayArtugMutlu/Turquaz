@@ -1176,3 +1176,12 @@ CREATE TABLE public.turq_services
 )
 -------------------------------------------------------------------------
 
+
+
+
+
+---------------------------17-06-2005------------------------------------
+ALTER TABLE turq_currencies ADD COLUMN constant bool;
+update turq_currencies set constant='FALSE';
+update turq_currencies set constant='TRUE' where id=1;
+----------------------------------------------------------------------------------

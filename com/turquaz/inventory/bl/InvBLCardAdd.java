@@ -24,16 +24,20 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import net.sf.hibernate.Session;
+import com.turquaz.accounting.AccKeys;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.bl.EngBLInventoryGroups;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
+import com.turquaz.engine.dal.TurqInventoryAccountingType;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
@@ -52,12 +56,14 @@ import com.turquaz.inventory.dal.InvDALCardAdd;
 public class InvBLCardAdd
 {	
 
-	public static TurqInventoryUnit getBaseUnitFromCardUnits(List invCardUnits)
+	public static TurqInventoryUnit getBaseUnitFromCardUnits(List invCardUnits)throws Exception
 	{
+		Session session=EngDALSessionFactory.getSession();
 		for (int k = 0; k < invCardUnits.size(); k++)
 		{
 			Object[] invCardUnit = (Object[]) invCardUnits.get(k);
-			TurqInventoryUnit invUnit = (TurqInventoryUnit) invCardUnit[0];
+			Integer unitId=(Integer)invCardUnit[0];
+			TurqInventoryUnit invUnit = (TurqInventoryUnit)session.load(TurqInventoryUnit.class,unitId);
 			BigDecimal factor = (BigDecimal) invCardUnit[1];
 			if (factor.doubleValue() == 1)
 			{
@@ -92,12 +98,26 @@ public class InvBLCardAdd
 		}
 	}
 
-	public static List getInventoryUnits(HashMap argMap) throws Exception
+	public static HashBag getInventoryUnits(HashMap argMap) throws Exception
 	{
 		try
 		{
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
-			return InvDALCardAdd.getInventoryUnits(invCard);
+			Session session=EngDALSessionFactory.getSession();
+			Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
+			List unitList= InvDALCardAdd.getInventoryUnits(invCardId);
+			
+			HashBag unitBag=new HashBag();
+			unitBag.put(InvKeys.INV_UNITS, new HashMap());
+			
+			for(int k=0; k<unitList.size(); k++)
+			{
+				TurqInventoryUnit unit=(TurqInventoryUnit)unitList.get(k);
+				
+				unitBag.put(InvKeys.INV_UNITS,k,InvKeys.INV_UNIT_ID,unit.getId());
+				unitBag.put(InvKeys.INV_UNITS,k,InvKeys.INV_UNIT_NAME,unit.getUnitsName());
+			}
+			
+			return unitBag;
 		}
 		catch (Exception ex)
 		{
@@ -314,24 +334,46 @@ public class InvBLCardAdd
 	{
 		for (int k = 0; k < invAccounts.size(); k++)
 		{
-			TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) invAccounts.get(k);
+			HashMap invAccMap=(HashMap)invAccounts.get(k);
+			
+			HashMap invAccTypeMap=(HashMap)invAccMap.get(InvKeys.INV_ACC_TYPE);
+			HashMap accountMap=(HashMap)invAccMap.get(AccKeys.ACC_ACCOUNT);
+			
+			Integer typeId=(Integer)invAccTypeMap.get(InvKeys.INV_ACC_TYPE_ID);
+			Integer accountId=(Integer)accountMap.get(AccKeys.ACC_ACCOUNT_ID);
+			
+			if (typeId == null)
+				System.out.println("NULLTYPE");
+			if(accountId == null)
+				System.out.println("NULLACC");
+			TurqInventoryAccountingAccount invAcc =new TurqInventoryAccountingAccount();
+		
+			TurqAccountingAccount account=new TurqAccountingAccount();
+			account.setId(accountId);
+			
+			TurqInventoryAccountingType type=new TurqInventoryAccountingType();
+			type.setId(typeId);
+			
+			invAcc.setTurqAccountingAccount(account);
+			invAcc.setTurqInventoryAccountingType(type);
+			
 			invAcc.setTurqInventoryCard(card);
 			registerInvCardAccount(invAcc, card);
 		}
 	}
 
-	public static void saveInvCardGroups(TurqInventoryCard card, Map groupMap) throws Exception
+	public static void saveInvCardGroups(TurqInventoryCard card, HashMap groupMap) throws Exception
 	{
 		try
 		{
+			Session session=EngDALSessionFactory.getSession();
 			Iterator it = groupMap.values().iterator();
 			while (it.hasNext())
 			{
-				TurqInventoryGroup group = (TurqInventoryGroup) it.next();
-				if (group != null)
-				{
-					registerInvCardGroup(card, group);
-				}
+				HashMap group=(HashMap)it.next();
+				Integer groupId=(Integer)group.get(InvKeys.INV_GROUP_ID);
+				TurqInventoryGroup invGroup =(TurqInventoryGroup)session.load(TurqInventoryGroup.class,groupId);
+				registerInvCardGroup(card,invGroup);
 			}
 		}
 		catch (Exception ex)
@@ -351,10 +393,12 @@ public class InvBLCardAdd
 
 	public static void saveInvCardUnits(TurqInventoryCard card, List invCardUnits) throws Exception
 	{
+		Session session=EngDALSessionFactory.getSession();
 		for (int k = 0; k < invCardUnits.size(); k++)
 		{
 			Object[] invCardUnit = (Object[]) invCardUnits.get(k);
-			TurqInventoryUnit invUnit = (TurqInventoryUnit) invCardUnit[0];
+			Integer unitId=(Integer)invCardUnit[0];
+			TurqInventoryUnit invUnit = (TurqInventoryUnit)session.load(TurqInventoryUnit.class,unitId);
 			BigDecimal factor = (BigDecimal) invCardUnit[1];
 			registerInvCardUnit(card, invUnit, factor);
 		}
@@ -374,7 +418,8 @@ public class InvBLCardAdd
 			Integer cardSpecialVat=(Integer)argMap.get(InvKeys.INV_CARD_SPECIAL_VAT_RATE);
 			BigDecimal cardSpecialVatEach=(BigDecimal)argMap.get(InvKeys.INV_CARD_SPECIAL_FOR_EACH);
 			Boolean isSpecAmount=(Boolean)argMap.get(InvKeys.INV_CARD_IS_SPEC_AMOUNT);
-			Map invGroups=(Map)argMap.get(InvKeys.INV_CARD_INV_GROUPS);
+			
+			HashMap invGroups=(HashMap)argMap.get(InvKeys.INV_CARD_INV_GROUPS);
 			List invCardUnits=(List)argMap.get(InvKeys.INV_CARD_UNITS);
 			List invPrices=(List)argMap.get(InvKeys.INV_CARD_PRICES);
 			List invAccounts=(List)argMap.get(InvKeys.INV_CARD_ACCOUNTS);
