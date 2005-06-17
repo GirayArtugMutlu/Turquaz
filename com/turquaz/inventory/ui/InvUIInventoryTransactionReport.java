@@ -577,7 +577,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 					TurqBill bill =(TurqBill)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getBill",argMap);
 					if (bill != null)
 					{
-						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
+						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill.getId()).open();
 					}
 					else
 					{

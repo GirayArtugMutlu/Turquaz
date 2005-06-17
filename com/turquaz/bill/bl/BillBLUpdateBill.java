@@ -137,7 +137,10 @@ public class BillBLUpdateBill
 
 	public static void deleteBill(HashMap argMap) throws Exception
 	{
-		TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+		Integer billId=(Integer)argMap.get(BillKeys.BILL_ID);
+		
+		TurqBill bill =(TurqBill)EngDALSessionFactory.getSession().load(TurqBill.class,billId);
+		
 		Boolean deleteCons=(Boolean)argMap.get(BillKeys.BILL_DELETE_CONS);
 		deleteAccountingTransactions(bill);
 		deleteCurrentTransactions(bill);

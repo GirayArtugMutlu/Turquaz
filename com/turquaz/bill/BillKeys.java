@@ -15,6 +15,7 @@ package com.turquaz.bill;
 public class BillKeys
 {
 	public static String BILL="bill";
+	public static String BILLS="bills";
 	public static String BILL_ID="billId";
 	public static String BILL_DEFINITION="billDefinition";
 	public static String BILL_IS_PRINTED="billIsPrinted";
@@ -35,4 +36,5 @@ public class BillKeys
 	public static String BILL_SAVE_CONS = "billSaveCons";
 	public static String BILL_CHECK="billCheck";
     public static String BILL_IS_OPEN ="billIsOpen";
+	 public static String BILL_CAN_UPDATE ="billCanUpdate";
 }

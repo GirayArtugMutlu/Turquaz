@@ -266,7 +266,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 					argMap.put(EngKeys.ENG_SEQ,seq);
 					if (bill != null)
 					{
-						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
+						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill.getId()).open();
 					}
 					else if ((cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap)) != null)
 					{

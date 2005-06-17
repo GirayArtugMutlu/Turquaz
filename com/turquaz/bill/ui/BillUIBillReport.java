@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
@@ -65,6 +67,7 @@ import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 
@@ -131,9 +134,10 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 	private Composite composite2;
 	private CTabItem tabItemView;
 	private CTabItem cTabItem2;
-	private List list = null;
 	private TurqBill bill = null;
+	private Integer billId=null;
 	private int currentIndex = 0;
+	private HashMap billList=null;
 	private SearchTableViewer tableViewer = null;
 
 	public BillUIBillReport(org.eclipse.swt.widgets.Composite parent, int style)
@@ -514,7 +518,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 									deleteCons = true;
 								}
 								HashMap argMap=new HashMap();
-								argMap.put(BillKeys.BILL,bill);
+								argMap.put(BillKeys.BILL_ID,billId);
 								argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(true));
 								EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap); //$NON-NLS-1$
 								EngUICommon.showDeletedSuccesfullyMessage(getShell());
@@ -565,20 +569,23 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					try
 					{
-						if (list != null && list.size() > 0)
+						if (billList != null && billList.size() > 0)
 						{
 							if (currentIndex - 1 >= 0)
 							{
 								currentIndex--;
-								Object[] billObj = (Object[]) list.get(currentIndex);
-								Integer billId = (Integer) billObj[0];
+								HashMap billInfo = (HashMap) billList.get(new Integer(currentIndex));
+								
+								billId = (Integer) billInfo.get(BillKeys.BILL_ID);
+								
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL_ID,billId);
 								bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 								postFinalizeGui();
+								
 								if (currentIndex == 0)
 									toolItemBack.setEnabled(false);
-								if (currentIndex < list.size() - 1)
+								if (currentIndex < billList.size() - 1)
 									toolItemForward.setEnabled(true);
 							}
 						}
@@ -600,18 +607,23 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				{
 					try
 					{
-						if (list != null && list.size() > 0)
+						if (billList != null && billList.size() > 0)
 						{
-							if (currentIndex + 1 <= list.size() - 1)
+							if (currentIndex + 1 <= billList.size() - 1)
 							{
 								currentIndex++;
-								Object[] billObj = (Object[]) list.get(currentIndex);
-								Integer billId = (Integer) billObj[0];
+								
+								HashMap billInfo = (HashMap) billList.get(new Integer(currentIndex));
+								
+								billId = (Integer) billInfo.get(BillKeys.BILL_ID);
+								
+								
+								
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL_ID,billId);
 								bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 								postFinalizeGui();
-								if (currentIndex == list.size() - 1)
+								if (currentIndex == billList.size() - 1)
 									toolItemForward.setEnabled(false);
 								if (currentIndex > 0)
 									toolItemBack.setEnabled(true);
@@ -686,8 +698,13 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			if (bill == null)
 				return;
 			HashMap argMap=new HashMap();
-			argMap.put(BillKeys.BILL_ID,bill.getId());
-			Boolean canUpdateBill=(Boolean)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap); //$NON-NLS-1$
+			
+			HashBag result=(HashBag)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+			
+			Boolean canUpdateBill =(Boolean)result.get(BillKeys.BILL_CAN_UPDATE);
+		
+			
+			
 			if (!canUpdateBill.booleanValue())
 			{
 				toolDelete.setEnabled(false);
@@ -801,8 +818,9 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			
 			HashMap argMap = new HashMap();
 			
-			argMap.put(EngKeys.CURRENT_CARD_START,txtCurCardStart.getData());
-			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getData());
+			argMap.put(EngKeys.CURRENT_CARD_START,txtCurCardStart.getCardId());
+			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getCardId());
+			
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.DUE_DATE_START,dateDueDateStart.getDate());
@@ -813,24 +831,32 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			argMap.put(EngKeys.DOCUMENT_NO_END,txtDocNoEnd.getText());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			
-			list =(List) EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"searchBillAdvanced",argMap); //$NON-NLS-1$
-			Object[] billObj;
+			HashBag resultBag =(HashBag) EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"searchBillAdvanced",argMap); //$NON-NLS-1$
+			
+			billList = (HashMap)resultBag.get(BillKeys.BILLS);
+			
+			
+			HashMap billInfo;
+			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal total = new BigDecimal(0);
 			BigDecimal VAT = new BigDecimal(0);
 			BigDecimal SpecialVAT = new BigDecimal(0);
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < billList.size(); i++)
 			{
-				billObj = (Object[]) list.get(i);
-				Integer billId = (Integer) billObj[0];
-				Date billDate = (Date) billObj[1];
-				String billDocNo = (String) billObj[2];
-				String curCardCode = (String) billObj[3];
-				String curCardName = (String) billObj[4];
-				BigDecimal totalAmount = (BigDecimal) billObj[5];
-				BigDecimal vatAmount = (BigDecimal) billObj[6];
-				BigDecimal specVatAmount = (BigDecimal) billObj[7];
-				String currency=(String)billObj[8];
+				billInfo = (HashMap) billList.get(new Integer(i));
+				
+				Integer billId = (Integer) billInfo.get(BillKeys.BILL_ID);
+				Date billDate = (Date) billInfo.get(BillKeys.BILL_DATE);
+				String billDocNo = (String) billInfo.get(BillKeys.BILL_DOC_NO);
+				String curCardCode = (String)billInfo.get(CurKeys.CUR_CURRENT_CODE);
+				String curCardName = (String) billInfo.get(CurKeys.CUR_CURRENT_NAME);
+				BigDecimal totalAmount = (BigDecimal)billInfo.get(BillKeys.BILL_TOTAL_AMOUNT);
+				BigDecimal vatAmount =  (BigDecimal)billInfo.get(BillKeys.BILL_TOTAL_VAT);
+				BigDecimal specVatAmount =  (BigDecimal) billInfo.get(BillKeys.BILL_SPECIAL_VAT);
+				String currency=(String)billInfo.get(AdmKeys.ADM_CURRENCY_ABBR);
+			
+				
 				total = total.add(totalAmount);
 				VAT = VAT.add(vatAmount);
 				SpecialVAT = SpecialVAT.add(specVatAmount);
@@ -841,17 +867,17 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			tableViewer.addRow(new String[]{"","", "", "", "TOPLAM", cf.format(total), cf.format(VAT), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 					cf.format(SpecialVAT)}, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			currentIndex = 0;
-			if (list.size() > 0)
+			if (billList.size() > 0)
 			{
-				billObj = (Object[]) list.get(0);
-				Integer billId = (Integer) billObj[0];
+				billInfo = (HashMap) billList.get(new Integer(0));
+				Integer billId = (Integer) billInfo.get(BillKeys.BILL_ID);
 				argMap=new HashMap();
 				argMap.put(BillKeys.BILL_ID,billId);
 				bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap); //$NON-NLS-1$
 				postFinalizeGui();
 				toolItemBack.setEnabled(false);
 				//Generate Jasper Report
-				GenerateJasper(list);
+			//	GenerateJasper(list);
 			}
 		}
 		catch (Exception ex)
@@ -948,10 +974,7 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 				Integer billId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (billId != null)
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(BillKeys.BILL_ID,billId);
-					bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);				 //$NON-NLS-1$
-					boolean updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill).open();
+					boolean updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, billId).open();
 					if (updated)
 						search();
 				}

@@ -24,7 +24,7 @@ import com.turquaz.engine.dal.TurqViewBillTransTotal;
  */
 public class BillDALSearchBill
 {
-	public static List searchBill(TurqCurrentCard curCard, String docNo, Date startDate, Date endDate, int type) throws Exception
+	public static List searchBill(Integer curCard, String docNo, Date startDate, Date endDate, int type) throws Exception
 	{
 		try
 		{
@@ -46,7 +46,7 @@ public class BillDALSearchBill
 			}
 			if (curCard != null)
 			{
-				query += " and bill.turqCurrentCard = :curCard";
+				query += " and bill.turqCurrentCard.id = :curCard";
 			}
 			query += " order by bill.billsDate, bill.billDocumentNo";
 			Query q = session.createQuery(query);

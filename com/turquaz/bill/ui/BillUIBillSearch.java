@@ -4,13 +4,14 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
@@ -18,7 +19,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -32,6 +32,7 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import org.eclipse.swt.widgets.Text;
@@ -318,25 +319,30 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			
-			List list =(List)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"searchBill",argMap);
-			Object[] bill;
+			HashBag billBag =(HashBag)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"searchBill",argMap);
+			HashMap billList =(HashMap)billBag.get(BillKeys.BILLS);
+			
+			HashMap billInfo;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 			BigDecimal generalTotalAmount=new BigDecimal(0);
 			BigDecimal generalVATAmount=new BigDecimal(0);
 			BigDecimal generalSpecVATAmount=new BigDecimal(0);
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < billList.size(); i++)
 			{
-				bill = (Object[]) list.get(i);
-				Integer billId = (Integer) bill[0];
-				Date billDate = (Date) bill[1];
-				String billDocNo = (String) bill[2];
-				String curCardCode = (String) bill[3];
-				String curCardName = (String) bill[4];
-				BigDecimal totalAmount = (BigDecimal) bill[5];
-				BigDecimal discountAmount = (BigDecimal)bill[9];
-				BigDecimal vatAmount = (BigDecimal) bill[6];
-				BigDecimal specVatAmount = (BigDecimal) bill[7];
-				String currency=(String)bill[8];
+				billInfo = (HashMap) billList.get(new Integer(i));
+				
+				
+				Integer billId = (Integer) billInfo.get(BillKeys.BILL_ID);
+				Date billDate = (Date)  billInfo.get(BillKeys.BILL_DATE);
+				String billDocNo = (String) billInfo.get(BillKeys.BILL_DOC_NO);
+				String curCardCode = (String) billInfo.get(CurKeys.CUR_CURRENT_CODE);
+				String curCardName = (String)  billInfo.get(CurKeys.CUR_CURRENT_NAME);
+				BigDecimal totalAmount = (BigDecimal) billInfo.get(BillKeys.BILL_TOTAL_AMOUNT);
+				BigDecimal discountAmount = (BigDecimal) billInfo.get(BillKeys.BILL_DISCOUNT_AMOUNT);
+				BigDecimal vatAmount = (BigDecimal)  billInfo.get(BillKeys.BILL_TOTAL_VAT);
+				BigDecimal specVatAmount = (BigDecimal) billInfo.get(BillKeys.BILL_SPECIAL_VAT);
+				String currency=(String) billInfo.get(AdmKeys.ADM_CURRENCY_ABBR);
+				
 				BigDecimal netTotalAmount=totalAmount.add(vatAmount).add(specVatAmount).subtract(discountAmount);
 				
 				generalTotalAmount=generalTotalAmount.add(netTotalAmount);
@@ -372,8 +378,12 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(BillKeys.BILL_ID,billId);
-					TurqBill bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
-					Boolean canUpdateBill=(Boolean)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+					
+					
+					HashBag result=(HashBag)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+					
+					Boolean canUpdateBill =(Boolean)result.get(BillKeys.BILL_CAN_UPDATE);
+				
 					if (canUpdateBill.booleanValue())
 					{
 						//delete Consignment Group
@@ -386,7 +396,7 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 								deleteCons = true;
 							}
 							argMap=new HashMap();
-							argMap.put(BillKeys.BILL,bill);
+							argMap.put(BillKeys.BILL_ID,billId);
 							argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(deleteCons));
 							EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap);
 							EngUICommon.showDeletedSuccesfullyMessage(getShell());
@@ -417,10 +427,8 @@ public class BillUIBillSearch extends org.eclipse.swt.widgets.Composite implemen
 	{
 		if (billId != null)
 		{
-			HashMap argMap=new HashMap();
-			argMap.put(BillKeys.BILL_ID,billId);
-			TurqBill bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
-			boolean updated = new BillUIBillUpdateDialog(shell, SWT.NULL, bill).open();
+			
+			boolean updated = new BillUIBillUpdateDialog(shell, SWT.NULL, billId).open();
 			if (updated)
 				return true;
 		}

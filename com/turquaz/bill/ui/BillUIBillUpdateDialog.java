@@ -10,6 +10,7 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.cash.CashKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
@@ -61,16 +62,25 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 	private TurqBill bill;
+	private Integer billId;
 	ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
 	private boolean updated = false;
 
 	/**
 	 * Auto-generated main method to display this org.eclipse.swt.widgets.Dialog inside a new Shell.
 	 */
-	public BillUIBillUpdateDialog(Shell parent, int style, TurqBill bill)
+	public BillUIBillUpdateDialog(Shell parent, int style, Integer bill)throws Exception
 	{
 		super(parent, style);
-		this.bill = bill;
+		this.billId = bill;
+		HashMap argMap=new HashMap();
+		argMap.put(BillKeys.BILL_ID,billId);
+		
+		this.bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
+		
+		
+		
+		
 	}
 
 	public BillUIBillUpdateDialog(Shell parent, int style)
@@ -199,7 +209,12 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				return;
 			HashMap argMap=new HashMap();
 			argMap.put(BillKeys.BILL_ID,bill.getId());
-			Boolean canUpdateBill=(Boolean)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+			
+			HashBag result=(HashBag)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
+			
+			Boolean canUpdateBill =(Boolean)result.get(BillKeys.BILL_CAN_UPDATE);
+		
+			
 			if (!canUpdateBill.booleanValue())
 			{
 				toolDelete.setEnabled(false);
@@ -372,7 +387,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					deleteCons = true;
 				}
 				HashMap argMap=new HashMap();
-				argMap.put(BillKeys.BILL,bill);
+				argMap.put(BillKeys.BILL_ID,billId);
 				argMap.put(BillKeys.BILL_DELETE_CONS,new Boolean(deleteCons));
 				EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"deleteBill",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
