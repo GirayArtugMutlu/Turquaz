@@ -31,7 +31,6 @@ import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
 import com.turquaz.engine.dal.TurqBankAccountingAccount;
 import com.turquaz.engine.dal.TurqBanksCard;
-import com.turquaz.engine.dal.TurqCurrency;
 
 public class BankDALBankCardSearch
 {
@@ -39,7 +38,7 @@ public class BankDALBankCardSearch
 	{
 	}
 
-	public static List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, TurqCurrency currency)
+	public static List searchBankCards(String bankName, String bankBranchName, String bankAccountNo, Integer currency)
 			throws Exception
 	{
 		try
@@ -52,7 +51,7 @@ public class BankDALBankCardSearch
 					" and bankCard.bankAccountNo like '" + bankAccountNo + "%'" + " and bankCard.id <> -1"; //$NON-NLS-1$ //$NON-NLS-2$
 			if (currency != null)
 			{
-				query += " and bankCard.turqCurrency = :currency"; //$NON-NLS-1$
+				query += " and bankCard.turqCurrency.id = :currency"; //$NON-NLS-1$
 			}
 			Query q = session.createQuery(query);
 			if (currency != null)

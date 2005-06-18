@@ -220,11 +220,38 @@ public class BankBLTransactionSearch
 	}
 
 	//aC?L?S Degerleri
-	public static List getBankInitialTransactions() throws Exception
+	public static HashBag getBankInitialTransactions() throws Exception
 	{
 		try
-		{
-			return BankDALCommon.getBankInitialTransactions();
+		{		
+			
+			
+			List list = BankDALCommon.getBankInitialTransactions();
+			
+			HashBag transBag = new HashBag();
+			transBag.put(BankKeys.BANK_TRANSACTION_ROWS,new HashMap());
+			Iterator it = list.iterator();
+			int i=0;
+			while(it.hasNext())
+			{
+			   TurqBanksTransaction bankTrans =(TurqBanksTransaction)it.next();
+			   
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,BankKeys.BANK_TRANS_ID,bankTrans.getId());
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,BankKeys.BANK_CODE,bankTrans.getTurqBanksCard().getBankCode());
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,BankKeys.BANK_NAME,bankTrans.getTurqBanksCard().getBankName());
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,BankKeys.BANK_BRANCH_NAME,bankTrans.getTurqBanksCard().getBankBranchName());
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,BankKeys.BANK_ACCOUNT_NO,bankTrans.getTurqBanksCard().getBankAccountNo());
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,EngKeys.DEPT_AMOUNT,bankTrans.getDeptAmount());
+			   transBag.put(BankKeys.BANK_TRANSACTION_ROWS,i,EngKeys.CREDIT_AMOUNT,bankTrans.getCreditAmount());
+			     
+				
+				i++;
+			}
+			
+			
+			return transBag;
+			
+		
 		}
 		catch (Exception ex)
 		{

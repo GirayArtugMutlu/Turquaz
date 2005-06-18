@@ -1,7 +1,6 @@
 package com.turquaz.bank.ui;
 
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.events.MouseAdapter;
@@ -10,8 +9,10 @@ import com.turquaz.engine.ui.component.SearchDialogMenu;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLBankCardSearch;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -206,23 +207,29 @@ public class BankUIBankCardSearchDialog extends org.eclipse.swt.widgets.Dialog i
 		argMap.put(BankKeys.BANK_NAME,txtBankName.getText().trim());
 		argMap.put(BankKeys.BANK_CODE,txtBankCard.getText().trim());
 
-		List listBankCards =(List) EngTXCommon.doTransactionTX(BankBLBankCardSearch.class.getName(),"searchBankCardsWithCode",argMap);
+		HashBag bankCardsBag =(HashBag) EngTXCommon.doTransactionTX(BankBLBankCardSearch.class.getName(),"searchBankCardsWithCode",argMap);
+		
+		HashMap listBankCards =(HashMap)bankCardsBag.get(BankKeys.BANK_CARDS);
+		
+		HashMap bankInfo;
 		
 		TableItem item;
 		
 		for (int i = 0; i < listBankCards.size(); i++)
 		{
+			bankInfo = (HashMap) listBankCards.get(new Integer(i));
 			
-			String cardCode = (String) ((Object[]) listBankCards.get(i))[1];
-			String cardName = (String) ((Object[]) listBankCards.get(i))[2];
-			String branchName = (String) ((Object[]) listBankCards.get(i))[3];
-			String AccNo = (String) ((Object[]) listBankCards.get(i))[4];
-			String currency = (String) ((Object[]) listBankCards.get(i))[5];
-			String definition = (String) ((Object[]) listBankCards.get(i))[6];
+			String cardCode = (String)  bankInfo.get(BankKeys.BANK_CODE);
+			String bankName = (String) bankInfo.get(BankKeys.BANK_NAME);
+			String bankBranchName = (String) bankInfo.get(BankKeys.BANK_BRANCH_NAME);
+			String bankAccNo = (String) bankInfo.get(BankKeys.BANK_ACCOUNT_NO);
+			String abbr = (String) bankInfo.get(AdmKeys.ADM_CURRENCY_ABBR);
+			String bankDefinition = (String) bankInfo.get(BankKeys.BANK_DEFINITION);
+			
 			item = new TableItem(table1, SWT.NULL);
 			item.setData(cardCode);
 			
-			item.setText(new String[]{cardCode, cardName, branchName,AccNo,currency,definition});	}
+			item.setText(new String[]{cardCode, bankName, bankBranchName,bankAccNo,abbr,bankDefinition});	}
 		}
 		catch (Exception ex)
 		{

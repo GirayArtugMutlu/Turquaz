@@ -1,22 +1,25 @@
 package com.turquaz.bank.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.dal.TurqBanksTransaction;
+import com.turquaz.bank.BankKeys;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
 
 public class BankUIInitialTransactionTableRow implements ITableRow
 {
-	TurqBanksTransaction bankTrans = new TurqBanksTransaction();
+	HashMap bankTrans = new HashMap();
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
 	public BankUIInitialTransactionTableRow()
 	{
-		bankTrans.setDeptAmount(new BigDecimal(0));
-		bankTrans.setCreditAmount(new BigDecimal(0));
+		bankTrans.put(EngKeys.DEPT_AMOUNT,new BigDecimal(0));
+		bankTrans.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(0));
 	}
 
 	public boolean canModify(int column_index)
@@ -48,7 +51,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 0 : // inventory code
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankCode();
+					result = bankTrans.get(BankKeys.BANK_CODE).toString();
 				}
 				else
 				{
@@ -58,7 +61,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 1 :
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankName();
+					result = bankTrans.get(BankKeys.BANK_NAME).toString();
 				}
 				else
 				{
@@ -68,7 +71,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 2 :
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankBranchName();
+					result = bankTrans.get(BankKeys.BANK_BRANCH_NAME).toString();
 				}
 				else
 				{
@@ -78,7 +81,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 3 :
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankAccountNo();
+					result = bankTrans.get(BankKeys.BANK_ACCOUNT_NO).toString();
 				}
 				else
 				{
@@ -86,10 +89,10 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 				}
 				break;
 			case 4 :
-				result = cf.format(bankTrans.getDeptAmount());
+				result = cf.format(bankTrans.get(EngKeys.DEPT_AMOUNT));
 				break;
 			case 5 :
-				result = cf.format(bankTrans.getCreditAmount());
+				result = cf.format(bankTrans.get(EngKeys.CREDIT_AMOUNT));
 				break;
 			default :
 		}
@@ -114,7 +117,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 0 : // inventory code
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankCode();
+					result = bankTrans.get(BankKeys.BANK_CODE).toString();
 				}
 				else
 				{
@@ -124,7 +127,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 1 :
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankName();
+					result = bankTrans.get(BankKeys.BANK_NAME).toString();
 				}
 				else
 				{
@@ -134,7 +137,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 2 :
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankBranchName();
+					result = bankTrans.get(BankKeys.BANK_BRANCH_NAME).toString();
 				}
 				else
 				{
@@ -144,7 +147,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 			case 3 :
 				if (okToSave())
 				{
-					result = bankTrans.getTurqBanksCard().getBankAccountNo();
+					result = bankTrans.get(BankKeys.BANK_ACCOUNT_NO).toString();
 				}
 				else
 				{
@@ -152,10 +155,10 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 				}
 				break;
 			case 4 :
-				result = cf.format(bankTrans.getDeptAmount());
+				result = cf.format(bankTrans.get(EngKeys.DEPT_AMOUNT));
 				break;
 			case 5 :
-				result = cf.format(bankTrans.getCreditAmount());
+				result = cf.format(bankTrans.get(EngKeys.CREDIT_AMOUNT));
 				break;
 			default :
 		}
@@ -183,7 +186,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				bankTrans.setDeptAmount(new BigDecimal(formatted));
+				bankTrans.put(EngKeys.DEPT_AMOUNT,new BigDecimal(formatted));
 				break;
 			case 5 :
 				formatted = value.toString();
@@ -193,7 +196,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 				{
 					formatted = "0";
 				}
-				bankTrans.setCreditAmount(new BigDecimal(formatted));
+				bankTrans.put(EngKeys.CREDIT_AMOUNT,new BigDecimal(formatted));
 				break;
 			default :
 		}
@@ -201,7 +204,7 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 
 	public boolean okToSave()
 	{
-		if (bankTrans.getTurqBanksTransactionBill() == null)
+		if (bankTrans.get(BankKeys.BANK_TRANS_ID) == null)
 		{
 			return false;
 		}
@@ -210,9 +213,9 @@ public class BankUIInitialTransactionTableRow implements ITableRow
 
 	public void setDBObject(Object obj)
 	{
-		if (obj instanceof TurqBanksTransaction)
+		if (obj instanceof HashMap)
 		{
-			bankTrans = (TurqBanksTransaction) obj;
+			bankTrans = (HashMap) obj;
 		}
 	}
 

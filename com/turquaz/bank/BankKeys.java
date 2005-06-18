@@ -25,6 +25,9 @@ public class BankKeys
 	public static final String BANK_CARD_WITH_DEPT="bankCardWithDept";
 	public static final String BANK_CARD_WITH_CREDIT="bankCardWithCredit";
 	public static final String BANK_TRANS_BILL_ID="bankTransBillId";
+	public static final String BANK_TRANS_ID="bankTransId";
+	
+	
 	public static final String BANK_SORT_BY_DATE="bankSortByDate";
 	public static final String BANK_HAS_TRANSACTIONS="hasTransactions";
 	public static final String BANK_CARDS = "bankCards";

@@ -60,34 +60,41 @@ public class BankBLTransactionUpdate
 {
 	public static TurqBanksTransactionBill initializeTransaction(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
 			Integer transId=(Integer)argMap.get(EngKeys.TRANS_ID);
 			return BankDALCommon.initializeTransaction(transId);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static void initializeTransaction(TurqBanksTransactionBill transBill) throws Exception
 	{
-		try
-		{
+		
 			BankDALCommon.initializeTransaction(transBill);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
+	public static void updateInitialTransaction(HashMap argMap) throws Exception
+	{
+		
+		Integer transId = (Integer)argMap.get(BankKeys.BANK_TRANS_ID);
+		BigDecimal deptAmount =(BigDecimal)argMap.get(EngKeys.DEPT_AMOUNT);
+		BigDecimal creditAmount =(BigDecimal)argMap.get(EngKeys.CREDIT_AMOUNT);
+		
+		TurqBanksTransaction bankTrans=(TurqBanksTransaction)EngDALSessionFactory.getSession().load(TurqBanksTransaction.class,transId);
+		
+		bankTrans.setDeptAmount(deptAmount);
+		bankTrans.setDeptAmountInForeignCurrency(deptAmount);
+		bankTrans.setCreditAmountInForeignCurrency(creditAmount);
+		bankTrans.setCreditAmount(creditAmount);
+		
+		EngDALCommon.updateObject(bankTrans);
+		
+		
+	}
 	
 	public static void updateTransferBetweenBanks(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
 			Integer bankTransBillId = (Integer)argMap.get(BankKeys.BANK_TRANS_BILL_ID);
 			TurqBanksTransactionBill bankTransBill=(TurqBanksTransactionBill)EngDALSessionFactory.getSession().load(TurqBanksTransactionBill.class,bankTransBillId);
 			
@@ -179,11 +186,7 @@ public class BankBLTransactionUpdate
 			AccBLTransactionAdd.saveAccTransaction(transDate, docNo, accTransType, bankTransBill.getTurqEngineSequence().getTurqModule()
 					.getId().intValue(), bankTransBill.getTurqEngineSequence().getId(), accounting_definition, exchangeRate,
 					creditAccounts, deptAccounts, true);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static void prepareAccountingMaps(TurqAccountingAccount creditAccount,TurqAccountingAccount deptAccount, BigDecimal amount, Map creditAccounts,

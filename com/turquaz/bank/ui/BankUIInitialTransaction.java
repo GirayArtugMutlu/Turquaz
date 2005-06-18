@@ -13,11 +13,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLTransactionSearch;
-import com.turquaz.engine.EngKeys;
+import com.turquaz.bank.bl.BankBLTransactionUpdate;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqBanksTransaction;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -193,9 +193,8 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 			{
 				try
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(EngKeys.OBJECT,row.getDBObject());
-					EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"update",argMap);
+					
+					EngTXCommon.doTransactionTX(BankBLTransactionUpdate.class.getName(),"updateInitialTransaction",(HashMap)row.getDBObject());
 				}
 				catch (Exception ex)
 				{
@@ -217,15 +216,17 @@ public class BankUIInitialTransaction extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List list =(List)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getBankInitialTransactions",null);
-			TurqBanksTransaction curTrans;
-			for (int i = 0; i < list.size(); i++)
+			HashBag transBag =(HashBag)EngTXCommon.doSelectTX(BankBLTransactionSearch.class.getName(),"getBankInitialTransactions",null);
+			
+			HashMap transList =(HashMap)transBag.get(BankKeys.BANK_TRANSACTION_ROWS);
+			
+			HashMap curTrans;
+			for (int i = 0; i < transList.size(); i++)
 			{
-				curTrans = (TurqBanksTransaction) list.get(i);
+				curTrans = (HashMap) transList.get(new Integer(i));
 				BankUIInitialTransactionTableRow row = new BankUIInitialTransactionTableRow();
 				row.setDBObject(curTrans);
 				rowList.addTask(row);
-				rowList.taskChanged(row);
 			}
 		}
 		catch (Exception ex)

@@ -21,7 +21,6 @@ package com.turquaz.bank.ui;
  */
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.graphics.Rectangle;
@@ -36,17 +35,16 @@ import com.turquaz.bank.bl.BankBLBankCardSearch;
 import com.turquaz.bank.bl.BankBLBankCardUpdate;
 import com.turquaz.bank.ui.BankUIBankCardAdd;
 import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.lang.BankLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.CoolItem;
@@ -239,6 +237,7 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 			compBankCard.getTxtBankAccountNo().setText(bankBag.get(BankKeys.BANK_ACCOUNT_NO).toString());
 			compBankCard.getTxtDefinition().setText(bankBag.get(BankKeys.BANK_DEFINITION).toString());
 			compBankCard.getTxtBankCode().setText(bankBag.get(BankKeys.BANK_CODE).toString());
+		
 			FillCurrencyCombo(bankBag.get(AdmKeys.ADM_CURRENCY_ABBR).toString());
 			
 			HashMap accountMap = (HashMap)bankBag.get(BankKeys.BANK_ACCOUNTING_ACCOUNTS);
@@ -261,16 +260,23 @@ public class BankUIBankCardUpdate extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			CCombo comboCurrency = compBankCard.getComboCurrency();
-			comboCurrency.removeAll();
-			List currencies = (List)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrency.add(currency.getCurrenciesAbbreviation());
-				comboCurrency.setData(currency.getCurrenciesAbbreviation(), currency);
-			}
-			comboCurrency.setText(currenyAbbr);
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					compBankCard.getComboCurrency().add(abbr);
+					compBankCard.getComboCurrency().setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						compBankCard.getComboCurrency().setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
+				}
+			compBankCard.getComboCurrency().setText(currenyAbbr);
 		}
 		catch (Exception ex)
 		{

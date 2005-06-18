@@ -22,7 +22,6 @@ package com.turquaz.bank.ui;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import com.turquaz.accounting.ui.comp.AccountPickerLeaf;
 import org.eclipse.swt.layout.GridLayout;
@@ -34,11 +33,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.custom.CTabItem;
 
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLBankCards;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqCurrency;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.BankLangKeys;
@@ -48,6 +47,7 @@ import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.custom.CCombo;
 import com.turquaz.bank.BankKeys;
 import com.turquaz.bank.bl.BankBLBankCardAdd;
+import com.turquaz.common.HashBag;
 
 /**
  * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
@@ -344,19 +344,26 @@ public class BankUIBankCardAdd extends Composite implements SecureComposite
 	{
 		try
 		{
-			comboCurrency.removeAll();
-			comboCurrency.setText(BankLangKeys.STR_SELECT_CURRENYCY);
-			List currencies = (List) EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashBag currencyBag = (HashBag)EngTXCommon.doSelectTX(EngBLServer.class.getName(),"getCurrencies",null);
+			HashMap currencies = (HashMap)currencyBag.get(EngKeys.CURRENCIES);
+			
 			for (int k = 0; k < currencies.size(); k++)
 			{
-				TurqCurrency currency = (TurqCurrency) currencies.get(k);
-				comboCurrency.add(currency.getCurrenciesAbbreviation());
-				comboCurrency.setData(currency.getCurrenciesAbbreviation(), currency);
-			}
+					HashMap currencyMap=(HashMap)currencies.get(new Integer(k));
+
+					String abbr=(String)currencyMap.get(EngKeys.CURRENCY_ABBR);
+					comboCurrency.add(abbr);
+					comboCurrency.setData(abbr,currencyMap.get(EngKeys.CURRENCY_ID));
+				
+					if (((Boolean)currencyMap.get(EngKeys.DEFAULT)).booleanValue())
+					{
+						comboCurrency.setText((String)currencyMap.get(EngKeys.CURRENCY_ABBR));
+					}
+				}
 		}
 		catch (Exception ex)
 		{
-			throw ex;
+            EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
 
