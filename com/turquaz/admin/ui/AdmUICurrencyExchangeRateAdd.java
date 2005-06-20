@@ -2,12 +2,8 @@ package com.turquaz.admin.ui;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.GridData;
 import com.cloudgarden.resource.SWTResourceManager;
@@ -24,7 +20,6 @@ import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.CurrencyTextAdvanced;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 /**
@@ -50,46 +45,6 @@ public class AdmUICurrencyExchangeRateAdd extends org.eclipse.swt.widgets.Compos
 	private Calendar cal = Calendar.getInstance();
 	private CurrencyTextAdvanced txtExchangeRatio;
 	private CLabel lvlExchangeRatio;
-
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		showGUI();
-	}
-
-	/**
-	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void showGUI()
-	{
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		AdmUICurrencyExchangeRateAdd inst = new AdmUICurrencyExchangeRateAdd(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if (size.x == 0 && size.y == 0)
-		{
-			inst.pack();
-			shell.pack();
-		}
-		else
-		{
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
 
 	public AdmUICurrencyExchangeRateAdd(org.eclipse.swt.widgets.Composite parent, int style)
 	{

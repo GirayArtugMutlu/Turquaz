@@ -21,16 +21,15 @@ package com.turquaz.inventory.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -105,7 +104,6 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			preInitGUI();
 			this.setSize(new org.eclipse.swt.graphics.Point(573, 437));
 			FillLayout thisLayout = new FillLayout(256);
 			this.setLayout(thisLayout);
@@ -273,11 +271,6 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
@@ -304,15 +297,17 @@ public class InvUICardSearch extends Composite implements SearchComposite
 		comboInvSubGroup.removeAll();
 		if (comboInvMainGroup.getSelectionIndex() == -1)
 			return;
-		TurqInventoryGroup invMainGr = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
+		HashMap invMainGr = (HashMap) comboInvMainGroup.getData(comboInvMainGroup.getText());
 		if (invMainGr != null)
 		{
-			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
-			while (it.hasNext())
+			HashBag subGroupBag=(HashBag)invMainGr.get(InvKeys.INV_SUB_GROUPS);
+			HashMap subGroups=(HashMap)subGroupBag.get(InvKeys.INV_SUB_GROUPS);
+			for(int k=0; k<subGroups.size(); k++)
 			{
-				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
-				comboInvSubGroup.add(invGr.getGroupsName());
-				comboInvSubGroup.setData(invGr.getGroupsName(), invGr);
+				HashMap invGr = (HashMap)subGroups.get(new Integer(k));
+				String invGrName=(String)invGr.get(InvKeys.INV_GROUP_NAME);
+				comboInvSubGroup.add(invGrName);
+				comboInvSubGroup.setData(invGrName, invGr);
 			}
 			if (comboInvSubGroup.getItemCount() > 0)
 				comboInvSubGroup.setText(comboInvSubGroup.getItem(0));
@@ -323,13 +318,15 @@ public class InvUICardSearch extends Composite implements SearchComposite
 	{
 		try
 		{
-			List groupList =(List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashBag groupBag =(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashMap groupList=(HashMap)groupBag.get(InvKeys.INV_GROUPS);
 			comboInvMainGroup.add("");
 			for (int k = 0; k < groupList.size(); k++)
 			{
-				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
-				comboInvMainGroup.add(gr.getGroupsName());
-				comboInvMainGroup.setData(gr.getGroupsName(), gr);
+				HashMap gr = (HashMap) groupList.get(new Integer(k));
+				String grName=(String)gr.get(InvKeys.INV_GROUP_NAME);
+				comboInvMainGroup.add(grName);
+				comboInvMainGroup.setData(grName, gr);
 			}
 		}
 		catch (Exception ex)

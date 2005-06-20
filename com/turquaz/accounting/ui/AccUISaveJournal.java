@@ -5,11 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableItem;
@@ -27,7 +23,6 @@ import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
@@ -61,45 +56,6 @@ public class AccUISaveJournal extends org.eclipse.swt.widgets.Composite
 	private TableColumn tableColumnDocumentNo;
 	private TableColumn tableColumnTransType;
 
-	/**
-	 * Auto-generated main method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void main(String[] args)
-	{
-		showGUI();
-	}
-
-	/**
-	 * Auto-generated method to display this org.eclipse.swt.widgets.Composite inside a new Shell.
-	 */
-	public static void showGUI()
-	{
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		AccUISaveJournal inst = new AccUISaveJournal(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if (size.x == 0 && size.y == 0)
-		{
-			inst.pack();
-			shell.pack();
-		}
-		else
-		{
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed())
-		{
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
 
 	public AccUISaveJournal(org.eclipse.swt.widgets.Composite parent, int style)
 	{
