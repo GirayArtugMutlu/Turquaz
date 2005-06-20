@@ -52,6 +52,7 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
@@ -59,8 +60,6 @@ import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqConsignmentGroup;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
@@ -82,204 +81,262 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
 
 /**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
+ * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder,
+ * which is free for non-commercial use. If Jigloo is being used commercially
+ * (ie, by a corporation, company or business for any purpose whatever) then you
+ * should purchase a license for each developer using Jigloo. Please visit
+ * www.cloudgarden.com for details. Use of Jigloo implies acceptance of these
+ * licensing terms. ************************************* A COMMERCIAL LICENSE
+ * HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be
+ * used legally for any corporate or commercial purpose.
+ * *************************************
  */
-public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite implements SecureComposite
-{
-	
+public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite implements SecureComposite {
 
 	/**
 	 * @return Returns the compRegisterGroup.
 	 */
-	public RegisterGroupComposite getCompRegisterGroup()
-	{
+	public RegisterGroupComposite getCompRegisterGroup() {
 		return compRegisterGroup;
 	}
 
 	/**
 	 * @return Returns the dateConsignmentDate.
 	 */
-	public DatePicker getDateConsignmentDate()
-	{
+	public DatePicker getDateConsignmentDate() {
 		return dateConsignmentDate;
 	}
 
 	/**
 	 * @return Returns the decSpecialVat.
 	 */
-	public CurrencyText getDecSpecialVat()
-	{
+	public CurrencyText getDecSpecialVat() {
 		return decSpecialVat;
 	}
 
 	/**
 	 * @return Returns the tableConsignmentRows.
 	 */
-	public Table getTableConsignmentRows()
-	{
+	public Table getTableConsignmentRows() {
 		return tableConsignmentRows;
 	}
 
 	/**
 	 * @return Returns the txtBillDocumentNo.
 	 */
-	public Text getTxtBillDocumentNo()
-	{
+	public Text getTxtBillDocumentNo() {
 		return txtBillDocumentNo;
 	}
 
 	/**
 	 * @return Returns the txtCurrentCard.
 	 */
-	public CurrentPicker getTxtCurrentCard()
-	{
+	public CurrentPicker getTxtCurrentCard() {
 		return txtCurrentCard;
 	}
 
 	/**
 	 * @return Returns the txtDefinition.
 	 */
-	public Text getTxtDefinition()
-	{
+	public Text getTxtDefinition() {
 		return txtDefinition;
 	}
 
 	/**
 	 * @return Returns the txtDiscountAmount.
 	 */
-	public CurrencyText getTxtDiscountAmount()
-	{
+	public CurrencyText getTxtDiscountAmount() {
 		return txtDiscountAmount;
 	}
 
 	/**
 	 * @return Returns the txtDocumentNo.
 	 */
-	public Text getTxtDocumentNo()
-	{
+	public Text getTxtDocumentNo() {
 		return txtDocumentNo;
 	}
 
 	/**
 	 * @return Returns the txtSubTotal.
 	 */
-	public CurrencyText getTxtSubTotal()
-	{
+	public CurrencyText getTxtSubTotal() {
 		return txtSubTotal;
 	}
 
 	/**
 	 * @return Returns the txtTotalAmount.
 	 */
-	public CurrencyText getTxtTotalAmount()
-	{
+	public CurrencyText getTxtTotalAmount() {
 		return txtTotalAmount;
 	}
 
 	/**
 	 * @return Returns the txtTotalVat.
 	 */
-	public CurrencyText getTxtTotalVat()
-	{
+	public CurrencyText getTxtTotalVat() {
 		return txtTotalVat;
 	}
+
 	{
-		//Register as a resource user - SWTResourceManager will
-		//handle the obtaining and disposing of resources
+		// Register as a resource user - SWTResourceManager will
+		// handle the obtaining and disposing of resources
 		SWTResourceManager.registerResourceUser(this);
 	}
+
 	private Composite compInfoPanel;
+
 	private Composite compTotalsPanel;
+
 	private Table tableConsignmentRows;
+
 	private TableColumn tableColumn12;
+
 	private TableColumn tableColumn11;
+
 	private TableColumn tableColumn10;
+
 	private TableColumn tableColumn9;
+
 	private TableColumn tableColumn8;
+
 	private TableColumn tableColumn7;
+
 	private TableColumn tableColumn6;
+
 	private TableColumn tableColumn3;
+
 	private TableColumn tableColumn4;
+
 	private TableColumn tableColumn5;
+
 	private TableColumn tableColumn;
+
 	private TableColumn tableColumn2;
+
 	private TableColumn tableColumn1;
+
 	private Text txtBillDocumentNo;
+
 	private CLabel lblInventoryPrice;
+
 	private CTabItem tabItemInfo;
+
 	private TableColumn tableColumnAmountAfterDiscount;
+
 	private TableColumn tableColumnDiscountRate;
+
 	private CCombo comboWareHouse;
+
 	private CLabel lblWareHouse;
+
 	private CLabel lblBillDocumentNo;
+
 	private Text txtDefinition;
+
 	private CLabel lblDefinition;
+
 	private CurrencyText decSpecialVat;
+
 	private CLabel lblSpecialVAT;
+
 	private Button btnUpdateGroups;
+
 	private RegisterGroupComposite compRegisterGroup;
+
 	private Composite composite1;
+
 	private CTabItem tabItemGroups;
+
 	private Composite compGeneral;
+
 	private CTabFolder cTabFolder1;
+
 	private CurrencyText txtDiscountAmount;
+
 	private CLabel lblDiscountAmount;
+
 	private CurrencyText txtTotalAmount;
+
 	private CLabel lblTotalAmount;
+
 	private CurrencyText txtSubTotal;
+
 	private CurrencyText txtTotalVat;
+
 	private CLabel lblTotalVat;
+
 	private Text txtDocumentNo;
+
 	private CLabel lblDocumentNo;
+
 	private DatePicker dateConsignmentDate;
+
 	private CLabel lblDate;
+
 	private CurrentPicker txtCurrentCard;
+
 	private CLabel lblCurrentCard;
+
 	public SaveTableViewer tableViewer;
+
 	/**
-	 * 0 - Stok Kodu 1 - Stok Cinsi //cant modify 2 - Miktar 3 - Birim 4 - Temel Birim Miktar? //cant modify 5 - Tamel Birimi //cant modify
-	 * 6 - Birim Fiyat? 7 - Toplam Tutar //cant modify 8 - Kdv % 9 - Kdv Tutari //cantModify 10 - Ötv % 11 - Ötv Tutari //cant Modify 12 -
-	 * Sat?r Toplam? //cant Modify
+	 * 0 - Stok Kodu 1 - Stok Cinsi //cant modify 2 - Miktar 3 - Birim 4 - Temel
+	 * Birim Miktar? //cant modify 5 - Tamel Birimi //cant modify 6 - Birim
+	 * Fiyat? 7 - Toplam Tutar //cant modify 8 - Kdv % 9 - Kdv Tutari
+	 * //cantModify 10 - Ötv % 11 - Ötv Tutari //cant Modify 12 - Sat?r Toplam?
+	 * //cant Modify
 	 */
-	//	 Set the table column property names
+	// Set the table column property names
 	private final String INVENTORY_CODE = InvLangKeys.STR_INV_CODE;
+
 	private final String INVENTORY_NAME = InvLangKeys.STR_INV_NAME;
+
 	private final String TRANS_AMOUNT = EngLangCommonKeys.STR_AMOUNT;
+
 	private final String UNIT = EngLangCommonKeys.STR_UNIT;
+
 	private final String TRANS_AMOUNT_IN_BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT_AMOUNT;
+
 	private final String BASE_UNIT = EngLangCommonKeys.STR_BASE_UNIT;
+
 	private final String UNIT_PRICE = EngLangCommonKeys.STR_UNIT_PRICE;
+
 	private final String TOTAL_PRICE = EngLangCommonKeys.STR_TOTALPRICE;
+
 	private final String DISCOUNT_PERCENT = EngLangCommonKeys.STR_DISCOUNT_PERCENTAGE;
+
 	private final String TOTAL_PRICE_AFTER_DISCOUNT = EngLangCommonKeys.STR_DISCOUNTED_TOTALPRICE;
+
 	private final String VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+
 	private final String VAT_TOTAL = InvLangKeys.STR_VAT_TOTAL;
+
 	private final String SPECIAL_VAT_PERCENT = InvLangKeys.STR_VAT_PERCENTAGE;
+
 	private final String SPECIAL_VAT_TOTAL = InvLangKeys.STR_SPEC_VAT_TOTAL;
+
 	private final String ROW_TOTAL = InvLangKeys.STR_TRANSROW_TOTAL;
+
 	int last_row_index = 0;
+
 	int CONS_TYPE = EngBLCommon.COMMON_BUY_INT;
+
 	TableSpreadsheetCursor cursor;
+
 	// Set column names
-	private String[] columnNames = new String[]{INVENTORY_CODE, INVENTORY_NAME, TRANS_AMOUNT, UNIT, TRANS_AMOUNT_IN_BASE_UNIT, BASE_UNIT,
-			UNIT_PRICE, TOTAL_PRICE, DISCOUNT_PERCENT, TOTAL_PRICE_AFTER_DISCOUNT, VAT_PERCENT, VAT_TOTAL, SPECIAL_VAT_PERCENT,
-			SPECIAL_VAT_TOTAL, ROW_TOTAL};
+	private String[] columnNames = new String[] { INVENTORY_CODE, INVENTORY_NAME, TRANS_AMOUNT, UNIT, TRANS_AMOUNT_IN_BASE_UNIT, BASE_UNIT,
+			UNIT_PRICE, TOTAL_PRICE, DISCOUNT_PERCENT, TOTAL_PRICE_AFTER_DISCOUNT, VAT_PERCENT, VAT_TOTAL, SPECIAL_VAT_PERCENT, SPECIAL_VAT_TOTAL,
+			ROW_TOTAL };
+
 	private List columnList = new ArrayList();
 
-	public ConUIAddBuyConsignment(org.eclipse.swt.widgets.Composite parent, int style)
-	{
+	public ConUIAddBuyConsignment(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
 		initGUI();
 	}
 
-	private void initGUI()
-	{
-		try
-		{
+	private void initGUI() {
+		try {
 			GridLayout thisLayout = new GridLayout();
 			this.setLayout(thisLayout);
 			thisLayout.numColumns = 2;
@@ -293,7 +350,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 				cTabFolder1LData.horizontalAlignment = GridData.FILL;
 				cTabFolder1LData.verticalAlignment = GridData.FILL;
 				cTabFolder1.setLayoutData(cTabFolder1LData);
-				//START >> tabItemInfo
+				// START >> tabItemInfo
 				tabItemInfo = new CTabItem(cTabFolder1, SWT.NONE);
 				tabItemInfo.setText(EngLangCommonKeys.STR_GENERAL_INFO);
 				{
@@ -429,11 +486,10 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 							tableColumn1 = new TableColumn(tableConsignmentRows, SWT.NONE);
 							tableColumn1.setText(INVENTORY_CODE);
 							tableColumn1.setWidth(73);
-							tableColumn1.addSelectionListener(new SelectionAdapter()
-							{
-								public void widgetSelected(SelectionEvent evt)
-								{
-									//      tableViewer.setSorter(new TurquazTableSorter(0));
+							tableColumn1.addSelectionListener(new SelectionAdapter() {
+								public void widgetSelected(SelectionEvent evt) {
+									// tableViewer.setSorter(new
+									// TurquazTableSorter(0));
 								}
 							});
 						}
@@ -609,7 +665,7 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 						}
 					}
 				}
-				//END << tabItemInfo
+				// END << tabItemInfo
 				{
 					tabItemGroups = new CTabItem(cTabFolder1, SWT.NONE);
 					tabItemGroups.setImage(SWTResourceManager.getImage("icons/Multi16.gif")); //$NON-NLS-1$
@@ -631,10 +687,8 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 							btnUpdateGroups = new Button(composite1, SWT.PUSH | SWT.CENTER);
 							btnUpdateGroups.setText(EngLangCommonKeys.STR_UPDATE_GROUPS);
 							GridData btnUpdateGroupsLData = new GridData();
-							btnUpdateGroups.addMouseListener(new MouseAdapter()
-							{
-								public void mouseUp(MouseEvent evt)
-								{
+							btnUpdateGroups.addMouseListener(new MouseAdapter() {
+								public void mouseUp(MouseEvent evt) {
 									btnUpdateGroupsClick();
 								}
 							});
@@ -647,36 +701,26 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 			}
 			this.layout();
 			postInitGui();
-		}
-		catch (Exception e)
-		{
-            EngBLLogger.log(this.getClass(),e,getShell());
+		} catch (Exception e) {
+			EngBLLogger.log(this.getClass(), e, getShell());
 		}
 	}
 
-	public void updateComboBoxEditor()
-	{
-		try
-		{
+	public void updateComboBoxEditor() {
+		try {
 			InvUITransactionTableRow table_row = (InvUITransactionTableRow) cursor.getRow().getData();
 			ComboBoxCellEditor editor = (ComboBoxCellEditor) tableViewer.getViewer().getCellEditors()[3];
-			if (table_row.getUnits() != null)
-			{
+			if (table_row.getUnits() != null) {
 				editor.setItems(table_row.getUnits());
+			} else {
+				editor.setItems(new String[] {});
 			}
-			else
-			{
-				editor.setItems(new String[]{});
-			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+		} catch (Exception ex) {
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
-	public void createTableViewer()
-	{
+	public void createTableViewer() {
 		columnList.add(INVENTORY_CODE);
 		columnList.add(INVENTORY_NAME);
 		columnList.add(TRANS_AMOUNT);
@@ -692,12 +736,13 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		columnList.add(SPECIAL_VAT_PERCENT);
 		columnList.add(SPECIAL_VAT_TOTAL);
 		columnList.add(ROW_TOTAL);
-		//     Create the cell editors
+		// Create the cell editors
 		CellEditor[] editors = new CellEditor[columnNames.length];
-		editors[0] = new InventoryCellEditor(tableConsignmentRows); //Stok Kodu
-		editors[1] = new InventoryNameCellEditor(tableConsignmentRows); //Stok Adi
+		editors[0] = new InventoryCellEditor(tableConsignmentRows); // Stok Kodu
+		editors[1] = new InventoryNameCellEditor(tableConsignmentRows); // Stok
+																		// Adi
 		editors[2] = new CurrencyCellEditor(tableConsignmentRows, 2); // mikatri
-		editors[3] = new ComboBoxCellEditor(tableConsignmentRows, new String[]{}, SWT.READ_ONLY);
+		editors[3] = new ComboBoxCellEditor(tableConsignmentRows, new String[] {}, SWT.READ_ONLY);
 		editors[4] = new CurrencyCellEditor(tableConsignmentRows, 2);
 		editors[5] = new TextCellEditor(tableConsignmentRows);
 		editors[6] = new CurrencyCellEditor(tableConsignmentRows, 4);
@@ -713,258 +758,215 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		// Assign the cell editors to the viewer
 		cursor = new TableSpreadsheetCursor(tableConsignmentRows, SWT.NONE, tableViewer, true);
 		cursor.setEnabled(true);
-		cursor.addSelectionListener(new SelectionAdapter()
-		{
-			public void widgetDefaultSelected(SelectionEvent evt)
-			{
+		cursor.addSelectionListener(new SelectionAdapter() {
+			public void widgetDefaultSelected(SelectionEvent evt) {
 				tableViewer.editElement(cursor.getRow().getData(), cursor.getColumn());
 			}
 
-			public void widgetSelected(SelectionEvent evt)
-			{
+			public void widgetSelected(SelectionEvent evt) {
 				int current_row_index = ((InvUITransactionTableRow) cursor.getRow().getData()).getRowIndex();
-				if (current_row_index != last_row_index)
-				{
+				if (current_row_index != last_row_index) {
 					last_row_index = current_row_index;
 					updateComboBoxEditor();
 				}
 				cursor.redraw();
 			}
 		});
-		//   To refresh the cell combo cell editor
-		for (int i = 0; i < editors.length; i++)
-		{
+		// To refresh the cell combo cell editor
+		for (int i = 0; i < editors.length; i++) {
 			editors[i].addListener(this.cursor);
 		}
-		//	tableViewer.setSorter(new TurquazTableSorter(0));
+		// tableViewer.setSorter(new TurquazTableSorter(0));
 		// Listener for rowList
-		tableViewer.addChangeListener(new ITableRowListViewer()
-		{
-			public void updateRow(ITableRow row)
-			{
+		tableViewer.addChangeListener(new ITableRowListViewer() {
+			public void updateRow(ITableRow row) {
 				calculateTotals();
 				Vector vec = tableViewer.getRowList().getTasks();
 				int index = vec.indexOf(row);
-				if (index == vec.size() - 1)
-				{
-					if (row.okToSave())
-					{
-						
+				if (index == vec.size() - 1) {
+					if (row.okToSave()) {
+
 						InvUITransactionTableRow row2 = new InvUITransactionTableRow(CONS_TYPE, tableViewer);
 						tableViewer.addRow(row2);
 					}
 				}
 			}
 
-			public void removeRow(ITableRow row)
-			{
+			public void removeRow(ITableRow row) {
 				calculateTotals();
 			}
 
-			public void addRow(ITableRow row)
-			{
+			public void addRow(ITableRow row) {
 				calculateTotals();
 			}
 		});
 	}
 
-	public void btnUpdateGroupsClick()
-	{
+	public void btnUpdateGroupsClick() {
 		new ConUIConsignmentsGroupDialog(this.getShell(), SWT.NULL).open();
 		fillGroupsTable();
 	}
 
-	public void fillGroupsTable()
-	{
-		try
-		{
-			//Fill Group Table
-			List list = (List)EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
-			HashMap groupMap = new HashMap();
-			TurqConsignmentGroup curGroup;
-			for (int i = 0; i < list.size(); i++)
-			{
-				curGroup = (TurqConsignmentGroup) list.get(i);
-				groupMap.put(curGroup.getGroupsName(), curGroup);
-			}
-			compRegisterGroup.fillTableAllGroups(groupMap);
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+	public void fillGroupsTable() {
+		try {
+			// Fill Group Table
+			HashBag groupBag = (HashBag) EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(), "getConsignmentGroups", null);
+			
+			HashMap groupList =(HashMap)groupBag.get(ConsKeys.CONS_GROUPS);
+			
+			
+			compRegisterGroup.fillTableAllGroups(groupList);
+			
+		} catch (Exception ex) {
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
-	public void postInitGui()
-	{
+	public void postInitGui() {
 		fillGroupsTable();
-		
-		//fill WareHouse combo
+
+		// fill WareHouse combo
 		fillComboWarehouses();
-		//Create the table viewer..
+		// Create the table viewer..
 		createTableViewer();
-		
-		for (int i = 0; i < 10; i++)
-		{
-			//		enter empty table rows.
+
+		for (int i = 0; i < 10; i++) {
+			// enter empty table rows.
 			InvUITransactionTableRow row = new InvUITransactionTableRow(CONS_TYPE, tableViewer);
 			tableViewer.addRow(row);
 		}
 		cTabFolder1.setSelection(0);
 	}
 
-	public void fillComboWarehouses()
-	{
-		try
-		{
+	public void fillComboWarehouses() {
+		try {
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
+			List list = (List) EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(), "getInventoryWarehouses", null);
 			TurqInventoryWarehous warehouse;
-			for (int i = 0; i < list.size(); i++)
-			{
+			for (int i = 0; i < list.size(); i++) {
 				warehouse = (TurqInventoryWarehous) list.get(i);
 				comboWareHouse.add(warehouse.getWarehousesName());
 				comboWareHouse.setData(warehouse.getWarehousesName(), warehouse);
 			}
-			if (comboWareHouse.getItemCount() > 0)
-			{
+			if (comboWareHouse.getItemCount() > 0) {
 				comboWareHouse.setText(comboWareHouse.getItem(0));
 			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+		} catch (Exception ex) {
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
-	
-	public boolean verifyFields()
-	{
-		if (txtCurrentCard.getData() == null)
-		{
-			EngUICommon.showMessageBox(getShell(),CurLangKeys.MSG_SELECT_CUR_ACCOUNT,SWT.ICON_WARNING);
+	public boolean verifyFields() {
+		if (txtCurrentCard.getData() == null) {
+			EngUICommon.showMessageBox(getShell(), CurLangKeys.MSG_SELECT_CUR_ACCOUNT, SWT.ICON_WARNING);
 			txtCurrentCard.setFocus();
 			return false;
-		}
-		else if (tableConsignmentRows.getItemCount() == 0)
-		{
-			EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
+		} else if (tableConsignmentRows.getItemCount() == 0) {
+			EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW, SWT.ICON_WARNING);
 			tableConsignmentRows.setFocus();
 			return false;
 		}
 		boolean isExistEntry = false;
 		TableItem items[] = tableConsignmentRows.getItems();
-		for (int k = 0; k < items.length; k++)
-		{
+		for (int k = 0; k < items.length; k++) {
 			InvUITransactionTableRow row = (InvUITransactionTableRow) items[k].getData();
-			if (row.okToSave())
-			{
+			if (row.okToSave()) {
 				isExistEntry = true;
 				break;
 			}
 		}
-		if (!isExistEntry)
-		{
-			EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW,SWT.ICON_WARNING);
+		if (!isExistEntry) {
+			EngUICommon.showMessageBox(getShell(), EngLangCommonKeys.MSG_ENTER_AT_LEAST_ONE_ROW, SWT.ICON_WARNING);
 			return false;
 		}
 		return true;
 	}
 
-	public List getConsignmentGroups()
-	{
+	public List getConsignmentGroups() {
 		List list = new ArrayList();
 		TableItem items[] = compRegisterGroup.getTableAllGroups().getItems();
-		for (int i = 0; i < items.length; i++)
-		{
-			if (items[i].getChecked())
-			{
+		for (int i = 0; i < items.length; i++) {
+			if (items[i].getChecked()) {
 				list.add(items[i].getData());
 			}
 		}
 		return list;
 	}
 
-	public List getInventoryTransactions()
-	{
+	public List getInventoryTransactions() {
 		List invTransactions = new ArrayList();
 		TableItem items[] = tableConsignmentRows.getItems();
-		for (int i = 0; i < items.length; i++)
-		{
+		for (int i = 0; i < items.length; i++) {
 			InvUITransactionTableRow row = (InvUITransactionTableRow) items[i].getData();
-		
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) row.getDBObject();
-			invTrans.setTurqInventoryWarehous((TurqInventoryWarehous) comboWareHouse.getData(comboWareHouse.getText()));
-			if (row.okToSave())
-			{
+
+			HashMap invTrans = (HashMap) row.getDBObject();
+
+			if (row.okToSave()) {
+				invTrans.put(InvKeys.INV_WAREHOUSE_ID, comboWareHouse.getData(comboWareHouse.getText()));
 				invTransactions.add(invTrans);
 			}
 		}
 		return invTransactions;
 	}
 
-	public void save()
-	{
-		try
-		{
-			if (verifyFields())
-			{
-				
-				HashMap argMap=new HashMap();
-				
-				argMap.put(EngKeys.DOCUMENT_NO,txtDocumentNo.getText().trim());
-				argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
-				argMap.put(ConsKeys.CONS_IS_PRINTED,new Boolean(false));
-				argMap.put(ConsKeys.CONS_DATE,dateConsignmentDate.getDate());
-				argMap.put(EngKeys.TYPE,new Integer(CONS_TYPE));
-				argMap.put(CurKeys.CUR_CARD_ID,txtCurrentCard.getCardId());
-				argMap.put(EngKeys.CURRENCY_ID,EngBLClient.getBaseCurrencyId());
-				argMap.put(ConsKeys.CONS_GROUPS,getConsignmentGroups());
-				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
-				
-				TurqConsignment cons =(TurqConsignment)EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(),"saveConsignment",argMap);
+	public void save() {
+		try {
+			if (verifyFields()) {
+
+				HashMap argMap = new HashMap();
+
+				argMap.put(EngKeys.DOCUMENT_NO, txtDocumentNo.getText().trim());
+				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
+				argMap.put(ConsKeys.CONS_IS_PRINTED, new Boolean(false));
+				argMap.put(ConsKeys.CONS_DATE, dateConsignmentDate.getDate());
+				argMap.put(EngKeys.TYPE, new Integer(CONS_TYPE));
+				argMap.put(CurKeys.CUR_CARD_ID, txtCurrentCard.getCardId());
+				argMap.put(EngKeys.CURRENCY_ID, EngBLClient.getBaseCurrencyId());
+				argMap.put(ConsKeys.CONS_GROUPS, getConsignmentGroups());
+				argMap.put(InvKeys.INV_TRANSACTIONS, getInventoryTransactions());
+
+				TurqConsignment cons = (TurqConsignment) EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(), "saveConsignment", argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+		} catch (Exception ex) {
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
-	public void delete()
-	{
+	public void delete() {
 	}
 
-	public void search()
-	{
+	public void search() {
 	}
 
-	public void newForm()
-	{
+	public void newForm() {
 		ConUIAddBuyConsignment curCard = new ConUIAddBuyConsignment(this.getParent(), this.getStyle());
 		CTabFolder tabfld = (CTabFolder) this.getParent();
 		tabfld.getSelection().setControl(curCard);
 		this.dispose();
 	}
 
-	public void calculateTotals()
-	{
+	public void calculateTotals() {
 		TableItem items[] = tableConsignmentRows.getItems();
 		BigDecimal subTotal = new BigDecimal(0);
 		BigDecimal totalVAT = new BigDecimal(0);
 		BigDecimal totalSpecVAT = new BigDecimal(0);
 		BigDecimal generalTotal = new BigDecimal(0);
 		BigDecimal discountTotal = new BigDecimal(0);
-		for (int i = 0; i < items.length; i++)
-		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) ((InvUITransactionTableRow) (items[i].getData()))
-					.getDBObject();
-			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
-			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
-			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
-			discountTotal = discountTotal.add(invTrans.getDiscountAmountInForeignCurrency());
+		for (int i = 0; i < items.length; i++) {
+
+			InvUITransactionTableRow tableRow = (InvUITransactionTableRow) (items[i].getData());
+			if (tableRow.okToSave()) {
+				
+				HashMap invTrans = (HashMap) tableRow.getDBObject();
+				
+				subTotal = subTotal.add((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+				totalVAT = totalVAT.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+				totalSpecVAT = totalSpecVAT.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+				discountTotal = discountTotal.add((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY));
+				
+			}
 		}
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		txtDiscountAmount.setText(discountTotal);

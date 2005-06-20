@@ -17,7 +17,11 @@ package com.turquaz.consignment.bl;
 /** ********************************************************************* */
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALAddGroups;
 import com.turquaz.engine.dal.EngDALCommon;
@@ -25,11 +29,31 @@ import com.turquaz.engine.dal.TurqConsignmentGroup;
 
 public class ConBLAddGroups
 {
-	public static List getConsignmentGroups() throws Exception
+	public static HashBag getConsignmentGroups() throws Exception
 	{
 		try
 		{
-			return ConDALAddGroups.getConsignmentGroups();
+			HashBag result = new HashBag();
+			result.put(ConsKeys.CONS_GROUPS,new HashMap());
+		    
+			List list = ConDALAddGroups.getConsignmentGroups();
+			Iterator it = list.iterator();
+			int i=0;
+			
+			while(it.hasNext())
+			{
+				
+				TurqConsignmentGroup conGroup =(TurqConsignmentGroup)it.next();
+				result.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_NAME,conGroup.getGroupsName());
+				result.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_ID,conGroup.getId());
+				
+				
+				i++;
+				
+			}
+			
+			
+			return result;
 		}
 		catch (Exception ex)
 		{
