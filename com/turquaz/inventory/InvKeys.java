@@ -97,6 +97,11 @@ public class InvKeys
 	public static String INV_CARD_GROUP_NAME="invCardGroupName";
 	public static String INV_CARD_GROUP_DEFINITION="invCardGroupDefinition";
 	public static String INV_PARENT_GROUP_ID="invParentGroupId";
+	public static String INV_TRANS_ID="invTransId";
+	public static String INV_TRANS_DATE="invTransDate";
+	public static String INV_TRANS_DEFINITION="invTransDefinition";
+	
+	
 	
 	
 	
