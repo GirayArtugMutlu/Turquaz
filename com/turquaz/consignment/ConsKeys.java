@@ -24,4 +24,6 @@ public class ConsKeys
 	public static String CONS_GROUP_DESCRIPTION="consGroupDescription";
 	public static String CONS_UPDATE_BILLS="consUpdateBills";
 	public static String CONS_DOC_NO ="consDocNo";
+    public static String CONS_HAS_BILL ="consHasBill";
+    public static String CONS_BILL_DOC_NO ="consBillDocNo";
 }

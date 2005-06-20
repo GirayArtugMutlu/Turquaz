@@ -21,8 +21,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.current.CurKeys;
@@ -35,6 +39,7 @@ import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
+import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.inventory.InvKeys;
@@ -67,8 +72,10 @@ public class ConBLUpdateConsignment
 	{
 		try
 		{
-			TurqConsignment consignment=(TurqConsignment)argMap.get(ConsKeys.CONS);
-			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
+            Integer consId = (Integer)argMap.get(ConsKeys.CONS_ID);
+			TurqConsignment consignment=(TurqConsignment)EngDALSessionFactory.getSession().load(TurqConsignment.class,consId);
+		
+            String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
 			String definition=(String)argMap.get(EngKeys.DEFINITION);
 			//Boolean isPrinted=(Boolean)argMap.get(ConsKeys.CONS_IS_PRINTED);
 			Date consignmentDate=(Date)argMap.get(ConsKeys.CONS_DATE);
@@ -197,7 +204,21 @@ public class ConBLUpdateConsignment
 			throw ex;
 		}
 	}
-	
+    public static Integer deleteConsignmentById(HashMap argMap) throws Exception
+    {
+        try
+        {
+            Integer consId=(Integer)argMap.get(ConsKeys.CONS_ID);
+            TurqConsignment consignment = ConDALUpdateConsignment.initiliazeConsignmentById(consId);
+            
+            return deleteCons(consignment,true);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    
 	private static Integer deleteCons(TurqConsignment consignment, boolean checkBill) throws Exception
 	{
 		try
@@ -241,6 +262,61 @@ public class ConBLUpdateConsignment
 			throw ex;
 		}
 	}
+    public static HashBag getConsignmentInfo(HashMap argMap) throws Exception
+    {
+        HashBag returnBag = new HashBag();
+        
+        try
+        {
+            Integer consId=(Integer)argMap.get(ConsKeys.CONS_ID);
+            TurqConsignment cons= ConDALUpdateConsignment.initiliazeConsignmentById(consId);     
+            
+            Boolean hasBill = new Boolean(cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty());
+            returnBag.put(ConsKeys.CONS_HAS_BILL,hasBill);
+            returnBag.put(ConsKeys.CONS_ID,consId);
+            returnBag.put(CurKeys.CUR_CURRENT_NAME,cons.getTurqCurrentCard().getCardsName());
+            returnBag.put(CurKeys.CUR_CURRENT_CODE,cons.getTurqCurrentCard().getCardsCurrentCode());
+            returnBag.put(EngKeys.DATE,cons.getConsignmentsDate());
+            returnBag.put(EngKeys.DOCUMENT_NO,cons.getConsignmentDocumentNo());
+            returnBag.put(EngKeys.DESCRIPTION,cons.getConsignmentsDefinition());
+            returnBag.put(ConsKeys.CONS_BILL_DOC_NO,cons.getBillDocumentNo());
+
+            Integer type = new Integer (cons.getConsignmentsType());
+            returnBag.put(EngKeys.TYPE,type);
+            returnBag.put(BillKeys.BILL_DOC_NO,cons.getBillDocumentNo());
+
+            Iterator it = cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
+            if(it.hasNext())
+            {
+                TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
+                returnBag.put(BillKeys.BILL_DOC_NO,billEng.getTurqBill().getBillDocumentNo());
+                returnBag.put(BillKeys.BILL_DATE,billEng.getTurqBill().getBillsDate());
+            }
+            
+            TurqConsignmentsInGroup group;
+            it = cons.getTurqConsignmentsInGroups().iterator();
+            
+            int i = 0;
+            while (it.hasNext())
+            {
+                group = (TurqConsignmentsInGroup) it.next();
+                group.getTurqConsignmentGroup();
+              
+                
+                returnBag.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_ID, group.getTurqConsignmentGroup().getId());
+                i++;
+            }
+            
+            
+            
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        
+        return returnBag;
+    }
 	
 	public static void initiliazeConsignment(TurqConsignment cons) throws Exception
 	{

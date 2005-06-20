@@ -15,9 +15,13 @@ package com.turquaz.consignment.ui;
 /* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the		*/
 /* GNU General Public License for more details.         				*/
 /************************************************************************/
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.bill.BillKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.CurKeys;
@@ -27,11 +31,6 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBillInEngineSequence;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqConsignmentsInGroup;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -52,13 +51,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
@@ -70,14 +63,14 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
 	private CoolBar coolBar1;
-	TurqConsignment consignment;
+	Integer consignmentId;
 	ConBLUpdateConsignment blCons = new ConBLUpdateConsignment();
 	private boolean updated = false;
 
-	public ConUIConsignmentUpdateDialog(Shell parent, int style, TurqConsignment cons)
+	public ConUIConsignmentUpdateDialog(Shell parent, int style, Integer consId)
 	{
 		super(parent, style);
-		consignment = cons;
+		this.consignmentId = consId;
 	}
 
 	public boolean open()
@@ -159,7 +152,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 									{
 										dialogShell.close();
 										HashMap argMap=new HashMap();
-										argMap.put(ConsKeys.CONS,consignment);
+										argMap.put(ConsKeys.CONS_ID,consignmentId);
 										EngTXCommon.doSelectTX(EngBLUtils.class.getName(),"PrintConsignment",argMap);
 										
 									}
@@ -220,15 +213,16 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			HashMap argMap=new HashMap();
-			argMap.put(ConsKeys.CONS,consignment);
-			EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignment",argMap);
+			argMap.put(ConsKeys.CONS_ID,consignmentId);
 			
-			TurqCurrentCard curCard = consignment.getTurqCurrentCard();
-			compAddConsignment.getTxtCurrentCard().setText(curCard.getCardsName() + " {" + curCard.getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
-			compAddConsignment.getDateConsignmentDate().setDate(consignment.getConsignmentsDate());
-			compAddConsignment.getTxtDocumentNo().setText(consignment.getConsignmentDocumentNo());
-			compAddConsignment.getTxtBillDocumentNo().setText(consignment.getBillDocumentNo());
-			if (consignment.getConsignmentsType() == 0)
+            HashBag consBag = (HashBag)EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"getConsignmentInfo",argMap);
+			
+			
+			compAddConsignment.getTxtCurrentCard().setText((String)consBag.get(CurKeys.CUR_CURRENT_NAME) + " {" + (String)consBag.get(CurKeys.CUR_CURRENT_CODE) + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			compAddConsignment.getDateConsignmentDate().setDate((Date)consBag.get(EngKeys.DATE));
+			compAddConsignment.getTxtDocumentNo().setText((String)consBag.get(EngKeys.DOCUMENT_NO));
+			compAddConsignment.getTxtBillDocumentNo().setText((String)consBag.get(ConsKeys.CONS_BILL_DOC_NO));
+			if (((Integer)consBag.get(EngKeys.TYPE)).intValue() == 0)
 			{
 				compAddConsignment.getComboConsignmentType().setText(EngLangCommonKeys.COMMON_BUY_STRING);
 			}
@@ -236,19 +230,18 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				compAddConsignment.getComboConsignmentType().setText(EngLangCommonKeys.COMMON_SELL_STRING);
 			}
-			compAddConsignment.getTxtDefinition().setText(consignment.getConsignmentsDefinition());
+			compAddConsignment.getTxtDefinition().setText((String)consBag.get(EngKeys.DESCRIPTION));
 			
-			Iterator it = consignment.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
-			if(it.hasNext())
+			
+			if(((Boolean)consBag.get(ConsKeys.CONS_HAS_BILL)).booleanValue())
 			{
-				TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
-				compAddConsignment.getTxtBillDocumentNo().setText(billEng.getTurqBill().getBillDocumentNo());
-                compAddConsignment.getDatePickerBillDate().setText(DatePicker.formatter.format(billEng.getTurqBill().getBillsDate()));
+				compAddConsignment.getTxtBillDocumentNo().setText((String)consBag.get(BillKeys.BILL_DOC_NO));
+                compAddConsignment.getDatePickerBillDate().setText(DatePicker.formatter.format(BillKeys.BILL_DATE));
 			}
 			
 			
 			fillInvTransactionColumns();
-			fillRegisteredGroup();
+			fillRegisteredGroup((HashMap)consBag.get(consBag.get(ConsKeys.CONS_GROUPS)));
 		}
 		catch (Exception ex)
 		{
@@ -257,34 +250,34 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 
 	}
 
-	public void fillRegisteredGroup()
+	public void fillRegisteredGroup(HashMap groups)
 	{
-		TurqConsignmentsInGroup group;
-		Iterator it = consignment.getTurqConsignmentsInGroups().iterator();
-		while (it.hasNext())
+		
+	     for (int i=0;i<groups.size();i++)
 		{
-			group = (TurqConsignmentsInGroup) it.next();
-			compAddConsignment.getCompRegisterGroup().RegisterGroup(group.getTurqConsignmentGroup());
+            HashMap groupInfo =(HashMap)groups.get(new Integer(i));
+			Integer groupId =(Integer)groupInfo.get(AdmKeys.ADM_GROUP_ID);
+			compAddConsignment.getCompRegisterGroup().RegisterGroup(groupId);
 		}
 	}
 
 	public void fillInvTransactionColumns()
 	{
-		compAddConsignment.tableViewer.removeAll();
-		TableItem item;
-		TurqInventoryTransaction invTrans;
-		Iterator it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-		while (it.hasNext())
-		{
-			invTrans = (TurqInventoryTransaction) it.next();
-			InvUITransactionTableRow row = new InvUITransactionTableRow(consignment.getConsignmentsType(),
-					compAddConsignment.tableViewer);
-			row.setDBObject(invTrans);
-			compAddConsignment.tableViewer.addRow(row);
-		}
-		InvUITransactionTableRow row2 = new InvUITransactionTableRow(consignment.getConsignmentsType(), compAddConsignment.tableViewer);
-		compAddConsignment.tableViewer.addRow(row2);
-		compAddConsignment.calculateTotals();
+//		compAddConsignment.tableViewer.removeAll();
+//		TableItem item;
+//		TurqInventoryTransaction invTrans;
+//		Iterator it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+//		while (it.hasNext())
+//		{
+//			invTrans = (TurqInventoryTransaction) it.next();
+//			InvUITransactionTableRow row = new InvUITransactionTableRow(consignment.getConsignmentsType(),
+//					compAddConsignment.tableViewer);
+//			row.setDBObject(invTrans);
+//			compAddConsignment.tableViewer.addRow(row);
+//		}
+//		InvUITransactionTableRow row2 = new InvUITransactionTableRow(consignment.getConsignmentsType(), compAddConsignment.tableViewer);
+//		compAddConsignment.tableViewer.addRow(row2);
+//		compAddConsignment.calculateTotals();
 	}
 
 	public void delete()
@@ -296,8 +289,8 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				updated = true;
 				HashMap argMap=new HashMap();
-				argMap.put(ConsKeys.CONS,consignment);
-				Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignment",argMap);
+				argMap.put(ConsKeys.CONS_ID,consignmentId);
+				Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignmentById",argMap);
 				if(result.intValue()==1)
 				{
 					EngUICommon.showDeletedSuccesfullyMessage(getParent());
@@ -331,7 +324,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			
 			HashMap argMap=new HashMap();
 			
-			argMap.put(ConsKeys.CONS,consignment);
+			argMap.put(ConsKeys.CONS_ID,consignmentId);
 			argMap.put(EngKeys.DOCUMENT_NO,compAddConsignment.getTxtDocumentNo().getText().trim());
 			argMap.put(EngKeys.DEFINITION,compAddConsignment.getTxtDefinition().getText().trim());
 			argMap.put(ConsKeys.CONS_DATE,compAddConsignment.getDateConsignmentDate().getDate());

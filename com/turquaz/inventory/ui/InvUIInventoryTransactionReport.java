@@ -584,7 +584,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 						argMap=new HashMap();
 						argMap.put(EngKeys.ENG_SEQ,seq);
 						TurqConsignment cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
-						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
+						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons.getId()).open();
 					}
 					if (updated)
 						search();

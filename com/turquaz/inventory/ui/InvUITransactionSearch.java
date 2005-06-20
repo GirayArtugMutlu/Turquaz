@@ -270,7 +270,7 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 					}
 					else if ((cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap)) != null)
 					{
-						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
+						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons.getId()).open();
 					}
 					else
 					{

@@ -25,6 +25,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
@@ -32,7 +34,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -58,13 +59,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
+
 public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite implements SearchComposite
 {
 	private Composite composite1;
@@ -374,16 +369,20 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				
 				HashMap argMap=new HashMap();
 				argMap.put(ConsKeys.CONS_ID,consId);
-				TurqConsignment cons =(TurqConsignment)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"initiliazeConsignmentById",argMap);
+                
+				HashBag consBag =(HashBag)EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"getConsignmentInfo",argMap);
 				//TODO if bill exist?? result never return -1 ?
-				if (cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty())
+                
+                boolean hasBill = ((Boolean)consBag.get(ConsKeys.CONS_HAS_BILL)).booleanValue();
+                
+				if (hasBill)
 				{
 					boolean okToDelete=EngUICommon.okToDelete(getShell());
 					if (okToDelete)
 					{
 						argMap=new HashMap();
-						argMap.put(ConsKeys.CONS,cons);
-						Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignment",argMap);
+						argMap.put(ConsKeys.CONS_ID,consId);
+						Integer result =(Integer)EngTXCommon.doTransactionTX(ConBLUpdateConsignment.class.getName(),"deleteConsignmentById",argMap);
 						
 						if(result.intValue()==1)
 						{
@@ -426,8 +425,7 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(ConsKeys.CONS_ID,consId);
-					TurqConsignment cons =(TurqConsignment)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"getConsignmentByConsId",argMap);
-					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons).open();
+					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, consId).open();
 					if (updated)
 						search();
 				}
