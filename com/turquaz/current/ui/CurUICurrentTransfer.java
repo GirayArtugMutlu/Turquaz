@@ -3,13 +3,8 @@ package com.turquaz.current.ui;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.EngKeys;
@@ -49,42 +44,6 @@ public class CurUICurrentTransfer extends org.eclipse.swt.widgets.Composite impl
 	private CLabel lblDebitAcc;
 	private CLabel lblDate;
 	private Text txtDocumentNo;
-
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		CurUICurrentTransfer inst = new CurUICurrentTransfer(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			int MENU_HEIGHT = 22;
-			if (shell.getMenuBar() != null)
-				shellBounds.height -= MENU_HEIGHT;
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
 
 	public CurUICurrentTransfer(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);

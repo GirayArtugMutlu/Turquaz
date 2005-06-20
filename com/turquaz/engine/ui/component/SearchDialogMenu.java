@@ -1,12 +1,8 @@
 package com.turquaz.engine.ui.component;
 
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -16,8 +12,6 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.engine.bl.EngBLKeyEvents;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.interfaces.SearchDialogInterface;
-
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.SWT;
 
 public class SearchDialogMenu extends org.eclipse.swt.widgets.Composite {
@@ -37,39 +31,6 @@ public class SearchDialogMenu extends org.eclipse.swt.widgets.Composite {
 	private MenuItem menuItemChoose;
 	private MenuItem menuItemSearch;
 	private SearchDialogInterface dialogInterface;
-
-	/**
-	* Auto-generated main method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void main(String[] args) {
-		showGUI();
-	}
-		
-	/**
-	* Auto-generated method to display this 
-	* org.eclipse.swt.widgets.Composite inside a new Shell.
-	*/
-	public static void showGUI() {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		SearchDialogMenu inst = new SearchDialogMenu(shell, SWT.NULL);
-		Point size = inst.getSize();
-		shell.setLayout(new FillLayout());
-		shell.layout();
-		if(size.x == 0 && size.y == 0) {
-			inst.pack();
-			shell.pack();
-		} else {
-			Rectangle shellBounds = shell.computeTrim(0, 0, size.x, size.y);
-			shell.setSize(shellBounds.width, shellBounds.height);
-		}
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-	}
 
 	public SearchDialogMenu(org.eclipse.swt.widgets.Composite parent, int style) {
 		super(parent, style);
