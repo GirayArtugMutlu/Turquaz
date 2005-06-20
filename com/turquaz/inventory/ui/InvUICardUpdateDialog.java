@@ -21,10 +21,6 @@ package com.turquaz.inventory.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -46,14 +42,11 @@ import com.turquaz.inventory.bl.InvBLCardUpdate;
 import com.turquaz.inventory.ui.InvUICardAdd;
 import com.turquaz.inventory.ui.comp.InvUIPrice;
 import com.turquaz.inventory.ui.comp.InvUIPriceList;
+import com.turquaz.accounting.AccKeys;
+import com.turquaz.common.HashBag;
+import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryCardGroup;
-import com.turquaz.engine.dal.TurqInventoryCardUnit;
-import com.turquaz.engine.dal.TurqInventoryPrice;
-import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -83,14 +76,14 @@ public class InvUICardUpdateDialog extends Dialog
 	private ToolItem toolUpdate;
 	private ToolBar toolBarTop;
 	private Shell dialogShell;
-	private TurqInventoryCard invCard;
-	private InvBLCardUpdate cardUpdate = new InvBLCardUpdate();
+	private Integer invCardId;
+	private HashBag invCard;
 	private boolean updated = false;
 
-	public InvUICardUpdateDialog(Shell parent, int style, TurqInventoryCard invCard)
+	public InvUICardUpdateDialog(Shell parent, int style, Integer invCardId)
 	{
 		super(parent, style);
-		this.invCard = invCard;
+		this.invCardId = invCardId;
 	}
 
 	/**
@@ -100,7 +93,6 @@ public class InvUICardUpdateDialog extends Dialog
 	{
 		try
 		{
-			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			dialogShell.setText(InvLangKeys.TITLE_INV_CARD_UPDATE);
@@ -195,47 +187,58 @@ public class InvUICardUpdateDialog extends Dialog
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
-		toolUpdate.setEnabled(false);
-		toolDelete.setEnabled(false);
-		if (EngBLPermissions.getPermission(compInvUICard.getClass().getName()) == 2)
+		try
 		{
-			toolUpdate.setEnabled(true);
+			toolUpdate.setEnabled(false);
+			toolDelete.setEnabled(false);
+			if (EngBLPermissions.getPermission(compInvUICard.getClass().getName()) == 2)
+			{
+				toolUpdate.setEnabled(true);
+			}
+			else if (EngBLPermissions.getPermission(compInvUICard.getClass().getName()) == 3)
+			{
+				toolDelete.setEnabled(true);
+				toolUpdate.setEnabled(true);
+			}
+			EngUICommon.centreWindow(dialogShell);
+			setButtonPermissions();
+			HashMap argMap = new HashMap();
+			argMap.put(InvKeys.INV_CARD_ID, invCardId);
+			invCard = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
+					"initializeInventoryCard", argMap);
+			String invCardCode = (String) invCard.get(InvKeys.INV_CARD_CODE);
+			String invCardName = (String) invCard.get(InvKeys.INV_CARD_NAME);
+			String invCardDefinition = (String) invCard.get(InvKeys.INV_CARD_DEFINITION);
+			Integer discountRate = (Integer) invCard.get(InvKeys.INV_DISCOUNT_RATE);
+			Integer vatRate = (Integer) invCard.get(InvKeys.INV_VAT_RATE);
+			Integer vatSpecialRate = (Integer) invCard.get(InvKeys.INV_VAT_SPECIAL_RATE);
+			Integer maxAmount = (Integer) invCard.get(InvKeys.INV_MAX_AMOUNT);
+			Integer minAmount = (Integer) invCard.get(InvKeys.INV_MIN_AMOUNT);
+			BigDecimal specVatForEach = (BigDecimal) invCard.get(InvKeys.INV_SPECIAL_VAT_FOR_EACH);
+			Boolean isSpecVatForEach = (Boolean) invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
+			compInvUICard.getTxtInvCardCode().setText(invCardCode);
+			compInvUICard.getTxtInvCardDefinition().setText(invCardDefinition);
+			compInvUICard.getTxtInvCardDiscount().setText(discountRate.intValue());
+			compInvUICard.getTxtInvCardName().setText(invCardName);
+			compInvUICard.getTxtInvCardVat().setText(vatRate.intValue());
+			compInvUICard.getTxtnumInvCardMax().setText(maxAmount.intValue());
+			compInvUICard.getTxtnumInvCardMin().setText(minAmount.intValue());
+			compInvUICard.getNumTextSpecailVATPercent().setText(vatSpecialRate.intValue());
+			compInvUICard.getDecTextSpecialVatAmount().setText(specVatForEach);
+			compInvUICard.getRadioSpecialVatAmount().setSelection(isSpecVatForEach.booleanValue());
+			compInvUICard.getRadioSpecialVatPercent().setSelection(!isSpecVatForEach.booleanValue());
+			fillUnits();
+			fillGroups();
+			fillPrices();
+			fillInvAccounts();
 		}
-		else if (EngBLPermissions.getPermission(compInvUICard.getClass().getName()) == 3)
+		catch (Exception ex)
 		{
-			toolDelete.setEnabled(true);
-			toolUpdate.setEnabled(true);
+			EngBLLogger.log(this.getClass(),ex,getParent());
 		}
-		Point parentLocation = this.getParent().getLocation();
-		Point parentSize = this.getParent().getSize();
-		Point dialogSize = dialogShell.getSize();
-		int location_X = (parentLocation.x + parentSize.x) / 2 - (dialogSize.x / 2);
-		int location_Y = (parentLocation.y + parentSize.y) / 2 - (dialogSize.y / 2);
-		dialogShell.setLocation(location_X, location_Y);
-		setButtonPermissions();
-		compInvUICard.getTxtInvCardCode().setText(invCard.getCardInventoryCode());
-		compInvUICard.getTxtInvCardDefinition().setText(invCard.getCardDefinition());
-		compInvUICard.getTxtInvCardDiscount().setText(invCard.getCardDiscount());
-		compInvUICard.getTxtInvCardName().setText(invCard.getCardName());
-		compInvUICard.getTxtInvCardVat().setText(invCard.getCardVat());
-		compInvUICard.getTxtnumInvCardMax().setText(invCard.getCardMaximumAmount());
-		compInvUICard.getTxtnumInvCardMin().setText(invCard.getCardMinimumAmount());
-		compInvUICard.getNumTextSpecailVATPercent().setText(invCard.getCardSpecialVat());
-		compInvUICard.getDecTextSpecialVatAmount().setText(invCard.getCardSpecialVatEach());
-		compInvUICard.getRadioSpecialVatAmount().setSelection(invCard.isSpecVatForEach());
-		compInvUICard.getRadioSpecialVatPercent().setSelection(!invCard.isSpecVatForEach());
-		fillUnits();
-		fillGroups();
-		fillPrices();
-		fillInvAccounts();
 	}
 
 	public void setButtonPermissions()
@@ -253,120 +256,113 @@ public class InvUICardUpdateDialog extends Dialog
 		}
 	}
 
-	public void fillInvAccounts()
+	public void fillInvAccounts() throws Exception
 	{
-		try
+		HashMap argMap = new HashMap();
+		argMap.put(InvKeys.INV_CARD_ID,invCardId);
+		HashBag invAccountBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
+				"getInvAccountingAccs", argMap);
+		
+		HashMap invAccounts=(HashMap)invAccountBag.get(InvKeys.INV_ACCOUNTS);
+		for (int k = 0; k < invAccounts.size(); k++)
 		{
-			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD_ID,invCard.getId());
-			List invAccounts =(List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getInvAccountingAccs",argMap);
-			for (int k = 0; k < invAccounts.size(); k++)
+			HashMap invAcc = (HashMap) invAccounts.get(new Integer(k));
+			TableItem[] invAccs = compInvUICard.getTableInvAccounts().getItems();
+			HashMap accountMap=(HashMap)invAcc.get(AccKeys.ACC_ACCOUNT);
+			HashMap typeMap=(HashMap)invAcc.get(InvKeys.INV_ACC_TYPE);
+			Integer typeId=(Integer)typeMap.get(InvKeys.INV_ACC_TYPE_ID);
+			for (int i = 0; i < invAccs.length; i++)
 			{
-				TurqInventoryAccountingAccount invAcc = (TurqInventoryAccountingAccount) invAccounts.get(k);
-				TableItem[] invAccs = compInvUICard.getTableInvAccounts().getItems();
-				for (int i = 0; i < invAccs.length; i++)
+				InvUIInvAccountingAccTableRow row = (InvUIInvAccountingAccTableRow) invAccs[i].getData();
+				HashMap inventoryAcc = (HashMap) row.getDBObject();
+				HashMap inventoryAccType=(HashMap)inventoryAcc.get(InvKeys.INV_ACC_TYPE);
+				Integer accTypeId=(Integer)inventoryAccType.get(InvKeys.INV_ACC_TYPE_ID);
+				
+				if (typeId.intValue() == accTypeId.intValue())
 				{
-					InvUIInvAccountingAccTableRow row = (InvUIInvAccountingAccTableRow) invAccs[i].getData();
-					TurqInventoryAccountingAccount inventoryAcc = (TurqInventoryAccountingAccount) row.getDBObject();
-					if (inventoryAcc.getTurqInventoryAccountingType().getId().intValue() == invAcc.getTurqInventoryAccountingType()
-							.getId().intValue())
-					{
-						inventoryAcc.setTurqAccountingAccount(invAcc.getTurqAccountingAccount());
-						inventoryAcc.setTurqInventoryCard(invCard);
-						compInvUICard.rowList.taskChanged(row);
-					}
+					inventoryAcc.put(AccKeys.ACC_ACCOUNT,accountMap);
+					inventoryAcc.put(InvKeys.INV_CARD,invCard);
+					compInvUICard.rowList.taskChanged(row);
 				}
 			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getParent());
 		}
 	}
 
-	public void fillPrices()
+	public void fillPrices() throws Exception
 	{
-		try
+		
+		HashMap argMap = new HashMap();
+		argMap.put(InvKeys.INV_CARD_ID,invCardId);
+		HashBag invPriceBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
+				"getInvCardPrices", argMap);
+
+		HashMap invPrices=(HashMap)invPriceBag.get(InvKeys.INV_CARD_PRICES);
+		InvUIPriceList priceList = compInvUICard.getPriceList();
+		for(int k=0; k<invPrices.size(); k++)
 		{
-			Iterator it = invCard.getTurqInventoryPrices().iterator();
-			TurqInventoryPrice invPrice;
-			InvUIPriceList priceList = compInvUICard.getPriceList();
-			while (it.hasNext())
+			HashMap invPrice = (HashMap) invPrices.get(new Integer(k));
+			InvUIPrice price = new InvUIPrice();
+			//XXX SATIS STRINGI
+			price.priceType = EngLangCommonKeys.COMMON_SELL_STRING;
+			
+			Boolean isBuy=(Boolean)invPrice.get(InvKeys.INV_IS_BUY);
+			if (isBuy.booleanValue())
 			{
-				invPrice = (TurqInventoryPrice) it.next();
-				InvUIPrice price = new InvUIPrice();
-				//XXX SATIS STRINGI
-				price.priceType = EngLangCommonKeys.COMMON_SELL_STRING;
-				if (invPrice.isPricesType())
-				{
-					//XXX ALISSS STRINGI
-					price.priceType = EngLangCommonKeys.COMMON_BUY_STRING;
-				}
-				price.amount = invPrice.getPricesAmount().toString();
-				price.abrev = invPrice.getTurqCurrency().getCurrenciesAbbreviation();
-				priceList.addPrice(price);
+				//XXX ALISSS STRINGI
+				price.priceType = EngLangCommonKeys.COMMON_BUY_STRING;
 			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getParent());
+			price.amount = invPrice.get(InvKeys.INV_PRICE_AMOUNT).toString();
+			price.abrev = invPrice.get(EngKeys.CURRENCY_ABBR).toString();
+			priceList.addPrice(price);
 		}
 	}
 
-	public void fillGroups()
+	public void fillGroups() throws Exception
 	{
-		try
+		HashMap argMap = new HashMap();
+		argMap.put(InvKeys.INV_CARD_ID,invCardId);
+		HashBag invPriceBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
+				"getInvCardGroups", argMap);
+		
+		HashMap invGroups=(HashMap)invPriceBag.get(InvKeys.INV_CARD_GROUPS);
+		HashMap registeredGroups = compInvUICard.getCompInvCardGroups().getRegisteredGroups();
+		for(int k=0; k<invGroups.size(); k++)
 		{
-			Iterator it = invCard.getTurqInventoryCardGroups().iterator();
-			Map registeredGroups = compInvUICard.getCompInvCardGroups().getRegisteredGroups();
-			TurqInventoryCardGroup cardGroup;
-			while (it.hasNext())
-			{
-				cardGroup = (TurqInventoryCardGroup) it.next();
-				registeredGroups.put(cardGroup.getTurqInventoryGroup().getTurqInventoryGroup().getId(), cardGroup
-						.getTurqInventoryGroup());
-			}
+			HashMap cardGroup = (HashMap)invGroups.get(new Integer(k));
+			HashMap invGroupMap=(HashMap)cardGroup.get(InvKeys.INV_GROUP);
+			Integer parentGroupId=(Integer)invGroupMap.get(InvKeys.INV_PARENT_GROUP_ID);
+			registeredGroups.put(parentGroupId, invGroupMap);
 		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getParent());
-		}
+		compInvUICard.getCompInvCardGroups().setRegisteredGroups(registeredGroups);
 	}
 
-	public void fillUnits()
+	public void fillUnits() throws Exception
 	{
-		try
+		HashMap invCardUnits=(HashMap)invCard.get(InvKeys.INV_CARD_UNITS);
+		Table tableRegisteredUnits = compInvUICard.getTableInvCardAddRegisteredUnits();
+		for(int k=0; k<invCardUnits.size(); k++)
 		{
-			Iterator it = invCard.getTurqInventoryCardUnits().iterator();
-			TurqInventoryCardUnit cardUnit;
-			TurqInventoryUnit unit;
-			Table tableRegisteredUnits = compInvUICard.getTableInvCardAddRegisteredUnits();
-			while (it.hasNext())
+			HashMap cardUnit = (HashMap)invCardUnits.get(new Integer(k));
+			HashMap invUnit=(HashMap)cardUnit.get(InvKeys.INV_UNIT);
+			String unitName = (String)invUnit.get(InvKeys.INV_UNIT_NAME);
+			if (((BigDecimal)cardUnit.get(InvKeys.INV_CARD_UNIT_FACTOR)).compareTo(new BigDecimal(1)) == 0)
 			{
-				cardUnit = (TurqInventoryCardUnit) it.next();
-				if (cardUnit.getCardUnitsFactor().compareTo(new BigDecimal(1)) == 0)
-				{
-					compInvUICard.getComboInvCardUnits().setText(cardUnit.getTurqInventoryUnit().getUnitsName());
-				}
-				else
-				{
-					String unitName = cardUnit.getTurqInventoryUnit().getUnitsName();
-					TableItem registeredItem = new TableItem(tableRegisteredUnits, SWT.NULL);
-					registeredItem.setText(unitName);
-					registeredItem.setData(cardUnit.getTurqInventoryUnit());
-					TableEditor editor = new TableEditor(tableRegisteredUnits);
-					editor.grabHorizontal = true;
-					CurrencyText nText = new CurrencyText(tableRegisteredUnits, SWT.NONE);
-					nText.setText(cardUnit.getCardUnitsFactor());
-					editor.setEditor(nText, registeredItem, 1);
-					compInvUICard.mapEditorsTableInvCardAddRegisteredUnits.put(unitName, editor);
-					removeRegisteredUnit(unitName);
-				}
+				compInvUICard.getComboInvCardUnits().setText(unitName);
 			}
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getParent());
+			else
+			{
+				
+				TableItem registeredItem = new TableItem(tableRegisteredUnits, SWT.NULL);
+				registeredItem.setText(unitName);
+				registeredItem.setData(invUnit.get(InvKeys.INV_UNIT_ID));
+				TableEditor editor = new TableEditor(tableRegisteredUnits);
+				editor.grabHorizontal = true;
+				CurrencyText nText = new CurrencyText(tableRegisteredUnits, SWT.NONE);
+				nText.setText((BigDecimal)cardUnit.get(InvKeys.INV_CARD_UNIT_FACTOR));
+				editor.setEditor(nText, registeredItem, 1);
+				compInvUICard.mapEditorsTableInvCardAddRegisteredUnits.put(unitName, editor);
+				removeRegisteredUnit(unitName);
+			}
 		}
 	}
 
@@ -393,7 +389,7 @@ public class InvUICardUpdateDialog extends Dialog
 				// Update Inventory Card Fields
 				
 				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_CARD,invCard);
+				argMap.put(InvKeys.INV_CARD_ID,invCardId);
 				argMap.put(InvKeys.INV_CARD_CODE,compInvUICard.getTxtInvCardCode().getText().trim());
 				argMap.put(InvKeys.INV_CARD_NAME,compInvUICard.getTxtInvCardName().getText().trim());
 				argMap.put(InvKeys.INV_CARD_DEFINITION,compInvUICard.getTxtInvCardDefinition().getText().trim());
@@ -428,19 +424,10 @@ public class InvUICardUpdateDialog extends Dialog
 			boolean okToDelete=EngUICommon.okToDelete(getParent());
 			if (!okToDelete)
 				return;
-			// if the inventory card contains transactions
+			updated=true;
 			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD,invCard);
-			Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
-			if (hasTX.booleanValue())
-			{
-				EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION,SWT.ICON_WARNING);
-				return;
-			}
-			updated = true;
-			argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD,invCard);					
-			EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
+			argMap.put(InvKeys.INV_CARD_ID,invCardId);				
+			EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);				
 			EngUICommon.showDeletedSuccesfullyMessage(getParent());
 			this.dialogShell.dispose();
 		}

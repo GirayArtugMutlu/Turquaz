@@ -20,6 +20,7 @@ public class InvKeys
 	public static String INV_ACC_TYPE_NAME="invAccTypeName";
 	public static String INV_ACC_TYPE_DEFINITION="invAccTypeDefinition";
 	public static String INV_CARD="invCard";
+	public static String INV_CARDS="invCards";
 	public static String INV_CARD_START="invCardStart";
 	public static String INV_CARD_END="invCardEnd";
 	public static String INV_CARD_CODE_START="invCardCodeStart";
@@ -41,7 +42,6 @@ public class InvKeys
 	public static String INV_CARD_UNITS="invCardUnits";
 	public static String INV_CARD_UNIT_ID="invCardUnitId";
 	public static String INV_CARD_UNIT_FACTOR="invCardUnitFactor";
-	public static String INV_CARD_PRICES="invCardPrices";
 	public static String INV_CARD_ACCOUNTS="invCardAccounts";
 	public static String INV_GROUP_ID="invGroupId";
 	public static String INV_GROUP_NAME="invGroupName";
@@ -80,6 +80,22 @@ public class InvKeys
 	public static String INV_TRANS_TYPE_ID="invTransTypeId";
 	public static String INV_IS_SPEC_VAT_FOR_EACH="invIsSpecVatForEach";
 	public static String INV_SPECIAL_VAT_FOR_EACH="invSpecialVatForEach";
+	public static String INV_PRICE_IN="invPriceIn";
+	public static String INV_PRICE_OUT="invPriceOut";
+	public static String INV_MAX_AMOUNT="invMaxAmount";
+	public static String INV_MIN_AMOUNT="invMinAmount";
+	public static String INV_ACCOUNTS="invAccounts";
+	public static String INV_ACCOUNT_ID="invAccountId";	
+	public static String INV_CARD_PRICES="invPrices";
+	public static String INV_PRICE_ID="invPriceId";
+	public static String INV_PRICE_AMOUNT="invPriceAmount";
+	public static String INV_IS_BUY="invIsBuy";
+	public static String INV_CARD_GROUPS="invCardGroups";
+	public static String INV_CARD_GROUP="invCardGroup";
+	public static String INV_CARD_GROUP_ID="invCardGroupId";
+	public static String INV_CARD_GROUP_NAME="invCardGroupName";
+	public static String INV_CARD_GROUP_DEFINITION="invCardGroupDefinition";
+	public static String INV_PARENT_GROUP_ID="invParentGroupId";
 	
 	
 	

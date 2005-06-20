@@ -39,6 +39,10 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 	private Map registeredGroups;
 	Listener subTablelistener;
 
+	public void setRegisteredGroups(Map registeredGroups)
+	{
+		this.registeredGroups = registeredGroups;
+	}
 	public InvUIInventoryGroups(org.eclipse.swt.widgets.Composite parent, int style)
 	{
 		super(parent, style);
@@ -177,7 +181,8 @@ public class InvUIInventoryGroups extends org.eclipse.swt.widgets.Composite
 				item.setData(subGroup);
 				if (registeredGroups.get(mainGroup.get(InvKeys.INV_GROUP_ID)) != null)
 				{
-					if (registeredGroups.get(mainGroup.get(InvKeys.INV_GROUP_ID)).equals(subGroup))
+					HashMap subMap=(HashMap)registeredGroups.get(mainGroup.get(InvKeys.INV_GROUP_ID));
+					if (subMap.get(InvKeys.INV_GROUP_ID).equals(subGroup.get(InvKeys.INV_GROUP_ID)))
 					{
 						item.setChecked(true);
 					}

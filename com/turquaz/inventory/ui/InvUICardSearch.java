@@ -21,7 +21,6 @@ package com.turquaz.inventory.ui;
  */
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -29,8 +28,6 @@ import org.eclipse.swt.widgets.Composite;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqViewInventoryTotal;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -326,7 +323,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				HashMap gr = (HashMap) groupList.get(new Integer(k));
 				String grName=(String)gr.get(InvKeys.INV_GROUP_NAME);
 				comboInvMainGroup.add(grName);
-				comboInvMainGroup.setData(grName, gr);
+				comboInvMainGroup.setData(grName, gr.get(InvKeys.INV_GROUP_ID));
 			}
 		}
 		catch (Exception ex)
@@ -349,26 +346,13 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
 					boolean okToDelete=EngUICommon.okToDelete(getShell());
 					if (!okToDelete)
 						return;
-					
-					// if the inventory card contains transactions
-					argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD,invCard);
-					Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap);
-					if (hasTX.booleanValue())
-					{
-						EngUICommon.showMessageBox(getShell(),InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION,SWT.ICON_WARNING);
-						return;
-					}
-					argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD,invCard);					
-					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);
-					
+
+					HashMap argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD_ID,cardId);				
+					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);				
 					EngUICommon.showDeletedSuccesfullyMessage(getShell());
 					search();
 				}
@@ -392,20 +376,26 @@ public class InvUICardSearch extends Composite implements SearchComposite
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_CARD_NAME,txtInvName.getText().trim());
 			argMap.put(InvKeys.INV_CARD_CODE, txtInvCode.getText().trim());
-			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
-			List result =(List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
-			int listSize = result.size();
-			for (int i = 0; i < listSize; i++)
+			argMap.put(InvKeys.INV_GROUP_ID,comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			
+			HashBag cardBag =(HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"searchCards",argMap);
+			
+			HashMap cards=(HashMap)cardBag.get(InvKeys.INV_CARDS);
+			
+			for (int k = 0; k < cards.size(); k++)
 			{
-				Object[] objs = (Object[]) result.get(i);
-				String invCode = objs[1].toString();
-				String invName = objs[2].toString();
-				Integer cardId = (Integer) objs[3];
-				TurqViewInventoryTotal invView = (TurqViewInventoryTotal) ((Object[]) result.get(i))[0];
-				BigDecimal totalAmountIn = (invView.getTotalAmountIn() == null) ? new BigDecimal(0) : invView.getTotalAmountIn();
-				BigDecimal totalAmountOut = (invView.getTotalAmountOut() == null) ? new BigDecimal(0) : invView.getTotalAmountOut();
-				BigDecimal totalPriceIn = (invView.getTotalPriceIn() == null) ? new BigDecimal(0) : invView.getTotalPriceIn();
-				BigDecimal totalPriceOut = (invView.getTotalPriceOut() == null) ? new BigDecimal(0) : invView.getTotalPriceOut();
+				HashMap invCard=(HashMap)cards.get(new Integer(k));
+				
+				Integer cardId = (Integer)invCard.get(InvKeys.INV_CARD_ID);
+				String invCode =(String)invCard.get(InvKeys.INV_CARD_CODE);
+				String invName =(String)invCard.get(InvKeys.INV_CARD_NAME);
+				
+				
+				BigDecimal totalAmountIn =(BigDecimal)invCard.get(InvKeys.INV_AMOUNT_IN);
+				BigDecimal totalAmountOut = (BigDecimal)invCard.get(InvKeys.INV_AMOUNT_OUT);
+				BigDecimal totalPriceIn =(BigDecimal)invCard.get(InvKeys.INV_PRICE_IN);
+				BigDecimal totalPriceOut = (BigDecimal)invCard.get(InvKeys.INV_PRICE_OUT);
+				
 				BigDecimal balanceAmountIn = new BigDecimal(0);
 				BigDecimal balanceAmountOut = new BigDecimal(0);
 				if ((totalAmountIn.subtract(totalAmountOut).doubleValue() <= 0))
@@ -441,10 +431,7 @@ public class InvUICardSearch extends Composite implements SearchComposite
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap);
-					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
+					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, cardId).open();
 					if (updated)
 						search();
 				}

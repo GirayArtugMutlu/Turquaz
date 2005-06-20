@@ -24,14 +24,18 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import net.sf.hibernate.Session;
 import com.turquaz.engine.bl.EngBLInventoryCards;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
+import com.turquaz.engine.exceptions.TurquazException;
+import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALCardUpdate;
 
@@ -41,7 +45,7 @@ public class InvBLCardUpdate
 	{
 		try
 		{
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
 			String invCode=(String)argMap.get(InvKeys.INV_CARD_CODE);
 			String cardName=(String)argMap.get(InvKeys.INV_CARD_NAME);
 			String cardDefinition=(String)argMap.get(InvKeys.INV_CARD_DEFINITION);
@@ -56,6 +60,9 @@ public class InvBLCardUpdate
 			List invCardUnits=(List)argMap.get(InvKeys.INV_CARD_UNITS);
 			List invPrices=(List)argMap.get(InvKeys.INV_CARD_PRICES);
 			List invAccounts=(List)argMap.get(InvKeys.INV_CARD_ACCOUNTS);
+			
+			Session session=EngDALSessionFactory.getSession();
+			TurqInventoryCard invCard=(TurqInventoryCard)session.load(TurqInventoryCard.class,invCardId);
 			
 			updateInvCard(invCode, cardName, cardDefinition, minAmount.intValue(), maxAmount.intValue(), cardVat.intValue(), discount.intValue(), cardSpecialVat.intValue(),
 					cardSpecialVatEach, invCard);
@@ -156,7 +163,15 @@ public class InvBLCardUpdate
 	{
 		try
 		{
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
+			boolean hasTransactions=InvDALCardUpdate.hasTransactions(invCardId);
+			if (hasTransactions)
+			{
+				throw new TurquazException(InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION);
+			}
+			
+			Session session=EngDALSessionFactory.getSession();
+			TurqInventoryCard invCard=(TurqInventoryCard)session.load(TurqInventoryCard.class,invCardId);
 			deleteInvCardAccounts(invCard);
 			deleteInvCardGroups(invCard);
 			deleteInvCardPrices(invCard);
@@ -236,19 +251,6 @@ public class InvBLCardUpdate
 				invPrice = (TurqInventoryPrice) it.next();
 				EngDALCommon.deleteObject(invPrice);
 			}
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static Boolean hasTransactions(HashMap argMap) throws Exception
-	{
-		try
-		{
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
-			return InvDALCardUpdate.hasTransactions(invCard);
 		}
 		catch (Exception ex)
 		{

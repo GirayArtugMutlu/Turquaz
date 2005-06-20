@@ -35,24 +35,22 @@ import com.turquaz.engine.dal.TurqInventoryCard;
  */
 public class InvDALCardUpdate
 {
-	public static Boolean hasTransactions(TurqInventoryCard card) throws Exception
+	public static boolean hasTransactions(Integer cardId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select transactions from TurqInventoryTransaction as transactions "
-					+ "where transactions.turqInventoryCard = :invCard" + " and transactions.turqInventoryTransactionType.id <>"
-					+ EngBLCommon.INV_TRANS_INITIAL;
+					+ "where transactions.turqInventoryCard.id ="+ cardId;
 			Query q = session.createQuery(query);
-			q.setParameter("invCard", card);
 			List list = q.list();
 			if (list.size() > 0)
 			{
-				return new Boolean(true);
+				return true;
 			}
 			else
 			{
-				return new Boolean(false);
+				return false;
 			}
 		}
 		catch (Exception ex)

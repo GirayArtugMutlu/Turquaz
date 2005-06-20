@@ -685,7 +685,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_CARD_ID,cardId);
 					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
-					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard).open();
+					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard.getId()).open();
 					if (updated)
 						search();
 				}

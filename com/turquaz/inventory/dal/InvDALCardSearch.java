@@ -36,29 +36,32 @@ import com.turquaz.engine.dal.TurqInventoryGroup;
 
 public class InvDALCardSearch
 {
-	public static List searchInventoryCards(String cardName, String cardCode, TurqInventoryGroup invGroup)
+	public static List searchInventoryCards(String cardName, String cardCode, Integer groupId)
 			throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select invView, invCard.cardInventoryCode, invCard.cardName, invCard.id from TurqViewInventoryTotal as invView,"
+			String query = "Select  invCard, invView from TurqViewInventoryTotal as invView,"
 					+ " TurqInventoryCard as invCard"
-					+ " where invCard.id = invView.inventoryCardsId and "
-					+ " invCard.cardName like '"
-					+ cardName
-					+ "%' and invCard.cardInventoryCode like '"
-					+ cardCode
-					+ "%' ";
-			if (invGroup != null)
+					+ " where invCard.id = invView.inventoryCardsId";
+			if (!cardName.equals(""))
 			{
-				query += "and :invGroup in (Select myGroup.turqInventoryGroup From invCard.turqInventoryCardGroups as myGroup)";
+				query += " and invCard.cardName like '"	+ cardName+ "%'";
+			}
+			if (!cardCode.equals(""))
+			{
+				query += " and invCard.cardInventoryCode like '"+ cardCode+ "%'";
+			}
+			if (groupId != null)
+			{
+				query += "and :groupId in (Select myGroup.turqInventoryGroup.id From invCard.turqInventoryCardGroups as myGroup)";
 			}
 			query += " order by invCard.cardInventoryCode";
 			Query q = session.createQuery(query);
-			if (invGroup != null)
+			if (groupId != null)
 			{
-				q.setParameter("invGroup", invGroup);
+				q.setParameter("groupId", groupId);
 			}
 			List list = q.list();
 			return list;
@@ -105,6 +108,42 @@ public class InvDALCardSearch
 		{
 			throw ex;
 		}
+	}
+	
+	public static List getInvCardPrices(Integer invCardId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select invPrice from TurqInventoryPrice as invPrice"
+					+ " where invPrice.turqInventoryCard.id=" + invCardId.intValue();
+			Query q = session.createQuery(query);
+			List list = q.list();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+		
+	}
+	
+	public static List getInvCardGroups(Integer invCardId) throws Exception
+	{
+		try
+		{
+			Session session = EngDALSessionFactory.getSession();
+			String query = "Select invCardGroup from TurqInventoryCardGroup as invCardGroup"
+					+ " where invCardGroup.turqInventoryCard.id=" + invCardId.intValue();
+			Query q = session.createQuery(query);
+			List list = q.list();
+			return list;
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+		
 	}
 
 	public static List searchInventoryCardsAdvanced(String cardCodeStart, String cardCodeEnd, String cardNameStart,
