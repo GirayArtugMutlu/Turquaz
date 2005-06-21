@@ -7,18 +7,19 @@
 package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import org.eclipse.swt.graphics.Color;
 import com.cloudgarden.resource.SWTResourceManager;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
+import com.turquaz.inventory.InvKeys;
 
 /**
  * @author onsel 
  */
 public class InvUIInitialTransactionTableRow implements ITableRow
 {
-	TurqInventoryTransaction invTrans = null;
+	HashMap invTrans = null;
 	TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 
 	/*
@@ -63,26 +64,31 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	public String getColumnText(int column_index)
 	{
 		String result = "";
+		HashMap invCard=null;
+		if (invTrans != null)
+		{
+			invCard =(HashMap)invTrans.get(InvKeys.INV_CARD);
+		}
 		switch (column_index)
 		{
 			case 0 : // inventory code
-				if (invTrans == null)
+				if (invCard == null)
 				{
 					result = "";
 				}
 				else
 				{
-					result = invTrans.getTurqInventoryCard().getCardInventoryCode();
+					result = (String) invCard.get(InvKeys.INV_CARD_CODE);
 				}
 				break;
 			case 1 : //inventory name
-				if (invTrans == null)
+				if (invCard == null)
 				{
 					result = "";
 				}
 				else
 				{
-					result = invTrans.getTurqInventoryCard().getCardName();
+					result = (String)invCard.get(InvKeys.INV_CARD_NAME);
 				}
 				break;
 			case 2 : //Amount
@@ -93,7 +99,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getAmountIn());
+					result = cf.format(invTrans.get(InvKeys.INV_AMOUNT_IN));
 				}
 				break;
 			}
@@ -104,7 +110,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getTotalPriceInForeignCurrency());
+					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
 				}
 				break;
 			default :
@@ -140,27 +146,33 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public Object getValue(int column_index)
 	{
+		HashMap invCard=null;
+		if (invTrans != null)
+		{
+			invCard =(HashMap)invTrans.get(InvKeys.INV_CARD);
+		}
+		
 		String result = "";
 		switch (column_index)
 		{
 			case 0 : // inventory code
-				if (invTrans == null)
+				if (invCard == null)
 				{
 					result = "";
 				}
 				else
 				{
-					result = invTrans.getTurqInventoryCard().getCardInventoryCode();
+					result = (String)invCard.get(InvKeys.INV_CARD_CODE);
 				}
 				break;
 			case 1 : //inventory name
-				if (invTrans == null)
+				if (invCard == null)
 				{
 					result = "";
 				}
 				else
 				{
-					result = invTrans.getTurqInventoryCard().getCardName();
+					result =(String) invCard.get(InvKeys.INV_CARD_NAME);
 				}
 				break;
 			case 2 : //Amount
@@ -171,7 +183,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getAmountIn());
+					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_IN));
 				}
 				break;
 			}
@@ -182,7 +194,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result = cf.format(invTrans.getTotalPriceInForeignCurrency());
+					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
 				}
 				break;
 			default :
@@ -218,7 +230,7 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.setAmountIn(new BigDecimal(formatted));
+					invTrans.put(InvKeys.INV_AMOUNT_IN,new BigDecimal(formatted));
 				}
 				break;
 			}
@@ -235,8 +247,8 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.setTotalPriceInForeignCurrency(new BigDecimal(formatted));
-                    invTrans.setTotalPrice(new BigDecimal(formatted));
+					invTrans.put(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY,new BigDecimal(formatted));
+                    //invTrans.setTotalPrice(new BigDecimal(formatted));
 				}
 				break;
 			default :
@@ -264,9 +276,9 @@ public class InvUIInitialTransactionTableRow implements ITableRow
 	 */
 	public void setDBObject(Object obj)
 	{
-		if (obj instanceof TurqInventoryTransaction)
+		if (obj instanceof HashMap)
 		{
-			invTrans = (TurqInventoryTransaction) obj;
+			invTrans = (HashMap) obj;
 		}
 	}
 

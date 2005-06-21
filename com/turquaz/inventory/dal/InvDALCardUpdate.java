@@ -19,6 +19,7 @@ package com.turquaz.inventory.dal;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.math.BigDecimal;
 import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -40,18 +41,26 @@ public class InvDALCardUpdate
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select transactions from TurqInventoryTransaction as transactions "
-					+ "where transactions.turqInventoryCard.id ="+ cardId;
+			String query = "Select trans.amountIn,trans.amountOut from TurqInventoryTransaction as trans "
+					+ " where trans.turqInventoryCard.id ="+ cardId;
 			Query q = session.createQuery(query);
 			List list = q.list();
-			if (list.size() > 0)
-			{
-				return true;
-			}
-			else
+			if (list.size() == 0)
 			{
 				return false;
 			}
+			else
+			{
+				Object[] amounts=(Object[])list.get(0);
+				BigDecimal amountIn=(BigDecimal)amounts[0];
+				BigDecimal amountOut=(BigDecimal)amounts[1];
+				if (amountIn.doubleValue() == 0 && amountOut.doubleValue() == 0)
+				{
+					return false;
+				}
+				return true;
+				
+			}			
 		}
 		catch (Exception ex)
 		{

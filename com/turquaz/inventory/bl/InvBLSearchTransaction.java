@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALSessionFactory;
@@ -147,8 +148,36 @@ public class InvBLSearchTransaction
 		}
 	}
 
-	public static List getInitialTransactions() throws Exception
+	public static HashBag getInitialTransactions() throws Exception
 	{
-		return InvDALSearchTransaction.getInitialTransactions();
+		HashBag initialBag=new HashBag();
+		List initials=InvDALSearchTransaction.getInitialTransactions();
+		
+		initialBag.put(InvKeys.INV_TRANSACTIONS, new HashMap());
+		
+		for(int k=0; k<initials.size(); k++)
+		{
+			TurqInventoryTransaction invTrans=(TurqInventoryTransaction)initials.get(k);
+			
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_ID,invTrans.getId());
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_DATE,invTrans.getTransactionsDate());
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_DEFINITION,invTrans.getDefinition());
+			
+			HashMap invCardMap=new HashMap();
+			TurqInventoryCard invCard=invTrans.getTurqInventoryCard();
+			
+			invCardMap.put(InvKeys.INV_CARD_ID, invCard.getId());
+			invCardMap.put(InvKeys.INV_CARD_CODE, invCard.getCardInventoryCode());
+			invCardMap.put(InvKeys.INV_CARD_NAME, invCard.getCardName());
+			invCardMap.put(InvKeys.INV_CARD_DEFINITION, invCard.getCardDefinition());
+			
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD, invCardMap);
+			
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_AMOUNT_IN, invTrans.getAmountIn());
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_AMOUNT_OUT, invTrans.getAmountOut());
+			initialBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY, invTrans.getTotalPriceInForeignCurrency());
+		}
+		
+		return initialBag;
 	}
 }

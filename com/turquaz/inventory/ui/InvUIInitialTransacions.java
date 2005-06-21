@@ -20,7 +20,6 @@ package com.turquaz.inventory.ui;
  * @version $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.layout.GridLayout;
@@ -28,8 +27,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
@@ -39,6 +38,7 @@ import com.turquaz.engine.ui.viewers.ITableRowListViewer;
 import com.turquaz.engine.ui.viewers.SaveTableViewer;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSearchTransaction;
+import com.turquaz.inventory.bl.InvBLUpdateTransaction;
 
 
 /**
@@ -132,11 +132,12 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			List ls = (List)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInitialTransactions",null);
-			for (int i = 0; i < ls.size(); i++)
+			HashBag transBag = (HashBag)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInitialTransactions",null);
+			HashMap transList=(HashMap)transBag.get(InvKeys.INV_TRANSACTIONS);
+			for (int i = 0; i < transList.size(); i++)
 			{
 				InvUIInitialTransactionTableRow tableRow = new InvUIInitialTransactionTableRow();
-				tableRow.setDBObject(ls.get(i));
+				tableRow.setDBObject(transList.get(new Integer(i)));
 				tableViewer.addRow(tableRow);
 			}
 		}
@@ -171,7 +172,7 @@ public class InvUIInitialTransacions extends org.eclipse.swt.widgets.Composite
 				{
 					HashMap argMap=new HashMap();
 					argMap.put(InvKeys.INV_TRANS,row.getDBObject());
-					EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"update",argMap);
+					EngTXCommon.doTransactionTX(InvBLUpdateTransaction.class.getName(),"updateInitialTransaction",argMap);
 				}
 				catch (Exception ex)
 				{

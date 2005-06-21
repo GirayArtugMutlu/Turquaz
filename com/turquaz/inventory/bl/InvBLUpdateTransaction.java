@@ -19,6 +19,29 @@
  */
 package com.turquaz.inventory.bl;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+import net.sf.hibernate.Session;
+import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
+import com.turquaz.inventory.InvKeys;
+
 public class InvBLUpdateTransaction
 {
+	public static void updateInitialTransaction(HashMap argMap) throws Exception
+	{
+		HashMap transMap=(HashMap)argMap.get(InvKeys.INV_TRANS);
+		Integer transId=(Integer)transMap.get(InvKeys.INV_TRANS_ID);
+		
+		Session session=EngDALSessionFactory.getSession();
+		TurqInventoryTransaction invTrans=(TurqInventoryTransaction)session.load(TurqInventoryTransaction.class,transId);
+
+		BigDecimal amountIn=(BigDecimal)transMap.get(InvKeys.INV_AMOUNT_IN);
+		BigDecimal totalPriceInFC=(BigDecimal)transMap.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY);
+		
+		invTrans.setAmountIn(amountIn);
+		invTrans.setTotalPriceInForeignCurrency(totalPriceInFC);
+		EngDALCommon.updateObject(invTrans);		
+	}
 }
