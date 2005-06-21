@@ -22,11 +22,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.swt.widgets.Composite;
+
+import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -88,7 +90,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private CLabel lblStartDate;
 	private CLabel lblCurrentCard;
 	private Object result[] = new Object[2];
-	TurqCurrentCard curCard = null;
+	Integer curCardId = null;
 
 	public ConUIConsignmentSearchDialog(Shell parent, int style)
 	{
@@ -326,30 +328,37 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			if (verifyFields())
 			{
-				curCard = (TurqCurrentCard) txtCurCard.getData();
+				curCardId =  txtCurCard.getCardId();
 				tableConsignments.removeAll();
 				HashMap argMap = new HashMap();
 				argMap.put(CurKeys.CUR_CARD_ID, txtCurCard.getCardId());
 				argMap.put(EngKeys.DATE_START, dateStartDate.getDate());
 				argMap.put(EngKeys.DATE_END, dateEndDate.getDate());
-				List list = (List) EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),
+				
+				HashBag consBag = (HashBag) EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),
 						"chooseConsignment", argMap);
-				Object cons[];
+				
+				HashMap consList =(HashMap)consBag.get(ConsKeys.CONS);			
+				
+				HashMap consInfo;
+				
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 				TableItem item;
-				for (int i = 0; i < list.size(); i++)
+				for (int i = 0; i < consList.size(); i++)
 				{
-					cons = (Object[]) list.get(i);
+					consInfo = (HashMap) consList.get(new Integer(i));
+					
 					item = new TableItem(tableConsignments, SWT.NULL);
-					item.setData(cons[0]);
-					Date consDate = (Date) cons[1];
-					String curCardCode = (String) cons[2];
-					String curCardName = (String) cons[3];
-					String consDocNo = (String) cons[4];
-					BigDecimal totalAmount = (BigDecimal) cons[5];
-					BigDecimal vatAmount = (BigDecimal) cons[6];
-					BigDecimal specVatAmount = (BigDecimal) cons[7];
-					Integer type = (Integer) cons[8];
+					item.setData( consInfo.get(ConsKeys.CONS_ID));
+					Date consDate = (Date) consInfo.get(ConsKeys.CONS_DATE);
+					String curCardCode = (String) consInfo.get(CurKeys.CUR_CURRENT_CODE);
+					String curCardName = (String) consInfo.get(CurKeys.CUR_CURRENT_NAME);;
+					String consDocNo = (String) consInfo.get(ConsKeys.CONS_DOC_NO);;
+					BigDecimal totalAmount = (BigDecimal) consInfo.get(ConsKeys.CONS_TOTAL_AMOUNT);;
+					BigDecimal vatAmount = (BigDecimal) consInfo.get(ConsKeys.CONS_VAT_AMOUNT);;
+					BigDecimal specVatAmount = (BigDecimal)consInfo.get(ConsKeys.CONS_SPEC_VAT_AMOUNT);;
+					
+					Integer type = (Integer) consInfo.get(ConsKeys.CONS_TYPE);
 					String transType = ""; //$NON-NLS-1$
 					if (type.intValue() == EngBLCommon.COMMON_BUY_INT)
 					{
@@ -374,7 +383,7 @@ public class ConUIConsignmentSearchDialog extends org.eclipse.swt.widgets.Dialog
 	private void toolOkWidgetSelected(SelectionEvent evt)
 	{
 		result[1] = null;
-		result[0] = curCard;
+		result[0] = curCardId;
 		List consigments = new ArrayList();
 		TableItem items[] = tableConsignments.getItems();
 		String type = ""; //$NON-NLS-1$

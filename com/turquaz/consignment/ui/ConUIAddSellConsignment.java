@@ -52,16 +52,13 @@ import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.engine.ui.component.RegisterGroupComposite;
 import org.eclipse.swt.widgets.TableColumn;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqConsignmentGroup;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -778,22 +775,17 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 
 	public void fillGroupsTable()
 	{
-		try
-		{
-			//Fill Group Table
-			List list = (List)EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
-			HashMap groupMap = new HashMap();
-			TurqConsignmentGroup curGroup;
-			for (int i = 0; i < list.size(); i++)
-			{
-				curGroup = (TurqConsignmentGroup) list.get(i);
-				groupMap.put(curGroup.getGroupsName(), curGroup);
-			}
-			compRegisterGroup.fillTableAllGroups(groupMap);
-		}
-		catch (Exception ex)
-		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
+		try {
+			// Fill Group Table
+			HashBag groupBag = (HashBag) EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(), "getConsignmentGroups", null);
+			
+			HashMap groupList =(HashMap)groupBag.get(ConsKeys.CONS_GROUPS);
+			
+			
+			compRegisterGroup.fillTableAllGroups(groupList);
+			
+		} catch (Exception ex) {
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
@@ -820,16 +812,19 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
-			TurqInventoryWarehous warehouse;
-			for (int i = 0; i < list.size(); i++)
-			{
-				warehouse = (TurqInventoryWarehous) list.get(i);
-				comboWareHouse.add(warehouse.getWarehousesName());
-				comboWareHouse.setData(warehouse.getWarehousesName(), warehouse);
+			HashBag wareHouseBag = (HashBag) EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(), "getInventoryWarehouses", null);
+			
+			HashMap whList = (HashMap)wareHouseBag.get(InvKeys.INV_WAREHOUSES);
+			
+			
+			HashMap whInfo;
+			for (int i = 0; i < whList.size(); i++) {
+				whInfo = (HashMap) whList.get(new Integer(i));
+				
+				comboWareHouse.add((String)whInfo.get(InvKeys.INV_WAREHOUSE_NAME));
+				comboWareHouse.setData((String)whInfo.get(InvKeys.INV_WAREHOUSE_NAME),whInfo.get(InvKeys.INV_WAREHOUSE_ID));
 			}
-			if (comboWareHouse.getItemCount() > 0)
-			{
+			if (comboWareHouse.getItemCount() > 0) {
 				comboWareHouse.setText(comboWareHouse.getItem(0));
 			}
 		}
@@ -892,14 +887,13 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 	{
 		List invTransactions = new ArrayList();
 		TableItem items[] = tableConsignmentRows.getItems();
-		for (int i = 0; i < items.length; i++)
-		{
+		for (int i = 0; i < items.length; i++) {
 			InvUITransactionTableRow row = (InvUITransactionTableRow) items[i].getData();
-		
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) row.getDBObject();
-			invTrans.setTurqInventoryWarehous((TurqInventoryWarehous) comboWareHouse.getData(comboWareHouse.getText()));
-			if (row.okToSave())
-			{
+
+			HashMap invTrans = (HashMap) row.getDBObject();
+
+			if (row.okToSave()) {
+				invTrans.put(InvKeys.INV_WAREHOUSE_ID, comboWareHouse.getData(comboWareHouse.getText()));
 				invTransactions.add(invTrans);
 			}
 		}
@@ -925,7 +919,7 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 				argMap.put(ConsKeys.CONS_GROUPS,getConsignmentGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
 				
-				TurqConsignment cons =(TurqConsignment)EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(),"saveConsignment",argMap);
+				EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(),"saveConsignment",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
@@ -962,12 +956,17 @@ public class ConUIAddSellConsignment extends org.eclipse.swt.widgets.Composite i
 		BigDecimal discountTotal = new BigDecimal(0);
 		for (int i = 0; i < items.length; i++)
 		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) ((InvUITransactionTableRow) (items[i].getData()))
-					.getDBObject();
-			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
-			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
-			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
-			discountTotal = discountTotal.add(invTrans.getDiscountAmountInForeignCurrency());
+			InvUITransactionTableRow tableRow = (InvUITransactionTableRow) (items[i].getData());
+			if (tableRow.okToSave()) {
+				
+				HashMap invTrans = (HashMap) tableRow.getDBObject();
+				
+				subTotal = subTotal.add((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+				totalVAT = totalVAT.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+				totalSpecVAT = totalSpecVAT.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+				discountTotal = discountTotal.add((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY));
+				
+			}
 		}
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		txtDiscountAmount.setText(discountTotal);

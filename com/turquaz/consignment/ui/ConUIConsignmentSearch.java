@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -317,20 +316,25 @@ public class ConUIConsignmentSearch extends org.eclipse.swt.widgets.Composite im
 			argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText().trim());	
 			
 			
-			List list =(List)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"searchConsignment",argMap);
-			Object[] cons;
+			HashBag consBag =(HashBag)EngTXCommon.doSelectTX(ConBLSearchConsignment.class.getName(),"searchConsignment",argMap);
+			HashMap consList =(HashMap)consBag.get(ConsKeys.CONS);
+			
+			
+			HashMap consInfo;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < consList.size(); i++)
 			{
-				cons = (Object[]) list.get(i);
-				Integer consId = (Integer) cons[0];
-				Date consDate = (Date) cons[1];
-				String curCardCode = (String) cons[2];
-				String curCardName = (String) cons[3];
-				String consDocNo = (String) cons[4];
-				BigDecimal totalAmount = (BigDecimal) cons[5];
-				BigDecimal vatAmount = (BigDecimal) cons[6];
-				BigDecimal specVatAmount = (BigDecimal) cons[7];
+				consInfo = (HashMap) consList.get(new Integer(i));
+				
+				Integer consId = (Integer) consInfo.get(ConsKeys.CONS_ID);
+				Date consDate = (Date) consInfo.get(ConsKeys.CONS_DATE);
+				String curCardCode = (String) consInfo.get(CurKeys.CUR_CURRENT_CODE);
+				String curCardName = (String) consInfo.get(CurKeys.CUR_CURRENT_NAME);;
+				String consDocNo = (String) consInfo.get(ConsKeys.CONS_DOC_NO);;
+				BigDecimal totalAmount = (BigDecimal) consInfo.get(ConsKeys.CONS_TOTAL_AMOUNT);;
+				BigDecimal vatAmount = (BigDecimal) consInfo.get(ConsKeys.CONS_VAT_AMOUNT);;
+				BigDecimal specVatAmount = (BigDecimal)consInfo.get(ConsKeys.CONS_SPEC_VAT_AMOUNT);;
+				
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(consDate), curCardCode, curCardName, consDocNo,
 						cf.format(totalAmount), cf.format(vatAmount), cf.format(specVatAmount)}, consId);
 			}

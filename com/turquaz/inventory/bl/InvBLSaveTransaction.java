@@ -171,6 +171,12 @@ public class InvBLSaveTransaction
 			transType.setId(transTypeId);
 			invTrans.setTurqInventoryTransactionType(transType);
 			
+			Integer whId =(Integer)invTransInfo.get(InvKeys.INV_WAREHOUSE_ID);
+			TurqInventoryWarehous warehouse =new TurqInventoryWarehous();
+			warehouse.setId(whId);
+			
+			invTrans.setTurqInventoryWarehous(warehouse);
+			
 			
 			registerInventoryTransaction(invTrans, engSeqId, type, transDate, definition, docNo, exchangeRate, curCard);
 		}

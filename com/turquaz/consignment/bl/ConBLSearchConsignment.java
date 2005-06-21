@@ -18,6 +18,8 @@ package com.turquaz.consignment.bl;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALSearchConsignment;
 import com.turquaz.current.CurKeys;
@@ -29,7 +31,7 @@ import com.turquaz.engine.dal.TurqViewInvPriceTotal;
 
 public class ConBLSearchConsignment
 {
-	public static List searchConsignment(HashMap argMap) throws Exception
+	public static HashBag searchConsignment(HashMap argMap) throws Exception
 	{
 		try
 		{
@@ -44,7 +46,27 @@ public class ConBLSearchConsignment
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
 			String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);			
-			return ConDALSearchConsignment.searchConsignments(curCard, startDate, endDate, type.intValue(), docNo);
+		
+			List list= ConDALSearchConsignment.searchConsignments(curCard, startDate, endDate, type.intValue(), docNo);
+		    HashBag returnBag = new HashBag();
+			returnBag.put(ConsKeys.CONS,new HashMap());
+			
+			for(int i=0;i<list.size();i++)
+			{
+				Object[]data = (Object[])list.get(i);
+				returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_ID,data[0]);
+				returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_DATE,data[1]);
+				returnBag.put(ConsKeys.CONS,i,CurKeys.CUR_CURRENT_CODE,data[2]);
+				returnBag.put(ConsKeys.CONS,i,CurKeys.CUR_CURRENT_NAME,data[3]);
+				returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_DOC_NO,data[4]);
+				returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_TOTAL_AMOUNT,data[5]);
+				returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_VAT_AMOUNT,data[6]);
+				returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_SPEC_VAT_AMOUNT,data[7]);			
+			}
+			return returnBag;
+			
+		
+		
 		}
 		catch (Exception ex)
 		{
@@ -64,7 +86,7 @@ public class ConBLSearchConsignment
 		}
 	}
 
-	public static List chooseConsignment(HashMap argMap) throws Exception
+	public static HashBag chooseConsignment(HashMap argMap) throws Exception
 	{
 		try
 		{
@@ -76,7 +98,27 @@ public class ConBLSearchConsignment
 			};
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);	
-			return ConDALSearchConsignment.chooseConsignments(curCard, startDate, endDate);
+			List list = ConDALSearchConsignment.chooseConsignments(curCard, startDate, endDate);
+			 HashBag returnBag = new HashBag();
+				returnBag.put(ConsKeys.CONS,new HashMap());
+				
+				for(int i=0;i<list.size();i++)
+				{
+					Object[]data = (Object[])list.get(i);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_ID,data[0]);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_DATE,data[1]);
+					returnBag.put(ConsKeys.CONS,i,CurKeys.CUR_CURRENT_CODE,data[2]);
+					returnBag.put(ConsKeys.CONS,i,CurKeys.CUR_CURRENT_NAME,data[3]);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_DOC_NO,data[4]);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_TOTAL_AMOUNT,data[5]);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_VAT_AMOUNT,data[6]);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_SPEC_VAT_AMOUNT,data[7]);
+					returnBag.put(ConsKeys.CONS,i,ConsKeys.CONS_TYPE,data[8]);
+				}
+				return returnBag;
+				
+		
+		
 		}
 		catch (Exception ex)
 		{

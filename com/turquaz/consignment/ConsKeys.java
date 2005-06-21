@@ -26,4 +26,8 @@ public class ConsKeys
 	public static String CONS_DOC_NO ="consDocNo";
     public static String CONS_HAS_BILL ="consHasBill";
     public static String CONS_BILL_DOC_NO ="consBillDocNo";
+	public static String CONS_TOTAL_AMOUNT ="consTotalAmount";
+	public static String CONS_VAT_AMOUNT ="consVATAmount";
+	public static String CONS_SPEC_VAT_AMOUNT ="consSpecVatAmount";
+	public static String CONS_TYPE ="consType";
 }
