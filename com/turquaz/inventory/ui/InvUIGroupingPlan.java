@@ -22,8 +22,6 @@ package com.turquaz.inventory.ui;
  */
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -34,10 +32,9 @@ import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -49,6 +46,7 @@ import org.eclipse.swt.events.MouseEvent;
 
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardAdd;
+import com.turquaz.inventory.bl.InvBLCardUpdate;
 
 
 
@@ -142,7 +140,9 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 				TableTreeItem items[] = tableTreeGroups.getSelection();
 				if (items.length > 0)
 				{
-					boolean isupdated = new InvUIGroupAddDialog(getShell(), SWT.NULL, (TurqInventoryGroup) items[0].getData()).open();
+					HashMap groupMap=(HashMap)items[0].getData();
+					Integer groupId=(Integer)groupMap.get(InvKeys.INV_GROUP_ID);
+					boolean isupdated = new InvUIGroupAddDialog(getShell(), SWT.NULL,groupId).open();
 					if (isupdated)
 					{
 						fillTable();
@@ -157,8 +157,9 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 				TableTreeItem items[] = tableTreeGroups.getSelection();
 				if (items.length > 0)
 				{
-					TurqInventoryGroup group = (TurqInventoryGroup) items[0].getData();
-					if (group.getTurqInventoryGroup().getId().intValue() == -1)
+					HashMap groupMap=(HashMap)items[0].getData();
+					Integer parentId=(Integer)groupMap.get(InvKeys.INV_PARENT_GROUP_ID);
+					if (parentId.intValue() == -1)
 					{
 						event.doit = true;
 					}
@@ -179,25 +180,28 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 		try
 		{
 			tableTreeGroups.removeAll();
-			List ls = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashMap groups=(HashMap)groupBag.get(InvKeys.INV_GROUPS);
 			TableTreeItem item;
 			TableTreeItem subItem;
-			TurqInventoryGroup invGroup;
-			for (int i = 0; i < ls.size(); i++)
+			//TurqInventoryGroup invGroup;
+			for (int i = 0; i < groups.size(); i++)
 			{
-				invGroup = (TurqInventoryGroup) ls.get(i);
+				HashMap invGroup = (HashMap) groups.get(new Integer(i));
 				item = new TableTreeItem(tableTreeGroups, SWT.NULL);
 				item.setData(invGroup);
-				item.setText(0, invGroup.getGroupsName());
-				item.setText(1, invGroup.getGroupsDescription());
-				Iterator it = invGroup.getTurqInventoryGroups().iterator();
-				while (it.hasNext())
+				item.setText(0,(String) invGroup.get(InvKeys.INV_GROUP_NAME));
+				item.setText(1,(String) invGroup.get(InvKeys.INV_GROUP_DESCRIPTION));
+				
+				HashBag subGroupBag=(HashBag)invGroup.get(InvKeys.INV_SUB_GROUPS);
+				HashMap subGroups=(HashMap)subGroupBag.get(InvKeys.INV_SUB_GROUPS);
+				for(int k=0; k<subGroups.size(); k++)
 				{
-					invGroup = (TurqInventoryGroup) it.next();
+					HashMap subGroup = (HashMap) subGroups.get(new Integer(k));
 					subItem = new TableTreeItem(item, SWT.NULL);
-					subItem.setData(invGroup);
-					subItem.setText(0, invGroup.getGroupsName());
-					subItem.setText(1, invGroup.getGroupsDescription());
+					subItem.setData(subGroup);
+					subItem.setText(0,(String) subGroup.get(InvKeys.INV_GROUP_NAME));
+					subItem.setText(1,(String) subGroup.get(InvKeys.INV_GROUP_DESCRIPTION));
 					item.setExpanded(true);
 				}
 			}
@@ -213,7 +217,7 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 		TableTreeItem items[] = tableTreeGroups.getSelection();
 		if (items.length > 0)
 		{
-			boolean isupdated = new InvUIGroupUpdateDialog(getShell(), SWT.NULL, (TurqInventoryGroup) items[0].getData()).open();
+			boolean isupdated = new InvUIGroupUpdateDialog(getShell(), SWT.NULL, (HashMap) items[0].getData()).open();
 			if (isupdated)
 			{
 				fillTable();
@@ -221,30 +225,29 @@ public class InvUIGroupingPlan extends org.eclipse.swt.widgets.Composite impleme
 		}
 	}
 	
-	public void delete ()
+	public void delete()
 	{
-		TableTreeItem items[] = tableTreeGroups.getSelection();
-		if (items.length > 0)
-		{
 		try
-		{			
-			TurqInventoryGroup mainGroup = (TurqInventoryGroup) items[0].getData();
-			boolean okToDelte=EngUICommon.okToDelete(getShell());
-			if(okToDelte)
-			{ 
-				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
-				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap); //$NON-NLS-1$
-				EngUICommon.showDeletedSuccesfullyMessage(getShell());
-				search();
-
+		{
+			TableTreeItem items[] = tableTreeGroups.getSelection();
+			if (items.length > 0)
+			{
+				boolean okToDelte = EngUICommon.okToDelete(getShell());
+				if (okToDelte)
+				{
+					HashMap group = (HashMap) items[0].getData();
+					
+					HashMap argMap = new HashMap();
+					argMap.put(InvKeys.INV_GROUP_ID, group.get(InvKeys.INV_GROUP_ID));
+					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(), "deleteInvGroup", argMap);
+					EngUICommon.showDeletedSuccesfullyMessage(getShell());
+					search();
+				}
 			}
-			
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex,getShell());
-		}
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 	public void printTable ()

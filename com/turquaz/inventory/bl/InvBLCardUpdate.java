@@ -32,6 +32,7 @@ import com.turquaz.engine.dal.TurqInventoryAccountingAccount;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryCardGroup;
 import com.turquaz.engine.dal.TurqInventoryCardUnit;
+import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryPrice;
 import com.turquaz.engine.dal.TurqInventoryUnit;
 import com.turquaz.engine.exceptions.TurquazException;
@@ -275,4 +276,26 @@ public class InvBLCardUpdate
 			throw ex;
 		}
 	}
+	
+	public static void deleteInvGroup(HashMap argMap) throws Exception
+	{
+		Integer groupId=(Integer)argMap.get(InvKeys.INV_GROUP_ID);
+		
+		Session session=EngDALSessionFactory.getSession();
+		TurqInventoryGroup group=(TurqInventoryGroup)session.load(TurqInventoryGroup.class,groupId);
+		
+		Iterator it=group.getTurqInventoryGroups().iterator();
+		if (it.hasNext())
+		{
+			throw new TurquazException(InvLangKeys.MSG_GROUP_HAS_SUB_GROUPS_CAN_NOT_DELETE);
+		}
+		it=group.getTurqInventoryCardGroups().iterator();
+		if (it.hasNext())
+		{
+			throw new TurquazException(InvLangKeys.MSG_GROUP_HAS_BEEN_USED_IN_INV_CARD_GROUPS);
+		}
+		EngDALCommon.deleteObject(group);
+	}
+	
+	
 }

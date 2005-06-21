@@ -140,6 +140,7 @@ public class InvBLCardAdd
 				groupBag.put(InvKeys.INV_GROUPS,k,InvKeys.INV_GROUP_ID,group.getId());
 				groupBag.put(InvKeys.INV_GROUPS,k,InvKeys.INV_GROUP_NAME,group.getGroupsName());
 				groupBag.put(InvKeys.INV_GROUPS,k,InvKeys.INV_GROUP_DESCRIPTION,group.getGroupsDescription());
+				groupBag.put(InvKeys.INV_GROUPS,k,InvKeys.INV_PARENT_GROUP_ID,group.getTurqInventoryGroup().getId());
 				
 				Iterator it=group.getTurqInventoryGroups().iterator();
 				
@@ -152,6 +153,7 @@ public class InvBLCardAdd
 					subGroups.put(InvKeys.INV_SUB_GROUPS,row,InvKeys.INV_GROUP_ID,subGroup.getId());
 					subGroups.put(InvKeys.INV_SUB_GROUPS,row,InvKeys.INV_GROUP_NAME,subGroup.getGroupsName());
 					subGroups.put(InvKeys.INV_SUB_GROUPS,row,InvKeys.INV_GROUP_DESCRIPTION,subGroup.getGroupsDescription());
+					subGroups.put(InvKeys.INV_SUB_GROUPS,row,InvKeys.INV_PARENT_GROUP_ID,subGroup.getTurqInventoryGroup().getId());
 					row++;
 				}
 				groupBag.put(InvKeys.INV_GROUPS,k,InvKeys.INV_SUB_GROUPS,subGroups);
@@ -447,12 +449,16 @@ public class InvBLCardAdd
 		{
 			String groupName=(String)argMap.get(InvKeys.INV_GROUP_NAME);
 			String groupDescription=(String)argMap.get(InvKeys.INV_GROUP_DESCRIPTION);
-			TurqInventoryGroup parent=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP_PARENT);
+			Integer parentId=(Integer)argMap.get(InvKeys.INV_PARENT_GROUP_ID);
 			
-			if (parent == null)
+			TurqInventoryGroup parent=new TurqInventoryGroup();
+			if (parentId == null)
 			{
-				parent = new TurqInventoryGroup();
 				parent.setId(new Integer(-1));
+			}
+			else
+			{
+				parent.setId(parentId);
 			}
 			TurqInventoryGroup invGroup = new TurqInventoryGroup();
 			invGroup.setGroupsName(groupName);
@@ -499,7 +505,11 @@ public class InvBLCardAdd
 		{
 			String groupName=(String)argMap.get(InvKeys.INV_GROUP_NAME);
 			String groupDescription=(String)argMap.get(InvKeys.INV_GROUP_DESCRIPTION);
-			TurqInventoryGroup invGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_GROUP);
+			Integer invGroupId=(Integer)argMap.get(InvKeys.INV_GROUP_ID);
+			
+			Session session=EngDALSessionFactory.getSession();
+			TurqInventoryGroup invGroup=(TurqInventoryGroup)session.load(TurqInventoryGroup.class,invGroupId);
+			
 			invGroup.setGroupsName(groupName);
 			invGroup.setGroupsDescription(groupDescription);
 			invGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$

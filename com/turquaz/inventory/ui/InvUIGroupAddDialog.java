@@ -19,26 +19,21 @@ package com.turquaz.inventory.ui;
  * @author  Onsel Armagan
  * @version  $Id$
  */
-import java.util.Calendar;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.SWT;
 
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
+import com.turquaz.engine.ui.EngUICommon;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.cloudgarden.resource.SWTResourceManager;
 
 /**
@@ -51,19 +46,17 @@ import com.cloudgarden.resource.SWTResourceManager;
 public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 {
 	private Shell dialogShell;
-	private InvBLCardAdd blCardAdd = new InvBLCardAdd();
-	Calendar cal = Calendar.getInstance();
 	private ToolItem toolSave;
 	private ToolItem toolCancel;
 	private InvUIInventoryGroupAdd compGroupAdd;
 	private ToolBar toolBar;
-	TurqInventoryGroup mainGroup;
-	boolean isUpdated = false;
+	private Integer mainGroupId;
+	private boolean isUpdated = false;
 
-	public InvUIGroupAddDialog(Shell parent, int style, TurqInventoryGroup mainGroup)
+	public InvUIGroupAddDialog(Shell parent, int style, Integer mainGroupId)
 	{
 		super(parent, style);
-		this.mainGroup = mainGroup;
+		this.mainGroupId = mainGroupId;
 	}
 
 	/**
@@ -73,7 +66,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			{
@@ -92,12 +84,6 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.horizontalSpacing = 0;
 			dialogShellLayout.verticalSpacing = 0;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 433, 229);
 			dialogShell.setSize(467, 230);
 			{
@@ -157,25 +143,15 @@ public class InvUIGroupAddDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
-		Point parentLocation = this.getParent().getLocation();
-		Point parentSize = this.getParent().getSize();
-		Point dialogSize = dialogShell.getSize();
-		int location_X = (parentLocation.x + parentSize.x) / 2 - (dialogSize.x / 2);
-		int location_Y = (parentLocation.y + parentSize.y) / 2 - (dialogSize.y / 2);
-		dialogShell.setLocation(location_X, location_Y);
+		EngUICommon.centreWindow(dialogShell);
 	}
 
 	private void toolSaveWidgetSelected(SelectionEvent evt)
 	{
-		compGroupAdd.save(mainGroup);
+		compGroupAdd.save(mainGroupId);
 		isUpdated = true;
 		dialogShell.close();
 	}

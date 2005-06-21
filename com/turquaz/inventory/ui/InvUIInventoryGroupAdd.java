@@ -7,7 +7,6 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -114,7 +113,6 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 
 	public void save()
 	{
-		InvBLCardAdd blCardAdd = new InvBLCardAdd();
 		try
 		{
 			if (verifyFields())
@@ -122,7 +120,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_GROUP_NAME,txtGroupName.getText().trim());
 				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
-				argMap.put(InvKeys.INV_GROUP_PARENT,(TurqInventoryGroup)txtMainGroup.getData());
+				argMap.put(InvKeys.INV_PARENT_GROUP_ID,(Integer)txtMainGroup.getData());
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				
@@ -136,7 +134,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 	}
 
-	public void update(TurqInventoryGroup group)
+	public void update(Integer groupId)
 	{
 		try
 		{
@@ -145,7 +143,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_GROUP_NAME,txtGroupName.getText().trim());
 				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
-				argMap.put(InvKeys.INV_GROUP,group);
+				argMap.put(InvKeys.INV_GROUP_ID,groupId);
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"updateInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());			   
 			}
@@ -157,7 +155,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		}
 	}
 
-	public void save(TurqInventoryGroup mainGroup)
+	public void save(Integer mainGroupId)
 	{
 		try
 		{
@@ -166,7 +164,7 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 				HashMap argMap=new HashMap();
 				argMap.put(InvKeys.INV_GROUP_NAME,txtGroupName.getText().trim());
 				argMap.put(InvKeys.INV_GROUP_DESCRIPTION,txtDefinition.getText().trim());
-				argMap.put(InvKeys.INV_GROUP_PARENT,mainGroup);
+				argMap.put(InvKeys.INV_PARENT_GROUP_ID,mainGroupId);
 				EngTXCommon.doTransactionTX(InvBLCardAdd.class.getName(),"saveInvGroup",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 			}
@@ -183,18 +181,8 @@ public class InvUIInventoryGroupAdd extends org.eclipse.swt.widgets.Composite im
 		return txtDefinition;
 	}
 
-	public void setTxtDefinition(Text txtDefinition)
-	{
-		this.txtDefinition = txtDefinition;
-	}
-
 	public Text getTxtGroupName()
 	{
 		return txtGroupName;
-	}
-
-	public void setTxtGroupName(Text txtGroupName)
-	{
-		this.txtGroupName = txtGroupName;
 	}
 }

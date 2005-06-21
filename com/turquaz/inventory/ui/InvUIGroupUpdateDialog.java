@@ -23,20 +23,16 @@ import java.util.Calendar;
 import java.util.HashMap;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.SWT;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
+import com.turquaz.inventory.bl.InvBLCardUpdate;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolItem;
@@ -60,13 +56,13 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private ToolItem toolCancel;
 	private InvUIInventoryGroupAdd compGroupAdd;
 	private ToolBar toolBar;
-	TurqInventoryGroup mainGroup;
+	private HashMap groupMap;
 	boolean isUpdated = false;
 
-	public InvUIGroupUpdateDialog(Shell parent, int style, TurqInventoryGroup mainGroup)
+	public InvUIGroupUpdateDialog(Shell parent, int style, HashMap group)
 	{
 		super(parent, style);
-		this.mainGroup = mainGroup;
+		this.groupMap = group;
 	}
 
 	/**
@@ -76,7 +72,6 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{
-			preInitGUI();
 			Shell parent = getParent();
 			dialogShell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.MAX);
 			{
@@ -95,12 +90,6 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			dialogShellLayout.horizontalSpacing = 0;
 			dialogShellLayout.verticalSpacing = 0;
 			dialogShell.layout();
-			dialogShell.addDisposeListener(new DisposeListener()
-			{
-				public void widgetDisposed(DisposeEvent e)
-				{
-				}
-			});
 			Rectangle bounds = dialogShell.computeTrim(0, 0, 433, 229);
 			dialogShell.setSize(475, 331);
 			{
@@ -141,7 +130,7 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					{
 						public void widgetSelected(SelectionEvent evt)
 						{
-							toolCancelWidgetSelected(evt);
+							dialogShell.close();
 						}
 					});
 				}
@@ -172,33 +161,18 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
-		Point parentLocation = this.getParent().getLocation();
-		Point parentSize = this.getParent().getSize();
-		Point dialogSize = dialogShell.getSize();
-		int location_X = (parentLocation.x + parentSize.x) / 2 - (dialogSize.x / 2);
-		int location_Y = (parentLocation.y + parentSize.y) / 2 - (dialogSize.y / 2);
-		dialogShell.setLocation(location_X, location_Y);
-		compGroupAdd.getTxtDefinition().setText(mainGroup.getGroupsDescription());
-		compGroupAdd.getTxtGroupName().setText(mainGroup.getGroupsName());
+		EngUICommon.centreWindow(dialogShell);
+		compGroupAdd.getTxtDefinition().setText((String)groupMap.get(InvKeys.INV_GROUP_DESCRIPTION));
+		compGroupAdd.getTxtGroupName().setText((String)groupMap.get(InvKeys.INV_GROUP_NAME));
 	}
 
 	private void toolSaveWidgetSelected(SelectionEvent evt)
 	{
-		compGroupAdd.update(mainGroup);
+		compGroupAdd.update((Integer)groupMap.get(InvKeys.INV_GROUP_ID));
 		isUpdated = true;
-		dialogShell.close();
-	}
-
-	private void toolCancelWidgetSelected(SelectionEvent evt)
-	{
 		dialogShell.close();
 	}
 
@@ -206,17 +180,16 @@ public class InvUIGroupUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		try
 		{			
-			boolean okToDelete=EngUICommon.okToDelete(getParent());
-			if(okToDelete)
-			{ 
-				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_MAIN_GROUP,mainGroup);
-				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap); //$NON-NLS-1$
-				EngUICommon.showDeletedSuccesfullyMessage(getParent());
+			boolean okToDelete = EngUICommon.okToDelete(getParent());
+			if (okToDelete)
+			{			
 				isUpdated = true; 
+				HashMap argMap = new HashMap();
+				argMap.put(InvKeys.INV_GROUP_ID, groupMap.get(InvKeys.INV_GROUP_ID));
+				EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(), "deleteInvGroup", argMap);
+				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				dialogShell.close();
-			}
-			
+			}			
 		}
 		catch (Exception ex)
 		{
