@@ -28,6 +28,7 @@ public class InvLangKeys
 	public final static String MSG_NOT_ENTER_UNIT_NAME_ALREADY_EXIST=Messages.getString("InvLangKeys.9"); //$NON-NLS-1$
 	public final static String MSG_SELECT_BASE_UNIT=Messages.getString("InvLangKeys.10"); //$NON-NLS-1$
 	public final static String MSG_SELECT_INV_CARD=Messages.getString("InvLangKeys.11"); //$NON-NLS-1$
+	public final static String MSG_SELECT_WAREHOUSE=Messages.getString("InvLangKeys.91"); //$NON-NLS-1$
 	public final static String MSG_WAREHOUSE_HAS_TRANSACTION=Messages.getString("InvLangKeys.12"); //$NON-NLS-1$
 	public final static String MSG_GROUP_HAS_SUB_GROUPS_CAN_NOT_DELETE=Messages.getString("InvLangKeys.89"); //$NON-NLS-1$
 	public final static String MSG_GROUP_HAS_BEEN_USED_IN_INV_CARD_GROUPS=Messages.getString("InvLangKeys.90"); //$NON-NLS-1$
