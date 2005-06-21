@@ -54,7 +54,8 @@ public class InvKeys
 	public static String INV_UNIT_ID="invUnitId";
 	public static String INV_UNITS="invUnits";
 	public static String INV_WAREHOUSE="invWarehouse";
-	public static String INV_WAREHOUSE_ID="invWarehouseId";
+    public static String INV_WAREHOUSES="invWarehouses";
+    public static String INV_WAREHOUSE_ID="invWarehouseId";
 	public static String INV_WAREHOUSE_NAME="invWarehouseName";
 	public static String INV_WAREHOUSE_CODE="invWarehouseCode";
 	public static String INV_WAREHOUSE_DESC="invWarehouseDesc";
