@@ -61,8 +61,13 @@ public class ConBLAddConsignment
 			{
 				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
 			};
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			
+			Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate = EngDALCommon.getCurrencyExchangeRate(currencyId,consignmentDate);
+			
+						
 			List groups=(List)argMap.get(ConsKeys.CONS_GROUPS);
+			
 			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);
 			
 			Calendar cal = Calendar.getInstance();
@@ -89,7 +94,7 @@ public class ConBLAddConsignment
 			{
 				for (int i = 0; i < groups.size(); i++)
 				{
-					TurqConsignmentGroup consGroup = (TurqConsignmentGroup) groups.get(i);
+					Integer consGroup = (Integer) groups.get(i);
 					registerGroup(consGroup, consignment);
 				}
 			}
@@ -122,13 +127,16 @@ public class ConBLAddConsignment
 		
 	}
 
-	public static void registerGroup(TurqConsignmentGroup grp, TurqConsignment cons) throws Exception
+	public static void registerGroup(Integer grpId, TurqConsignment cons) throws Exception
 	{
 		try
 		{
 			Calendar cal = Calendar.getInstance();
 			TurqConsignmentsInGroup cardGroup = new TurqConsignmentsInGroup();
-			TurqConsignmentGroup group = (TurqConsignmentGroup) grp;
+			
+			TurqConsignmentGroup group = new TurqConsignmentGroup();
+			group.setId(grpId);
+			
 			cardGroup.setTurqConsignment(cons);
 			cardGroup.setTurqConsignmentGroup(group);
 			cardGroup.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$

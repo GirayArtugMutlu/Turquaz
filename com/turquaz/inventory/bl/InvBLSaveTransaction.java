@@ -150,7 +150,28 @@ public class InvBLSaveTransaction
 	{
 		for (int k = 0; k < invTransactions.size(); k++)
 		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) invTransactions.get(k);
+			HashMap invTransInfo = (HashMap) invTransactions.get(k);
+			
+			TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
+			invTrans.setAmountIn((BigDecimal)invTransInfo.get(InvKeys.INV_AMOUNT_IN));
+			invTrans.setAmountOut((BigDecimal)invTransInfo.get(InvKeys.INV_AMOUNT_OUT));
+			invTrans.setUnitPriceInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY));
+			invTrans.setTotalPriceInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+			invTrans.setVatRate((BigDecimal)invTransInfo.get(InvKeys.INV_VAT_RATE));
+			invTrans.setVatAmountInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+			invTrans.setVatSpecialRate((BigDecimal)invTransInfo.get(InvKeys.INV_VAT_SPECIAL_RATE));
+			invTrans.setVatSpecialAmountInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+			invTrans.setVatSpecialUnitPriceInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY));
+			invTrans.setCumilativePriceInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY));
+			invTrans.setDiscountRate((BigDecimal)invTransInfo.get(InvKeys.INV_DISCOUNT_RATE));
+			invTrans.setDiscountAmountInForeignCurrency((BigDecimal)invTransInfo.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY));
+			
+			Integer transTypeId =(Integer)invTransInfo.get(InvKeys.INV_TRANS_TYPE_ID);
+			TurqInventoryTransactionType transType =new TurqInventoryTransactionType();
+			transType.setId(transTypeId);
+			invTrans.setTurqInventoryTransactionType(transType);
+			
+			
 			registerInventoryTransaction(invTrans, engSeqId, type, transDate, definition, docNo, exchangeRate, curCard);
 		}
 	}

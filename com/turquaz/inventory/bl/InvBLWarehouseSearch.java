@@ -32,11 +32,11 @@ public class InvBLWarehouseSearch
 	public static HashBag searchWarehouse(HashMap argMap) throws Exception
 	{
         HashBag returnBag = new HashBag();
+		returnBag.put(InvKeys.INV_WAREHOUSES,new HashMap());
         TurqInventoryWarehous warehouse;
         List result;
         
-		try
-		{
+		
 			String name=(String)argMap.get(InvKeys.INV_WAREHOUSE_NAME);
 			String city=(String)argMap.get(InvKeys.INV_WAREHOUSE_CITY);
 			result = InvDALWarehouseSearch.searchWarehouse(name, city);            
@@ -55,23 +55,31 @@ public class InvBLWarehouseSearch
         }
         
         
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+       
         return returnBag;
 	}
 
-	public static List getInventoryWarehouses() throws Exception
+	public static HashBag getInventoryWarehouses() throws Exception
 	{
-		try
-		{
-			return InvDALWarehouseSearch.getInventoryWarehouses();
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		 HashBag returnBag = new HashBag();
+		
+		 returnBag.put(InvKeys.INV_WAREHOUSES,new HashMap());
+	     
+		 TurqInventoryWarehous warehouse;
+	     
+		 List result=InvDALWarehouseSearch.getInventoryWarehouses();
+	        
+		 for (int i = 0; i < result.size(); i++)
+	        {
+	            warehouse = (TurqInventoryWarehous) result.get(i);
+	            
+	            returnBag.put(InvKeys.INV_WAREHOUSES,i,InvKeys.INV_WAREHOUSE_NAME , warehouse.getWarehousesName());
+	            returnBag.put(InvKeys.INV_WAREHOUSES,i,InvKeys.INV_WAREHOUSE_ID , warehouse.getId());
+	            
+	        }
+		
+		
+		 return returnBag;
+		
 	}
 }

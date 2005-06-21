@@ -38,7 +38,6 @@ import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
 import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
@@ -107,7 +106,7 @@ public class ConBLUpdateConsignment
 				{
 					for (int i = 0; i < groups.size(); i++)
 					{
-						ConBLAddConsignment.registerGroup((TurqConsignmentGroup) groups.get(i), consignment);
+						ConBLAddConsignment.registerGroup((Integer) groups.get(i), consignment);
 					}
 				}
 			}

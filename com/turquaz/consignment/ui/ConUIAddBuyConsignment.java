@@ -59,8 +59,6 @@ import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
@@ -841,12 +839,17 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 	public void fillComboWarehouses() {
 		try {
 			comboWareHouse.removeAll();
-			List list = (List) EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(), "getInventoryWarehouses", null);
-			TurqInventoryWarehous warehouse;
-			for (int i = 0; i < list.size(); i++) {
-				warehouse = (TurqInventoryWarehous) list.get(i);
-				comboWareHouse.add(warehouse.getWarehousesName());
-				comboWareHouse.setData(warehouse.getWarehousesName(), warehouse);
+			HashBag wareHouseBag = (HashBag) EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(), "getInventoryWarehouses", null);
+			
+			HashMap whList = (HashMap)wareHouseBag.get(InvKeys.INV_WAREHOUSES);
+			
+			
+			HashMap whInfo;
+			for (int i = 0; i < whList.size(); i++) {
+				whInfo = (HashMap) whList.get(new Integer(i));
+				
+				comboWareHouse.add((String)whInfo.get(InvKeys.INV_WAREHOUSE_NAME));
+				comboWareHouse.setData((String)whInfo.get(InvKeys.INV_WAREHOUSE_NAME),whInfo.get(InvKeys.INV_WAREHOUSE_ID));
 			}
 			if (comboWareHouse.getItemCount() > 0) {
 				comboWareHouse.setText(comboWareHouse.getItem(0));
@@ -925,7 +928,8 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 				argMap.put(ConsKeys.CONS_GROUPS, getConsignmentGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS, getInventoryTransactions());
 
-				TurqConsignment cons = (TurqConsignment) EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(), "saveConsignment", argMap);
+			    EngTXCommon.doTransactionTX(ConBLAddConsignment.class.getName(), "saveConsignment", argMap);
+			
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				newForm();
 			}
@@ -947,7 +951,8 @@ public class ConUIAddBuyConsignment extends org.eclipse.swt.widgets.Composite im
 		this.dispose();
 	}
 
-	public void calculateTotals() {
+	public void calculateTotals()
+	{
 		TableItem items[] = tableConsignmentRows.getItems();
 		BigDecimal subTotal = new BigDecimal(0);
 		BigDecimal totalVAT = new BigDecimal(0);
