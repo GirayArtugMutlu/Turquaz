@@ -25,15 +25,15 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.inventory.InvKeys;
+import com.turquaz.inventory.bl.InvBLWarehouseSearch;
 import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.turquaz.inventory.ui.InvUIWarehouseAdd;
 import org.eclipse.swt.widgets.ToolItem;
@@ -48,13 +48,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
 
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 {
 	private ToolItem toolDelete;
@@ -64,13 +57,13 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 	private CoolBar coolBarInvUIWarehouse;
 	private InvUIWarehouseAdd compInvUIWarehouse;
 	private Shell dialogShell;
-	private TurqInventoryWarehous warehouse;
+	private Integer warehouseId;
 	private ToolItem toolCancel;
 
-	public InvUIWarehouseUpdate(Shell parent, int style, TurqInventoryWarehous wh)
+	public InvUIWarehouseUpdate(Shell parent, int style, Integer whId)
 	{
 		super(parent, style);
-		warehouse = wh;
+		warehouseId = whId;
 	}
 
 	/**
@@ -211,18 +204,32 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 			toolDelete.setEnabled(true);
 			toolUpdate.setEnabled(true);
 		}
-		compInvUIWarehouse.getTxtTelephone().setText(warehouse.getWarehousesTelephone());
-		compInvUIWarehouse.getTxtWarehouseAdres().setText(warehouse.getWarehousesAddress());
-		compInvUIWarehouse.getTxtWarehouseCity().setText(warehouse.getWarehousesCity());
-		compInvUIWarehouse.getTxtWarehouseName().setText(warehouse.getWarehousesName());
-		compInvUIWarehouse.getTxtWarehouseDescription().setText(warehouse.getWarehousesDescription());
-		compInvUIWarehouse.getTxtWarehouseCode().setText(warehouse.getWarehousesDescription());
+        
+        try{
+        
+        HashMap argMap = new HashMap();
+        argMap.put(InvKeys.INV_WAREHOUSE_ID,warehouseId);
+        
+        
+        HashBag resultBag = (HashBag)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getWarehouseInfo",argMap);
+        
+		compInvUIWarehouse.getTxtTelephone().setText((String)resultBag.get(InvKeys.INV_WAREHOUSE_TEL));
+		compInvUIWarehouse.getTxtWarehouseAdres().setText((String)resultBag.get(InvKeys.INV_WAREHOUSE_ADDRESS));
+		compInvUIWarehouse.getTxtWarehouseCity().setText((String)resultBag.get(InvKeys.INV_WAREHOUSE_CITY));
+		compInvUIWarehouse.getTxtWarehouseName().setText((String)resultBag.get(InvKeys.INV_WAREHOUSE_NAME));
+		compInvUIWarehouse.getTxtWarehouseDescription().setText((String)resultBag.get(InvKeys.INV_WAREHOUSE_DESC));
+		compInvUIWarehouse.getTxtWarehouseCode().setText((String)resultBag.get(InvKeys.INV_WAREHOUSE_CODE));
 		Point parentLocation = this.getParent().getLocation();
 		Point parentSize = this.getParent().getSize();
 		Point dialogSize = dialogShell.getSize();
 		int location_X = (parentLocation.x + parentSize.x) / 2 - (dialogSize.x / 2);
 		int location_Y = (parentLocation.y + parentSize.y) / 2 - (dialogSize.y / 2);
 		dialogShell.setLocation(location_X, location_Y);
+        }
+        catch (Exception ex)
+        {
+            EngBLLogger.log(this.getClass(),ex,getParent());
+        }
 	}
 
 	/** Auto-generated event handler method */
@@ -234,7 +241,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 				return;
 			
 			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_WAREHOUSE,warehouse);
+			argMap.put(InvKeys.INV_WAREHOUSE_ID,warehouseId);
 			argMap.put(InvKeys.INV_WAREHOUSE_NAME,compInvUIWarehouse.getTxtWarehouseName().getText().trim());
 			argMap.put(InvKeys.INV_WAREHOUSE_CODE,compInvUIWarehouse.getTxtWarehouseCode().getText().trim());
 			argMap.put(InvKeys.INV_WAREHOUSE_DESC,compInvUIWarehouse.getTxtWarehouseDescription().getText().trim());
@@ -261,7 +268,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 			{
 				// if the warehouse card contains transactions
 				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_WAREHOUSE,warehouse);
+				argMap.put(InvKeys.INV_WAREHOUSE_ID,warehouseId);
 				
 				Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLWarehouseUpdate.class.getName(),"hasTransactions",argMap);
 				if (hasTX.booleanValue())
@@ -269,7 +276,7 @@ public class InvUIWarehouseUpdate extends org.eclipse.swt.widgets.Dialog
 					EngUICommon.showMessageBox(getParent(),InvLangKeys.MSG_WAREHOUSE_HAS_TRANSACTION,SWT.ICON_WARNING);
 					return;
 				}
-				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap);
+				EngTXCommon.doTransactionTX(InvBLWarehouseUpdate.class.getName(),"deleteWarehouse",argMap);
 				EngUICommon.showDeletedSuccesfullyMessage(getParent());
 				this.dialogShell.dispose();
 			}

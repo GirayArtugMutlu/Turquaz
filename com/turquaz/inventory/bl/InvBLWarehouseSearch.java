@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.turquaz.common.HashBag;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALWarehouseSearch;
@@ -58,6 +59,31 @@ public class InvBLWarehouseSearch
        
         return returnBag;
 	}
+    public static HashBag getWarehouseInfo(HashMap argMap) throws Exception
+    {
+        HashBag returnBag = new HashBag();
+       
+        try
+        {
+            Integer warehouseId =(Integer)argMap.get(InvKeys.INV_WAREHOUSE_ID);
+            TurqInventoryWarehous warehouse = (TurqInventoryWarehous)EngDALSessionFactory.getSession().load(TurqInventoryWarehous.class,warehouseId);            
+        
+            returnBag.put(InvKeys.INV_WAREHOUSE_CODE , warehouse.getWarehousesCode());
+            returnBag.put(InvKeys.INV_WAREHOUSE_NAME , warehouse.getWarehousesName());
+            returnBag.put(InvKeys.INV_WAREHOUSE_CITY , warehouse.getWarehousesCity());
+            returnBag.put(InvKeys.INV_WAREHOUSE_TEL , warehouse.getWarehousesTelephone());
+            returnBag.put(InvKeys.INV_WAREHOUSE_ADDRESS, warehouse.getWarehousesAddress());
+            returnBag.put(InvKeys.INV_WAREHOUSE_ID , warehouse.getId());
+            returnBag.put(InvKeys.INV_WAREHOUSE_DESC , warehouse.getWarehousesDescription());
+            
+        
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        return returnBag;
+    }
 
 	public static HashBag getInventoryWarehouses() throws Exception
 	{

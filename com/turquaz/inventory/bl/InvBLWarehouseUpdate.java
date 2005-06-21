@@ -2,7 +2,10 @@ package com.turquaz.inventory.bl;
 
 import java.util.Calendar;
 import java.util.HashMap;
+
+import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALWarehouseUpdate;
@@ -32,7 +35,9 @@ public class InvBLWarehouseUpdate
 	{
 		try
 		{
-			TurqInventoryWarehous wh=(TurqInventoryWarehous)argMap.get(InvKeys.INV_WAREHOUSE);
+            Integer warehouseId = (Integer)argMap.get(InvKeys.INV_WAREHOUSE_ID);
+            TurqInventoryWarehous wh= (TurqInventoryWarehous)EngDALSessionFactory.getSession().load(TurqInventoryWarehous.class,warehouseId);
+    
 			String whName=(String)argMap.get(InvKeys.INV_WAREHOUSE_NAME);
 			String whCode=(String)argMap.get(InvKeys.INV_WAREHOUSE_CODE);
 			String whDescription=(String)argMap.get(InvKeys.INV_WAREHOUSE_DESC);
@@ -61,7 +66,8 @@ public class InvBLWarehouseUpdate
 	{
 		try
 		{
-			TurqInventoryWarehous warehouse=(TurqInventoryWarehous)argMap.get(InvKeys.INV_WAREHOUSE);
+            Integer warehouseId = (Integer)argMap.get(InvKeys.INV_WAREHOUSE_ID);
+			TurqInventoryWarehous warehouse= (TurqInventoryWarehous)EngDALSessionFactory.getSession().load(TurqInventoryWarehous.class,warehouseId);
 			return InvDALWarehouseUpdate.hasTransaction(warehouse);
 		}
 		catch (Exception ex)
@@ -69,4 +75,21 @@ public class InvBLWarehouseUpdate
 			throw ex;
 		}
 	}
+    
+    public static void deleteWarehouse(HashMap argMap) throws Exception
+    {
+        try
+        {
+            Integer warehouseId = (Integer)argMap.get(InvKeys.INV_WAREHOUSE_ID);
+            TurqInventoryWarehous warehouse= (TurqInventoryWarehous)EngDALSessionFactory.getSession().load(TurqInventoryWarehous.class,warehouseId);
+           
+            HashMap deleteMap = new HashMap ();
+            deleteMap.put(InvKeys.INV_WAREHOUSE,warehouse);
+            EngBLServer.delete(deleteMap);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 }

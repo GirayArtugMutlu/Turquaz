@@ -20,7 +20,6 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -33,9 +32,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
 
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -48,13 +47,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
-/**
- * This code was generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer
- * using Jigloo. Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms.
- * ************************************* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED for this machine, so Jigloo or this code cannot be used
- * legally for any corporate or commercial purpose. *************************************
- */
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
@@ -241,17 +233,21 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		try
 		{
 			tableViewer.removeAll();
-			TurqInventoryWarehous warehouse;
 			HashMap argMap=new HashMap();
 			argMap.put(InvKeys.INV_WAREHOUSE_NAME,txtWarehouseName.getText().trim());
 			argMap.put(InvKeys.INV_WAREHOUSE_CITY,txtCity.getText().trim());
-			List result = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"searchWarehouse",argMap );
-			for (int i = 0; i < result.size(); i++)
+			HashBag resultBag = (HashBag)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"searchWarehouse",argMap );
+			
+            HashMap resultMap = (HashMap)resultBag.get(InvKeys.INV_WAREHOUSES);
+            
+            for (int i = 0; i < resultMap.size(); i++)
 			{
-				warehouse = (TurqInventoryWarehous) result.get(i);
-				tableViewer.addRow(new String[]{warehouse.getWarehousesCode(), warehouse.getWarehousesName(),
-						warehouse.getWarehousesCity(), warehouse.getWarehousesTelephone(), warehouse.getWarehousesDescription()},
-						warehouse);
+                    HashMap rowMap = (HashMap)resultMap.get(new Integer(i));
+                    
+						tableViewer.addRow(new String[]{(String)rowMap.get(InvKeys.INV_WAREHOUSE_CODE),
+                                (String)rowMap.get(InvKeys.INV_WAREHOUSE_NAME),
+						(String)rowMap.get(InvKeys.INV_WAREHOUSE_CITY),(String)InvKeys.INV_WAREHOUSE_TEL, 
+                        (String)rowMap.get(InvKeys.INV_WAREHOUSE_DESC)}, rowMap.get(InvKeys.INV_WAREHOUSE_ID));
 			}
 		}
 		catch (Exception ex)
@@ -286,8 +282,8 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		TableItem items[] = tableInvUIWarehouses.getSelection();
 		if (items.length > 0)
 		{
-			TurqInventoryWarehous wareh = (TurqInventoryWarehous) ((ITableRow) items[0].getData()).getDBObject();
-			new InvUIWarehouseUpdate(this.getShell(), SWT.NULL, wareh).open();
+			Integer warehouseId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
+			new InvUIWarehouseUpdate(this.getShell(), SWT.NULL, warehouseId).open();
 			search();
 		}
 	}
