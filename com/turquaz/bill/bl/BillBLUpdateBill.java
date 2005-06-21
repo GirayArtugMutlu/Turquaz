@@ -19,7 +19,6 @@ import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
@@ -288,7 +287,7 @@ public class BillBLUpdateBill
 		deleteBillGroups(bill);
 		for (int i = 0; i < billGroups.size(); i++)
 		{
-			BillBLAddBill.registerGroup((TurqBillGroup) billGroups.get(i), bill.getId());
+			BillBLAddBill.registerGroup((Integer) billGroups.get(i), bill.getId());
 		}
 	}
 

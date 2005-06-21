@@ -48,6 +48,8 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 
+import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -60,12 +62,6 @@ import com.turquaz.bill.bl.BillBLAddGroups;
 import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqBillGroup;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
-import com.turquaz.engine.dal.TurqViewInventoryAmountTotal;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.CashLangKeys;
@@ -84,7 +80,6 @@ import com.turquaz.engine.ui.viewers.TableSpreadsheetCursor;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLCardSearch;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
-import com.turquaz.inventory.ui.InvUITransactionAddDialog;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
@@ -761,16 +756,19 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		try
 		{
 			comboWareHouse.removeAll();
-			List list =(List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
-			TurqInventoryWarehous warehouse;
-			for (int i = 0; i < list.size(); i++)
-			{
-				warehouse = (TurqInventoryWarehous) list.get(i);
-				comboWareHouse.add(warehouse.getWarehousesName());
-				comboWareHouse.setData(warehouse.getWarehousesName(), warehouse);
+			HashBag wareHouseBag = (HashBag) EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(), "getInventoryWarehouses", null);
+			
+			HashMap whList = (HashMap)wareHouseBag.get(InvKeys.INV_WAREHOUSES);
+			
+			
+			HashMap whInfo;
+			for (int i = 0; i < whList.size(); i++) {
+				whInfo = (HashMap) whList.get(new Integer(i));
+				
+				comboWareHouse.add((String)whInfo.get(InvKeys.INV_WAREHOUSE_NAME));
+				comboWareHouse.setData((String)whInfo.get(InvKeys.INV_WAREHOUSE_NAME),whInfo.get(InvKeys.INV_WAREHOUSE_ID));
 			}
-			if (comboWareHouse.getItemCount() > 0)
-			{
+			if (comboWareHouse.getItemCount() > 0) {
 				comboWareHouse.setText(comboWareHouse.getItem(0));
 			}
 		}
@@ -785,15 +783,13 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		try
 		{
 			//Fill Group Table
-			List list = (List)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
-			HashMap groupMap = new HashMap();
-			TurqBillGroup curGroup;
-			for (int i = 0; i < list.size(); i++)
-			{
-				curGroup = (TurqBillGroup) list.get(i);
-				groupMap.put(curGroup.getGroupsName(), curGroup);
-			}
-			compRegisterGroup.fillTableAllGroups(groupMap);
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
+		
+			HashMap groupList =(HashMap)groupBag.get(ConsKeys.CONS_GROUPS);
+			
+			
+			compRegisterGroup.fillTableAllGroups(groupList);
+			
 		}
 		catch (Exception ex)
 		{
@@ -885,22 +881,6 @@ public class BillUIAddBill extends Composite implements SecureComposite
 
 
 
-	public void btnAddConsignmentRowMouseUp()
-	{
-		TurqInventoryTransaction invTrans = new InvUITransactionAddDialog(this.getShell(), SWT.NULL, true).open();
-		if (invTrans != null)
-		{
-			TableItem item = new TableItem(tableConsignmentRows, SWT.NULL);
-			item.setData(invTrans);
-			item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
-					invTrans.getTurqInventoryCard().getCardName(), invTrans.getAmountIn() + "", //$NON-NLS-1$
-					invTrans.getTurqInventoryUnit().getUnitsName(), invTrans.getUnitPriceInForeignCurrency().toString(),
-					invTrans.getTotalPriceInForeignCurrency().toString(), invTrans.getVatRate() + "", //$NON-NLS-1$
-					invTrans.getVatAmountInForeignCurrency().toString(), invTrans.getVatSpecialAmountInForeignCurrency().toString(),
-					invTrans.getCumilativePriceInForeignCurrency().toString()});
-			calculateTotals();
-		}
-	}
 
 	public boolean verifyFields()
 	{
@@ -945,16 +925,20 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		return true;
 	}
 
-	public boolean checkStabilityInventoryLevel(TurqInventoryCard invCard)
+	public boolean checkStabilityInventoryLevel(Integer cardId)
 	{
 		try
 		{
 			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD,invCard);
-			TurqViewInventoryAmountTotal invView = (TurqViewInventoryAmountTotal)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getView",argMap);
-			int Now = (invView.getTransactionsTotalAmountNow() == null) ? 0 : invView.getTransactionsTotalAmountNow().intValue();
-			int Max = invCard.getCardMaximumAmount();
-			int Min = invCard.getCardMinimumAmount();
+			argMap.put(InvKeys.INV_CARD_ID,cardId);
+		
+			HashBag amountInfo = (HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getView",argMap);
+			
+			int Now = (amountInfo.get(InvKeys.INV_AMOUNT_NOW) == null) ? 0 : ((Integer)amountInfo.get(InvKeys.INV_AMOUNT_NOW)).intValue();
+			
+			int Max = ((Integer)amountInfo.get(InvKeys.INV_AMOUNT_MAX)).intValue();
+			int Min = ((Integer)amountInfo.get(InvKeys.INV_AMOUNT_MIN)).intValue();
+			
 			if (BILL_TYPE == EngBLCommon.COMMON_SELL_INT && Now < Min)
 				return false;
 			else if (BILL_TYPE == EngBLCommon.COMMON_BUY_INT && Max != 0 && Now > Max)
@@ -976,11 +960,10 @@ public class BillUIAddBill extends Composite implements SecureComposite
 			{
 				// buy bill
 				int type = BILL_TYPE;
-				TurqBill bill = null;
+			
 				
 				HashMap argMap=new HashMap();
 				
-				argMap.put(BillKeys.BILL,bill);
 				argMap.put(BillKeys.BILL_DEFINITION,txtDefinition.getText().trim());
 				argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));
 				argMap.put(BillKeys.BILL_DATE,dateConsignmentDate.getDate());
@@ -994,7 +977,10 @@ public class BillUIAddBill extends Composite implements SecureComposite
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 				argMap.put(InvKeys.INV_TRANSACTIONS,getInventoryTransactions());				
 				
-				Integer result = (Integer)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
+				HashBag resultbag = (HashBag)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromBill",argMap);
+				
+				Integer result = (Integer)resultbag.get(BillKeys.BILL_ACC_SAVE_RESULT);
+				
 				if(result.intValue()!=1)
 				{
 					EngUICommon.showMessageBox(getShell(),EngLangCommonKeys.MSG_ACCOUNTING_ENTEGRATION_COULDNT_BE_MADE, SWT.ICON_WARNING); 
@@ -1027,13 +1013,13 @@ public class BillUIAddBill extends Composite implements SecureComposite
 	{
 		List invTransactions = new ArrayList();
 		TableItem items[] = tableConsignmentRows.getItems();
-		for (int i = 0; i < items.length; i++)
-		{
+		for (int i = 0; i < items.length; i++) {
 			InvUITransactionTableRow row = (InvUITransactionTableRow) items[i].getData();
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) row.getDBObject();
-			invTrans.setTurqInventoryWarehous((TurqInventoryWarehous) comboWareHouse.getData(comboWareHouse.getText()));
-			if (row.okToSave())
-			{
+
+			HashMap invTrans = (HashMap) row.getDBObject();
+
+			if (row.okToSave()) {
+				invTrans.put(InvKeys.INV_WAREHOUSE_ID, comboWareHouse.getData(comboWareHouse.getText()));
 				invTransactions.add(invTrans);
 			}
 		}
@@ -1066,12 +1052,17 @@ public class BillUIAddBill extends Composite implements SecureComposite
 		BigDecimal discountTotal = new BigDecimal(0);
 		for (int i = 0; i < items.length; i++)
 		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction) ((InvUITransactionTableRow) (items[i].getData()))
-					.getDBObject();
-			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
-			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
-			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
-			discountTotal = discountTotal.add(invTrans.getDiscountAmountInForeignCurrency());
+			InvUITransactionTableRow tableRow = (InvUITransactionTableRow) (items[i].getData());
+			if (tableRow.okToSave()) {
+				
+				HashMap invTrans = (HashMap) tableRow.getDBObject();
+				
+				subTotal = subTotal.add((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+				totalVAT = totalVAT.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+				totalSpecVAT = totalSpecVAT.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+				discountTotal = discountTotal.add((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY));
+				
+			}
 		}
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		txtDiscountAmount.setText(discountTotal);

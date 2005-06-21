@@ -310,12 +310,24 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static TurqViewInventoryAmountTotal getView(HashMap argMap) throws Exception
+	public static HashBag getView(HashMap argMap) throws Exception
 	{
 		try
 		{
-			TurqInventoryCard invCard = (TurqInventoryCard) argMap.get(InvKeys.INV_CARD);
-			return InvDALCardSearch.getView(invCard);
+			Integer invCardId = (Integer) argMap.get(InvKeys.INV_CARD_ID);
+			
+			TurqInventoryCard invCard = (TurqInventoryCard)EngDALSessionFactory.getSession().load(TurqInventoryCard.class,invCardId);
+						
+			TurqViewInventoryAmountTotal view = InvDALCardSearch.getView(invCardId);
+			
+			HashBag result = new HashBag();
+			result.put(InvKeys.INV_AMOUNT_NOW,view.getTransactionsTotalAmountNow());
+			result.put(InvKeys.INV_AMOUNT_MAX,new Integer(invCard.getCardMaximumAmount()));
+			result.put(InvKeys.INV_AMOUNT_MIN,new Integer(invCard.getCardMinimumAmount()));
+			
+			return result;
+			
+			
 		}
 		catch (Exception ex)
 		{

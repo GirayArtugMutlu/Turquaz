@@ -13,6 +13,7 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALAddBill;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionAdd;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddConsignment;
 import com.turquaz.consignment.bl.ConBLSearchConsignment;
@@ -44,10 +45,13 @@ import com.turquaz.inventory.bl.InvBLSaveTransaction;
 public class BillBLAddBill
 {
     // Bill from Bill
-    public static Integer saveBillFromBill(HashMap argMap) throws Exception
+    public static HashBag saveBillFromBill(HashMap argMap) throws Exception
     {
-        TurqBill bill = (TurqBill) argMap.get(BillKeys.BILL);
-        String definition = (String) argMap.get(BillKeys.BILL_DEFINITION);
+        
+        
+		TurqBill bill = new TurqBill();
+		
+		String definition = (String) argMap.get(BillKeys.BILL_DEFINITION);
         Boolean isPrinted = (Boolean) argMap.get(BillKeys.BILL_IS_PRINTED);
         Date billsDate = (Date) argMap.get(BillKeys.BILL_DATE);
         Integer type = (Integer) argMap.get(EngKeys.TYPE);
@@ -99,15 +103,17 @@ public class BillBLAddBill
 
         int result = saveAccountingTransaction(bill, cashCard, totalAmount);
 
-        return new Integer(result);
+		HashBag resultBag = new HashBag();
+		resultBag.put(BillKeys.BILL_ACC_SAVE_RESULT,new Integer(result));
+        return resultBag;
     }
 
     private static void saveBillGroups(Integer billId, List billGroups) throws Exception
     {
         for (int i = 0; i < billGroups.size(); i++)
         {
-            TurqBillGroup group = (TurqBillGroup) billGroups.get(i);
-            registerGroup(group, billId);
+            Integer groupId = (Integer) billGroups.get(i);
+            registerGroup(groupId, billId);
         }
     }
 
@@ -596,15 +602,18 @@ public class BillBLAddBill
      * @param billId
      * @throws Exception
      */
-    public static void registerGroup(TurqBillGroup grp, Integer billId) throws Exception
+    public static void registerGroup(Integer grpId, Integer billId) throws Exception
     {
         try
         {
             TurqBillInGroup cardGroup = new TurqBillInGroup();
             TurqBill card = new TurqBill();
+			TurqBillGroup group = new TurqBillGroup();
+			group.setId(grpId);
             card.setId(billId);
+			
             cardGroup.setTurqBill(card);
-            cardGroup.setTurqBillGroup(grp);
+            cardGroup.setTurqBillGroup(group);
             cardGroup.setCreatedBy(System.getProperty("user"));
             cardGroup.setUpdatedBy(System.getProperty("user"));
             Calendar cal = Calendar.getInstance();

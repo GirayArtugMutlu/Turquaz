@@ -536,13 +536,13 @@ public class InvDALCardSearch
 		}
 	}
 
-	public static TurqViewInventoryAmountTotal getView(TurqInventoryCard invCard) throws Exception
+	public static TurqViewInventoryAmountTotal getView(Integer cardId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
 			String query = "Select invView from TurqViewInventoryAmountTotal as invView"
-					+ " where  invView.inventoryCardsId =" + invCard.getId();
+					+ " where  invView.inventoryCardsId =" + cardId;
 			Query q = session.createQuery(query);
 			List list = q.list();
 			return (TurqViewInventoryAmountTotal) list.get(0);
