@@ -40,6 +40,7 @@ import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
@@ -47,6 +48,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLWarehouseSearch;
+import com.turquaz.inventory.bl.InvBLWarehouseUpdate;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyAdapter;
@@ -84,7 +86,6 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 	{
 		try
 		{
-			preInitGUI();
 			this.setSize(new org.eclipse.swt.graphics.Point(618, 381));
 			GridLayout thisLayout = new GridLayout(1, true);
 			this.setLayout(thisLayout);
@@ -213,11 +214,6 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
@@ -246,7 +242,7 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
                     
 						tableViewer.addRow(new String[]{(String)rowMap.get(InvKeys.INV_WAREHOUSE_CODE),
                                 (String)rowMap.get(InvKeys.INV_WAREHOUSE_NAME),
-						(String)rowMap.get(InvKeys.INV_WAREHOUSE_CITY),(String)InvKeys.INV_WAREHOUSE_TEL, 
+						(String)rowMap.get(InvKeys.INV_WAREHOUSE_CITY),(String)rowMap.get(InvKeys.INV_WAREHOUSE_TEL), 
                         (String)rowMap.get(InvKeys.INV_WAREHOUSE_DESC)}, rowMap.get(InvKeys.INV_WAREHOUSE_ID));
 			}
 		}
@@ -269,7 +265,28 @@ public class InvUIWarehouseSearch extends Composite implements SecureComposite, 
 
 	public void delete()
 	{
-		//TODO should be implemented..
+		try
+		{
+			TableItem[] selection = tableInvUIWarehouses.getSelection();
+			if (selection.length > 0)
+			{
+				boolean okToDelete = EngUICommon.okToDelete(getShell());
+				ITableRow row=(ITableRow)selection[0].getData();
+				if (okToDelete)
+				{
+					HashMap argMap = new HashMap();
+					argMap.put(InvKeys.INV_WAREHOUSE_ID, row.getDBObject());
+					EngTXCommon.doTransactionTX(InvBLWarehouseUpdate.class.getName(), "deleteWarehouse",
+							argMap);
+					EngUICommon.showDeletedSuccesfullyMessage(getShell());
+					search();
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			EngBLLogger.log(this.getClass(), ex, getShell());
+		}
 	}
 
 	public void newForm()

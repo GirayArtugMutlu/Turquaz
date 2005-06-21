@@ -23,27 +23,25 @@ import java.util.List;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 
 public class InvDALWarehouseUpdate
 {
-	public static Boolean hasTransaction(TurqInventoryWarehous warehouse) throws Exception
+	public static boolean hasTransaction(Integer warehouseId) throws Exception
 	{
 		try
 		{
 			Session session = EngDALSessionFactory.getSession();
-			String query = "Select transactions from TurqInventoryTransaction as transactions "
-					+ "where transactions.turqInventoryWarehous = :warehouse ";
+			String query = "Select transactions.id from TurqInventoryTransaction as transactions "
+					+ "where transactions.turqInventoryWarehous.id ="+warehouseId;
 			Query q = session.createQuery(query);
-			q.setParameter("warehouse", warehouse);
 			List list = q.list();
 			if (list.size() > 0)
 			{
-				return new Boolean(true);
+				return true;
 			}
 			else
 			{
-				return new Boolean(false);
+				return false;
 			}
 		}
 		catch (Exception ex)

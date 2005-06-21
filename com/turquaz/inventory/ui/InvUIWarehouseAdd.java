@@ -356,12 +356,4 @@ public class InvUIWarehouseAdd extends Composite implements SecureComposite
 		return txtWarehouseCode;
 	}
 
-	/**
-	 * @param txtWarehouseCode
-	 *             The txtWarehouseCode to set.
-	 */
-	public void setTxtWarehouseCode(Text txtWarehouseCode)
-	{
-		this.txtWarehouseCode = txtWarehouseCode;
-	}
 }
