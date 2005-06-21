@@ -32,22 +32,36 @@ public class InvBLSaveTransaction
 {
 	public static void saveOtherInventoryTransaction(HashMap argMap) throws Exception
 	{
-		TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
-		TurqInventoryUnit invUnit=(TurqInventoryUnit)argMap.get(InvKeys.INV_UNIT);
-		TurqInventoryWarehous warehous=(TurqInventoryWarehous)argMap.get(InvKeys.INV_WAREHOUSE);
+		Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
+		Integer invUnitId=(Integer)argMap.get(InvKeys.INV_UNIT_ID);
+		Integer warehouseId=(Integer)argMap.get(InvKeys.INV_WAREHOUSE_ID);
 		String docNo=(String)argMap.get(EngKeys.DOCUMENT_NO);
 		Date transDate=(Date)argMap.get(EngKeys.TRANS_DATE);
 		String definition=(String)argMap.get(EngKeys.DEFINITION);
 		BigDecimal amountIn=(BigDecimal)argMap.get(EngKeys.AMOUNT_IN);
 		BigDecimal amountOut=(BigDecimal)argMap.get(EngKeys.AMOUNT_OUT);
+		
+		
 		Calendar cal = Calendar.getInstance();
 		TurqInventoryTransaction invTrans = new TurqInventoryTransaction();
+		
 		TurqInventoryTransactionType transType = new TurqInventoryTransactionType();
 		transType.setId(new Integer(EngBLCommon.INV_TRANS_OTHER));
 		invTrans.setTurqInventoryTransactionType(transType);
+		
+		TurqInventoryCard invCard=new TurqInventoryCard();
+		invCard.setId(invCardId);
 		invTrans.setTurqInventoryCard(invCard);
+		
+		
+		TurqInventoryWarehous warehous=new TurqInventoryWarehous();
+		warehous.setId(warehouseId);
 		invTrans.setTurqInventoryWarehous(warehous);
+		
+		TurqInventoryUnit invUnit=new TurqInventoryUnit();
+		invUnit.setId(invUnitId);
 		invTrans.setTurqInventoryUnit(invUnit);
+		
 		TurqEngineSequence seq = EngBLServer.saveEngineSequence(EngBLCommon.MODULE_INVENTORY);
 		invTrans.setTurqEngineSequence(seq);
 		invTrans.setTransactionsDate(transDate);
@@ -72,8 +86,8 @@ public class InvBLSaveTransaction
 		invTrans.setVatSpecialRate(new BigDecimal(0));
 		invTrans.setVatSpecialAmount(new BigDecimal(0));
 		invTrans.setVatSpecialAmountInForeignCurrency(new BigDecimal(0));
-		invTrans.setCreatedBy(System.getProperty("user")); //$NON-NLS-1$
-		invTrans.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
+		invTrans.setCreatedBy(System.getProperty("user"));
+		invTrans.setUpdatedBy(System.getProperty("user")); 
 		invTrans.setLastModified(cal.getTime());
 		invTrans.setCreationDate(cal.getTime());
 		invTrans.setTurqCurrencyExchangeRate(EngDALCommon.getBaseCurrencyExchangeRate());

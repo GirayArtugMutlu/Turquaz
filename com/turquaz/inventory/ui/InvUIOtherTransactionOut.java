@@ -2,16 +2,13 @@ package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryUnit;
-import com.turquaz.engine.dal.TurqInventoryWarehous;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -160,7 +157,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			comboWareHouse.setLayoutData(comboWareHouseLData);
 			//END << comboWareHouse
 			this.layout();
-			fillComboWarehouses();
+			PostInitGui();
 			inventoryPicker.setComboInvUnits(comboUnits);
 		}
 		catch (Exception e)
@@ -169,19 +166,26 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
             EngBLLogger.log(this.getClass(),e,getShell());
 		}
 	}
+	
+	public void PostInitGui()
+	{
+		fillComboWarehouses();
+	}
 
 	public void fillComboWarehouses()
 	{
 		try
 		{
 			comboWareHouse.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),"getInventoryWarehouses",null);
-			TurqInventoryWarehous warehouse;
-			for (int i = 0; i < list.size(); i++)
+			HashBag whBag = (HashBag) EngTXCommon.doSelectTX(InvBLWarehouseSearch.class.getName(),
+					"getInventoryWarehouses", null);
+			HashMap warehouses = (HashMap) whBag.get(InvKeys.INV_WAREHOUSES);
+			for (int i = 0; i < warehouses.size(); i++)
 			{
-				warehouse = (TurqInventoryWarehous) list.get(i);
-				comboWareHouse.add(warehouse.getWarehousesName());
-				comboWareHouse.setData(warehouse.getWarehousesName(), warehouse);
+				HashMap warehouse = (HashMap) warehouses.get(new Integer(i));
+				String whName = (String) warehouse.get(InvKeys.INV_WAREHOUSE_NAME);
+				comboWareHouse.add(whName);
+				comboWareHouse.setData(whName, warehouse.get(InvKeys.INV_WAREHOUSE_ID));
 			}
 			if (comboWareHouse.getItemCount() > 0)
 			{
@@ -190,8 +194,7 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 		}
 		catch (Exception ex)
 		{
-
-            EngBLLogger.log(this.getClass(),ex,getShell());
+			EngBLLogger.log(this.getClass(), ex, getShell());
 		}
 	}
 
@@ -203,12 +206,18 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 			inventoryPicker.setFocus();
 			return false;
 		}
-		if (!(txtAmount.getBigDecimalValue().doubleValue() > 0))
+		else if (!(txtAmount.getBigDecimalValue().doubleValue() > 0))
 		{
 			EngUICommon.showMessageBox(getShell(), InvLangKeys.MSG_ENTER_AMOUNT);
 			txtAmount.setFocus();
 			return false;
 		}
+		else if (comboWareHouse.getData(comboWareHouse.getText()) == null)
+		{
+			EngUICommon.showMessageBox(getShell(), InvLangKeys.MSG_SELECT_WAREHOUSE);
+			comboWareHouse.setFocus();
+			return false;
+		}	
 		return true;
 	}
 
@@ -236,13 +245,13 @@ public class InvUIOtherTransactionOut extends org.eclipse.swt.widgets.Composite 
 		{
 			if (verifyFields())
 			{
-				TurqInventoryWarehous warehouse = (TurqInventoryWarehous) comboWareHouse.getData(comboWareHouse.getText());
-				TurqInventoryUnit unit = (TurqInventoryUnit) comboUnits.getData(comboUnits.getText());
+				Integer warehouseId = (Integer) comboWareHouse.getData(comboWareHouse.getText());
+				Integer unitId = (Integer) comboUnits.getData(comboUnits.getText());
 				
 				HashMap argMap=new HashMap();
-				argMap.put(InvKeys.INV_CARD,(TurqInventoryCard) inventoryPicker.getData());
-				argMap.put(InvKeys.INV_UNIT,unit);
-				argMap.put(InvKeys.INV_WAREHOUSE, warehouse);
+				argMap.put(InvKeys.INV_CARD_ID,inventoryPicker.getId());
+				argMap.put(InvKeys.INV_UNIT_ID,unitId);
+				argMap.put(InvKeys.INV_WAREHOUSE_ID, warehouseId);
 				argMap.put(EngKeys.DOCUMENT_NO,txtDocNo.getText());
 				argMap.put(EngKeys.TRANS_DATE,datePicker.getDate());
 				argMap.put(EngKeys.DEFINITION, txtDefinition.getText().trim());
