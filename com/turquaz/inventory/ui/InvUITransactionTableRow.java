@@ -33,8 +33,7 @@ public class InvUITransactionTableRow implements ITableRow
 	HashMap invTrans = new HashMap();
 	TableRowList rowList;
 	int row_index = 0;
-	
-    int transType = 0;
+	int transType = 0;
 	Integer unit_index = new Integer(-1);
 	String unit_text = "";
 	String units[];
@@ -64,7 +63,6 @@ public class InvUITransactionTableRow implements ITableRow
 		this.transType = transType;
 		calculateFields();
 	}
-
 
 	/*
 	 * type 0 = Buy type 1 = Sell
@@ -97,18 +95,17 @@ public class InvUITransactionTableRow implements ITableRow
 	public String getColumnText(int column_index)
 	{
 		String result = "";
-		HashMap invCard=(HashMap)invTrans.get(InvKeys.INV_CARD);
+		HashMap invCard = (HashMap) invTrans.get(InvKeys.INV_CARD);
 		switch (column_index)
-		{			
+		{
 			case 0 : // inventory code
-				
 				if (invCard == null)
 				{
 					result = "";
 				}
 				else
 				{
-					result =(String) invCard.get(InvKeys.INV_CARD_CODE);
+					result = (String) invCard.get(InvKeys.INV_CARD_CODE);
 				}
 				break;
 			case 1 : //inventory name
@@ -130,13 +127,14 @@ public class InvUITransactionTableRow implements ITableRow
 				result = unit_text;
 				break;
 			case 4 : //Amount in Base Unit
-				if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
+				if (transType == EngBLCommon.COMMON_BUY_INT
+						|| transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 				{
-					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_IN));
+					result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_IN));
 				}
 				else
 				{
-					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_OUT));
+					result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_OUT));
 				}
 				break;
 			case 5 : //Base Unit
@@ -146,26 +144,29 @@ public class InvUITransactionTableRow implements ITableRow
 				}
 				else
 				{
-					result =(String) base_unit.get(InvKeys.INV_UNIT_NAME);
+					result = (String) base_unit.get(InvKeys.INV_UNIT_NAME);
 				}
 				break;
 			case 6 : //Unit Price
-				result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY));
+				result = cf4.format((BigDecimal) invTrans.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY));
 				break;
 			case 7 : // total Price
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
 				break;
 			case 8 : // discount %
-				result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_RATE));
+				result = cf4.format((BigDecimal) invTrans.get(InvKeys.INV_DISCOUNT_RATE));
 				break;
 			case 9 : // Amount after discount
-				result = cf.format(((BigDecimal)invTrans.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY)).subtract((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY)));
+				result = cf
+						.format(((BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY))
+								.subtract((BigDecimal) invTrans
+										.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY)));
 				break;
 			case 10 : // VAT percent
 				result = invTrans.get(InvKeys.INV_VAT_RATE).toString();
 				break;
 			case 11 : // VAT total
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
 				break;
 			case 12 : // Special VAT percent
 				if (invCard == null)
@@ -174,18 +175,21 @@ public class InvUITransactionTableRow implements ITableRow
 				}
 				else
 				{
-					Boolean isSpec=(Boolean)invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
+					Boolean isSpec = (Boolean) invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
 					if (isSpec.booleanValue())
-						result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY));
+						result = cf4.format((BigDecimal) invTrans
+								.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY));
 					else
-						result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_RATE));
+						result = cf4.format((BigDecimal) invTrans.get(InvKeys.INV_VAT_SPECIAL_RATE));
 				}
 				break;
 			case 13 : // Specail VAT Total
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans
+						.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
 				break;
 			case 14 : //Cumulative Price
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans
+						.get(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY));
 				break;
 			default :
 				result = "";
@@ -197,24 +201,21 @@ public class InvUITransactionTableRow implements ITableRow
 	{
 		try
 		{
-			HashMap invCard=(HashMap)invTrans.get(InvKeys.INV_CARD);
-			
-			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD_ID,invCard.get(InvKeys.INV_CARD_ID));
-			HashBag cardBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
-		
-			
+			HashMap invCard = (HashMap) invTrans.get(InvKeys.INV_CARD);
+			HashMap argMap = new HashMap();
+			argMap.put(InvKeys.INV_CARD_ID, invCard.get(InvKeys.INV_CARD_ID));
+			HashBag cardBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
+					"initializeInventoryCard", argMap);
 			//Birimleri doldur
 			List unit_list = new ArrayList();
-			HashMap cardUnitsMap=(HashMap)cardBag.get(InvKeys.INV_CARD_UNITS);
-
-			for(int k=0; k<cardUnitsMap.size(); k++)
+			HashMap cardUnitsMap = (HashMap) cardBag.get(InvKeys.INV_CARD_UNITS);
+			for (int k = 0; k < cardUnitsMap.size(); k++)
 			{
 				HashMap cardUnit = (HashMap) cardUnitsMap.get(new Integer(k));
 				unit_list.add(cardUnit);
-				if (((BigDecimal)cardUnit.get(InvKeys.INV_CARD_UNIT_FACTOR)).compareTo(new BigDecimal(1)) == 0)
+				if (((BigDecimal) cardUnit.get(InvKeys.INV_CARD_UNIT_FACTOR)).compareTo(new BigDecimal(1)) == 0)
 				{
-					base_unit =(HashMap) cardUnit.get(InvKeys.INV_UNIT);
+					base_unit = (HashMap) cardUnit.get(InvKeys.INV_UNIT);
 				}
 			}
 			cardUnits = new HashMap[unit_list.size()];
@@ -222,8 +223,8 @@ public class InvUITransactionTableRow implements ITableRow
 			unit_list.toArray(cardUnits);
 			for (int i = 0; i < unit_list.size(); i++)
 			{
-				HashMap unitMap=(HashMap)cardUnits[i].get(InvKeys.INV_UNIT);
-				units[i] =(String) unitMap.get(InvKeys.INV_UNIT_NAME);
+				HashMap unitMap = (HashMap) cardUnits[i].get(InvKeys.INV_UNIT);
+				units[i] = (String) unitMap.get(InvKeys.INV_UNIT_NAME);
 				if (base_unit.equals(cardUnits[i].get(InvKeys.INV_UNIT)))
 				{
 					base_unit_index = i;
@@ -231,15 +232,16 @@ public class InvUITransactionTableRow implements ITableRow
 				if (invTrans.get(InvKeys.INV_UNIT).equals(cardUnits[i].get(InvKeys.INV_UNIT)))
 				{
 					unit_index = new Integer(i);
-					transAmount = transAmount.divide((BigDecimal)cardUnits[i].get(InvKeys.INV_CARD_UNIT_FACTOR), 2, EngBLCommon.ROUNDING_METHOD);
+					transAmount = transAmount.divide((BigDecimal) cardUnits[i]
+							.get(InvKeys.INV_CARD_UNIT_FACTOR), 2, EngBLCommon.ROUNDING_METHOD);
 				}
 			}
-			HashMap unitMap=(HashMap)invTrans.get(InvKeys.INV_UNIT);
-			unit_text = (String)unitMap.get(InvKeys.INV_UNIT_NAME);
+			HashMap unitMap = (HashMap) invTrans.get(InvKeys.INV_UNIT);
+			unit_text = (String) unitMap.get(InvKeys.INV_UNIT_NAME);
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex);
+			EngBLLogger.log(this.getClass(), ex);
 		}
 	}
 
@@ -247,65 +249,61 @@ public class InvUITransactionTableRow implements ITableRow
 	{
 		try
 		{
-			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD_ID,invCard.get(InvKeys.INV_CARD_ID));
-			HashBag cardBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCard",argMap);
+			HashMap argMap = new HashMap();
+			argMap.put(InvKeys.INV_CARD_ID, invCard.get(InvKeys.INV_CARD_ID));
+			HashBag cardBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
+					"initializeInventoryCard", argMap);
 			//KDV Yuzdesi
-
-			invTrans.put(InvKeys.INV_VAT_RATE,(BigDecimal)invCard.get(InvKeys.INV_VAT_RATE));
+			invTrans.put(InvKeys.INV_VAT_RATE, (BigDecimal) cardBag.get(InvKeys.INV_VAT_RATE));
 			//ÖTV Yuzdesi
-			invTrans.put(InvKeys.INV_VAT_SPECIAL_RATE,(BigDecimal)invCard.get(InvKeys.INV_VAT_SPECIAL_RATE));
-			invTrans.put(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY,(BigDecimal)invCard.get(InvKeys.INV_SPECIAL_VAT_FOR_EACH));
-			
+			invTrans
+					.put(InvKeys.INV_VAT_SPECIAL_RATE, (BigDecimal) cardBag.get(InvKeys.INV_VAT_SPECIAL_RATE));
+			invTrans.put(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY, (BigDecimal) cardBag
+					.get(InvKeys.INV_SPECIAL_VAT_FOR_EACH));
 			//Birimleri doldur
 			List unit_list = new ArrayList();
-			
-			HashMap cardUnitsMap=(HashMap)cardBag.get(InvKeys.INV_CARD_UNITS);
-
-			for(int k=0; k<cardUnitsMap.size(); k++)
+			HashMap cardUnitsMap = (HashMap) cardBag.get(InvKeys.INV_CARD_UNITS);
+			for (int k = 0; k < cardUnitsMap.size(); k++)
 			{
-				HashMap cardUnit = (HashMap)cardUnitsMap.get(new Integer(k));
+				HashMap cardUnit = (HashMap) cardUnitsMap.get(new Integer(k));
 				unit_list.add(cardUnit);
-				if (((BigDecimal)cardUnit.get(InvKeys.INV_CARD_UNIT_FACTOR)).compareTo(new BigDecimal(1)) == 0)
+				if (((BigDecimal) cardUnit.get(InvKeys.INV_CARD_UNIT_FACTOR)).compareTo(new BigDecimal(1)) == 0)
 				{
-					base_unit =(HashMap) cardUnit.get(InvKeys.INV_UNIT);
+					base_unit = (HashMap) cardUnit.get(InvKeys.INV_UNIT);
 				}
 			}
-			
-			BigDecimal discountRate=(BigDecimal)invCard.get(InvKeys.INV_DISCOUNT_RATE);
-			
-			invTrans.put(InvKeys.INV_DISCOUNT_RATE,discountRate);
-			invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,(BigDecimal)invCard.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY));
-			
-			invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,((BigDecimal)invCard.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).multiply(discountRate)
-					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
-			invTrans.put(InvKeys.INV_UNIT,base_unit);
-			
+			BigDecimal discountRate = (BigDecimal) cardBag.get(InvKeys.INV_DISCOUNT_RATE);
+			invTrans.put(InvKeys.INV_DISCOUNT_RATE, discountRate);
+			BigDecimal totalPriceInFC = (BigDecimal) invTrans
+					.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY);
+			invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY, (totalPriceInFC).multiply(
+					discountRate).divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
+			invTrans.put(InvKeys.INV_UNIT, base_unit);
 			cardUnits = new HashMap[unit_list.size()];
 			units = new String[unit_list.size()];
 			unit_list.toArray(cardUnits);
 			for (int i = 0; i < unit_list.size(); i++)
 			{
-				HashMap unitMap=(HashMap)cardUnits[i].get(InvKeys.INV_UNIT);
-				units[i] =(String) unitMap.get(InvKeys.INV_UNIT_NAME);
+				HashMap unitMap = (HashMap) cardUnits[i].get(InvKeys.INV_UNIT);
+				units[i] = (String) unitMap.get(InvKeys.INV_UNIT_NAME);
 				if (base_unit == unitMap)
 				{
 					base_unit_index = i;
 				}
 			}
 			unit_index = new Integer(base_unit_index);
-			unit_text = (String)base_unit.get(InvKeys.INV_UNIT_NAME);
+			unit_text = (String) base_unit.get(InvKeys.INV_UNIT_NAME);
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex);
+			EngBLLogger.log(this.getClass(), ex);
 		}
 	}
 
 	public Object getValue(int column_index)
 	{
 		Object result = "";
-		HashMap invCard=(HashMap)invTrans.get(InvKeys.INV_CARD);
+		HashMap invCard = (HashMap) invTrans.get(InvKeys.INV_CARD);
 		switch (column_index)
 		{
 			case 0 : // inventory code
@@ -335,13 +333,14 @@ public class InvUITransactionTableRow implements ITableRow
 				result = unit_index;
 				break;
 			case 4 : //amount in base units
-				if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
+				if (transType == EngBLCommon.COMMON_BUY_INT
+						|| transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 				{
-					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_IN));
+					result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_IN));
 				}
 				else
 				{
-					result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_OUT));
+					result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_OUT));
 				}
 				break;
 			case 5 : //Base Unit
@@ -355,22 +354,25 @@ public class InvUITransactionTableRow implements ITableRow
 				}
 				break;
 			case 6 : //Unit Price
-				result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY));
+				result = cf4.format((BigDecimal) invTrans.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY));
 				break;
 			case 7 : // total Price
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
 				break;
 			case 8 : // Discount percent
-				result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_RATE));
+				result = cf4.format((BigDecimal) invTrans.get(InvKeys.INV_DISCOUNT_RATE));
 				break;
 			case 9 : // Amount after discount
-				result = cf.format(((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).subtract((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY)));
+				result = cf
+						.format(((BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY))
+								.subtract((BigDecimal) invTrans
+										.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY)));
 				break;
 			case 10 : // VAT percent
-				result = ((BigDecimal)invTrans.get(InvKeys.INV_VAT_RATE)).toString();
+				result = ((BigDecimal) invTrans.get(InvKeys.INV_VAT_RATE)).toString();
 				break;
 			case 11 : // VAT total
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
 				break;
 			case 12 : // Special VAT percent
 				if (invCard == null)
@@ -378,17 +380,20 @@ public class InvUITransactionTableRow implements ITableRow
 					result = "0";
 					break;
 				}
-				Boolean isSpec=(Boolean)invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
+				Boolean isSpec = (Boolean) invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
 				if (isSpec.booleanValue())
-					result = cf4.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY));
+					result = cf4.format((BigDecimal) invTrans
+							.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY));
 				else
-					result = ((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_RATE)).toString();
+					result = ((BigDecimal) invTrans.get(InvKeys.INV_VAT_SPECIAL_RATE)).toString();
 				break;
 			case 13 : // Specail VAT Total
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans
+						.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
 				break;
 			case 14 : //Cumulative Price
-				result = cf.format((BigDecimal)invTrans.get(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY));
+				result = cf.format((BigDecimal) invTrans
+						.get(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY));
 				break;
 			default :
 				result = "";
@@ -400,7 +405,7 @@ public class InvUITransactionTableRow implements ITableRow
 	{
 		try
 		{
-			String formatted = "";			
+			String formatted = "";
 			HashMap invCard = (HashMap) invTrans.get(InvKeys.INV_CARD);
 			HashMap card;
 			switch (column_index)
@@ -430,14 +435,14 @@ public class InvUITransactionTableRow implements ITableRow
 					{
 						if (invCard == null)
 						{
-							invTrans.put(InvKeys.INV_CARD,card);
+							invTrans.put(InvKeys.INV_CARD, card);
 							fillDefaults(invCard);
 							updateComboBoxEditor();
 						}
 						else if (((Integer) invCard.get(InvKeys.INV_CARD_ID)).intValue() != ((Integer) card
 								.get(InvKeys.INV_CARD_ID)).intValue())
 						{
-							invTrans.put(InvKeys.INV_CARD,card);
+							invTrans.put(InvKeys.INV_CARD, card);
 							fillDefaults(invCard);
 							updateComboBoxEditor();
 						}
@@ -458,7 +463,8 @@ public class InvUITransactionTableRow implements ITableRow
 					{
 						unit_index = (Integer) value;
 						unit_text = units[unit_index.intValue()];
-						invTrans.put(InvKeys.INV_UNIT,cardUnits[unit_index.intValue()].get(InvKeys.INV_UNIT));
+						invTrans
+								.put(InvKeys.INV_UNIT, cardUnits[unit_index.intValue()].get(InvKeys.INV_UNIT));
 					}
 					break;
 				case 4 : //Base Unit Amount
@@ -473,7 +479,7 @@ public class InvUITransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.put(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY,new BigDecimal(formatted));
+					invTrans.put(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY, new BigDecimal(formatted));
 					break;
 				case 7 : // total Price
 					break;
@@ -485,7 +491,7 @@ public class InvUITransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.put(InvKeys.INV_DISCOUNT_RATE,new BigDecimal(formatted).setScale(2,
+					invTrans.put(InvKeys.INV_DISCOUNT_RATE, new BigDecimal(formatted).setScale(2,
 							EngBLCommon.ROUNDING_METHOD));
 					break;
 				case 9 : // Amount after discount
@@ -498,10 +504,11 @@ public class InvUITransactionTableRow implements ITableRow
 					}
 					BigDecimal bdValue = new BigDecimal(formatted).setScale(2, EngBLCommon.ROUNDING_METHOD);
 					BigDecimal discAmount = new BigDecimal(0);
-					discAmount = ((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).subtract(bdValue).setScale(2,
-							EngBLCommon.ROUNDING_METHOD);
-					invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,discAmount);
-					invTrans.put(InvKeys.INV_DISCOUNT_RATE,discAmount.divide((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY), 6,
+					discAmount = ((BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY))
+							.subtract(bdValue).setScale(2, EngBLCommon.ROUNDING_METHOD);
+					invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY, discAmount);
+					invTrans.put(InvKeys.INV_DISCOUNT_RATE, discAmount.divide(
+							(BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY), 6,
 							EngBLCommon.ROUNDING_METHOD).multiply(new BigDecimal(100)));
 					break;
 				case 10 : // VAT percent
@@ -510,7 +517,7 @@ public class InvUITransactionTableRow implements ITableRow
 					{
 						formatted = "0";
 					}
-					invTrans.put(InvKeys.INV_VAT_RATE,new BigDecimal(formatted));
+					invTrans.put(InvKeys.INV_VAT_RATE, new BigDecimal(formatted));
 					break;
 				case 11 : // VAT total
 					break;
@@ -524,11 +531,12 @@ public class InvUITransactionTableRow implements ITableRow
 					}
 					if (invCard != null)
 					{
-						Boolean isSpec=(Boolean)invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
+						Boolean isSpec = (Boolean) invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
 						if (isSpec.booleanValue())
-							invTrans.put(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY,new BigDecimal(formatted));
+							invTrans.put(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY,
+									new BigDecimal(formatted));
 						else
-							invTrans.put(InvKeys.INV_VAT_SPECIAL_RATE,new BigDecimal(formatted));
+							invTrans.put(InvKeys.INV_VAT_SPECIAL_RATE, new BigDecimal(formatted));
 					}
 					break;
 				case 13 : // Specail VAT Total
@@ -548,44 +556,53 @@ public class InvUITransactionTableRow implements ITableRow
 
 	public void calculateFields()
 	{
-		HashMap invCard=(HashMap)invTrans.get(InvKeys.INV_CARD);
+		HashMap invCard = (HashMap) invTrans.get(InvKeys.INV_CARD);
 		if (invCard != null)
 		{
-			transAmountinBaseUnit = transAmount.multiply((BigDecimal)cardUnits[unit_index.intValue()].get(InvKeys.INV_CARD_UNIT_FACTOR)).setScale(2,
-					EngBLCommon.ROUNDING_METHOD);
-			invTrans.put(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY,((BigDecimal)invTrans.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY)).multiply(transAmountinBaseUnit).setScale(2,
+			transAmountinBaseUnit = transAmount.multiply(
+					(BigDecimal) cardUnits[unit_index.intValue()].get(InvKeys.INV_CARD_UNIT_FACTOR))
+					.setScale(2, EngBLCommon.ROUNDING_METHOD);
+			invTrans.put(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY, ((BigDecimal) invTrans
+					.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY)).multiply(transAmountinBaseUnit)
+					.setScale(2, EngBLCommon.ROUNDING_METHOD));
+			invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY, ((BigDecimal) invTrans
+					.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).multiply(
+					(BigDecimal) invTrans.get(InvKeys.INV_DISCOUNT_RATE)).divide(new BigDecimal(100), 2,
 					EngBLCommon.ROUNDING_METHOD));
-			invTrans.put(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).multiply((BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_RATE))
-					.divide(new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
-			BigDecimal totalPriceAfterDiscount = ((BigDecimal)invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).subtract(
-					(BigDecimal)invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY)).setScale(2, EngBLCommon.ROUNDING_METHOD);
-		
-            if (transType == EngBLCommon.COMMON_BUY_INT||transType ==EngBLCommon.COMMON_RETURN_SELL_INT)
+			BigDecimal totalPriceAfterDiscount = ((BigDecimal) invTrans
+					.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY)).subtract(
+					(BigDecimal) invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY)).setScale(2,
+					EngBLCommon.ROUNDING_METHOD);
+			if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 			{
-				invTrans.put(InvKeys.INV_AMOUNT_IN,transAmountinBaseUnit);
+				invTrans.put(InvKeys.INV_AMOUNT_IN, transAmountinBaseUnit);
 			}
 			else
 			{
-				invTrans.put(InvKeys.INV_AMOUNT_OUT,transAmountinBaseUnit);
+				invTrans.put(InvKeys.INV_AMOUNT_OUT, transAmountinBaseUnit);
 			}
-            Boolean isSpec=(Boolean)invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
+			Boolean isSpec = (Boolean) invCard.get(InvKeys.INV_IS_SPEC_VAT_FOR_EACH);
 			if (isSpec.booleanValue())
 			{
-				BigDecimal vatSpecialAmount = ((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY)).multiply(transAmountinBaseUnit)
-						.setScale(2, EngBLCommon.ROUNDING_METHOD);
-				invTrans.put(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY,vatSpecialAmount);
+				BigDecimal vatSpecialAmount = ((BigDecimal) invTrans
+						.get(InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY)).multiply(
+						transAmountinBaseUnit).setScale(2, EngBLCommon.ROUNDING_METHOD);
+				invTrans.put(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY, vatSpecialAmount);
 			}
 			else
 			{
-				invTrans.put(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY,totalPriceAfterDiscount.multiply((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_RATE)).divide(
-						new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
+				invTrans.put(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY, totalPriceAfterDiscount
+						.multiply((BigDecimal) invTrans.get(InvKeys.INV_VAT_SPECIAL_RATE)).divide(
+								new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
 			}
 			BigDecimal totalPriceAfterDiscountAddedSpecVAT = totalPriceAfterDiscount
-					.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
-			invTrans.put(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY,totalPriceAfterDiscountAddedSpecVAT.multiply((BigDecimal)invTrans.get(InvKeys.INV_VAT_RATE)).divide(
-					new BigDecimal(100), 2, EngBLCommon.ROUNDING_METHOD));
-			invTrans.put(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY,totalPriceAfterDiscount.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY))
-					.add((BigDecimal)invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY)));
+					.add((BigDecimal) invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+			invTrans.put(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY, totalPriceAfterDiscountAddedSpecVAT
+					.multiply((BigDecimal) invTrans.get(InvKeys.INV_VAT_RATE)).divide(new BigDecimal(100), 2,
+							EngBLCommon.ROUNDING_METHOD));
+			invTrans.put(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY, totalPriceAfterDiscount.add(
+					(BigDecimal) invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY)).add(
+					(BigDecimal) invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY)));
 		}
 	}
 
@@ -608,31 +625,28 @@ public class InvUITransactionTableRow implements ITableRow
 
 	public boolean canModify(int column_index)
 	{
-		if ( column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11 || column_index == 13
-				|| column_index == 14)
+		if (column_index == 4 || column_index == 5 || column_index == 7 || column_index == 11
+				|| column_index == 13 || column_index == 14)
 		{
 			return false;
 		}
-        if(column_index==1)
-        {
-            String useName = EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,EngBLCommon.BILL_CONFIG_CHECK_USE_INVENTORY_NAME);
-            if(useName==null)
-            {
-                return false;
-            }
-            if(useName.equals("true"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
-            
-            
-        }
-        
+		if (column_index == 1)
+		{
+			String useName = EngModulePrefs.getProperty(EngBLCommon.BILL_CONFIG,
+					EngBLCommon.BILL_CONFIG_CHECK_USE_INVENTORY_NAME);
+			if (useName == null)
+			{
+				return false;
+			}
+			if (useName.equals("true"))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -670,11 +684,11 @@ public class InvUITransactionTableRow implements ITableRow
 			invTrans = (HashMap) obj;
 			if (transType == EngBLCommon.COMMON_BUY_INT || transType == EngBLCommon.COMMON_RETURN_SELL_INT)
 			{
-				transAmount = (BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_IN);
+				transAmount = (BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_IN);
 			}
 			else
 			{
-				transAmount = (BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_OUT);
+				transAmount = (BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_OUT);
 			}
 			fillAfterSetDB();
 			calculateFields();
@@ -697,7 +711,7 @@ public class InvUITransactionTableRow implements ITableRow
 		}
 		catch (Exception ex)
 		{
-            EngBLLogger.log(this.getClass(),ex);
+			EngBLLogger.log(this.getClass(), ex);
 		}
 	}
 
