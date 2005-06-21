@@ -25,14 +25,14 @@ import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.dal.ConDALAddGroups;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqConsignmentGroup;
 
 public class ConBLAddGroups
 {
 	public static HashBag getConsignmentGroups() throws Exception
 	{
-		try
-		{
+		
 			HashBag result = new HashBag();
 			result.put(ConsKeys.CONS_GROUPS,new HashMap());
 		    
@@ -46,7 +46,7 @@ public class ConBLAddGroups
 				TurqConsignmentGroup conGroup =(TurqConsignmentGroup)it.next();
 				result.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_NAME,conGroup.getGroupsName());
 				result.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_ID,conGroup.getId());
-				
+				result.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_DESCRIPTION,conGroup.getGroupsDescription());
 				
 				i++;
 				
@@ -54,17 +54,12 @@ public class ConBLAddGroups
 			
 			
 			return result;
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
 
 	public static void saveGroup(HashMap argMap ) throws Exception
 	{
-		try
-		{
+		
 			String name=(String)argMap.get(ConsKeys.CONS_GROUP_NAME);
 			String description=(String)argMap.get(ConsKeys.CONS_GROUP_DESCRIPTION);
 			Calendar cal = Calendar.getInstance();
@@ -76,30 +71,33 @@ public class ConBLAddGroups
 			group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			group.setCreationDate(new java.sql.Date(cal.getTime().getTime()));
 			EngDALCommon.saveObject(group);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		
 	}
-
+	public static void deleteGroup(HashMap argMap)throws Exception
+	{
+		
+		Integer groupId =(Integer)argMap.get(ConsKeys.CONS_GROUP_ID);
+		TurqConsignmentGroup group = new TurqConsignmentGroup();
+		group.setId(groupId);
+		EngDALCommon.deleteObject(group);
+	
+	}
+	
 	public static void updateGroup(HashMap argMap) throws Exception
 	{
-		try
-		{
+		
 			String name=(String)argMap.get(ConsKeys.CONS_GROUP_NAME);
 			String description=(String)argMap.get(ConsKeys.CONS_GROUP_DESCRIPTION);
-			TurqConsignmentGroup group=(TurqConsignmentGroup)argMap.get(ConsKeys.CONS_GROUP);
+			Integer groupId=(Integer)argMap.get(ConsKeys.CONS_GROUP_ID);
+			TurqConsignmentGroup group = (TurqConsignmentGroup)EngDALSessionFactory.getSession().load(TurqConsignmentGroup.class,groupId);			
+			
+			
 			Calendar cal = Calendar.getInstance();
 			group.setGroupsDescription(description);
 			group.setGroupsName(name);
 			group.setUpdatedBy(System.getProperty("user")); //$NON-NLS-1$
 			group.setLastModified(new java.sql.Date(cal.getTime().getTime()));
 			EngDALCommon.updateObject(group);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+	
 	}
 }

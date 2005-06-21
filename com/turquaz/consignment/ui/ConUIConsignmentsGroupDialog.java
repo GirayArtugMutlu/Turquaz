@@ -21,7 +21,6 @@ package com.turquaz.consignment.ui;
  */
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -41,13 +40,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.admin.AdmKeys;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLAddGroups;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqConsignmentGroup;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -273,15 +273,22 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(),"getConsignmentGroups",null);
-			TurqConsignmentGroup curGroup;
+//			 Fill Group Table
+			HashBag groupBag = (HashBag) EngTXCommon.doSelectTX(ConBLAddGroups.class.getName(), "getConsignmentGroups", null);
+			
+			HashMap groupList =(HashMap)groupBag.get(ConsKeys.CONS_GROUPS);
+					
+			
+			HashMap groupInfo;
 			TableItem item;
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < groupList.size(); i++)
 			{
-				curGroup = (TurqConsignmentGroup) list.get(i);
+				groupInfo = (HashMap) groupList.get(new Integer(i));
+				
 				item = new TableItem(tableCurGroups, SWT.NULL);
-				item.setText(new String[]{curGroup.getGroupsName(), curGroup.getGroupsDescription()});
-				item.setData(curGroup);
+				
+				item.setText(new String[]{groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString(), groupInfo.get(AdmKeys.ADM_GROUP_DESCRIPTION).toString()});
+				item.setData(groupInfo.get(AdmKeys.ADM_GROUP_ID));
 			}
 		}
 		catch (Exception ex)
@@ -299,8 +306,10 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			if (okToDelete)
 			{
 				HashMap argMap=new HashMap();
-				argMap.put(ConsKeys.CONS_GROUP, txtGroupName.getData());
-				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap);
+				argMap.put(ConsKeys.CONS_GROUP_ID, txtGroupName.getData());
+				
+				EngTXCommon.doTransactionTX(ConBLAddGroups.class.getName(),"deleteGroup",argMap);
+				
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);
@@ -333,7 +342,7 @@ public class ConUIConsignmentsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			else
 			{
 				HashMap argMap=new HashMap();
-				argMap.put(ConsKeys.CONS_GROUP,txtGroupName.getData());
+				argMap.put(ConsKeys.CONS_GROUP_ID,txtGroupName.getData());
 				argMap.put(ConsKeys.CONS_GROUP_NAME,txtGroupName.getText().trim());
 				argMap.put(ConsKeys.CONS_GROUP_DESCRIPTION,txtDescription.getText().trim());
 				EngTXCommon.doTransactionTX(ConBLAddGroups.class.getName(),"updateGroup",argMap);

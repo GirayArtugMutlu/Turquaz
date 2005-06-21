@@ -41,6 +41,7 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqConsignmentsInGroup;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSaveTransaction;
 
@@ -270,8 +271,8 @@ public class ConBLUpdateConsignment
             Integer consId=(Integer)argMap.get(ConsKeys.CONS_ID);
             TurqConsignment cons= ConDALUpdateConsignment.initiliazeConsignmentById(consId);     
             
-            Boolean hasBill = new Boolean(cons.getTurqEngineSequence().getTurqBillInEngineSequences().isEmpty());
-            returnBag.put(ConsKeys.CONS_HAS_BILL,hasBill);
+           
+			
             returnBag.put(ConsKeys.CONS_ID,consId);
             returnBag.put(CurKeys.CUR_CURRENT_NAME,cons.getTurqCurrentCard().getCardsName());
             returnBag.put(CurKeys.CUR_CURRENT_CODE,cons.getTurqCurrentCard().getCardsCurrentCode());
@@ -284,9 +285,11 @@ public class ConBLUpdateConsignment
             returnBag.put(EngKeys.TYPE,type);
             returnBag.put(BillKeys.BILL_DOC_NO,cons.getBillDocumentNo());
 
+			returnBag.put(ConsKeys.CONS_HAS_BILL,new Boolean(false));
             Iterator it = cons.getTurqEngineSequence().getTurqBillInEngineSequences().iterator();
             if(it.hasNext())
             {
+				returnBag.put(ConsKeys.CONS_HAS_BILL,new Boolean(true));
                 TurqBillInEngineSequence billEng = (TurqBillInEngineSequence)it.next();
                 returnBag.put(BillKeys.BILL_DOC_NO,billEng.getTurqBill().getBillDocumentNo());
                 returnBag.put(BillKeys.BILL_DATE,billEng.getTurqBill().getBillsDate());
@@ -305,6 +308,50 @@ public class ConBLUpdateConsignment
                 returnBag.put(ConsKeys.CONS_GROUPS,i,AdmKeys.ADM_GROUP_ID, group.getTurqConsignmentGroup().getId());
                 i++;
             }
+			
+			Iterator invIt = cons.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+			i=0;
+			TurqInventoryTransaction invTrans;
+			returnBag.put(InvKeys.INV_TRANSACTIONS,new HashMap());
+			
+			while(invIt.hasNext())
+			{			
+				invTrans = (TurqInventoryTransaction) invIt.next();
+				
+				HashMap invCard = new HashMap();
+				invCard.put(InvKeys.INV_CARD_ID,invTrans.getTurqInventoryCard().getId());
+				invCard.put(InvKeys.INV_CARD_NAME,invTrans.getTurqInventoryCard().getCardName());
+				invCard.put(InvKeys.INV_CARD_CODE,invTrans.getTurqInventoryCard().getCardInventoryCode());
+				
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_CARD,invCard);				
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_AMOUNT_IN,invTrans.getAmountIn());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_AMOUNT_OUT,invTrans.getAmountOut());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY,invTrans.getUnitPriceInForeignCurrency());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY,invTrans.getTotalPriceInForeignCurrency());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_RATE,invTrans.getVatRate());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getVatAmountInForeignCurrency());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_SPECIAL_RATE,invTrans.getVatSpecialRate());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getVatSpecialAmountInForeignCurrency());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY,invTrans.getVatSpecialUnitPriceInForeignCurrency());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY,invTrans.getCumilativePriceInForeignCurrency());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_RATE,invTrans.getDiscountRate());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TRANS_TYPE_ID,invTrans.getTurqInventoryTransactionType().getId());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getDiscountAmountInForeignCurrency());
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				i++;
+			}
+			
             
             
             

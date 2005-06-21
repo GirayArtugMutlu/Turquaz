@@ -15,6 +15,7 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLServer;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
@@ -187,9 +188,15 @@ public class InvBLSaveTransaction
 			
 			Integer whId =(Integer)invTransInfo.get(InvKeys.INV_WAREHOUSE_ID);
 			TurqInventoryWarehous warehouse =new TurqInventoryWarehous();
-			warehouse.setId(whId);
-			
+			warehouse.setId(whId);			
 			invTrans.setTurqInventoryWarehous(warehouse);
+			
+			HashMap invCardMap = (HashMap)invTransInfo.get(InvKeys.INV_CARD);
+			Integer invCardId = (Integer)invCardMap.get(InvKeys.INV_CARD_ID);
+			
+			TurqInventoryCard invCard = (TurqInventoryCard)EngDALSessionFactory.getSession().load(TurqInventoryCard.class,invCardId);
+		   invTrans.setTurqInventoryCard(invCard);
+			
 			
 			
 			registerInventoryTransaction(invTrans, engSeqId, type, transDate, definition, docNo, exchangeRate, curCard);

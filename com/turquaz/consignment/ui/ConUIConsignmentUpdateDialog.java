@@ -36,10 +36,13 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.InvKeys;
+import com.turquaz.inventory.ui.InvUITransactionTableRow;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.CoolItem;
@@ -219,7 +222,9 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			compAddConsignment.getDateConsignmentDate().setDate((Date)consBag.get(EngKeys.DATE));
 			compAddConsignment.getTxtDocumentNo().setText((String)consBag.get(EngKeys.DOCUMENT_NO));
 			compAddConsignment.getTxtBillDocumentNo().setText((String)consBag.get(ConsKeys.CONS_BILL_DOC_NO));
-			if (((Integer)consBag.get(EngKeys.TYPE)).intValue() == 0)
+		
+			Integer type =(Integer)consBag.get(EngKeys.TYPE);
+			if (type.intValue() == 0)
 			{
 				compAddConsignment.getComboConsignmentType().setText(EngLangCommonKeys.COMMON_BUY_STRING);
 			}
@@ -233,11 +238,13 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			if(((Boolean)consBag.get(ConsKeys.CONS_HAS_BILL)).booleanValue())
 			{
 				compAddConsignment.getTxtBillDocumentNo().setText((String)consBag.get(BillKeys.BILL_DOC_NO));
-                compAddConsignment.getDatePickerBillDate().setText(DatePicker.formatter.format(BillKeys.BILL_DATE));
+                compAddConsignment.getDatePickerBillDate().setText(DatePicker.formatter.format(consBag.get(BillKeys.BILL_DATE)));
 			}
 			
 			
-			fillInvTransactionColumns();
+			HashMap invTransMap =(HashMap)consBag.get(InvKeys.INV_TRANSACTIONS);
+			
+			fillInvTransactionColumns(invTransMap,type.intValue());
 			fillRegisteredGroup((HashMap)consBag.get(consBag.get(ConsKeys.CONS_GROUPS)));
 		}
 		catch (Exception ex)
@@ -258,23 +265,23 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	public void fillInvTransactionColumns()
+	public void fillInvTransactionColumns(HashMap transList, int type)
 	{
-//		compAddConsignment.tableViewer.removeAll();
-//		TableItem item;
-//		TurqInventoryTransaction invTrans;
-//		Iterator it = consignment.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-//		while (it.hasNext())
-//		{
-//			invTrans = (TurqInventoryTransaction) it.next();
-//			InvUITransactionTableRow row = new InvUITransactionTableRow(consignment.getConsignmentsType(),
-//					compAddConsignment.tableViewer);
-//			row.setDBObject(invTrans);
-//			compAddConsignment.tableViewer.addRow(row);
-//		}
-//		InvUITransactionTableRow row2 = new InvUITransactionTableRow(consignment.getConsignmentsType(), compAddConsignment.tableViewer);
-//		compAddConsignment.tableViewer.addRow(row2);
-//		compAddConsignment.calculateTotals();
+		compAddConsignment.tableViewer.removeAll();
+		TableItem item;
+
+        HashMap invTransInfo;
+		for (int i=0;i<transList.size();i++)
+		{
+			invTransInfo = (HashMap) transList.get(new Integer(i));
+			InvUITransactionTableRow row = new InvUITransactionTableRow(type,
+					compAddConsignment.tableViewer);
+			row.setDBObject(invTransInfo);
+			compAddConsignment.tableViewer.addRow(row);
+		}
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(type, compAddConsignment.tableViewer);
+		compAddConsignment.tableViewer.addRow(row2);
+		compAddConsignment.calculateTotals();
 	}
 
 	public void delete()
