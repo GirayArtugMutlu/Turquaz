@@ -20,30 +20,21 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.bill.BillKeys;
+import com.turquaz.bill.ui.BillUIBillUpdateDialog;
 import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqEngineSequence;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -51,7 +42,6 @@ import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
@@ -324,14 +314,26 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				Integer transId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
 				if (transId != null)
 				{
+					boolean updated = false;
 					HashMap argMap=new HashMap();
-					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
-					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
-					argMap=new HashMap();
-					argMap.put(EngKeys.ENG_SEQ,seq);
-					TurqConsignment cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
-					boolean updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons.getId()).open();
+					argMap.put(InvKeys.INV_TRANS_ID,transId);
+					
+					HashBag idBag=(HashBag)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getAllIds",argMap);
+					Integer billId=(Integer)idBag.get(BillKeys.BILL_ID);
+					Integer consId=(Integer)idBag.get(ConsKeys.CONS_ID);
+					
+					if (billId != null)
+					{
+						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, billId).open();
+					}
+					else if (consId != null)
+					{
+						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, consId).open();
+					}
+					else
+					{
+						//TODO Uretimten gelen stok hareketi. Uretim fisini acmali..
+					}
 					if (updated)
 						search();
 				}
@@ -418,7 +420,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		}
 	}
 
-	private void GenerateJasper(int type, List list)
+	/*private void GenerateJasper(int type, List list)
 	{
 		try
 		{
@@ -491,7 +493,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
-	}
+	}*/
 
 	public void newForm()
 	{
