@@ -16,7 +16,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLAccountingAccounts;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -180,16 +179,7 @@ public class CashAccountPicker extends org.eclipse.swt.widgets.Composite impleme
 		}
 	}
 
-	/** Auto-generated event handler method */
-	protected void button1MouseUp(MouseEvent evt)
-	{
-		Object[] obj = new AccUIStaticAccountsDialog(this.getShell(), SWT.NULL).showDialog(filter);
-		if (obj[0] != null)
-		{
-			this.setData(obj[1]);
-			text1.setText(obj[0].toString());
-		}
-	}
+
 
 	/**
 	 * @return Returns the filter.

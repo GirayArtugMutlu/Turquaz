@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.accounting.AccKeys;
-import com.turquaz.accounting.ui.AccUIStaticAccountsDialog;
 import com.turquaz.engine.bl.EngBLLogger;
 
 /**
@@ -99,7 +98,7 @@ public class DynamicAccountPicker extends org.eclipse.swt.widgets.Composite
 			{
 				public void mouseUp(MouseEvent evt)
 				{
-					button1MouseUp(evt);
+					
 				}
 			});
 			GridLayout thisLayout = new GridLayout(4, true);
@@ -156,16 +155,7 @@ public class DynamicAccountPicker extends org.eclipse.swt.widgets.Composite
 		}
 	}
 
-	/** Auto-generated event handler method */
-	protected void button1MouseUp(MouseEvent evt)
-	{
-		Object[] obj = new AccUIStaticAccountsDialog(this.getShell(), SWT.NULL).showDialog(filter);
-		if (obj[0] != null)
-		{
-			this.setData(obj[1]);
-			text1.setText(obj[0].toString());
-		}
-	}
+
 
 	/**
 	 * @return Returns the filter.
