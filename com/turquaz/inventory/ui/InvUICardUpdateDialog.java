@@ -212,9 +212,9 @@ public class InvUICardUpdateDialog extends Dialog
 			String invCardCode = (String) invCard.get(InvKeys.INV_CARD_CODE);
 			String invCardName = (String) invCard.get(InvKeys.INV_CARD_NAME);
 			String invCardDefinition = (String) invCard.get(InvKeys.INV_CARD_DEFINITION);
-			Integer discountRate = (Integer) invCard.get(InvKeys.INV_DISCOUNT_RATE);
-			Integer vatRate = (Integer) invCard.get(InvKeys.INV_VAT_RATE);
-			Integer vatSpecialRate = (Integer) invCard.get(InvKeys.INV_VAT_SPECIAL_RATE);
+			BigDecimal discountRate = (BigDecimal) invCard.get(InvKeys.INV_DISCOUNT_RATE);
+			BigDecimal vatRate = (BigDecimal) invCard.get(InvKeys.INV_VAT_RATE);
+			BigDecimal vatSpecialRate = (BigDecimal) invCard.get(InvKeys.INV_VAT_SPECIAL_RATE);
 			Integer maxAmount = (Integer) invCard.get(InvKeys.INV_MAX_AMOUNT);
 			Integer minAmount = (Integer) invCard.get(InvKeys.INV_MIN_AMOUNT);
 			BigDecimal specVatForEach = (BigDecimal) invCard.get(InvKeys.INV_SPECIAL_VAT_FOR_EACH);

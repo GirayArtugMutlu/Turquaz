@@ -245,7 +245,7 @@ public class InvBLCardSearch
 		}
 	}
 
-	public static List getTransactionTotalReport(HashMap argMap) throws Exception
+	public static HashBag getTransactionTotalReport(HashMap argMap) throws Exception
 	{
 		String cardCodeStart = (String) argMap.get(InvKeys.INV_CARD_CODE_START);
 		String cardCodeEnd = (String) argMap.get(InvKeys.INV_CARD_CODE_END);
@@ -255,11 +255,83 @@ public class InvBLCardSearch
 		Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 		String curCardStart=(String)argMap.get(CurKeys.CUR_CARD_START);
 		String curCardEnd=(String)argMap.get(CurKeys.CUR_CARD_END);
-		TurqInventoryGroup invMainGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_MAIN_GROUP);
-		TurqInventoryGroup invSubGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_SUB_GROUP);
+		Integer invMainGroupId=(Integer)argMap.get(InvKeys.INV_MAIN_GROUP_ID);
+		Integer invSubGroupId=(Integer)argMap.get(InvKeys.INV_SUB_GROUP_ID);
 		
-		return InvDALCardSearch.getTransactionTotalReport(cardCodeStart, cardCodeEnd, cardNameStart, cardNameEnd,
-				startDate, endDate, curCardStart, curCardEnd, invMainGroup, invSubGroup);
+		List transList=InvDALCardSearch.getTransactionTotalReport(cardCodeStart, cardCodeEnd, cardNameStart, cardNameEnd,
+				startDate, endDate, curCardStart, curCardEnd, invMainGroupId, invSubGroupId);
+	
+		HashBag transBag=new HashBag();
+		transBag.put(InvKeys.INV_TRANSACTIONS, new HashMap());
+		
+		for(int k=0; k<transList.size(); k++)
+		{
+			Object[] transInfo=(Object[])transList.get(k);
+			Integer invCardId=(Integer)transInfo[0];
+			String invCode=(String)transInfo[1];
+			String invName=(String)transInfo[2];
+			
+			BigDecimal transInTotalAmountIn=(BigDecimal)transInfo[3];
+			if (transInTotalAmountIn == null)
+				transInTotalAmountIn=new BigDecimal(0);
+			
+			BigDecimal transInTotalPriceIn=(BigDecimal)transInfo[4];
+			if (transInTotalPriceIn == null)
+				transInTotalPriceIn=new BigDecimal(0);
+			
+			BigDecimal transOutTotalAmountOut=(BigDecimal)transInfo[5];
+			if (transOutTotalAmountOut == null)
+				transOutTotalAmountOut=new BigDecimal(0);
+			
+			BigDecimal transOutTotalPriceOut=(BigDecimal)transInfo[6];
+			if (transOutTotalPriceOut== null)
+				transOutTotalPriceOut=new BigDecimal(0);
+			
+			BigDecimal transOverInTotalAmountIn=(BigDecimal)transInfo[7];
+			if (transOverInTotalAmountIn==null)
+					transOverInTotalAmountIn=new BigDecimal(0);
+			
+			BigDecimal transOverInTotalPriceIn=(BigDecimal)transInfo[8];
+			if (transOverInTotalPriceIn==null)
+				transOverInTotalPriceIn=new BigDecimal(0);
+			
+			BigDecimal transOverOutTotalAmountOut=(BigDecimal)transInfo[9];
+			if ( transOverOutTotalAmountOut== null)
+				transOverOutTotalAmountOut=new BigDecimal(0);
+			
+			BigDecimal transOverOutTotalPriceOut=(BigDecimal)transInfo[10];
+			if (transOverOutTotalPriceOut==null)
+				transOverOutTotalPriceOut=new BigDecimal(0);
+			
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_ID,invCardId);
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_NAME,invName);
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_CODE,invCode);
+			
+			
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_IN_TOTAL_AMOUNT_IN,transInTotalAmountIn);
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_IN_TOTAL_PRICE_IN,transInTotalPriceIn);
+			
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_OUT_TOTAL_AMOUNT_OUT,transOutTotalAmountOut);
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_OUT_TOTAL_PRICE_OUT,transOutTotalPriceOut);
+			
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_OVER_IN_TOTAL_AMOUNT_IN,transOverInTotalAmountIn);
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_OVER_IN_TOTAL_PRICE_IN,transOverInTotalPriceIn);
+			
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_OVER_OUT_TOTAL_AMOUNT_OUT,transOverOutTotalAmountOut);
+			transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_OVER_OUT_TOTAL_PRICE_OUT,transOverOutTotalPriceOut);
+			
+			if (transInfo.length > 11)
+			{
+				Integer groupId=(Integer)transInfo[11];
+				String groupName=(String)transInfo[12];
+				
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_GROUP_ID,groupId);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_GROUP_NAME,groupName);				
+				
+			}
+		}
+		
+		return transBag;
 	}
 
 	public static HashBag initializeInventoryCard(HashMap argMap) throws Exception

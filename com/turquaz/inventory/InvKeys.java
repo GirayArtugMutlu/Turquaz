@@ -109,7 +109,15 @@ public class InvKeys
 	public static String INV_AMOUNT_MAX="invAmountMax";
 	public static String INV_AMOUNT_MIN="invAmountMin";
 	public static String INV_TOTAL_PRICE="invTotalPrice";
-	public static String INV_TRANS_DOC_NO="invTransDocNo";
+	public static String INV_TRANS_DOC_NO="invTransDocNo";	
+	public static String INV_TRANS_IN_TOTAL_AMOUNT_IN="transInTotalAmountIn";
+	public static String INV_TRANS_IN_TOTAL_PRICE_IN="transInTotalPriceIn";
+	public static String INV_TRANS_OUT_TOTAL_AMOUNT_OUT="transOutTotalAmountOut";
+	public static String INV_TRANS_OUT_TOTAL_PRICE_OUT="transOutTotalPriceOut";
+	public static String INV_TRANS_OVER_IN_TOTAL_AMOUNT_IN="transOverInTotalAmountIn";
+	public static String INV_TRANS_OVER_IN_TOTAL_PRICE_IN="transOverInTotalPriceIn";
+	public static String INV_TRANS_OVER_OUT_TOTAL_AMOUNT_OUT="transOverOutTotalAmountOut";
+	public static String INV_TRANS_OVER_OUT_TOTAL_PRICE_OUT="transOverOutTotalPriceOut";
 	
 	
 	

@@ -22,8 +22,6 @@ package com.turquaz.inventory.ui;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -31,8 +29,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -47,6 +43,7 @@ import com.turquaz.inventory.InvKeys;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.common.HashBag;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.inventory.bl.InvBLCardAdd;
@@ -129,7 +126,6 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			preInitGUI();
 			this.setSize(700, 437);
 			FillLayout thisLayout = new FillLayout(256);
 			this.setLayout(thisLayout);
@@ -396,11 +392,6 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		}
 	}
 
-	/** Add your pre-init code in here */
-	public void preInitGUI()
-	{
-	}
-
 	/** Add your post-init code in here */
 	public void postInitGUI()
 	{
@@ -415,13 +406,15 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 	{
 		try
 		{
-			List groupList = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null); //$NON-NLS-1$
-			comboInvMainGroup.add(""); //$NON-NLS-1$
+			HashBag groupBag =(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashMap groupList=(HashMap)groupBag.get(InvKeys.INV_GROUPS);
+			comboInvMainGroup.add("");
 			for (int k = 0; k < groupList.size(); k++)
 			{
-				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
-				comboInvMainGroup.add(gr.getGroupsName());
-				comboInvMainGroup.setData(gr.getGroupsName(), gr);
+				HashMap gr = (HashMap) groupList.get(new Integer(k));
+				String grName=(String)gr.get(InvKeys.INV_GROUP_NAME);
+				comboInvMainGroup.add(grName);
+				comboInvMainGroup.setData(grName, gr);
 			}
 		}
 		catch (Exception ex)
@@ -462,25 +455,15 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			if (items.length > 0)
 			{
 				Integer cardId = (Integer) ((ITableRow) items[0].getData()).getDBObject();
-				
-				boolean okToDelete=EngUICommon.okToDelete(getShell());
-				if (okToDelete)
+				if (cardId != null)
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
-					// if the inventory card contains transactions
-					argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD,invCard);
-					Boolean hasTX=(Boolean)EngTXCommon.doSelectTX(InvBLCardUpdate.class.getName(),"hasTransactions",argMap); //$NON-NLS-1$
-					if (hasTX.booleanValue())
-					{
-						EngUICommon.showMessageBox(getShell(),InvLangKeys.MSG_INV_CARD_HAS_TRANSACTION,SWT.ICON_WARNING);
+					boolean okToDelete=EngUICommon.okToDelete(getShell());
+					if (!okToDelete)
 						return;
-					}
-					argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD,invCard);					
-					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap); //$NON-NLS-1$
+
+					HashMap argMap=new HashMap();
+					argMap.put(InvKeys.INV_CARD_ID,cardId);				
+					EngTXCommon.doTransactionTX(InvBLCardUpdate.class.getName(),"deleteInventoryCard",argMap);				
 					EngUICommon.showDeletedSuccesfullyMessage(getShell());
 					search();
 				}
@@ -502,8 +485,24 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		{
 			tableViewer.removeAll();
 			HashMap argMap=new HashMap();
-			TurqInventoryGroup invMainGroup=(TurqInventoryGroup)comboInvMainGroup.getData(comboInvMainGroup.getText());
-			TurqInventoryGroup invSubGroup=(TurqInventoryGroup)comboInvSubGroup.getData(comboInvSubGroup.getText());
+			
+			HashMap subGroupMap=(HashMap)comboInvSubGroup.getData(comboInvSubGroup.getText());
+			Integer subGroupId=null;
+			if (subGroupMap != null)
+			{
+				subGroupId=(Integer)subGroupMap.get(InvKeys.INV_GROUP_ID);
+			}
+			
+			HashMap mainGroupMap=(HashMap)comboInvMainGroup.getData(comboInvMainGroup.getText());
+			Integer mainGroupId=null;
+			if (mainGroupMap != null)
+			{
+				mainGroupId=(Integer)mainGroupMap.get(InvKeys.INV_GROUP_ID);
+			}				
+			argMap.put(InvKeys.INV_MAIN_GROUP_ID,mainGroupId);
+			argMap.put(InvKeys.INV_SUB_GROUP_ID,subGroupId);
+			
+
 			argMap.put(InvKeys.INV_CARD_CODE_START,txtInvCodeStart.getText().trim());
 			argMap.put(InvKeys.INV_CARD_CODE_END,txtInvCodeEnd.getText().trim());
 			argMap.put(InvKeys.INV_CARD_NAME_START,txtInvNameStart.getText().trim());
@@ -512,12 +511,9 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			argMap.put(CurKeys.CUR_CARD_END,txtCurCardEnd.getText().trim());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
-			argMap.put(InvKeys.INV_MAIN_GROUP,invMainGroup);
-			argMap.put(InvKeys.INV_SUB_GROUP,invSubGroup);
-			argMap.put(InvKeys.INV_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
+
 			
-			List result=(List)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getTransactionTotalReport",argMap);
-			int listSize = result.size();
+			HashBag transBag=(HashBag)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"getTransactionTotalReport",argMap);
 			int currentGroupId=-2;
 			Integer groupId=new Integer(-2);
 			String groupName="";
@@ -536,26 +532,28 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			BigDecimal GENERAL_TOTAL_BALANCE_IN=new BigDecimal(0);
 			
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			for (int i = 0; i < listSize; i++)
+			
+			HashMap transList=(HashMap)transBag.get(InvKeys.INV_TRANSACTIONS);
+			for (int i = 0; i < transList.size(); i++)
 			{
-				Object[] objs = (Object[]) result.get(i);
-				Integer cardId=(Integer)objs[0];
-				String invCode = objs[1].toString();
-				String invName = objs[2].toString();
-				BigDecimal totalAmountIn=((BigDecimal)objs[3]==null) ? new BigDecimal(0) : (BigDecimal)objs[3];
-				BigDecimal totalPriceIn=((BigDecimal)objs[4]==null) ? new BigDecimal(0) : (BigDecimal)objs[4];
-				BigDecimal totalAmountOut=((BigDecimal)objs[5]==null) ? new BigDecimal(0) : (BigDecimal)objs[5];
-				BigDecimal totalPriceOut=((BigDecimal)objs[6]==null) ? new BigDecimal(0) : (BigDecimal)objs[6];
-				BigDecimal totaltransOverAmountIn=((BigDecimal)objs[7]==null) ? new BigDecimal(0) : (BigDecimal)objs[7];
-				BigDecimal totaltransOverPriceIn=((BigDecimal)objs[8]==null) ? new BigDecimal(0) : (BigDecimal)objs[8];
-				BigDecimal totaltransOverAmountOut=((BigDecimal)objs[9]==null) ? new BigDecimal(0) : (BigDecimal)objs[9];
-				BigDecimal totaltransOverPriceOut=((BigDecimal)objs[10]==null) ? new BigDecimal(0) : (BigDecimal)objs[10];
+				HashMap transMap=(HashMap)transList.get(new Integer(i));
+				Integer cardId=(Integer)transMap.get(InvKeys.INV_CARD_ID);
+				String invCode = (String)transMap.get(InvKeys.INV_CARD_CODE);
+				String invName = (String)transMap.get(InvKeys.INV_CARD_NAME);
+				BigDecimal totalAmountIn=(BigDecimal)transMap.get(InvKeys.INV_TRANS_IN_TOTAL_AMOUNT_IN);
+				BigDecimal totalPriceIn=(BigDecimal)transMap.get(InvKeys.INV_TRANS_IN_TOTAL_PRICE_IN);
+				BigDecimal totalAmountOut=(BigDecimal)transMap.get(InvKeys.INV_TRANS_OUT_TOTAL_AMOUNT_OUT);
+				BigDecimal totalPriceOut=(BigDecimal)transMap.get(InvKeys.INV_TRANS_OUT_TOTAL_PRICE_OUT);
+				BigDecimal totaltransOverAmountIn=(BigDecimal)transMap.get(InvKeys.INV_TRANS_OVER_IN_TOTAL_AMOUNT_IN);
+				BigDecimal totaltransOverPriceIn=(BigDecimal)transMap.get(InvKeys.INV_TRANS_OVER_IN_TOTAL_PRICE_IN);
+				BigDecimal totaltransOverAmountOut=(BigDecimal)transMap.get(InvKeys.INV_TRANS_OVER_OUT_TOTAL_AMOUNT_OUT);
+				BigDecimal totaltransOverPriceOut=(BigDecimal)transMap.get(InvKeys.INV_TRANS_OVER_OUT_TOTAL_PRICE_OUT);
 				
 				
-				if (invMainGroup != null)
+				if (mainGroupId != null)
 				{
-					groupId=(Integer)objs[11];
-					groupName=(String)objs[12];
+					groupId=(Integer)transMap.get(InvKeys.INV_GROUP_ID);
+					groupName=(String)transMap.get(InvKeys.INV_GROUP_NAME);
 				}
 
 				BigDecimal balanceAmount = totaltransOverAmountIn.add(totalAmountIn).subtract(totaltransOverAmountOut).subtract(
@@ -588,7 +586,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				
 
 				
-				if (invMainGroup != null)
+				if (mainGroupId != null)
 				{
 					if (currentGroupId != groupId.intValue())
 					{
@@ -629,9 +627,9 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 						cf.format(balanceUnitPrice)},
 						cardId);
 				
-				if (invMainGroup != null)
+				if (mainGroupId != null)
 				{
-					if (i==listSize-1)
+					if (i==(transList.size()-1))
 					{
 						tableViewer.addRow(new String[]{"","",EngLangCommonKeys.STR_TOTAL_CAPITAL,cf.format(TOTAL_TRANSOVER_PRICE),"","",cf.format(TOTAL_PRICE_IN),"","",cf.format(TOTAL_PRICE_OUT),"","",cf.format(TOTAL_BALANCE),""},null);
 						tableViewer.addRow(new String[]{"","","","","","","","","","","","","",""},null);					
@@ -683,10 +681,7 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 				Integer cardId = (Integer) ((ITableRow) selection[0].getData()).getDBObject();
 				if (cardId != null)
 				{
-					HashMap argMap=new HashMap();
-					argMap.put(InvKeys.INV_CARD_ID,cardId);
-					TurqInventoryCard invCard = (TurqInventoryCard)EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),"initializeInventoryCardById",argMap); //$NON-NLS-1$
-					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, invCard.getId()).open();
+					boolean updated = new InvUICardUpdateDialog(this.getShell(), SWT.NULL, cardId).open();
 					if (updated)
 						search();
 				}
@@ -703,17 +698,20 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 		comboInvSubGroup.removeAll();
 		if (comboInvMainGroup.getSelectionIndex() == -1)
 			return;
-		TurqInventoryGroup invMainGr = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
+		HashMap invMainGr = (HashMap) comboInvMainGroup.getData(comboInvMainGroup.getText());
 		if (invMainGr != null)
 		{
-			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
-			comboInvSubGroup.add(""); //$NON-NLS-1$
-			while (it.hasNext())
+			HashBag subGroupBag=(HashBag)invMainGr.get(InvKeys.INV_SUB_GROUPS);
+			HashMap subGroups=(HashMap)subGroupBag.get(InvKeys.INV_SUB_GROUPS);
+			for(int k=0; k<subGroups.size(); k++)
 			{
-				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
-				comboInvSubGroup.add(invGr.getGroupsName());
-				comboInvSubGroup.setData(invGr.getGroupsName(), invGr);
+				HashMap invGr = (HashMap)subGroups.get(new Integer(k));
+				String invGrName=(String)invGr.get(InvKeys.INV_GROUP_NAME);
+				comboInvSubGroup.add(invGrName);
+				comboInvSubGroup.setData(invGrName, invGr);
 			}
+			if (comboInvSubGroup.getItemCount() > 0)
+				comboInvSubGroup.setText(comboInvSubGroup.getItem(0));
 		}
 	}
 

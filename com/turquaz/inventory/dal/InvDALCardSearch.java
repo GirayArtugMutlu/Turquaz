@@ -201,7 +201,7 @@ public class InvDALCardSearch
 
 	public static List getTransactionTotalReport(String cardCodeStart, String cardCodeEnd, String cardNameStart,
 			String cardNameEnd, Date startDate, Date endDate, String curCardStart, String curCardEnd,
-			TurqInventoryGroup invMainGroup, TurqInventoryGroup invSubGroup) throws Exception
+			Integer invMainGroupId, Integer invSubGroupId) throws Exception
 	{
 		try
 		{
@@ -211,12 +211,12 @@ public class InvDALCardSearch
 					+ "transin.transintotalpricein, transout.transouttotalamountout, transout.transouttotalpriceout,"
 					+ " transoverin.overintotalamountin, transoverin.overintotalpricein,"
 					+ " transoverout.overouttotalamountout, transoverout.overouttotalpriceout";
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				query += ", gr2.id, gr2.groups_name ";
 			}
 			query += " FROM ";
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				query += " turq_inventory_groups gr2, turq_inventory_card_groups cardgr2,"
 						+ " turq_inventory_cards invCard";
@@ -242,7 +242,7 @@ public class InvDALCardSearch
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
+				query += " AND curCard.cards_current_code like '" + curCardStart + "%'";
 			}
 			query += " GROUP BY invTrans.inventory_cards_id) transin ON"
 					+ " invCard.id = transin.inventory_cards_id"
@@ -263,7 +263,7 @@ public class InvDALCardSearch
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
+				query += " AND curCard.cards_current_code like '" + curCardStart + "%'";
 			}
 			query += " GROUP BY invTrans.inventory_cards_id) transout ON"
 					+ " invCard.id = transout.inventory_cards_id"
@@ -284,7 +284,7 @@ public class InvDALCardSearch
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
+				query += " AND curCard.cards_current_code like '" + curCardStart + "%'";
 			}
 			query += " GROUP BY invTrans.inventory_cards_id) transoverin ON "
 					+ " invCard.id = transoverin.inventory_cards_id"
@@ -305,7 +305,7 @@ public class InvDALCardSearch
 			}
 			else if (!curCardStart.equals(""))
 			{
-				query += " AND curCard.cards_current_code '" + curCardStart + "%'";
+				query += " AND curCard.cards_current_code like '" + curCardStart + "%'";
 			}
 			query += " GROUP BY invTrans.inventory_cards_id) transoverout ON"
 					+ " invCard.id = transoverout.inventory_cards_id";
@@ -353,7 +353,7 @@ public class InvDALCardSearch
 					query += " where invCard.card_name like '" + cardNameStart + "%'";
 				}
 			}
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				if (whereAdded)
 				{
@@ -364,16 +364,16 @@ public class InvDALCardSearch
 					query += " where gr2.id=cardgr2.inventory_groups_id and invCard.id=cardgr2.inventory_cards_id";
 					whereAdded = true;
 				}
-				if (invSubGroup != null)
+				if (invSubGroupId != null)
 				{
-					query += " and gr2.id=" + invSubGroup.getId().intValue();
+					query += " and gr2.id=" + invSubGroupId.intValue();
 				}
 				else
 				{
-					query += " and gr2.parent_group=" + invMainGroup.getId().intValue();
+					query += " and gr2.parent_group=" + invMainGroupId.intValue();
 				}
 			}
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				query += " order by gr2.id";
 			}
@@ -384,7 +384,7 @@ public class InvDALCardSearch
 			Statement stmt = session.connection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			List list = new ArrayList();
-			boolean addGroup = invMainGroup != null;
+			boolean addGroup = invMainGroupId != null;
 			while (rs.next())
 			{
 				Object[] result;
