@@ -297,7 +297,7 @@ public class ConBLUpdateConsignment
             
             TurqConsignmentsInGroup group;
             it = cons.getTurqConsignmentsInGroups().iterator();
-            
+			  returnBag.put(ConsKeys.CONS_GROUPS,new HashMap());
             int i = 0;
             while (it.hasNext())
             {
@@ -338,9 +338,12 @@ public class ConBLUpdateConsignment
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_RATE,invTrans.getDiscountRate());
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TRANS_TYPE_ID,invTrans.getTurqInventoryTransactionType().getId());
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getDiscountAmountInForeignCurrency());
-				
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT_NAME,invTrans.getTurqInventoryUnit().getUnitsName());	
-				
+			    
+				HashMap unitMap = new HashMap();
+				unitMap.put(InvKeys.INV_UNIT_NAME,invTrans.getTurqInventoryUnit().getUnitsName());
+				unitMap.put(InvKeys.INV_UNIT_ID,invTrans.getTurqInventoryUnit().getId());
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT,unitMap);
 				
 				i++;
 			}

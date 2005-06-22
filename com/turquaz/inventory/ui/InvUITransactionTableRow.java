@@ -206,6 +206,8 @@ public class InvUITransactionTableRow implements ITableRow
 			argMap.put(InvKeys.INV_CARD_ID, invCard.get(InvKeys.INV_CARD_ID));
 			HashBag cardBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
 					"initializeInventoryCard", argMap);
+			invTrans.put(InvKeys.INV_CARD,cardBag.getContent());
+			
 			//Birimleri doldur
 			List unit_list = new ArrayList();
 			HashMap cardUnitsMap = (HashMap) cardBag.get(InvKeys.INV_CARD_UNITS);
@@ -236,6 +238,7 @@ public class InvUITransactionTableRow implements ITableRow
 							.get(InvKeys.INV_CARD_UNIT_FACTOR), 2, EngBLCommon.ROUNDING_METHOD);
 				}
 			}
+			
 			HashMap unitMap = (HashMap) invTrans.get(InvKeys.INV_UNIT);
 			unit_text = (String) unitMap.get(InvKeys.INV_UNIT_NAME);
 		}
@@ -253,6 +256,9 @@ public class InvUITransactionTableRow implements ITableRow
 			argMap.put(InvKeys.INV_CARD_ID, invCard.get(InvKeys.INV_CARD_ID));
 			HashBag cardBag = (HashBag) EngTXCommon.doSelectTX(InvBLCardSearch.class.getName(),
 					"initializeInventoryCard", argMap);
+
+			invTrans.put(InvKeys.INV_CARD,cardBag.getContent());
+			
 			//KDV Yuzdesi
 			invTrans.put(InvKeys.INV_VAT_RATE, (BigDecimal) cardBag.get(InvKeys.INV_VAT_RATE));
 			//ÖTV Yuzdesi

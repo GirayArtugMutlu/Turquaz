@@ -125,6 +125,14 @@ public class HashBag
 		content.put(key,keyMap);
 	}
 	
+	public HashMap getContent() {
+		return content;
+	}
+
+	public void setContent(HashMap content) {
+		this.content = content;
+	}
+
 	public void put(Object key, List list, String[] columnNames) throws Exception
 	{
 		HashMap keyMap=new HashMap();

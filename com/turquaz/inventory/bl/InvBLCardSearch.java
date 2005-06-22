@@ -300,6 +300,7 @@ public class InvBLCardSearch
 				unitMap.put(InvKeys.INV_UNIT_NAME,cardUnit.getTurqInventoryUnit().getUnitsName());
 			
 				cardBag.put(InvKeys.INV_CARD_UNITS,row,InvKeys.INV_UNIT,unitMap);
+				row++;
 			}			
 			
 			return cardBag;

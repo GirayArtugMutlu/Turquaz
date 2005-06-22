@@ -245,7 +245,7 @@ public class ConUIConsignmentUpdateDialog extends org.eclipse.swt.widgets.Dialog
 			HashMap invTransMap =(HashMap)consBag.get(InvKeys.INV_TRANSACTIONS);
 			
 			fillInvTransactionColumns(invTransMap,type.intValue());
-			fillRegisteredGroup((HashMap)consBag.get(consBag.get(ConsKeys.CONS_GROUPS)));
+			fillRegisteredGroup((HashMap)consBag.get(ConsKeys.CONS_GROUPS));
 		}
 		catch (Exception ex)
 		{

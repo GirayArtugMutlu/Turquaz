@@ -329,13 +329,18 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				argMap.put(BillKeys.BILL_IS_OPEN,new Boolean(!compAddBill.getBtnClosedBill().getSelection()));
                 argMap.put(CashKeys.CASH_CARD,compAddBill.getCashPicker().getData());
                 
-				int[] result=(int[])EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"updateBill",argMap);
+				HashBag resultBag=(HashBag)EngTXCommon.doTransactionTX(BillBLUpdateBill.class.getName(),"updateBill",argMap);
 				
-				if(result[0]==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
+				Integer invUpdateResult =(Integer)resultBag.get(BillKeys.BILL_INV_TRANS_UPDATE_RESULT);
+				
+				if(invUpdateResult.intValue()==EngBLCommon.BILL_ERR_TOO_MANY_CONS)
 				{
 					EngUICommon.showMessageBox(getParent(),BillLangKeys.MSG_COULDNT_UPDATE_CONS_DUE_TO_MANY_CONS,SWT.ICON_WARNING);
 				}
-				if(result[1]==-1)
+				
+				Integer accUpdateResult =(Integer)resultBag.get(BillKeys.BILL_ACC_UPDATE_RESULT);
+				
+				if(accUpdateResult.intValue()==-1)
 				{			   	
 					EngUICommon.showMessageBox(getParent(),EngLangCommonKeys.MSG_ACCOUNTING_ENTEGRATION_COULDNT_BE_MADE,SWT.ICON_WARNING);
 				}

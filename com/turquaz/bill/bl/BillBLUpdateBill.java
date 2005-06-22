@@ -119,7 +119,11 @@ public class BillBLUpdateBill
 					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getDiscountAmountInForeignCurrency());
 					
 					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT_NAME,invTrans.getTurqInventoryUnit().getUnitsName());	
-					
+				    
+					HashMap unitMap = new HashMap();
+					unitMap.put(InvKeys.INV_UNIT_NAME,invTrans.getTurqInventoryUnit().getUnitsName());
+					unitMap.put(InvKeys.INV_UNIT_ID,invTrans.getTurqInventoryUnit().getId());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT,unitMap);
 					
 					i++;
 					
@@ -298,12 +302,16 @@ public class BillBLUpdateBill
 	 * @param dueDate
 	 * @throws Exception
 	 */
-	public static int[] updateBill(HashMap argMap)
+	public static HashBag updateBill(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
-			TurqBill bill=(TurqBill)argMap.get(BillKeys.BILL);
+			Integer billId =(Integer)argMap.get(BillKeys.BILL_ID);
+			
+			TurqBill bill=(TurqBill)EngDALSessionFactory.getSession().load(TurqBill.class,billId);
+		    
+			
 			String billNo=(String)argMap.get(BillKeys.BILL_DOC_NO);
 			String definition=(String)argMap.get(BillKeys.BILL_DEFINITION);
 			Boolean isPrinted=(Boolean)argMap.get(BillKeys.BILL_IS_PRINTED);
@@ -317,19 +325,28 @@ public class BillBLUpdateBill
 				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
 			};
 			
+			
 			Date dueDate=(Date)argMap.get(BillKeys.BILL_DUE_DATE);
 			BigDecimal discountAmount=(BigDecimal)argMap.get(BillKeys.BILL_DISCOUNT_AMOUNT);			
 			BigDecimal totalAmount=(BigDecimal)argMap.get(BillKeys.BILL_TOTAL_AMOUNT);
-			TurqCurrencyExchangeRate exchangeRate=(TurqCurrencyExchangeRate)argMap.get(EngKeys.EXCHANGE_RATE);
+			
+			Integer currencyId=(Integer)argMap.get(EngKeys.CURRENCY_ID);
+			TurqCurrencyExchangeRate exchangeRate =EngDALCommon.getCurrencyExchangeRate(currencyId,billDate);			
+			
 			List billGroups=(List)argMap.get(BillKeys.BILL_GROUPS);
 			List invTransactions=(List)argMap.get(InvKeys.INV_TRANSACTIONS);			
 			Integer billCheck=(Integer)argMap.get(BillKeys.BILL_CHECK);
 			TurqCashCard cashCard = (TurqCashCard)argMap.get(CashKeys.CASH_CARD);
             Boolean isOpen = (Boolean)argMap.get(BillKeys.BILL_IS_OPEN);
             
-			int result[] = new int[2];
+			
+			HashBag resultBag = new HashBag();
+			
 			updateBillInfo(bill, curCard, billDate, definition, billNo, isPrinted.booleanValue(), dueDate, type.intValue(),isOpen.booleanValue(), exchangeRate,billCheck);
-			result[0] = updateInventoryTransactions(bill, invTransactions);
+			
+			int invTransResult = updateInventoryTransactions(bill, invTransactions);
+			resultBag.put(BillKeys.BILL_INV_TRANS_UPDATE_RESULT,new Integer(invTransResult));
+			
 			updateBillGroups(bill, billGroups);
 			//Update Transactions
 			deleteAccountingTransactions(bill);
@@ -337,9 +354,12 @@ public class BillBLUpdateBill
             deleteCashTransaction(bill);
 			BillBLAddBill.saveCurrentTransaction(bill, totalAmount, discountAmount);
 			EngDALCommon.updateObject(bill);
-			result[1] = BillBLAddBill.saveAccountingTransaction(bill,cashCard,totalAmount);
-            BillBLAddBill.saveCashTransaction(bill,cashCard,totalAmount);
-			return result;
+			
+			int accUpdateResult = BillBLAddBill.saveAccountingTransaction(bill,cashCard,totalAmount);
+            resultBag.put(BillKeys.BILL_ACC_UPDATE_RESULT,new Integer(accUpdateResult));
+			
+			BillBLAddBill.saveCashTransaction(bill,cashCard,totalAmount);
+			return resultBag;
 		}
 		catch (Exception ex)
 		{

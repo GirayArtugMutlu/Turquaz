@@ -41,4 +41,6 @@ public class BillKeys
 	public static String BILL_ACC_SAVE_RESULT ="billACCSaveResult";
 		
 	 public static String BILL_CAN_UPDATE ="billCanUpdate";
+	public static String BILL_INV_TRANS_UPDATE_RESULT="invTransUpdateResult";
+	public static String BILL_ACC_UPDATE_RESULT="billAccUpdateResult";
 }
