@@ -25,8 +25,6 @@ import java.util.List;
 import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
-import com.turquaz.bill.dal.BillDALSearchBill;
-import com.turquaz.consignment.dal.ConDALUpdateConsignment;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
@@ -40,7 +38,7 @@ import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 public class InvDALSearchTransaction
 {
-	public static List searchTransactions(TurqCurrentCard curCard, TurqInventoryCard invCard, Date startDate, Date endDate, int type)
+	public static List searchTransactions(Integer curCardId, Integer invCardId, Date startDate, Date endDate, int type)
 			throws Exception
 	{
 		try
@@ -54,26 +52,18 @@ public class InvDALSearchTransaction
 				query += " and transaction.amountIn > 0";
 			else if (type == EngBLCommon.COMMON_SELL_INT)
 				query += " and transaction.amountOut > 0";
-			if (curCard != null)
+			if (curCardId != null)
 			{
-				query += " and transaction.turqCurrentCard = :curCard";
+				query += " and transaction.turqCurrentCard.id ="+curCardId;
 			}
-			if (invCard != null)
+			if (invCardId != null)
 			{
-				query += " and transaction.turqInventoryCard = :invCard";
+				query += " and transaction.turqInventoryCard ="+ invCardId;
 			}
 			query += " order by transaction.transactionsDate";
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
-			if (curCard != null)
-			{
-				q.setParameter("curCard", curCard);
-			}
-			if (invCard != null)
-			{
-				q.setParameter("invCard", invCard);
-			}
 			List list = q.list();
 			return list;
 		}
@@ -274,7 +264,7 @@ public class InvDALSearchTransaction
 		}
 	}
 
-	public static TurqConsignment getConsignment(TurqEngineSequence seq) throws Exception
+	public static Integer getConsignmentId(TurqEngineSequence seq) throws Exception
 	{
 		Session session = null;
 		try
@@ -287,9 +277,9 @@ public class InvDALSearchTransaction
 			if (it.hasNext())
 			{
 				cons = (TurqConsignment) it.next();
-				ConDALUpdateConsignment.initiliazeConsignment(cons);
+				return cons.getId();
 			}
-			return cons;
+			return null;
 		}
 		catch (Exception ex)
 		{
@@ -316,22 +306,21 @@ public class InvDALSearchTransaction
 		}
 	}
 
-	public static TurqBill getBill(TurqEngineSequence seq) throws Exception
+	public static Integer getBillId(TurqEngineSequence seq) throws Exception
 	{
 		Session session = null;
 		try
 		{
 			session = EngDALSessionFactory.getSession();
 			session.refresh(seq);
-			Hibernate.initialize(seq.getTurqConsignments());
 			Iterator it = seq.getTurqBillInEngineSequences().iterator();
 			TurqBill bill = null;
 			if (it.hasNext())
 			{
 				bill = ((TurqBillInEngineSequence) it.next()).getTurqBill();
-				BillDALSearchBill.initializeBill(bill);
+				return bill.getId();
 			}
-			return bill;
+			return null;
 		}
 		catch (Exception ex)
 		{

@@ -104,6 +104,7 @@ public class InvKeys
 	public static String INV_AMOUNT_NOW="invAmountNow";
 	public static String INV_AMOUNT_MAX="invAmountMax";
 	public static String INV_AMOUNT_MIN="invAmountMin";
+	public static String INV_TOTAL_PRICE="invTotalPrice";
 	
 	
 	

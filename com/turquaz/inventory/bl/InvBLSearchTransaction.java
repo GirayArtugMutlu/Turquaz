@@ -19,18 +19,19 @@ package com.turquaz.inventory.bl;
  * @author Huseyin Ergun
  * @version $Id$
  */
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import net.sf.hibernate.Session;
 
+import com.turquaz.bill.BillKeys;
 import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALSessionFactory;
-import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
 import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
@@ -39,22 +40,42 @@ import com.turquaz.inventory.dal.InvDALSearchTransaction;
 
 public class InvBLSearchTransaction
 {
-	public static List searchTransactions(HashMap argMap)
+	public static HashBag searchTransactions(HashMap argMap)
 			throws Exception
 	{
 		try
 		{
-			TurqCurrentCard curCard=null;
 			Integer curCardId = (Integer)argMap.get(CurKeys.CUR_CARD_ID);
-			if(curCardId!=null)
-			{
-				curCard=(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardId);
-			};
-			TurqInventoryCard invCard=(TurqInventoryCard)argMap.get(InvKeys.INV_CARD);
+			Integer invCardId=(Integer)argMap.get(InvKeys.INV_CARD_ID);
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
-			return InvDALSearchTransaction.searchTransactions(curCard, invCard, startDate, endDate, type.intValue());
+			List transList=InvDALSearchTransaction.searchTransactions(curCardId, invCardId, startDate, endDate, type.intValue());
+		
+			HashBag transBag= new HashBag();
+			transBag.put(InvKeys.INV_TRANSACTIONS, new HashMap());
+			
+			for(int k=0; k<transList.size(); k++)
+			{
+				Object[] transInfo=(Object[])transList.get(k);
+				Integer transId=(Integer)transInfo[0];
+				Date transDate=(Date)transInfo[1];
+				BigDecimal amountIn=(BigDecimal)transInfo[2];
+				BigDecimal amountOut=(BigDecimal)transInfo[3];
+				BigDecimal totalPrice=(BigDecimal)transInfo[4];
+				String invCode=(String)transInfo[5];
+				String invName=(String)transInfo[6];
+				
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_ID,transId);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_DATE,transDate);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_AMOUNT_IN,amountIn);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_AMOUNT_OUT,amountOut);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TOTAL_PRICE,totalPrice);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_CODE,invCode);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_NAME,invName);
+			}
+			
+			return transBag;
 		}
 		catch (Exception ex)
 		{
@@ -62,6 +83,24 @@ public class InvBLSearchTransaction
 		}
 	}
 
+	public static HashBag getAllIds(HashMap argMap) throws Exception
+	{
+		Integer transId=(Integer)argMap.get(InvKeys.INV_TRANS_ID);
+		Session session=EngDALSessionFactory.getSession();
+		
+		TurqInventoryTransaction invTrans=(TurqInventoryTransaction)session.load(TurqInventoryTransaction.class,transId);
+		
+		Integer billId=InvDALSearchTransaction.getBillId(invTrans.getTurqEngineSequence());
+		Integer consId=InvDALSearchTransaction.getConsignmentId(invTrans.getTurqEngineSequence());
+				
+		HashBag idBag=new HashBag();
+		idBag.put(BillKeys.BILL_ID,billId);
+		idBag.put(ConsKeys.CONS_ID,consId);
+		
+		return idBag;
+	}
+	
+	
 	public static List searchTransactionsRange(HashMap argMap) throws Exception
 	{
 		try
@@ -115,32 +154,6 @@ public class InvBLSearchTransaction
 			TurqInventoryGroup invSubGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_SUB_GROUP);
 			return InvDALSearchTransaction.searchTransactionsAdvanced(invCardCodeStart, invCardCodeEnd, invCardNameStart,
 					invCardNameEnd, curCardStart, curCardEnd, startDate, endDate, type.intValue(), invMainGroup, invSubGroup);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqConsignment getConsignment(HashMap argMap) throws Exception
-	{
-		try
-		{
-			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
-			return InvDALSearchTransaction.getConsignment(seq);
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
-	}
-
-	public static TurqBill getBill(HashMap argMap) throws Exception
-	{
-		try
-		{
-			TurqEngineSequence seq=(TurqEngineSequence)argMap.get(EngKeys.ENG_SEQ);
-			return InvDALSearchTransaction.getBill(seq);
 		}
 		catch (Exception ex)
 		{

@@ -23,20 +23,18 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.ui.BillUIBillUpdateDialog;
+import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqEngineSequence;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -256,21 +254,18 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 					boolean updated = false;
 					HashMap argMap=new HashMap();
 					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
-					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
-					argMap=new HashMap();
-					argMap.put(EngKeys.ENG_SEQ,seq);
-					TurqBill bill =(TurqBill)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getBill",argMap);
-					TurqConsignment cons;
-					argMap=new HashMap();
-					argMap.put(EngKeys.ENG_SEQ,seq);
-					if (bill != null)
+					
+					HashBag idBag=(HashBag)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getAllIds",argMap);
+					Integer billId=(Integer)idBag.get(BillKeys.BILL_ID);
+					Integer consId=(Integer)idBag.get(ConsKeys.CONS_ID);
+					
+					if (billId != null)
 					{
-						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill.getId()).open();
+						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, billId).open();
 					}
-					else if ((cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap)) != null)
+					else if (consId != null)
 					{
-						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons.getId()).open();
+						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, consId).open();
 					}
 					else
 					{
@@ -324,18 +319,19 @@ public class InvUITransactionSearch extends org.eclipse.swt.widgets.Composite im
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			
-			List list = (List)EngTXCommon.doTransactionTX(InvBLSearchTransaction.class.getName(),"searchTransactions",argMap);
-			TurqInventoryTransaction transactions;
-			for (int i = 0; i < list.size(); i++)
+			HashBag transBag = (HashBag)EngTXCommon.doTransactionTX(InvBLSearchTransaction.class.getName(),"searchTransactions",argMap);
+			
+			HashMap transList=(HashMap)transBag.get(InvKeys.INV_TRANSACTIONS);
+			for (int i = 0; i < transList.size(); i++)
 			{
-				Object result[] = (Object[]) list.get(i);
-				Integer transId = (Integer) result[0];
-				Date transDate = (Date) result[1];
-				BigDecimal inAmount = (BigDecimal) result[2];
-				BigDecimal outAmount = (BigDecimal) result[3];
-				BigDecimal totalPrice = (BigDecimal) result[4];
-				String invCode = (String) result[5];
-				String invName = (String) result[6];
+				HashMap invTrans=(HashMap)transList.get(new Integer(i));
+				Integer transId = (Integer) invTrans.get(InvKeys.INV_TRANS_ID);
+				Date transDate = (Date)invTrans.get(InvKeys.INV_TRANS_DATE);
+				BigDecimal inAmount = (BigDecimal) invTrans.get(InvKeys.INV_AMOUNT_IN);
+				BigDecimal outAmount = (BigDecimal)invTrans.get(InvKeys.INV_AMOUNT_OUT);
+				BigDecimal totalPrice = (BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE);
+				String invCode = (String)invTrans.get(InvKeys.INV_CARD_CODE);
+				String invName = (String) invTrans.get(InvKeys.INV_CARD_NAME);
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				if (inAmount.doubleValue() == 0)
