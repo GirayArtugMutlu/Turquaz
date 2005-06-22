@@ -47,7 +47,8 @@ public class InvDALSearchTransaction
 			String query = "Select transaction.id,transaction.transactionsDate,transaction.amountIn,"
 					+ "transaction.amountOut, transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
 					+ " transaction.turqInventoryCard.cardName from TurqInventoryTransaction as transaction"
-					+ " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
+					+ " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate"
+					+ " and transaction.turqInventoryTransactionType.id <>"+EngBLCommon.INV_TRANS_INITIAL;
 			if (type == EngBLCommon.COMMON_BUY_INT)
 				query += " and transaction.amountIn > 0";
 			else if (type == EngBLCommon.COMMON_SELL_INT)
