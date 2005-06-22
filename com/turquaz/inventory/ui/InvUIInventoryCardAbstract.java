@@ -33,6 +33,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
@@ -370,25 +371,26 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 			else if (comboTransactionsType.getText().equals(EngLangCommonKeys.COMMON_SELL_STRING))
 				type = EngBLCommon.COMMON_SELL_INT;
 			HashMap argMap=new HashMap();
-			argMap.put(InvKeys.INV_CARD_START,txtInvCardStart.getData());
-			argMap.put(InvKeys.INV_CARD_END,txtInvCardEnd.getData());
+			argMap.put(InvKeys.INV_CARD_START_ID,txtInvCardStart.getId());
+			argMap.put(InvKeys.INV_CARD_END_ID,txtInvCardEnd.getId());
 			argMap.put(CurKeys.CUR_CARD_ID,txtCurCard.getCardId());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE,new Integer(type));
 			
-			List list = (List)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"searchTransactionsRange",argMap);
-			TurqInventoryTransaction transactions;
-			for (int i = 0; i < list.size(); i++)
+			HashBag abstractBag = (HashBag)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInventoryCardAbstract",argMap);
+
+			HashMap cards=(HashMap)abstractBag.get(InvKeys.INV_CARDS);
+			for (int i = 0; i < cards.size(); i++)
 			{
-				Object result[] = (Object[]) list.get(i);
-				Integer transId = (Integer) result[0];
-				Date transDate = (Date) result[1];
-				BigDecimal inAmount = (BigDecimal) result[2];
-				BigDecimal outAmount = (BigDecimal) result[3];
-				BigDecimal totalPrice = (BigDecimal) result[4];
-				String invCode = (String) result[5];
-				String invName = (String) result[6];
+				HashMap invCard=(HashMap)cards.get(new Integer(i));
+				Integer transId = (Integer)invCard.get(InvKeys.INV_TRANS_ID);
+				Date transDate = (Date) invCard.get(InvKeys.INV_TRANS_DATE);
+				BigDecimal inAmount = (BigDecimal) invCard.get(InvKeys.INV_AMOUNT_IN);
+				BigDecimal outAmount = (BigDecimal) invCard.get(InvKeys.INV_AMOUNT_OUT);
+				BigDecimal totalPrice = (BigDecimal)invCard.get(InvKeys.INV_TOTAL_PRICE);
+				String invCode = (String) invCard.get(InvKeys.INV_CARD_CODE);
+				String invName = (String) invCard.get(InvKeys.INV_CARD_NAME);
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				if (inAmount.doubleValue() == 0)
@@ -401,13 +403,13 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 				}
 				tableViewer
 						.addRow(
-								new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount), //$NON-NLS-1$								
-										cf.format(priceIn), cf.format(outAmount), //$NON-NLS-1$
+								new String[]{DatePicker.formatter.format(transDate), invCode, invName, cf.format(inAmount),								
+										cf.format(priceIn), cf.format(outAmount), 
 										cf.format(priceOut), cf.format(inAmount.subtract(outAmount)),
 										cf.format(priceIn.subtract(priceOut))}, transId);
 			}
-			if (list.size() > 0)
-				GenerateJasper(type, list);
+			//if (list.size() > 0)
+				//GenerateJasper(type, list);
 		}
 		catch (Exception ex)
 		{
@@ -421,47 +423,47 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 		try
 		{
 			Map parameters = new HashMap();
-			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$		
+			SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd"); 
 			TurqCurrentCard curCard = (TurqCurrentCard) txtCurCard.getData();
 			if (curCard != null)
 			{
-				parameters.put("curCardName", curCard.getCardsName()); //$NON-NLS-1$
-				parameters.put("curCardCode", curCard.getCardsCurrentCode()); //$NON-NLS-1$
+				parameters.put("curCardName", curCard.getCardsName()); 
+				parameters.put("curCardCode", curCard.getCardsCurrentCode()); 
 			}
 			else
 			{
-				parameters.put("curCardName", " - "); //$NON-NLS-1$ //$NON-NLS-2$
-				parameters.put("curCardCode", " - "); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("curCardName", " - "); 
+				parameters.put("curCardCode", " - "); 
 			}
 			TurqInventoryCard invCardStart = (TurqInventoryCard) txtInvCardStart.getData();
 			TurqInventoryCard invCardEnd = (TurqInventoryCard) txtInvCardEnd.getData();
 			if (invCardStart != null && invCardEnd != null)
 			{
-				parameters.put("invCardStart", invCardStart.getCardInventoryCode()); //$NON-NLS-1$
-				parameters.put("invCardEnd", invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardStart", invCardStart.getCardInventoryCode()); 
+				parameters.put("invCardEnd", invCardEnd.getCardInventoryCode()); 
 			}
 			else if (invCardStart != null)
 			{
-				parameters.put("invCardStart", invCardStart.getCardInventoryCode()); //$NON-NLS-1$
+				parameters.put("invCardStart", invCardStart.getCardInventoryCode()); 
 				parameters.put("invCardEnd", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			else if (invCardEnd != null)
 			{
-				parameters.put("invCardStart", invCardEnd.getCardInventoryCode()); //$NON-NLS-1$
-				parameters.put("invCardEnd", ""); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invCardStart", invCardEnd.getCardInventoryCode()); 
+				parameters.put("invCardEnd", ""); 
 			}
 			else
 			{
-				parameters.put("invCardStart", ""); //$NON-NLS-1$ //$NON-NLS-2$
-				parameters.put("invCardEnd", ""); //$NON-NLS-1$ //$NON-NLS-2$
+				parameters.put("invCardStart", "");
+				parameters.put("invCardEnd", ""); 
 			}
-			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); //$NON-NLS-1$
-			parameters.put("startDate", dformat2.format(dateStartDate.getDate())); //$NON-NLS-1$
-			parameters.put("endDate", dformat2.format(dateEndDate.getDate())); //$NON-NLS-1$
-			parameters.put("dateformat", dformat2); //$NON-NLS-1$
-			parameters.put("curCard", (curCard != null) ? curCard.getCardsCurrentCode() : ""); //$NON-NLS-1$ //$NON-NLS-2$
-			parameters.put("formatter", new TurkishCurrencyFormat(2)); //$NON-NLS-1$
-			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); //$NON-NLS-1$
+			SimpleDateFormat dformat2 = new SimpleDateFormat("dd/MM/yyyy"); 
+			parameters.put("startDate", dformat2.format(dateStartDate.getDate())); 
+			parameters.put("endDate", dformat2.format(dateEndDate.getDate())); 
+			parameters.put("dateformat", dformat2); 
+			parameters.put("curCard", (curCard != null) ? curCard.getCardsCurrentCode() : ""); 
+			parameters.put("formatter", new TurkishCurrencyFormat(2));
+			parameters.put("currentDate", dformat2.format(Calendar.getInstance().getTime())); 
 			parameters.put("roundingMethod",new Integer(EngBLCommon.ROUNDING_METHOD));
 			GenerateJasper(list, parameters);
 		}
@@ -512,7 +514,7 @@ public class InvUIInventoryCardAbstract extends org.eclipse.swt.widgets.Composit
 
 	public void delete()
 	{
-		//should be implemented..
+		//XXX should be implemented..
 	}
 
 	public void exportToExcel()

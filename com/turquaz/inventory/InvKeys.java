@@ -23,6 +23,8 @@ public class InvKeys
 	public static String INV_CARDS="invCards";
 	public static String INV_CARD_START="invCardStart";
 	public static String INV_CARD_END="invCardEnd";
+	public static String INV_CARD_START_ID="invCardStartId";
+	public static String INV_CARD_END_ID="invCardEndId";
 	public static String INV_CARD_CODE_START="invCardCodeStart";
 	public static String INV_CARD_CODE_END="invCardCodeEnd";
 	public static String INV_CARD_NAME_START="invCardNameStart";

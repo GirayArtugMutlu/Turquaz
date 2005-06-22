@@ -74,7 +74,7 @@ public class InvDALSearchTransaction
 		}
 	}
 
-	public static List searchTransactionsRange(TurqInventoryCard invCardStart, TurqInventoryCard invCardEnd, TurqCurrentCard curCard,
+	public static List searchTransactionsRange(TurqInventoryCard invCardStart, TurqInventoryCard invCardEnd, Integer curCardId,
 			Date startDate, Date endDate, int type) throws Exception
 	{
 		try
@@ -90,9 +90,9 @@ public class InvDALSearchTransaction
 				query += " and transaction.amountIn > 0";
 			else if (type == EngBLCommon.COMMON_SELL_INT)
 				query += " and transaction.amountOut > 0";
-			if (curCard != null)
+			if (curCardId != null)
 			{
-				query += " and transaction.turqCurrentCard = :curCard";
+				query += " and transaction.turqCurrentCard.id ="+curCardId;
 			}
 			if (invCardStart != null && invCardEnd != null)
 			{
@@ -111,10 +111,6 @@ public class InvDALSearchTransaction
 			Query q = session.createQuery(query);
 			q.setParameter("startDate", startDate);
 			q.setParameter("endDate", endDate);
-			if (curCard != null)
-			{
-				q.setParameter("curCard", curCard);
-			}
 			if (invCardStart != null && invCardEnd != null)
 			{
 			}
