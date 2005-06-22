@@ -227,17 +227,24 @@ public class InvUITransactionTableRow implements ITableRow
 			{
 				HashMap unitMap = (HashMap) cardUnits[i].get(InvKeys.INV_UNIT);
 				units[i] = (String) unitMap.get(InvKeys.INV_UNIT_NAME);
-				if (base_unit.equals(cardUnits[i].get(InvKeys.INV_UNIT)))
+			
+				if (base_unit.get(InvKeys.INV_UNIT_ID).equals(unitMap.get(InvKeys.INV_UNIT_ID)))
 				{
 					base_unit_index = i;
 				}
-				if (invTrans.get(InvKeys.INV_UNIT).equals(cardUnits[i].get(InvKeys.INV_UNIT)))
+				
+				HashMap transUnit = (HashMap)invTrans.get(InvKeys.INV_UNIT);
+				
+				System.out.println(unitMap.get(InvKeys.INV_UNIT_ID)+" "+transUnit.get(InvKeys.INV_UNIT_ID));
+				if (unitMap.get(InvKeys.INV_UNIT_ID).equals(transUnit.get(InvKeys.INV_UNIT_ID)))
 				{
 					unit_index = new Integer(i);
 					transAmount = transAmount.divide((BigDecimal) cardUnits[i]
 							.get(InvKeys.INV_CARD_UNIT_FACTOR), 2, EngBLCommon.ROUNDING_METHOD);
 				}
 			}
+			System.out.println(base_unit_index);
+			System.out.println(unit_index);
 			
 			HashMap unitMap = (HashMap) invTrans.get(InvKeys.INV_UNIT);
 			unit_text = (String) unitMap.get(InvKeys.INV_UNIT_NAME);
@@ -565,6 +572,7 @@ public class InvUITransactionTableRow implements ITableRow
 		HashMap invCard = (HashMap) invTrans.get(InvKeys.INV_CARD);
 		if (invCard != null)
 		{
+			
 			transAmountinBaseUnit = transAmount.multiply(
 					(BigDecimal) cardUnits[unit_index.intValue()].get(InvKeys.INV_CARD_UNIT_FACTOR))
 					.setScale(2, EngBLCommon.ROUNDING_METHOD);
