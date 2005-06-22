@@ -818,8 +818,8 @@ public class BillUIBillReport extends org.eclipse.swt.widgets.Composite implemen
 			
 			HashMap argMap = new HashMap();
 			
-			argMap.put(EngKeys.CURRENT_CARD_START,txtCurCardStart.getCardId());
-			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getCardId());
+			argMap.put(CurKeys.CUR_CARD_START,txtCurCardStart.getCardId());
+			argMap.put(CurKeys.CUR_CARD_END,txtCurCardEnd.getCardId());
 			
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());

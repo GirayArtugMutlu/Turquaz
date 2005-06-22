@@ -33,7 +33,6 @@ import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 
 public class InvDALSearchTransaction
@@ -74,7 +73,7 @@ public class InvDALSearchTransaction
 		}
 	}
 
-	public static List searchTransactionsRange(TurqInventoryCard invCardStart, TurqInventoryCard invCardEnd, Integer curCardId,
+	public static List getInventoryCardAbstract(TurqInventoryCard invCardStart, TurqInventoryCard invCardEnd, Integer curCardId,
 			Date startDate, Date endDate, int type) throws Exception
 	{
 		try
@@ -131,9 +130,9 @@ public class InvDALSearchTransaction
 		}
 	}
 
-	public static List searchTransactionsAdvanced(String invCardCodeStart, String invCardCodeEnd, String invCardNameStart,
+	public static List getInventoryTransactionReport(String invCardCodeStart, String invCardCodeEnd, String invCardNameStart,
 			String invCardNameEnd, TurqCurrentCard curCardStart, TurqCurrentCard curCardEnd, Date startDate, Date endDate, int type,
-			TurqInventoryGroup invMainGroup, TurqInventoryGroup invSubGroup) throws Exception
+			Integer invMainGroupId, Integer invSubGroupId) throws Exception
 	{
 		try
 		{
@@ -142,19 +141,19 @@ public class InvDALSearchTransaction
 					+ "transaction.amountOut," + " transaction.totalPrice," + " transaction.turqInventoryCard.cardInventoryCode, "
 					+ " transaction.turqInventoryCard.cardName," + " transaction.turqCurrentCard.cardsName,"
 					+ " transaction.turqInventoryCard.id," + " transaction.documentNo";
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				query += ", cardGroup.turqInventoryGroup.groupsName," + " cardGroup.turqInventoryGroup.id";
 			}
 			query += " from TurqInventoryTransaction as transaction";
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				query += " left join transaction.turqInventoryCard.turqInventoryCardGroups as cardGroup";
 			}
 			query += " where transaction.transactionsDate >= :startDate" + " and transaction.transactionsDate <= :endDate";
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
-				query += " and cardGroup.turqInventoryGroup.turqInventoryGroup.id=" + invMainGroup.getId();
+				query += " and cardGroup.turqInventoryGroup.turqInventoryGroup.id=" + invMainGroupId;
 			}
 			if (type == EngBLCommon.COMMON_BUY_INT)
 				query += " and transaction.amountIn > 0";
@@ -199,12 +198,12 @@ public class InvDALSearchTransaction
 			{
 				query += " and transaction.turqCurrentCard = :curCardEnd";
 			}
-			if (invMainGroup != null)
+			if (invMainGroupId != null)				
 			{
-				if (invSubGroup != null)
+				if (invSubGroupId != null)
 				{
 					query += " and "
-							+ invSubGroup.getId()
+							+ invSubGroupId
 							+ " in (Select gr.turqInventoryGroup.id from transaction.turqInventoryCard.turqInventoryCardGroups as gr)";
 				}
 				else
@@ -212,10 +211,10 @@ public class InvDALSearchTransaction
 					query += " and exists (((Select tgr.turqInventoryGroup.id"
 							+ " from transaction.turqInventoryCard.turqInventoryCardGroups as tgr) " + " intersect "
 							+ " (Select invGr.id from TurqInventoryGroup as invGr " + " where invGr.turqInventoryGroup.id="
-							+ invMainGroup.getId() + ")))";
+							+ invMainGroupId + ")))";
 				}
 			}
-			if (invMainGroup != null)
+			if (invMainGroupId != null)
 			{
 				query += " order by cardGroup.turqInventoryGroup.id, transaction.transactionsDate";
 			}
@@ -233,9 +232,6 @@ public class InvDALSearchTransaction
 				q.setParameter("curCardStart", curCardStart);
 			else if (curCardEnd != null)
 				q.setParameter("curCardEnd", curCardEnd);
-			if (invMainGroup != null)
-			{
-			}
 			List list = q.list();
 			return list;
 		}

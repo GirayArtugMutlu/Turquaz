@@ -20,33 +20,21 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.ui.BillUIBillUpdateDialog;
+import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.ui.ConUIConsignmentUpdateDialog;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqEngineSequence;
-import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
@@ -54,7 +42,6 @@ import com.turquaz.engine.lang.InvLangKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
-import com.turquaz.engine.ui.report.HibernateQueryResultDataSource;
 import com.turquaz.engine.ui.viewers.ITableRow;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
@@ -78,6 +65,7 @@ import com.turquaz.inventory.dal.InvDALCardAdd;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Text;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 
 /**
@@ -424,7 +412,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		}
 	}
 
-	public void GenerateJasper(List list, Map parameters, boolean useGroup)
+	/*public void GenerateJasper(List list, Map parameters, boolean useGroup)
 	{
 		try
 		{
@@ -555,7 +543,7 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
-	}
+	}*/
 
 	public void showConsignment()
 	{
@@ -569,22 +557,23 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				{
 					boolean updated = false;
 					HashMap argMap=new HashMap();
-					argMap.put(EngKeys.TRANS_ID,transId);
-					TurqInventoryTransaction invTrans =(TurqInventoryTransaction)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getInvTransByTransId",argMap);
-					TurqEngineSequence seq = invTrans.getTurqEngineSequence();
-					argMap=new HashMap();
-					argMap.put(EngKeys.ENG_SEQ,seq);
-					TurqBill bill =(TurqBill)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getBill",argMap);
-					if (bill != null)
+					argMap.put(InvKeys.INV_TRANS_ID,transId);
+					
+					HashBag idBag=(HashBag)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getAllIds",argMap);
+					Integer billId=(Integer)idBag.get(BillKeys.BILL_ID);
+					Integer consId=(Integer)idBag.get(ConsKeys.CONS_ID);
+					
+					if (billId != null)
 					{
-						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, bill.getId()).open();
+						updated = new BillUIBillUpdateDialog(this.getShell(), SWT.NULL, billId).open();
+					}
+					else if (consId != null)
+					{
+						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, consId).open();
 					}
 					else
 					{
-						argMap=new HashMap();
-						argMap.put(EngKeys.ENG_SEQ,seq);
-						TurqConsignment cons = (TurqConsignment)EngTXCommon.doSelectTX(InvBLSearchTransaction.class.getName(),"getConsignment",argMap);
-						updated = new ConUIConsignmentUpdateDialog(this.getShell(), SWT.NULL, cons.getId()).open();
+						//TODO Uretimten gelen stok hareketi. Uretim fisini acmali..
 					}
 					if (updated)
 						search();
@@ -610,14 +599,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			comboTransactionsType.setText(EngLangCommonKeys.COMMON_ALL_STRING);
 			cal.set(cal.get(Calendar.YEAR), 0, 1);
 			dateStartDate.setDate(cal.getTime());
-			List groupList = (List)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
-			comboInvMainGroup.add(""); //$NON-NLS-1$
-			for (int k = 0; k < groupList.size(); k++)
-			{
-				TurqInventoryGroup gr = (TurqInventoryGroup) groupList.get(k);
-				comboInvMainGroup.add(gr.getGroupsName());
-				comboInvMainGroup.setData(gr.getGroupsName(), gr);
-			}
+			
+			fillComboGroup();
 			tableInvTransactions.setData("table_name", "tableInvTransactions");
 			createTableViewer();
 		}
@@ -627,6 +610,28 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
             EngBLLogger.log(this.getClass(),ex,getShell());
 		}
 	}
+	
+	public void fillComboGroup()
+	{
+		try
+		{
+			HashBag groupBag =(HashBag)EngTXCommon.doSelectTX(InvBLCardAdd.class.getName(),"getParentInventoryGroups",null);
+			HashMap groupList=(HashMap)groupBag.get(InvKeys.INV_GROUPS);
+			comboInvMainGroup.add("");
+			for (int k = 0; k < groupList.size(); k++)
+			{
+				HashMap gr = (HashMap) groupList.get(new Integer(k));
+				String grName=(String)gr.get(InvKeys.INV_GROUP_NAME);
+				comboInvMainGroup.add(grName);
+				comboInvMainGroup.setData(grName, gr);
+			}
+		}
+		catch (Exception ex)
+		{
+            EngBLLogger.log(this.getClass(),ex,getShell());
+		}
+	}
+
 
 	public void save()
 	{
@@ -647,13 +652,27 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			
 			HashMap argMap=new HashMap();			
 
-			argMap.put(EngKeys.CURRENT_CARD_START, txtCurCardStart.getData());
-			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getData());
+			argMap.put(CurKeys.CUR_CARD_START_ID, txtCurCardStart.getCardId());
+			argMap.put(CurKeys.CUR_CARD_END_ID,txtCurCardEnd.getCardId());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(EngKeys.TYPE, new Integer(type));
-			argMap.put(InvKeys.INV_MAIN_GROUP,comboInvMainGroup.getData(comboInvMainGroup.getText()));
-			argMap.put(InvKeys.INV_SUB_GROUP,comboInvSubGroup.getData(comboInvSubGroup.getText()));
+			
+			HashMap subGroupMap=(HashMap)comboInvSubGroup.getData(comboInvSubGroup.getText());
+			Integer subGroupId=null;
+			if (subGroupMap != null)
+			{
+				subGroupId=(Integer)subGroupMap.get(InvKeys.INV_GROUP_ID);
+			}
+			
+			HashMap mainGroupMap=(HashMap)comboInvMainGroup.getData(comboInvMainGroup.getText());
+			Integer mainGroupId=null;
+			if (mainGroupMap != null)
+			{
+				mainGroupId=(Integer)mainGroupMap.get(InvKeys.INV_GROUP_ID);
+			}				
+			argMap.put(InvKeys.INV_MAIN_GROUP_ID,mainGroupId);
+			argMap.put(InvKeys.INV_SUB_GROUP_ID,subGroupId);
 			
 			if (searchByInvCode)
 			{
@@ -669,22 +688,24 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 				argMap.put(InvKeys.INV_CARD_NAME_START,txtInvNameStart.getText().trim());
 				argMap.put(InvKeys.INV_CARD_NAME_END,txtInvNameEnd.getText().trim());
 			}
-			List list =(List)EngTXCommon.doTransactionTX(InvBLSearchTransaction.class.getName(),"searchTransactionsAdvanced",argMap);
-			TurqInventoryTransaction transactions;
+			HashBag transBag =(HashBag)EngTXCommon.doTransactionTX(InvBLSearchTransaction.class.getName(),"getInventoryTransactionReport",argMap);
+
 			BigDecimal totalAmountIn = new BigDecimal(0);
 			BigDecimal totalAmountOut = new BigDecimal(0);
 			BigDecimal totalPriceIn = new BigDecimal(0);
 			BigDecimal totalPriceOut = new BigDecimal(0);
-			for (int i = 0; i < list.size(); i++)
+			
+			HashMap transList=(HashMap)transBag.get(InvKeys.INV_TRANSACTIONS);
+			for (int i = 0; i < transList.size(); i++)
 			{
-				Object result[] = (Object[]) list.get(i);
-				Integer transId = (Integer) result[0];
-				Date transDate = (Date) result[1];
-				BigDecimal inAmount = (BigDecimal) result[2];
-				BigDecimal outAmount = (BigDecimal) result[3];
-				BigDecimal totalPrice = (BigDecimal) result[4];
-				String invCode = (String) result[5];
-				String invName = (String) result[6];
+				HashMap transMap=(HashMap)transList.get(new Integer(i));
+				Integer transId = (Integer) transMap.get(InvKeys.INV_TRANS_ID);
+				Date transDate = (Date)transMap.get(InvKeys.INV_TRANS_DATE);
+				BigDecimal inAmount = (BigDecimal) transMap.get(InvKeys.INV_AMOUNT_IN);
+				BigDecimal outAmount = (BigDecimal) transMap.get(InvKeys.INV_AMOUNT_OUT);
+				BigDecimal totalPrice = (BigDecimal) transMap.get(InvKeys.INV_TOTAL_PRICE);
+				String invCode = (String)transMap.get(InvKeys.INV_CARD_CODE);
+				String invName = (String) transMap.get(InvKeys.INV_CARD_NAME);
 				BigDecimal priceIn = new BigDecimal(0);
 				BigDecimal priceOut = new BigDecimal(0);
 				BigDecimal unitPriceIn = new BigDecimal(0);
@@ -717,8 +738,8 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 			tableViewer.addRow(new String[]{"", "", EngLangCommonKeys.STR_TOTAL_CAPITAL, cf.format(totalAmountIn), cf.format(totalPriceIn), cf.format(unitPriceIn), cf.format(totalAmountOut), cf.format(totalPriceOut), cf.format(unitPriceOut)}, null);
 			
 			
-			if (list.size() > 0)
-				GenerateJasper(list, type);
+			//if (list.size() > 0)
+				//GenerateJasper(list, type);
 		}
 		catch (Exception ex)
 		{
@@ -766,17 +787,20 @@ public class InvUIInventoryTransactionReport extends org.eclipse.swt.widgets.Com
 		comboInvSubGroup.removeAll();
 		if (comboInvMainGroup.getSelectionIndex() == -1)
 			return;
-		TurqInventoryGroup invMainGr = (TurqInventoryGroup) comboInvMainGroup.getData(comboInvMainGroup.getText());
+		HashMap invMainGr = (HashMap) comboInvMainGroup.getData(comboInvMainGroup.getText());
 		if (invMainGr != null)
 		{
-			Iterator it = invMainGr.getTurqInventoryGroups().iterator();
-			comboInvSubGroup.add(""); //$NON-NLS-1$
-			while (it.hasNext())
+			HashBag subGroupBag=(HashBag)invMainGr.get(InvKeys.INV_SUB_GROUPS);
+			HashMap subGroups=(HashMap)subGroupBag.get(InvKeys.INV_SUB_GROUPS);
+			for(int k=0; k<subGroups.size(); k++)
 			{
-				TurqInventoryGroup invGr = (TurqInventoryGroup) it.next();
-				comboInvSubGroup.add(invGr.getGroupsName());
-				comboInvSubGroup.setData(invGr.getGroupsName(), invGr);
+				HashMap invGr = (HashMap)subGroups.get(new Integer(k));
+				String invGrName=(String)invGr.get(InvKeys.INV_GROUP_NAME);
+				comboInvSubGroup.add(invGrName);
+				comboInvSubGroup.setData(invGrName, invGr);
 			}
+			if (comboInvSubGroup.getItemCount() > 0)
+				comboInvSubGroup.setText(comboInvSubGroup.getItem(0));
 		}
 	}
 }

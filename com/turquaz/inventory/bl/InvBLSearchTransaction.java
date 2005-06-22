@@ -33,7 +33,6 @@ import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqInventoryCard;
-import com.turquaz.engine.dal.TurqInventoryGroup;
 import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALSearchTransaction;
@@ -124,7 +123,7 @@ public class InvBLSearchTransaction
 			{
 				invCardEnd=(TurqInventoryCard)session.load(TurqInventoryCard.class, invCardEndId);
 			}
-			List cards=InvDALSearchTransaction.searchTransactionsRange(invCardStart, invCardEnd, curCardId, startDate, endDate, type.intValue());
+			List cards=InvDALSearchTransaction.getInventoryCardAbstract(invCardStart, invCardEnd, curCardId, startDate, endDate, type.intValue());
 			
 			HashBag abstractBag=new HashBag();
 			abstractBag.put(InvKeys.INV_CARDS, new HashMap());
@@ -170,7 +169,7 @@ public class InvBLSearchTransaction
 		}
 	}
 
-	public static List searchTransactionsAdvanced(HashMap argMap) throws Exception
+	public static HashBag getInventoryTransactionReport(HashMap argMap) throws Exception
 	{
 		try
 		{
@@ -178,15 +177,72 @@ public class InvBLSearchTransaction
 			String invCardCodeEnd=(String)argMap.get(InvKeys.INV_CARD_CODE_END);
 			String invCardNameStart=(String)argMap.get(InvKeys.INV_CARD_NAME_START);
 			String invCardNameEnd=(String)argMap.get(InvKeys.INV_CARD_NAME_END);
-			TurqCurrentCard curCardStart=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_START);
-			TurqCurrentCard curCardEnd=(TurqCurrentCard)argMap.get(EngKeys.CURRENT_CARD_END);
+			
+			Integer curCardStartId=(Integer)argMap.get(CurKeys.CUR_CARD_START_ID);
+			Integer curCardEndId=(Integer)argMap.get(CurKeys.CUR_CARD_END_ID);
+			
+			Session session=EngDALSessionFactory.getSession();
+			TurqCurrentCard curCardStart=null;
+			if (curCardStartId != null)
+			{
+				curCardStart=(TurqCurrentCard)session.load(TurqCurrentCard.class,curCardStartId);
+			}
+			TurqCurrentCard curCardEnd=null;
+			if(curCardEndId != null)
+			{
+				curCardEnd=(TurqCurrentCard)session.load(TurqCurrentCard.class,curCardEndId);
+			}
+			
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);
 			Integer type=(Integer)argMap.get(EngKeys.TYPE);
-			TurqInventoryGroup invMainGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_MAIN_GROUP);
-			TurqInventoryGroup invSubGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_SUB_GROUP);
-			return InvDALSearchTransaction.searchTransactionsAdvanced(invCardCodeStart, invCardCodeEnd, invCardNameStart,
-					invCardNameEnd, curCardStart, curCardEnd, startDate, endDate, type.intValue(), invMainGroup, invSubGroup);
+			Integer invMainGroupId=(Integer)argMap.get(InvKeys.INV_MAIN_GROUP_ID);
+			Integer invSubGroupId=(Integer)argMap.get(InvKeys.INV_SUB_GROUP_ID);
+			
+			List transList=InvDALSearchTransaction.getInventoryTransactionReport(invCardCodeStart, invCardCodeEnd, invCardNameStart,
+					invCardNameEnd, curCardStart, curCardEnd, startDate, endDate, type.intValue(), invMainGroupId, invSubGroupId);
+		
+			HashBag transBag=new HashBag();
+			transBag.put(InvKeys.INV_TRANSACTIONS, new HashMap());
+			
+			for(int k=0; k<transList.size(); k++)
+			{
+				Object[] transInfo=(Object[])transList.get(k);
+				Integer transId=(Integer)transInfo[0];
+				Date transDate=(Date)transInfo[1];
+				BigDecimal amountIn=(BigDecimal)transInfo[2];
+				BigDecimal amountOut=(BigDecimal)transInfo[3];
+				BigDecimal totalPrice=(BigDecimal)transInfo[4];
+				String invCode=(String)transInfo[5];
+				String invName=(String)transInfo[6];
+				String curName=(String)transInfo[7];
+				Integer invCardId=(Integer)transInfo[8];
+				String transDocNo=(String)transInfo[9];
+				
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_ID, transId);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_DATE, transDate);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_AMOUNT_IN, amountIn);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_AMOUNT_OUT, amountOut);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TOTAL_PRICE, totalPrice);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_CODE, invCode);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_NAME, invName);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,CurKeys.CUR_CURRENT_NAME, curName);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_CARD_ID, invCardId);
+				transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_TRANS_DOC_NO, transDocNo);
+				
+				if (transInfo.length > 10)
+				{
+					String groupName=(String)transInfo[10];
+					Integer groupId=(Integer)transInfo[11];
+					
+					transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_GROUP_NAME, groupName);
+					transBag.put(InvKeys.INV_TRANSACTIONS,k,InvKeys.INV_GROUP_ID, groupId);
+					
+				}
+				
+			}
+			
+			return transBag;
 		}
 		catch (Exception ex)
 		{

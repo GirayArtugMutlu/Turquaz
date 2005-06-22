@@ -89,8 +89,8 @@ public class BillBLSearchBill
 			throws Exception
 	{
 		
-			Integer curCardStartId	= (Integer)argMap.get(EngKeys.CURRENT_CARD_START);
-			Integer curCardEndId = (Integer)argMap.get(EngKeys.CURRENT_CARD_END);
+			Integer curCardStartId	= (Integer)argMap.get(CurKeys.CUR_CARD_START);
+			Integer curCardEndId = (Integer)argMap.get(CurKeys.CUR_CARD_END);
 			
 			TurqCurrentCard curCardStart=null;
 			TurqCurrentCard curCardEnd=null; 

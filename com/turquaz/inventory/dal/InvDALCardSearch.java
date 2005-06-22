@@ -55,7 +55,7 @@ public class InvDALCardSearch
 			}
 			if (groupId != null)
 			{
-				query += "and :groupId in (Select myGroup.turqInventoryGroup.id From invCard.turqInventoryCardGroups as myGroup)";
+				query += " and :groupId in (Select myGroup.turqInventoryGroup.id From invCard.turqInventoryCardGroups as myGroup)";
 			}
 			query += " order by invCard.cardInventoryCode";
 			Query q = session.createQuery(query);

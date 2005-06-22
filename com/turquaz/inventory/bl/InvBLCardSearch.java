@@ -27,6 +27,7 @@ import java.util.List;
 import net.sf.hibernate.Session;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.common.HashBag;
+import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqAccountingAccount;
@@ -50,7 +51,7 @@ public class InvBLCardSearch
 		{
 			String cardName = (String) argMap.get(InvKeys.INV_CARD_NAME);
 			String cardCode = (String) argMap.get(InvKeys.INV_CARD_CODE);
-			Integer groupId = (Integer) argMap.get(InvKeys.INV_GROUP);
+			Integer groupId = (Integer) argMap.get(InvKeys.INV_GROUP_ID);
 			List cards=InvDALCardSearch.searchInventoryCards(cardName, cardCode, groupId);
 			
 			HashBag cardBag=new HashBag();
@@ -252,8 +253,8 @@ public class InvBLCardSearch
 		String cardNameEnd = (String) argMap.get(InvKeys.INV_CARD_NAME_END);
 		Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 		Date endDate=(Date)argMap.get(EngKeys.DATE_END);
-		String curCardStart=(String)argMap.get(EngKeys.CURRENT_CARD_START);
-		String curCardEnd=(String)argMap.get(EngKeys.CURRENT_CARD_END);
+		String curCardStart=(String)argMap.get(CurKeys.CUR_CARD_START);
+		String curCardEnd=(String)argMap.get(CurKeys.CUR_CARD_END);
 		TurqInventoryGroup invMainGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_MAIN_GROUP);
 		TurqInventoryGroup invSubGroup=(TurqInventoryGroup)argMap.get(InvKeys.INV_SUB_GROUP);
 		

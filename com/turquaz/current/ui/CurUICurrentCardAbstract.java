@@ -279,8 +279,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			
 			HashMap argMap = new HashMap();
 			
-			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
-			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
+			argMap.put(CurKeys.CUR_CARD_START,currentCard);
+			argMap.put(CurKeys.CUR_CARD_END,currentCard2);
 			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,datePickerEndDate.getDate());
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText().trim());
@@ -303,8 +303,8 @@ public class CurUICurrentCardAbstract extends org.eclipse.swt.widgets.Composite 
 			
 			argMap = new HashMap();
 			
-			argMap.put(EngKeys.CURRENT_CARD_START,currentCard);
-			argMap.put(EngKeys.CURRENT_CARD_END,currentCard2);
+			argMap.put(CurKeys.CUR_CARD_START,currentCard);
+			argMap.put(CurKeys.CUR_CARD_END,currentCard2);
 			argMap.put(EngKeys.DATE_START,datePickerStartDate.getDate());
 			
 			List balances =(List)EngTXCommon.doSelectTX(CurBLSearchTransaction.class.getName(),"getCurrentBalances",argMap);

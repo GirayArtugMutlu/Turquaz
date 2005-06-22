@@ -47,6 +47,7 @@ import com.turquaz.inventory.InvKeys;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import com.turquaz.engine.ui.component.DatePicker;
+import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentCodePicker;
 import com.turquaz.inventory.bl.InvBLCardAdd;
 import com.turquaz.inventory.bl.InvBLCardSearch;
@@ -507,8 +508,8 @@ public class InvUITransactionsTotalReport extends Composite implements SearchCom
 			argMap.put(InvKeys.INV_CARD_CODE_END,txtInvCodeEnd.getText().trim());
 			argMap.put(InvKeys.INV_CARD_NAME_START,txtInvNameStart.getText().trim());
 			argMap.put(InvKeys.INV_CARD_NAME_END,txtInvNameEnd.getText().trim());
-			argMap.put(EngKeys.CURRENT_CARD_START, txtCurCardStart.getText().trim());
-			argMap.put(EngKeys.CURRENT_CARD_END,txtCurCardEnd.getText().trim());
+			argMap.put(CurKeys.CUR_CARD_START, txtCurCardStart.getText().trim());
+			argMap.put(CurKeys.CUR_CARD_END,txtCurCardEnd.getText().trim());
 			argMap.put(EngKeys.DATE_START,dateStartDate.getDate());
 			argMap.put(EngKeys.DATE_END,dateEndDate.getDate());
 			argMap.put(InvKeys.INV_MAIN_GROUP,invMainGroup);

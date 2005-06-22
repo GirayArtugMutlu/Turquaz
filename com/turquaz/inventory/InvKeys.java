@@ -66,6 +66,8 @@ public class InvKeys
 	public static String INV_WAREHOUSE_CITY="invWarehouseCity";
 	public static String INV_MAIN_GROUP="invMainGroup";
 	public static String INV_SUB_GROUP="invSubGroup";
+	public static String INV_MAIN_GROUP_ID="invMainGroupId";
+	public static String INV_SUB_GROUP_ID="invSubGroupId";
 	public static String INV_SUB_GROUPS="invSubGroups";
 	public static String INV_GROUP="invGroup";
 	public static String INV_GROUPS="invGroups";
@@ -107,7 +109,7 @@ public class InvKeys
 	public static String INV_AMOUNT_MAX="invAmountMax";
 	public static String INV_AMOUNT_MIN="invAmountMin";
 	public static String INV_TOTAL_PRICE="invTotalPrice";
-	
+	public static String INV_TRANS_DOC_NO="invTransDocNo";
 	
 	
 	
