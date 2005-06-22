@@ -23,8 +23,6 @@ public class EngKeys
 	public final static String CURRENCY="currency";
 	public final static String CURRENCY_ABBR="currencyAbbr";
 	public final static String CURRENCY_ID="currencyId";
-	public final static String CURRENT_CARD_END="currentCardEnd";
-	public final static String CURRENT_CARD_START="currentCardStart";
 	public final static String DATABASE_VERSION="databaseVersion";
 	public final static String DATE="date";
 	public final static String DATE_END="dateEnd";

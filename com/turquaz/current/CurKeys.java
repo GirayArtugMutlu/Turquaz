@@ -54,4 +54,8 @@ public class CurKeys
 	public final static String CUR_PHONE_COUNTRY_CODE2="phoneCountryCode2";
 	public final static String CUR_HAS_TRANSACTIONS="hasTransactions";
 	public final static String CUR_TRANS_INFO="curTransInfo";
+	public final static String CUR_CARD_START="curCardStart";
+	public final static String CUR_CARD_END="curCardEnd";
+	public final static String CUR_CARD_START_ID="curCardStartId";
+	public final static String CUR_CARD_END_ID="curCardEndId";
 }
