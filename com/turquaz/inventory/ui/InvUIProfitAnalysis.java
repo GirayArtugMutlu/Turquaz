@@ -20,8 +20,9 @@ package com.turquaz.inventory.ui;
  * @version  $Id$
  */
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashMap;
 import org.eclipse.swt.layout.GridLayout;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
@@ -31,6 +32,7 @@ import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.SearchTableViewer;
 import com.turquaz.engine.ui.viewers.TurquazTableSorter;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLProfitAnalysis;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.SWT;
@@ -126,7 +128,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 				}
 			}
 			this.layout();
-			PostInitGui();
+			postInitGui();
 		}
 		catch (Exception e)
 		{
@@ -135,7 +137,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		}
 	}
 
-	public void PostInitGui()
+	public void postInitGui()
 	{
 		createTableViewer();
 	}
@@ -159,7 +161,7 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 		try
 		{
 			tableViewer.removeAll();
-			List ls = (List)EngTXCommon.doSelectTX(InvBLProfitAnalysis.class.getName(),"getTransactionTotals",null);
+			HashBag totalBag = (HashBag)EngTXCommon.doSelectTX(InvBLProfitAnalysis.class.getName(),"getTransactionTotals",null);
 			BigDecimal amountNow;
 			BigDecimal avgPrice;
 			BigDecimal amountOut;
@@ -168,8 +170,9 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 			BigDecimal totalPrice;
 			BigDecimal totalProfit;
 			TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
-			Object[] result;
-			for (int i = 0; i < ls.size(); i++)
+			
+			HashMap totals=(HashMap)totalBag.get(InvKeys.INV_CARDS);
+			for (int i = 0; i < totals.size(); i++)
 			{
 				amountNow = new BigDecimal(0);
 				avgPrice = new BigDecimal(0);
@@ -178,13 +181,14 @@ public class InvUIProfitAnalysis extends org.eclipse.swt.widgets.Composite imple
 				totalPrice = new BigDecimal(0);
 				totalProfit = new BigDecimal(0);
 				amountIn = new BigDecimal(0);
-				result = (Object[]) ls.get(i);
-				String invCardCode = (String) result[0];
-				String invCardName = (String) result[1];
-				BigDecimal inAmount = (BigDecimal) result[2];
-				BigDecimal outAmount = (BigDecimal) result[3];
-				BigDecimal inPrice = (BigDecimal) result[4];
-				BigDecimal outPrice = (BigDecimal) result[5];
+				
+				HashMap cardInfo = (HashMap) totals.get(new Integer(i));
+				String invCardCode = (String) cardInfo.get(InvKeys.INV_CARD_CODE);
+				String invCardName = (String) cardInfo.get(InvKeys.INV_CARD_NAME);
+				BigDecimal inAmount = (BigDecimal)cardInfo.get(InvKeys.INV_AMOUNT_IN);
+				BigDecimal outAmount = (BigDecimal) cardInfo.get(InvKeys.INV_AMOUNT_OUT);
+				BigDecimal inPrice = (BigDecimal)cardInfo.get(InvKeys.INV_PRICE_IN);
+				BigDecimal outPrice = (BigDecimal)cardInfo.get(InvKeys.INV_PRICE_OUT);
 				if (inAmount != null && outAmount != null)
 				{
 					amountNow = inAmount.subtract(outAmount);

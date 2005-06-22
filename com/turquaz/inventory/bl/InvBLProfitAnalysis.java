@@ -19,7 +19,11 @@ package com.turquaz.inventory.bl;
  * @author Onsel Armagan
  * @version $Id$
  */
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import com.turquaz.common.HashBag;
+import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.dal.InvDALProfitAnalysis;
 
 public class InvBLProfitAnalysis
@@ -29,11 +33,34 @@ public class InvBLProfitAnalysis
 	 *             0 - Ortalama deger
 	 * @return
 	 */
-	public static List getTransactionTotals() throws Exception
+	public static HashBag getTransactionTotals() throws Exception
 	{
 		try
 		{
-			return InvDALProfitAnalysis.getInventoryTotalsAccordingToAvarage();
+			List totals=InvDALProfitAnalysis.getInventoryTotalsAccordingToAvarage();
+			HashBag totalBag=new HashBag();
+			totalBag.put(InvKeys.INV_CARDS, new HashMap());
+			
+			for(int k=0; k<totals.size(); k++)
+			{
+				Object[] invCardInfo=(Object[]) totals.get(k);
+				String invCode=(String)invCardInfo[0];
+				String invName=(String)invCardInfo[1];
+				BigDecimal amountIn=(BigDecimal)invCardInfo[2];
+				BigDecimal amountOut=(BigDecimal)invCardInfo[3];
+				BigDecimal priceIn=(BigDecimal)invCardInfo[4];
+				BigDecimal priceOut=(BigDecimal)invCardInfo[5];
+				
+				totalBag.put(InvKeys.INV_CARDS,k,InvKeys.INV_CARD_CODE,invCode);
+				totalBag.put(InvKeys.INV_CARDS,k,InvKeys.INV_CARD_NAME,invName);
+				totalBag.put(InvKeys.INV_CARDS,k,InvKeys.INV_AMOUNT_IN,amountIn);
+				totalBag.put(InvKeys.INV_CARDS,k,InvKeys.INV_AMOUNT_OUT,amountOut);
+				totalBag.put(InvKeys.INV_CARDS,k,InvKeys.INV_PRICE_IN,priceIn);
+				totalBag.put(InvKeys.INV_CARDS,k,InvKeys.INV_PRICE_OUT,priceOut);
+				
+			}
+			
+			return totalBag;
 		}
 		catch (Exception ex)
 		{
