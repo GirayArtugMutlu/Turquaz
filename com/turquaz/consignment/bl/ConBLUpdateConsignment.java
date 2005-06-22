@@ -323,6 +323,7 @@ public class ConBLUpdateConsignment
 				invCard.put(InvKeys.INV_CARD_NAME,invTrans.getTurqInventoryCard().getCardName());
 				invCard.put(InvKeys.INV_CARD_CODE,invTrans.getTurqInventoryCard().getCardInventoryCode());
 				
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TRANS_ID,invTrans.getId());
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_CARD,invCard);				
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_AMOUNT_IN,invTrans.getAmountIn());
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_AMOUNT_OUT,invTrans.getAmountOut());
@@ -338,15 +339,7 @@ public class ConBLUpdateConsignment
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TRANS_TYPE_ID,invTrans.getTurqInventoryTransactionType().getId());
 				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getDiscountAmountInForeignCurrency());
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				returnBag.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT_NAME,invTrans.getTurqInventoryUnit().getUnitsName());	
 				
 				
 				i++;

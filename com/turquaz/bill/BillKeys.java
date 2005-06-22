@@ -36,6 +36,7 @@ public class BillKeys
 	public static String BILL_SAVE_CONS = "billSaveCons";
 	public static String BILL_CHECK="billCheck";
     public static String BILL_IS_OPEN ="billIsOpen";
+	public static String BILL_TYPE ="billType";
 	
 	public static String BILL_ACC_SAVE_RESULT ="billACCSaveResult";
 		

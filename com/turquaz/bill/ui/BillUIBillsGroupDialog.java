@@ -21,7 +21,6 @@ package com.turquaz.bill.ui;
  */
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import net.sf.hibernate.HibernateException;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -41,13 +40,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.SWT;
+
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.common.HashBag;
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLServer;
-import com.turquaz.engine.dal.TurqBillGroup;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
@@ -290,15 +290,21 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 		try
 		{
 			tableCurGroups.removeAll();
-			List list = (List)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
-			TurqBillGroup curGroup;
+			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
+		
+			HashMap groupList =(HashMap)groupBag.get(BillKeys.BILL_GROUPS);
+			
+	
+				HashMap groupInfo;
+			
 			TableItem item;
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < groupList.size(); i++)
 			{
-				curGroup = (TurqBillGroup) list.get(i);
+				groupInfo = (HashMap) groupList.get(new Integer(i));
 				item = new TableItem(tableCurGroups, SWT.NULL);
-				item.setText(new String[]{curGroup.getGroupsName(), curGroup.getGroupDescription()});
-				item.setData(curGroup);
+				
+				item.setText(new String[]{groupInfo.get(AdmKeys.ADM_GROUP_NAME).toString(), groupInfo.get(AdmKeys.ADM_GROUP_DESCRIPTION).toString()});
+				item.setData(groupInfo.get(AdmKeys.ADM_GROUP_ID));
 			}
 		}
 		catch (Exception ex)
@@ -317,7 +323,7 @@ public class BillUIBillsGroupDialog extends org.eclipse.swt.widgets.Dialog
 			{
 				HashMap argMap=new HashMap();
 				argMap.put(BillKeys.BILL_GROUP,txtGroupName.getData());
-				EngTXCommon.doTransactionTX(EngBLServer.class.getName(),"delete",argMap);
+				EngTXCommon.doTransactionTX(BillBLAddGroups.class.getName(),"deleteGroup",argMap);
 				btnDelete.setEnabled(false);
 				btnUpdate.setEnabled(false);
 				btnGroupAdd.setEnabled(true);

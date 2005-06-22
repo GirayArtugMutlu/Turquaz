@@ -153,8 +153,10 @@ public class BillBLAddBill
             for (int i = 0; i < consList.size(); i++)
             {
                 Integer consId = (Integer) consList.get(i);
-                TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
-                TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
+                
+				TurqConsignment cons = ConBLSearchConsignment.getConsignmentByConsId(consId);
+               
+				TurqBillInEngineSequence billInEng = new TurqBillInEngineSequence();
                 billInEng.setTurqBill(bill);
                 billInEng.setTurqEngineSequence(cons.getTurqEngineSequence());
                 EngDALCommon.saveObject(billInEng);

@@ -10,6 +10,7 @@ import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALAddGroups;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.dal.EngDALCommon;
+import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBillGroup;
 
 public class BillBLAddGroups
@@ -38,7 +39,16 @@ public class BillBLAddGroups
 		return result;
 		
 	}
-
+	
+	public static void deleteGroup(HashMap argMap)throws Exception
+	{
+		
+		Integer groupId =(Integer)argMap.get(BillKeys.BILL_GROUP);
+		TurqBillGroup group=(TurqBillGroup)EngDALSessionFactory.getSession().load(TurqBillGroup.class,groupId);
+		
+		EngDALCommon.deleteObject(group);
+	
+	}
 	public static void saveGroup(HashMap argMap) throws Exception
 	{
 		try
@@ -67,7 +77,11 @@ public class BillBLAddGroups
 		{
 			String name=(String)argMap.get(BillKeys.BILL_GROUP_NAME);
 			String description=(String)argMap.get(BillKeys.BILL_GROUP_DESCRIPTION);
-			TurqBillGroup group=(TurqBillGroup)argMap.get(BillKeys.BILL_GROUP);
+			
+			Integer groupId =(Integer)argMap.get(BillKeys.BILL_GROUP);
+			
+			TurqBillGroup group=(TurqBillGroup)EngDALSessionFactory.getSession().load(TurqBillGroup.class,groupId);
+						
 			Calendar cal = Calendar.getInstance();
 			group.setGroupDescription(description);
 			group.setGroupsName(name);

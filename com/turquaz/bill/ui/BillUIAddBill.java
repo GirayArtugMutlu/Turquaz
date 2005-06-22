@@ -49,7 +49,6 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.events.SelectionEvent;
 
 import com.turquaz.common.HashBag;
-import com.turquaz.consignment.ConsKeys;
 import com.turquaz.current.CurKeys;
 import com.turquaz.current.ui.comp.CurrentPicker;
 import com.turquaz.cash.ui.comp.CashCardPicker;
@@ -785,7 +784,7 @@ public class BillUIAddBill extends Composite implements SecureComposite
 			//Fill Group Table
 			HashBag groupBag = (HashBag)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
 		
-			HashMap groupList =(HashMap)groupBag.get(ConsKeys.CONS_GROUPS);
+			HashMap groupList = (HashMap) groupBag.get(BillKeys.BILL_GROUPS);
 			
 			
 			compRegisterGroup.fillTableAllGroups(groupList);

@@ -8,10 +8,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
+
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.dal.BillDALUpdateBill;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.cash.bl.CashBLCashTransactionUpdate;
+import com.turquaz.common.HashBag;
+import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
@@ -20,17 +24,133 @@ import com.turquaz.engine.dal.EngDALCommon;
 import com.turquaz.engine.dal.EngDALSessionFactory;
 import com.turquaz.engine.dal.TurqBill;
 import com.turquaz.engine.dal.TurqBillInEngineSequence;
+import com.turquaz.engine.dal.TurqBillInGroup;
 import com.turquaz.engine.dal.TurqCashCard;
 import com.turquaz.engine.dal.TurqCashTransaction;
+import com.turquaz.engine.dal.TurqCashTransactionRow;
 import com.turquaz.engine.dal.TurqConsignment;
 import com.turquaz.engine.dal.TurqCurrencyExchangeRate;
 import com.turquaz.engine.dal.TurqCurrentCard;
 import com.turquaz.engine.dal.TurqEngineSequence;
+import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.bl.InvBLSaveTransaction;
 
 public class BillBLUpdateBill
 {
+	public static HashBag getBillInfo(HashMap argMap)throws Exception
+	{
+		Integer billId =(Integer)argMap.get(BillKeys.BILL_ID);
+		TurqBill bill =(TurqBill)EngDALSessionFactory.getSession().load(TurqBill.class,billId);
+		
+		HashBag billInfo = new HashBag();
+		billInfo.put(BillKeys.BILL_TYPE,new Integer(bill.getBillsType()));
+		billInfo.put(CurKeys.CUR_CURRENT_NAME,bill.getTurqCurrentCard().getCardsName());
+		billInfo.put(CurKeys.CUR_CURRENT_CODE,bill.getTurqCurrentCard().getCardsCurrentCode());
+		billInfo.put(BillKeys.BILL_DOC_NO,bill.getBillDocumentNo());
+		billInfo.put(BillKeys.BILL_DATE,bill.getBillsDate());
+		billInfo.put(BillKeys.BILL_DUE_DATE,bill.getDueDate());
+		billInfo.put(BillKeys.BILL_DEFINITION,bill.getBillsDefinition());
+		billInfo.put(BillKeys.BILL_IS_OPEN,new Boolean(bill.isIsOpen()));
+		
+		 if(!bill.isIsOpen())
+         {
+             Iterator it = bill.getTurqEngineSequence().getTurqCashTransactions().iterator();
+             if(it.hasNext())
+             {
+                 TurqCashTransaction cashTrans = (TurqCashTransaction)it.next();
+                 Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
+                 while(it2.hasNext())
+                 {
+                     TurqCashTransactionRow transRow = (TurqCashTransactionRow)it2.next();
+                     billInfo.put(CashKeys.CASH_CARD_NAME,transRow.getTurqCashCard().getCashCardName());                     
+                 }
+                 
+             }
+             
+         }
+		 
+		 Date consDate = new Date();
+		 String consDocumentNo="";
+		 billInfo.put(InvKeys.INV_TRANSACTIONS,new HashMap());
+		 
+		 //Now inv transactions
+		 Iterator it = bill.getTurqBillInEngineSequences().iterator();
+		
+			while (it.hasNext())
+			{
+				TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
+				Iterator it2 = billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
+				if (it2.hasNext())
+				{
+					TurqConsignment cons = (TurqConsignment) it2.next();
+					consDate = cons.getConsignmentsDate();
+									
+					if (!cons.getConsignmentDocumentNo().equals("")) //$NON-NLS-1$
+						consDocumentNo +="[" + cons.getConsignmentDocumentNo() + "]"; //$NON-NLS-1$ //$NON-NLS-2$
+				}
+				
+				Iterator it3 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
+				int i=0;
+				TurqInventoryTransaction invTrans;
+				while (it3.hasNext())
+				{
+					invTrans = (TurqInventoryTransaction) it3.next();
+					
+					HashMap invCard = new HashMap();
+					invCard.put(InvKeys.INV_CARD_ID,invTrans.getTurqInventoryCard().getId());
+					invCard.put(InvKeys.INV_CARD_NAME,invTrans.getTurqInventoryCard().getCardName());
+					invCard.put(InvKeys.INV_CARD_CODE,invTrans.getTurqInventoryCard().getCardInventoryCode());
+					
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TRANS_ID,invTrans.getId());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_CARD,invCard);				
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_AMOUNT_IN,invTrans.getAmountIn());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_AMOUNT_OUT,invTrans.getAmountOut());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY,invTrans.getUnitPriceInForeignCurrency());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY,invTrans.getTotalPriceInForeignCurrency());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_RATE,invTrans.getVatRate());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getVatAmountInForeignCurrency());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_SPECIAL_RATE,invTrans.getVatSpecialRate());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getVatSpecialAmountInForeignCurrency());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_VAT_SPECIAL_UNIT_PRICE_IN_FOREIGN_CURRENCY,invTrans.getVatSpecialUnitPriceInForeignCurrency());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY,invTrans.getCumilativePriceInForeignCurrency());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_RATE,invTrans.getDiscountRate());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_TRANS_TYPE_ID,invTrans.getTurqInventoryTransactionType().getId());
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY,invTrans.getDiscountAmountInForeignCurrency());
+					
+					billInfo.put(InvKeys.INV_TRANSACTIONS,i,InvKeys.INV_UNIT_NAME,invTrans.getTurqInventoryUnit().getUnitsName());	
+					
+					
+					i++;
+					
+				}
+			}
+			
+			billInfo.put(ConsKeys.CONS_DOC_NO,consDocumentNo);
+			billInfo.put(ConsKeys.CONS_DATE,consDate);
+			
+			billInfo.put(BillKeys.BILL_GROUPS,new HashMap());
+			TurqBillInGroup billInGroup;
+			Iterator gIt= bill.getTurqBillInGroups().iterator();
+			int i=0;
+			while(gIt.hasNext())
+			{
+				billInGroup = (TurqBillInGroup)gIt.next();
+				billInfo.put(BillKeys.BILL_GROUP,i,AdmKeys.ADM_GROUP_ID,billInGroup.getTurqBillGroup().getId());
+								
+				i++;
+			}
+			
+			billInfo.put(BillKeys.BILL_CAN_UPDATE,BillDALUpdateBill.canUpdateBill(billId));
+			
+		
+		return billInfo;
+		
+		
+		
+	}
+	
+	
 	public static void deleteCurrentTransactions(TurqBill bill) throws Exception
 	{
 		try

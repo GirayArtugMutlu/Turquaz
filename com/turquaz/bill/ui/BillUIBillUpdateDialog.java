@@ -1,13 +1,10 @@
 package com.turquaz.bill.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import com.cloudgarden.resource.SWTResourceManager;
+import com.turquaz.admin.AdmKeys;
 import com.turquaz.bill.BillKeys;
-import com.turquaz.bill.bl.BillBLSearchBill;
 import com.turquaz.bill.bl.BillBLUpdateBill;
 import com.turquaz.cash.CashKeys;
 import com.turquaz.common.HashBag;
@@ -16,22 +13,12 @@ import com.turquaz.current.CurKeys;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLPermissions;
-import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqBillInEngineSequence;
-import com.turquaz.engine.dal.TurqBillInGroup;
-import com.turquaz.engine.dal.TurqCashTransaction;
-import com.turquaz.engine.dal.TurqCashTransactionRow;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
 import com.turquaz.engine.ui.EngUICommon;
-import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.inventory.InvKeys;
 import com.turquaz.inventory.ui.InvUITransactionTableRow;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -61,7 +48,6 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	private BillUIAddBill compAddBill;
 	private ToolItem toolDelete;
 	private ToolBar toolBar1;
-	private TurqBill bill;
 	private Integer billId;
 	ConBLUpdateConsignment blUpdateCons = new ConBLUpdateConsignment();
 	private boolean updated = false;
@@ -73,21 +59,10 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 	{
 		super(parent, style);
 		this.billId = bill;
-		HashMap argMap=new HashMap();
-		argMap.put(BillKeys.BILL_ID,billId);
-		
-		this.bill = (TurqBill)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"initializeBillById",argMap);
-		
-		
 		
 		
 	}
 
-	public BillUIBillUpdateDialog(Shell parent, int style)
-	{
-		super(parent, style);
-		this.bill = null;
-	}
 
 	public boolean open()
 	{
@@ -146,13 +121,13 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 						{
 							try
 							{
-								boolean answer = EngUICommon.showQuestion(getParent(), BillLangKeys.MSG_WILL_BALANCE_BE_PRINTED);
+					/*			boolean answer = EngUICommon.showQuestion(getParent(), BillLangKeys.MSG_WILL_BALANCE_BE_PRINTED);
 								dialogShell.close();
 								HashMap argMap=new HashMap();
 								argMap.put(BillKeys.BILL,bill);
 								argMap.put(BillKeys.BILL_BALANCE,new Boolean(answer));
 								EngTXCommon.doSelectTX(EngBLUtils.class.getName(),"printBill",argMap);
-							}
+						*/}
 							catch(Exception ex)
 							{
                                 EngBLLogger.log(this.getClass(),ex,getParent());
@@ -172,7 +147,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				}
 			}
 			{
-				compAddBill = new BillUIAddBill(dialogShell, SWT.NONE, bill.getBillsType());
+				compAddBill = new BillUIAddBill(dialogShell, SWT.NONE);
 				GridData compBillUIAddDialogLData = new GridData();
 				compBillUIAddDialogLData.grabExcessHorizontalSpace = true;
 				compBillUIAddDialogLData.horizontalAlignment = GridData.FILL;
@@ -205,14 +180,15 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		{
 			toolUpdate.setEnabled(false);
 			toolDelete.setEnabled(false);
-			if (bill == null)
+			if (billId == null)
 				return;
+			
 			HashMap argMap=new HashMap();
-			argMap.put(BillKeys.BILL_ID,bill.getId());
+			argMap.put(BillKeys.BILL_ID,billId);
 			
-			HashBag result=(HashBag)EngTXCommon.doSelectTX(BillBLSearchBill.class.getName(),"canUpdateBill",argMap);
-			
-			Boolean canUpdateBill =(Boolean)result.get(BillKeys.BILL_CAN_UPDATE);
+			HashBag billInfo=(HashBag)EngTXCommon.doSelectTX(BillBLUpdateBill.class.getName(),"getBillInfo",argMap);
+						
+			Boolean canUpdateBill =(Boolean)billInfo.get(BillKeys.BILL_CAN_UPDATE);
 		
 			
 			if (!canUpdateBill.booleanValue())
@@ -232,37 +208,58 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 					toolUpdate.setEnabled(true);
 				}
 			}
-			compAddBill.getTxtCurrentCard().setData(bill.getTurqCurrentCard());
-			compAddBill.getTxtCurrentCard().setText(
-					bill.getTurqCurrentCard().getCardsName() + " {" + bill.getTurqCurrentCard().getCardsCurrentCode() + "}"); //$NON-NLS-1$ //$NON-NLS-2$
-			;
-			compAddBill.getTxtDocumentNo().setText(bill.getBillDocumentNo());
-			compAddBill.getDateConsignmentDate().setDate(bill.getBillsDate());
 			
-			compAddBill.getDateDueDate().setDate(bill.getDueDate());
-			compAddBill.getTxtDefinition().setText(bill.getBillsDefinition());
-            if(!bill.isIsOpen())
+			
+			
+			Integer billType = (Integer)billInfo.get(BillKeys.BILL_TYPE);
+			
+			compAddBill.BILL_TYPE = billType.intValue();
+			
+			
+			String currentName =(String)billInfo.get(CurKeys.CUR_CURRENT_NAME);
+			String currentCode =(String)billInfo.get(CurKeys.CUR_CURRENT_CODE);
+			
+			compAddBill.getTxtCurrentCard().setText(
+					currentName+ " {" +currentCode + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			
+		
+			String billDocNo =(String)billInfo.get(BillKeys.BILL_DOC_NO);
+			
+			compAddBill.getTxtDocumentNo().setText(billDocNo);
+			
+			Date billDate =(Date)billInfo.get(BillKeys.BILL_DATE);
+			compAddBill.getDateConsignmentDate().setDate(billDate);
+			
+			Date dueDate =(Date)billInfo.get(BillKeys.BILL_DUE_DATE);
+			compAddBill.getDateDueDate().setDate(dueDate);
+			
+			String definition = (String)billInfo.get(BillKeys.BILL_DEFINITION);
+			compAddBill.getTxtDefinition().setText(definition);
+			
+			Boolean isOpen =(Boolean)billInfo.get(BillKeys.BILL_IS_OPEN);
+            
+			if(!isOpen.booleanValue())
             {
-                compAddBill.getBtnClosedBill().setSelection(true);
-                compAddBill.getCashPicker().setVisible(true);
-                Iterator it = bill.getTurqEngineSequence().getTurqCashTransactions().iterator();
-                if(it.hasNext())
-                {
-                    TurqCashTransaction cashTrans = (TurqCashTransaction)it.next();
-                    Iterator it2 = cashTrans.getTurqCashTransactionRows().iterator();
-                    while(it2.hasNext())
-                    {
-                        TurqCashTransactionRow transRow = (TurqCashTransactionRow)it2.next();
-                        compAddBill.getCashPicker().setData(transRow.getTurqCashCard());
-                        
-                        
-                    }
-                    
-                }
+               
+                 
+				String cashCardName =(String)billInfo.get(CashKeys.CASH_CARD_NAME);
+				if(cashCardName!=null)
+				{
+					compAddBill.getCashPicker().setText(cashCardName);
+				}
+                
                 
             }
-			fillInvTransactionColumns();
-			fillRegisteredGroup();
+			
+			HashMap invTransMap =(HashMap)billInfo.get(InvKeys.INV_TRANSACTIONS);
+			
+			fillInvTransactionColumns(invTransMap,billType.intValue());
+			
+			
+			HashMap groups = (HashMap)billInfo.get(BillKeys.BILL_GROUPS);
+			
+			fillRegisteredGroup(groups);
+			
 			EngUICommon.centreWindow(dialogShell);
 		}
 		catch (Exception ex)
@@ -271,58 +268,40 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 		}
 	}
 
-	public void fillInvTransactionColumns()
+	public void fillInvTransactionColumns(HashMap transList, int type)
 	{
 		compAddBill.tableViewer.removeAll();
 		TableItem item;
-		
-		Iterator it = bill.getTurqBillInEngineSequences().iterator();
-		List transColumns= new ArrayList();
-		while (it.hasNext())
+
+        HashMap invTransInfo;
+		for (int i=0;i<transList.size();i++)
 		{
-			TurqBillInEngineSequence billInEng = (TurqBillInEngineSequence) it.next();
-			Iterator it2 = billInEng.getTurqEngineSequence().getTurqConsignments().iterator();
-			if (it2.hasNext())
-			{
-				TurqConsignment cons = (TurqConsignment) it2.next();
-				compAddBill.getTxtConsignmentDate().setText(DatePicker.formatter.format(cons.getConsignmentsDate()));
-				if (!cons.getConsignmentDocumentNo().equals("")) //$NON-NLS-1$
-					compAddBill.getTxtConsignmentDocumentNo().append("[" + cons.getConsignmentDocumentNo() + "]"); //$NON-NLS-1$ //$NON-NLS-2$
-			}
-			Iterator it3 = billInEng.getTurqEngineSequence().getTurqInventoryTransactions().iterator();
-			while (it3.hasNext())
-			{
-				transColumns.add(it3.next());
-			}
-		}
-		Collections.sort(transColumns,new EngBLHibernateComparer());
-		TurqInventoryTransaction invTrans;
-		for(int k=0; k<transColumns.size(); k++)
-		{
-			invTrans=(TurqInventoryTransaction)transColumns.get(k);
-			InvUITransactionTableRow row = new InvUITransactionTableRow(compAddBill.BILL_TYPE, compAddBill.tableViewer);
-			row.setDBObject(invTrans);
+			invTransInfo = (HashMap) transList.get(new Integer(i));
+			InvUITransactionTableRow row = new InvUITransactionTableRow(type,
+					compAddBill.tableViewer);
+			row.setDBObject(invTransInfo);
 			compAddBill.tableViewer.addRow(row);
 		}
+		InvUITransactionTableRow row2 = new InvUITransactionTableRow(type, compAddBill.tableViewer);
+		compAddBill.tableViewer.addRow(row2);
 		compAddBill.calculateTotals();
 	}
 
-	public void fillRegisteredGroup()
+	public void fillRegisteredGroup(HashMap groups)
 	{
-		TurqBillInGroup group;
-		Iterator it = bill.getTurqBillInGroups().iterator();
-		while (it.hasNext())
-		{
-			group = (TurqBillInGroup) it.next();
-			compAddBill.getCompRegisterGroup().RegisterGroup(group.getTurqBillGroup());
-		}
+		 for (int i=0;i<groups.size();i++)
+			{
+	            HashMap groupInfo =(HashMap)groups.get(new Integer(i));
+				Integer groupId =(Integer)groupInfo.get(AdmKeys.ADM_GROUP_ID);
+				compAddBill.getCompRegisterGroup().RegisterGroup(groupId);
+			}
 	}
 
 	public void update()
 	{
 		try
 		{
-			if (bill == null)
+			if (billId == null)
 				return;
 			if (compAddBill.verifyFields())
 			{
@@ -333,7 +312,7 @@ public class BillUIBillUpdateDialog extends org.eclipse.swt.widgets.Dialog
 				
 				HashMap argMap=new HashMap();
 				
-				argMap.put(BillKeys.BILL,bill);
+				argMap.put(BillKeys.BILL_ID,billId);
 				argMap.put(BillKeys.BILL_DOC_NO,compAddBill.getTxtDocumentNo().getText().trim());
 				argMap.put(BillKeys.BILL_DEFINITION,compAddBill.getTxtDefinition().getText().trim());
 				argMap.put(BillKeys.BILL_IS_PRINTED,new Boolean(false));

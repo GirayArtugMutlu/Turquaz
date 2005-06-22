@@ -106,9 +106,6 @@ public class BillBLSearchBill
 				curCardEnd =(TurqCurrentCard)EngDALSessionFactory.getSession().load(TurqCurrentCard.class,curCardEndId);
 			}
 			
-
-			
-			
 			
 			Date startDate=(Date)argMap.get(EngKeys.DATE_START);
 			Date endDate=(Date)argMap.get(EngKeys.DATE_END);

@@ -21,11 +21,9 @@ package com.turquaz.bill.ui;
  */
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridData;
@@ -53,26 +51,21 @@ import com.cloudgarden.resource.SWTResourceManager;
 import com.turquaz.bill.BillKeys;
 import com.turquaz.bill.bl.BillBLAddBill;
 import com.turquaz.bill.bl.BillBLAddGroups;
+import com.turquaz.common.HashBag;
 import com.turquaz.consignment.ConsKeys;
 import com.turquaz.consignment.bl.ConBLUpdateConsignment;
 import com.turquaz.consignment.ui.ConUIConsignmentSearchDialog;
 import com.turquaz.current.CurKeys;
 import com.turquaz.engine.bl.EngBLClient;
 import com.turquaz.engine.bl.EngBLCommon;
-import com.turquaz.engine.bl.EngBLHibernateComparer;
 import com.turquaz.engine.bl.EngBLLogger;
-import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqBill;
-import com.turquaz.engine.dal.TurqBillGroup;
-import com.turquaz.engine.dal.TurqConsignment;
-import com.turquaz.engine.dal.TurqCurrentCard;
-import com.turquaz.engine.dal.TurqInventoryTransaction;
 import com.turquaz.engine.interfaces.SecureComposite;
 import com.turquaz.engine.lang.BillLangKeys;
 import com.turquaz.engine.lang.ConsLangKeys;
 import com.turquaz.engine.lang.CurLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.lang.InvLangKeys;
+import com.turquaz.inventory.InvKeys;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
@@ -623,16 +616,12 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 	{
 		try
 		{
-			//Fill Group Table
-			List list = (List)EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(),"getBillGroups",null);
-			HashMap groupMap = new HashMap();
-			TurqBillGroup curGroup;
-			for (int i = 0; i < list.size(); i++)
-			{
-				curGroup = (TurqBillGroup) list.get(i);
-				groupMap.put(curGroup.getGroupsName(), curGroup);
-			}
-			compRegisterGroup.fillTableAllGroups(groupMap);
+//			 Fill Group Table
+			HashBag groupBag = (HashBag) EngTXCommon.doSelectTX(BillBLAddGroups.class.getName(), "getBillGroups", null);
+
+			HashMap groupList = (HashMap) groupBag.get(BillKeys.BILL_GROUPS);
+
+			compRegisterGroup.fillTableAllGroups(groupList);
 		}
 		catch (Exception ex)
 		{
@@ -649,12 +638,15 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		BigDecimal discountTotal = new BigDecimal(0);
 		for (int i = 0; i < items.length; i++)
 		{
-			TurqInventoryTransaction invTrans = (TurqInventoryTransaction)  (items[i].getData());
+			
 				
-			subTotal = subTotal.add(invTrans.getTotalPriceInForeignCurrency());
-			totalVAT = totalVAT.add(invTrans.getVatAmountInForeignCurrency());
-			totalSpecVAT = totalSpecVAT.add(invTrans.getVatSpecialAmountInForeignCurrency());
-			discountTotal = discountTotal.add(invTrans.getDiscountAmountInForeignCurrency());
+			HashMap invTrans = (HashMap)  (items[i].getData());
+
+			subTotal = subTotal.add((BigDecimal) invTrans.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY));
+			totalVAT = totalVAT.add((BigDecimal) invTrans.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY));
+			totalSpecVAT = totalSpecVAT.add((BigDecimal) invTrans.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY));
+			discountTotal = discountTotal.add((BigDecimal) invTrans.get(InvKeys.INV_DISCOUNT_AMOUNT_IN_FOREIGN_CURRENCY));
+
 		}
 		generalTotal = subTotal.add(totalVAT).add(totalSpecVAT);
 		txtDiscountAmount.setText(discountTotal);
@@ -710,17 +702,17 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 				argMap.put(BillKeys.BILL_GROUPS,getBillGroups());
 				argMap.put(BillKeys.BILL_CHECK,EngBLClient.getBillCheckStatus());
 				
-				TurqBill bill = (TurqBill)EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromCons",argMap);
+				EngTXCommon.doTransactionTX(BillBLAddBill.class.getName(),"saveBillFromCons",argMap);
 				EngUICommon.showSavedSuccesfullyMessage(getShell());
 				
 				boolean print=EngUICommon.showQuestion(getShell(),BillLangKeys.MSG_WANT_TO_PRINT_BILL);
 				if (print)
 				{
-					boolean ans = EngUICommon.showQuestion(getShell(),BillLangKeys.MSG_WILL_BALANCE_BE_PRINTED);
-					argMap = new HashMap();
-					argMap.put(BillKeys.BILL, bill);
-					argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));
-					EngTXCommon.doSelectTX(EngBLUtils.class.getName(), "printBill", argMap);
+				//	boolean ans = EngUICommon.showQuestion(getShell(),BillLangKeys.MSG_WILL_BALANCE_BE_PRINTED);
+				//	argMap = new HashMap();
+				//	argMap.put(BillKeys.BILL, bill);
+				//	argMap.put(BillKeys.BILL_BALANCE, new Boolean(ans));
+				//	EngTXCommon.doSelectTX(EngBLUtils.class.getName(), "printBill", argMap);
 				}	
 				
 				
@@ -773,9 +765,10 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 		}
 		txtDocumentNo.setText("");
 		
-		TurqCurrentCard curCard = (TurqCurrentCard)result[0];
-		txtCurrentCard.setData(curCard.getId());
-		txtCurrentCard.setText(curCard.getCardsCurrentCode()+" "+curCard.getCardsName());
+		Integer curCardId = (Integer)result[0];
+	
+		txtCurrentCard.setData(curCardId);
+	
 		consList = (List)result[1];
 		
 		tableConsignmentRows.removeAll();
@@ -785,55 +778,60 @@ public class BillUIBillFromConsignment extends org.eclipse.swt.widgets.Composite
 			{
 				txtDocumentNo.setText(txtDocumentNo.getText()+",");
 			}
-			TurqConsignment cons = null;
+		
 		  try
 			{
 		  		Integer consId=(Integer)consList.get(i);
 		  	    HashMap argMap=new HashMap();
 		  	    argMap.put(ConsKeys.CONS_ID,consId);
-		  		cons = (TurqConsignment)EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"initiliazeConsignmentById",argMap);
-				dateConsDate.setDate(cons.getConsignmentsDate());
 				
-				Set invTransactions = cons.getTurqEngineSequence().getTurqInventoryTransactions();
+				HashBag consInfo = (HashBag)EngTXCommon.doSelectTX(ConBLUpdateConsignment.class.getName(),"getConsignmentInfo",argMap);
+		  		
 				
-				List list = new ArrayList(invTransactions);
+				dateConsDate.setDate((Date)consInfo.get(EngKeys.DATE));
 				
-				Collections.sort(list,new EngBLHibernateComparer());
+				HashMap invTransMap = (HashMap)consInfo.get(InvKeys.INV_TRANSACTIONS);
 				
-				Iterator it = list.iterator();
+				
 				TableItem item;
-				TurqInventoryTransaction invTrans;
+			
 				
-				while (it.hasNext())
+				for(int k=0;i<invTransMap.size();k++)
 				{
 					/**
 					 * TODO Amount In is wrong....
 					 */
-					invTrans = (TurqInventoryTransaction) it.next();
-					BigDecimal amount = invTrans.getAmountIn();
+					HashMap invTransInfo = (HashMap) invTransMap.get(new Integer(k));
+					
+					BigDecimal amount =(BigDecimal) invTransInfo.get(InvKeys.INV_AMOUNT_IN);
+					
 					if (amount.doubleValue()==0)
 					{
-						amount = invTrans.getAmountOut();
+						amount = (BigDecimal) invTransInfo.get(InvKeys.INV_AMOUNT_OUT);
 					}
 					item = new TableItem(tableConsignmentRows, SWT.NULL);
-					item.setData(invTrans);
-					item.setText(new String[]{invTrans.getTurqInventoryCard().getCardInventoryCode(),
-							invTrans.getTurqInventoryCard().getCardName(), amount + "", //$NON-NLS-1$
-							invTrans.getTurqInventoryUnit().getUnitsName(), invTrans.getUnitPriceInForeignCurrency().toString(),
-							invTrans.getTotalPriceInForeignCurrency().toString(), invTrans.getVatRate() + "", //$NON-NLS-1$
-							invTrans.getVatAmountInForeignCurrency().toString(),
-							invTrans.getVatSpecialAmountInForeignCurrency().toString(),
-							invTrans.getCumilativePriceInForeignCurrency().toString()});
+					
+					item.setData(invTransInfo.get(InvKeys.INV_TRANS_ID));
+					
+					HashMap invCardInfo =(HashMap)invTransInfo.get(InvKeys.INV_CARD);
+					
+					item.setText(new String[]{invCardInfo.get(InvKeys.INV_CARD_NAME).toString(),
+							invCardInfo.get(InvKeys.INV_CARD_CODE).toString(), amount + "", //$NON-NLS-1$
+							invTransInfo.get(InvKeys.INV_UNIT_NAME).toString(), invTransInfo.get(InvKeys.INV_UNIT_PRICE_IN_FOREIGN_CURRENCY).toString(),
+							invTransInfo.get(InvKeys.INV_TOTAL_PRICE_IN_FOREIGN_CURRENCY).toString(), invTransInfo.get(InvKeys.INV_VAT_RATE) + "", //$NON-NLS-1$
+							invTransInfo.get(InvKeys.INV_VAT_AMOUNT_IN_FOREIGN_CURRENCY).toString(),
+							invTransInfo.get(InvKeys.INV_VAT_SPECIAL_AMOUNT_IN_FOREIGN_CURRENCY).toString(),
+							invTransInfo.get(InvKeys.INV_CUMILATIVE_PRICE_IN_FOREIGN_CURRENCY).toString()});
 				
 				}
 				String type = EngLangCommonKeys.COMMON_BUY_STRING;
-				if (cons.getConsignmentsType() == 1)
+				if (((Integer)consInfo.get(EngKeys.TYPE)).intValue() == 1)
 				{
 					type = EngLangCommonKeys.COMMON_SELL_STRING;
 				}
 				comboConsignmentType.setText(type);
-				dateConsDate.setDate(cons.getConsignmentsDate());
-				txtDocumentNo.setText(txtDocumentNo.getText()+cons.getConsignmentDocumentNo());
+				
+				txtDocumentNo.setText(txtDocumentNo.getText()+consInfo.get(EngKeys.DOCUMENT_NO).toString());
 			    calculateTotals();
 			}
 			catch (Exception ex)
