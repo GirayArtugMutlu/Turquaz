@@ -2,9 +2,9 @@ package com.turquaz.inventory.ui;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import com.turquaz.common.HashBag;
 import com.turquaz.engine.EngKeys;
 import com.turquaz.engine.bl.EngBLCommon;
 import com.turquaz.engine.bl.EngBLLogger;
@@ -183,7 +183,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 				}
 			}
 			this.layout();
-			PostInitGui();
+			postInitGui();
 		}
 		catch (Exception e)
 		{
@@ -192,7 +192,7 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 		}
 	}
 
-	public void PostInitGui()
+	public void postInitGui()
 	{
 		createTableViewer();
 	}
@@ -217,10 +217,12 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			HashMap argMap=new HashMap();
 			argMap.put(EngKeys.DATE,datePicker.getDate());
 			argMap.put(InvKeys.INV_CARD_CODE,txtInvCode.getText().trim());
-			List list = (List)EngTXCommon.doSelectTX(InvBLInventoryLedger.class.getName(),"getInventoryLedger",argMap);
-			Object[] result;
-			String invCode = ""; //$NON-NLS-1$
-			String invName = ""; //$NON-NLS-1$
+			HashBag ledgerBag = (HashBag)EngTXCommon.doSelectTX(InvBLInventoryLedger.class.getName(),"getInventoryLedger",argMap);
+			HashMap cards=(HashMap)ledgerBag.get(InvKeys.INV_CARDS);
+			
+			
+			String invCode = ""; 
+			String invName = "";
 			BigDecimal amountIn = new BigDecimal(0);
 			BigDecimal priceIn = new BigDecimal(0);
 			BigDecimal amountOut = new BigDecimal(0);
@@ -240,14 +242,16 @@ public class InvUIInventoryLedger extends org.eclipse.swt.widgets.Composite impl
 			{
 				reportType = INV_WITH_BALANCE;
 			}
-			for (int i = 0; i < list.size(); i++)
+			
+			
+			for (int i = 0; i < cards.size(); i++)
 			{
-				result = (Object[]) list.get(i);
-				invCode = result[0].toString();
-				invName = result[1].toString();
-				amountIn = (BigDecimal) result[2];
-				priceIn = (BigDecimal) result[3];
-				amountOut = (BigDecimal) result[4];
+				HashMap invCard=(HashMap)cards.get(new Integer(i));
+				invCode =(String) invCard.get(InvKeys.INV_CARD_CODE);
+				invName = (String) invCard.get(InvKeys.INV_CARD_NAME);
+				amountIn = (BigDecimal)invCard.get(InvKeys.INV_AMOUNT_IN);
+				priceIn = (BigDecimal)invCard.get(InvKeys.INV_PRICE_IN);
+				amountOut = (BigDecimal)invCard.get(InvKeys.INV_AMOUNT_OUT);
 				if (reportType == INV_ALL)
 				{
 					if (priceIn == null)
