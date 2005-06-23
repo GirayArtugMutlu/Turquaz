@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.HashMap;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Table;
@@ -37,16 +36,15 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Text;
 import com.turquaz.accounting.AccKeys;
 import com.turquaz.accounting.bl.AccBLTransactionSearch;
-import com.turquaz.accounting.bl.AccBLTransactionUpdate;
 import com.turquaz.admin.AdmKeys;
 import com.turquaz.common.HashBag;
 import com.turquaz.engine.bl.EngBLLogger;
 import com.turquaz.engine.bl.EngBLUtils;
-import com.turquaz.engine.dal.TurqAccountingTransaction;
 import com.turquaz.engine.interfaces.SearchComposite;
 import com.turquaz.engine.lang.AccLangKeys;
 import com.turquaz.engine.lang.EngLangCommonKeys;
 import com.turquaz.engine.tx.EngTXCommon;
+import com.turquaz.engine.ui.EngUICommon;
 import com.turquaz.engine.ui.component.DatePicker;
 import com.turquaz.engine.ui.component.TurkishCurrencyFormat;
 import com.turquaz.engine.ui.viewers.ITableRow;
@@ -269,23 +267,23 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 
 	public void delete()
 	{
-		MessageBox msg=new MessageBox(getShell(),SWT.NULL);
 		try
 		{
 			TableItem items[] = tableTransactions.getSelection();
 			if (items.length > 0)
 			{
 				ITableRow row = (ITableRow) items[0].getData();
-				Integer transId = (Integer) row.getDBObject();
-				TurqAccountingTransaction accTrans = new TurqAccountingTransaction();
-				accTrans.setId(transId);
-				HashMap argMap = new HashMap();
-				argMap.put(AccKeys.ACC_TRANSACTION, accTrans);
-				EngTXCommon.doSelectTX(AccBLTransactionUpdate.class.getName(), "initiliazeTransactionRows",
-						argMap);
+				
+				HashMap transMap=(HashMap)row.getDBObject();
+				
+				Integer transId=(Integer)transMap.get(AccKeys.ACC_TRANS_ID);
+				
+				Integer journalId=(Integer)transMap.get(AccKeys.ACC_TRANS_JOURNAL_ID);
+				Integer moduleId=(Integer)transMap.get(AccKeys.ACC_TRANS_MODULE_ID);
+				
 				int status = 0;
 				/* Check if it has a journal entry */
-				if (accTrans.getTurqAccountingJournal().getId().intValue() != -1)
+				if (journalId.intValue() != -1)
 				{
 					status = 1;
 				}
@@ -293,33 +291,28 @@ public class AccUITransactionSearch extends Composite implements SearchComposite
 				 * Check if it is entered from accountingmodule
 				 */
 				//1- Muhasebe Modulu
-				else if (accTrans.getTurqModule().getId().intValue() != 1)
+				else if (moduleId.intValue() != 1)
 				{
 					status = 2;
 				}
 				if (status == 2)
 				{
-					msg.setMessage(AccLangKeys.MSG_NOT_DELETE_VOUCHER_FROM_HERE); 
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_NOT_DELETE_VOUCHER_FROM_HERE); 
 					return;
 				}
 				if (status == 1)
 				{
-					msg.setMessage(AccLangKeys.MSG_HAS_JOURNAL_ID_CANNOT_DELETE); 
-					msg.open();
+					EngUICommon.showMessageBox(getShell(),AccLangKeys.MSG_HAS_JOURNAL_ID_CANNOT_DELETE); 
 					return;
 				}
-				MessageBox msg2 = new MessageBox(this.getShell(), SWT.OK | SWT.CANCEL);
-				msg2.setMessage(EngLangCommonKeys.MSG_DELETE_REALLY);
-				int result = msg2.open();
-				if (result == SWT.OK)
+				boolean okToDelete=EngUICommon.okToDelete(getShell());
+				if (okToDelete)
 				{
-					argMap = new HashMap();
-					argMap.put(AccKeys.ACC_TRANSACTION, accTrans);
+					HashMap argMap = new HashMap();
+					argMap.put(AccKeys.ACC_TRANS_ID, transId);
 					EngTXCommon.doTransactionTX(AccBLTransactionSearch.class.getName(),
 							"removeAccountingTransaction", argMap);
-					msg.setMessage(EngLangCommonKeys.MSG_DELETED_SUCCESS);
-					msg.open();
+					EngUICommon.showDeletedSuccesfullyMessage(getShell());
 					search();
 				}
 			}
