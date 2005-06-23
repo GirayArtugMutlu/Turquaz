@@ -26,6 +26,7 @@ public class CashKeys
 	public static final String CASH_TRANSACTION_ROWS ="cashTransactionRows";
     public static final String CASH_TRANS_MODULE_ID ="cashTransModuleId";
     public static final String CASH_TRANS_TYPE_ID ="cashTransTypeId";
+    public static final String CASH_TRANS_TYPE_NAME ="cashTransTypeName";
     public static final String CASH_TRANSACTIONS ="cashTransactions";
     public static final String CASH_TRANSACTION_ID ="cashTransactionId";
     public static final String CASH_TRANS_ROW ="cashTransRow";

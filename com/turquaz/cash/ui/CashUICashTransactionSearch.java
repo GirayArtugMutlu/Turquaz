@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
@@ -244,31 +243,35 @@ public class CashUICashTransactionSearch extends org.eclipse.swt.widgets.Composi
 			argMap.put(EngKeys.DATE_END,datePickerEnd.getDate());
 			argMap.put(EngKeys.DEFINITION,txtDefinition.getText());
 				
-			List list =(List)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"searchCashTransactions",argMap); //$NON-NLS-1$
+			HashBag listBag =(HashBag)EngTXCommon.doSelectTX(CashBLCashTransactionSearch.class.getName(),"searchCashTransactions",argMap); //$NON-NLS-1$
 				
-			Object[] row;
 			BigDecimal deptAmount = new BigDecimal(0);
 			BigDecimal creditAmount = new BigDecimal(0);
 			String cardName, transDefinition;
 			Date transDate = null;
 			String type;
 			Integer id;
-			for (int i = 0; i < list.size(); i++)
+            
+            HashMap listMap = (HashMap)listBag.get(CashKeys.CASH_TRANSACTIONS);
+            
+			for (int i = 0; i < listMap.size(); i++)
 			{
-				row = (Object[]) list.get(i);
-				id = (Integer) row[0];
+                HashMap rowMap = (HashMap)listMap.get(new Integer(i));
+                
+				id = (Integer) rowMap.get(CashKeys.CASH_TRANSACTION_ID);
 				// cardName = row[1].toString();
-				type = row[1].toString();
-				if (row[2] != null)
+				type = (String)rowMap.get(CashKeys.CASH_TRANS_TYPE_NAME);
+                
+				if (rowMap.get(EngKeys.DEPT_AMOUNT) != null)
 				{
-					deptAmount = (BigDecimal) row[2];
+					deptAmount = (BigDecimal) rowMap.get(EngKeys.DEPT_AMOUNT);
 				}
-				if (row[3] != null)
+				if (rowMap.get(EngKeys.CREDIT_AMOUNT) != null)
 				{
-					creditAmount = (BigDecimal) row[3];
+					creditAmount = (BigDecimal) rowMap.get(EngKeys.CREDIT_AMOUNT);
 				}
-				transDate = (Date) row[4];
-				transDefinition = row[5].toString();
+				transDate = (Date) rowMap.get(EngKeys.DATE);
+				transDefinition = (String)rowMap.get(EngKeys.DESCRIPTION);
 				TurkishCurrencyFormat cf = new TurkishCurrencyFormat();
 				tableViewer.addRow(new String[]{DatePicker.formatter.format(transDate), transDefinition, type, cf.format(deptAmount),cf.format(creditAmount)}, id);
 			}
